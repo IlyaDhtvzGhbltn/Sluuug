@@ -31,7 +31,7 @@ namespace Sluuug
             if (isNotFound)
             {
                 Server.ClearError();
-                Response.Redirect("/error/notfound");
+                Response.Redirect("~/error/notfound");
             }
         }
 
@@ -55,11 +55,27 @@ namespace Sluuug
                 Response.End();
             }
 
+
             var session_id = Request.Cookies.Get("session_id");
             if (session_id != null)
             {
 
             }
         }
+        //protected void Application_EndRequest()
+        //{
+        //    if (Context.Response.StatusCode == 404)
+        //    {
+        //        Response.Clear();
+
+        //        var rd = new RouteData();
+        //        rd.DataTokens["area"] = "AreaName"; // In case controller is in another area
+        //        rd.Values["controller"] = "Errors";
+        //        rd.Values["action"] = "NotFound";
+
+        //        Response.Redirect("~/err/notfound");
+        //    }
+        //}
+
     }
 }

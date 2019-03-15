@@ -127,11 +127,11 @@
     <Content Include="Scripts\WS.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Private\msg.cshtml" />
-    <Content Include="Views\error\NotFound.cshtml" />
-    <Content Include="Views\guest\Activate.cshtml" />
-    <Content Include="Views\guest\Index.cshtml" />
-    <Content Include="Views\guest\Login.cshtml" />
-    <Content Include="Views\guest\Register.cshtml" />
+    <Content Include="Views\Error\notfound.cshtml" />
+    <Content Include="Views\Guest\Activate.cshtml" />
+    <Content Include="Views\Guest\Index.cshtml" />
+    <Content Include="Views\Guest\Login.cshtml" />
+    <Content Include="Views\Guest\Register.cshtml" />
     <Content Include="Views\Private\my.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +149,7 @@
     <Compile Include="Context\Tables\Users.cs" />
     <Compile Include="Context\Tables\UserStatuses.cs" />
     <Compile Include="Context\UserWorker.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\PrivateController.cs" />
     <Compile Include="Crypto\Security.cs" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
+    <Content Include="Views\Shared\logo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
