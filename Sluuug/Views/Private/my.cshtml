@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "My";
+    Layout = "~/Views/Shared/Logo.cshtml";
+}
+<div id="cut_info">
+    <p>
+        <img src=@Model.AvatarUri />
+    </p>
+    <p>
+        <span>@Model.Name </span>
+    </p>
+    <p>
+        <span>@Model.ForName </span>
+    </p>
+    <p>
+        <span>@Model.Sity </span>
+    </p>
+    <p>
+        <span>@Model.MetroStation </span>
+    </p>
+</div>
+
+<a href="~/private/messages">messages</a>
+
+<div>
+    <a href="~/private/logout">logout</a>
+</div>
