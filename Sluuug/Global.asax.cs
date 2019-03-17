@@ -31,7 +31,7 @@ namespace Sluuug
             if (isNotFound)
             {
                 Server.ClearError();
-                Response.Redirect("~/error/notfound");
+                Response.Redirect("~/guest/index");
             }
         }
 

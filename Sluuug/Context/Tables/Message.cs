@@ -25,9 +25,6 @@ namespace Slug.Context.Tables
         [Required]
         public DateTime SendingDate { get; set; }
 
-        [StringLength(120)]
-        [Required]
-        public string SessionNumber { get; set; }
 
         [Required]
         public bool IsReaded { get; set; }

@@ -17,8 +17,5 @@ namespace Slug.Context.Tables
 
         [Required]
         public int UserId { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime OpenDate { get; set; }
     }
 }

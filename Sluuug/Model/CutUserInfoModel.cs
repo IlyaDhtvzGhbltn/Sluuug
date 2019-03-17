@@ -7,9 +7,11 @@ namespace Slug.Model
 {
     public class CutUserInfoModel
     {
+        public int UserId { get; set; }
+
         public string Name { get; set; }
 
-        public string ForName { get; set; }
+        public string SurName { get; set; }
 
         public DateTime DateBirth { get; set; }
 

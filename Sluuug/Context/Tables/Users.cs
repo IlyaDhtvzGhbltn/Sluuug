@@ -40,5 +40,7 @@ namespace Slug.Context.Tables
 
         [Required]
         public int UserStatus { get; set; }
+
+        public int? AvatarId { get; set; }
     }
 }

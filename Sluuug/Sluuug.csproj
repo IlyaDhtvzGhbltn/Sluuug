@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sluuug</RootNamespace>
-    <AssemblyName>Sluuug</AssemblyName>
+    <RootNamespace>Slug</RootNamespace>
+    <AssemblyName>Slug</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CloudinaryDotNet, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.7.0\lib\net40\CloudinaryDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -69,9 +72,8 @@
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.7.0\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -120,13 +122,14 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\goMsg.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
     <Content Include="Scripts\WS.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Private\msg.cshtml" />
+    <Content Include="Views\Private\cnv.cshtml" />
     <Content Include="Views\Error\notfound.cshtml" />
     <Content Include="Views\Guest\Activate.cshtml" />
     <Content Include="Views\Guest\Index.cshtml" />
@@ -136,19 +139,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Context\ActivationMailWorker.cs" />
-    <Compile Include="Context\DataBaseContext.cs" />
+    <Compile Include="Helpers\ActivationMailWorker.cs" />
+    <Compile Include="Helpers\ConversationWorker.cs" />
+    <Compile Include="Helpers\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
-    <Compile Include="Context\Mailer.cs" />
-    <Compile Include="Context\SessionWorker.cs" />
+    <Compile Include="Helpers\DialogWorker.cs" />
+    <Compile Include="Helpers\Mailer.cs" />
+    <Compile Include="Helpers\SessionWorker.cs" />
     <Compile Include="Context\Tables\ActivationMails.cs" />
+    <Compile Include="Context\Tables\Avatars.cs" />
     <Compile Include="Context\Tables\Conversation.cs" />
     <Compile Include="Context\Tables\Message.cs" />
     <Compile Include="Context\Tables\Sessions.cs" />
     <Compile Include="Context\Tables\SessionTypes.cs" />
     <Compile Include="Context\Tables\Users.cs" />
     <Compile Include="Context\Tables\UserStatuses.cs" />
-    <Compile Include="Context\UserWorker.cs" />
+    <Compile Include="Helpers\UserWorker.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\PrivateController.cs" />
@@ -156,10 +162,36 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\SlugController.cs" />
+    <Compile Include="Helpers\BaseController\SlugController.cs" />
     <Compile Include="Hubs\ContosoChatHub.cs" />
+    <Compile Include="Migrations\201903161319471_imges_tbls.cs" />
+    <Compile Include="Migrations\201903161319471_imges_tbls.Designer.cs">
+      <DependentUpon>201903161319471_imges_tbls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161324317_imges_tbls2.cs" />
+    <Compile Include="Migrations\201903161324317_imges_tbls2.Designer.cs">
+      <DependentUpon>201903161324317_imges_tbls2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161331117_custom avatars.cs" />
+    <Compile Include="Migrations\201903161331117_custom avatars.Designer.cs">
+      <DependentUpon>201903161331117_custom avatars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161352104_refact tables avatr.cs" />
+    <Compile Include="Migrations\201903161352104_refact tables avatr.Designer.cs">
+      <DependentUpon>201903161352104_refact tables avatr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161428242_open_date conv column drop.cs" />
+    <Compile Include="Migrations\201903161428242_open_date conv column drop.Designer.cs">
+      <DependentUpon>201903161428242_open_date conv column drop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161442152_sess_num column drop from msg table.cs" />
+    <Compile Include="Migrations\201903161442152_sess_num column drop from msg table.Designer.cs">
+      <DependentUpon>201903161442152_sess_num column drop from msg table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
-    <Compile Include="Model\MessageModel.cs" />
+    <Compile Include="Model\DialogModel.cs" />
     <Compile Include="Model\RegisteringUserModel.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +201,7 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\logo.cshtml" />
+    <Content Include="Views\Private\msg.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -178,6 +211,26 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903161319471_imges_tbls.resx">
+      <DependentUpon>201903161319471_imges_tbls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161324317_imges_tbls2.resx">
+      <DependentUpon>201903161324317_imges_tbls2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161331117_custom avatars.resx">
+      <DependentUpon>201903161331117_custom avatars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161352104_refact tables avatr.resx">
+      <DependentUpon>201903161352104_refact tables avatr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161428242_open_date conv column drop.resx">
+      <DependentUpon>201903161428242_open_date conv column drop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161442152_sess_num column drop from msg table.resx">
+      <DependentUpon>201903161442152_sess_num column drop from msg table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

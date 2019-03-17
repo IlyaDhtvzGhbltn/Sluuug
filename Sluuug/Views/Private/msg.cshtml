@@ -1,20 +1,28 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/logo.cshtml";
 }
 
-<p>
-    <input id="userInput" type="text">
-</p>
-<p>
-    <input id="messageInput" type="text">
-</p>
-<p>
-    <input id="sendButton" type="button">
-</p>
+
+<h2>My messangers</h2>
+<div id="dialog">
+    @foreach (var msg in Model.Messages)
+    {
+        <div class="dialog_msg">
+            <img src="@msg.AvatarPath" height="45" width="45" /><span>@msg.UserName</span>
+            <p>@msg.Text</p>
+        </div>
+    }
+</div>
+<div id="send_msg">
+    <input type="text" id="new_msg" />
+    <p>
+        <input type="submit" value="send now" id="snd_msg"   />
+    </p>
+</div>
 
 <script src="~/Scripts/jquery-1.6.4.js"></script>
 <script src="~/Scripts/jquery-1.6.4.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
 <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
-<script src="~/Scripts/WS.js"></script>
+<script src="~/Scripts/WS.js"> </script>

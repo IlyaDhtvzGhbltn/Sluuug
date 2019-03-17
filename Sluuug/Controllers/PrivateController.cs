@@ -10,35 +10,41 @@ namespace Slug.Controllers
     //[Authorize()]
     public class PrivateController : SlugController
     {
-        //[HttpGet]
-        //public ActionResult my()
-        //{
-        //    var cookies = Request.Cookies.Get("session_id");
-        //    if (cookies != null)
-        //    {
-        //        SessionTypes sessionType = SessionWorker.GetSessionType(cookies.Value);
-        //        if (sessionType == SessionTypes.Private)
-        //        {
-        //            var userInfoModel = UserWorker.GetUserInfo(cookies.Value);
-        //            return View(userInfoModel);
-        //        }
-        //    }
-        //    return RedirectToAction("login", "guest");
-        //}
+        [HttpGet]
+        public ActionResult my()
+        {
+            var cookies = Request.Cookies.Get("session_id");
+            if (cookies != null)
+            {
+                SessionTypes sessionType = SessionWorker.GetSessionType(cookies.Value);
+                if (sessionType == SessionTypes.Private)
+                {
+                    var userInfoModel = UserWorker.GetUserInfo(cookies.Value);
+                    return View(userInfoModel);
+                }
+            }
+            return RedirectToAction("login", "guest");
+        }
 
         [HttpGet]
-        public ActionResult msg()
+        public ActionResult cnv()
         {
-
-            return View();
+            if (Request.Cookies.Get("session_id") != null)
+            {
+                string sessionId = Request.Cookies.Get("session_id").Value;
+                var user = UserWorker.GetUserInfo(sessionId);
+                var Convers = base.ConverWorker.GetPreConversations(user.UserId);
+                return View(Convers);
+            }
+            return RedirectToAction("login", "guest");
         }
 
-        [HttpPost]
-        public ActionResult send(MessageModel message)
+        [HttpGet]
+        public ActionResult msg(int id)
         {
-            return View();
+            var dialog = DialogWorker.GetLast100msgs(id);
+            return View(dialog);
         }
-
 
         [HttpGet]
         public ActionResult logout()
