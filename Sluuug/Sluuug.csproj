@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Context\Attributes\AuthAttribute.cs" />
     <Compile Include="Helpers\ActivationMailWorker.cs" />
     <Compile Include="Helpers\ConversationWorker.cs" />
     <Compile Include="Helpers\DataBaseContext.cs" />

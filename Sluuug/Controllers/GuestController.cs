@@ -47,7 +47,6 @@ namespace Slug.Controllers
                 mailer.SendActivationMail();
                 return RedirectToAction("login", "guest", new { a = userConfirmation.ActivationSessionId });
             }
-            return View();
         }
 
         [HttpGet]

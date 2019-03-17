@@ -7,6 +7,8 @@ namespace Slug.Model
 {
     public class DialogModel
     {
+        public int DialogId { get; set; }
+
         public ICollection<DialogMessage> Messages { get; set; }
     }
 

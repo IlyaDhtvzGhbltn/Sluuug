@@ -14,17 +14,18 @@
     <div>
         @using (Html.BeginForm("auth", "guest", null, FormMethod.Post, new { @id = "_subm" }))
         {
-        <p><input type="text" placeholder="your login" name="login" required /></p>
-        <p><input type="password" placeholder="password" name="hashPassword" id="psw" required /></p>
-        <p><input type="submit" value="Login" /></p>
+            <p><input type="text" placeholder="your login" name="login" required /></p>
+            <p><input type="password" placeholder="password" name="hashPassword" id="psw" required /></p>
+            <p><input type="submit" value="Login" /></p>
         }
     </div>
 </div>
 
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+<script src="~/Scripts/jquery-1.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
 <script>
-    document.getElementById("_subm").addEventListener("submit", function (e)
-    {
+    document.getElementById("_subm").addEventListener("submit", function (e) {
         var val = document.getElementById("psw").value;
         var shaObj = new jsSHA("SHA-512", "TEXT");
         shaObj.update(val);

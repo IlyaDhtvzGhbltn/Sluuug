@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Context;
 using Slug.Context;
+using Slug.Context.Tables;
 using Slug.Model;
 
 
@@ -12,7 +14,6 @@ namespace Slug.Helpers
     public class DialogWorker
     {
         private UserWorker UserWorker = new UserWorker();
-
 
         public DialogModel GetLast100msgs(int convId)
         {
@@ -61,7 +62,19 @@ namespace Slug.Helpers
             return null;
         }
 
-
+        public async Task SaveMsg(int convId, int userId, string text)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var msg = new Message();
+                msg.ConvarsationId = convId;
+                msg.Text = text;
+                msg.UserId = userId;
+                msg.SendingDate = DateTime.Now;
+                context.Messangers.Add(msg);
+                await context.SaveChangesAsync();
+            }
+        }
 
 
     }

@@ -11,7 +11,7 @@ messagesChat.on('sendAsync', function (img, userName, message) {
 connection.start().done(function () {
     $('#sendButton').click(function () {
         if (session_id.length == 120) {
-            messagesChat.invoke('SendMessage', session_id, $('#new_msg').val());
+            messagesChat.invoke('SendMessage', session_id, $('#new_msg').val(), this.name);
             //console.log('msg was sended');
         }
         else {
