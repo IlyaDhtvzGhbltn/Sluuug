@@ -8,8 +8,14 @@ namespace Sluuug.Controllers
 {
     public class ErrorController : Controller
     {
-        // GET: Error
+        [HttpGet]
         public ActionResult notfound()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult unauthorized()
         {
             return View();
         }

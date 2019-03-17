@@ -8,6 +8,7 @@ using System.Web.Mvc;
 namespace Slug.Context.Attributes
 {
     using global::Context;
+    using System.Web.Routing;
 
     [AttributeUsage(AttributeTargets.Class)]
     public class AuthSlugAttribute : AuthorizeAttribute
@@ -30,16 +31,16 @@ namespace Slug.Context.Attributes
                             return;
                         }
                         else
-                            filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "error", action = "unauthorized" }));
                     }
                     else
-                        filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "error", action = "unauthorized" }));
                 }
                 else
-                    filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "error", action = "unauthorized" }));
             }
             else
-                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "error", action = "unauthorized" }));
         }
     }
 }

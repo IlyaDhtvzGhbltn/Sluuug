@@ -204,6 +204,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Shared\logo.cshtml" />
     <Content Include="Views\Private\msg.cshtml" />
+    <Content Include="Views\Error\unauthorized.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
