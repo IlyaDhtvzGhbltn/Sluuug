@@ -42,5 +42,27 @@ namespace Slug.Helpers
             }
             return dModel;
         }
+
+        public int[] GetConversatorsIds(int convId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var conversationEntities = context.Conversations.Where(x => x.ConversationId == convId).ToList();
+                if (conversationEntities.Count > 0)
+                {
+                    int[] ids = new int[conversationEntities.Count()];
+                    for (int i = 0; i < conversationEntities.Count; i++)
+                    {
+                        ids[i] = conversationEntities[i].UserId;
+                    }
+                    return ids;
+                }
+            }
+            return null;
+        }
+
+
+
+
     }
 }

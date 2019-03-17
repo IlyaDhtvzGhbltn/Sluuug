@@ -42,8 +42,22 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult msg(int id)
         {
-            var dialog = DialogWorker.GetLast100msgs(id);
-            return View(dialog);
+            var sessionId = Request.Cookies.Get("session_id");
+            if (sessionId != null)
+            {
+                string sess_id = sessionId.Value;
+
+                if (!string.IsNullOrWhiteSpace(sess_id))
+                {
+                    bool verifyConvers = UserWorker.CheckConversationBySessionId(sess_id, id);
+                    if (verifyConvers)
+                    {
+                        var dialog = DialogWorker.GetLast100msgs(id);
+                        return View(dialog);
+                    }
+                }
+            }
+            return RedirectToAction("my","private");
         }
 
         [HttpGet]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Slug.Context;
 
 namespace Sluuug.Hubs
 {
@@ -11,7 +12,12 @@ namespace Sluuug.Hubs
     {
         public Task SendMessage(string session_id, string message)
         {
-            Clients.All.sendAsync("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1552742058/usa1.jpg", "XXX", message);
+            var UsWork = new UserWorker();
+            var user = UsWork.GetUserInfo(session_id);
+            if (user != null)
+            {
+                Clients.All.sendAsync(user.AvatarUri, user.Name, message);
+            }
             return null;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Context;
 using Slug.Context.Tables;
 using Slug.Crypto;
+using Slug.Helpers;
 using Slug.Model;
 using System;
 using System.Data.Entity.Validation;
@@ -109,6 +110,21 @@ namespace Slug.Context
             return userModel;
         }
 
+        public bool CheckConversationBySessionId(string sessionId, int conversationId)
+        {
+            var dW = new DialogWorker();
+            var ids = dW.GetConversatorsIds(conversationId);
+            var uW = new UserWorker();
+            CutUserInfoModel user = uW.GetUserInfo(sessionId);
+            if (ids != null)
+            {
+                if (ids.Count() != 0 && ids.Contains(user.UserId))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public class UserConfirmationDitails
         {
