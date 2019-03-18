@@ -22,6 +22,6 @@ namespace Slug.Model
 
         public string Text { get; set; }
 
-        public DateTime SendTime { get; set; }
+        public string SendTime { get; set; }
     }
 }

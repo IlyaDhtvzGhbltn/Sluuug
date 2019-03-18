@@ -2,10 +2,10 @@
 var connection = $.hubConnection();
 var messagesChat = connection.createHubProxy('p2pChat');
 
-messagesChat.on('sendAsync', function (img, userName, message) {
+messagesChat.on('sendAsync', function (img, userName, message, dateTime) {
 
     //console.log('msg was recived');
-    addMsg(img, userName, message);
+    addMsg(img, userName, message, dateTime);
 });
 
 connection.start().done(function () {
@@ -20,9 +20,9 @@ connection.start().done(function () {
     });
 })
 
-function addMsg(img_src, name, text )
+function addMsg(img_src, name, text, dateTime)
 {
     var mylist = $('#dialog');
     mylist[0].insertAdjacentHTML('beforeend',
-        '<div class="dialog_msg"><img src="' + img_src + '" height="45" width="45" /><span>' + name + '</span><p>' + text + '</p></div>');
+        '<div class="dialog_msg"><img src="' + img_src + '" height="45" width="45" /><span>' + name + '</span><span>____' + dateTime + '</span><p>' + text + '</p></div>');
 }

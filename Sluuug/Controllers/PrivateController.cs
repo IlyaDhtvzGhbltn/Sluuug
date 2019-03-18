@@ -2,6 +2,7 @@
 using Slug.Context.Attributes;
 using Slug.Helpers;
 using Slug.Model;
+using Slug.Model.Users;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -11,6 +12,12 @@ namespace Slug.Controllers
     [AuthSlug]
     public class PrivateController : SlugController
     {
+        [HttpGet]
+        public ActionResult index()
+        {
+            return RedirectToAction("my", "private");
+        }
+
         [HttpGet]
         public ActionResult my()
         {
@@ -45,6 +52,58 @@ namespace Slug.Controllers
                 return RedirectToAction("my", "private");
         }
 
+        [HttpGet]
+        public ActionResult user(int id)
+        {
+            string sessionId = Request.Cookies.Get("session_id").Value;
+
+            var friends = UserWorker.IsUsersAreFriends(sessionId, id);
+            int ownId = UserWorker.GetUserInfo(sessionId).UserId;
+            if (ownId != id)
+            {
+                if (friends)
+                {
+                    return RedirectToAction("friend", "private", new { id = id });
+                }
+                else
+                {
+                    var model = new ForeignUserViewModel();
+                    var userInfo = UserWorker.GetUserInfo(id);
+                    model.AvatarPath = userInfo.AvatarUri;
+                    model.Name = userInfo.Name;
+                    model.SurName = userInfo.SurName;
+
+                    return View(model);
+                }
+            }
+            else
+                return RedirectToAction("my", "private");
+        }
+
+        [HttpGet]
+        public ActionResult friend(int id)
+        {
+            string sessionId = Request.Cookies.Get("session_id").Value;
+            int ownId = UserWorker.GetUserInfo(sessionId).UserId;
+
+            if (ownId != id)
+            {
+                var fUserModel = new FriendlyUserModel();
+                var userInfo = UserWorker.GetUserInfo(id);
+
+                fUserModel.AvatarPath = userInfo.AvatarUri;
+                fUserModel.DateOfBirth = userInfo.DateBirth;
+                fUserModel.Sity = userInfo.Sity;
+                fUserModel.MetroStation = userInfo.MetroStation;
+                fUserModel.Name = userInfo.Name;
+                fUserModel.SurName = userInfo.SurName;
+                fUserModel.UserId = userInfo.UserId;
+
+                return View(fUserModel);
+            }
+            else
+                return RedirectToAction("my", "private");
+        }
 
         [HttpGet]
         public ActionResult logout()

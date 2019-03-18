@@ -20,7 +20,7 @@ namespace Sluuug.Hubs
                 DialogWorker dW = new DialogWorker();
                 await dW.SaveMsg(convId, user.UserId, message);
 
-                Clients.All.sendAsync(user.AvatarUri, user.Name, message);
+                Clients.All.sendAsync(user.AvatarUri, user.Name, message, DateTime.Now.ToString("yyyy-mm-dd"));
             }
         }
     }

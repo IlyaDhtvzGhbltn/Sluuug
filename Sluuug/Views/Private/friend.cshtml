@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "friend";
+    Layout = "~/Views/Shared/logo.cshtml";
+}
+
+<h2>@Model.Name @Model.SurName</h2>
+
+<div id="user_cut_data">
+    <img src="@Model.AvatarPath" />
+    <p>@Model.Name</p>
+    <p>@Model.SurName</p>
+    <p>@Model.DateOfBirth</p>
+    <p>@Model.Sity</p>
+    <p><button name="@Model.UserId">Send Message</button></p>
+</div>

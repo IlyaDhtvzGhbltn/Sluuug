@@ -21,17 +21,30 @@ namespace Sluuug
             Exception errorInfo = null;
 
             bool isNotFound = false;
+            bool internalServerError = false;
             if (lastErrorInfo != null)
             {
                 errorInfo = lastErrorInfo.GetBaseException();
                 var error = errorInfo as HttpException;
                 if (error != null)
+                {
                     isNotFound = error.GetHttpCode() == (int)HttpStatusCode.NotFound;
+                }
+                if (errorInfo.Message.Contains("contains a null entry for parameter"))
+                {
+                    internalServerError = true;
+                }
             }
             if (isNotFound)
             {
                 Server.ClearError();
                 Response.Redirect("~/error/notfound");
+            }
+
+            if (internalServerError)
+            {
+                Server.ClearError();
+                Response.Redirect("~/guest/index");
             }
         }
 

@@ -9,7 +9,7 @@
     @foreach (var msg in Model.Messages)
     {
         <div class="dialog_msg">
-            <img src="@msg.AvatarPath" height="45" width="45" /><span>@msg.UserName</span>
+            <img src="@msg.AvatarPath" height="45" width="45" /><span>@msg.UserName</span><span>____@msg.SendTime</span>
             <p>@msg.Text</p>
         </div>
     }

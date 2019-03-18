@@ -20,5 +20,6 @@ namespace Context
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Message> Messangers { get; set; }
         public DbSet<Avatars> Avatars { get; set; }
+        public DbSet<FriendsRelationship> FriendsRelationship { get; set; }
     }
 }

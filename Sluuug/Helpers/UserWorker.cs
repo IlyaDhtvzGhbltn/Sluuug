@@ -114,14 +114,37 @@ namespace Slug.Context
         {
             var dW = new DialogWorker();
             var ids = dW.GetConversatorsIds(conversationId);
-            var uW = new UserWorker();
-            CutUserInfoModel user = uW.GetUserInfo(sessionId);
+            CutUserInfoModel user = GetUserInfo(sessionId);
             if (ids != null)
             {
                 if (ids.Count() != 0 && ids.Contains(user.UserId))
                 {
                     return true;
                 }
+            }
+            return false;
+        }
+
+        public bool IsUsersAreFriends(string sessionId, int userId)
+        {
+            var userInfo = GetUserInfo(sessionId);
+            using (var context = new DataBaseContext())
+            {
+                var friendShip = context.FriendsRelationship
+                    .Where(x => x.UserSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
+                    .Where(x => x.Accepted == true)
+                    .ToArray();
+                if (friendShip.Count() >= 1)
+                {
+                    for (int i=0; i < friendShip.Count(); i++)
+                    {
+                        if (friendShip[i].UserSender == userId || friendShip[i].UserConfirmer == userId )
+                        {
+                            return true;
+                        }
+                    }
+                }
+
             }
             return false;
         }
