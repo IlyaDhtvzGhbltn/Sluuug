@@ -97,3 +97,7 @@ D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Slug.pdb
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.friendly_tbl.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.name_fix.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.rename.resources
+D:\My_Utilits\Sluuug\Sluuug\bin\AngleSharp.dll
+D:\My_Utilits\Sluuug\Sluuug\bin\AngleSharp.xml
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.longtoint.resources

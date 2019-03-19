@@ -32,19 +32,22 @@ namespace Slug.Helpers
                             .Where(x => x.ConvarsationId == conv.ConversationId);
 
                         var message = messages.OrderBy(x => x.Id);
-                        var lastMessage = message.ToList().Last();
+                        if (message.Count() >= 1)
+                        {
+                            var lastMessage = message.ToList().Last();
 
-                        int lastMessageUserId = lastMessage.UserId;
-                        var lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
-                        var c = new CutConversation();
+                            int lastMessageUserId = lastMessage.UserId;
+                            var lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
+                            var c = new CutConversation();
 
-                        c.AvatarPath = lastSayUser.AvatarUri;
-                        c.InterlocutorName = lastSayUser.Name;
-                        c.InterlocutorSurName = lastSayUser.SurName;
-                        c.LastMessage = lastMessage.Text;
-                        c.Id = conv.ConversationId;
+                            c.AvatarPath = lastSayUser.AvatarUri;
+                            c.InterlocutorName = lastSayUser.Name;
+                            c.InterlocutorSurName = lastSayUser.SurName;
+                            c.LastMessage = lastMessage.Text;
+                            c.Id = conv.ConversationId;
 
-                        convs.Cnv.Add(c);
+                            convs.Cnv.Add(c);
+                        }
                     }
                 }
             }

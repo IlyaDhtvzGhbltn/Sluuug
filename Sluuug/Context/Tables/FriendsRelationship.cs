@@ -15,10 +15,10 @@ namespace Slug.Context.Tables
         public DateTime OfferSendedDate { get; set; }
 
         [Required]
-        public long UserSender { get; set; }
+        public int UserOferFrienshipSender { get; set; }
 
         [Required]
-        public long UserConfirmer { get; set; }
+        public int UserConfirmer { get; set; }
 
         [Required]
         public bool Accepted { get; set; }

@@ -4,7 +4,7 @@ using System;
 
 namespace Slug.Crypto
 {
-    public static class Security
+    public static class Converting
     {
         public static string ConvertStringtoMD5(string strword, int length = 120)
         {

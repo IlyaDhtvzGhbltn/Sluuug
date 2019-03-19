@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "contacts";
+    Layout = "~/Views/Shared/logo.cshtml";
+}
+
+<h2>My contacts</h2>
+<div class="friends_div">
+
+    @foreach (var item in Model.Friends)
+    {
+        <div class="friend_div" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+<script src="~/Scripts/jquery-1.6.4.min.js"></script>
+<script src="~/Scripts/goFriend.js"></script>

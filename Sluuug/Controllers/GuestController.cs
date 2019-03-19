@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using Slug.Context.Tables;
 using Slug.Helpers;
+using Slug.Context.Attributes;
 
 namespace Slug.Controllers
 {
+    [SessionCheck]
     public class guestController : SlugController
     {
        public ActionResult index()
@@ -85,16 +87,20 @@ namespace Slug.Controllers
             ViewBag.await_confirmation_div_display = "none";
             ViewBag.immediately_login_div_display = "block";
 
-            var cook = Request.Cookies.Get("session_id");
-            if (cook != null)
-            {
-                SessionTypes sessionType = SessionWorker.GetSessionType(cook.Value);
-                if (sessionType == SessionTypes.AwaitEmailConfirm)
-                {
-                    ViewBag.await_confirmation_div_display = "block";
-                    ViewBag.immediately_login_div_display = "none";
-                }
-            }
+            //var cook = Request.Cookies.Get("session_id");
+            //if (cook != null)
+            //{
+            //    SessionTypes sessionType = SessionWorker.GetSessionType(cook.Value);
+            //    if (sessionType == SessionTypes.Private)
+            //    {
+            //        return RedirectToAction("my", "private");
+            //    }
+            //    if (sessionType == SessionTypes.AwaitEmailConfirm)
+            //    {
+            //        ViewBag.await_confirmation_div_display = "block";
+            //        ViewBag.immediately_login_div_display = "none";
+            //    }
+            //}
 
             if (!string.IsNullOrWhiteSpace(a))
             {
@@ -108,7 +114,6 @@ namespace Slug.Controllers
                     var cookies = new HttpCookie("session_id");
                     cookies.Value = a;
                     Response.Cookies.Set(cookies);
-
                 }
             }
             return View();

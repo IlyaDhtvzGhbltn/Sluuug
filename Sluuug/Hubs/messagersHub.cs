@@ -9,7 +9,7 @@ using Slug.Helpers;
 
 namespace Sluuug.Hubs
 {
-    public class p2pChat : Hub
+    public class messagersHub : Hub
     {
         public async Task SendMessage(string session_id, string message, int convId)
         {
@@ -18,9 +18,10 @@ namespace Sluuug.Hubs
             if (user != null)
             {
                 DialogWorker dW = new DialogWorker();
-                await dW.SaveMsg(convId, user.UserId, message);
+                var clearMsg = System.Net.WebUtility.HtmlDecode(message);
+                await dW.SaveMsg(convId, user.UserId, clearMsg);
 
-                Clients.All.sendAsync(user.AvatarUri, user.Name, message, DateTime.Now.ToString("yyyy-mm-dd"));
+                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convId);
             }
         }
     }

@@ -106,6 +106,14 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
+        public ActionResult contacts()
+        {
+            string sessionId = Request.Cookies.Get("session_id").Value;
+            var model = base.UserWorker.GetFriendsBySession(sessionId);
+            return View(model);
+        }
+
+        [HttpGet]
         public ActionResult logout()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;

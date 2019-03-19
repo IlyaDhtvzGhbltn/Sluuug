@@ -1,18 +1,17 @@
 ﻿var session_id = document.cookie.replace(/(?:(?:^|.*;\s*)session_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 var connection = $.hubConnection();
-var messagesChat = connection.createHubProxy('p2pChat');
+var messagesChat = connection.createHubProxy('messagersHub');
 
-messagesChat.on('sendAsync', function (img, userName, message, dateTime) {
-
-    //console.log('msg was recived');
+messagesChat.on('sendAsync', function (img, userName, userSurName, message, dateTime) {
     addMsg(img, userName, message, dateTime);
 });
 
-connection.start().done(function () {
-    $('#sendButton').click(function () {
+connection.start()
+    .done(function () {
+        $('#sendButton')
+            .click(function () {
         if (session_id.length == 120) {
             messagesChat.invoke('SendMessage', session_id, $('#new_msg').val(), this.name);
-            //console.log('msg was sended');
         }
         else {
             window.location.href = 'http://localhost:32033/private/my';

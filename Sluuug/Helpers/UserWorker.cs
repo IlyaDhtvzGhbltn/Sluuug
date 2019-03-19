@@ -3,7 +3,9 @@ using Slug.Context.Tables;
 using Slug.Crypto;
 using Slug.Helpers;
 using Slug.Model;
+using Slug.Model.Users;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 
@@ -26,7 +28,7 @@ namespace Slug.Context
                 newUser.Name = user.Name;
                 newUser.ForName = user.ForName;
                 newUser.Login = user.Login;
-                newUser.Password = Security.ConvertStringToSHA512(user.PasswordHash);
+                newUser.Password = Converting.ConvertStringToSHA512(user.PasswordHash);
 
                 newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
 
@@ -61,7 +63,7 @@ namespace Slug.Context
 
         public int VerifyUser(string login, string hashPassword)
         {
-            string savedPassword = Crypto.Security.ConvertStringToSHA512(hashPassword);
+            string savedPassword = Crypto.Converting.ConvertStringToSHA512(hashPassword);
             using (var dbContext = new DataBaseContext())
             {
                 var user = dbContext.Users.Where(x => x.Login == login && x.Password == savedPassword).FirstOrDefault();
@@ -96,16 +98,23 @@ namespace Slug.Context
             var userModel = new CutUserInfoModel();
             using (var context = new DataBaseContext())
             {
-                var user = context.Users.First(x => x.Id == userId);
+                try
+                {
+                    var user = context.Users.First(x => x.Id == userId);
 
-                Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
-                userModel.Name = user.Name;
-                userModel.SurName = user.ForName;
-                userModel.Sity = user.Sity;
-                userModel.MetroStation = user.MetroStation;
-                userModel.DateBirth = user.DateOfBirth;
-                userModel.AvatarUri = avatar.ImgPath;
-                userModel.UserId = user.Id;
+                    Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+                    userModel.Name = user.Name;
+                    userModel.SurName = user.ForName;
+                    userModel.Sity = user.Sity;
+                    userModel.MetroStation = user.MetroStation;
+                    userModel.DateBirth = user.DateOfBirth;
+                    userModel.AvatarUri = avatar.ImgPath;
+                    userModel.UserId = user.Id;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
             return userModel;
         }
@@ -131,14 +140,14 @@ namespace Slug.Context
             using (var context = new DataBaseContext())
             {
                 var friendShip = context.FriendsRelationship
-                    .Where(x => x.UserSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
+                    .Where(x => x.UserOferFrienshipSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
                     .Where(x => x.Accepted == true)
                     .ToArray();
                 if (friendShip.Count() >= 1)
                 {
                     for (int i=0; i < friendShip.Count(); i++)
                     {
-                        if (friendShip[i].UserSender == userId || friendShip[i].UserConfirmer == userId )
+                        if (friendShip[i].UserOferFrienshipSender == userId || friendShip[i].UserConfirmer == userId )
                         {
                             return true;
                         }
@@ -147,6 +156,41 @@ namespace Slug.Context
 
             }
             return false;
+        }
+
+        public MyFriendsModel GetFriendsBySession(string sessionId)
+        {
+            var model = new MyFriendsModel();
+            model.Friends = new List<FriendModel>();
+
+            using (var context = new DataBaseContext())
+            {
+                int userId = GetUserInfo(sessionId).UserId;
+                FriendsRelationship[] friendShip = context.FriendsRelationship
+                    .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
+                    .Where(x => x.Accepted == true)
+                    .ToArray();
+                if (friendShip.Count() >= 1)
+                {
+                    var confirmerIds = friendShip.Where(x => x.UserConfirmer != userId).Select(x => x.UserConfirmer);
+                    var acceptedIds = friendShip.Where(x => x.UserOferFrienshipSender != userId).Select(x => x.UserOferFrienshipSender);
+                    var FriendsIds = confirmerIds.Concat(acceptedIds).ToArray();
+
+                    for (int i=0; i< FriendsIds.Count(); i++)
+                    {
+                        CutUserInfoModel friendUserInfo = GetUserInfo(FriendsIds[i]);
+                        var friend = new FriendModel()
+                        {
+                            UserId = friendUserInfo.UserId,
+                            AvatarPath = friendUserInfo.AvatarUri,
+                            Name = friendUserInfo.Name,
+                            SurName = friendUserInfo.SurName
+                        };
+                        model.Friends.Add(friend);
+                    }
+                }
+            }
+            return model;
         }
 
         public class UserConfirmationDitails
