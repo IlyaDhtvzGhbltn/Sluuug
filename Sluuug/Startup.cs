@@ -12,6 +12,7 @@ namespace Sluuug
         public void Configuration(IAppBuilder app)
         {
             app.MapSignalR();
+            
         }
     }
 }

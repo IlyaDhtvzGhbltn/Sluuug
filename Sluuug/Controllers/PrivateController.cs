@@ -114,6 +114,14 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
+        public ActionResult conference()
+        {
+            return View();
+        }
+
+
+
+        [HttpGet]
         public ActionResult logout()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
