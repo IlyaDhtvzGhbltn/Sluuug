@@ -218,6 +218,7 @@
     <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
     <Compile Include="Model\DialogModel.cs" />
+    <Compile Include="Model\Offer.cs" />
     <Compile Include="Model\Users\ForeignUserViewModel.cs" />
     <Compile Include="Model\RegisteringUserModel.cs" />
     <Compile Include="Model\SendingMSG.cs" />
@@ -236,7 +237,7 @@
     <Content Include="Views\Private\user.cshtml" />
     <Content Include="Views\Private\friend.cshtml" />
     <Content Include="Views\Private\contacts.cshtml" />
-    <Content Include="Views\Private\conference.cshtml" />
+    <Content Include="Views\Private\video_chat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "conference";
+    Layout = "~/Views/Shared/logo.cshtml";
+}
+
+<h2>Start new video chat</h2>
+<div id="video_streaming">
+    <div id="me">
+        <video autoplay height="200" width="200" id="me_video"></video>
+    </div>
+</div>
+
+<h3>Call :</h3>
+<div id="friends">
+    @foreach (var item in Model.Friends)
+    {
+        <div class="friend_div" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+    }
+</div>
+
+<script src="~/Scripts/vConferens.js"></script>

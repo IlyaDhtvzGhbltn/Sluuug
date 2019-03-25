@@ -3,6 +3,7 @@ using Slug.Context.Attributes;
 using Slug.Helpers;
 using Slug.Model;
 using Slug.Model.Users;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -114,12 +115,19 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult conference()
+        public ActionResult video_chat()
         {
-            return View();
+            string sessionId = Request.Cookies.Get("session_id").Value;
+            var model = base.UserWorker.GetFriendsBySession(sessionId);
+            return View(model);
         }
 
+        [HttpPost]
+        public JsonResult video_offer(Offer RTCSessionDescription)
+        {
 
+            return null;
+        }
 
         [HttpGet]
         public ActionResult logout()
