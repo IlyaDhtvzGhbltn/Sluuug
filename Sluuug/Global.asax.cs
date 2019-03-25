@@ -53,7 +53,8 @@ namespace Sluuug
             //Don't rewrite requests for content (.png, .css) or scripts (.js)
             if (Request.Url.ToString().Contains("Content") ||
                 Request.Url.ToString().Contains("Scripts") ||
-                Request.Url.ToString().Contains("Sockets")
+                Request.Url.ToString().Contains("Sockets") ||
+                Request.Url.ToString().Contains("Token")
                 )
                 return;
 
