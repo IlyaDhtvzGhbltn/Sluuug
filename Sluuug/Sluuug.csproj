@@ -219,7 +219,7 @@
     <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
     <Compile Include="Model\DialogModel.cs" />
-    <Compile Include="Model\Offer.cs" />
+    <Compile Include="Model\SessionDescription.cs" />
     <Compile Include="Model\Users\ForeignUserViewModel.cs" />
     <Compile Include="Model\RegisteringUserModel.cs" />
     <Compile Include="Model\SendingMSG.cs" />

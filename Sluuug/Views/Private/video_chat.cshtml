@@ -5,9 +5,23 @@
 }
 
 <h2>Start new video chat</h2>
+<style>
+    #video_streaming {
+        margin: 0 auto;
+        display: flex;
+    }
+    .vid_container {
+        border: 4px double black;
+    }
+</style>
 <div id="video_streaming">
-    <div id="me">
+    <div id="me_video_container" class="vid_container">
+        <span>Me</span>
         <video autoplay height="200" width="200" id="me_video"></video>
+    </div>
+    <div id="friend_video_container" class="vid_container">
+        <span>Caller</span>
+        <video autoplay height="200" width="200" id="friend_video"></video>
     </div>
 </div>
 

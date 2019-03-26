@@ -48,13 +48,19 @@ namespace Sluuug
             }
         }
 
+        private void AppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            // Log as unhandled exception: e.ExceptionObject.ToString()
+        }
+
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             //Don't rewrite requests for content (.png, .css) or scripts (.js)
             if (Request.Url.ToString().Contains("Content") ||
                 Request.Url.ToString().Contains("Scripts") ||
                 Request.Url.ToString().Contains("Sockets") ||
-                Request.Url.ToString().Contains("Token")
+                Request.Url.ToString().Contains("Token") ||
+                Request.Url.ToString().Contains("Protocol")
                 )
                 return;
 
@@ -62,18 +68,8 @@ namespace Sluuug
             var url = Request.Url.ToString();
             if (Regex.IsMatch(url, @"[A-Z]"))
             {
-                Response.Clear();
-                Response.Status = "301 Moved Permanently";
-                Response.StatusCode = (int)HttpStatusCode.MovedPermanently;
-                Response.AddHeader("Location", url.ToLower());
-                Response.End();
-            }
-
-
-            var session_id = Request.Cookies.Get("session_id");
-            if (session_id != null)
-            {
-
+                Response.Redirect(url, false);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
         //protected void Application_EndRequest()

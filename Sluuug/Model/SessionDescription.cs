@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Slug.Model
 {
-    public class Offer
+    public class SessionDescription
     {
         public string sdp { get; set; }
         public string type { get; set; }
