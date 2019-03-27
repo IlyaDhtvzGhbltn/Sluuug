@@ -1,19 +1,58 @@
 ﻿var connection = $.hubConnection();
 var videoChat = connection.createHubProxy('videoChatInviteHub');
+connection.start();
+
 const peerConnCfg =
 {
     'iceServers':
     [
-        { 'url': 'stun:stun.services.mozilla.com' },
-        { 'url': 'stun:stun.l.google.com:19302' }
+        { url: 'stun:stun01.sipphone.com' },
+        { url: 'stun:stun.ekiga.net' },
+        { url: 'stun:stun.fwdnet.net' },
+        { url: 'stun:stun.ideasip.com' },
+        { url: 'stun:stun.iptel.org' },
+        { url: 'stun:stun.rixtelecom.se' },
+        { url: 'stun:stun.schlund.de' },
+        { url: 'stun:stun.l.google.com:19302' },
+        { url: 'stun:stun1.l.google.com:19302' },
+        { url: 'stun:stun2.l.google.com:19302' },
+        { url: 'stun:stun3.l.google.com:19302' },
+        { url: 'stun:stun4.l.google.com:19302' },
+        { url: 'stun:stunserver.org' },
+        { url: 'stun:stun.softjoys.com' },
+        { url: 'stun:stun.voiparound.com' },
+        { url: 'stun:stun.voipbuster.com' },
+        { url: 'stun:stun.voipstunt.com' },
+        { url: 'stun:stun.voxgratia.org' },
+        { url: 'stun:169.254.135.71:64609'},
+        { url: 'stun:stun.xten.com' },
+        {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=udp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=tcp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        }
     ]
     };
 
-var localVideoElem, remoteVideoElem, localVideoStream, videoCallButton, endCallButton, peerConn = null;  
+var localVideoElem, remoteVideoElem, localVideoStream, videoCallButton, endCallButton,
+    callerPeerConn, calleePeerConn = null;  
 
 window.addEventListener("load", checkWebrtc());
+console.log(videoChat);
 
-videoChat.on('SendInvite', function (callerName, callerSurName, offer, userId)
+
+
+videoChat.on('GotInvite', function (callerName, callerSurName, offer, userId)
 {
     incomming(callerName, callerSurName, offer, userId);
 });
@@ -25,24 +64,34 @@ videoChat.on('confirmInvite', function (answer) {
 function initiate_call(friend_id)
 {
     var session_id = document.cookie.replace(/(?:(?:^|.*;\s*)session_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    peerConn = new RTCPeerConnection(peerConnCfg);
+    callerPeerConn = new RTCPeerConnection(peerConnCfg);
+    callerPeerConn.onaddstream = function (event) {
+        alert(1);
+    }
+    callerPeerConn.ontrack = function (event) {
+        alert(21);
+    }
+
     navigator.getUserMedia(
-        { "audio": true, "video": true },
+        {
+            "audio": true, "video": { width: 200, height:200 }
+        },
         function (stream)
         {
             localVideo.srcObject = stream;
-            peerConn.addStream(stream);
+            callerPeerConn.addStream(stream);
         },
         function (err)
         {
             console.log(err.message);
         }
     );
-    peerConn.createOffer()
+
+    callerPeerConn.createOffer()
         .then(
         function (offer) {
             var off = new RTCSessionDescription(offer);
-            peerConn.setLocalDescription(
+            callerPeerConn.setLocalDescription(
                 new RTCSessionDescription(off),
                 function () {
                     var offer_dictionary =
@@ -52,14 +101,11 @@ function initiate_call(friend_id)
                             session: session_id,
                             to: friend_id
                         };
-                    connection.start()
-                        .done(
-                        function () {
+
                             videoChat.invoke('Invite', offer_dictionary);
                             console.log('setLocalDescription');
                             console.log(offer);
                             console.log('send offer');
-                        });
                 },
                 function (err) {
                     console.log("setLocalDescription fail");
@@ -85,28 +131,37 @@ function incomming(callerName, callerSurName, offer, incommingUserId) {
             '<span>' + callerName + '  ' + callerSurName + '</span> call to you ... </div>');
         document.getElementById('called__' + incommingUserId).addEventListener(
             'click', function () {
-                accept_send_answer(incommingOffer, incommingUserId);
+                var caller_id = "called__" + incommingUserId;
+                accept_send_answer(incommingOffer, incommingUserId, caller_id);
             })
     }
  }
 
-function accept_send_answer(offer, userId)
+function accept_send_answer(offer, userId, caller_id)
 {
     try {
         video = document.querySelector("#me_video");
-        navigator.mediaDevices.getUserMedia({ video, audio: true })
+        navigator.mediaDevices.getUserMedia({ video: { width: 200, height: 200 }, audio: true })
             .then(
             function (stream) {
-                var peerConn = new RTCPeerConnection(peerConnCfg); // ??
-            peerConn.addStream(stream);
+                calleePeerConn = new RTCPeerConnection(peerConnCfg); // ??
+                calleePeerConn.onaddstream = function (event) {
+                    alert(1);
+                }
+                calleePeerConn.ontrack = function (event) {
+                    alert(21);
+                }
+                calleePeerConn.addStream(stream);
             video.srcObject = stream;
             console.log('----');
-            peerConn.setRemoteDescription(
+
+
+            calleePeerConn.setRemoteDescription(
                 new RTCSessionDescription(offer),
                 function () {
-                    peerConn.createAnswer(
+                    calleePeerConn.createAnswer(
                         function (answer) {
-                            peerConn.setLocalDescription(
+                            calleePeerConn.setLocalDescription(
                             new RTCSessionDescription(answer),
                             function () {
                                 var session_id = document.cookie.replace(/(?:(?:^|.*;\s*)session_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -117,16 +172,18 @@ function accept_send_answer(offer, userId)
                                         session: session_id,
                                         to: userId
                                     };
+
                                 videoChat.invoke('ConfirmInvite', ansfer_dictionary);
                                 console.log("sending ansfer");
-                                var remote_streams = peerConn.getRemoteStreams();
-                                var local_streams = peerConn.getLocalStreams();
+                                var remote_streams = calleePeerConn.getRemoteStreams();
+                                var local_streams = calleePeerConn.getLocalStreams();
 
                                 console.log("invited remote streams");
                                 console.log(remote_streams);
                                 console.log("invited local streams");
                                 console.log(local_streams);
-
+                                console.log(calleePeerConn);
+                                hide_incoming_if_accept(caller_id);
                             },
                             function (error) {
                                 console.log("setLocalDescription fail : " + error.message);
@@ -147,36 +204,39 @@ function accept_send_answer(offer, userId)
 
 function got_ansfer(answer)
 {
-    peerConn.setRemoteDescription(
-        answer,
+    callerPeerConn.setRemoteDescription(
+        new RTCSessionDescription(answer),
         function () {
             console.log("setRemoteDescription from ansfer");
 
-            var remote_streams = peerConn.getRemoteStreams();
-            var local_streams = peerConn.getLocalStreams();
+            var remote_streams = callerPeerConn.getRemoteStreams();
+            var local_streams = callerPeerConn.getLocalStreams();
 
             console.log("caller remote streams");
             console.log(remote_streams);
             console.log("caller local streams");
             console.log(local_streams);
             video = document.querySelector("#me_video");
-            navigator.mediaDevices.getUserMedia({ video, audio: true })
+            navigator.mediaDevices.getUserMedia({ video : { width: 200, height: 200 }, audio: true })
                 .then(
                 function (stream) {
+                    console.log("++");
                     video.srcObject = stream;
+                    console.log(callerPeerConn);
                 },
                 function (err) {
                     console.log("set local video caller error");
                 }
-                );
-
-            
+            );
         },
         function (err) {
             console.log(err.message);
         }
     );
 }
+
+
+
 
 function checkWebrtc() {
     if (navigator.getUserMedia) {
@@ -193,4 +253,8 @@ function checkWebrtc() {
     else {
         alert("Sorry, your browser does not support WebRTC!");
     }
+}
+
+function hide_incoming_if_accept(caller_id) {
+    document.getElementById(caller_id).outerHTML = 'accepted...';
 }
