@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201903191413525_long to int.Designer.cs">
       <DependentUpon>201903191413525_long to int.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903231144420_s.cs" />
+    <Compile Include="Migrations\201903231144420_s.Designer.cs">
+      <DependentUpon>201903231144420_s.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
@@ -277,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903191413525_long to int.resx">
       <DependentUpon>201903191413525_long to int.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903231144420_s.resx">
+      <DependentUpon>201903231144420_s.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

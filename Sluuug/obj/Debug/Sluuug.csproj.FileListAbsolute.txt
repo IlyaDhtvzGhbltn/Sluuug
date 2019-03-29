@@ -122,3 +122,10 @@ D:\My_Utilits\Sluuug\Sluuug\bin\XSockets.Server.dll
 D:\My_Utilits\Sluuug\Sluuug\bin\Serilog.xml
 D:\My_Utilits\Sluuug\Sluuug\bin\Serilog.Sinks.Console.xml
 D:\My_Utilits\Sluuug\Sluuug\bin\Serilog.Sinks.Literate.xml
+D:\SLUG\Sluuug\Sluuug\bin\AngleSharp.dll
+D:\SLUG\Sluuug\Sluuug\bin\AngleSharp.xml
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.friendly_tbl.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.name_fix.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.rename.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.longtoint.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.s.resources
