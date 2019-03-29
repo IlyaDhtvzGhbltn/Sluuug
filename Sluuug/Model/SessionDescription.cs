@@ -9,7 +9,6 @@ namespace Slug.Model
     {
         public string sdp { get; set; }
         public string type { get; set; }
-        public string session { get; set; }
         public string to { get; set; }
     }
 }

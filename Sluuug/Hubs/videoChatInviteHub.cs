@@ -10,31 +10,25 @@ namespace Slug.Hubs
 {
     public class videoChatInviteHub : Hub
     {
-        public void Invite(SessionDescription callOffer)
+        public void Invite(dynamic callOffer)
         {
-            var Contx = base.Context;
-            var all = Clients.All;
-            var others = Clients.Others;
-
+            var cookies = base.Context.Request.Cookies;
+            Cookie sessionId = cookies["session_id"];
 
             var UsWork = new UserWorker();
-            var userInfo = UsWork.GetUserInfo(callOffer.session);
-            var inviteOffer = new SessionDescription
-            {
-                type = callOffer.type,
-                sdp = callOffer.sdp
-            };
-            Clients.Others.GotInvite(userInfo.Name, userInfo.SurName, inviteOffer, userInfo.UserId); 
+            var userInfo = UsWork.GetUserInfo(sessionId.Value);
+
+            Clients.Others.GotInvite(userInfo.Name, userInfo.SurName, callOffer, userInfo.UserId); 
         }
 
-        public void ConfirmInvite(SessionDescription callAnswer)
+        public void ConfirmInvite(dynamic callAnswer)
         {
-            var inviteAnswer = new SessionDescription
-            {
-                type = callAnswer.type,
-                sdp = callAnswer.sdp
-            };
-            Clients.Others.ConfirmInvite(inviteAnswer);
+            Clients.Others.ConfirmInvite(callAnswer);
+        }
+
+        public void ExchangeICandidates(dynamic iceCandidate)
+        {
+            Clients.Others.exchangeCandidates(iceCandidate);
         }
     }
 }
