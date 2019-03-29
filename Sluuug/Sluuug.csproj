@@ -135,7 +135,9 @@
     <Content Include="Scripts\chatp2pWS.js" />
     <Content Include="Scripts\newMsgInConv.js" />
     <Content Include="Scripts\vConferens.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Private\cnv.cshtml" />
     <Content Include="Views\Error\notfound.cshtml" />
     <Content Include="Views\Guest\Activate.cshtml" />
@@ -174,6 +176,7 @@
     </Compile>
     <Compile Include="Helpers\BaseController\SlugController.cs" />
     <Compile Include="Hubs\messagersHub.cs" />
+    <Compile Include="Hubs\videoChatInviteHub.cs" />
     <Compile Include="Migrations\201903161319471_imges_tbls.cs" />
     <Compile Include="Migrations\201903161319471_imges_tbls.Designer.cs">
       <DependentUpon>201903161319471_imges_tbls.cs</DependentUpon>
@@ -222,6 +225,7 @@
     <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
     <Compile Include="Model\DialogModel.cs" />
+    <Compile Include="Model\SessionDescription.cs" />
     <Compile Include="Model\Users\ForeignUserViewModel.cs" />
     <Compile Include="Model\RegisteringUserModel.cs" />
     <Compile Include="Model\SendingMSG.cs" />
@@ -240,7 +244,7 @@
     <Content Include="Views\Private\user.cshtml" />
     <Content Include="Views\Private\friend.cshtml" />
     <Content Include="Views\Private\contacts.cshtml" />
-    <Content Include="Views\Private\conference.cshtml" />
+    <Content Include="Views\Private\video_chat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -254,6 +258,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903161319471_imges_tbls.resx">
       <DependentUpon>201903161319471_imges_tbls.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903161324317_imges_tbls2.resx">
       <DependentUpon>201903161324317_imges_tbls2.cs</DependentUpon>
