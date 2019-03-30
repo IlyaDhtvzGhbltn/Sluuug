@@ -54,3 +54,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CoreCompileInputs.cache
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.pdb
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.secrettbo.resources

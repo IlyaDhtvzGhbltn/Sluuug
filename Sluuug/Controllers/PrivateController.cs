@@ -123,8 +123,11 @@ namespace Slug.Controllers
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
-
-
+        [HttpGet]
+        public ActionResult crypto_cnv()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult logout()

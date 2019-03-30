@@ -21,5 +21,10 @@ namespace Context
         public DbSet<Message> Messangers { get; set; }
         public DbSet<Avatars> Avatars { get; set; }
         public DbSet<FriendsRelationship> FriendsRelationship { get; set; }
+
+        public DbSet<SecretMessages> SecretMessage { get; set; }
+        public DbSet<SecretChat> SecretChat { get; set; }
+        public DbSet<SecretChatGroup> SecretChatGroup { get; set; }
+
     }
 }

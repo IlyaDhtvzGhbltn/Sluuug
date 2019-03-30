@@ -126,6 +126,7 @@
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
+    <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\goFriend.js" />
     <Content Include="Scripts\goMsg.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
@@ -151,6 +152,9 @@
     <Compile Include="Context\Attributes\AuthAttribute.cs" />
     <Compile Include="Context\Attributes\SessionCheckAttribute.cs" />
     <Compile Include="Context\Tables\FriendsRelationship.cs" />
+    <Compile Include="Context\Tables\SecretChat.cs" />
+    <Compile Include="Context\Tables\SecretMessages.cs" />
+    <Compile Include="Context\Tables\SecretChatGroup.cs" />
     <Compile Include="Crypto\Converting.cs" />
     <Compile Include="Helpers\ActivationMailWorker.cs" />
     <Compile Include="Helpers\ConversationWorker.cs" />
@@ -175,6 +179,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BaseController\SlugController.cs" />
+    <Compile Include="Hubs\cryptoMessagersHub.cs" />
     <Compile Include="Hubs\messagersHub.cs" />
     <Compile Include="Hubs\videoChatInviteHub.cs" />
     <Compile Include="Migrations\201903161319471_imges_tbls.cs" />
@@ -221,6 +226,10 @@
     <Compile Include="Migrations\201903231144420_s.Designer.cs">
       <DependentUpon>201903231144420_s.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903301745354_secret tbo.cs" />
+    <Compile Include="Migrations\201903301745354_secret tbo.Designer.cs">
+      <DependentUpon>201903301745354_secret tbo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
@@ -245,6 +254,7 @@
     <Content Include="Views\Private\friend.cshtml" />
     <Content Include="Views\Private\contacts.cshtml" />
     <Content Include="Views\Private\video_chat.cshtml" />
+    <Content Include="Views\Private\crypto_cnv.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -289,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903231144420_s.resx">
       <DependentUpon>201903231144420_s.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903301745354_secret tbo.resx">
+      <DependentUpon>201903301745354_secret tbo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
