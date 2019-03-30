@@ -2,6 +2,7 @@
 var videoChat = connection.createHubProxy('videoChatInviteHub');
 connection.start();
 window.addEventListener("load", checkWebrtc());
+var audioContext = null;
 
 const peerConnCfg =
 {
@@ -14,20 +15,17 @@ const peerConnCfg =
 let localStream;
 var remoteVideo = document.querySelector("#remoteVideo");
 var localVideo = document.querySelector("#localVideo");
+var remoteAudio = document.querySelector("#remoteAudio");
 
 const peerConn = new RTCPeerConnection(peerConnCfg);
 peerConn.ontrack = function (event) {
     remoteVideo.srcObject = event.streams[0];
+    remoteAudio.srcObject = event.streams[1];
 }
 peerConn.onicecandidate = function (event) {
     if (event.candidate) {
-
-        setTimeout(function () {
             videoChat.invoke('ExchangeICandidates', event.candidate);
             console.log('sending candidates start ...');
-            //Send the candidate to the remote peer);
-    
-}, 4000)
     } else {
          console.log('all candidates are set');
     }
@@ -46,7 +44,6 @@ videoChat.on('confirmInvite', function (answer) {
 videoChat.on('exchangeCandidates', function (candidate) {
     console.log('obtain candidates ...');
     peerConn.addIceCandidate(candidate);
-    console.log(candidate);
 });
 
 
@@ -90,10 +87,11 @@ function accept_send_answer(offer, userId, caller_id)
                     return peerConn.createAnswer();
                 })
                 .then(function (answer) {
+                    hide_incoming_if_accept(caller_id);
+
                     videoChat.invoke('ConfirmInvite', answer);
                     return peerConn.setLocalDescription(answer);
 
-                    hide_incoming_if_accept(caller_id);
 
 
 
