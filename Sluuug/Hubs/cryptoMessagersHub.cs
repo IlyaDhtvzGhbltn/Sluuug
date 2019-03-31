@@ -8,9 +8,9 @@ namespace Slug.Hubs
 {
     public class cryptoMessagersHub : Hub
     {
-        public void Hello()
+        public void CreateNew()
         {
-            Clients.All.hello();
+            Clients.All.Invite();
         }
     }
 }

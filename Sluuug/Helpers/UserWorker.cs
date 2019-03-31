@@ -193,6 +193,56 @@ namespace Slug.Context
             return model;
         }
 
+        public CryptoChatModel GetCryptoChat(string sessionId)
+        {
+            var model = new CryptoChatModel();
+            model.CurrentChats = new List<cryptoChat>();
+            model.FriendsICanInvite = new List<FriendModel>();
+
+            MyFriendsModel friends = GetFriendsBySession(sessionId);
+
+            foreach (var item in friends.Friends)
+            {
+                model.FriendsICanInvite.Add(item);
+            }
+
+            int userId = GetUserInfo(sessionId).UserId;
+            using (var context = new DataBaseContext())
+            {
+                var chatIDs = context.SecretChatGroup.Where(x=>x.UserId == userId).Select(c=>c.PartyId).ToList();
+                foreach (var item in chatIDs)
+                {
+                    SecretChat secretChat = context.SecretChat.First(x => x.PartyId == item);
+                    var chat = new cryptoChat();
+                    chat.OpenDate = secretChat.Create;
+                    chat.Id = secretChat.PartyId;
+
+                    DateTime destroyChatTime = secretChat.Destroy;
+                    if (destroyChatTime < DateTime.Now)
+                        chat.ActiveStatus = false;
+                    else
+                        chat.ActiveStatus = true;
+
+                    chat.Users = new List<FriendModel>();
+                    var participators = context.SecretChatGroup.Where(x => x.PartyId == item).ToList();
+                    foreach (var participator in participators)
+                    {
+                        var friendModel = new FriendModel();
+                        var user = GetUserInfo(participator.UserId);
+                        friendModel.UserId = user.UserId;
+                        friendModel.AvatarPath = user.AvatarUri;
+                        friendModel.Name = user.Name;
+                        friendModel.SurName = user.SurName;
+
+                        chat.Users.Add(friendModel);
+                    }
+
+                    model.CurrentChats.Add(chat);
+                }
+            }
+            return model;
+        }
+
         public class UserConfirmationDitails
         {
             public string ActivationSessionId { get; set; }

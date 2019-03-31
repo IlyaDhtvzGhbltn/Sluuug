@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConversationsModel.cs" />
+    <Compile Include="Model\CryptoChatModel.cs" />
     <Compile Include="Model\CutUserInfoModel.cs" />
     <Compile Include="Model\DialogModel.cs" />
     <Compile Include="Model\SessionDescription.cs" />

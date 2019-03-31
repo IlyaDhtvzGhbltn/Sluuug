@@ -126,7 +126,9 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult crypto_cnv()
         {
-            return View();
+            string sessionId = Request.Cookies.Get("session_id").Value;
+            var model = UserWorker.GetCryptoChat(sessionId);
+            return View(model);
         }
 
         [HttpGet]

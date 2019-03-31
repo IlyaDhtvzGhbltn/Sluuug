@@ -1,7 +1,33 @@
 ﻿document.querySelector('#new_crypto_chat').addEventListener("click", function () {
-    crypto();
-    //localStorage.setItem('private_key', private_key());
+    invite();
 });
+
+var connection = $.hubConnection();
+var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
+
+function invite()
+{
+    inviters = [];
+    friends = $(".ready_to_invite");
+
+    for (var i = 0; i < friends.length; i++) {
+        if (friends[i].checked) {
+            inviters.push(friends[i]);
+        }
+    }
+    if (inviters.length == 0) {
+        alert('no one friend selected!');
+    }
+    else {
+        connection.start().done(
+            function () {
+                crypto();
+                cryptoChat.invoke('CreateNew', inviters);
+
+            }
+        );
+    }
+}
 
 function crypto() {
     g = 2;
@@ -11,13 +37,15 @@ function crypto() {
 
     while (mod != 1) {
         p = generate_p();
-        for (i = 2; i < 20; i++) {
-            mod = (g ** (p - 1)) % p;
-            g++;
-            if (mod == 1) {
-                console.log('p value = ' + p);
-                console.log('g value = ' + g);
-                break;
+        if (p > 8) {
+            for (i = 1; i < 100; i++) {
+                mod = check_mod(g, p);
+                if (mod == 1) {
+                    console.log('p value = ' + p);
+                    console.log('g value = ' + g);
+                    break;
+                }
+                g++;
             }
         }
     }
@@ -30,12 +58,18 @@ function crypto() {
 
 function generate_p() {
     p = null;
-    while (true) {
-        p = Math.floor(Math.random() * 1000);
-        if (p > 100 && p < 200)
-            break;
+    max = Math.floor(Math.random() * 100000);
+    var sieve = [], i, j, primes = [];
+    for (i = 2; i <= max; ++i) {
+        if (!sieve[i]) {
+            primes.push(i);
+            for (j = i << 1; j <= max; j += i) {
+                sieve[j] = true;
+            }
+        }
     }
-    return p;
+    var randPrime = primes[Math.floor(Math.random() * primes.length)];
+    return randPrime;
 }
 
 function generate_a() {
@@ -52,7 +86,14 @@ function secret_key(publKey) {
 
 }
 
+function check_mod(g, p) {
+    mod = (g ** (p - 1)) % p;
+    return mod;
+}
+
 function generate_public_key(gValue, aValue, pValue) {
     key = gValue ** aValue % pValue;
     return key;
 }
+
+function got_invited() { }

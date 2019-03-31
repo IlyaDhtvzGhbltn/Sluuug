@@ -6,13 +6,41 @@
 
 <h2>Secure Chat</h2>
 <div id="create_new">
-    <input type="button" value="Create" id="new_crypto_chat" />
+    <div id="friends_list">
+        @foreach (var friend in Model.FriendsICanInvite)
+        {
+                <div class="ready_to_invite_div">
+                    <input class="ready_to_invite" type="radio" value="@friend.UserId"> @friend.Name <img src="@friend.AvatarPath" width="30" height="30" />
+                </div>
+        }
+    </div>
+    <p>
+        <input type="button" value="Invite to secret chat" id="new_crypto_chat" />
+    </p>
 </div>
 
 <div id="currentSC">
+    @foreach (var item in Model.CurrentChats)
+    {
+        <p>
+            <div class="cryptp_chat" id="@item.Id" style="background-color:coral; cursor:pointer">
+                <span>Opening date : @item.OpenDate</span>
+                <span> Chat Active : @item.ActiveStatus</span>
+        <p>
+        <span> Participants : </span>
+        </p>
+        @foreach (var part in item.Users)
+        {
+            <p>
+                <span> @part.Name </span>
+                <img src="@part.AvatarPath" height="30" width="30" />
+            </p>
+        }
+    </div>
+            </p>
+        }
+    </div>
 
-</div>
-
-<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
-<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
-<script src="~/Scripts/crypto_chat.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/Scripts/crypto_chat.js"></script>
