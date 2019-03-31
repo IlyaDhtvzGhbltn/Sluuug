@@ -4,10 +4,14 @@
 
 var connection = $.hubConnection();
 var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
+connection.start();
 
+cryptoChat.on('Invite', function (p, g) {
+    got_invited(p, g);
+});
 function invite()
 {
-    inviters = [];
+    inviters = []; 
     friends = $(".ready_to_invite");
 
     for (var i = 0; i < friends.length; i++) {
@@ -19,13 +23,9 @@ function invite()
         alert('no one friend selected!');
     }
     else {
-        connection.start().done(
-            function () {
-                crypto();
-                cryptoChat.invoke('CreateNew', inviters);
-
-            }
-        );
+        algo = crypto();
+        console.log(algo);
+        cryptoChat.invoke('CreateNew', inviters, algo[0], algo[1]);
     }
 }
 
@@ -54,6 +54,7 @@ function crypto() {
     console.log('(secret)a value = ', a);
     publ_key = generate_public_key(g, a, p);
     console.log('public_key value = ' + publ_key);
+    return p, g;
 }
 
 function generate_p() {
@@ -96,4 +97,7 @@ function generate_public_key(gValue, aValue, pValue) {
     return key;
 }
 
-function got_invited() { }
+function got_invited(p, g) {
+    console.log(p);
+    console.log(g);
+}
