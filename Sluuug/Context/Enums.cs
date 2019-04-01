@@ -27,4 +27,13 @@ namespace Context
         Correct,
         Fail
     }
+
+    public enum CryptoChatType
+    {
+        Hour,
+        Hours_6,
+        Day,
+        Month,
+        Year
+    }
 }

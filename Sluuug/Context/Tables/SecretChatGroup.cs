@@ -13,7 +13,7 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
-        public int PartyId { get; set; }
+        public Guid PartyGUID { get; set; }
 
         [Required]
         public int UserId { get; set; }

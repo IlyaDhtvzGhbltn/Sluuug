@@ -158,6 +158,7 @@
     <Compile Include="Crypto\Converting.cs" />
     <Compile Include="Helpers\ActivationMailWorker.cs" />
     <Compile Include="Helpers\ConversationWorker.cs" />
+    <Compile Include="Helpers\CryptoChatWorker.cs" />
     <Compile Include="Helpers\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
     <Compile Include="Helpers\DialogWorker.cs" />
@@ -229,6 +230,30 @@
     <Compile Include="Migrations\201903301745354_secret tbo.cs" />
     <Compile Include="Migrations\201903301745354_secret tbo.Designer.cs">
       <DependentUpon>201903301745354_secret tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011341113_guid in secret chat.cs" />
+    <Compile Include="Migrations\201904011341113_guid in secret chat.Designer.cs">
+      <DependentUpon>201904011341113_guid in secret chat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011357336_guid in secret chat2.cs" />
+    <Compile Include="Migrations\201904011357336_guid in secret chat2.Designer.cs">
+      <DependentUpon>201904011357336_guid in secret chat2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011407060_guid in secret chat3.cs" />
+    <Compile Include="Migrations\201904011407060_guid in secret chat3.Designer.cs">
+      <DependentUpon>201904011407060_guid in secret chat3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011408314_guid in secret chat4.cs" />
+    <Compile Include="Migrations\201904011408314_guid in secret chat4.Designer.cs">
+      <DependentUpon>201904011408314_guid in secret chat4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011559484_guid in secret chat6.cs" />
+    <Compile Include="Migrations\201904011559484_guid in secret chat6.Designer.cs">
+      <DependentUpon>201904011559484_guid in secret chat6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011609161_4.cs" />
+    <Compile Include="Migrations\201904011609161_4.Designer.cs">
+      <DependentUpon>201904011609161_4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConversationsModel.cs" />
@@ -303,6 +328,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903301745354_secret tbo.resx">
       <DependentUpon>201903301745354_secret tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011341113_guid in secret chat.resx">
+      <DependentUpon>201904011341113_guid in secret chat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011357336_guid in secret chat2.resx">
+      <DependentUpon>201904011357336_guid in secret chat2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011407060_guid in secret chat3.resx">
+      <DependentUpon>201904011407060_guid in secret chat3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011408314_guid in secret chat4.resx">
+      <DependentUpon>201904011408314_guid in secret chat4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011559484_guid in secret chat6.resx">
+      <DependentUpon>201904011559484_guid in secret chat6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011609161_4.resx">
+      <DependentUpon>201904011609161_4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,10 +5,25 @@
 var connection = $.hubConnection();
 var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
 connection.start();
-
-cryptoChat.on('Invite', function (p, g) {
-    got_invited(p, g);
+cryptoChat.on('Invite', function (offer) {
+    got_invite(offer);
 });
+cryptoChat.on('NewCryptoChatResponce', function (guid) {
+    console.log('created new crypto chat : ' + guid);
+    public_pre_values = generate_pre_value();
+
+    var offer_toCryptoChat =
+        {
+            pValue: public_pre_values['p'],
+            gValue: public_pre_values['g'],
+            guid: guid
+        };
+
+    console.log(offer_toCryptoChat);
+    cryptoChat.invoke('InviteToCreatedNew', offer_toCryptoChat);
+});
+
+
 function invite()
 {
     inviters = []; 
@@ -16,50 +31,50 @@ function invite()
 
     for (var i = 0; i < friends.length; i++) {
         if (friends[i].checked) {
-            inviters.push(friends[i]);
+            inviters.push(friends[i].value);
         }
     }
     if (inviters.length == 0) {
-        alert('no one friend selected!');
+        console.log('no one selected');
     }
     else {
-        algo = crypto();
-        console.log(algo);
-        cryptoChat.invoke('CreateNew', inviters, algo[0], algo[1]);
+        console.log(inviters);
+        var create_request =
+            {
+                'type': 0,
+                'inviters': inviters,
+            };
+        cryptoChat.invoke('CreateRequest', JSON.stringify( create_request ));
     }
 }
 
-function crypto() {
+function generate_pre_value()
+{
     g = 2;
     mod = -1;
     p = null;
-    a = null;
 
     while (mod != 1) {
+        g = 3;
         p = generate_p();
-        if (p > 8) {
-            for (i = 1; i < 100; i++) {
-                mod = check_mod(g, p);
-                if (mod == 1) {
-                    console.log('p value = ' + p);
-                    console.log('g value = ' + g);
-                    break;
-                }
-                g++;
+        for (i = 1; i < 10; i++) {
+            mod = check_mod(g, p);
+            if (mod == 1) {
+                console.log('p value = ' + p);
+                console.log('g value = ' + g);
+                break;
             }
+            g++;
         }
     }
-    a = generate_a();
-    localStorage.setItem('a',a);
-    console.log('(secret)a value = ', a);
-    publ_key = generate_public_key(g, a, p);
-    console.log('public_key value = ' + publ_key);
-    return p, g;
+
+    return { 'p': p, 'g': g };
 }
+
 
 function generate_p() {
     p = null;
-    max = Math.floor(Math.random() * 100000);
+    max = Math.floor(Math.random() * 100);
     var sieve = [], i, j, primes = [];
     for (i = 2; i <= max; ++i) {
         if (!sieve[i]) {
@@ -74,11 +89,13 @@ function generate_p() {
 }
 
 function generate_a() {
+    flag = false;
     a = null;
-    while (true) {
-        a = Math.floor(Math.random() * 100);
-        if (a > 10 && a < 20)
-            break;
+    while (!flag) {
+        a = Math.floor(Math.random() * 1000);
+        if (a > 300 && a < 400) {
+            flag = true;
+        }
     }
     return a;
 }
@@ -97,7 +114,8 @@ function generate_public_key(gValue, aValue, pValue) {
     return key;
 }
 
-function got_invited(p, g) {
-    console.log(p);
-    console.log(g);
+function got_invite(offer) {
+    console.log(offer);
+    document.querySelector('#currentSC').insertAdjacentHTML('beforeend',
+        '<div class="cryptp_chat"></div>');
 }

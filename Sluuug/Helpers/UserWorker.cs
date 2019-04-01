@@ -209,13 +209,13 @@ namespace Slug.Context
             int userId = GetUserInfo(sessionId).UserId;
             using (var context = new DataBaseContext())
             {
-                var chatIDs = context.SecretChatGroup.Where(x=>x.UserId == userId).Select(c=>c.PartyId).ToList();
+                var chatIDs = context.SecretChatGroup.Where(x=>x.UserId == userId).Select(c=>c.PartyGUID).ToList();
                 foreach (var item in chatIDs)
                 {
-                    SecretChat secretChat = context.SecretChat.First(x => x.PartyId == item);
+                    SecretChat secretChat = context.SecretChat.First(x => x.PartyGuid == item);
                     var chat = new cryptoChat();
                     chat.OpenDate = secretChat.Create;
-                    chat.Id = secretChat.PartyId;
+                    chat.Id = secretChat.Id;
 
                     DateTime destroyChatTime = secretChat.Destroy;
                     if (destroyChatTime < DateTime.Now)
@@ -224,7 +224,7 @@ namespace Slug.Context
                         chat.ActiveStatus = true;
 
                     chat.Users = new List<FriendModel>();
-                    var participators = context.SecretChatGroup.Where(x => x.PartyId == item).ToList();
+                    var participators = context.SecretChatGroup.Where(x => x.PartyGUID == item).ToList();
                     foreach (var participator in participators)
                     {
                         var friendModel = new FriendModel();

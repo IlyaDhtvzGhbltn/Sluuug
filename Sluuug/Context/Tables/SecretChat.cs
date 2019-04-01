@@ -13,7 +13,7 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
-        public int PartyId { get; set; }
+        public Guid PartyGuid { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
