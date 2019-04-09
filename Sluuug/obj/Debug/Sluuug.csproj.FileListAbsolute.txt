@@ -123,3 +123,5 @@ D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.WebHost.dll
 D:\My_Utilits\Sluuug\Sluuug\bin\System.Net.Http.Formatting.xml
 D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.xml
 D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.WebHost.xml
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.a.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.tb.resources

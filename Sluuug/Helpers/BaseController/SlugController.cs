@@ -11,5 +11,6 @@ namespace Slug.Helpers
         public UserWorker UserWorker { get; set; } = new UserWorker();
         public ConversationWorker ConverWorker { get; set; } = new ConversationWorker();
         public DialogWorker DialogWorker { get; set; } = new DialogWorker();
+        public CryptoChatWorker CryptoChatWorker { get; set; } = new CryptoChatWorker();
     }
 }

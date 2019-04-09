@@ -123,11 +123,12 @@ namespace Slug.Controllers
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
+
         [HttpGet]
         public ActionResult crypto_cnv()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var model = UserWorker.GetCryptoChat(sessionId);
+            CryptoChatModel model = CryptoChatWorker.GetCryptoChat(sessionId);
             return View(model);
         }
 

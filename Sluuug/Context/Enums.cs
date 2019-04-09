@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Context 
 {
+    public enum CryptoChatStatus
+    {
+        SelfCreated,
+        PendingAccepted,
+        Accepted
+    }
+
     public enum SessionTypes
     {
         Guest ,

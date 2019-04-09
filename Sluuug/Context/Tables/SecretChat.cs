@@ -22,5 +22,8 @@ namespace Slug.Context.Tables
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime Destroy { get; set; }
+
+        [Required]
+        public int CreatorUserId { get; set; }
     }
 }

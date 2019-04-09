@@ -271,6 +271,14 @@
     <Compile Include="Migrations\201904011609161_4.Designer.cs">
       <DependentUpon>201904011609161_4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904091234351_a.cs" />
+    <Compile Include="Migrations\201904091234351_a.Designer.cs">
+      <DependentUpon>201904091234351_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904091357315_tb.cs" />
+    <Compile Include="Migrations\201904091357315_tb.Designer.cs">
+      <DependentUpon>201904091357315_tb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConversationsModel.cs" />
     <Compile Include="Model\CryptoChatModel.cs" />
@@ -362,6 +370,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904011609161_4.resx">
       <DependentUpon>201904011609161_4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091234351_a.resx">
+      <DependentUpon>201904091234351_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091357315_tb.resx">
+      <DependentUpon>201904091357315_tb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

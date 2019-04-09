@@ -19,12 +19,25 @@
     </p>
 </div>
 
+<div id="self_created">
+    @foreach (var item in Model.SelfCreatedChats)
+    {
+        <div class="cryptp_chat" id="@item.GuidId" style="background-color:azure; cursor:pointer">
+            <span>Ваш собственный чат с пользователями</span>
+            @foreach (var user in item.Users)
+            {
+                <p>
+                    <img src="@user.AvatarPath" height="30" width="30" />
+                </p>
+            }
+        </div>
+    }
+</div>
+
 <div id="currentSC">
-    <span></span>
     @foreach (var item in Model.CurrentChats)
     {
-        <p>
-            <div class="cryptp_chat" style="background-color:coral; cursor:pointer">
+            <div class="cryptp_chat" id="@item.GuidId" style="background-color:coral; cursor:pointer">
                 <span>Opening date : @item.OpenDate</span>
                 <span> Chat Active : @item.ActiveStatus</span>
         <p>
@@ -37,11 +50,23 @@
                 <img src="@part.AvatarPath" height="30" width="30" />
             </p>
         }
-    <button onclick="accept_invite(this)" id="@item.Id">Accept</button>
     </div>
-            </p>
      }
+    </div>
 
+<div id="accept_need">
+    @foreach (var item in Model.AcceptNeeded)
+    {
+        <span>Вас пригласил в секретный чат к пользователям :</span>
+        foreach (var user in item.Users)
+        {
+        <p>
+            <img src="@user.AvatarPath" width="30" height="30" />
+        </p>
+        }
+        <button onclick="accept_invite(this)" id="@item.GuidId">Accept</button>
+    }
+</div>
 
     <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
     <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>

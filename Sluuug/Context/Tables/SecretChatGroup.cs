@@ -17,5 +17,8 @@ namespace Slug.Context.Tables
 
         [Required]
         public int UserId { get; set; }
+
+        [Required]
+        public bool Accepted { get; set; }
     }
 }

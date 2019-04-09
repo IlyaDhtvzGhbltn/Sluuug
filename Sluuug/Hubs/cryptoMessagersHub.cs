@@ -55,6 +55,14 @@ namespace Slug.Hubs
 
         public void AcceptInvite(string ansver_to_cripto_chat)
         {
+            CryptoChatWorker CrWorker = new CryptoChatWorker();
+            UserWorker UsWorker = new UserWorker();
+            var cookies = base.Context.Request.Cookies["session_id"];
+            var id = UsWorker.GetUserInfo(cookies.Value).UserId;
+            PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
+
+
+            CrWorker.UpdateAcceptCryptoChat(id, cryptoConversation.ConvGuidId);
             Clients.Others.AcceptInvitation(ansver_to_cripto_chat);
         }
     }

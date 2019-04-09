@@ -9,13 +9,15 @@ namespace Slug.Model
     public class CryptoChatModel
     {
         public List<CryptoChat> CurrentChats { get; set; }
+        public List<CryptoChat> SelfCreatedChats { get; set; }
+        public List<CryptoChat> AcceptNeeded { get; set; }
 
         public List<FriendModel> FriendsICanInvite { get; set; }
     }
 
     public class CryptoChat
     {
-        public Guid Id { get; set; }
+        public Guid GuidId { get; set; }
 
         public List<FriendModel> Users { get; set; }
 

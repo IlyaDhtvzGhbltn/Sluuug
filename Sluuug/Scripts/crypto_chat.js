@@ -45,15 +45,7 @@ class Crypto {
     }
 
     generate_secret_key(AB, a, p) {
-        console.log('private key : ');
-        console.log('foreign publ key : ' + AB);
-        console.log('my secret a : ' + a);
-        console.log('p publ value : ' + p);
-        console.log('** ' + AB ** a);
         var K = (AB ** a) % p;
-
-        console.log('secret key : ' + K);
-        console.log('------');
         return K;
     }
 
@@ -109,9 +101,8 @@ class Crypto {
 class Invited {
 
     got_invitation(crypto_conversation) {
-        console.log(crypto_conversation);
         document.querySelector('#currentSC').insertAdjacentHTML('beforeend',
-            '<div class="cryptp_chat" style="background-color:coral; cursor:pointer" >' +
+            '<div class="cryptp_chat" style="cursor:pointer" >' +
             '<span>Opening date : ' + crypto_conversation.creationDate + ' </span>' +
             '<span>Chat Active : True</span>' +
             '<p><span>Inviter : </span></p>' +
@@ -174,6 +165,7 @@ class Invited {
                         accept_btm.parentNode.removeChild(accept_btm);
 
                     });
+                location.reload();
             });
 
     }
@@ -244,8 +236,11 @@ class Inviter {
                 }
                 cryptoChat.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv));
                 localStorage.setItem(crypto_cnv.convGuidId, JSON.stringify(crypto_cnv));
-            });
 
+                document.querySelector('#self_created').insertAdjacentHTML('beforeend',
+                    '<div class="cryptp_chat" style="background-color:azure; cursor:pointer">'+
+                   '<span>Ваш собственный чат с пользователями :</span></div>');
+            });
     }
 
     got_invited_answer(crypto_cnv) {
@@ -283,9 +278,13 @@ class Inviter {
 
                 localStorage.removeItem(chatSecretName);
                 localStorage.setItem(chatSecretName, JSON.stringify(localePrivateJson));
+                location.reload();
             });
     }
+
 }
+
+
 
 var inviter = new Inviter();
 var invited = new Invited();
@@ -310,6 +309,15 @@ cryptoChat.on('AcceptInvitation', function (crypto_cnv) {
     inviter.got_invited_answer(crypto_cnv);
 });
 
+function ready() {
+    var elements = document.getElementsByClassName('cryptp_chat');
+    [].forEach.call(elements, function (elem) {
+        elem.addEventListener('click', function () {
+            alert(elem.id);
+        });
+    });
+}
+document.addEventListener('onload', ready());
 
 
 
