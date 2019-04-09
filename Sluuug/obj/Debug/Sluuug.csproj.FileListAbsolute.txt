@@ -117,3 +117,9 @@ D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.guidinsecretchat3.resour
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.guidinsecretchat4.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.guidinsecretchat6.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._4.resources
+D:\My_Utilits\Sluuug\Sluuug\bin\System.Net.Http.Formatting.dll
+D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.dll
+D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.WebHost.dll
+D:\My_Utilits\Sluuug\Sluuug\bin\System.Net.Http.Formatting.xml
+D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.xml
+D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.WebHost.xml

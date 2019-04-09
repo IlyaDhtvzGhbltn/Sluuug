@@ -1,5 +1,7 @@
 ﻿using Context;
+using Slug.Context.Dto.CryptoConversation;
 using Slug.Context.Tables;
+using Slug.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +22,11 @@ namespace Slug.Helpers
 
             };
 
-        public Guid CreateNewCryptoChat(CryptoChatType type, List<string> UserIds, int Inviter)
+        public CreateNewCryptoChatResponse CreateNewCryptoChat(CryptoChatType type, List<Participant> UserIds, int Inviter)
         {
             var newSecretChat = new SecretChat();
             newSecretChat.Create = DateTime.Now;
-            newSecretChat.Destroy = DateTime.Now.Add( CryptoChatDestroyDates[type] );
+            newSecretChat.Destroy = DateTime.Now.Add(CryptoChatDestroyDates[type]);
             newSecretChat.PartyGuid = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
@@ -32,7 +34,7 @@ namespace Slug.Helpers
                 context.SaveChanges();
                 foreach (var userInvited in UserIds)
                 {
-                    int userId = Convert.ToInt32(userInvited);
+                    int userId = Convert.ToInt32(userInvited.UserId);
                     var secretGroups = new SecretChatGroup();
                     secretGroups.PartyGUID = newSecretChat.PartyGuid;
                     secretGroups.UserId = userId;
@@ -44,7 +46,11 @@ namespace Slug.Helpers
                 context.SecretChatGroup.Add(secretGroup);
                 context.SaveChanges();
 
-                return newSecretChat.PartyGuid;
+                var response = new CreateNewCryptoChatResponse();
+                response.CryptoGuidId = newSecretChat.PartyGuid;
+                response.ExpireDate = newSecretChat.Destroy;
+
+                return response;
             }
         }
     }

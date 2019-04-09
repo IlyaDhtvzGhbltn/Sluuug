@@ -8,44 +8,55 @@ using Newtonsoft.Json.Linq;
 using Slug.Context;
 using Slug.Helpers;
 using Newtonsoft.Json;
+using Slug.Model;
+using Slug.Context.Dto.CryptoConversation;
 
 namespace Slug.Hubs
 {
     public class cryptoMessagersHub : Hub
     {
-        public void CreateRequest(string create_request)
+        public void CreateNewCryptoConversation(string create_request)
         {
             var Cookie = base.Context.Request.Cookies;
             var session_id = Cookie["session_id"];
             var uW = new UserWorker();
             var UserInfo = uW.GetUserInfo(session_id.Value);
 
-            var CryptoChatRequest = JsonConvert.DeserializeObject<CryptoChatRequest>(create_request);
-            
+            var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
+            CryptoChatResponce.CreatorName = UserInfo.Name;
+            CryptoChatResponce.CreatorAvatar = UserInfo.AvatarUri;
+            CryptoChatResponce.CreationDate = DateTime.Now;
+
             var CryptWorker = new CryptoChatWorker();
-            var charGuid = CryptWorker.CreateNewCryptoChat((CryptoChatType)CryptoChatRequest.Type, CryptoChatRequest.Inviters, UserInfo.UserId);
-            Clients.Caller.NewCryptoChatResponce(charGuid);
+            var response = CryptWorker.CreateNewCryptoChat(CryptoChatResponce.Type, CryptoChatResponce.Participants, UserInfo.UserId);
+            CryptoChatResponce.ConvGuidId = response.CryptoGuidId;
+            CryptoChatResponce.CreatorUserId = UserInfo.UserId;
+            CryptoChatResponce.Participants.Add(
+                new Participant() {
+                UserId = CryptoChatResponce.CreatorUserId
+            });
+            CryptoChatResponce.ExpireDate = response.ExpireDate;
+
+            Clients.Caller.NewCryptoConversationCreated(CryptoChatResponce);
         }
 
-        public void InviteToCreatedNew(dynamic offer_to_cripto_chat)
+        public void InviteUsersToCryptoChat(string offer_to_cripto_chat)
         {
             Cookie Session = Context.Request.Cookies["session_id"];
             UserWorker worker = new UserWorker();
-            var from = worker.GetUserInfo(Session.Value);
+            CutUserInfoModel from = worker.GetUserInfo(Session.Value);
 
-            Clients.Others.Invite(offer_to_cripto_chat);
+            PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
+            cryptoConversation.CreatorAvatar = from.AvatarUri;
+            cryptoConversation.CreatorName = from.Name;
+
+            Clients.Others.ObtainNewInvitation(cryptoConversation);
         }
 
-        public void AcceptInvite(dynamic ansver_to_cripto_chat)
+        public void AcceptInvite(string ansver_to_cripto_chat)
         {
-            Clients.All.accept(ansver_to_cripto_chat);
+            Clients.Others.AcceptInvitation(ansver_to_cripto_chat);
         }
     }
 
-    public class CryptoChatRequest
-    {
-        public int Type { get; set; }
-
-        public List<string> Inviters { get; set; }
-    }
 }

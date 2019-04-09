@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Slug.Context.Tables;
 using Slug.Helpers;
 using Slug.Context.Attributes;
+using Slug.Context.Dto.UserWorker;
 
 namespace Slug.Controllers
 {
@@ -43,7 +44,7 @@ namespace Slug.Controllers
             }
             else
             {
-                UserWorker.UserConfirmationDitails userConfirmation = UserWorker.RegisterNew(user);
+                UserConfirmationDitails userConfirmation = UserWorker.RegisterNew(user);
 
                 var mailer = new Mailer(user.Email, userConfirmation.ActivatioMailParam);
                 mailer.SendActivationMail();

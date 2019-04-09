@@ -8,14 +8,14 @@ namespace Slug.Model
 {
     public class CryptoChatModel
     {
-        public List<cryptoChat> CurrentChats { get; set; }
+        public List<CryptoChat> CurrentChats { get; set; }
 
         public List<FriendModel> FriendsICanInvite { get; set; }
     }
 
-    public class cryptoChat
+    public class CryptoChat
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public List<FriendModel> Users { get; set; }
 

@@ -15,7 +15,7 @@
         }
     </div>
     <p>
-        <input type="button" value="Invite to secret chat" id="new_crypto_chat" />
+        <input type="button" value="Invite to secret chat" id="new_crypto_chat" onclick="invite()" />
     </p>
 </div>
 
@@ -24,7 +24,7 @@
     @foreach (var item in Model.CurrentChats)
     {
         <p>
-            <div class="cryptp_chat" id="@item.Id" style="background-color:coral; cursor:pointer">
+            <div class="cryptp_chat" style="background-color:coral; cursor:pointer">
                 <span>Opening date : @item.OpenDate</span>
                 <span> Chat Active : @item.ActiveStatus</span>
         <p>
@@ -37,9 +37,10 @@
                 <img src="@part.AvatarPath" height="30" width="30" />
             </p>
         }
+    <button onclick="accept_invite(this)" id="@item.Id">Accept</button>
     </div>
             </p>
-        }
+     }
 
 
     <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
