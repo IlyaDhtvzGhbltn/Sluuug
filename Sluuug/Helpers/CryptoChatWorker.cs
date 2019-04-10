@@ -8,6 +8,7 @@ using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Slug.Helpers
@@ -122,6 +123,53 @@ namespace Slug.Helpers
             }
         }
 
+        public async Task SaveSecretMessageHashAsync(string ChatId, int UserSenderId, string msgHash)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var message = new SecretMessages()
+                {
+                    PartyId = ChatId,
+                    SendingDate = DateTime.UtcNow,
+                    UserSender = UserSenderId,
+                    Text = msgHash
+                };
+                context.SecretMessage.Add(message);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public CryptoDialogModel GetCryptoDialog(string GuidId)
+        {
+            var model = new CryptoDialogModel();
+            var userWorker = new UserWorker();
+            var userInfos = new Dictionary<int, CutUserInfoModel>();
+
+            model.GuidId = Guid.Parse(GuidId);
+            model.Messages = new List<CryptoMessage>();
+            using (var context = new DataBaseContext())
+            {
+                var cryptoMessageCollection = context.SecretMessage.Where(x=>x.PartyId == GuidId).ToList();
+                foreach (var item in cryptoMessageCollection)
+                {
+                    if (!userInfos.ContainsKey(item.UserSender))
+                    {
+                        userInfos[item.UserSender] = userWorker.GetUserInfo(item.UserSender);
+                    }
+                    var CrMessage = new CryptoMessage()
+                    {
+                         SendDate = item.SendingDate,
+                         AvatatURI = userInfos[item.UserSender].AvatarUri,
+                         Text = item.Text, 
+                         Name = userInfos[item.UserSender].Name,
+                         SurName = userInfos[item.UserSender].SurName
+                    };
+                    model.Messages.Add(CrMessage);
+                }
+            }
+            return model;
+        }
+
 
         private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, Guid chatId)
         {
@@ -135,7 +183,6 @@ namespace Slug.Helpers
 
                 return CryptoChatStatus.PendingAccepted;
         }
-
         private List<FriendModel> getChatUser(DataBaseContext context, Guid PartyGUID, ref UserWorker user)
         {
             List<FriendModel> chatParticipants = new List<FriendModel>();

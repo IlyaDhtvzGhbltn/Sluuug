@@ -313,7 +313,7 @@ function ready() {
     var elements = document.getElementsByClassName('cryptp_chat');
     [].forEach.call(elements, function (elem) {
         elem.addEventListener('click', function () {
-            alert(elem.id);
+            window.location.href = "/private/c_msg?id=" + elem.id;
         });
     });
 }

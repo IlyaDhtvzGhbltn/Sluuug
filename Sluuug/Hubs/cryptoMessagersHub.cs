@@ -10,6 +10,8 @@ using Slug.Helpers;
 using Newtonsoft.Json;
 using Slug.Model;
 using Slug.Context.Dto.CryptoConversation;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Slug.Hubs
 {
@@ -65,6 +67,23 @@ namespace Slug.Hubs
             CrWorker.UpdateAcceptCryptoChat(id, cryptoConversation.ConvGuidId);
             Clients.Others.AcceptInvitation(ansver_to_cripto_chat);
         }
-    }
 
+        public async Task SendMessage(string message)
+        {
+            CryptoChatWorker CrWorker = new CryptoChatWorker();
+            UserWorker UsWorker = new UserWorker();
+            Cookie cookies = base.Context.Request.Cookies["session_id"];
+            int id = UsWorker.GetUserInfo(cookies.Value).UserId;
+
+            string uri = base.Context.QueryString["URL"];
+            Regex reg = new Regex("=.{36}");
+            MatchCollection matches = reg.Matches(uri);
+            string guidChatId = matches[0].ToString().Substring(1);
+            
+            await CrWorker.SaveSecretMessageHashAsync(guidChatId, id, message);
+            var Info = UsWorker.GetUserInfo(id);
+
+            Clients.All.NewMessage(message, Info.AvatarUri, Info.Name, DateTime.Now);
+        }
+    }
 }

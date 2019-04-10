@@ -125,3 +125,5 @@ D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.xml
 D:\My_Utilits\Sluuug\Sluuug\bin\System.Web.Http.WebHost.xml
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.a.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.tb.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.inttostr.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.max_length_36.resources

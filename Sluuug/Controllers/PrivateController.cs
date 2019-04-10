@@ -133,6 +133,13 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
+        public ActionResult c_msg(string id)
+        {
+            var model = CryptoChatWorker.GetCryptoDialog(id);
+            return View(model);
+        }
+
+        [HttpGet]
         public ActionResult logout()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
