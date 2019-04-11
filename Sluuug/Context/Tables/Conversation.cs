@@ -13,9 +13,9 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
-        public int ConversationId { get; set; }
+        public Guid ConversationGuidId { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public DateTime CreatedDateTime { get; set; }
     }
 }

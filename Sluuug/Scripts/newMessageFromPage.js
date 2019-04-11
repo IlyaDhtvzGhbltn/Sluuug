@@ -26,8 +26,7 @@ function drop_form(id) {
 function send_msg(to_id) {
     let text = document.getElementById('form_' + to_id).value;
     if (!is_empty(text)) {
-        messagesChat.invoke('SendMessage', text, -1);
-
+        messagesChat.invoke('SendMessage', text, 0, to_id);
         window.location.href = '/private/cnv';
     }
     else {
@@ -37,7 +36,7 @@ function send_msg(to_id) {
 
 function is_empty(text) {
 console.log(text);
-    if (text.length > 2)
+    if (text.length >= 2)
         return false;
     else
         return true;

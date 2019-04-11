@@ -12,7 +12,7 @@ namespace Slug.Model
 
     public class CutConversation
     {
-        public int Id { get; set; }
+        public Guid GuidId { get; set; }
 
         public string InterlocutorName { get; set; }
 

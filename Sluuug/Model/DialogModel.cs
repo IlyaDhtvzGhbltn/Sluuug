@@ -7,14 +7,14 @@ namespace Slug.Model
 {
     public class DialogModel
     {
-        public int DialogId { get; set; }
+        public Guid DialogId { get; set; }
 
         public ICollection<DialogMessage> Messages { get; set; }
     }
 
     public class DialogMessage
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public string UserName { get; set; }
 

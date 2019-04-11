@@ -10,12 +10,7 @@ connection.start()
     .done(function () {
         $('#sendButton')
             .click(function () {
-        if (session_id.length == 120) {
-            messagesChat.invoke('SendMessage', $('#new_msg').val(), this.name);
-        }
-        else {
-            window.location.href = 'http://localhost:32033/private/my';
-        }
+            messagesChat.invoke('SendMessage', $('#new_msg').val(), this.name, 0);
     });
 })
 

@@ -120,10 +120,10 @@ namespace Slug.Context
             return userModel;
         }
 
-        public bool CheckConversationBySessionId(string sessionId, int conversationId)
+        public bool CheckConversationBySessionId(string sessionId, Guid conversationGuidId)
         {
             var dW = new DialogWorker();
-            var ids = dW.GetConversatorsIds(conversationId);
+            var ids = dW.GetConversatorsIds(conversationGuidId);
             CutUserInfoModel user = GetUserInfo(sessionId);
             if (ids != null)
             {
@@ -192,6 +192,19 @@ namespace Slug.Context
                 }
             }
             return model;
+        }
+
+        public Guid GetConversationId(string userSenderSession, int userRecipientId)
+        {
+            int userSenderId = GetUserInfo(userSenderSession).UserId;
+            using (var context = new DataBaseContext())
+            {
+                var ConversationGuids = context.ConversationGroup
+                    .Where(user => user.UserId == userSenderId || user.UserId == userRecipientId).ToList();
+                if (ConversationGuids[0].ConversationGuidId == ConversationGuids[1].ConversationGuidId)
+                    return ConversationGuids[0].ConversationGuidId;
+            }
+            return Guid.NewGuid();
         }
 
     }

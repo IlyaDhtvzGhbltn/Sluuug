@@ -31,15 +31,14 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult cnv()
         {
-
             string sessionId = Request.Cookies.Get("session_id").Value;
             var user = UserWorker.GetUserInfo(sessionId);
-            var Convers = base.ConverWorker.GetPreConversations(user.UserId);
-            return View(Convers);
+            var Conversations = base.ConverWorker.GetPreConversations(user.UserId);
+            return View(Conversations);
         }
 
         [HttpGet]
-        public ActionResult msg(int id)
+        public ActionResult msg(Guid id)
         {
 
             string sessionId = Request.Cookies.Get("session_id").Value;

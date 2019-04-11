@@ -11,39 +11,29 @@ namespace Sluuug.Hubs
 {
     public class messagersHub : Hub
     {
-        public async Task SendMessage(string message, int convId)
+        public async Task SendMessage(string message, string convId, int toUserId)
         {
             Cookie cookies = base.Context.Request.Cookies["session_id"];
             var UsWork = new UserWorker();
-            if (convId != -1)
-            {
+            var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-                var user = UsWork.GetUserInfo(cookies.Value);
-                if (user != null)
+            var user = UsWork.GetUserInfo(cookies.Value);
+            if (user != null)
+            {
+                DialogWorker dW = new DialogWorker();
+                Guid conversation = Guid.Empty;
+                if (convId == "0")
                 {
-                    DialogWorker dW = new DialogWorker();
-                    var clearMsg = System.Net.WebUtility.HtmlDecode(message);
-
-
-                    await dW.SaveMsg(convId, user.UserId, clearMsg);
-                    Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convId);
+                    conversation = UsWork.GetConversationId(cookies.Value, toUserId);
                 }
+                else
+                {
+                    conversation = Guid.Parse(convId);
+                }
+
+                await dW.SaveMsg(conversation, user.UserId, clearMsg);
+                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convId);
             }
-            else if (convId == -1)
-            {
-                sendFromUserPage();
-            }
-        }
-
-
-        private void sendFromDialog()
-        {
-
-        }
-
-        private void sendFromUserPage()
-        {
-
         }
     }
 }

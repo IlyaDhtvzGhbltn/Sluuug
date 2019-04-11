@@ -18,6 +18,15 @@ namespace Context
         public DbSet<User> Users { get; set; }
         public DbSet<UserStatus> UserStatuses { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<ConversationGroup> ConversationGroup { get; set; }
+
         public DbSet<Message> Messangers { get; set; }
+        public DbSet<Avatars> Avatars { get; set; }
+        public DbSet<FriendsRelationship> FriendsRelationship { get; set; }
+
+        public DbSet<SecretMessages> SecretMessage { get; set; }
+        public DbSet<SecretChat> SecretChat { get; set; }
+        public DbSet<SecretChatGroup> SecretChatGroup { get; set; }
+
     }
 }
