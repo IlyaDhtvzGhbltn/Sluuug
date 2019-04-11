@@ -13,6 +13,7 @@ namespace Slug.Model
         public List<CryptoChat> AcceptNeeded { get; set; }
 
         public List<FriendModel> FriendsICanInvite { get; set; }
+
     }
 
     public class CryptoChat
@@ -24,5 +25,7 @@ namespace Slug.Model
         public DateTime OpenDate { get; set; }
 
         public bool ActiveStatus { get; set; }
+
+        public bool Expired { get; set; }
     }
 }

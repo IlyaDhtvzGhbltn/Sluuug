@@ -81,32 +81,30 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                var chatIDs = context.SecretChatGroup.Where(x => x.UserId == userInformation.UserId).Select(c => c).ToList();
+                List<SecretChatGroup> chatIDs = context.SecretChatGroup.Where(x => x.UserId == userInformation.UserId).Select(c => c).ToList();
                 foreach (var item in chatIDs)
                 {
                     SecretChat secretChat = context.SecretChat.FirstOrDefault(x => x.PartyGuid == item.PartyGUID);
                     if (secretChat != null)
                     {
-
-                        var chat = new CryptoChat();
-                        chat.OpenDate = secretChat.Create;
-                        chat.GuidId = secretChat.PartyGuid;
-                        DateTime destroyChatTime = secretChat.Destroy;
-                        if (destroyChatTime < DateTime.Now)
-                            chat.ActiveStatus = false;
-                        else
+                        if (!CryptoChatExpired(context, item.PartyGUID))
+                        {
+                            var chat = new CryptoChat();
+                            chat.OpenDate = secretChat.Create;
+                            chat.GuidId = secretChat.PartyGuid;
                             chat.ActiveStatus = true;
-                        chat.Users = new List<FriendModel>();
+                            chat.Users = new List<FriendModel>();
 
-                        CryptoChatStatus status = ChatStatus(context, item.UserId, secretChat.PartyGuid);
-                        chat.GuidId = item.PartyGUID;
-                        chat.Users = getChatUser(context, item.PartyGUID, ref user);
-                        if (status == CryptoChatStatus.SelfCreated)
-                            model.SelfCreatedChats.Add(chat);
-                        else if (status == CryptoChatStatus.Accepted)
-                            model.CurrentChats.Add(chat);
-                        else if (status == CryptoChatStatus.PendingAccepted)
-                            model.AcceptNeeded.Add(chat);
+                            CryptoChatStatus status = ChatStatus(context, item.UserId, secretChat.PartyGuid);
+                            chat.GuidId = item.PartyGUID;
+                            chat.Users = getChatUser(context, item.PartyGUID, ref user);
+                            if (status == CryptoChatStatus.SelfCreated)
+                                model.SelfCreatedChats.Add(chat);
+                            else if (status == CryptoChatStatus.Accepted)
+                                model.CurrentChats.Add(chat);
+                            else if (status == CryptoChatStatus.PendingAccepted)
+                                model.AcceptNeeded.Add(chat);
+                        }
                     }
                 }
             }
@@ -139,7 +137,7 @@ namespace Slug.Helpers
             }
         }
 
-        public CryptoDialogModel GetCryptoDialog(string GuidId)
+        public CryptoDialogModel GetCryptoDialogs(string GuidId)
         {
             var model = new CryptoDialogModel();
             var userWorker = new UserWorker();
@@ -149,23 +147,28 @@ namespace Slug.Helpers
             model.Messages = new List<CryptoMessage>();
             using (var context = new DataBaseContext())
             {
-                var cryptoMessageCollection = context.SecretMessage.Where(x=>x.PartyId == GuidId).ToList();
-                foreach (var item in cryptoMessageCollection)
+                bool expiredFlag = CryptoChatExpired(context, Guid.Parse(GuidId));
+                if (!expiredFlag)
                 {
-                    if (!userInfos.ContainsKey(item.UserSender))
+                    List<SecretMessages> cryptoMessageCollection = context.SecretMessage.Where(x => x.PartyId == GuidId).ToList();
+                    foreach (var item in cryptoMessageCollection)
                     {
-                        userInfos[item.UserSender] = userWorker.GetUserInfo(item.UserSender);
+                        if (!userInfos.ContainsKey(item.UserSender))
+                        {
+                            userInfos[item.UserSender] = userWorker.GetUserInfo(item.UserSender);
+                        }
+                        var CrMessage = new CryptoMessage()
+                        {
+                            SendDate = item.SendingDate,
+                            AvatatURI = userInfos[item.UserSender].AvatarUri,
+                            Text = item.Text,
+                            Name = userInfos[item.UserSender].Name,
+                            SurName = userInfos[item.UserSender].SurName
+                        };
+                        model.Messages.Add(CrMessage);
                     }
-                    var CrMessage = new CryptoMessage()
-                    {
-                         SendDate = item.SendingDate,
-                         AvatatURI = userInfos[item.UserSender].AvatarUri,
-                         Text = item.Text, 
-                         Name = userInfos[item.UserSender].Name,
-                         SurName = userInfos[item.UserSender].SurName
-                    };
-                    model.Messages.Add(CrMessage);
                 }
+                else return null;
             }
             return model;
         }
@@ -199,6 +202,14 @@ namespace Slug.Helpers
                 chatParticipants.Add(friendModel);
             }
             return chatParticipants;
+        }
+        private bool CryptoChatExpired(DataBaseContext context, Guid GuidId)
+        {
+            SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGuid == GuidId).First();
+            if (CryptoChat.Destroy > DateTime.Now)
+                return false;
+            else
+                return true;
         }
     }
 }

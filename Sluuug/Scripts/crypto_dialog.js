@@ -41,8 +41,6 @@ function onLoad() {
         let span_msg = getElementByXpath('//*[@id="c_msgs"]/div[' + i + ']/span[2]');
         let cryptText = span_msg.textContent;
         let decryptText = decryption(cryptText);
-
-        console.log(decryptText);
         span_msg.textContent = decryptText;
     }
 }

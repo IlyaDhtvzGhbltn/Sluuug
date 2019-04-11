@@ -76,7 +76,7 @@ namespace Slug.Hubs
             int id = UsWorker.GetUserInfo(cookies.Value).UserId;
 
             string uri = base.Context.QueryString["URL"];
-            Regex reg = new Regex("=.{36}");
+            var reg = new Regex("=.{36}");
             MatchCollection matches = reg.Matches(uri);
             string guidChatId = matches[0].ToString().Substring(1);
             

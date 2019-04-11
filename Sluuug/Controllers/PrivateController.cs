@@ -135,8 +135,12 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult c_msg(string id)
         {
-            var model = CryptoChatWorker.GetCryptoDialog(id);
-            return View(model);
+            var model = CryptoChatWorker.GetCryptoDialogs(id);
+            if (model != null)
+            {
+                return View(model);
+            }
+            else return RedirectToAction("my","private");
         }
 
         [HttpGet]
