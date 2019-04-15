@@ -94,10 +94,19 @@ namespace Slug.Helpers
                             chat.GuidId = secretChat.PartyGuid;
                             chat.ActiveStatus = true;
                             chat.Users = new List<FriendModel>();
+                            var GuidId = item.PartyGUID.ToString();
+                            var count = context.SecretMessage.Count(x=>x.PartyId == GuidId);
+                            if (count != 0)
+                            {
+                                SecretMessages last = context.SecretMessage.ToList().Last();
+                                chat.LastMessage = last.Text;
+                            }
 
                             CryptoChatStatus status = ChatStatus(context, item.UserId, secretChat.PartyGuid);
                             chat.GuidId = item.PartyGUID;
                             chat.Users = getChatUser(context, item.PartyGUID, ref user);
+
+
                             if (status == CryptoChatStatus.SelfCreated)
                                 model.SelfCreatedChats.Add(chat);
                             else if (status == CryptoChatStatus.Accepted)

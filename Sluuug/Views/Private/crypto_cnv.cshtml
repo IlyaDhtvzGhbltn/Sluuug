@@ -30,6 +30,7 @@
                     <img src="@user.AvatarPath" height="30" width="30" />
                 </p>
             }
+             <span class="last_msg_crypto">@item.LastMessage</span>
         </div>
     }
 </div>
@@ -38,7 +39,7 @@
     @foreach (var item in Model.CurrentChats)
     {
             <div class="cryptp_chat" id="@item.GuidId" style="background-color:coral; cursor:pointer">
-                <span>Opening date : @item.OpenDate</span>
+                <b>Opening date : @item.OpenDate</b>
                 <span> Chat Active : @item.ActiveStatus</span>
         <p>
         <span> Participants : </span>
@@ -50,6 +51,7 @@
                 <img src="@part.AvatarPath" height="30" width="30" />
             </p>
         }
+        <span class="last_msg_crypto">@item.LastMessage</span>
     </div>
      }
     </div>
@@ -68,6 +70,7 @@
     }
 </div>
 
-    <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
-    <script src="~/Scripts/crypto_chat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="~/Scripts/crypto_chat.js"></script>

@@ -32,7 +32,7 @@ namespace Sluuug.Hubs
                 }
 
                 await dW.SaveMsg(conversation, user.UserId, clearMsg);
-                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convId);
+                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), conversation);
             }
         }
     }

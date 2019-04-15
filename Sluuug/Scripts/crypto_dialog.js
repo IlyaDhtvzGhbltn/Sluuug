@@ -3,7 +3,7 @@ var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
 connection.qs = 'URL=' + window.location.href;
 connection.start();
 
-cryptoChat.on('NewMessage', function (message, avatar, name, date) {
+cryptoChat.on('NewMessage', function (message, avatar, name, date, guidChatId) {
     get_new(message, avatar, name, date);
 });
 

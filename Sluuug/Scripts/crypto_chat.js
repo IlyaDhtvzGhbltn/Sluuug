@@ -309,16 +309,45 @@ cryptoChat.on('AcceptInvitation', function (crypto_cnv) {
     inviter.got_invited_answer(crypto_cnv);
 });
 
+cryptoChat.on('NewMessage', function (crypto_msg, avatar, name, date, guidChatId) {
+    got_message(crypto_msg, guidChatId);
+});
+
 function ready() {
     var elements = document.getElementsByClassName('cryptp_chat');
     [].forEach.call(elements, function (elem) {
         elem.addEventListener('click', function () {
             window.location.href = "/private/c_msg?id=" + elem.id;
         });
+        let span_msg = getElementByXpath('//*[@id="' + elem.id + '"]/span[2]');
+        let cryptText = span_msg.textContent;
+        let decryptText = decryption(cryptText, elem.id);
+        span_msg.textContent = decryptText;
     });
 }
 document.addEventListener('onload', ready());
 
+
+function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}
+
+function decryption(message, id) {
+    //let url = new URL(window.location.href);
+    //let id = url.searchParams.get('id');
+
+    let skey = JSON.parse(localStorage.getItem('__' + id));
+    var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+function got_message(crypto_msg, guidChatId) {
+
+    let span_msg = getElementByXpath('//*[@id="' + guidChatId + '"]/span[2]');
+    let cryptText = span_msg.textContent;
+    let decryptText = decryption(crypto_msg, guidChatId);
+    span_msg.textContent = decryptText;
+}
 
 
 

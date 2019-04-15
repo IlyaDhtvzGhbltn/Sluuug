@@ -83,7 +83,7 @@ namespace Slug.Hubs
             await CrWorker.SaveSecretMessageHashAsync(guidChatId, id, message);
             var Info = UsWorker.GetUserInfo(id);
 
-            Clients.All.NewMessage(message, Info.AvatarUri, Info.Name, DateTime.Now);
+            Clients.All.NewMessage(message, Info.AvatarUri, Info.Name, DateTime.Now, guidChatId);
         }
     }
 }
