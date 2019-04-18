@@ -11,17 +11,17 @@ namespace Slug.Hubs
     {
         public async Task NewChatMessage()
         {
-            Clients.Clients(new List<string>()).GotNewChatMessage();
+            //Clients.Clients().GotNewChatMessage();
         }
 
         public async Task NewCryptoChatMessage()
         {
-            Clients.Others.GotNewCryptoChatMessage();
+            //Clients.Others.GotNewCryptoChatMessage();
         }
 
         public async Task NewVideoConverence()
         {
-            Clients.Others.NewVideoConverence();
+            //Clients.Others.NewVideoConverence();
         }
     }
 }

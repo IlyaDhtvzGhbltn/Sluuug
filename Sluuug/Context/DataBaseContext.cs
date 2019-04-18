@@ -28,5 +28,9 @@ namespace Context
         public DbSet<SecretChat> SecretChat { get; set; }
         public DbSet<SecretChatGroup> SecretChatGroup { get; set; }
 
+        public DbSet<VideoConference> VideoConferences { get; set; }
+        public DbSet<VideoConferenceGroups> VideoConferenceGroups { get; set; }
+
+
     }
 }

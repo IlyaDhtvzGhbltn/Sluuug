@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "conference";
+    Layout = "~/Views/Shared/logo.cshtml";
+}
+<div id="drop">
+    <video autoplay height="200" width="200" id="remoteVideo"></video>
+    <video autoplay height="200" width="200" id="localVideo"></video>
+
+</div>
+
+<h3>call now:</h3>
+<div id="friends">
+    @foreach (var item in Model.Friends)
+    {
+        <div class="friend_div" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+    }
+</div>
+
+<h3>incomming calls</h3>
+<div id="incomming">
+</div>
+<h3>calls history</h3>
+<div id="calls_history">
+</div>
+
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="~/Scripts/vDialogs.js"></script>

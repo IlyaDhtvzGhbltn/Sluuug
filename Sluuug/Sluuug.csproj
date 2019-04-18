@@ -148,6 +148,8 @@
     <Content Include="Scripts\newMessageFromPage.js" />
     <Content Include="Scripts\newMsgInConv.js" />
     <Content Include="Scripts\vConferens.js" />
+    <Content Include="Scripts\vDialogRedirection.js" />
+    <Content Include="Scripts\vDialogs.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -168,6 +170,8 @@
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\UserWorker\UserConfirmationDitails.cs" />
+    <Compile Include="Context\Tables\VideoConference.cs" />
+    <Compile Include="Context\Tables\VideoConferenceGroups.cs" />
     <Compile Include="Context\Tables\ConversationGroup.cs" />
     <Compile Include="Context\Tables\FriendsRelationship.cs" />
     <Compile Include="Context\Tables\SecretChat.cs" />
@@ -199,93 +203,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BaseController\SlugController.cs" />
+    <Compile Include="Helpers\VideoConferenceWorker.cs" />
     <Compile Include="Hubs\cryptoMessagersHub.cs" />
+    <Compile Include="Hubs\GlobalHub.cs" />
     <Compile Include="Hubs\messagersHub.cs" />
     <Compile Include="Hubs\videoChatInviteHub.cs" />
-    <Compile Include="Migrations\201903161319471_imges_tbls.cs" />
-    <Compile Include="Migrations\201903161319471_imges_tbls.Designer.cs">
-      <DependentUpon>201903161319471_imges_tbls.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903161324317_imges_tbls2.cs" />
-    <Compile Include="Migrations\201903161324317_imges_tbls2.Designer.cs">
-      <DependentUpon>201903161324317_imges_tbls2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903161331117_custom avatars.cs" />
-    <Compile Include="Migrations\201903161331117_custom avatars.Designer.cs">
-      <DependentUpon>201903161331117_custom avatars.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903161352104_refact tables avatr.cs" />
-    <Compile Include="Migrations\201903161352104_refact tables avatr.Designer.cs">
-      <DependentUpon>201903161352104_refact tables avatr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903161428242_open_date conv column drop.cs" />
-    <Compile Include="Migrations\201903161428242_open_date conv column drop.Designer.cs">
-      <DependentUpon>201903161428242_open_date conv column drop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903161442152_sess_num column drop from msg table.cs" />
-    <Compile Include="Migrations\201903161442152_sess_num column drop from msg table.Designer.cs">
-      <DependentUpon>201903161442152_sess_num column drop from msg table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903181502161_friendly_tbl.cs" />
-    <Compile Include="Migrations\201903181502161_friendly_tbl.Designer.cs">
-      <DependentUpon>201903181502161_friendly_tbl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903181516397_name_fix.cs" />
-    <Compile Include="Migrations\201903181516397_name_fix.Designer.cs">
-      <DependentUpon>201903181516397_name_fix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903191152060_rename.cs" />
-    <Compile Include="Migrations\201903191152060_rename.Designer.cs">
-      <DependentUpon>201903191152060_rename.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903191413525_long to int.cs" />
-    <Compile Include="Migrations\201903191413525_long to int.Designer.cs">
-      <DependentUpon>201903191413525_long to int.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903231144420_s.cs" />
-    <Compile Include="Migrations\201903231144420_s.Designer.cs">
-      <DependentUpon>201903231144420_s.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903301745354_secret tbo.cs" />
-    <Compile Include="Migrations\201903301745354_secret tbo.Designer.cs">
-      <DependentUpon>201903301745354_secret tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011341113_guid in secret chat.cs" />
-    <Compile Include="Migrations\201904011341113_guid in secret chat.Designer.cs">
-      <DependentUpon>201904011341113_guid in secret chat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011357336_guid in secret chat2.cs" />
-    <Compile Include="Migrations\201904011357336_guid in secret chat2.Designer.cs">
-      <DependentUpon>201904011357336_guid in secret chat2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011407060_guid in secret chat3.cs" />
-    <Compile Include="Migrations\201904011407060_guid in secret chat3.Designer.cs">
-      <DependentUpon>201904011407060_guid in secret chat3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011408314_guid in secret chat4.cs" />
-    <Compile Include="Migrations\201904011408314_guid in secret chat4.Designer.cs">
-      <DependentUpon>201904011408314_guid in secret chat4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011559484_guid in secret chat6.cs" />
-    <Compile Include="Migrations\201904011559484_guid in secret chat6.Designer.cs">
-      <DependentUpon>201904011559484_guid in secret chat6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011609161_4.cs" />
-    <Compile Include="Migrations\201904011609161_4.Designer.cs">
-      <DependentUpon>201904011609161_4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904091234351_a.cs" />
-    <Compile Include="Migrations\201904091234351_a.Designer.cs">
-      <DependentUpon>201904091234351_a.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904091357315_tb.cs" />
-    <Compile Include="Migrations\201904091357315_tb.Designer.cs">
-      <DependentUpon>201904091357315_tb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904100835108_int to str.cs" />
-    <Compile Include="Migrations\201904100835108_int to str.Designer.cs">
-      <DependentUpon>201904100835108_int to str.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201904100939241_max_length_36.cs" />
     <Compile Include="Migrations\201904100939241_max_length_36.Designer.cs">
       <DependentUpon>201904100939241_max_length_36.cs</DependentUpon>
@@ -297,6 +219,34 @@
     <Compile Include="Migrations\201904111551311_int_to_guid%27.cs" />
     <Compile Include="Migrations\201904111551311_int_to_guid%27.Designer.cs">
       <DependentUpon>201904111551311_int_to_guid%27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904151551074_video conference tbo.cs" />
+    <Compile Include="Migrations\201904151551074_video conference tbo.Designer.cs">
+      <DependentUpon>201904151551074_video conference tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904160746553_answer added in video_conference.cs" />
+    <Compile Include="Migrations\201904160746553_answer added in video_conference.Designer.cs">
+      <DependentUpon>201904160746553_answer added in video_conference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904171105261_video tbo.cs" />
+    <Compile Include="Migrations\201904171105261_video tbo.Designer.cs">
+      <DependentUpon>201904171105261_video tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904171141089_answer -null.cs" />
+    <Compile Include="Migrations\201904171141089_answer -null.Designer.cs">
+      <DependentUpon>201904171141089_answer -null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904171429111_answer user id.cs" />
+    <Compile Include="Migrations\201904171429111_answer user id.Designer.cs">
+      <DependentUpon>201904171429111_answer user id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904171443060_answer user id2.cs" />
+    <Compile Include="Migrations\201904171443060_answer user id2.Designer.cs">
+      <DependentUpon>201904171443060_answer user id2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904171606307_eeee.cs" />
+    <Compile Include="Migrations\201904171606307_eeee.Designer.cs">
+      <DependentUpon>201904171606307_eeee.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConversationsModel.cs" />
@@ -322,9 +272,10 @@
     <Content Include="Views\Private\user.cshtml" />
     <Content Include="Views\Private\friend.cshtml" />
     <Content Include="Views\Private\contacts.cshtml" />
-    <Content Include="Views\Private\video_chat.cshtml" />
+    <Content Include="Views\Private\invite_video_conversation.cshtml" />
     <Content Include="Views\Private\crypto_cnv.cshtml" />
     <Content Include="Views\Private\c_msg.cshtml" />
+    <Content Include="Views\Private\v_conversation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -336,70 +287,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903161319471_imges_tbls.resx">
-      <DependentUpon>201903161319471_imges_tbls.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903161324317_imges_tbls2.resx">
-      <DependentUpon>201903161324317_imges_tbls2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903161331117_custom avatars.resx">
-      <DependentUpon>201903161331117_custom avatars.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903161352104_refact tables avatr.resx">
-      <DependentUpon>201903161352104_refact tables avatr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903161428242_open_date conv column drop.resx">
-      <DependentUpon>201903161428242_open_date conv column drop.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903161442152_sess_num column drop from msg table.resx">
-      <DependentUpon>201903161442152_sess_num column drop from msg table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903181502161_friendly_tbl.resx">
-      <DependentUpon>201903181502161_friendly_tbl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903181516397_name_fix.resx">
-      <DependentUpon>201903181516397_name_fix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903191152060_rename.resx">
-      <DependentUpon>201903191152060_rename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903191413525_long to int.resx">
-      <DependentUpon>201903191413525_long to int.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903231144420_s.resx">
-      <DependentUpon>201903231144420_s.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903301745354_secret tbo.resx">
-      <DependentUpon>201903301745354_secret tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011341113_guid in secret chat.resx">
-      <DependentUpon>201904011341113_guid in secret chat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011357336_guid in secret chat2.resx">
-      <DependentUpon>201904011357336_guid in secret chat2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011407060_guid in secret chat3.resx">
-      <DependentUpon>201904011407060_guid in secret chat3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011408314_guid in secret chat4.resx">
-      <DependentUpon>201904011408314_guid in secret chat4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011559484_guid in secret chat6.resx">
-      <DependentUpon>201904011559484_guid in secret chat6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011609161_4.resx">
-      <DependentUpon>201904011609161_4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904091234351_a.resx">
-      <DependentUpon>201904091234351_a.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904091357315_tb.resx">
-      <DependentUpon>201904091357315_tb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904100835108_int to str.resx">
-      <DependentUpon>201904100835108_int to str.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904100939241_max_length_36.resx">
       <DependentUpon>201904100939241_max_length_36.cs</DependentUpon>
     </EmbeddedResource>
@@ -408,6 +295,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904111551311_int_to_guid%27.resx">
       <DependentUpon>201904111551311_int_to_guid%27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904151551074_video conference tbo.resx">
+      <DependentUpon>201904151551074_video conference tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904160746553_answer added in video_conference.resx">
+      <DependentUpon>201904160746553_answer added in video_conference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171105261_video tbo.resx">
+      <DependentUpon>201904171105261_video tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171141089_answer -null.resx">
+      <DependentUpon>201904171141089_answer -null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171429111_answer user id.resx">
+      <DependentUpon>201904171429111_answer user id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171443060_answer user id2.resx">
+      <DependentUpon>201904171443060_answer user id2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171606307_eeee.resx">
+      <DependentUpon>201904171606307_eeee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -115,13 +115,20 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult video_chat()
+        public ActionResult invite_video_conversation()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
             var model = base.UserWorker.GetFriendsBySession(sessionId);
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult v_conversation(Guid id, string type)
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public ActionResult crypto_cnv()

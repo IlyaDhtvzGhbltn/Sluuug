@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Context 
 {
+    public enum VideoConverenceCallType
+    {
+        Caller,
+        Calle
+    }
+
     public enum CryptoChatStatus
     {
         SelfCreated,
