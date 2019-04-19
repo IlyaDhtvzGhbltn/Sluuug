@@ -6,6 +6,25 @@ using System.Threading.Tasks;
 
 namespace Context 
 {
+    public enum CallState
+    {
+        In,
+        Out
+    }
+
+    public enum VideoConverenceCallType
+    {
+        Caller,
+        Calle
+    }
+
+    public enum CryptoChatStatus
+    {
+        SelfCreated,
+        PendingAccepted,
+        Accepted
+    }
+
     public enum SessionTypes
     {
         Guest ,
@@ -26,5 +45,14 @@ namespace Context
     {
         Correct,
         Fail
+    }
+
+    public enum CryptoChatType
+    {
+        Hour,
+        Hours_6,
+        Day,
+        Month,
+        Year
     }
 }

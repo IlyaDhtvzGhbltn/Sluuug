@@ -1,5 +1,4 @@
-﻿var session_id = document.cookie.replace(/(?:(?:^|.*;\s*)session_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-var connection = $.hubConnection();
+﻿var connection = $.hubConnection();
 var messagesChat = connection.createHubProxy('messagersHub');
 connection.start();
 
@@ -11,6 +10,7 @@ messagesChat.on('sendAsync', function (img, userName, userSurname, message, date
 function addMsgOrConversation(img, userName, userSurname, message, dateTime, convId) {
 
     var dialogBlock = $('#' + convId);
+
     if (dialogBlock.length > 0) {
         dialogBlock.html('<img height= "20" width= "20" src= ' + img + ' /><p>' + userName + '  ' + userSurname + '</p>' +
             '<p>' + message + '</p>');

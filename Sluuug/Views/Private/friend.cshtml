@@ -12,5 +12,10 @@
     <p>@Model.SurName</p>
     <p>@Model.DateOfBirth</p>
     <p>@Model.Sity</p>
-    <p><button name="@Model.UserId">Send Message</button></p>
+    <p><button id="@Model.UserId" onclick="create_form(this)">Send Message</button></p>
 </div>
+
+
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="~/Scripts/newMessageFromPage.js"></script>

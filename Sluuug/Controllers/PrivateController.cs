@@ -3,11 +3,17 @@ using Slug.Context.Attributes;
 using Slug.Helpers;
 using Slug.Model;
 using Slug.Model.Users;
+using Slug.Model.VideoConference;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Slug.Context.Dto.UserWorker;
+using Newtonsoft.Json;
 
 namespace Slug.Controllers
 {
@@ -28,18 +34,43 @@ namespace Slug.Controllers
             return View(userInfoModel);
         }
 
-        [HttpGet]
-        public ActionResult cnv()
+        [HttpPost]
+        public ActionResult upload(HttpPostedFileBase upload)
         {
+            if (upload != null)
+            {
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+                Account account = new Account(
+                  "dlk1sqmj4",
+                  "846574769361479",
+                  "XrQqn5IpPmsnIS3s5PCrvUr-3xw");
 
-            string sessionId = Request.Cookies.Get("session_id").Value;
-            var user = UserWorker.GetUserInfo(sessionId);
-            var Convers = base.ConverWorker.GetPreConversations(user.UserId);
-            return View(Convers);
+                Cloudinary cloudinary = new Cloudinary(account);
+                var uploadParams = new ImageUploadParams()
+                {
+                    Folder = "/users/avatars",
+                    File = new FileDescription(fileName, upload.InputStream)
+                };
+                ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+                CloudImageUploadResult result = JsonConvert.DeserializeObject<CloudImageUploadResult>(uploadResult.JsonObj.Root.ToString());
+                string cookies = Request.Cookies.Get("session_id").Value;
+
+                UserWorker.ChangeAvatarUri(cookies, result.SecureUrl);
+            }
+            return RedirectToAction("my", "private");
         }
 
         [HttpGet]
-        public ActionResult msg(int id)
+        public ActionResult cnv()
+        {
+            string sessionId = Request.Cookies.Get("session_id").Value;
+            var user = UserWorker.GetUserInfo(sessionId);
+            var Conversations = base.ConverWorker.GetPreConversations(user.UserId);
+            return View(Conversations);
+        }
+
+        [HttpGet]
+        public ActionResult msg(Guid id)
         {
 
             string sessionId = Request.Cookies.Get("session_id").Value;
@@ -111,24 +142,46 @@ namespace Slug.Controllers
         public ActionResult contacts()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var model = base.UserWorker.GetFriendsBySession(sessionId);
+            MyFriendsModel model = base.UserWorker.GetFriendsBySession(sessionId);
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult video_chat()
+        public ActionResult invite_video_conversation()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var model = base.UserWorker.GetFriendsBySession(sessionId);
+            VideoConferenceModel model = base.VideoConferenceWorker.VideoConferenceModel(sessionId);
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult v_conversation(Guid id)
+        {
+            bool isActive = base.VideoConferenceWorker.IsConverenceActive(id);
+            if (isActive)
+                return View();
+            else
+                return RedirectToAction("invite_video_conversation", "private");
+        }
+
         [HttpGet]
         public ActionResult crypto_cnv()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var model = UserWorker.GetCryptoChat(sessionId);
+            CryptoChatModel model = CryptoChatWorker.GetCryptoChat(sessionId);
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult c_msg(string id)
+        {
+            var model = CryptoChatWorker.GetCryptoDialogs(id);
+            if (model != null)
+            {
+                return View(model);
+            }
+            else return RedirectToAction("my","private");
         }
 
         [HttpGet]

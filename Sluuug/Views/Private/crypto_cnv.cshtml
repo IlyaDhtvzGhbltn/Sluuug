@@ -15,16 +15,31 @@
         }
     </div>
     <p>
-        <input type="button" value="Invite to secret chat" id="new_crypto_chat" />
+        <input type="button" value="Invite to secret chat" id="new_crypto_chat" onclick="invite()" />
     </p>
+</div>
+
+<div id="self_created">
+    @foreach (var item in Model.SelfCreatedChats)
+    {
+        <div class="cryptp_chat" id="@item.GuidId" style="background-color:azure; cursor:pointer">
+            <span>Ваш собственный чат с пользователями</span>
+            @foreach (var user in item.Users)
+            {
+                <p>
+                    <img src="@user.AvatarPath" height="30" width="30" />
+                </p>
+            }
+             <span class="last_msg_crypto">@item.LastMessage</span>
+        </div>
+    }
 </div>
 
 <div id="currentSC">
     @foreach (var item in Model.CurrentChats)
     {
-        <p>
-            <div class="cryptp_chat" id="@item.Id" style="background-color:coral; cursor:pointer">
-                <span>Opening date : @item.OpenDate</span>
+            <div class="cryptp_chat" id="@item.GuidId" style="background-color:coral; cursor:pointer">
+                <b>Opening date : @item.OpenDate</b>
                 <span> Chat Active : @item.ActiveStatus</span>
         <p>
         <span> Participants : </span>
@@ -36,11 +51,26 @@
                 <img src="@part.AvatarPath" height="30" width="30" />
             </p>
         }
+        <span class="last_msg_crypto">@item.LastMessage</span>
     </div>
-            </p>
-        }
+     }
     </div>
 
-    <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
-    <script src="~/Scripts/crypto_chat.js"></script>
+<div id="accept_need">
+    @foreach (var item in Model.AcceptNeeded)
+    {
+        <span>Вас пригласил в секретный чат к пользователям :</span>
+        foreach (var user in item.Users)
+        {
+        <p>
+            <img src="@user.AvatarPath" width="30" height="30" />
+        </p>
+        }
+        <button onclick="accept_invite(this)" id="@item.GuidId">Accept</button>
+    }
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="~/Scripts/crypto_chat.js"></script>

@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "conference";
+    Layout = "~/Views/Shared/logo.cshtml";
+}
+<h3>call now:</h3>
+<div id="friends">
+    @foreach (var item in Model.Friends)
+    {
+        <div class="friend_div" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+    }
+</div>
+
+<h3>incomming calls</h3>
+<div id="incomming">
+</div>
+<h3>calls history</h3>
+<div id="calls_history">
+    @foreach (var friend in Model.CallsHistory)
+    {
+    <div class="history_call" >
+        <p>
+            @if (friend.State == 0)
+    {
+        <img class="img_call_id" id="@friend.CallerUserId" width="30" height="30" />
+        <span class="call_name" id="@friend.CallerUserId"></span>
+        <span>Call to you</span>
+        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555601678/in_call.png" width="30" height="30" />
+}
+else
+{
+        <span>You called to</span>
+        <img class="img_call_id" id="@friend.CalleUserId" width="30" height="30" />
+        <span class="call_name" id="@friend.CalleUserId"></span>
+        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555601712/out_call.png" width="30" height="30" />
+}
+        </p>
+        <span>@friend.Date</span>
+
+    </div>
+    }
+</div>
+
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="~/Scripts/vDialogs.js"></script>

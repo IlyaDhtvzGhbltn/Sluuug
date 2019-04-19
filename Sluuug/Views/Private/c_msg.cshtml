@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "c_msg";
+    Layout = "~/Views/Shared/logo.cshtml";
+}
+
+<h2>c_msg</h2>
+<div id="c_msgs">
+    @foreach (var msg in Model.Messages)
+    {
+    <div class="c_msg"><img src="@msg.AvatatURI" height="30" width="30" /><span>@msg.Name</span>
+    <p>@msg.SendDate</p>
+    <span>@msg.Text</span>
+    </div>
+    }
+</div>
+<div id="new_msg_form">
+    <input id="new_text" type="text" />
+    <input id="send" type="button" value="Send" onclick="crypt_send()" />
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="~/Scripts/crypto_dialog.js"></script>

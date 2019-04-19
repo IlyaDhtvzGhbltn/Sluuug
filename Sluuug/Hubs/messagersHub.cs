@@ -11,17 +11,28 @@ namespace Sluuug.Hubs
 {
     public class messagersHub : Hub
     {
-        public async Task SendMessage(string session_id, string message, int convId)
+        public async Task SendMessage(string message, string convId, int toUserId)
         {
+            Cookie cookies = base.Context.Request.Cookies["session_id"];
             var UsWork = new UserWorker();
-            var user = UsWork.GetUserInfo(session_id);
+            var clearMsg = System.Net.WebUtility.HtmlDecode(message);
+
+            var user = UsWork.GetUserInfo(cookies.Value);
             if (user != null)
             {
                 DialogWorker dW = new DialogWorker();
-                var clearMsg = System.Net.WebUtility.HtmlDecode(message);
-                await dW.SaveMsg(convId, user.UserId, clearMsg);
+                Guid conversation = Guid.Empty;
+                if (convId == "0")
+                {
+                    conversation = UsWork.GetConversationId(cookies.Value, toUserId);
+                }
+                else
+                {
+                    conversation = Guid.Parse(convId);
+                }
 
-                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convId);
+                await dW.SaveMsg(conversation, user.UserId, clearMsg);
+                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), conversation);
             }
         }
     }

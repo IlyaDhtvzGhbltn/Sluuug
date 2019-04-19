@@ -14,39 +14,45 @@ namespace Slug.Helpers
         public ConversationsModel GetPreConversations(int userId)
         {
             var convs = new ConversationsModel();
-            
+
             using (var context = new DataBaseContext())
             {
-                List<Conversation> conversations = 
-                    context.Conversations
-                    .Where(x => x.UserId == userId)
-                    .OrderBy(x => x.Id)
-                    .ToList();
-                if (conversations.Count >= 1)
+                var ConversationGroup = context.ConversationGroup
+                    .Where(x => x.UserId == userId).ToList();
+                var UsWork = new UserWorker();
+
+                foreach (var dialog in ConversationGroup)
                 {
-                    var UsWork = new UserWorker();
-                    convs.Cnv = new List<CutConversation>();
-                    foreach (var conv in conversations)
+                    List<Conversation> conversations =
+                        context.Conversations
+                        .Where(x => x.ConversationGuidId == dialog.ConversationGuidId)
+                        .OrderBy(x => x.Id)
+                        .ToList();
+                    if (conversations.Count >= 1)
                     {
-                        IQueryable<Message> messages = context.Messangers
-                            .Where(x => x.ConvarsationId == conv.ConversationId);
-
-                        var message = messages.OrderBy(x => x.Id);
-                        if (message.Count() >= 1)
+                        convs.Cnv = new List<CutConversation>();
+                        foreach (var conv in conversations)
                         {
-                            var lastMessage = message.ToList().Last();
+                            IQueryable<Message> messages = context.Messangers
+                                .Where(x => x.ConvarsationGuidId == conv.ConversationGuidId);
 
-                            int lastMessageUserId = lastMessage.UserId;
-                            var lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
-                            var c = new CutConversation();
+                            var message = messages.OrderBy(x => x.Id);
+                            if (message.Count() >= 1)
+                            {
+                                var lastMessage = message.ToList().Last();
 
-                            c.AvatarPath = lastSayUser.AvatarUri;
-                            c.InterlocutorName = lastSayUser.Name;
-                            c.InterlocutorSurName = lastSayUser.SurName;
-                            c.LastMessage = lastMessage.Text;
-                            c.Id = conv.ConversationId;
+                                int lastMessageUserId = lastMessage.UserId;
+                                var lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
+                                var c = new CutConversation();
 
-                            convs.Cnv.Add(c);
+                                c.AvatarPath = lastSayUser.AvatarUri;
+                                c.InterlocutorName = lastSayUser.Name;
+                                c.InterlocutorSurName = lastSayUser.SurName;
+                                c.LastMessage = lastMessage.Text;
+                                c.GuidId = conv.ConversationGuidId;
+
+                                convs.Cnv.Add(c);
+                            }
                         }
                     }
                 }

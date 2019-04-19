@@ -1,4 +1,5 @@
 ﻿using Context;
+using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
 using Slug.Crypto;
 using Slug.Helpers;
@@ -119,10 +120,10 @@ namespace Slug.Context
             return userModel;
         }
 
-        public bool CheckConversationBySessionId(string sessionId, int conversationId)
+        public bool CheckConversationBySessionId(string sessionId, Guid conversationGuidId)
         {
             var dW = new DialogWorker();
-            var ids = dW.GetConversatorsIds(conversationId);
+            var ids = dW.GetConversatorsIds(conversationGuidId);
             CutUserInfoModel user = GetUserInfo(sessionId);
             if (ids != null)
             {
@@ -193,60 +194,38 @@ namespace Slug.Context
             return model;
         }
 
-        public CryptoChatModel GetCryptoChat(string sessionId)
+        public Guid GetConversationId(string userSenderSession, int userRecipientId)
         {
-            var model = new CryptoChatModel();
-            model.CurrentChats = new List<cryptoChat>();
-            model.FriendsICanInvite = new List<FriendModel>();
-
-            MyFriendsModel friends = GetFriendsBySession(sessionId);
-
-            foreach (var item in friends.Friends)
-            {
-                model.FriendsICanInvite.Add(item);
-            }
-
-            int userId = GetUserInfo(sessionId).UserId;
+            int userSenderId = GetUserInfo(userSenderSession).UserId;
             using (var context = new DataBaseContext())
             {
-                var chatIDs = context.SecretChatGroup.Where(x=>x.UserId == userId).Select(c=>c.PartyId).ToList();
-                foreach (var item in chatIDs)
-                {
-                    SecretChat secretChat = context.SecretChat.First(x => x.PartyId == item);
-                    var chat = new cryptoChat();
-                    chat.OpenDate = secretChat.Create;
-                    chat.Id = secretChat.PartyId;
-
-                    DateTime destroyChatTime = secretChat.Destroy;
-                    if (destroyChatTime < DateTime.Now)
-                        chat.ActiveStatus = false;
-                    else
-                        chat.ActiveStatus = true;
-
-                    chat.Users = new List<FriendModel>();
-                    var participators = context.SecretChatGroup.Where(x => x.PartyId == item).ToList();
-                    foreach (var participator in participators)
-                    {
-                        var friendModel = new FriendModel();
-                        var user = GetUserInfo(participator.UserId);
-                        friendModel.UserId = user.UserId;
-                        friendModel.AvatarPath = user.AvatarUri;
-                        friendModel.Name = user.Name;
-                        friendModel.SurName = user.SurName;
-
-                        chat.Users.Add(friendModel);
-                    }
-
-                    model.CurrentChats.Add(chat);
-                }
+                var ConversationGuids = context.ConversationGroup
+                    .Where(user => user.UserId == userSenderId || user.UserId == userRecipientId).ToList();
+                if (ConversationGuids[0].ConversationGuidId == ConversationGuids[1].ConversationGuidId)
+                    return ConversationGuids[0].ConversationGuidId;
             }
-            return model;
+            return Guid.NewGuid();
         }
 
-        public class UserConfirmationDitails
+        public void ChangeAvatarUri(string session, Uri newUri)
         {
-            public string ActivationSessionId { get; set; }
-            public string ActivatioMailParam { get; set; }
+            int userID = GetUserInfo(session).UserId;
+            string uri = newUri.ToString();
+            using (var context = new DataBaseContext())
+            {
+                var newAvatar = new Avatars();
+                newAvatar.UploadTime = DateTime.UtcNow;
+                newAvatar.ImgPath = uri;
+                context.Avatars.Add(newAvatar);
+                context.SaveChanges();
+
+                int avatarSavedID = context.Avatars.First(x=>x.ImgPath == uri).Id;
+
+                User userInfo = context.Users.First(x=>x.Id == userID);
+                userInfo.AvatarId = avatarSavedID;
+
+                context.SaveChanges();
+            }
         }
     }
 }
