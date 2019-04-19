@@ -23,7 +23,7 @@ peerConn.ontrack = function (event) {
 }
 peerConn.onicecandidate = function (event) {
     if (event.candidate) {
-        videoChat.invoke('ExchangeICandidates', event.candidate);
+        videoChat.invoke('ExchangeICandidates', event.candidate, getGuidID());
         console.log('sending candidates start ...');
     }
     else {
@@ -40,6 +40,9 @@ videoChat.on('ConfirmInvite', function (guid, answer) {
 videoChat.on('exchangeCandidates', function (candidate) {
     peerConn.addIceCandidate(candidate)
 });
+videoChat.on('Close', function () {
+    callClose();
+})
 
 
 function initiate_call() {
@@ -57,7 +60,7 @@ function initiate_call() {
         .then(
         function (offer) {
             var off = new RTCSessionDescription(offer);
-            videoChat.invoke('Invite', JSON.stringify(offer), getID() );
+            videoChat.invoke('Invite', JSON.stringify(offer), getGuidID() );
             console.log('send invite');
             return peerConn.setLocalDescription(off);
         });
@@ -79,12 +82,8 @@ function accept_send_answer(guidID, offer) {
                     return peerConn.createAnswer();
                 })
                 .then(function (answer) {
-                    //hide_incoming_if_accept(caller_id);
-
                     videoChat.invoke('ConfirmInvite', guidID, JSON.stringify(answer));
-                    //window.location.replace('/private/v_conversation?id=' + guidID)
                     return peerConn.setLocalDescription(answer);
-
                 })
                 .catch(function (err) {
                     console.log(err.message);
@@ -98,7 +97,6 @@ function got_ansfer(guid, answer) {
     peerConn.setRemoteDescription(
         new RTCSessionDescription(JSON.parse(answer)),
         function () {
-            //window.location.replace('/private/v_conversation?id=' + guid)
         },
         function (err) {
             console.log(err.message);
@@ -123,7 +121,7 @@ function onLoad() {
 }
 
 async function checType() {
-    var id = getID();
+    var id = getGuidID();
     console.log(id);
     const this_type = await
         $.ajax({
@@ -138,9 +136,17 @@ function waitAnimation() {
     console.log('await participant');
 }
 
-function getID() {
+function getGuidID() {
     var url = new URL(window.location);
     var id = url.searchParams.get("id");
     return id;
 }
 
+function closeCallImmediately() {
+    videoChat.invoke('CloseVideoConverence', getGuidID());
+}
+
+function callClose() {
+    location.replace('/private/invite_video_conversation');
+    console.log('connection lost.');
+}

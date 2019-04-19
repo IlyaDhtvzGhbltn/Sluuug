@@ -115,3 +115,6 @@ D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answernull.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answeruserid.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answeruserid2.resources
 D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.eeee.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.Indexuniq.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.offeranswerUserIDs.resources
+D:\My_Utilits\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.video_chat_status.resources

@@ -13,6 +13,7 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
         public Guid ConversationGuidId { get; set; }
 
         [Required]

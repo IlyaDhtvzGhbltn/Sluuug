@@ -13,6 +13,7 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
         public Guid GuidId { get; set; }
 
         [Required]
@@ -23,12 +24,9 @@ namespace Slug.Context.Tables
         public string Answer { get; set; }
 
         [Required]
-        public int OfferSenderUser { get; set; }
-
-        [Required]
-        public int AnswerSenderUser { get; set; }
-
-        [Required]
         public int ConferenceCreatorUserId { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; }
     }
 }

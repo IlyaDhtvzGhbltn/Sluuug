@@ -5,7 +5,12 @@
 }
 <div id="cut_info">
     <p>
-        <img src=@Model.AvatarUri />
+        <img src=@Model.AvatarUri id="img_avatar" width="200" height="200" />
+    @using (Html.BeginForm("upload", "private", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="upload" /><br>
+        <input type="submit" value="Загрузить" />
+    }
     </p>
     <p>
         <span>@Model.Name </span>
@@ -38,3 +43,5 @@
 <div>
     <a href="~/private/logout">logout</a>
 </div>
+
+<script src="~/Scripts/myPage.js"></script>

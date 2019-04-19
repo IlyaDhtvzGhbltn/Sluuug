@@ -2,9 +2,9 @@
 var videoChat = connection.createHubProxy('videoChatInviteHub');
 connection.start();
 
-window.addEventListener("load", checkWebrtc());
+window.addEventListener("load", checkWebrtcAndLoad());
 
-function checkWebrtc() {
+function checkWebrtcAndLoad() {
     if (navigator.getUserMedia) {
         var friend_divs = $('.friend_div');
         [].forEach.call(friend_divs, function (item) {

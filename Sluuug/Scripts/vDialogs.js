@@ -1,7 +1,7 @@
 ﻿var connection = $.hubConnection();
 var videoChat = connection.createHubProxy('videoChatInviteHub');
 connection.start();
-window.addEventListener("load", checkWebrtc());
+window.addEventListener("load", checkWebrtcAndLoad());
 
 videoChat.on('CallerGuidToRedirect', function (guid) {
     callerToRedirect(guid);
@@ -12,8 +12,9 @@ videoChat.on('CalleInviteToRedirect', function (guid, inviterId) {
 });
 
 
-function checkWebrtc() {
+function checkWebrtcAndLoad() {
     if (navigator.getUserMedia) {
+
         var friend_divs = $('.friend_div');
         [].forEach.call(friend_divs, function (item) {
             item.addEventListener('click', function () {
@@ -24,6 +25,23 @@ function checkWebrtc() {
     else {
         alert("Sorry, your browser does not support WebRTC!");
     }
+
+    var call_imgs = $('.img_call_id');
+    [].forEach.call(call_imgs, function (item) {
+        var friend_id = item.id;
+        getInfoById(friend_id, 'AvatarUri').then(function (avatar) {
+            item.src = avatar;
+
+        });
+    });
+
+    var call_names = $('.call_name');
+    [].forEach.call(call_names, function (item) {
+        var call_name_id = item.id;
+        getInfoById(call_name_id, 'Name').then(function (name) {
+            item.innerHTML = name;
+        });
+    });
 }
 
 function createConference(friend_id) {
@@ -62,4 +80,14 @@ function callerToRedirect(guid) {
 function acceptInvite(inviterId, guidID) {
     document.getElementById('called__' + inviterId).innerHTML = "";
     window.open('/private/v_conversation?id=' + guidID);
+}
+
+async function getInfoById(id, parameter) {
+    const info = await
+        $.ajax({
+            url: '/api/get_info_other_user?id=' + id,
+            type: 'post',
+            data: '{}'
+        });
+    return info[parameter];
 }

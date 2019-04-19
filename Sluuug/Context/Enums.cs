@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Context 
 {
+    public enum CallState
+    {
+        In,
+        Out
+    }
+
     public enum VideoConverenceCallType
     {
         Caller,

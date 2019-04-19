@@ -207,5 +207,25 @@ namespace Slug.Context
             return Guid.NewGuid();
         }
 
+        public void ChangeAvatarUri(string session, Uri newUri)
+        {
+            int userID = GetUserInfo(session).UserId;
+            string uri = newUri.ToString();
+            using (var context = new DataBaseContext())
+            {
+                var newAvatar = new Avatars();
+                newAvatar.UploadTime = DateTime.UtcNow;
+                newAvatar.ImgPath = uri;
+                context.Avatars.Add(newAvatar);
+                context.SaveChanges();
+
+                int avatarSavedID = context.Avatars.First(x=>x.ImgPath == uri).Id;
+
+                User userInfo = context.Users.First(x=>x.Id == userID);
+                userInfo.AvatarId = avatarSavedID;
+
+                context.SaveChanges();
+            }
+        }
     }
 }

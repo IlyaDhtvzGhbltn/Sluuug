@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Slug.Context;
+using Slug.Context.Attributes;
 using Slug.Helpers;
 using Slug.Model;
 
@@ -14,7 +15,7 @@ namespace Slug.Hubs
     {
         public void CreateAndInvite(int calleUserId)
         {
-            var VCWorker = new VideoConferenceWorker();
+            var VCWorker = new VideoConferenceWorker(Context, calleUserId);
             var UsWork = new UserWorker();
 
             Cookie cookies = base.Context.Request.Cookies["session_id"];
@@ -46,9 +47,16 @@ namespace Slug.Hubs
             Clients.Others.ConfirmInvite(guid, callAnswer);
         }
 
-        public void ExchangeICandidates(dynamic iceCandidate)
+        public void ExchangeICandidates(dynamic iceCandidate, Guid guidID)
         {
             Clients.Others.exchangeCandidates(iceCandidate);
+        }
+
+        public void CloseVideoConverence(Guid guidID)
+        {
+            var VCWorker = new VideoConferenceWorker();
+            VCWorker.CloseConverence(guidID);
+            Clients.All.Close();
         }
     }
 }

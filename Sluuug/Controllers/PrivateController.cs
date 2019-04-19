@@ -3,11 +3,17 @@ using Slug.Context.Attributes;
 using Slug.Helpers;
 using Slug.Model;
 using Slug.Model.Users;
+using Slug.Model.VideoConference;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Slug.Context.Dto.UserWorker;
+using Newtonsoft.Json;
 
 namespace Slug.Controllers
 {
@@ -26,6 +32,32 @@ namespace Slug.Controllers
             var cookies = Request.Cookies.Get("session_id");
             var userInfoModel = UserWorker.GetUserInfo(cookies.Value);
             return View(userInfoModel);
+        }
+
+        [HttpPost]
+        public ActionResult upload(HttpPostedFileBase upload)
+        {
+            if (upload != null)
+            {
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+                Account account = new Account(
+                  "dlk1sqmj4",
+                  "846574769361479",
+                  "XrQqn5IpPmsnIS3s5PCrvUr-3xw");
+
+                Cloudinary cloudinary = new Cloudinary(account);
+                var uploadParams = new ImageUploadParams()
+                {
+                    Folder = "/users/avatars",
+                    File = new FileDescription(fileName, upload.InputStream)
+                };
+                ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+                CloudImageUploadResult result = JsonConvert.DeserializeObject<CloudImageUploadResult>(uploadResult.JsonObj.Root.ToString());
+                string cookies = Request.Cookies.Get("session_id").Value;
+
+                UserWorker.ChangeAvatarUri(cookies, result.SecureUrl);
+            }
+            return RedirectToAction("my", "private");
         }
 
         [HttpGet]
@@ -110,7 +142,7 @@ namespace Slug.Controllers
         public ActionResult contacts()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var model = base.UserWorker.GetFriendsBySession(sessionId);
+            MyFriendsModel model = base.UserWorker.GetFriendsBySession(sessionId);
             return View(model);
         }
 
@@ -118,17 +150,20 @@ namespace Slug.Controllers
         public ActionResult invite_video_conversation()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var model = base.UserWorker.GetFriendsBySession(sessionId);
+            VideoConferenceModel model = base.VideoConferenceWorker.VideoConferenceModel(sessionId);
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult v_conversation(Guid id, string type)
+        public ActionResult v_conversation(Guid id)
         {
-            return View();
+            bool isActive = base.VideoConferenceWorker.IsConverenceActive(id);
+            if (isActive)
+                return View();
+            else
+                return RedirectToAction("invite_video_conversation", "private");
         }
-
 
         [HttpGet]
         public ActionResult crypto_cnv()

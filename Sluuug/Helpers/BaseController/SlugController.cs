@@ -12,5 +12,6 @@ namespace Slug.Helpers
         public ConversationWorker ConverWorker { get; set; } = new ConversationWorker();
         public DialogWorker DialogWorker { get; set; } = new DialogWorker();
         public CryptoChatWorker CryptoChatWorker { get; set; } = new CryptoChatWorker();
+        public VideoConferenceWorker VideoConferenceWorker { get; set; } = new VideoConferenceWorker();
     }
 }
