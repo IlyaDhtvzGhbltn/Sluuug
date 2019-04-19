@@ -32,7 +32,7 @@ namespace Slug.Helpers
             newSecretChat.CreatorUserId = Inviter;
             newSecretChat.Create = DateTime.Now;
             newSecretChat.Destroy = DateTime.Now.Add(CryptoChatDestroyDates[type]);
-            newSecretChat.PartyGuid = Guid.NewGuid();
+            newSecretChat.PartyGUID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
                 context.SecretChat.Add(newSecretChat);
@@ -41,19 +41,19 @@ namespace Slug.Helpers
                 {
                     int userId = Convert.ToInt32(userInvited.UserId);
                     var secretGroups = new SecretChatGroup();
-                    secretGroups.PartyGUID = newSecretChat.PartyGuid;
+                    secretGroups.PartyGUID = newSecretChat.PartyGUID;
                     secretGroups.UserId = userId;
                     context.SecretChatGroup.Add(secretGroups);
                 }
                 var secretGroup = new SecretChatGroup();
-                secretGroup.PartyGUID = newSecretChat.PartyGuid;
+                secretGroup.PartyGUID = newSecretChat.PartyGUID;
                 secretGroup.UserId = Inviter;
                 secretGroup.Accepted = true;
                 context.SecretChatGroup.Add(secretGroup);
                 context.SaveChanges();
 
                 var response = new CreateNewCryptoChatResponse();
-                response.CryptoGuidId = newSecretChat.PartyGuid;
+                response.CryptoGuidId = newSecretChat.PartyGUID;
                 response.ExpireDate = newSecretChat.Destroy;
 
                 return response;
@@ -84,14 +84,14 @@ namespace Slug.Helpers
                 List<SecretChatGroup> chatIDs = context.SecretChatGroup.Where(x => x.UserId == userInformation.UserId).Select(c => c).ToList();
                 foreach (var item in chatIDs)
                 {
-                    SecretChat secretChat = context.SecretChat.FirstOrDefault(x => x.PartyGuid == item.PartyGUID);
+                    SecretChat secretChat = context.SecretChat.FirstOrDefault(x => x.PartyGUID == item.PartyGUID);
                     if (secretChat != null)
                     {
                         if (!CryptoChatExpired(context, item.PartyGUID))
                         {
                             var chat = new CryptoChat();
                             chat.OpenDate = secretChat.Create;
-                            chat.GuidId = secretChat.PartyGuid;
+                            chat.GuidId = secretChat.PartyGUID;
                             chat.ActiveStatus = true;
                             chat.Users = new List<FriendModel>();
                             var GuidId = item.PartyGUID.ToString();
@@ -102,7 +102,7 @@ namespace Slug.Helpers
                                 chat.LastMessage = last.Text;
                             }
 
-                            CryptoChatStatus status = ChatStatus(context, item.UserId, secretChat.PartyGuid);
+                            CryptoChatStatus status = ChatStatus(context, item.UserId, secretChat.PartyGUID);
                             chat.GuidId = item.PartyGUID;
                             chat.Users = getChatUser(context, item.PartyGUID, ref user);
 
@@ -185,7 +185,7 @@ namespace Slug.Helpers
 
         private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, Guid chatId)
         {
-                SecretChat secretChat = context.SecretChat.Where(x=> x.PartyGuid == chatId).First();
+                SecretChat secretChat = context.SecretChat.Where(x=> x.PartyGUID == chatId).First();
                 if (secretChat.CreatorUserId == userId)
                     return CryptoChatStatus.SelfCreated;
 
@@ -214,7 +214,7 @@ namespace Slug.Helpers
         }
         private bool CryptoChatExpired(DataBaseContext context, Guid GuidId)
         {
-            SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGuid == GuidId).First();
+            SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGUID == GuidId).First();
             if (CryptoChat.Destroy > DateTime.Now)
                 return false;
             else

@@ -50,14 +50,14 @@ class Crypto {
     }
 
     generate_pre_value() {
-        var g = 2;
         var mod = -1;
-        var p = null;
 
         while (mod != 1) {
-            g = 3;
-            p = this.generate_p();
-            for (let i = 1; i < 10; i++) {
+            var p = this.generate_p();
+            var g = getRandomInt(p/3, p/2);;
+
+            console.log(p);
+            for (let i = g; i < p; i++) {
                 mod = this.check_mod(g, p);
                 if (mod == 1) {
                     break;
@@ -65,13 +65,14 @@ class Crypto {
                 g++;
             }
         }
-
+        
         return { 'p': p, 'g': g };
     }
 
     generate_p() {
+        console.log('generate primires');
         var p = null;
-        var max = Math.floor(Math.random() * 100);
+        var max = getRandomInt(100000,100000);
         var sieve = [], i, j, primes = [];
         for (i = 2; i <= max; ++i) {
             if (!sieve[i]) {
@@ -81,7 +82,9 @@ class Crypto {
                 }
             }
         }
-        var randPrime = primes[Math.floor(Math.random() * primes.length)];
+        var randPrime = primes[getRandomInt(0, primes.length)];
+        console.log('all ' + primes);
+        console.log('rand prime ---- ' + randPrime);
         return randPrime;
     }
 
@@ -349,6 +352,10 @@ function got_message(crypto_msg, guidChatId) {
     span_msg.textContent = decryptText;
 }
 
-
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
