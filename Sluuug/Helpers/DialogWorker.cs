@@ -14,18 +14,35 @@ namespace Slug.Helpers
     public class DialogWorker
     {
         private UserWorker UserWorker = new UserWorker();
+        private int multiple = 100;
 
-        public DialogModel GetLast100msgs(Guid convId)
+        public DialogModel GetMessanges(Guid convId, int page)
         {
-            var messangs = new List<DialogMessage>();
+            if (page <= 0)
+                page = 1;
+
             var dModel = new DialogModel();
+            var messangs = new List<DialogMessage>();
 
             using (var context = new DataBaseContext())
             {
+                int multipleCount = context.Messangers
+                                        .Where(x => x.ConvarsationGuidId == convId)
+                                        .Count();
+
+                double del = Convert.ToDouble(multipleCount / this.multiple);
+                int resMultiple = Convert.ToInt32( Math.Ceiling(del) );
+                if (page > resMultiple)
+                    page = resMultiple;
+
+                dModel.Page = resMultiple - 1;
+
+
                 var msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
                     .OrderBy(x=>x.Id)
-                    .Take(100)
+                    .Skip( (page-1) * multiple)
+                    .Take( (page+1) * multiple)
                     .ToList();
 
                 msgs.ForEach(message => 

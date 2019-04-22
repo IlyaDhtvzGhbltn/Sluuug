@@ -9,6 +9,8 @@ namespace Slug.Model
     {
         public Guid DialogId { get; set; }
 
+        public int Page { get; set; }
+
         public ICollection<DialogMessage> Messages { get; set; }
     }
 

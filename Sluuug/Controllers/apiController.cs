@@ -32,7 +32,6 @@ namespace Slug.Controllers
             return result;
         }
 
-
         [HttpPost]
         public JsonResult user_vc_role(string converenceID)
          {

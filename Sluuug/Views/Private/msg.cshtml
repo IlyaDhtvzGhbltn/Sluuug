@@ -14,6 +14,13 @@
         </div>
     }
 </div>
+<div id="pages" style="display:inline">
+    @for (int i=0; i<Model.Page; i++)
+    {
+        <a href="@Url.Action("private","msg", new { id=Model.DialogId, page=i })">@i</a>
+    }
+    </div>
+
 <div id="send_msg">
     <input type="text" id="new_msg" />
     <p>

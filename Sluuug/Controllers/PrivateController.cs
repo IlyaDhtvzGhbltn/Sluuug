@@ -70,14 +70,13 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult msg(Guid id)
+        public ActionResult msg(Guid id, int page = 1)
         {
-
             string sessionId = Request.Cookies.Get("session_id").Value;
             bool verifyConvers = UserWorker.CheckConversationBySessionId(sessionId, id);
             if (verifyConvers)
             {
-                DialogModel dialog = DialogWorker.GetLast100msgs(id);
+                DialogModel dialog = DialogWorker.GetMessanges(id, page);
                 dialog.DialogId = id;
                 return View(dialog);
             }

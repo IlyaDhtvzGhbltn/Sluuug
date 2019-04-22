@@ -197,14 +197,38 @@ namespace Slug.Context
         public Guid GetConversationId(string userSenderSession, int userRecipientId)
         {
             int userSenderId = GetUserInfo(userSenderSession).UserId;
+            Guid guidID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
                 var ConversationGuids = context.ConversationGroup
                     .Where(user => user.UserId == userSenderId || user.UserId == userRecipientId).ToList();
+
+                if (ConversationGuids.Count == 0)
+                {
+                    var conv = new ConversationGroup();
+                    var conv_ = new ConversationGroup();
+
+                    conv.ConversationGuidId = guidID;
+                    conv.UserId = userRecipientId;
+                    conv_.ConversationGuidId = guidID;
+                    conv_.UserId = userSenderId;
+
+                    context.ConversationGroup.Add(conv);
+                    context.ConversationGroup.Add(conv_);
+
+                    var con = new Conversation();
+                    con.ConversationGuidId = guidID;
+                    con.CreatedDateTime = DateTime.UtcNow;
+                    context.Conversations.Add(con);
+                    context.SaveChanges();
+
+                    return guidID;
+                }
+
                 if (ConversationGuids[0].ConversationGuidId == ConversationGuids[1].ConversationGuidId)
                     return ConversationGuids[0].ConversationGuidId;
             }
-            return Guid.NewGuid();
+            return Guid.Empty;
         }
 
         public void ChangeAvatarUri(string session, Uri newUri)
