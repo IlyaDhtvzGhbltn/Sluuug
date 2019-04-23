@@ -14,7 +14,7 @@ namespace Slug.Helpers
     public class DialogWorker
     {
         private UserWorker UserWorker = new UserWorker();
-        private int multiple = 100;
+        private int multiple = 10;
 
         public DialogModel GetMessanges(Guid convId, int page)
         {
@@ -30,19 +30,19 @@ namespace Slug.Helpers
                                         .Where(x => x.ConvarsationGuidId == convId)
                                         .Count();
 
-                double del = Convert.ToDouble(multipleCount / this.multiple);
+                decimal del = ( (decimal)multipleCount / (decimal)this.multiple);
                 int resMultiple = Convert.ToInt32( Math.Ceiling(del) );
                 if (page > resMultiple)
                     page = resMultiple;
 
-                dModel.Page = resMultiple - 1;
+                dModel.Page = resMultiple;
 
 
                 var msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
                     .OrderBy(x=>x.Id)
-                    .Skip( (page-1) * multiple)
-                    .Take( (page+1) * multiple)
+                    .Skip( (resMultiple - page) * multiple)
+                    .Take( multiple)
                     .ToList();
 
                 msgs.ForEach(message => 

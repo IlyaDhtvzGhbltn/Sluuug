@@ -138,7 +138,7 @@
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
-    <Content Include="Scripts\globalHub.js" />
+    <Content Include="Scripts\notificationHub.js" />
     <Content Include="Scripts\goFriend.js" />
     <Content Include="Scripts\goMsg.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
@@ -146,7 +146,6 @@
     <Content Include="Scripts\jquery.signalR-2.4.0.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
     <Content Include="Scripts\chatp2pWS.js" />
-    <Content Include="Scripts\myPage.js" />
     <Content Include="Scripts\newMessageFromPage.js" />
     <Content Include="Scripts\newMsgInConv.js" />
     <Content Include="Scripts\vConferens.js" />
@@ -199,6 +198,7 @@
     <Compile Include="Context\Tables\SessionTypes.cs" />
     <Compile Include="Context\Tables\Users.cs" />
     <Compile Include="Context\Tables\UserStatuses.cs" />
+    <Compile Include="Helpers\UserConnectionWorker.cs" />
     <Compile Include="Helpers\UserWorker.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GuestController.cs" />

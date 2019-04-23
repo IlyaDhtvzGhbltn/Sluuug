@@ -15,9 +15,9 @@
     }
 </div>
 <div id="pages" style="display:inline">
-    @for (int i=0; i<Model.Page; i++)
+    @for (int i=1; i<=Model.Page; i++)
     {
-        <a href="@Url.Action("private","msg", new { id=Model.DialogId, page=i })">@i</a>
+        <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
     }
     </div>
 
