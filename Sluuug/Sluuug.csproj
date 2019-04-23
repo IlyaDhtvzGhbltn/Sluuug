@@ -209,7 +209,7 @@
     <Compile Include="Helpers\BaseController\SlugController.cs" />
     <Compile Include="Helpers\VideoConferenceWorker.cs" />
     <Compile Include="Hubs\cryptoMessagersHub.cs" />
-    <Compile Include="Hubs\GlobalHub.cs" />
+    <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Hubs\messagersHub.cs" />
     <Compile Include="Hubs\videoChatInviteHub.cs" />
     <Compile Include="Migrations\201904231503421_rrrr.cs" />
