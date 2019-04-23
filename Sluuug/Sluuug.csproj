@@ -138,6 +138,7 @@
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
+    <Content Include="Scripts\globalHub.js" />
     <Content Include="Scripts\goFriend.js" />
     <Content Include="Scripts\goMsg.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
@@ -172,6 +173,7 @@
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\UserWorker\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker\UserConfirmationDitails.cs" />
+    <Compile Include="Context\Tables\UserConnection.cs" />
     <Compile Include="Context\Tables\VideoConference.cs" />
     <Compile Include="Context\Tables\VideoConferenceGroups.cs" />
     <Compile Include="Context\Tables\ConversationGroup.cs" />
@@ -210,57 +212,9 @@
     <Compile Include="Hubs\GlobalHub.cs" />
     <Compile Include="Hubs\messagersHub.cs" />
     <Compile Include="Hubs\videoChatInviteHub.cs" />
-    <Compile Include="Migrations\201904100939241_max_length_36.cs" />
-    <Compile Include="Migrations\201904100939241_max_length_36.Designer.cs">
-      <DependentUpon>201904100939241_max_length_36.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904111525097_cnv like crypto Db.cs" />
-    <Compile Include="Migrations\201904111525097_cnv like crypto Db.Designer.cs">
-      <DependentUpon>201904111525097_cnv like crypto Db.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904111551311_int_to_guid%27.cs" />
-    <Compile Include="Migrations\201904111551311_int_to_guid%27.Designer.cs">
-      <DependentUpon>201904111551311_int_to_guid%27.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904151551074_video conference tbo.cs" />
-    <Compile Include="Migrations\201904151551074_video conference tbo.Designer.cs">
-      <DependentUpon>201904151551074_video conference tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904160746553_answer added in video_conference.cs" />
-    <Compile Include="Migrations\201904160746553_answer added in video_conference.Designer.cs">
-      <DependentUpon>201904160746553_answer added in video_conference.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904171105261_video tbo.cs" />
-    <Compile Include="Migrations\201904171105261_video tbo.Designer.cs">
-      <DependentUpon>201904171105261_video tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904171141089_answer -null.cs" />
-    <Compile Include="Migrations\201904171141089_answer -null.Designer.cs">
-      <DependentUpon>201904171141089_answer -null.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904171429111_answer user id.cs" />
-    <Compile Include="Migrations\201904171429111_answer user id.Designer.cs">
-      <DependentUpon>201904171429111_answer user id.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904171443060_answer user id2.cs" />
-    <Compile Include="Migrations\201904171443060_answer user id2.Designer.cs">
-      <DependentUpon>201904171443060_answer user id2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904171606307_eeee.cs" />
-    <Compile Include="Migrations\201904171606307_eeee.Designer.cs">
-      <DependentUpon>201904171606307_eeee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904181249413_Index-uniq.cs" />
-    <Compile Include="Migrations\201904181249413_Index-uniq.Designer.cs">
-      <DependentUpon>201904181249413_Index-uniq.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904181317219_offer-answer-UserIDs.cs" />
-    <Compile Include="Migrations\201904181317219_offer-answer-UserIDs.Designer.cs">
-      <DependentUpon>201904181317219_offer-answer-UserIDs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904190810219_video_chat_status.cs" />
-    <Compile Include="Migrations\201904190810219_video_chat_status.Designer.cs">
-      <DependentUpon>201904190810219_video_chat_status.cs</DependentUpon>
+    <Compile Include="Migrations\201904231503421_rrrr.cs" />
+    <Compile Include="Migrations\201904231503421_rrrr.Designer.cs">
+      <DependentUpon>201904231503421_rrrr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -303,44 +257,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904100939241_max_length_36.resx">
-      <DependentUpon>201904100939241_max_length_36.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111525097_cnv like crypto Db.resx">
-      <DependentUpon>201904111525097_cnv like crypto Db.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111551311_int_to_guid%27.resx">
-      <DependentUpon>201904111551311_int_to_guid%27.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904151551074_video conference tbo.resx">
-      <DependentUpon>201904151551074_video conference tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904160746553_answer added in video_conference.resx">
-      <DependentUpon>201904160746553_answer added in video_conference.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904171105261_video tbo.resx">
-      <DependentUpon>201904171105261_video tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904171141089_answer -null.resx">
-      <DependentUpon>201904171141089_answer -null.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904171429111_answer user id.resx">
-      <DependentUpon>201904171429111_answer user id.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904171443060_answer user id2.resx">
-      <DependentUpon>201904171443060_answer user id2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904171606307_eeee.resx">
-      <DependentUpon>201904171606307_eeee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904181249413_Index-uniq.resx">
-      <DependentUpon>201904181249413_Index-uniq.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904181317219_offer-answer-UserIDs.resx">
-      <DependentUpon>201904181317219_offer-answer-UserIDs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904190810219_video_chat_status.resx">
-      <DependentUpon>201904190810219_video_chat_status.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904231503421_rrrr.resx">
+      <DependentUpon>201904231503421_rrrr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

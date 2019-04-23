@@ -27,5 +27,7 @@ namespace Context
         public virtual DbSet<SecretChatGroup> SecretChatGroup { get; set; }
         public virtual DbSet<VideoConference> VideoConferences { get; set; }
         public virtual DbSet<VideoConferenceGroups> VideoConferenceGroups { get; set; }
+
+        public virtual DbSet<UserConnection> UserConnections { get; set; }
     }
 }
