@@ -176,3 +176,4 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.pdb
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.rrrr.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.SecretMessagetbononuniquekeyPartyId.resources

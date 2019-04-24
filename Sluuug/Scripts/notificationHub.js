@@ -1,14 +1,10 @@
 ﻿var connection = $.hubConnection();
-var hub = connection.createHubProxy('notificationHub');
-
-window.onload = function () {
-    connection.start().done(
-        function () {
-            hub.invoke('OpenConnect')
-        });
-}
+var HUB = connection.createHubProxy('notificationHub');
+connection.start().done(function () {
+    HUB.invoke('OpenConnect');
+})
 
 
 window.onunload = function () {
-    hub.invoke('CloseConnect');
+    HUB.invoke('CloseConnect');
 }

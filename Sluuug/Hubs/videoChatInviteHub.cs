@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context;
 using Slug.Context.Attributes;
 using Slug.Helpers;
@@ -11,8 +12,14 @@ using Slug.Model;
 
 namespace Slug.Hubs
 {
-    public class videoChatInviteHub : Hub
+    public class VideoChatInviteHub : Hub
     {
+        public VideoChatInviteHub(HubCallerContext context, IHubCallerConnectionContext<dynamic> clients)
+        {
+            this.Context = context;
+            this.Clients = clients;
+        }
+
         public void CreateAndInvite(int calleUserId)
         {
             var VCWorker = new VideoConferenceWorker(Context, calleUserId);

@@ -9,7 +9,9 @@ namespace Slug.Model
     {
         public Guid GuidId { get; set; }
 
-        public List<CryptoMessage> Messages { get; set; }
+        public int PagesCount { get; set; }
+
+        public ICollection<CryptoMessage> Messages { get; set; }
     }
 
     public class CryptoMessage

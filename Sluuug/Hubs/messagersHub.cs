@@ -4,13 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context;
 using Slug.Helpers;
+using Slug.Hubs;
 
 namespace Sluuug.Hubs
 {
-    public class messagersHub : Hub
+    public class MessagersHub : Hub
     {
+        public MessagersHub(HubCallerContext context, IHubCallerConnectionContext<dynamic> clients)
+        {
+            this.Context = context;
+            this.Clients = clients;
+        }
+
         public async Task SendMessage(string message, string convId, int toUserId)
         {
             Cookie cookies = base.Context.Request.Cookies["session_id"];
@@ -22,6 +30,7 @@ namespace Sluuug.Hubs
             {
                 DialogWorker dW = new DialogWorker();
                 Guid conversation = Guid.Empty;
+                int toUserID = toUserId;
                 if (convId == "0")
                 {
                     conversation = UsWork.GetConversationId(cookies.Value, toUserId);
@@ -29,6 +38,7 @@ namespace Sluuug.Hubs
                 else
                 {
                     conversation = Guid.Parse(convId);
+                    toUserID = 2;
                 }
 
                 await dW.SaveMsg(conversation, user.UserId, clearMsg);

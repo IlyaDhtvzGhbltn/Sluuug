@@ -1,6 +1,6 @@
-﻿var connection = $.hubConnection();
-var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
-connection.start();
+﻿//var connection = $.hubConnection();
+//var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
+//connection.start();
 
 class public_data_crypto_conversation {
     convGuidId;
@@ -162,7 +162,7 @@ class Invited {
                 localStorage.removeItem(event_handler.id);
                 let strPublicData = JSON.stringify(localPublicJSON);
                 localStorage.setItem(event_handler.id, strPublicData);
-                cryptoChat.invoke('AcceptInvite', strPublicData)
+                HUB.invoke('AcceptInvite', strPublicData)
                     .then(function () {
                         let accept_btm = document.getElementById(event_handler.id);
                         accept_btm.parentNode.removeChild(accept_btm);
@@ -201,7 +201,7 @@ class Inviter {
 
                 crypto_cnv.participants.push(participant);
             }
-            cryptoChat.invoke('CreateNewCryptoConversation', JSON.stringify(crypto_cnv));
+            HUB.invoke('CreateNewCryptoConversation', JSON.stringify(crypto_cnv));
         }
     }
 
@@ -237,7 +237,7 @@ class Inviter {
                         participants[i].PublicKey = public_key;
                     }
                 }
-                cryptoChat.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv));
+                HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv));
                 localStorage.setItem(crypto_cnv.convGuidId, JSON.stringify(crypto_cnv));
 
                 document.querySelector('#self_created').insertAdjacentHTML('beforeend',
@@ -300,19 +300,19 @@ function accept_invite(object) {
     invited.accept_invitation(object);
 }
 
-cryptoChat.on('NewCryptoConversationCreated', function (crypto_cnv) {
+HUB.on('NewCryptoConversationCreated', function (crypto_cnv) {
     inviter.send_notivication_to_participants(crypto_cnv);
 });
 
-cryptoChat.on('ObtainNewInvitation', function (crypto_cnv) {
+HUB.on('ObtainNewInvitation', function (crypto_cnv) {
     invited.got_invitation(crypto_cnv);
 });
 
-cryptoChat.on('AcceptInvitation', function (crypto_cnv) {
+HUB.on('AcceptInvitation', function (crypto_cnv) {
     inviter.got_invited_answer(crypto_cnv);
 });
 
-cryptoChat.on('NewMessage', function (crypto_msg, avatar, name, date, guidChatId) {
+HUB.on('NewMessage', function (crypto_msg, avatar, name, date, guidChatId) {
     got_message(crypto_msg, guidChatId);
 });
 

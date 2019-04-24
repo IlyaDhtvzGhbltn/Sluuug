@@ -14,7 +14,7 @@ namespace Slug.Context.Tables
 
         [Required]
         [MaxLength(36)]
-        [Index(IsUnique = true)]
+        [Index(IsUnique = false)]
         public string PartyId { get; set; }
 
         [Required]

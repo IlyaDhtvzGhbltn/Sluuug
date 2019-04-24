@@ -25,6 +25,7 @@ namespace Slug.Helpers
                 { CryptoChatType.Year, new TimeSpan().Add(new TimeSpan(365,0,0,0,0)) },
 
             };
+        private readonly int multiple = 5;
 
         public CreateNewCryptoChatResponse CreateNewCryptoChat(CryptoChatType type, List<Participant> UserIds, int Inviter)
         {
@@ -142,12 +143,22 @@ namespace Slug.Helpers
                     Text = msgHash
                 };
                 context.SecretMessage.Add(message);
-                await context.SaveChangesAsync();
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
-        public CryptoDialogModel GetCryptoDialogs(string GuidId)
+        public CryptoDialogModel GetCryptoDialogs(string GuidId, int page)
         {
+            if (page <= 0)
+                page = 1;
+
             var model = new CryptoDialogModel();
             var userWorker = new UserWorker();
             var userInfos = new Dictionary<int, CutUserInfoModel>();
@@ -159,7 +170,24 @@ namespace Slug.Helpers
                 bool expiredFlag = CryptoChatExpired(context, Guid.Parse(GuidId));
                 if (!expiredFlag)
                 {
-                    List<SecretMessages> cryptoMessageCollection = context.SecretMessage.Where(x => x.PartyId == GuidId).ToList();
+
+                    int multipleCount = context.SecretMessage
+                        .Where(x => x.PartyId == GuidId)
+                        .Count();
+                    decimal del = ((decimal)multipleCount / (decimal)this.multiple);
+                    int resMultiple = Convert.ToInt32(Math.Ceiling(del));
+                    if (page > resMultiple)
+                        page = resMultiple;
+                    model.PagesCount = resMultiple;
+
+
+                    List<SecretMessages> cryptoMessageCollection = context.SecretMessage
+                        .Where(x => x.PartyId == GuidId)
+                        .OrderBy(x => x.Id)
+                        .Skip((resMultiple - page) * multiple)
+                        .Take(multiple)
+                        .ToList();
+
                     foreach (var item in cryptoMessageCollection)
                     {
                         if (!userInfos.ContainsKey(item.UserSender))

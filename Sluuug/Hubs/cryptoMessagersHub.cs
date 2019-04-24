@@ -12,11 +12,18 @@ using Slug.Model;
 using Slug.Context.Dto.CryptoConversation;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Slug.Hubs
 {
-    public class cryptoMessagersHub : Hub
+    public class CryptoMessagersHub : Hub
     {
+        public CryptoMessagersHub(HubCallerContext context, IHubCallerConnectionContext<dynamic> clients)
+        {
+            this.Context = context;
+            this.Clients = clients;
+        }
+
         public void CreateNewCryptoConversation(string create_request)
         {
             var Cookie = base.Context.Request.Cookies;

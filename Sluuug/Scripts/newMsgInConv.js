@@ -1,8 +1,8 @@
-﻿var connection = $.hubConnection();
-var messagesChat = connection.createHubProxy('messagersHub');
-connection.start();
+﻿//var connection = $.hubConnection();
+//var messagesChat = connection.createHubProxy('messagersHub');
+//connection.start();
 
-messagesChat.on('sendAsync', function (img, userName, userSurname, message, dateTime, convId)
+HUB.on('sendAsync', function (img, userName, userSurname, message, dateTime, convId)
 {
     addMsgOrConversation(img, userName, userSurname, message, dateTime, convId);
 });

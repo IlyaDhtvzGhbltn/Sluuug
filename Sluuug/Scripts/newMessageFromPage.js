@@ -1,5 +1,5 @@
-﻿var connection = $.hubConnection();
-var messagesChat = connection.createHubProxy('messagersHub');
+﻿//var connection = $.hubConnection();
+//var messagesChat = connection.createHubProxy('messagersHub');
 connection.qs = 'URL=' + window.location.href;
 
 connection.start();
@@ -26,7 +26,7 @@ function drop_form(id) {
 function send_msg(to_id) {
     let text = document.getElementById('form_' + to_id).value;
     if (!is_empty(text)) {
-        messagesChat.invoke('SendMessage', text, 0, to_id);
+        HUB.invoke('SendMessage', text, 0, to_id);
         window.location.href = '/private/cnv';
     }
     else {

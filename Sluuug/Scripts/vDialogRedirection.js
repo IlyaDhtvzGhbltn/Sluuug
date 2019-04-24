@@ -1,8 +1,4 @@
-﻿var connection = $.hubConnection();
-var videoChat = connection.createHubProxy('videoChatInviteHub');
-connection.start();
-
-window.addEventListener("load", checkWebrtcAndLoad());
+﻿window.addEventListener("load", checkWebrtcAndLoad());
 
 function checkWebrtcAndLoad() {
     if (navigator.getUserMedia) {

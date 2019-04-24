@@ -1,6 +1,6 @@
-﻿var connection = $.hubConnection();
-var videoChat = connection.createHubProxy('videoChatInviteHub');
-connection.start();
+﻿//var connection = $.hubConnection();
+//var videoChat = connection.createHubProxy('videoChatInviteHub');
+//connection.start();
 var audioContext = null;
 
 const peerConnCfg =
@@ -23,7 +23,7 @@ peerConn.ontrack = function (event) {
 }
 peerConn.onicecandidate = function (event) {
     if (event.candidate) {
-        videoChat.invoke('ExchangeICandidates', event.candidate, getGuidID());
+        HUB.invoke('ExchangeICandidates', event.candidate, getGuidID());
         console.log('sending candidates start ...');
     }
     else {
@@ -31,16 +31,16 @@ peerConn.onicecandidate = function (event) {
     }
 }
 
-videoChat.on('GotInvite', function (guidID, offer) {
+HUB.on('GotInvite', function (guidID, offer) {
     accept_send_answer(guidID, offer);
 });
-videoChat.on('ConfirmInvite', function (guid, answer) {
+HUB.on('ConfirmInvite', function (guid, answer) {
     got_ansfer(guid, answer);
 });
-videoChat.on('exchangeCandidates', function (candidate) {
+HUB.on('exchangeCandidates', function (candidate) {
     peerConn.addIceCandidate(candidate)
 });
-videoChat.on('Close', function () {
+HUB.on('Close', function () {
     callClose();
 })
 
@@ -60,7 +60,7 @@ function initiate_call() {
         .then(
         function (offer) {
             var off = new RTCSessionDescription(offer);
-            videoChat.invoke('Invite', JSON.stringify(offer), getGuidID() );
+            HUB.invoke('Invite', JSON.stringify(offer), getGuidID() );
             console.log('send invite');
             return peerConn.setLocalDescription(off);
         });
@@ -82,7 +82,7 @@ function accept_send_answer(guidID, offer) {
                     return peerConn.createAnswer();
                 })
                 .then(function (answer) {
-                    videoChat.invoke('ConfirmInvite', guidID, JSON.stringify(answer));
+                    HUB.invoke('ConfirmInvite', guidID, JSON.stringify(answer));
                     return peerConn.setLocalDescription(answer);
                 })
                 .catch(function (err) {
@@ -143,7 +143,7 @@ function getGuidID() {
 }
 
 function closeCallImmediately() {
-    videoChat.invoke('CloseVideoConverence', getGuidID());
+    HUB.invoke('CloseVideoConverence', getGuidID());
 }
 
 function callClose() {

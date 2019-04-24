@@ -173,9 +173,9 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult c_msg(string id)
+        public ActionResult c_msg(string id, int page = 1)
         {
-            var model = CryptoChatWorker.GetCryptoDialogs(id);
+            var model = CryptoChatWorker.GetCryptoDialogs(id, page);
             if (model != null)
             {
                 return View(model);

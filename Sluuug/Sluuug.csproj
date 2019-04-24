@@ -208,13 +208,17 @@
     </Compile>
     <Compile Include="Helpers\BaseController\SlugController.cs" />
     <Compile Include="Helpers\VideoConferenceWorker.cs" />
-    <Compile Include="Hubs\cryptoMessagersHub.cs" />
+    <Compile Include="Hubs\CryptoMessagersHub.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
-    <Compile Include="Hubs\messagersHub.cs" />
-    <Compile Include="Hubs\videoChatInviteHub.cs" />
+    <Compile Include="Hubs\MessagersHub.cs" />
+    <Compile Include="Hubs\VideoChatInviteHub.cs" />
     <Compile Include="Migrations\201904231503421_rrrr.cs" />
     <Compile Include="Migrations\201904231503421_rrrr.Designer.cs">
       <DependentUpon>201904231503421_rrrr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904241045483_SecretMessage tbo non-unique key PartyId.cs" />
+    <Compile Include="Migrations\201904241045483_SecretMessage tbo non-unique key PartyId.Designer.cs">
+      <DependentUpon>201904241045483_SecretMessage tbo non-unique key PartyId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -259,6 +263,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904231503421_rrrr.resx">
       <DependentUpon>201904231503421_rrrr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241045483_SecretMessage tbo non-unique key PartyId.resx">
+      <DependentUpon>201904241045483_SecretMessage tbo non-unique key PartyId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

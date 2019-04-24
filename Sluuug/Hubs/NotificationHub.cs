@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Helpers;
+using Sluuug.Hubs;
 
 namespace Slug.Hubs
 {
+    [HubName("notificationHub")]
     public class NotificationHub : Hub
     {
 
@@ -27,19 +30,73 @@ namespace Slug.Hubs
             UCW.CloseConnection(connection, session);
         }
 
-        public async Task NewChatMessage()
+
+
+
+        public async Task SendMessage(string message, string convId, int toUserId)
         {
-            //Clients.Clients().GotNewChatMessage();
+            var messageHub = new MessagersHub(base.Context, base.Clients);
+            await messageHub.SendMessage(message, convId, toUserId);
         }
 
-        public async Task NewCryptoChatMessage()
+
+
+
+        public async Task CreateNewCryptoConversation(string create_request)
         {
-            //Clients.Others.GotNewCryptoChatMessage();
+            var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
+            cryptoHub.CreateNewCryptoConversation(create_request);
         }
 
-        public async Task NewVideoConverence()
+        public async Task InviteUsersToCryptoChat(string offer_to_cripto_chat)
         {
-            //Clients.Others.NewVideoConverence();
+            var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
+            cryptoHub.InviteUsersToCryptoChat(offer_to_cripto_chat);
+        }
+        public async Task AcceptInvite(string ansver_to_cripto_chat)
+        {
+            var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
+            cryptoHub.AcceptInvite(ansver_to_cripto_chat);
+        }
+
+        public async Task SendMessage(string message)
+        {
+            var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
+            await cryptoHub.SendMessage(message);
+        }
+
+
+
+
+
+        public async Task CreateAndInvite(int calleUserId)
+        {
+            var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
+            videoHub.CreateAndInvite(calleUserId);
+        }
+
+        public async Task Invite(string callOffer, Guid videoConverenceGuidID)
+        {
+            var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
+            videoHub.Invite(callOffer, videoConverenceGuidID);
+        }
+
+        public async Task ConfirmInvite(Guid guid, string callAnswer)
+        {
+            var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
+            videoHub.ConfirmInvite(guid, callAnswer);
+        }
+
+        public async Task ExchangeICandidates(dynamic iceCandidate, Guid guidID)
+        {
+            var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
+            videoHub.ExchangeICandidates(iceCandidate, guidID);
+        }
+
+        public async Task CloseVideoConverence(Guid guidID)
+        {
+            var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
+            videoHub.CloseVideoConverence(guidID);
         }
     }
 }

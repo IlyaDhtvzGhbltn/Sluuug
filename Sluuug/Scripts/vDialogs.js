@@ -1,13 +1,13 @@
-﻿var connection = $.hubConnection();
-var videoChat = connection.createHubProxy('videoChatInviteHub');
-connection.start();
+﻿//var connection = $.hubConnection();
+//var videoChat = connection.createHubProxy('videoChatInviteHub');
+//connection.start();
 window.addEventListener("load", checkWebrtcAndLoad());
 
-videoChat.on('CallerGuidToRedirect', function (guid) {
+HUB.on('CallerGuidToRedirect', function (guid) {
     callerToRedirect(guid);
 });
 
-videoChat.on('CalleInviteToRedirect', function (guid, inviterId) {
+HUB.on('CalleInviteToRedirect', function (guid, inviterId) {
     calleInviteToRedirect(guid, inviterId);
 });
 
@@ -45,7 +45,7 @@ function checkWebrtcAndLoad() {
 }
 
 function createConference(friend_id) {
-    videoChat.invoke('CreateAndInvite', friend_id);
+    HUB.invoke('CreateAndInvite', friend_id);
 }
 
 function calleInviteToRedirect(guid, inviterId) {

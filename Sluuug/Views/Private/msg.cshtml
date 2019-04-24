@@ -15,7 +15,7 @@
     }
 </div>
 <div id="pages" style="display:inline">
-    @for (int i=1; i<=Model.Page; i++)
+    @for (int i=1; i<=Model.PagesCount; i++)
     {
         <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
     }
@@ -28,8 +28,4 @@
     </p>
 </div>
 
-<script src="~/Scripts/jquery-1.6.4.js"></script>
-<script src="~/Scripts/jquery-1.6.4.min.js"></script>
-<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
-<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
 <script src="~/Scripts/chatp2pWS.js"> </script>

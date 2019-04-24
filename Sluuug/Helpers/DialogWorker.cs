@@ -14,7 +14,7 @@ namespace Slug.Helpers
     public class DialogWorker
     {
         private UserWorker UserWorker = new UserWorker();
-        private int multiple = 10;
+        private readonly int multiple = 5;
 
         public DialogModel GetMessanges(Guid convId, int page)
         {
@@ -35,10 +35,10 @@ namespace Slug.Helpers
                 if (page > resMultiple)
                     page = resMultiple;
 
-                dModel.Page = resMultiple;
+                dModel.PagesCount = resMultiple;
 
 
-                var msgs = context.Messangers
+                List<Message> msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
                     .OrderBy(x=>x.Id)
                     .Skip( (resMultiple - page) * multiple)

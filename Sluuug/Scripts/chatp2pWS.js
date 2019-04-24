@@ -1,18 +1,17 @@
-﻿var session_id = document.cookie.replace(/(?:(?:^|.*;\s*)session_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-var connection = $.hubConnection();
-var messagesChat = connection.createHubProxy('messagersHub');
+﻿//var connection = $.hubConnection();
+//var messagesChat = connection.createHubProxy('messagersHub');
+window.onload = function () {
+    sendButton.onclick = function () {
+        connection.start().done(function () {
+            HUB.invoke('SendMessage', $('#new_msg').val(), sendButton.name, 0);
+        });
+    }
+}
 
-messagesChat.on('sendAsync', function (img, userName, userSurName, message, dateTime, convGuidId) {
+HUB.on('sendAsync', function (img, userName, userSurName, message, dateTime, convGuidId) {
     addMsg(img, userName, userSurName, message, dateTime, convGuidId);
 });
 
-connection.start()
-    .done(function () {
-        $('#sendButton')
-            .click(function () {
-            messagesChat.invoke('SendMessage', $('#new_msg').val(), this.name, 0);
-    });
-})
 
 function addMsg(img_src, name, surName, text, dateTime, guidId)
 {

@@ -106,6 +106,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 Guid[] conferenceGuids = context.VideoConferenceGroups
+                    .OrderByDescending(x => x.Id)
                     .Where(x=>x.UserId == myId)
                     .Select(x => x.GuidId)
                     .Take(100)
