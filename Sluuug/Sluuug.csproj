@@ -251,6 +251,7 @@
     <Content Include="Views\Private\crypto_cnv.cshtml" />
     <Content Include="Views\Private\c_msg.cshtml" />
     <Content Include="Views\Private\v_conversation.cshtml" />
+    <Content Include="Views\Shared\private_view.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

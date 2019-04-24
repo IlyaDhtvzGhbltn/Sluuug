@@ -13,6 +13,7 @@ using Slug.Context.Dto.CryptoConversation;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Microsoft.AspNet.SignalR.Hubs;
+using Slug.Context.Dto.Messages;
 
 namespace Slug.Hubs
 {
@@ -49,17 +50,27 @@ namespace Slug.Hubs
             Clients.Caller.NewCryptoConversationCreated(CryptoChatResponce);
         }
 
-        public void InviteUsersToCryptoChat(string offer_to_cripto_chat)
+        public async Task<PartialHubResponse> InviteUsersToCryptoChat(string offer_to_cripto_chat, Guid userInvited)
         {
             Cookie Session = Context.Request.Cookies["session_id"];
             UserWorker worker = new UserWorker();
-            CutUserInfoModel from = worker.GetUserInfo(Session.Value);
+            CutUserInfoModel fromUser = worker.GetUserInfo(Session.Value);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
-            cryptoConversation.CreatorAvatar = from.AvatarUri;
-            cryptoConversation.CreatorName = from.Name;
+            cryptoConversation.CreatorAvatar = fromUser.AvatarUri;
+            cryptoConversation.CreatorName = fromUser.Name;
 
-            Clients.Others.ObtainNewInvitation(cryptoConversation);
+            var connectionWorker = new UserConnectionWorker();
+            var cryptoChatWorker = new CryptoChatWorker();
+            int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
+            IList<string> UserRecipientsConnectionIds = new List<string>();
+            UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
+            var responce = new PartialHubResponse();
+            responce.ConnectionIds = UserRecipientsConnectionIds;
+            responce.FromUser = fromUser;
+
+            Clients.Clients(UserRecipientsConnectionIds).ObtainNewInvitation(cryptoConversation);
+            return responce;
         }
 
         public void AcceptInvite(string ansver_to_cripto_chat)
@@ -77,7 +88,9 @@ namespace Slug.Hubs
 
         public async Task SendMessage(string message)
         {
-            CryptoChatWorker CrWorker = new CryptoChatWorker();
+            var connectionWorker = new UserConnectionWorker();
+            var cryptoChatWorker = new CryptoChatWorker();
+
             UserWorker UsWorker = new UserWorker();
             Cookie cookies = base.Context.Request.Cookies["session_id"];
             int id = UsWorker.GetUserInfo(cookies.Value).UserId;
@@ -87,10 +100,15 @@ namespace Slug.Hubs
             MatchCollection matches = reg.Matches(uri);
             string guidChatId = matches[0].ToString().Substring(1);
             
-            await CrWorker.SaveSecretMessageHashAsync(guidChatId, id, message);
-            var Info = UsWorker.GetUserInfo(id);
+            await cryptoChatWorker.SaveSecretMessageHashAsync(guidChatId, id, message);
+            CutUserInfoModel fromUser = UsWorker.GetUserInfo(id);
 
-            Clients.All.NewMessage(message, Info.AvatarUri, Info.Name, DateTime.Now, guidChatId);
+            IList<string> UserRecipientsConnectionIds = new List<string>();
+            int toUser = cryptoChatWorker.GetInterlocutorID(Guid.Parse(guidChatId), fromUser.UserId);
+            UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
+
+            Clients.Clients(UserRecipientsConnectionIds).NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
+            Clients.Caller.NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
         }
     }
 }

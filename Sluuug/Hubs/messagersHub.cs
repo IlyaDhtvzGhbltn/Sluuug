@@ -24,6 +24,7 @@ namespace Sluuug.Hubs
         public async Task<PartialHubResponse> SendMessage(string message, string convId, int toUserId)
         {
             int toUserID = toUserId;
+            IList<string> UserRecipientsConnectionIds = new List<string>();
             Cookie cookies = base.Context.Request.Cookies["session_id"];
             var UsWork = new UserWorker();
             var clearMsg = System.Net.WebUtility.HtmlDecode(message);
@@ -31,7 +32,7 @@ namespace Sluuug.Hubs
             CutUserInfoModel user = UsWork.GetUserInfo(cookies.Value);
             if (user != null)
             {
-                DialogWorker dW = new DialogWorker();
+                var dialogWorker = new DialogWorker();
                 Guid convGuidID = Guid.Empty;
                 if (convId == "0")
                 {
@@ -40,17 +41,19 @@ namespace Sluuug.Hubs
                 else
                 {
                     convGuidID = Guid.Parse(convId);
-                    toUserID = dW.GetConversatorsIds(convGuidID).Where(x => x != user.UserId).First();
+                    toUserID = dialogWorker.GetConversatorsIds(convGuidID).Where(x => x != user.UserId).First();
                 }
 
-                await dW.SaveMsg(convGuidID, user.UserId, clearMsg);
-                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);
+                await dialogWorker.SaveMsg(convGuidID, user.UserId, clearMsg);
+                var connectionWorker = new UserConnectionWorker();
+                UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
+
+                Clients.Caller.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);
+                Clients.Clients(UserRecipientsConnectionIds).sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);
             }
             var responce = new PartialHubResponse();
-            responce.ToUserID = toUserID;
-            responce.FromUserName = user.Name;
-            responce.FromUserSurname = user.SurName;
-            responce.FromUserAvatarUri = user.AvatarUri;
+            responce.ConnectionIds = UserRecipientsConnectionIds;
+            responce.FromUser = user;
 
             return responce;
         }

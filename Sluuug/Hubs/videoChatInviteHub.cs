@@ -29,7 +29,11 @@ namespace Slug.Hubs
             var userInfo = UsWork.GetUserInfo(cookies.Value);
 
             Guid guid = VCWorker.Create(userInfo.UserId, calleUserId);
-            Clients.Others.CalleInviteToRedirect(guid, userInfo.UserId);
+            var connectionWorker = new UserConnectionWorker();
+            IList<string> UserRecipientsConnectionIds = new List<string>();
+            UserRecipientsConnectionIds = connectionWorker.GetConnectionById(calleUserId);
+
+            Clients.Clients(UserRecipientsConnectionIds).CalleInviteToRedirect(guid, userInfo.UserId);
             Clients.Caller.CallerGuidToRedirect(guid);
         }
 

@@ -25,7 +25,7 @@ function newMSGNotification(name, surname, avatar) {
         '<img src="' + avatar + '" height="30" width="30"/>' +
         '<p><a href="/private/cnv">click here to answer</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
-    setTimeout(clearNotificationDiv, 3000)
+    setTimeout(clearNotificationDiv, 5000)
 }
 
 function clearNotificationDiv() {

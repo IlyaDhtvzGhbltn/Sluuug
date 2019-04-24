@@ -72,7 +72,7 @@ class Crypto {
     generate_p() {
         console.log('generate primires');
         var p = null;
-        var max = getRandomInt(100000,100000);
+        var max = getRandomInt(100,100);
         var sieve = [], i, j, primes = [];
         for (i = 2; i <= max; ++i) {
             if (!sieve[i]) {
@@ -118,7 +118,6 @@ class Invited {
     }
 
     accept_invitation(event_handler) {
-
         fetch('/api/get_user_info', {
             method: 'post',
             body: '{}'
@@ -128,10 +127,12 @@ class Invited {
             })
             .then(function (json) {
                 var crypto = new Crypto();
+                console.log(event_handler.id);
                 var localPublicJSON = JSON.parse(localStorage.getItem(event_handler.id));
 
                 var userId = json.UserId;
                 let a = crypto.generate_a();
+                console.log(localPublicJSON);
                 let p = localPublicJSON.p;
                 let g = localPublicJSON.g;
 
@@ -237,7 +238,7 @@ class Inviter {
                         participants[i].PublicKey = public_key;
                     }
                 }
-                HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv));
+                HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv), crypto_cnv.convGuidId);
                 localStorage.setItem(crypto_cnv.convGuidId, JSON.stringify(crypto_cnv));
 
                 document.querySelector('#self_created').insertAdjacentHTML('beforeend',

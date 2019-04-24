@@ -45,14 +45,11 @@ namespace Slug.Hubs
             var messageHub = new MessagersHub(base.Context, base.Clients);
             PartialHubResponse userMessageHubResp = await messageHub.SendMessage(message, convId, toUserId);
 
-            var UCW = new UserConnectionWorker();
-            IList<string> ConnectionId = UCW.GetConnectionById(userMessageHubResp.ToUserID);
-
-            Clients.Clients(ConnectionId).NotifyAbout(
+            Clients.Clients(userMessageHubResp.ConnectionIds).NotifyAbout(
                 "MSG", 
-                userMessageHubResp.FromUserName, 
-                userMessageHubResp.FromUserSurname, 
-                userMessageHubResp.FromUserAvatarUri, null);
+                userMessageHubResp.FromUser.Name, 
+                userMessageHubResp.FromUser.SurName, 
+                userMessageHubResp.FromUser.AvatarUri, null);
         }
 
 
@@ -64,10 +61,15 @@ namespace Slug.Hubs
             cryptoHub.CreateNewCryptoConversation(create_request);
         }
 
-        public async Task InviteUsersToCryptoChat(string offer_to_cripto_chat)
+        public async Task InviteUsersToCryptoChat(string offerToCriptoChat, Guid cryptoConversationGuidID)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
-            cryptoHub.InviteUsersToCryptoChat(offer_to_cripto_chat);
+            PartialHubResponse responce = await cryptoHub.InviteUsersToCryptoChat(offerToCriptoChat, cryptoConversationGuidID);
+            Clients.Clients(responce.ConnectionIds).NotifyAbout(
+                "ICC",
+                responce.FromUser.Name,
+                responce.FromUser.SurName,
+                responce.FromUser.AvatarUri, null);
         }
         public async Task AcceptInvite(string ansver_to_cripto_chat)
         {

@@ -20,6 +20,11 @@ function crypt_send() {
 }
 
 function get_new(message, avatar, name, date) {
+    console.log(message);
+    console.log(avatar);
+    console.log(name);
+    console.log(date);
+
 
     let decrypted = decryption(message);
     var mylist = $('#c_msgs');

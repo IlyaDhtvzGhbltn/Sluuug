@@ -210,6 +210,19 @@ namespace Slug.Helpers
             return model;
         }
 
+        public int GetInterlocutorID(Guid cryptoCnvId, int insteadID)
+        {
+            int ids = 0;
+            using (var context = new DataBaseContext())
+            {
+                int IDs = context.SecretChatGroup
+                    .Where(x => x.PartyGUID == cryptoCnvId && x.UserId != insteadID)
+                    .Select(x => x.UserId)
+                    .First();
+                ids = IDs;
+            }
+            return ids;
+        }
 
         private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, Guid chatId)
         {
