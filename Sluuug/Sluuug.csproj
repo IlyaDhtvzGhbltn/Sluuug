@@ -170,6 +170,7 @@
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
+    <Compile Include="Context\Dto\Messages\MessagesHubResponse.cs" />
     <Compile Include="Context\Dto\UserWorker\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker\UserConfirmationDitails.cs" />
     <Compile Include="Context\Tables\UserConnection.cs" />

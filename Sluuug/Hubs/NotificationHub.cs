@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Slug.Context.Dto.Messages;
 using Slug.Helpers;
 using Sluuug.Hubs;
 
@@ -32,11 +33,26 @@ namespace Slug.Hubs
 
 
 
-
+        /// <summary>
+        /// Send none crypt message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="convId"></param>
+        /// <param name="toUserId"></param>
+        /// <returns></returns>
         public async Task SendMessage(string message, string convId, int toUserId)
         {
             var messageHub = new MessagersHub(base.Context, base.Clients);
-            await messageHub.SendMessage(message, convId, toUserId);
+            PartialHubResponse userMessageHubResp = await messageHub.SendMessage(message, convId, toUserId);
+
+            var UCW = new UserConnectionWorker();
+            IList<string> ConnectionId = UCW.GetConnectionById(userMessageHubResp.ToUserID);
+
+            Clients.Clients(ConnectionId).NotifyAbout(
+                "MSG", 
+                userMessageHubResp.FromUserName, 
+                userMessageHubResp.FromUserSurname, 
+                userMessageHubResp.FromUserAvatarUri, null);
         }
 
 

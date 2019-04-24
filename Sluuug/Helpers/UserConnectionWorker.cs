@@ -41,13 +41,15 @@ namespace Slug.Helpers
             }
         }
 
-        public Guid GetConnectionById(int userID)
+        public IList<string> GetConnectionById(int userID)
         {
             using (var context = new DataBaseContext())
             {
-                UserConnection userConnect = context.UserConnections
-                    .FirstOrDefault(x => x.UserID == userID);
-                return userConnect.ConnectionID;
+                IList<string> userConnect = context.UserConnections
+                    .Where(x => x.UserID == userID && x.ConnectionActiveStatus == true)
+                    .Select(x => x.ConnectionID.ToString())
+                    .ToArray();
+                return userConnect;
             }
         }
     }

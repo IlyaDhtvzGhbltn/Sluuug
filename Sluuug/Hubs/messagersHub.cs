@@ -6,8 +6,10 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context;
+using Slug.Context.Dto.Messages;
 using Slug.Helpers;
 using Slug.Hubs;
+using Slug.Model;
 
 namespace Sluuug.Hubs
 {
@@ -19,31 +21,38 @@ namespace Sluuug.Hubs
             this.Clients = clients;
         }
 
-        public async Task SendMessage(string message, string convId, int toUserId)
+        public async Task<PartialHubResponse> SendMessage(string message, string convId, int toUserId)
         {
+            int toUserID = toUserId;
             Cookie cookies = base.Context.Request.Cookies["session_id"];
             var UsWork = new UserWorker();
             var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-            var user = UsWork.GetUserInfo(cookies.Value);
+            CutUserInfoModel user = UsWork.GetUserInfo(cookies.Value);
             if (user != null)
             {
                 DialogWorker dW = new DialogWorker();
-                Guid conversation = Guid.Empty;
-                int toUserID = toUserId;
+                Guid convGuidID = Guid.Empty;
                 if (convId == "0")
                 {
-                    conversation = UsWork.GetConversationId(cookies.Value, toUserId);
+                    convGuidID = UsWork.GetConversationId(cookies.Value, toUserId);
                 }
                 else
                 {
-                    conversation = Guid.Parse(convId);
-                    toUserID = 2;
+                    convGuidID = Guid.Parse(convId);
+                    toUserID = dW.GetConversatorsIds(convGuidID).Where(x => x != user.UserId).First();
                 }
 
-                await dW.SaveMsg(conversation, user.UserId, clearMsg);
-                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), conversation);
+                await dW.SaveMsg(convGuidID, user.UserId, clearMsg);
+                Clients.All.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);
             }
+            var responce = new PartialHubResponse();
+            responce.ToUserID = toUserID;
+            responce.FromUserName = user.Name;
+            responce.FromUserSurname = user.SurName;
+            responce.FromUserAvatarUri = user.AvatarUri;
+
+            return responce;
         }
     }
 }
