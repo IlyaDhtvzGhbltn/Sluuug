@@ -142,7 +142,7 @@ namespace Slug.Context
             {
                 var friendShip = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
-                    .Where(x => x.Accepted == true)
+                    .Where(x => x.IsAccepted == true)
                     .ToArray();
                 if (friendShip.Count() >= 1)
                 {
@@ -163,23 +163,36 @@ namespace Slug.Context
         {
             var model = new MyFriendsModel();
             model.Friends = new List<FriendModel>();
+            model.IncommingInvitations = new List<FriendModel>();
+            model.OutCommingInvitations = new List<FriendModel>();
 
             using (var context = new DataBaseContext())
             {
                 int userId = GetUserInfo(sessionId).UserId;
-                FriendsRelationship[] friendShip = context.FriendsRelationship
+                FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
-                    .Where(x => x.Accepted == true)
+                    .Where(x => x.IsAccepted == true)
                     .ToArray();
-                if (friendShip.Count() >= 1)
-                {
-                    var confirmerIds = friendShip.Where(x => x.UserConfirmer != userId).Select(x => x.UserConfirmer);
-                    var acceptedIds = friendShip.Where(x => x.UserOferFrienshipSender != userId).Select(x => x.UserOferFrienshipSender);
-                    var FriendsIds = confirmerIds.Concat(acceptedIds).ToArray();
+                FriendsRelationship[] inCommingFriendshipPending = context.FriendsRelationship
+                    .Where(x => x.UserConfirmer == userId)
+                    .Where(x => x.IsAccepted == false)
+                    .ToArray();
 
-                    for (int i=0; i< FriendsIds.Count(); i++)
+                FriendsRelationship[] outCommingFriendshipPending = context.FriendsRelationship
+                .Where(x => x.UserOferFrienshipSender == userId)
+                .Where(x => x.IsAccepted == false)
+                .ToArray();
+
+                if (friendshipAccepted.Count() >= 1)
+                {
+                    var confirmerIds = friendshipAccepted.Where(x => x.UserConfirmer != userId).Select(x => x.UserConfirmer);
+                    var acceptedIds = friendshipAccepted.Where(x => x.UserOferFrienshipSender != userId).Select(x => x.UserOferFrienshipSender);
+
+                    var FriendsConfirmIDs = confirmerIds.Concat(acceptedIds).ToArray();
+
+                    for (int i=0; i< FriendsConfirmIDs.Count(); i++)
                     {
-                        CutUserInfoModel friendUserInfo = GetUserInfo(FriendsIds[i]);
+                        CutUserInfoModel friendUserInfo = GetUserInfo(FriendsConfirmIDs[i]);
                         var friend = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
@@ -188,6 +201,39 @@ namespace Slug.Context
                             SurName = friendUserInfo.SurName
                         };
                         model.Friends.Add(friend);
+                    }
+                }
+
+                if (inCommingFriendshipPending.Count() >= 1)
+                {
+
+                    for (int i = 0; i < inCommingFriendshipPending.Count(); i++)
+                    {
+                        CutUserInfoModel friendUserInfo = GetUserInfo(inCommingFriendshipPending[i].UserOferFrienshipSender);
+                        var inInvite = new FriendModel()
+                        {
+                            UserId = friendUserInfo.UserId,
+                            AvatarPath = friendUserInfo.AvatarUri,
+                            Name = friendUserInfo.Name,
+                            SurName = friendUserInfo.SurName
+                        };
+                        model.IncommingInvitations.Add(inInvite);
+                    }
+                }
+
+                if (outCommingFriendshipPending.Count() >= 1)
+                {
+                    for (int i = 0; i < outCommingFriendshipPending.Count(); i++)
+                    {
+                        CutUserInfoModel friendUserInfo = GetUserInfo(outCommingFriendshipPending[i].UserConfirmer);
+                        var outInvite = new FriendModel()
+                        {
+                            UserId = friendUserInfo.UserId,
+                            AvatarPath = friendUserInfo.AvatarUri,
+                            Name = friendUserInfo.Name,
+                            SurName = friendUserInfo.SurName
+                        };
+                        model.OutCommingInvitations.Add(outInvite);
                     }
                 }
             }
@@ -255,6 +301,54 @@ namespace Slug.Context
         public UserSettingsModel GetSettings(string session)
         {
             return new UserSettingsModel();
+        }
+
+        public CutUserInfoModel AddFriends(string session, int userIDToFriendsInvite)
+        {
+            CutUserInfoModel userSenderRequest = GetUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
+                if (invitedUser != null)
+                {
+                    FriendsRelationship invitationAlreadySand = context.FriendsRelationship
+                        .FirstOrDefault(x => x.UserOferFrienshipSender == userSenderRequest.UserId);
+                    if (invitationAlreadySand == null)
+                    {
+                        var relation = new FriendsRelationship();
+                        relation.OfferSendedDate = DateTime.UtcNow;
+                        relation.UserOferFrienshipSender = userSenderRequest.UserId;
+                        relation.UserConfirmer = invitedUser.Id;
+                        relation.IsAccepted = false;
+                        context.FriendsRelationship.Add(relation);
+                        context.SaveChanges();
+                        return userSenderRequest;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public ForeignUserViewModel GetForeignUserInfo(string session, int userID)
+        {
+            var model = new ForeignUserViewModel();
+            using (var context = new DataBaseContext())
+            {
+                var userInfo = GetUserInfo(userID);
+                model.AvatarPath = userInfo.AvatarUri;
+                model.Name = userInfo.Name;
+                model.SurName = userInfo.SurName;
+                bool isFriends = IsUsersAreFriends(session, userID);
+                if (!isFriends)
+                {
+                    model.IsInvestigatedSand = false;
+                }
+                else
+                {
+                    model.IsInvestigatedSand = true;
+                }
+            }
+            return model;
         }
     }
 }

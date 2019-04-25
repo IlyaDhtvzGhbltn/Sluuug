@@ -9,5 +9,9 @@ namespace Slug.Model.Users
     public class MyFriendsModel
     {
         public ICollection<FriendModel> Friends { get; set; }
+
+        public ICollection<FriendModel> IncommingInvitations { get; set; }
+
+        public ICollection<FriendModel> OutCommingInvitations { get; set; }
     }
 }

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Slug.Context;
 using Slug.Context.Dto.Messages;
 using Slug.Helpers;
+using Slug.Model;
 using Sluuug.Hubs;
 
 namespace Slug.Hubs
@@ -136,5 +138,37 @@ namespace Slug.Hubs
             var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
             videoHub.CloseVideoConverence(guidID);
         }
+
+
+
+
+        public async Task AddFriend(int userID)
+        {
+            var userWorker = new UserWorker();
+            var connectionsWorker = new UserConnectionWorker();
+
+            string session = base.Context.Request.Cookies["session_id"].Value;
+            CutUserInfoModel userSenderFriendsRequest = userWorker.AddFriends(session, userID);
+            if (userSenderFriendsRequest != null)
+            {
+               IList<string> connections = connectionsWorker.GetConnectionById(userID);
+                Clients.Clients(connections).NotifyAbout(
+                    "FRND",
+                    userSenderFriendsRequest.Name,
+                    userSenderFriendsRequest.SurName,
+                    userSenderFriendsRequest.AvatarUri);
+            }
+        }
+
+        public async Task DropContact(int userID)
+        {
+
+        }
+
+        public async Task AcceptContact(int userID)
+        {
+
+        }
+
     }
 }

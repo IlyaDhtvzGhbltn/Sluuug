@@ -14,5 +14,7 @@ namespace Slug.Model.Users
         public string Name { get; set; }
 
         public string SurName { get; set; }
+
+        public bool IsInvestigatedSand { get; set; }
     }
 }

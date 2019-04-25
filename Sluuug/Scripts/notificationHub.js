@@ -1,6 +1,6 @@
 ﻿var connection = $.hubConnection();
 var HUB = connection.createHubProxy('notificationHub');
-var notificationTypesArray
+var delay = 5000;
 
 connection.start().done(function () {
     HUB.invoke('OpenConnect');
@@ -26,8 +26,13 @@ HUB.on('NotifyAbout', function (type, name, surname, avatar, params) {
         case 'ICC_A':
             newC_MSGInviteAcceptedNotification(name, surname, avatar);
             break;
+        case 'FRND':
+            newFriendshipNotification(name, surname, avatar);
+            break;
+        case 'ACC_FRND':
+            newFriendshipAcceptNotification(name, surname, avatar);
+            break;
     }
-
 });
 
 function newMSGNotification(name, surname, avatar) {
@@ -37,7 +42,7 @@ function newMSGNotification(name, surname, avatar) {
         '<img src="' + avatar + '" height="30" width="30"/>' +
         '<p><a href="/private/cnv">click here to answer</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
-    setTimeout(clearNotificationDiv, 5000)
+    setTimeout(clearNotificationDiv, delay)
 }
 
 function newVideoConferenceNotification(name, surname, avatar) {
@@ -47,7 +52,7 @@ function newVideoConferenceNotification(name, surname, avatar) {
         '<img src="' + avatar + '" height="30" width="30"/>' +
         '<p><a href="/private/invite_video_conversation">click here to answer</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
-    setTimeout(clearNotificationDiv, 5000)
+    setTimeout(clearNotificationDiv, delay)
 }
 
 function newInviteToCryptChatNotification(name, surname, avatar, publicData) {
@@ -66,7 +71,7 @@ function newInviteToCryptChatNotification(name, surname, avatar, publicData) {
         invited.save_invitation(publicData);
     }
 
-    setTimeout(clearNotificationDiv, 5000)
+    setTimeout(clearNotificationDiv, delay)
 }
 
 function newC_MSGNotification(name, surname, avatar) {
@@ -76,7 +81,7 @@ function newC_MSGNotification(name, surname, avatar) {
         '<img src="' + avatar + '" height="30" width="30"/>' +
         '<p><a href="/private/crypto_cnv">click here to answer</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
-    setTimeout(clearNotificationDiv, 5000)
+    setTimeout(clearNotificationDiv, delay)
 }
 
 function newC_MSGInviteAcceptedNotification(name, surname, avatar) {
@@ -86,7 +91,28 @@ function newC_MSGInviteAcceptedNotification(name, surname, avatar) {
         '<img src="' + avatar + '" height="30" width="30"/>' +
         '<p><a href="/private/crypto_cnv">click here to answer</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
-    setTimeout(clearNotificationDiv, 5000)
+    setTimeout(clearNotificationDiv, delay)
+}
+
+function newFriendshipNotification(name, surname, avatar) {
+    var note = $('#notification_div');
+
+    var htmlContent = '<span>' + name + ' ' + surname + ' invited you to friends</span >' +
+        '<img src="' + avatar + '" height="30" width="30"/>' +
+        '<p><a href="/private/cnv">click here to answer</a> </p>';
+    note[0].insertAdjacentHTML('beforeend', htmlContent);
+    setTimeout(clearNotificationDiv, delay)
+}
+
+function newFriendshipAcceptNotification(name, surname, avatar)
+{
+    var note = $('#notification_div');
+
+    var htmlContent = '<span>Your invitation was acceptet by ' + name + ' ' + surname + '</span >' +
+        '<img src="' + avatar + '" height="30" width="30"/>' +
+        '<p><a href="/private/cnv">click here to answer</a> </p>';
+    note[0].insertAdjacentHTML('beforeend', htmlContent);
+    setTimeout(clearNotificationDiv, delay)
 }
 
 function clearNotificationDiv() {

@@ -99,12 +99,7 @@ namespace Slug.Controllers
                 }
                 else
                 {
-                    var model = new ForeignUserViewModel();
-                    var userInfo = UserWorker.GetUserInfo(id);
-                    model.AvatarPath = userInfo.AvatarUri;
-                    model.Name = userInfo.Name;
-                    model.SurName = userInfo.SurName;
-
+                    ForeignUserViewModel model = UserWorker.GetForeignUserInfo(sessionId, id);
                     return View(model);
                 }
             }
@@ -120,18 +115,24 @@ namespace Slug.Controllers
 
             if (ownId != id)
             {
-                var fUserModel = new FriendlyUserModel();
-                var userInfo = UserWorker.GetUserInfo(id);
+                bool friends = UserWorker.IsUsersAreFriends(sessionId, id);
+                if (friends)
+                {
+                    var fUserModel = new FriendlyUserModel();
+                    CutUserInfoModel userInfo = UserWorker.GetUserInfo(id);
 
-                fUserModel.AvatarPath = userInfo.AvatarUri;
-                fUserModel.DateOfBirth = userInfo.DateBirth;
-                fUserModel.Sity = userInfo.Sity;
-                fUserModel.MetroStation = userInfo.MetroStation;
-                fUserModel.Name = userInfo.Name;
-                fUserModel.SurName = userInfo.SurName;
-                fUserModel.UserId = userInfo.UserId;
+                    fUserModel.AvatarPath = userInfo.AvatarUri;
+                    fUserModel.DateOfBirth = userInfo.DateBirth;
+                    fUserModel.Sity = userInfo.Sity;
+                    fUserModel.MetroStation = userInfo.MetroStation;
+                    fUserModel.Name = userInfo.Name;
+                    fUserModel.SurName = userInfo.SurName;
+                    fUserModel.UserId = userInfo.UserId;
 
-                return View(fUserModel);
+                    return View(fUserModel);
+                }
+                else
+                    return RedirectToAction("my", "private");
             }
             else
                 return RedirectToAction("my", "private");

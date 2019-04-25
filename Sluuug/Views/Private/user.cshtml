@@ -9,7 +9,14 @@
 <div>
     <div id="user_cut_data">
         <img src="@Model.AvatarPath" />
-        <p><button name="@Model.UserId">Add to Contacts</button></p>
+        @if (Model.IsInvestigatedSand)
+        {
+        <p><button name="@Model.UserId" onclick="addToContacts()">Add to Contacts</button></p>
+        }
+        else
+        {
+            <p>User is not your friend now</p>
+        }
     </div>
 </div>
 

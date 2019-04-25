@@ -5,13 +5,35 @@
 }
 
 <h2>My contacts</h2>
-<div class="friends_div">
+<h3>Incomming invitations</h3>
+<div id="in_invitations">
+    @foreach (var item in Model.IncommingInvitations)
+    {
+        <div class="invitation" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+        <input type="button" value="accept friendship" onclick="acceptFriendshipInvitation(@item.UserId)"/>
+
+    }
+</div>
+<h3>Outcomming invitations</h3>
+<div id="out_invitations">
+    @foreach (var item in Model.OutCommingInvitations)
+    {
+        <div class="invitation" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+    }
+</div>
+<h3>My Contacts</h3>
+<div id="accepted_friends">
 
     @foreach (var item in Model.Friends)
     {
         <div class="friend_div" id="@item.UserId">
             <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
         </div>
+        <input type="button" value="drop from contacts" onclick="dropFromContacts(@item.UserId)"/>
     }
 </div>
-<script src="~/Scripts/goFriend.js"></script>
+<script src="~/Scripts/myContacts.js"></script>

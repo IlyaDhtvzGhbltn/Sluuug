@@ -21,6 +21,6 @@ namespace Slug.Context.Tables
         public int UserConfirmer { get; set; }
 
         [Required]
-        public bool Accepted { get; set; }
+        public bool IsAccepted { get; set; }
     }
 }
