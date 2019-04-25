@@ -2,7 +2,7 @@
 //var videoChat = connection.createHubProxy('videoChatInviteHub');
 //connection.start();
 var audioContext = null;
-
+window.addEventListener("load", onLoad());
 const peerConnCfg =
     {
         'iceServers':
@@ -104,21 +104,6 @@ function got_ansfer(guid, answer) {
     )
 }
 
-window.addEventListener("load", onLoad());
-
-
-function onLoad() {
-    checType().then(function (result)
-    {
-        console.log(result);
-        if (result == 'CALLER') {
-            waitAnimation();
-        }
-        else if (result == 'CALLE') {
-            initiate_call();
-        }
-    });
-}
 
 async function checType() {
     var id = getGuidID();
@@ -143,10 +128,25 @@ function getGuidID() {
 }
 
 function closeCallImmediately() {
-    HUB.invoke('CloseVideoConverence', getGuidID());
+    connection.start().done(function () {
+        HUB.invoke('CloseVideoConverence', getGuidID());
+    })
 }
 
 function callClose() {
     location.replace('/private/invite_video_conversation');
     console.log('connection lost.');
+}
+
+
+function onLoad() {
+    checType().then(function (result) {
+        console.log(result);
+        if (result == 'CALLER') {
+            waitAnimation();
+        }
+        else if (result == 'CALLE') {
+            initiate_call();
+        }
+    });
 }

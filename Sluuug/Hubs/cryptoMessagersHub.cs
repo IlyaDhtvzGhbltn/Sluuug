@@ -65,28 +65,41 @@ namespace Slug.Hubs
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
             IList<string> UserRecipientsConnectionIds = new List<string>();
             UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
-            var responce = new PartialHubResponse();
-            responce.ConnectionIds = UserRecipientsConnectionIds;
-            responce.FromUser = fromUser;
 
             Clients.Clients(UserRecipientsConnectionIds).ObtainNewInvitation(cryptoConversation);
+
+            var responce = new PartialHubResponse();
+            responce.ConnectionIds = UserRecipientsConnectionIds;
+            responce.PublicDataToExcange = cryptoConversation;
+            responce.FromUser = fromUser;
             return responce;
         }
 
-        public void AcceptInvite(string ansver_to_cripto_chat)
+        public async Task<PartialHubResponse> AcceptInvite(string ansver_to_cripto_chat)
         {
-            CryptoChatWorker CrWorker = new CryptoChatWorker();
-            UserWorker UsWorker = new UserWorker();
+            var connectionWorker = new UserConnectionWorker();
+            var CrWorker = new CryptoChatWorker();
+            var UsWorker = new UserWorker();
+
             var cookies = base.Context.Request.Cookies["session_id"];
-            var id = UsWorker.GetUserInfo(cookies.Value).UserId;
+            CutUserInfoModel userAccepter = UsWorker.GetUserInfo(cookies.Value);
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
 
 
-            CrWorker.UpdateAcceptCryptoChat(id, cryptoConversation.ConvGuidId);
-            Clients.Others.AcceptInvitation(ansver_to_cripto_chat);
+            CrWorker.UpdateAcceptCryptoChat(userAccepter.UserId, cryptoConversation.ConvGuidId);
+            int interlocutor = CrWorker.GetInterlocutorID(cryptoConversation.ConvGuidId, userAccepter.UserId);
+            IList<string> connections = connectionWorker.GetConnectionById(interlocutor);
+
+            Clients.Clients(connections).AcceptInvitation(ansver_to_cripto_chat);
+
+            var responce = new PartialHubResponse();
+            responce.ConnectionIds = connections;
+            responce.PublicDataToExcange = cryptoConversation;
+            responce.FromUser = userAccepter;
+            return responce;
         }
 
-        public async Task SendMessage(string message)
+        public async Task<PartialHubResponse> SendMessage(string message)
         {
             var connectionWorker = new UserConnectionWorker();
             var cryptoChatWorker = new CryptoChatWorker();
@@ -109,6 +122,11 @@ namespace Slug.Hubs
 
             Clients.Clients(UserRecipientsConnectionIds).NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
             Clients.Caller.NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
+
+            var response = new PartialHubResponse();
+            response.ConnectionIds = UserRecipientsConnectionIds;
+            response.FromUser = fromUser;
+            return response;
         }
     }
 }

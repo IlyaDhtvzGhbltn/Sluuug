@@ -15,6 +15,14 @@
 
 <h3>incomming calls</h3>
 <div id="incomming">
+    @foreach (var item in Model.IncomingCalls)
+    {
+        <div class="incomming_call" id="called__@item.CallerID" onclick="acceptInvite('@item.CallerID', '@item.ConferenceID')">
+            <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1553527278/incomming_call.png" height="45" width="45">
+            <span>Not canceled call @item.CallerName  @item.CallerSurName
+            </span>
+        </div>
+    }
 </div>
 <h3>calls history</h3>
 <div id="calls_history">

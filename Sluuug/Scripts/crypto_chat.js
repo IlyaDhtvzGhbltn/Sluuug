@@ -103,7 +103,13 @@ class Crypto {
 
 class Invited {
 
+    save_invitation(crypto_conversation) {
+        localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
+    }
+
     got_invitation(crypto_conversation) {
+        localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
+
         document.querySelector('#currentSC').insertAdjacentHTML('beforeend',
             '<div class="cryptp_chat" style="cursor:pointer" >' +
             '<span>Opening date : ' + crypto_conversation.creationDate + ' </span>' +
@@ -114,7 +120,6 @@ class Invited {
             '<button onclick="accept_invite(this)" id="' + crypto_conversation.convGuidId +'" />Accept</button>' +
             '</div>');
 
-        localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
     }
 
     accept_invitation(event_handler) {

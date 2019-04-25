@@ -64,23 +64,38 @@ namespace Slug.Hubs
         public async Task InviteUsersToCryptoChat(string offerToCriptoChat, Guid cryptoConversationGuidID)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
-            PartialHubResponse responce = await cryptoHub.InviteUsersToCryptoChat(offerToCriptoChat, cryptoConversationGuidID);
-            Clients.Clients(responce.ConnectionIds).NotifyAbout(
+            PartialHubResponse response = await cryptoHub.InviteUsersToCryptoChat(offerToCriptoChat, cryptoConversationGuidID);
+            Clients.Clients(response.ConnectionIds).NotifyAbout(
                 "ICC",
-                responce.FromUser.Name,
-                responce.FromUser.SurName,
-                responce.FromUser.AvatarUri, null);
+                response.FromUser.Name,
+                response.FromUser.SurName,
+                response.FromUser.AvatarUri, 
+                response.PublicDataToExcange
+                );
         }
         public async Task AcceptInvite(string ansver_to_cripto_chat)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
-            cryptoHub.AcceptInvite(ansver_to_cripto_chat);
+            PartialHubResponse response = await cryptoHub.AcceptInvite(ansver_to_cripto_chat);
+            Clients.Clients(response.ConnectionIds).NotifyAbout(
+                "ICC_A",
+                response.FromUser.Name,
+                response.FromUser.SurName,
+                response.FromUser.AvatarUri
+                );
         }
 
         public async Task SendMessage(string message)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
-            await cryptoHub.SendMessage(message);
+            var response = await cryptoHub.SendMessage(message);
+
+            Clients.Clients(response.ConnectionIds).NotifyAbout(
+                "C_MSG",
+                response.FromUser.Name,
+                response.FromUser.SurName,
+                response.FromUser.AvatarUri
+                );
         }
 
 
@@ -90,7 +105,12 @@ namespace Slug.Hubs
         public async Task CreateAndInvite(int calleUserId)
         {
             var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
-            videoHub.CreateAndInvite(calleUserId);
+            PartialHubResponse responce = await videoHub.CreateAndInvite(calleUserId);
+            Clients.Clients(responce.ConnectionIds).NotifyAbout(
+                "VC",
+                responce.FromUser.Name,
+                responce.FromUser.SurName,
+                responce.FromUser.AvatarUri, null);
         }
 
         public async Task Invite(string callOffer, Guid videoConverenceGuidID)

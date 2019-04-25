@@ -52,5 +52,26 @@ namespace Slug.Helpers
                 return userConnect;
             }
         }
+
+        public IList<string> GetConnectionsByIds(int[] userID)
+        {
+            using (var context = new DataBaseContext())
+            {
+                IList<string> userConnect = new List<string>();
+                foreach (int item in userID)
+                {
+                    string[] connections = context.UserConnections
+                    .Where(x => x.UserID == item && x.ConnectionActiveStatus == true)
+                    .Select(x => x.ConnectionID.ToString())
+                    .ToArray();
+
+                    foreach (string connection in connections)
+                    {
+                        userConnect.Add(connection);
+                    }
+                }
+                return userConnect;
+            }
+        }
     }
 }

@@ -251,5 +251,10 @@ namespace Slug.Context
                 context.SaveChanges();
             }
         }
+
+        public UserSettingsModel GetSettings(string session)
+        {
+            return new UserSettingsModel();
+        }
     }
 }

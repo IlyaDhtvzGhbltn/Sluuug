@@ -194,5 +194,19 @@ namespace Slug.Controllers
             }
             return RedirectToAction("index", "guest");
         }
+
+        [HttpGet]
+        public ActionResult settings()
+        {
+            string sessionId = Request.Cookies.Get("session_id").Value;
+            UserSettingsModel model = UserWorker.GetSettings(sessionId);
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult search()
+        {
+            return View();
+        }
     }
 }

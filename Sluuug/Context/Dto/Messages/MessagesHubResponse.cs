@@ -1,4 +1,5 @@
-﻿using Slug.Model;
+﻿using Slug.Context.Dto.CryptoConversation;
+using Slug.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace Slug.Context.Dto.Messages
         public CutUserInfoModel FromUser { get; set; }
 
         public IList<string> ConnectionIds { get; set; }
+
+        public dynamic PublicDataToExcange { get; set; }
+
     }
 }

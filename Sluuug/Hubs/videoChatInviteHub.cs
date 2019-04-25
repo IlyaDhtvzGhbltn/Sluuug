@@ -7,6 +7,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context;
 using Slug.Context.Attributes;
+using Slug.Context.Dto.Messages;
 using Slug.Helpers;
 using Slug.Model;
 
@@ -14,60 +15,89 @@ namespace Slug.Hubs
 {
     public class VideoChatInviteHub : Hub
     {
+        private UserConnectionWorker connectionsHandler { get; } = new UserConnectionWorker();
+        private VideoConferenceWorker videoConferenceHandler { get; } = new VideoConferenceWorker();
+        private UserWorker userInfoHandler { get; } = new UserWorker();
+
         public VideoChatInviteHub(HubCallerContext context, IHubCallerConnectionContext<dynamic> clients)
         {
             this.Context = context;
             this.Clients = clients;
         }
 
-        public void CreateAndInvite(int calleUserId)
+        /// <summary>
+        /// use like notify about new video-conference invite
+        /// </summary>
+        /// <param name="calleUserId"></param>
+        /// <returns></returns>
+        public async Task<PartialHubResponse> CreateAndInvite(int calleUserId)
         {
-            var VCWorker = new VideoConferenceWorker(Context, calleUserId);
-            var UsWork = new UserWorker();
-
             Cookie cookies = base.Context.Request.Cookies["session_id"];
-            var userInfo = UsWork.GetUserInfo(cookies.Value);
+            CutUserInfoModel userInfo = this.userInfoHandler.GetUserInfo(cookies.Value);
 
-            Guid guid = VCWorker.Create(userInfo.UserId, calleUserId);
-            var connectionWorker = new UserConnectionWorker();
+            Guid guid = this.videoConferenceHandler.Create(userInfo.UserId, calleUserId);
             IList<string> UserRecipientsConnectionIds = new List<string>();
-            UserRecipientsConnectionIds = connectionWorker.GetConnectionById(calleUserId);
+            UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
 
             Clients.Clients(UserRecipientsConnectionIds).CalleInviteToRedirect(guid, userInfo.UserId);
             Clients.Caller.CallerGuidToRedirect(guid);
+
+            var response = new PartialHubResponse();
+            response.ConnectionIds = UserRecipientsConnectionIds;
+            response.FromUser = userInfo;
+            return response;
         }
 
         public void Invite(string callOffer, Guid videoConverenceGuidID)
         {
-            var VCWorker = new VideoConferenceWorker();
-            var UsWork = new UserWorker();
-
             Cookie cookies = base.Context.Request.Cookies["session_id"];
-            var userInfo = UsWork.GetUserInfo(cookies.Value);
+            CutUserInfoModel userInfo = this.userInfoHandler.GetUserInfo(cookies.Value);
 
-            VCWorker.UpdateConferenceOffer(callOffer, userInfo.UserId, videoConverenceGuidID);
+            this.videoConferenceHandler.UpdateConferenceOffer(callOffer, userInfo.UserId, videoConverenceGuidID);
 
-            Clients.Others.GotInvite(videoConverenceGuidID, callOffer); 
+            int invitedID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceGuidID, userInfo.UserId);
+            IList<string> inviteConnectionsID = this.connectionsHandler.GetConnectionById(invitedID);
+
+            Clients.Clients(inviteConnectionsID).GotInvite(videoConverenceGuidID, callOffer);
         }
 
-        public void ConfirmInvite(Guid guid, string callAnswer)
+        public async Task<PartialHubResponse> ConfirmInvite(Guid videoConverenceID, string callAnswer)
         {
-            var VCWorker = new VideoConferenceWorker();
-            VCWorker.SaveAnswerVideoConference(callAnswer, guid);
+            Cookie cookies = base.Context.Request.Cookies["session_id"];
+            CutUserInfoModel userInfo = this.userInfoHandler.GetUserInfo(cookies.Value);
+            int callerNeedAnswerID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceID, userInfo.UserId);
 
-            Clients.Others.ConfirmInvite(guid, callAnswer);
+            this.videoConferenceHandler.SaveAnswerVideoConference(callAnswer, videoConverenceID);
+            IList<string> inviteConnectionsID = this.connectionsHandler.GetConnectionById(callerNeedAnswerID);
+
+            Clients.Clients(inviteConnectionsID).ConfirmInvite(videoConverenceID, callAnswer);
+
+            var response = new PartialHubResponse();
+            response.ConnectionIds = inviteConnectionsID;
+            response.FromUser = userInfo;
+            return response;
         }
 
-        public void ExchangeICandidates(dynamic iceCandidate, Guid guidID)
+        public void ExchangeICandidates(dynamic iceCandidate, Guid videoConverenceID)
         {
-            Clients.Others.exchangeCandidates(iceCandidate);
+            Cookie cookies = base.Context.Request.Cookies["session_id"];
+            CutUserInfoModel userInfo = this.userInfoHandler.GetUserInfo(cookies.Value);
+            int otherUserID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceID, userInfo.UserId);
+
+            IList<string> inviteConnectionsID = this.connectionsHandler.GetConnectionById(otherUserID);
+
+
+            Clients.Clients(inviteConnectionsID).exchangeCandidates(iceCandidate);
         }
 
-        public void CloseVideoConverence(Guid guidID)
+        public void CloseVideoConverence(Guid ID)
         {
-            var VCWorker = new VideoConferenceWorker();
-            VCWorker.CloseConverence(guidID);
-            Clients.All.Close();
+            this.videoConferenceHandler.CloseConverence(ID);
+            int[] usersParticipants = this.videoConferenceHandler.GetVideoConferenceParticipants(ID);
+            IList<string> UserRecipientsConnectionIds = new List<string>();
+            UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionsByIds(usersParticipants);
+
+            Clients.Clients(UserRecipientsConnectionIds).Close();
         }
     }
 }
