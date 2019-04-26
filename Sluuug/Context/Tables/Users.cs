@@ -13,36 +13,16 @@ namespace Slug.Context.Tables
         public string Login { get; set; }
 
         [Required]
-        public string Password { get; set; }
-
-        [Required]
-        [MinLength(2), MaxLength(20)]
-        public string Name { get; set; }
-
-        [Required]
-        [MinLength(2), MaxLength(20)]
-        public string ForName { get; set; }
-
-        [Required]
         public int CountryCode { get; set; }
-
-        public string Sity { get; set; }
-
-        public string MetroStation { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
 
         [Required]
         public int UserStatus { get; set; }
 
         public int? AvatarId { get; set; }
 
+        public UserInfo UserFullInfo { get; set; }
+
+        public UserSettings Settings { get; set; }
 
     }
 }

@@ -46,7 +46,7 @@ namespace Slug.Controllers
             {
                 UserConfirmationDitails userConfirmation = UserWorker.RegisterNew(user);
 
-                var mailer = new Mailer(user.Email, userConfirmation.ActivatioMailParam);
+                var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
                 mailer.SendActivationMail();
                 return RedirectToAction("login", "guest", new { a = userConfirmation.ActivationSessionId });
             }

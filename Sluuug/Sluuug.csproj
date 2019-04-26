@@ -171,9 +171,17 @@
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\Messages\MessagesHubResponse.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\BaseLiveEpisode.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\Education.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\EducationType.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\LifePlaces.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\MemorableEvents.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\WorkPlaces.cs" />
     <Compile Include="Context\Dto\UserWorker\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker\UserConfirmationDitails.cs" />
     <Compile Include="Context\Tables\UserConnection.cs" />
+    <Compile Include="Context\Tables\UserInfo.cs" />
+    <Compile Include="Context\Tables\UserSettings.cs" />
     <Compile Include="Context\Tables\VideoConference.cs" />
     <Compile Include="Context\Tables\VideoConferenceGroups.cs" />
     <Compile Include="Context\Tables\ConversationGroup.cs" />
@@ -183,14 +191,14 @@
     <Compile Include="Context\Tables\SecretChatGroup.cs" />
     <Compile Include="Controllers\apiController.cs" />
     <Compile Include="Crypto\Converting.cs" />
-    <Compile Include="Helpers\ActivationMailWorker.cs" />
-    <Compile Include="Helpers\ConversationWorker.cs" />
-    <Compile Include="Helpers\CryptoChatWorker.cs" />
+    <Compile Include="Helpers\ActivationHandler.cs" />
+    <Compile Include="Helpers\ConversationHandler.cs" />
+    <Compile Include="Helpers\CryptoChatHandler.cs" />
     <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
-    <Compile Include="Helpers\DialogWorker.cs" />
-    <Compile Include="Helpers\Mailer.cs" />
-    <Compile Include="Helpers\SessionWorker.cs" />
+    <Compile Include="Helpers\UsersDialogHandler.cs" />
+    <Compile Include="Helpers\MailNotifyHandler.cs" />
+    <Compile Include="Helpers\SessionsHandler.cs" />
     <Compile Include="Context\Tables\ActivationMails.cs" />
     <Compile Include="Context\Tables\Avatars.cs" />
     <Compile Include="Context\Tables\Conversation.cs" />
@@ -199,8 +207,8 @@
     <Compile Include="Context\Tables\SessionTypes.cs" />
     <Compile Include="Context\Tables\Users.cs" />
     <Compile Include="Context\Tables\UserStatuses.cs" />
-    <Compile Include="Helpers\UserConnectionWorker.cs" />
-    <Compile Include="Helpers\UserWorker.cs" />
+    <Compile Include="Helpers\UsersConnectionHandler.cs" />
+    <Compile Include="Helpers\UsersHandler.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\PrivateController.cs" />
@@ -228,6 +236,30 @@
     <Compile Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.cs" />
     <Compile Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.Designer.cs">
       <DependentUpon>201904260813548_Friendship_tbo_enum_ststus_added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261222009_user information tbo.cs" />
+    <Compile Include="Migrations\201904261222009_user information tbo.Designer.cs">
+      <DependentUpon>201904261222009_user information tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261309370_fill collumns into info tables.cs" />
+    <Compile Include="Migrations\201904261309370_fill collumns into info tables.Designer.cs">
+      <DependentUpon>201904261309370_fill collumns into info tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261313046_add user infos.cs" />
+    <Compile Include="Migrations\201904261313046_add user infos.Designer.cs">
+      <DependentUpon>201904261313046_add user infos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261414447_user_unmerg_to_settings_and_info.cs" />
+    <Compile Include="Migrations\201904261414447_user_unmerg_to_settings_and_info.Designer.cs">
+      <DependentUpon>201904261414447_user_unmerg_to_settings_and_info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261421546_user_unmerg_to_settings_and_info2.cs" />
+    <Compile Include="Migrations\201904261421546_user_unmerg_to_settings_and_info2.Designer.cs">
+      <DependentUpon>201904261421546_user_unmerg_to_settings_and_info2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261423581_user_unmerg_to_settings_and_info3.cs" />
+    <Compile Include="Migrations\201904261423581_user_unmerg_to_settings_and_info3.Designer.cs">
+      <DependentUpon>201904261423581_user_unmerg_to_settings_and_info3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -286,6 +318,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.resx">
       <DependentUpon>201904260813548_Friendship_tbo_enum_ststus_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261222009_user information tbo.resx">
+      <DependentUpon>201904261222009_user information tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261309370_fill collumns into info tables.resx">
+      <DependentUpon>201904261309370_fill collumns into info tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261313046_add user infos.resx">
+      <DependentUpon>201904261313046_add user infos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261414447_user_unmerg_to_settings_and_info.resx">
+      <DependentUpon>201904261414447_user_unmerg_to_settings_and_info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261421546_user_unmerg_to_settings_and_info2.resx">
+      <DependentUpon>201904261421546_user_unmerg_to_settings_and_info2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261423581_user_unmerg_to_settings_and_info3.resx">
+      <DependentUpon>201904261423581_user_unmerg_to_settings_and_info3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Context 
 {
+
+    public enum PrivateStatus
+    {
+        Alone,
+        Dating,
+        Wedding,
+    }
+
     public enum FriendshipItemStatus
     {
         None,

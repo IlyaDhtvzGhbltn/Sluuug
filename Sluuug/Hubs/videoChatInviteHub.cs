@@ -15,7 +15,7 @@ namespace Slug.Hubs
 {
     public class VideoChatInviteHub : Hub
     {
-        private UserConnectionHandler connectionsHandler { get; } = new UserConnectionHandler();
+        private UsersConnectionHandler connectionsHandler { get; } = new UsersConnectionHandler();
         private VideoConferenceWorker videoConferenceHandler { get; } = new VideoConferenceWorker();
         private UsersHandler userInfoHandler { get; } = new UsersHandler();
 

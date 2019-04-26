@@ -24,7 +24,7 @@ namespace Slug.Context.Attributes
                     if (!string.IsNullOrWhiteSpace(slugCookie.Value))
                     {
                         string sessionId = slugCookie.Value;
-                        var sW = new SessionWorker();
+                        var sW = new SessionsHandler();
                         var type = sW.GetSessionType(sessionId);
                         if (type == SessionTypes.Private)
                         {

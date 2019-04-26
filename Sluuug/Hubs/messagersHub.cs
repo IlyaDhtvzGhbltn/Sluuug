@@ -32,7 +32,7 @@ namespace Sluuug.Hubs
             CutUserInfoModel user = UsWork.GetUserInfo(cookies.Value);
             if (user != null)
             {
-                var dialogWorker = new DialogWorker();
+                var dialogWorker = new UsersDialogHandler();
                 Guid convGuidID = Guid.Empty;
                 if (convId == "0")
                 {
@@ -45,7 +45,7 @@ namespace Sluuug.Hubs
                 }
 
                 await dialogWorker.SaveMsg(convGuidID, user.UserId, clearMsg);
-                var connectionWorker = new UserConnectionHandler();
+                var connectionWorker = new UsersConnectionHandler();
                 UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
 
                 Clients.Caller.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);

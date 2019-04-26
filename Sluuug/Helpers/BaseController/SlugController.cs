@@ -6,12 +6,12 @@ namespace Slug.Helpers
 {
     public class SlugController : Controller
     {
-        public SessionWorker SessionWorker { get; set; } = new SessionWorker();
-        public ActivationMailWorker ActivationMailWorker { get; set; } = new ActivationMailWorker();
+        public SessionsHandler SessionWorker { get; set; } = new SessionsHandler();
+        public ActivationHandler ActivationMailWorker { get; set; } = new ActivationHandler();
         public UsersHandler UserWorker { get; set; } = new UsersHandler();
-        public ConversationWorker ConverWorker { get; set; } = new ConversationWorker();
-        public DialogWorker DialogWorker { get; set; } = new DialogWorker();
-        public CryptoChatWorker CryptoChatWorker { get; set; } = new CryptoChatWorker();
+        public ConversationHandler ConverWorker { get; set; } = new ConversationHandler();
+        public UsersDialogHandler DialogWorker { get; set; } = new UsersDialogHandler();
+        public CryptoChatHandler CryptoChatWorker { get; set; } = new CryptoChatHandler();
         public VideoConferenceWorker VideoConferenceWorker { get; set; } = new VideoConferenceWorker();
     }
 }

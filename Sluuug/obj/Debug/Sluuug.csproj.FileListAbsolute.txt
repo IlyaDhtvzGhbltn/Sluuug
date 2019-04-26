@@ -179,3 +179,9 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.SecretMessagetbononuniquekeyPartyId.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.FriendsRelations_Accepted_rename_to_IsAccepted.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.Friendship_tbo_enum_ststus_added.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.userinformationtbo.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.fillcollumnsintoinfotables.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.adduserinfos.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info2.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info3.resources

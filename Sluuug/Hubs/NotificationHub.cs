@@ -19,7 +19,7 @@ namespace Slug.Hubs
 
         public void OpenConnect()
         {
-            var UCW = new UserConnectionHandler();
+            var UCW = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies["session_id"].Value;
             string connection = Context.ConnectionId;
             UCW.AddConnection(connection, session);
@@ -27,7 +27,7 @@ namespace Slug.Hubs
 
         public void CloseConnect()
         {
-            var UCW = new UserConnectionHandler();
+            var UCW = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies["session_id"].Value;
             string connection = Context.ConnectionId;
             UCW.CloseConnection(connection, session);
@@ -145,7 +145,7 @@ namespace Slug.Hubs
         public async Task AddFriend(int userID)
         {
             var userWorker = new UsersHandler();
-            var connectionsWorker = new UserConnectionHandler();
+            var connectionsWorker = new UsersConnectionHandler();
 
             string session = base.Context.Request.Cookies["session_id"].Value;
             CutUserInfoModel userSenderFriendsRequest = userWorker.AddInviteToContacts(session, userID);

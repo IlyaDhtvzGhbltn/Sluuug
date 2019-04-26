@@ -16,6 +16,9 @@ namespace Context
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<SessionType> SessionTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserInfo> UsersInfos { get; set; }
+        public virtual DbSet<UserSettings> UserSettings { get; set; }
+
         public virtual DbSet<UserStatus> UserStatuses { get; set; }
         public virtual DbSet<Conversation> Conversations { get; set; }
         public virtual DbSet<ConversationGroup> ConversationGroup { get; set; }

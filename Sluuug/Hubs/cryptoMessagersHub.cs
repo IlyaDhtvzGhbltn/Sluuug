@@ -37,7 +37,7 @@ namespace Slug.Hubs
             CryptoChatResponce.CreatorAvatar = UserInfo.AvatarUri;
             CryptoChatResponce.CreationDate = DateTime.Now;
 
-            var CryptWorker = new CryptoChatWorker();
+            var CryptWorker = new CryptoChatHandler();
             var response = CryptWorker.CreateNewCryptoChat(CryptoChatResponce.Type, CryptoChatResponce.Participants, UserInfo.UserId);
             CryptoChatResponce.ConvGuidId = response.CryptoGuidId;
             CryptoChatResponce.CreatorUserId = UserInfo.UserId;
@@ -60,8 +60,8 @@ namespace Slug.Hubs
             cryptoConversation.CreatorAvatar = fromUser.AvatarUri;
             cryptoConversation.CreatorName = fromUser.Name;
 
-            var connectionWorker = new UserConnectionHandler();
-            var cryptoChatWorker = new CryptoChatWorker();
+            var connectionWorker = new UsersConnectionHandler();
+            var cryptoChatWorker = new CryptoChatHandler();
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
             IList<string> UserRecipientsConnectionIds = new List<string>();
             UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
@@ -77,8 +77,8 @@ namespace Slug.Hubs
 
         public async Task<PartialHubResponse> AcceptInvite(string ansver_to_cripto_chat)
         {
-            var connectionWorker = new UserConnectionHandler();
-            var CrWorker = new CryptoChatWorker();
+            var connectionWorker = new UsersConnectionHandler();
+            var CrWorker = new CryptoChatHandler();
             var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies["session_id"];
@@ -101,8 +101,8 @@ namespace Slug.Hubs
 
         public async Task<PartialHubResponse> SendMessage(string message)
         {
-            var connectionWorker = new UserConnectionHandler();
-            var cryptoChatWorker = new CryptoChatWorker();
+            var connectionWorker = new UsersConnectionHandler();
+            var cryptoChatWorker = new CryptoChatHandler();
 
             UsersHandler UsWorker = new UsersHandler();
             Cookie cookies = base.Context.Request.Cookies["session_id"];
