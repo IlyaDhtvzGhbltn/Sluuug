@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Context;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +22,6 @@ namespace Slug.Context.Tables
         public int UserConfirmer { get; set; }
 
         [Required]
-        public bool IsAccepted { get; set; }
+        public FriendshipItemStatus Status { get; set; }
     }
 }

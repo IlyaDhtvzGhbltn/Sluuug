@@ -26,7 +26,7 @@ namespace Sluuug.Hubs
             int toUserID = toUserId;
             IList<string> UserRecipientsConnectionIds = new List<string>();
             Cookie cookies = base.Context.Request.Cookies["session_id"];
-            var UsWork = new UserWorker();
+            var UsWork = new UsersHandler();
             var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
             CutUserInfoModel user = UsWork.GetUserInfo(cookies.Value);
@@ -45,7 +45,7 @@ namespace Sluuug.Hubs
                 }
 
                 await dialogWorker.SaveMsg(convGuidID, user.UserId, clearMsg);
-                var connectionWorker = new UserConnectionWorker();
+                var connectionWorker = new UserConnectionHandler();
                 UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
 
                 Clients.Caller.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);

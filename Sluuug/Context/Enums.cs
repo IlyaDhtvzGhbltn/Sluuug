@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Context 
 {
+    public enum FriendshipItemStatus
+    {
+        None,
+        Pending,
+        Accept,
+        Close
+    }
+
     public enum CallState
     {
         In,

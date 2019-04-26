@@ -13,7 +13,7 @@ namespace Slug.Helpers
 {
     public class DialogWorker
     {
-        private UserWorker UserWorker = new UserWorker();
+        private UsersHandler UserWorker = new UsersHandler();
         private readonly int multiple = 5;
 
         public DialogModel GetMessanges(Guid convId, int page)

@@ -3,19 +3,24 @@
     ViewBag.Title = "users";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@using Context;
 
 <h2>@Model.Name @Model.SurName</h2>
 
 <div>
     <div id="user_cut_data">
         <img src="@Model.AvatarPath" />
-        @if (Model.IsInvestigatedSand)
+        @if (Model.Status == FriendshipItemStatus.Close || Model.Status == FriendshipItemStatus.None)
         {
-        <p><button name="@Model.UserId" onclick="addToContacts()">Add to Contacts</button></p>
+        <p>
+            <div id="add_contact">
+                <button onclick="addToContacts()">Add to Contacts</button>
+            </div>
+        </p>
         }
-        else
+        else if (Model.Status == FriendshipItemStatus.Pending)
         {
-            <p>User is not your friend now</p>
+            <p>User not accept your invitation</p>
         }
     </div>
 </div>

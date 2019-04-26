@@ -1,11 +1,11 @@
 ﻿function addToContacts() {
-    console.log(HUB);
-    HUB.invoke('AddFriend', getID());
+    HUB.invoke('AddFriend', getID()).done(function () {
+        $("#add_contact").html("User not accept your invitation");
+    });
 }
 
 function getID() {
     var url = window.location;
     var params = /[0-9]*$/g.exec(url);
-    console.log(params[0]);
     return params[0];
 }

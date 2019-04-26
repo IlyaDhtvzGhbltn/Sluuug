@@ -1,4 +1,5 @@
 ﻿using Context;
+using Slug.Context.Dto.Messages;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
 using Slug.Crypto;
@@ -9,10 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Slug.Context
 {
-    public class UserWorker
+    public class UsersHandler
     {
         public UserConfirmationDitails RegisterNew(RegisteringUserModel user)
         {
@@ -142,7 +144,7 @@ namespace Slug.Context
             {
                 var friendShip = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
-                    .Where(x => x.IsAccepted == true)
+                    .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
                 if (friendShip.Count() >= 1)
                 {
@@ -171,16 +173,16 @@ namespace Slug.Context
                 int userId = GetUserInfo(sessionId).UserId;
                 FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
-                    .Where(x => x.IsAccepted == true)
+                    .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
                 FriendsRelationship[] inCommingFriendshipPending = context.FriendsRelationship
                     .Where(x => x.UserConfirmer == userId)
-                    .Where(x => x.IsAccepted == false)
+                    .Where(x => x.Status == FriendshipItemStatus.Pending)
                     .ToArray();
 
                 FriendsRelationship[] outCommingFriendshipPending = context.FriendsRelationship
                 .Where(x => x.UserOferFrienshipSender == userId)
-                .Where(x => x.IsAccepted == false)
+                .Where(x => x.Status == FriendshipItemStatus.Pending)
                 .ToArray();
 
                 if (friendshipAccepted.Count() >= 1)
@@ -303,7 +305,7 @@ namespace Slug.Context
             return new UserSettingsModel();
         }
 
-        public CutUserInfoModel AddFriends(string session, int userIDToFriendsInvite)
+        public CutUserInfoModel AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
             CutUserInfoModel userSenderRequest = GetUserInfo(session);
             using (var context = new DataBaseContext())
@@ -312,15 +314,22 @@ namespace Slug.Context
                 if (invitedUser != null)
                 {
                     FriendsRelationship invitationAlreadySand = context.FriendsRelationship
-                        .FirstOrDefault(x => x.UserOferFrienshipSender == userSenderRequest.UserId);
+                        .FirstOrDefault(x => x.UserOferFrienshipSender == userSenderRequest.UserId && x.UserConfirmer == invitedUser.Id ||
+                        x.UserConfirmer == userSenderRequest.UserId && x.UserOferFrienshipSender == invitedUser.Id);
                     if (invitationAlreadySand == null)
                     {
                         var relation = new FriendsRelationship();
                         relation.OfferSendedDate = DateTime.UtcNow;
                         relation.UserOferFrienshipSender = userSenderRequest.UserId;
                         relation.UserConfirmer = invitedUser.Id;
-                        relation.IsAccepted = false;
+                        relation.Status = FriendshipItemStatus.Pending;
                         context.FriendsRelationship.Add(relation);
+                        context.SaveChanges();
+                        return userSenderRequest;
+                    }
+                    else if (invitationAlreadySand.Status == FriendshipItemStatus.Close)
+                    {
+                        invitationAlreadySand.Status = FriendshipItemStatus.Pending;
                         context.SaveChanges();
                         return userSenderRequest;
                     }
@@ -334,21 +343,63 @@ namespace Slug.Context
             var model = new ForeignUserViewModel();
             using (var context = new DataBaseContext())
             {
-                var userInfo = GetUserInfo(userID);
+                var userInfo = GetUserInfo(session);
                 model.AvatarPath = userInfo.AvatarUri;
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;
-                bool isFriends = IsUsersAreFriends(session, userID);
-                if (!isFriends)
+                FriendsRelationship relationItem = context.FriendsRelationship
+                    .Where(x => x.UserConfirmer == userID && x.UserOferFrienshipSender == userInfo.UserId ||
+                    x.UserOferFrienshipSender == userID && x.UserConfirmer == userInfo.UserId )
+                    .FirstOrDefault();
+                model.Status = FriendshipItemStatus.None;
+
+                if (relationItem != null)
                 {
-                    model.IsInvestigatedSand = false;
-                }
-                else
-                {
-                    model.IsInvestigatedSand = true;
+                    model.Status = relationItem.Status;
                 }
             }
             return model;
+        }
+
+        public void DropFrienship(string session, int userID)
+        {
+            int myID = GetUserInfo(session).UserId;
+            bool isUsersFriends = IsUsersAreFriends(session, userID);
+            if (isUsersFriends)
+            {
+                using (var context = new DataBaseContext())
+                {
+                    FriendsRelationship entryFrienship = context.FriendsRelationship
+                        .Where(x => x.UserOferFrienshipSender == myID && x.UserConfirmer == userID ||
+                        x.UserConfirmer == myID && x.UserOferFrienshipSender == userID)
+                        .First();
+                    entryFrienship.Status = FriendshipItemStatus.Close;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public async Task<PartialHubResponse> AcceptInviteToContacts(string session, int userID)
+        {
+            CutUserInfoModel accepterUser = GetUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                FriendsRelationship item = context.FriendsRelationship
+                    .Where(x => x.Status == FriendshipItemStatus.Pending && 
+                    x.UserOferFrienshipSender == userID && 
+                    x.UserConfirmer == accepterUser.UserId)
+                    .First();
+
+                item.Status = FriendshipItemStatus.Accept;
+                context.SaveChanges();
+
+                var connectionHandler = new UserConnectionHandler();
+                IList<string> connections = connectionHandler.GetConnectionById(userID);
+                var responce = new PartialHubResponse();
+                responce.ConnectionIds = connections;
+                responce.FromUser = accepterUser;
+                return responce;
+            }
         }
     }
 }

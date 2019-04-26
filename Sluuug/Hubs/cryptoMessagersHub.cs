@@ -29,7 +29,7 @@ namespace Slug.Hubs
         {
             var Cookie = base.Context.Request.Cookies;
             var session_id = Cookie["session_id"];
-            var uW = new UserWorker();
+            var uW = new UsersHandler();
             var UserInfo = uW.GetUserInfo(session_id.Value);
 
             var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
@@ -53,14 +53,14 @@ namespace Slug.Hubs
         public async Task<PartialHubResponse> InviteUsersToCryptoChat(string offer_to_cripto_chat, Guid userInvited)
         {
             Cookie Session = Context.Request.Cookies["session_id"];
-            UserWorker worker = new UserWorker();
+            UsersHandler worker = new UsersHandler();
             CutUserInfoModel fromUser = worker.GetUserInfo(Session.Value);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
             cryptoConversation.CreatorAvatar = fromUser.AvatarUri;
             cryptoConversation.CreatorName = fromUser.Name;
 
-            var connectionWorker = new UserConnectionWorker();
+            var connectionWorker = new UserConnectionHandler();
             var cryptoChatWorker = new CryptoChatWorker();
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
             IList<string> UserRecipientsConnectionIds = new List<string>();
@@ -77,9 +77,9 @@ namespace Slug.Hubs
 
         public async Task<PartialHubResponse> AcceptInvite(string ansver_to_cripto_chat)
         {
-            var connectionWorker = new UserConnectionWorker();
+            var connectionWorker = new UserConnectionHandler();
             var CrWorker = new CryptoChatWorker();
-            var UsWorker = new UserWorker();
+            var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies["session_id"];
             CutUserInfoModel userAccepter = UsWorker.GetUserInfo(cookies.Value);
@@ -101,10 +101,10 @@ namespace Slug.Hubs
 
         public async Task<PartialHubResponse> SendMessage(string message)
         {
-            var connectionWorker = new UserConnectionWorker();
+            var connectionWorker = new UserConnectionHandler();
             var cryptoChatWorker = new CryptoChatWorker();
 
-            UserWorker UsWorker = new UserWorker();
+            UsersHandler UsWorker = new UsersHandler();
             Cookie cookies = base.Context.Request.Cookies["session_id"];
             int id = UsWorker.GetUserInfo(cookies.Value).UserId;
 

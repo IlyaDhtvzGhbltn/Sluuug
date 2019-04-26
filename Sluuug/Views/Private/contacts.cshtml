@@ -9,17 +9,19 @@
 <div id="in_invitations">
     @foreach (var item in Model.IncommingInvitations)
     {
-        <div class="invitation" id="@item.UserId">
-            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
-        </div>
-        <input type="button" value="accept friendship" onclick="acceptFriendshipInvitation(@item.UserId)"/>
-
+        <div id="incomm_invitations_@item.UserId">
+            <div class="invitation" id="@item.UserId">
+                <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+            </div>
+                <input type="button" id="add_contact_button" value="accept friendship" onclick="acceptFriendshipInvitation(@item.UserId)" />
+         </div>
     }
 </div>
 <h3>Outcomming invitations</h3>
 <div id="out_invitations">
     @foreach (var item in Model.OutCommingInvitations)
     {
+
         <div class="invitation" id="@item.UserId">
             <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
         </div>
@@ -30,10 +32,12 @@
 
     @foreach (var item in Model.Friends)
     {
+    <div id="friend_@item.UserId">
         <div class="friend_div" id="@item.UserId">
             <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
         </div>
-        <input type="button" value="drop from contacts" onclick="dropFromContacts(@item.UserId)"/>
+        <input type="button" value="drop from contacts" onclick="dropFromContacts(@item.UserId)" />
+    </div>
     }
 </div>
 <script src="~/Scripts/myContacts.js"></script>

@@ -178,3 +178,4 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.rrrr.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.SecretMessagetbononuniquekeyPartyId.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.FriendsRelations_Accepted_rename_to_IsAccepted.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.Friendship_tbo_enum_ststus_added.resources

@@ -8,11 +8,11 @@ using System.Web;
 
 namespace Slug.Helpers
 {
-    public class UserConnectionWorker
+    public class UserConnectionHandler
     {
         public void AddConnection(string connectionID, string session)
         {
-            UserWorker UW = new UserWorker();
+            UsersHandler UW = new UsersHandler();
             using (var context = new DataBaseContext())
             {
                 var connectionItem = new UserConnection();
@@ -28,7 +28,7 @@ namespace Slug.Helpers
 
         public void CloseConnection(string connectionID, string session)
         {
-            UserWorker UW = new UserWorker();
+            UsersHandler UW = new UsersHandler();
             Guid guidID = Guid.Parse (connectionID);
             int userID = UW.GetUserInfo(session).UserId;
 

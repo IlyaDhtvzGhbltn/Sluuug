@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.Designer.cs">
       <DependentUpon>201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.cs" />
+    <Compile Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.Designer.cs">
+      <DependentUpon>201904260813548_Friendship_tbo_enum_ststus_added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoChatModel.cs" />
@@ -279,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.resx">
       <DependentUpon>201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.resx">
+      <DependentUpon>201904260813548_Friendship_tbo_enum_ststus_added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

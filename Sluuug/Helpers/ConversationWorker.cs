@@ -19,7 +19,7 @@ namespace Slug.Helpers
             {
                 var ConversationGroup = context.ConversationGroup
                     .Where(x => x.UserId == userId).ToList();
-                var UsWork = new UserWorker();
+                var UsWork = new UsersHandler();
 
                 foreach (var dialog in ConversationGroup)
                 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,6 @@ namespace Slug.Model.Users
 
         public string SurName { get; set; }
 
-        public bool IsInvestigatedSand { get; set; }
+        public FriendshipItemStatus Status { get; set; }
     }
 }

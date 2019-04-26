@@ -20,7 +20,7 @@ namespace Slug.Helpers
         public VideoConferenceWorker(Microsoft.AspNet.SignalR.Hubs.HubCallerContext context, int calleID)
         {
             string session = context.Request.Cookies["session_id"].Value;
-            var UWorker = new UserWorker();
+            var UWorker = new UsersHandler();
             bool isFriends = UWorker.IsUsersAreFriends(session, calleID);
             if (!isFriends)
                 throw new Exception("Users Are Not Friends");
@@ -79,7 +79,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 int userCreatorConferenceID = context.VideoConferences.First(x=>x.GuidId == videoConverenceID).ConferenceCreatorUserId;
-                var UWorker = new UserWorker();
+                var UWorker = new UsersHandler();
                 int userRequestedId = UWorker.GetUserInfo(sessionID).UserId;
                 if (userRequestedId == userCreatorConferenceID)
                     return VideoConverenceCallType.Caller;
@@ -95,7 +95,7 @@ namespace Slug.Helpers
             model.CallsHistory = new List<CallModel>();
             model.IncomingCalls = new List<IncomingInvite>();
 
-            var userWorker = new UserWorker();
+            var userWorker = new UsersHandler();
             int myId = userWorker.GetUserInfo(sessionID).UserId;
 
             MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID);

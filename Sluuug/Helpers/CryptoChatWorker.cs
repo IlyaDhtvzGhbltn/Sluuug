@@ -64,7 +64,7 @@ namespace Slug.Helpers
         public CryptoChatModel GetCryptoChat(string sessionId)
         {
             var model = new CryptoChatModel();
-            var user = new UserWorker();
+            var user = new UsersHandler();
 
             model.CurrentChats = new List<CryptoChat>();
             model.AcceptNeeded = new List<CryptoChat>();
@@ -160,7 +160,7 @@ namespace Slug.Helpers
                 page = 1;
 
             var model = new CryptoDialogModel();
-            var userWorker = new UserWorker();
+            var userWorker = new UsersHandler();
             var userInfos = new Dictionary<int, CutUserInfoModel>();
 
             model.GuidId = Guid.Parse(GuidId);
@@ -236,7 +236,7 @@ namespace Slug.Helpers
 
                 return CryptoChatStatus.PendingAccepted;
         }
-        private List<FriendModel> getChatUser(DataBaseContext context, Guid PartyGUID, ref UserWorker user)
+        private List<FriendModel> getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user)
         {
             List<FriendModel> chatParticipants = new List<FriendModel>();
             var participators = context.SecretChatGroup.Where(x => x.PartyGUID == PartyGUID).ToList();

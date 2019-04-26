@@ -19,7 +19,7 @@ namespace Slug.Hubs
 
         public void OpenConnect()
         {
-            var UCW = new UserConnectionWorker();
+            var UCW = new UserConnectionHandler();
             string session = base.Context.Request.Cookies["session_id"].Value;
             string connection = Context.ConnectionId;
             UCW.AddConnection(connection, session);
@@ -27,7 +27,7 @@ namespace Slug.Hubs
 
         public void CloseConnect()
         {
-            var UCW = new UserConnectionWorker();
+            var UCW = new UserConnectionHandler();
             string session = base.Context.Request.Cookies["session_id"].Value;
             string connection = Context.ConnectionId;
             UCW.CloseConnection(connection, session);
@@ -144,11 +144,11 @@ namespace Slug.Hubs
 
         public async Task AddFriend(int userID)
         {
-            var userWorker = new UserWorker();
-            var connectionsWorker = new UserConnectionWorker();
+            var userWorker = new UsersHandler();
+            var connectionsWorker = new UserConnectionHandler();
 
             string session = base.Context.Request.Cookies["session_id"].Value;
-            CutUserInfoModel userSenderFriendsRequest = userWorker.AddFriends(session, userID);
+            CutUserInfoModel userSenderFriendsRequest = userWorker.AddInviteToContacts(session, userID);
             if (userSenderFriendsRequest != null)
             {
                IList<string> connections = connectionsWorker.GetConnectionById(userID);
@@ -162,12 +162,24 @@ namespace Slug.Hubs
 
         public async Task DropContact(int userID)
         {
+            var userWorker = new UsersHandler();
+            string session = base.Context.Request.Cookies["session_id"].Value;
 
+            userWorker.DropFrienship(session, userID);
         }
 
         public async Task AcceptContact(int userID)
         {
+            var userWorker = new UsersHandler();
+            string session = base.Context.Request.Cookies["session_id"].Value;
 
+            PartialHubResponse response = await userWorker.AcceptInviteToContacts(session, userID);
+
+            Clients.Clients(response.ConnectionIds).NotifyAbout(
+                "ACC_FRND",
+                response.FromUser.Name,
+                response.FromUser.SurName,
+                response.FromUser.AvatarUri);
         }
 
     }

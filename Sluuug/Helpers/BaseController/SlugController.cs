@@ -8,7 +8,7 @@ namespace Slug.Helpers
     {
         public SessionWorker SessionWorker { get; set; } = new SessionWorker();
         public ActivationMailWorker ActivationMailWorker { get; set; } = new ActivationMailWorker();
-        public UserWorker UserWorker { get; set; } = new UserWorker();
+        public UsersHandler UserWorker { get; set; } = new UsersHandler();
         public ConversationWorker ConverWorker { get; set; } = new ConversationWorker();
         public DialogWorker DialogWorker { get; set; } = new DialogWorker();
         public CryptoChatWorker CryptoChatWorker { get; set; } = new CryptoChatWorker();

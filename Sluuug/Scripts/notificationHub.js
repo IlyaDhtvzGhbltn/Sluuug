@@ -99,7 +99,7 @@ function newFriendshipNotification(name, surname, avatar) {
 
     var htmlContent = '<span>' + name + ' ' + surname + ' invited you to friends</span >' +
         '<img src="' + avatar + '" height="30" width="30"/>' +
-        '<p><a href="/private/cnv">click here to answer</a> </p>';
+        '<p><a href="/private/contacts">click here to go contacts</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
     setTimeout(clearNotificationDiv, delay)
 }
@@ -110,7 +110,7 @@ function newFriendshipAcceptNotification(name, surname, avatar)
 
     var htmlContent = '<span>Your invitation was acceptet by ' + name + ' ' + surname + '</span >' +
         '<img src="' + avatar + '" height="30" width="30"/>' +
-        '<p><a href="/private/cnv">click here to answer</a> </p>';
+        '<p><a href="/private/contacts">click here to go contacts</a> </p>';
     note[0].insertAdjacentHTML('beforeend', htmlContent);
     setTimeout(clearNotificationDiv, delay)
 }
