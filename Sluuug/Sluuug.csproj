@@ -179,7 +179,7 @@
     <Compile Include="Context\Dto\UserFullInfo\WorkPlaces.cs" />
     <Compile Include="Context\Dto\UserWorker\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker\UserConfirmationDitails.cs" />
-    <Compile Include="Context\Tables\UserConnection.cs" />
+    <Compile Include="Context\Tables\UserConnections.cs" />
     <Compile Include="Context\Tables\UserInfo.cs" />
     <Compile Include="Context\Tables\UserSettings.cs" />
     <Compile Include="Context\Tables\VideoConference.cs" />
@@ -221,45 +221,9 @@
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Hubs\MessagersHub.cs" />
     <Compile Include="Hubs\VideoChatInviteHub.cs" />
-    <Compile Include="Migrations\201904231503421_rrrr.cs" />
-    <Compile Include="Migrations\201904231503421_rrrr.Designer.cs">
-      <DependentUpon>201904231503421_rrrr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904241045483_SecretMessage tbo non-unique key PartyId.cs" />
-    <Compile Include="Migrations\201904241045483_SecretMessage tbo non-unique key PartyId.Designer.cs">
-      <DependentUpon>201904241045483_SecretMessage tbo non-unique key PartyId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.cs" />
-    <Compile Include="Migrations\201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.Designer.cs">
-      <DependentUpon>201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.cs" />
-    <Compile Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.Designer.cs">
-      <DependentUpon>201904260813548_Friendship_tbo_enum_ststus_added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261222009_user information tbo.cs" />
-    <Compile Include="Migrations\201904261222009_user information tbo.Designer.cs">
-      <DependentUpon>201904261222009_user information tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261309370_fill collumns into info tables.cs" />
-    <Compile Include="Migrations\201904261309370_fill collumns into info tables.Designer.cs">
-      <DependentUpon>201904261309370_fill collumns into info tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261313046_add user infos.cs" />
-    <Compile Include="Migrations\201904261313046_add user infos.Designer.cs">
-      <DependentUpon>201904261313046_add user infos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261414447_user_unmerg_to_settings_and_info.cs" />
-    <Compile Include="Migrations\201904261414447_user_unmerg_to_settings_and_info.Designer.cs">
-      <DependentUpon>201904261414447_user_unmerg_to_settings_and_info.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261421546_user_unmerg_to_settings_and_info2.cs" />
-    <Compile Include="Migrations\201904261421546_user_unmerg_to_settings_and_info2.Designer.cs">
-      <DependentUpon>201904261421546_user_unmerg_to_settings_and_info2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904261423581_user_unmerg_to_settings_and_info3.cs" />
-    <Compile Include="Migrations\201904261423581_user_unmerg_to_settings_and_info3.Designer.cs">
-      <DependentUpon>201904261423581_user_unmerg_to_settings_and_info3.cs</DependentUpon>
+    <Compile Include="Migrations\201904270952356_00.cs" />
+    <Compile Include="Migrations\201904270952356_00.Designer.cs">
+      <DependentUpon>201904270952356_00.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -307,35 +271,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904231503421_rrrr.resx">
-      <DependentUpon>201904231503421_rrrr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904241045483_SecretMessage tbo non-unique key PartyId.resx">
-      <DependentUpon>201904241045483_SecretMessage tbo non-unique key PartyId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.resx">
-      <DependentUpon>201904251155533_FriendsRelations_Accepted_rename_to_IsAccepted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904260813548_Friendship_tbo_enum_ststus_added.resx">
-      <DependentUpon>201904260813548_Friendship_tbo_enum_ststus_added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261222009_user information tbo.resx">
-      <DependentUpon>201904261222009_user information tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261309370_fill collumns into info tables.resx">
-      <DependentUpon>201904261309370_fill collumns into info tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261313046_add user infos.resx">
-      <DependentUpon>201904261313046_add user infos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261414447_user_unmerg_to_settings_and_info.resx">
-      <DependentUpon>201904261414447_user_unmerg_to_settings_and_info.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261421546_user_unmerg_to_settings_and_info2.resx">
-      <DependentUpon>201904261421546_user_unmerg_to_settings_and_info2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904261423581_user_unmerg_to_settings_and_info3.resx">
-      <DependentUpon>201904261423581_user_unmerg_to_settings_and_info3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904270952356_00.resx">
+      <DependentUpon>201904270952356_00.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

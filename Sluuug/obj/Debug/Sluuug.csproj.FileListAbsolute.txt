@@ -38,7 +38,6 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Mvc.xml
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CoreCompileInputs.cache
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.dll
@@ -112,19 +111,6 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Http.WebHost.dll
 D:\SLUG\Sluuug\Sluuug\bin\System.Net.Http.Formatting.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Http.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Http.WebHost.xml
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.max_length_36.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.cnvlikecryptoDb.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.int_to_guid.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.videoconferencetbo.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answeraddedinvideo_conference.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.videotbo.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answernull.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answeruserid.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.answeruserid2.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.eeee.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.Indexuniq.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.offeranswerUserIDs.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.video_chat_status.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\Slug.dll.config
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\Slug.pdb
@@ -185,3 +171,5 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.adduserinfos.resour
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info2.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info3.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._00.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache

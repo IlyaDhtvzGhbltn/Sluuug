@@ -15,7 +15,7 @@ namespace Slug.Helpers
             UsersHandler UW = new UsersHandler();
             using (var context = new DataBaseContext())
             {
-                var connectionItem = new UserConnection();
+                var connectionItem = new UserConnections();
                 connectionItem.ConnectionID = Guid.Parse( connectionID );
                 connectionItem.ConnectionTime = DateTime.UtcNow;
                 connectionItem.ConnectionActiveStatus = true;

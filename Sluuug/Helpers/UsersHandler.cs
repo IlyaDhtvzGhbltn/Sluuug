@@ -69,7 +69,7 @@ namespace Slug.Context
             string savedPassword = Crypto.Converting.ConvertStringToSHA512(hashPassword);
             using (var dbContext = new DataBaseContext())
             {
-                var user = dbContext.Users.Where(x => x.Login == login && x.Settings.PasswordHash == savedPassword).FirstOrDefault();
+                User user = dbContext.Users.First(x => x.Settings.PasswordHash == hashPassword);
                 if (user != null)
                     return user.Id;
             }

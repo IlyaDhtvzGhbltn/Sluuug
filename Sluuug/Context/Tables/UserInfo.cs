@@ -34,13 +34,13 @@ namespace Slug.Context.Tables
 
         public PrivateStatus PrivateStatus { get; set; }
 
-        public List<Education> Educations { get; set; }
+        public virtual List<Education> Educations { get; set; }
 
-        public List<LifePlaces> Places { get; set; }
+        public virtual List<LifePlaces> Places { get; set; }
 
-        public List<MemorableEvents> Events { get; set; }
+        public virtual List<MemorableEvents> Events { get; set; }
 
-        public List<WorkPlaces> Works { get; set; }
+        public virtual List<WorkPlaces> Works { get; set; }
 
     }
 }
