@@ -1,5 +1,11 @@
-﻿function saveSettings() {
-    var data = $("#changeSettingsSubmit").serializeArray();
+﻿function saveNotifyType() {
+    var data = $("#changeNotifyTypeSubmit").serializeArray();
+    var json = parceJSON(data);
+    send(json);
+}
+
+function saveEmail() {
+    var data = $("#changeEmailSubmit").serializeArray();
     var json = parceJSON(data);
 
     let index = json.NewEmail.indexOf("@");
@@ -42,7 +48,6 @@ function parceJSON(array)
     }
     return obj;
 }
-
 
 function send(request) {
     console.log('sending...');

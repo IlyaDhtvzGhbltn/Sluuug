@@ -14,7 +14,7 @@ namespace Slug.Helpers
     {
 
 
-        public Tuple<bool,string> Change(string session, SetSettingsRequest newSettings)
+        public string Change(string session, SetSettingsRequest newSettings)
         {
             var handler = new UsersHandler();
             string settingsChangeResult = string.Empty;
@@ -62,11 +62,7 @@ namespace Slug.Helpers
                     }
                 }
             }
-            else {
-                return new Tuple<bool, string>(false, "Is no changes in settings");
-            }
-
-            return new Tuple<bool, string>(true, settingsChangeResult);
+            return settingsChangeResult;
         }
 
         private void ChangePassword(int userID, string newpassword)

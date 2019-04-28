@@ -55,29 +55,13 @@ namespace Slug.Controllers
             var settingsHandler = new SettingsHandler();
 
             var result = settingsHandler.Change(Request.Cookies["session_id"].Value, newSettings);
-
-            if (!result.Item1)
+            return new JsonResult()
             {
-                return new JsonResult()
+                Data = new SetSettingsResponse()
                 {
-                    Data = new SetSettingsResponse()
-                    {
-                        Success = false,
-                        Comment = result.Item2
-                    }
-                };
-            }
-            else
-            {
-                return new JsonResult()
-                {
-                    Data = new SetSettingsResponse()
-                    {
-                        Success = true,
-                        Comment = result.Item2
-                    }
-                };
-            }
+                    Comment = result
+                }
+            };            
         }
 
         private class Role
