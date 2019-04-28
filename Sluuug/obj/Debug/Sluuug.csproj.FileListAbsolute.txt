@@ -173,3 +173,4 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_sett
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.user_unmerg_to_settings_and_info3.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._00.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.notifytypeinsteadbool.resources

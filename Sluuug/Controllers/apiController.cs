@@ -1,6 +1,9 @@
 ﻿using Context;
+using Slug.Context;
 using Slug.Context.Attributes;
+using Slug.Context.Dto.Settings;
 using Slug.Helpers;
+using Slug.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,17 +37,47 @@ namespace Slug.Controllers
 
         [HttpPost]
         public JsonResult user_vc_role(string converenceID)
-         {
-            var rrrrr = Request;
+        {
             string sessionId = Request.Cookies.Get("session_id").Value;
             var VCWorker = new VideoConferenceWorker();
             var role = VCWorker.UserVCType(sessionId, Guid.Parse(converenceID));
-            if(role == VideoConverenceCallType.Caller)
+            if (role == VideoConverenceCallType.Caller)
                 return new JsonResult() { Data = new Role { type = "CALLER" } };
-            if(role == VideoConverenceCallType.Calle)
+            if (role == VideoConverenceCallType.Calle)
                 return new JsonResult() { Data = new Role { type = "CALLE" } };
 
             return null;
+        }
+
+        [HttpPost]
+        public JsonResult save_settings(SetSettingsRequest newSettings)
+        {
+            var settingsHandler = new SettingsHandler();
+
+            var result = settingsHandler.Change(Request.Cookies["session_id"].Value, newSettings);
+
+            if (!result.Item1)
+            {
+                return new JsonResult()
+                {
+                    Data = new SetSettingsResponse()
+                    {
+                        Success = false,
+                        Comment = result.Item2
+                    }
+                };
+            }
+            else
+            {
+                return new JsonResult()
+                {
+                    Data = new SetSettingsResponse()
+                    {
+                        Success = true,
+                        Comment = result.Item2
+                    }
+                };
+            }
         }
 
         private class Role

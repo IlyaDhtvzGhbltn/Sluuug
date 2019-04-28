@@ -96,6 +96,16 @@ namespace Slug.Context
             return userModel;
         }
 
+        public UserSettings GetUserSettings(string sessionID)
+        {
+            using (var context = new DataBaseContext())
+            {
+                Session session = context.Sessions.First(x => x.Number == sessionID);
+                User user = context.Users.First(x => x.Id == session.UserId);
+                return user.Settings;
+            }
+        }
+
         public CutUserInfoModel GetUserInfo(int userId)
         {
             var userModel = new CutUserInfoModel();
@@ -302,7 +312,15 @@ namespace Slug.Context
 
         public UserSettingsModel GetSettings(string session)
         {
-            return new UserSettingsModel();
+            var model = new UserSettingsModel();
+            CutUserInfoModel user = GetUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                User userSett = context.Users.Where(x => x.Id == user.UserId).First();
+                model.NotifyType = userSett.Settings.NotificationType;
+                model.Email = userSett.Settings.Email;
+            }
+            return model;
         }
 
         public CutUserInfoModel AddInviteToContacts(string session, int userIDToFriendsInvite)

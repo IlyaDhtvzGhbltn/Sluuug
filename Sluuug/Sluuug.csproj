@@ -148,6 +148,8 @@
     <Content Include="Scripts\chatp2pWS.js" />
     <Content Include="Scripts\newMessageFromPage.js" />
     <Content Include="Scripts\newMsgInConv.js" />
+    <Content Include="Scripts\SHA-512.js" />
+    <Content Include="Scripts\Settings.js" />
     <Content Include="Scripts\vConferens.js" />
     <Content Include="Scripts\vDialogRedirection.js" />
     <Content Include="Scripts\vDialogs.js" />
@@ -171,6 +173,9 @@
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\Messages\MessagesHubResponse.cs" />
+    <Compile Include="Context\Dto\Settings\NotificationTypes.cs" />
+    <Compile Include="Context\Dto\Settings\SetSettingsRequest.cs" />
+    <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
     <Compile Include="Context\Dto\UserFullInfo\BaseLiveEpisode.cs" />
     <Compile Include="Context\Dto\UserFullInfo\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo\EducationType.cs" />
@@ -196,6 +201,7 @@
     <Compile Include="Helpers\CryptoChatHandler.cs" />
     <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
+    <Compile Include="Helpers\SettingsHandler.cs" />
     <Compile Include="Helpers\UsersDialogHandler.cs" />
     <Compile Include="Helpers\MailNotifyHandler.cs" />
     <Compile Include="Helpers\SessionsHandler.cs" />
@@ -224,6 +230,10 @@
     <Compile Include="Migrations\201904270952356_00.cs" />
     <Compile Include="Migrations\201904270952356_00.Designer.cs">
       <DependentUpon>201904270952356_00.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904271922188_notify type instead bool.cs" />
+    <Compile Include="Migrations\201904271922188_notify type instead bool.Designer.cs">
+      <DependentUpon>201904271922188_notify type instead bool.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -273,6 +283,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904270952356_00.resx">
       <DependentUpon>201904270952356_00.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904271922188_notify type instead bool.resx">
+      <DependentUpon>201904271922188_notify type instead bool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
