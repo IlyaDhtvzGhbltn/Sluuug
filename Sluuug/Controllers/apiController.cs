@@ -1,6 +1,11 @@
 ﻿using Context;
+using Slug.Context;
 using Slug.Context.Attributes;
+using Slug.Context.Dto.Search;
+using Slug.Context.Dto.Settings;
+using Slug.Context.Dto.VideoConference;
 using Slug.Helpers;
+using Slug.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,22 +39,50 @@ namespace Slug.Controllers
 
         [HttpPost]
         public JsonResult user_vc_role(string converenceID)
-         {
-            var rrrrr = Request;
+        {
             string sessionId = Request.Cookies.Get("session_id").Value;
             var VCWorker = new VideoConferenceWorker();
             var role = VCWorker.UserVCType(sessionId, Guid.Parse(converenceID));
-            if(role == VideoConverenceCallType.Caller)
+            if (role == VideoConverenceCallType.Caller)
                 return new JsonResult() { Data = new Role { type = "CALLER" } };
-            if(role == VideoConverenceCallType.Calle)
+            if (role == VideoConverenceCallType.Calle)
                 return new JsonResult() { Data = new Role { type = "CALLE" } };
 
             return null;
         }
 
-        private class Role
+        [HttpPost]
+        public JsonResult save_settings(SetSettingsRequest newSettings)
         {
-            public string type { get; set; }
+            var settingsHandler = new SettingsHandler();
+
+            var result = settingsHandler.Change(Request.Cookies["session_id"].Value, newSettings);
+            return new JsonResult()
+            {
+                Data = new SetSettingsResponse()
+                {
+                    Comment = result
+                }
+            };            
+        }
+
+        [HttpPost]
+        public JsonResult cities(int countryCode)
+        {
+            var model = new SearchCitiesModel();
+
+            var handler = new SearchHandler();
+            model.Cities = handler.CitiesByCountryID(countryCode);
+            return new JsonResult() { Data = model };
+        }
+
+        [HttpPost]
+        public JsonResult users(SearchUsersRequest request)
+        {
+            var handler = new SearchHandler();
+
+            SearchUsersResponse responce = handler.SearchUsers(request);
+            return new JsonResult() { };
         }
     }
 }

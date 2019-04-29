@@ -15,9 +15,9 @@ namespace Slug.Model
 
         public DateTime DateBirth { get; set; }
 
-        public string Sity { get; set; }
+        public string Country { get; set; }
 
-        public string MetroStation { get; set; }
+        public string Sity { get; set; }
 
         public string AvatarUri { get; set; }
     }

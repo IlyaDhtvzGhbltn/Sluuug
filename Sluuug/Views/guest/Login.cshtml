@@ -24,12 +24,10 @@
 <script src="~/Scripts/jquery-1.6.4.js"></script>
 <script src="~/Scripts/jquery-1.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
+<script src="~/Scripts/SHA-512.js"></script>
 <script>
     document.getElementById("_subm").addEventListener("submit", function (e) {
-        var val = document.getElementById("psw").value;
-        var shaObj = new jsSHA("SHA-512", "TEXT");
-        shaObj.update(val);
-        var hash = shaObj.getHash("HEX");
+        var hash = getSHA(document.getElementById("psw").value);
         document.getElementById("psw").value = hash;
     });
 </script>

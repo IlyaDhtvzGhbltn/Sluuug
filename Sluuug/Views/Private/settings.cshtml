@@ -3,6 +3,53 @@
     ViewBag.Title = "settings";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@using type = Slug.Context.Dto.Settings.NotificationTypes;
 
 <h2>settings</h2>
-
+<div>
+    <div>
+        <form id="changeNotifyTypeSubmit" action="" method="post">
+            <div id="notify_email">
+                @if (Model.NotifyType == type.Login)
+                {
+                    <span>Yes</span>
+                    <input type="radio" name="NotifyType" value="1" checked />
+                    <span>No</span>
+                    <input type="radio" name="NotifyType" value="0" />
+                }
+                else
+                {
+                    <span>Yes</span>
+                    <input type="radio" name="NotifyType" value="1" />
+                    <span>No</span>
+                    <input type="radio" name="NotifyType" value="0" checked />
+                }
+                    <p>
+                        <input type="button" value="Change" onclick="saveNotifyType()" />
+                    </p>
+            </div>
+          
+        </form>
+    </div>
+    <div>
+        <form id="changeEmailSubmit" action="" method="post">
+            <div id="email">
+                <input type="email" name="NewEmail" placeholder="@Model.Email" />
+            </div>
+            <input type="button" value="Change" onclick="saveEmail()" />
+        </form>
+    </div>
+    <div>
+        <form id="changePasswSubmit" action="" method="post">
+            <div id="change_pass">
+                <input type="password" name="OldPassw" placeholder="old password" />
+                <input type="password" name="OldPasswRep" placeholder="old password repeat" />
+                <input type="password" name="NewPassw" placeholder="new password" />
+            </div>
+            <input type="button" value="Change" onclick="savePassword()" />
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
+<script src="~/Scripts/SHA-512.js"></script>
+<script src="~/Scripts/Settings.js"></script>

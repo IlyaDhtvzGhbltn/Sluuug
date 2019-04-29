@@ -16,8 +16,6 @@ namespace Slug.Model.Users
 
         public string Sity { get; set; }
 
-        public string MetroStation { get; set; }
-
         public DateTime DateOfBirth { get; set; }
 
         public string Email { get; set; }

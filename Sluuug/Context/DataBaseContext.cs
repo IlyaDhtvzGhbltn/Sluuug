@@ -15,6 +15,7 @@ namespace Context
         public virtual DbSet<ActivationLink> ActivationLink { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<SessionType> SessionTypes { get; set; }
+
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserInfo> UsersInfos { get; set; }
         public virtual DbSet<UserSettings> UserSettings { get; set; }
@@ -31,6 +32,9 @@ namespace Context
         public virtual DbSet<VideoConference> VideoConferences { get; set; }
         public virtual DbSet<VideoConferenceGroups> VideoConferenceGroups { get; set; }
 
-        public virtual DbSet<UserConnection> UserConnections { get; set; }
+        public virtual DbSet<UserConnections> UserConnections { get; set; }
+
+        public virtual DbSet<Countries> Countries { get; set; }
+        public virtual DbSet<Cities> Cities { get; set; }
     }
 }

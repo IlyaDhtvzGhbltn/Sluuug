@@ -20,9 +20,9 @@ namespace Slug.Context.Tables
 
         public int? AvatarId { get; set; }
 
-        public UserInfo UserFullInfo { get; set; }
+        public virtual UserInfo UserFullInfo { get; set; }
 
-        public UserSettings Settings { get; set; }
+        public virtual UserSettings Settings { get; set; }
 
     }
 }

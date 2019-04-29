@@ -14,6 +14,7 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Slug.Context.Dto.UserWorker;
 using Newtonsoft.Json;
+using Slug.Context.Dto.Search;
 
 namespace Slug.Controllers
 {
@@ -124,7 +125,6 @@ namespace Slug.Controllers
                     fUserModel.AvatarPath = userInfo.AvatarUri;
                     fUserModel.DateOfBirth = userInfo.DateBirth;
                     fUserModel.Sity = userInfo.Sity;
-                    fUserModel.MetroStation = userInfo.MetroStation;
                     fUserModel.Name = userInfo.Name;
                     fUserModel.SurName = userInfo.SurName;
                     fUserModel.UserId = userInfo.UserId;
@@ -208,6 +208,22 @@ namespace Slug.Controllers
         public ActionResult search()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult search_result(string user_name, int user_country, int user_city, int user_sex, int user_age)
+        {
+            var api = new apiController();
+            var parseRequest = new SearchUsersRequest()
+            {
+                 userSearchAge = (AgeEnum)user_age,
+                 userSearchCountry = user_country,
+                 userSearchName = user_name,
+                 userSearchSity = user_city,
+                 userSearchSex = (SexEnum)user_sex
+            };
+            JsonResult response = api.users(parseRequest);
+            return View(response);
         }
     }
 }

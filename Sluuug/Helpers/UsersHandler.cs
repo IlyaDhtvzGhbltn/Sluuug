@@ -69,7 +69,8 @@ namespace Slug.Context
             string savedPassword = Crypto.Converting.ConvertStringToSHA512(hashPassword);
             using (var dbContext = new DataBaseContext())
             {
-                var user = dbContext.Users.Where(x => x.Login == login && x.Settings.PasswordHash == savedPassword).FirstOrDefault();
+                User user = dbContext.Users
+                    .FirstOrDefault(x => x.Settings.PasswordHash == hashPassword && x.Login == login);
                 if (user != null)
                     return user.Id;
             }
@@ -87,13 +88,29 @@ namespace Slug.Context
                 Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
                 userModel.Name = user.UserFullInfo.Name;
                 userModel.SurName = user.UserFullInfo.SurName;
-                userModel.Sity = user.UserFullInfo.NowSity;
-                userModel.MetroStation = user.UserFullInfo.NowMetroStation;
+
+                userModel.Country = context.Countries
+                    .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+                    .First()
+                    .Title;
+                userModel.Sity = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                    .First().Title;
+
                 userModel.DateBirth = user.UserFullInfo.DateOfBirth;
                 userModel.AvatarUri = avatar.ImgPath;
                 userModel.UserId = user.Id;
             }
             return userModel;
+        }
+
+        public UserSettings GetUserSettings(string sessionID)
+        {
+            using (var context = new DataBaseContext())
+            {
+                Session session = context.Sessions.First(x => x.Number == sessionID);
+                User user = context.Users.First(x => x.Id == session.UserId);
+                return user.Settings;
+            }
         }
 
         public CutUserInfoModel GetUserInfo(int userId)
@@ -108,8 +125,16 @@ namespace Slug.Context
                     Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
                     userModel.Name = user.UserFullInfo.Name;
                     userModel.SurName = user.UserFullInfo.SurName;
-                    userModel.Sity = user.UserFullInfo.NowSity;
-                    userModel.MetroStation = user.UserFullInfo.NowMetroStation;
+                    userModel.Country = context.Countries
+                        .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+                        .First()
+                        .Title;
+
+                    userModel.Sity = context.Cities
+                        .Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                        .First()
+                        .Title; 
+
                     userModel.DateBirth = user.UserFullInfo.DateOfBirth;
                     userModel.AvatarUri = avatar.ImgPath;
                     userModel.UserId = user.Id;
@@ -302,7 +327,15 @@ namespace Slug.Context
 
         public UserSettingsModel GetSettings(string session)
         {
-            return new UserSettingsModel();
+            var model = new UserSettingsModel();
+            CutUserInfoModel user = GetUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                User userSett = context.Users.Where(x => x.Id == user.UserId).First();
+                model.NotifyType = userSett.Settings.NotificationType;
+                model.Email = userSett.Settings.Email;
+            }
+            return model;
         }
 
         public CutUserInfoModel AddInviteToContacts(string session, int userIDToFriendsInvite)

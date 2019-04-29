@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slug.Context.Dto.Settings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,7 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
-        public bool NotifyWhenLogin { get; set; }
+        public NotificationTypes NotificationType { get; set; }
 
         [Required]
         [MaxLength(200)]

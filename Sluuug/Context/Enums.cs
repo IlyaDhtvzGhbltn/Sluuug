@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 namespace Context 
 {
 
+    public enum LanguageType
+    {
+        En,
+        Ru
+    }
+
     public enum PrivateStatus
     {
         Alone,

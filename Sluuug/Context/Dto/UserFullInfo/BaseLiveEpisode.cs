@@ -13,7 +13,8 @@ namespace Slug.Context.Dto.UserFullInfo
         public int CountryCode { get; set; }
 
         [Required]
-        public string Sity { get; set; }
+        [Range(1, 10000)]
+        public string SityCode { get; set; }
 
         [Required]
         public bool UntilNow { get; set; }
