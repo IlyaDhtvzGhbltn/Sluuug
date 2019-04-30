@@ -208,6 +208,7 @@
     <Compile Include="Context\Tables\SecretChatGroup.cs" />
     <Compile Include="Controllers\apiController.cs" />
     <Compile Include="Crypto\Converting.cs" />
+    <Compile Include="DbInitialisation\NewUserInitial.cs" />
     <Compile Include="Helpers\ActivationHandler.cs" />
     <Compile Include="Helpers\ConversationHandler.cs" />
     <Compile Include="Helpers\CryptoChatHandler.cs" />

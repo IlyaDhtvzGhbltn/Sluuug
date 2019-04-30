@@ -55,8 +55,8 @@ namespace Slug.Helpers
                 List<SearchCityItem> itemCollection = citiesCollection
                     .Select(x => new SearchCityItem
                     {
-                         CityCode = x.CitiesCode,
-                         Title = x.Title
+                        CityCode = x.CitiesCode,
+                        Title = x.Title
                     }).ToList();
                 return itemCollection;
             }
@@ -72,7 +72,7 @@ namespace Slug.Helpers
                 var minDate = datesOfBirth[request.userSearchAge].UserMinDateOfBirth;
 
                 List<Context.Tables.User> result = context.Users
-                    .Where(x => 
+                    .Where(x =>
                     x.Id != insteadUserID &&
                     x.UserFullInfo.NowSityCode == request.userSearchSity &&
                     x.UserFullInfo.NowCountryCode == request.userSearchCountry &&
@@ -87,7 +87,7 @@ namespace Slug.Helpers
                 responce.Users = result.Take(25).Select(collect => new Model.CutUserInfoModel()
                 {
                     UserId = collect.Id,
-                    AvatarUri = context.Avatars.First(ava => collect.Id == collect.AvatarId).ImgPath,
+                    AvatarUri = context.Avatars.First(ava => collect.AvatarId == collect.AvatarId).ImgPath,
                     Country = context.Countries.First(country => collect.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title,
                     Sity = context.Cities.First(cit => collect.UserFullInfo.NowSityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title,
                     DateBirth = collect.UserFullInfo.DateOfBirth,

@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Text.RegularExpressions;
+using Slug.DbInitialisation;
 
 namespace Sluuug
 {
@@ -13,6 +14,7 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //NewUserInitial.Initialize();
         }
 
         protected void Application_Error(object sender, EventArgs e)
