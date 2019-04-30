@@ -376,7 +376,7 @@ namespace Slug.Context
             var model = new ForeignUserViewModel();
             using (var context = new DataBaseContext())
             {
-                var userInfo = GetUserInfo(session);
+                var userInfo = GetUserInfo(userID);
                 model.AvatarPath = userInfo.AvatarUri;
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;

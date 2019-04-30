@@ -5,4 +5,14 @@
 }
 
 <h2>search result</h2>
+<div id="result_out">
+    @foreach (var user in Model.Users)
+    {
+        <div class="found_user" id="user_@user.UserId" onclick="redirectToUser(@user.UserId)">
+            <img src="@user.AvatarUri" height="45" width="45" /><span>@user.Name @user.SurName @user.FullAges</span>
+            <p><b>@user.Country @user.Sity</b></p>
 
+        </div>
+    }
+</div>
+<script src="~/Scripts/goUser.js"></script>

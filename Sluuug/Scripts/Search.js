@@ -25,9 +25,6 @@ function serchUser() {
 }
 
 
-
-
-
 function parceJSON(array) {
     var obj = new Object();
     for (let i = 0; i < array.length; i++) {

@@ -31,7 +31,7 @@ namespace Slug.Controllers
         public ActionResult my()
         {
             var cookies = Request.Cookies.Get("session_id");
-            var userInfoModel = UserWorker.GetUserInfo(cookies.Value);
+            var userInfoModel = UsersHandler.GetUserInfo(cookies.Value);
             return View(userInfoModel);
         }
 
@@ -56,7 +56,7 @@ namespace Slug.Controllers
                 CloudImageUploadResult result = JsonConvert.DeserializeObject<CloudImageUploadResult>(uploadResult.JsonObj.Root.ToString());
                 string cookies = Request.Cookies.Get("session_id").Value;
 
-                UserWorker.ChangeAvatarUri(cookies, result.SecureUrl);
+                UsersHandler.ChangeAvatarUri(cookies, result.SecureUrl);
             }
             return RedirectToAction("my", "private");
         }
@@ -65,8 +65,8 @@ namespace Slug.Controllers
         public ActionResult cnv()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var user = UserWorker.GetUserInfo(sessionId);
-            var Conversations = base.ConverWorker.GetPreConversations(user.UserId);
+            var user = UsersHandler.GetUserInfo(sessionId);
+            var Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
         }
 
@@ -74,10 +74,10 @@ namespace Slug.Controllers
         public ActionResult msg(Guid id, int page = 1)
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            bool verifyConvers = UserWorker.CheckConversationBySessionId(sessionId, id);
+            bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, id);
             if (verifyConvers)
             {
-                DialogModel dialog = DialogWorker.GetMessanges(id, page);
+                DialogModel dialog = DialogsHandler.GetMessanges(id, page);
                 dialog.DialogId = id;
                 return View(dialog);
             }
@@ -90,8 +90,8 @@ namespace Slug.Controllers
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
 
-            var friends = UserWorker.IsUsersAreFriends(sessionId, id);
-            int ownId = UserWorker.GetUserInfo(sessionId).UserId;
+            var friends = UsersHandler.IsUsersAreFriends(sessionId, id);
+            int ownId = UsersHandler.GetUserInfo(sessionId).UserId;
             if (ownId != id)
             {
                 if (friends)
@@ -100,7 +100,7 @@ namespace Slug.Controllers
                 }
                 else
                 {
-                    ForeignUserViewModel model = UserWorker.GetForeignUserInfo(sessionId, id);
+                    ForeignUserViewModel model = UsersHandler.GetForeignUserInfo(sessionId, id);
                     return View(model);
                 }
             }
@@ -112,15 +112,15 @@ namespace Slug.Controllers
         public ActionResult friend(int id)
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            int ownId = UserWorker.GetUserInfo(sessionId).UserId;
+            int ownId = UsersHandler.GetUserInfo(sessionId).UserId;
 
             if (ownId != id)
             {
-                bool friends = UserWorker.IsUsersAreFriends(sessionId, id);
+                bool friends = UsersHandler.IsUsersAreFriends(sessionId, id);
                 if (friends)
                 {
                     var fUserModel = new FriendlyUserModel();
-                    CutUserInfoModel userInfo = UserWorker.GetUserInfo(id);
+                    CutUserInfoModel userInfo = UsersHandler.GetUserInfo(id);
 
                     fUserModel.AvatarPath = userInfo.AvatarUri;
                     fUserModel.DateOfBirth = userInfo.DateBirth;
@@ -142,7 +142,7 @@ namespace Slug.Controllers
         public ActionResult contacts()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            MyFriendsModel model = base.UserWorker.GetFriendsBySession(sessionId);
+            MyFriendsModel model = base.UsersHandler.GetFriendsBySession(sessionId);
             return View(model);
         }
 
@@ -150,7 +150,7 @@ namespace Slug.Controllers
         public ActionResult invite_video_conversation()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            VideoConferenceModel model = base.VideoConferenceWorker.VideoConferenceModel(sessionId);
+            VideoConferenceModel model = base.VideoConferenceHandler.VideoConferenceModel(sessionId);
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
@@ -158,7 +158,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult v_conversation(Guid id)
         {
-            bool isActive = base.VideoConferenceWorker.IsConverenceActive(id);
+            bool isActive = base.VideoConferenceHandler.IsConverenceActive(id);
             if (isActive)
                 return View();
             else
@@ -169,14 +169,14 @@ namespace Slug.Controllers
         public ActionResult crypto_cnv()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            CryptoChatModel model = CryptoChatWorker.GetCryptoChat(sessionId);
+            CryptoChatModel model = CryptoChatHandler.GetCryptoChat(sessionId);
             return View(model);
         }
 
         [HttpGet]
         public ActionResult c_msg(string id, int page = 1)
         {
-            var model = CryptoChatWorker.GetCryptoDialogs(id, page);
+            var model = CryptoChatHandler.GetCryptoDialogs(id, page);
             if (model != null)
             {
                 return View(model);
@@ -188,10 +188,10 @@ namespace Slug.Controllers
         public ActionResult logout()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            SessionTypes type = SessionWorker.GetSessionType(sessionId);
+            SessionTypes type = SessionHandler.GetSessionType(sessionId);
             if (type == SessionTypes.Private)
             {
-                SessionWorker.CloseSession(sessionId);
+                SessionHandler.CloseSession(sessionId);
             }
             return RedirectToAction("index", "guest");
         }
@@ -200,7 +200,7 @@ namespace Slug.Controllers
         public ActionResult settings()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            UserSettingsModel model = UserWorker.GetSettings(sessionId);
+            UserSettingsModel model = UsersHandler.GetSettings(sessionId);
             return View(model);
         }
 
@@ -213,7 +213,6 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult search_result(string user_name, int user_country, int user_city, int user_sex, int user_age)
         {
-            var api = new apiController();
             var parseRequest = new SearchUsersRequest()
             {
                  userSearchAge = (AgeEnum)user_age,
@@ -222,7 +221,13 @@ namespace Slug.Controllers
                  userSearchSity = user_city,
                  userSearchSex = (SexEnum)user_sex
             };
-            JsonResult response = api.users(parseRequest);
+            int ownID = this.UsersHandler.GetUserInfo(Request.Cookies["session_id"].Value).UserId;
+            var response = SearchHandler.SearchUsers(parseRequest, ownID);
+            foreach (var item in response.Users)
+            {
+                TimeSpan date = TimeSpan.FromTicks(DateTime.Now.Ticks - item.DateBirth.Ticks);
+                item.FullAges = new DateTime(date.Ticks).Year;
+            }
             return View(response);
         }
     }

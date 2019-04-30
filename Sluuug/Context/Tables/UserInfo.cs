@@ -1,4 +1,5 @@
 ﻿using Context;
+using Slug.Context.Dto.Search;
 using Slug.Context.Dto.UserFullInfo;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ namespace Slug.Context.Tables
         [Required]
         [MinLength(2), MaxLength(20)]
         public string SurName { get; set; }
+
+        [Required]
+        public SexEnum Sex { get; set; }
 
         public int NowCountryCode { get; set; }
 

@@ -26,7 +26,7 @@ namespace Slug.Controllers
                 return View();
             else
             {
-                SessionTypes type = SessionWorker.GetSessionType(session_id.Value);
+                SessionTypes type = SessionHandler.GetSessionType(session_id.Value);
                 if (type == SessionTypes.AwaitEmailConfirm)
                     return RedirectToAction("login", "guest");
                 else
@@ -44,7 +44,7 @@ namespace Slug.Controllers
             }
             else
             {
-                UserConfirmationDitails userConfirmation = UserWorker.RegisterNew(user);
+                UserConfirmationDitails userConfirmation = UsersHandler.RegisterNew(user);
 
                 var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
                 mailer.SendActivationMail();
@@ -59,17 +59,17 @@ namespace Slug.Controllers
             ViewBag.success_div_display = "none";
             if (!string.IsNullOrWhiteSpace(id))
             {
-                ActivationLink user = ActivationMailWorker.GetActivateLink(id);
+                ActivationLink user = ActivationMailHandler.GetActivateLink(id);
                 if (user != null && user.IsExpired != true)
                 {
-                    ActivationLnkStatus status = ActivationMailWorker.GetLinkStatus(id);
+                    ActivationLnkStatus status = ActivationMailHandler.GetLinkStatus(id);
                     if (status == ActivationLnkStatus.Correct)
                     {
-                        UserWorker.ConfirmUser(user.Id);
+                        UsersHandler.ConfirmUser(user.Id);
 
-                        ActivationMailWorker.CloseActivationEntries(user.Id);
+                        ActivationMailHandler.CloseActivationEntries(user.Id);
 
-                        string sessionNumber = SessionWorker.OpenSession(SessionTypes.Exit, user.Id);
+                        string sessionNumber = SessionHandler.OpenSession(SessionTypes.Exit, user.Id);
                         var cookie = new HttpCookie("session_id");
                         cookie.Value = sessionNumber;
                         Response.Cookies.Set(cookie);
@@ -105,7 +105,7 @@ namespace Slug.Controllers
 
             if (!string.IsNullOrWhiteSpace(a))
             {
-                SessionTypes type = SessionWorker.GetSessionType(a);
+                SessionTypes type = SessionHandler.GetSessionType(a);
                 if (type == SessionTypes.AwaitEmailConfirm)
                 {
                     ViewBag.await_confirmation_div_display = "block";
@@ -123,10 +123,10 @@ namespace Slug.Controllers
         [HttpPost]
         public ActionResult auth(string login, string hashPassword)
         {
-            int userId = UserWorker.VerifyUser(login, hashPassword);
+            int userId = UsersHandler.VerifyUser(login, hashPassword);
             if (userId > 0)
             {
-                string session_id = SessionWorker.OpenSession(SessionTypes.Private, userId);
+                string session_id = SessionHandler.OpenSession(SessionTypes.Private, userId);
                 var cookie = new HttpCookie("session_id");
                 cookie.Value = session_id;
                 Response.Cookies.Set(cookie);

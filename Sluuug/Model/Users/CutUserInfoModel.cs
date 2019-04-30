@@ -20,5 +20,7 @@ namespace Slug.Model
         public string Sity { get; set; }
 
         public string AvatarUri { get; set; }
+
+        public int FullAges { get; set; }
     }
 }

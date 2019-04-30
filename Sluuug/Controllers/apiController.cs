@@ -22,7 +22,7 @@ namespace Slug.Controllers
         public JsonResult get_user_info()
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var UserInfo = UserWorker.GetUserInfo(sessionId);
+            var UserInfo = UsersHandler.GetUserInfo(sessionId);
             var result = new JsonResult();
             result.Data = UserInfo;
             return result;
@@ -31,7 +31,7 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult get_info_other_user(int id)
         {
-            var UserInfo = UserWorker.GetUserInfo(id);
+            var UserInfo = UsersHandler.GetUserInfo(id);
             var result = new JsonResult();
             result.Data = UserInfo;
             return result;
@@ -41,7 +41,7 @@ namespace Slug.Controllers
         public JsonResult user_vc_role(string converenceID)
         {
             string sessionId = Request.Cookies.Get("session_id").Value;
-            var VCWorker = new VideoConferenceWorker();
+            var VCWorker = new VideoConferenceHandler();
             var role = VCWorker.UserVCType(sessionId, Guid.Parse(converenceID));
             if (role == VideoConverenceCallType.Caller)
                 return new JsonResult() { Data = new Role { type = "CALLER" } };
@@ -81,7 +81,7 @@ namespace Slug.Controllers
         {
             var handler = new SearchHandler();
 
-            SearchUsersResponse responce = handler.SearchUsers(request);
+            SearchUsersResponse responce = handler.SearchUsers(request, 0);
             return new JsonResult() { };
         }
     }

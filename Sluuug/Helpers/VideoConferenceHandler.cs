@@ -12,12 +12,12 @@ using System.Web;
 
 namespace Slug.Helpers
 {
-    public class VideoConferenceWorker
+    public class VideoConferenceHandler
     {
-        public VideoConferenceWorker()
+        public VideoConferenceHandler()
         {  }
 
-        public VideoConferenceWorker(Microsoft.AspNet.SignalR.Hubs.HubCallerContext context, int calleID)
+        public VideoConferenceHandler(Microsoft.AspNet.SignalR.Hubs.HubCallerContext context, int calleID)
         {
             string session = context.Request.Cookies["session_id"].Value;
             var UWorker = new UsersHandler();
