@@ -14,5 +14,26 @@
 
         </div>
     }
+
+    @{ 
+        var param = Url.RequestContext.HttpContext.Request.Params;
+        var userName = param["user_name"];
+        if (string.IsNullOrWhiteSpace(userName))
+        {
+            userName = " ";
+        }
+        for (int i = 1; i <= Model.PagesCount; i++)
+        {
+        <a href="@Url.Action("search_result","private", new {
+                user_name = userName,
+                user_country = param["user_country"],
+                user_city = param["user_city"],
+                user_sex = param["user_sex"],
+                user_age = param["user_age"],
+                page =i })">@i</a>
+        }
+    }
+
+
 </div>
 <script src="~/Scripts/goUser.js"></script>

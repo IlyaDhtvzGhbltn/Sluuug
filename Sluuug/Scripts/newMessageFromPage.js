@@ -25,13 +25,9 @@ function drop_form(id) {
 
 function send_msg(to_id) {
     let text = document.getElementById('form_' + to_id).value;
-    if (!is_empty(text)) {
-        HUB.invoke('SendMessage', text, 0, to_id);
+
+    HUB.invoke('SendMessage', text, 0, to_id);
         window.location.href = '/private/cnv';
-    }
-    else {
-        alert('too small messsage');
-    }
 }
 
 function is_empty(text) {

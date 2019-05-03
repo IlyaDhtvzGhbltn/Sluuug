@@ -18,7 +18,7 @@ namespace Slug.DbInitialisation
             using (var context = new DataBaseContext())
             {
                 var usersCollection = new List<User>();
-                for (int i = 4; i < 34; i++)
+                for (int i = 4; i < 300; i++)
                 {
                     var user = new User()
                     {

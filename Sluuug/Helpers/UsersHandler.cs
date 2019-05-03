@@ -99,6 +99,7 @@ namespace Slug.Context
                 userModel.DateBirth = user.UserFullInfo.DateOfBirth;
                 userModel.AvatarUri = avatar.ImgPath;
                 userModel.UserId = user.Id;
+                userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
             }
             return userModel;
         }
@@ -158,30 +159,6 @@ namespace Slug.Context
                 {
                     return true;
                 }
-            }
-            return false;
-        }
-
-        public bool IsUsersAreFriends(string sessionId, int userId)
-        {
-            var userInfo = GetUserInfo(sessionId);
-            using (var context = new DataBaseContext())
-            {
-                var friendShip = context.FriendsRelationship
-                    .Where(x => x.UserOferFrienshipSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
-                    .Where(x => x.Status == FriendshipItemStatus.Accept)
-                    .ToArray();
-                if (friendShip.Count() >= 1)
-                {
-                    for (int i=0; i < friendShip.Count(); i++)
-                    {
-                        if (friendShip[i].UserOferFrienshipSender == userId || friendShip[i].UserConfirmer == userId )
-                        {
-                            return true;
-                        }
-                    }
-                }
-
             }
             return false;
         }
@@ -273,10 +250,19 @@ namespace Slug.Context
             Guid guidID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
-                var ConversationGuids = context.ConversationGroup
-                    .Where(user => user.UserId == userSenderId || user.UserId == userRecipientId).ToList();
+                List<Guid> ConversationSenderGuids = context.ConversationGroup
+                    .Where(user => user.UserId == userSenderId)
+                    .Select(x=>x.ConversationGuidId)
+                    .ToList();
 
-                if (ConversationGuids.Count == 0)
+                List<Guid> ConversationRecipientGuids = context.ConversationGroup
+                    .Where(user => user.UserId == userRecipientId)
+                    .Select(x => x.ConversationGuidId)
+                    .ToList();
+
+                var intersectGuids = ConversationSenderGuids.Intersect(ConversationRecipientGuids).ToList();
+
+                if (intersectGuids.Count == 0)
                 {
                     var conv = new ConversationGroup();
                     var conv_ = new ConversationGroup();
@@ -297,9 +283,10 @@ namespace Slug.Context
 
                     return guidID;
                 }
-
-                if (ConversationGuids[0].ConversationGuidId == ConversationGuids[1].ConversationGuidId)
-                    return ConversationGuids[0].ConversationGuidId;
+                else
+                {
+                    return intersectGuids[0];
+                }
             }
             return Guid.Empty;
         }
@@ -397,7 +384,7 @@ namespace Slug.Context
         public void DropFrienship(string session, int userID)
         {
             int myID = GetUserInfo(session).UserId;
-            bool isUsersFriends = IsUsersAreFriends(session, userID);
+            bool isUsersFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, userID);
             if (isUsersFriends)
             {
                 using (var context = new DataBaseContext())

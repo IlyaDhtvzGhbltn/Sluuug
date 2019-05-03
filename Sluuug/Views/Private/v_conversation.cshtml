@@ -6,23 +6,22 @@
 
 <h2>video chat</h2>
 <style>
-    #video_streaming {
-        margin: 0 auto;
-        display: flex;
-    }
-
-    .vid_container {
-        border: 4px double black;
+    #friend_video_container {
+        height:400px;
+        width:500px;
+    };
+    #me_video_container { align-self:auto;
     }
 </style>
 <div id="video_streaming">
+    <div id="friend_video_container" class="vid_container">
+        <span id="participant_name"></span>
+        <video autoplay id="remoteVideo"></video>
+    </div>
+
     <div id="me_video_container" class="vid_container">
         <span>Me</span>
         <video autoplay height="200" width="200" id="localVideo"></video>
-    </div>
-    <div id="friend_video_container" class="vid_container">
-        <span>Friend</span>
-        <video autoplay height="200" width="200" id="remoteVideo"></video>
     </div>
     <audio autoplay id="remoteAudio" />
 </div>

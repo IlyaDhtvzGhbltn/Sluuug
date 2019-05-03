@@ -19,5 +19,11 @@ namespace Sluuug.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult ooops()
+        {
+            return View();
+        }
     }
 }

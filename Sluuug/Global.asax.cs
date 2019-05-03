@@ -42,11 +42,14 @@ namespace Sluuug
                 Server.ClearError();
                 Response.Redirect("~/error/notfound");
             }
-
-            if (internalServerError)
+            else if (internalServerError)
             {
                 Server.ClearError();
                 Response.Redirect("~/guest/index");
+            }
+            else
+            {
+                Response.Redirect("~/error/ooops");
             }
         }
 

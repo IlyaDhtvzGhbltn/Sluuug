@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+
 
 namespace Slug.Context.Attributes
 {
     using global::Context;
+    using Slug.Helpers.BaseController;
     using System.Web.Mvc;
     using System.Web.Routing;
 
@@ -17,7 +20,7 @@ namespace Slug.Context.Attributes
             HttpRequestBase request = filterContext.RequestContext.HttpContext.Request;
             if (request.Cookies != null)
             {
-                var slugCookie = request.Cookies.Get("session_id");
+                var slugCookie = request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
                 if (slugCookie != null)
                 {
                     if (!string.IsNullOrWhiteSpace(slugCookie.Value))

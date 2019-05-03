@@ -14,6 +14,7 @@ namespace Slug.Helpers
         public ConversationsModel GetPreConversations(int userId)
         {
             var convs = new ConversationsModel();
+            convs.Cnv = new List<CutConversation>();
 
             using (var context = new DataBaseContext())
             {
@@ -30,7 +31,6 @@ namespace Slug.Helpers
                         .ToList();
                     if (conversations.Count >= 1)
                     {
-                        convs.Cnv = new List<CutConversation>();
                         foreach (var conv in conversations)
                         {
                             IQueryable<Message> messages = context.Messangers

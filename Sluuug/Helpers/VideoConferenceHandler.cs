@@ -2,6 +2,7 @@
 using Microsoft.AspNet.SignalR;
 using Slug.Context;
 using Slug.Context.Tables;
+using Slug.Helpers.BaseController;
 using Slug.Model.Users;
 using Slug.Model.VideoConference;
 using System;
@@ -9,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+
 
 namespace Slug.Helpers
 {
@@ -19,9 +22,9 @@ namespace Slug.Helpers
 
         public VideoConferenceHandler(Microsoft.AspNet.SignalR.Hubs.HubCallerContext context, int calleID)
         {
-            string session = context.Request.Cookies["session_id"].Value;
+            string session = context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             var UWorker = new UsersHandler();
-            bool isFriends = UWorker.IsUsersAreFriends(session, calleID);
+            bool isFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, calleID);
             if (!isFriends)
                 throw new Exception("Users Are Not Friends");
         }
@@ -181,7 +184,7 @@ namespace Slug.Helpers
             return flagStatus;
         }
 
-        public int[] GetVideoConferenceParticipants(Guid ID)
+        public int[] GetVideoConferenceParticipantsIDs(Guid ID)
         {
             using (var context = new DataBaseContext())
             {

@@ -13,7 +13,7 @@ function crypt_send() {
     let url = new URL(window.location.href);
     let id = url.searchParams.get('id');
     let skey = JSON.parse(localStorage.getItem('__' + id));
-
+    console.log(skey);
     var hash = CryptoJS.AES.encrypt(text, skey.K.toString());
     var cryptStr = hash.toString();
     HUB.invoke('SendMessage', cryptStr);
@@ -40,6 +40,7 @@ function decryption(message) {
         id = url.toString().match(regex)[0];
     }
     let skey = JSON.parse(localStorage.getItem('__' + id));
+    console.log(skey);
     var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
     return decrypted.toString(CryptoJS.enc.Utf8);
 }

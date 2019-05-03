@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using System.Web.Mvc;
+using Slug.Helpers.BaseController;
 
 namespace Slug.Controllers
 {
@@ -21,7 +23,7 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult get_user_info()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var UserInfo = UsersHandler.GetUserInfo(sessionId);
             var result = new JsonResult();
             result.Data = UserInfo;
@@ -40,7 +42,7 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult user_vc_role(string converenceID)
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var VCWorker = new VideoConferenceHandler();
             var role = VCWorker.UserVCType(sessionId, Guid.Parse(converenceID));
             if (role == VideoConverenceCallType.Caller)
@@ -56,7 +58,7 @@ namespace Slug.Controllers
         {
             var settingsHandler = new SettingsHandler();
 
-            var result = settingsHandler.Change(Request.Cookies["session_id"].Value, newSettings);
+            var result = settingsHandler.Change(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value, newSettings);
             return new JsonResult()
             {
                 Data = new SetSettingsResponse()
@@ -77,11 +79,11 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult users(SearchUsersRequest request)
+        public JsonResult users(SearchUsersRequest request, int page = 1)
         {
             var handler = new SearchHandler();
 
-            SearchUsersResponse responce = handler.SearchUsers(request, 0);
+            SearchUsersResponse responce = handler.SearchUsers(request, 0, page);
             return new JsonResult() { };
         }
     }

@@ -5,7 +5,7 @@
 }
 <div id="cut_info">
     <p>
-        <img src=@Model.AvatarUri id="img_avatar" width="200" height="200" />
+        <img src=@Model.AvatarUri id="img_avatar" width="100" height="100" />
     @using (Html.BeginForm("upload", "private", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="upload" /><br>
@@ -21,6 +21,7 @@
     <p>
         <span>@Model.Country</span>
         <span>@Model.Sity </span>
+        <span>@Model.FullAges</span>
     </p>
 </div>
 

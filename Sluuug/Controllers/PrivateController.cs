@@ -15,6 +15,8 @@ using CloudinaryDotNet.Actions;
 using Slug.Context.Dto.UserWorker;
 using Newtonsoft.Json;
 using Slug.Context.Dto.Search;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using Slug.Helpers.BaseController;
 
 namespace Slug.Controllers
 {
@@ -30,7 +32,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult my()
         {
-            var cookies = Request.Cookies.Get("session_id");
+            var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             var userInfoModel = UsersHandler.GetUserInfo(cookies.Value);
             return View(userInfoModel);
         }
@@ -42,9 +44,9 @@ namespace Slug.Controllers
             {
                 string fileName = System.IO.Path.GetFileName(upload.FileName);
                 Account account = new Account(
-                  "dlk1sqmj4",
-                  "846574769361479",
-                  "XrQqn5IpPmsnIS3s5PCrvUr-3xw");
+                  WebAppSettings.AppSettings[AppSettingsEnum.cloud.ToString()],
+                  WebAppSettings.AppSettings[AppSettingsEnum.apiKey.ToString()],
+                  WebAppSettings.AppSettings[AppSettingsEnum.apiSecret.ToString()]);
 
                 Cloudinary cloudinary = new Cloudinary(account);
                 var uploadParams = new ImageUploadParams()
@@ -54,7 +56,7 @@ namespace Slug.Controllers
                 };
                 ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
                 CloudImageUploadResult result = JsonConvert.DeserializeObject<CloudImageUploadResult>(uploadResult.JsonObj.Root.ToString());
-                string cookies = Request.Cookies.Get("session_id").Value;
+                string cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
 
                 UsersHandler.ChangeAvatarUri(cookies, result.SecureUrl);
             }
@@ -64,7 +66,8 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult cnv()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var user = UsersHandler.GetUserInfo(sessionId);
             var Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
@@ -73,7 +76,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult msg(Guid id, int page = 1)
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, id);
             if (verifyConvers)
             {
@@ -88,9 +91,9 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult user(int id)
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
 
-            var friends = UsersHandler.IsUsersAreFriends(sessionId, id);
+            var friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
             int ownId = UsersHandler.GetUserInfo(sessionId).UserId;
             if (ownId != id)
             {
@@ -111,12 +114,12 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult friend(int id)
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             int ownId = UsersHandler.GetUserInfo(sessionId).UserId;
 
             if (ownId != id)
             {
-                bool friends = UsersHandler.IsUsersAreFriends(sessionId, id);
+                bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
                     var fUserModel = new FriendlyUserModel();
@@ -141,7 +144,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult contacts()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             MyFriendsModel model = base.UsersHandler.GetFriendsBySession(sessionId);
             return View(model);
         }
@@ -149,7 +152,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult invite_video_conversation()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             VideoConferenceModel model = base.VideoConferenceHandler.VideoConferenceModel(sessionId);
             Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
@@ -168,7 +171,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult crypto_cnv()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             CryptoChatModel model = CryptoChatHandler.GetCryptoChat(sessionId);
             return View(model);
         }
@@ -187,7 +190,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult logout()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             SessionTypes type = SessionHandler.GetSessionType(sessionId);
             if (type == SessionTypes.Private)
             {
@@ -199,7 +202,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult settings()
         {
-            string sessionId = Request.Cookies.Get("session_id").Value;
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             UserSettingsModel model = UsersHandler.GetSettings(sessionId);
             return View(model);
         }
@@ -211,7 +214,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult search_result(string user_name, int user_country, int user_city, int user_sex, int user_age)
+        public ActionResult search_result(string user_name, int user_country, int user_city, int user_sex, int user_age, int page = 1)
         {
             var parseRequest = new SearchUsersRequest()
             {
@@ -221,8 +224,8 @@ namespace Slug.Controllers
                  userSearchSity = user_city,
                  userSearchSex = (SexEnum)user_sex
             };
-            int ownID = this.UsersHandler.GetUserInfo(Request.Cookies["session_id"].Value).UserId;
-            var response = SearchHandler.SearchUsers(parseRequest, ownID);
+            int ownID = this.UsersHandler.GetUserInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
+            var response = SearchHandler.SearchUsers(parseRequest, ownID, page);
             foreach (var item in response.Users)
             {
                 TimeSpan date = TimeSpan.FromTicks(DateTime.Now.Ticks - item.DateBirth.Ticks);

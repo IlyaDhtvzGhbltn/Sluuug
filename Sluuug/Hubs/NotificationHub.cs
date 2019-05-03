@@ -9,7 +9,9 @@ using Slug.Context;
 using Slug.Context.Dto.Messages;
 using Slug.Helpers;
 using Slug.Model;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Sluuug.Hubs;
+using Slug.Helpers.BaseController;
 
 namespace Slug.Hubs
 {
@@ -20,7 +22,7 @@ namespace Slug.Hubs
         public void OpenConnect()
         {
             var UCW = new UsersConnectionHandler();
-            string session = base.Context.Request.Cookies["session_id"].Value;
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             string connection = Context.ConnectionId;
             UCW.AddConnection(connection, session);
         }
@@ -28,11 +30,24 @@ namespace Slug.Hubs
         public void CloseConnect()
         {
             var UCW = new UsersConnectionHandler();
-            string session = base.Context.Request.Cookies["session_id"].Value;
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             string connection = Context.ConnectionId;
             UCW.CloseConnection(connection, session);
         }
 
+        public void GetVideoParticipantName(Guid ID)
+        {
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
+            var conferenceHandler = new VideoConferenceHandler();
+            var userHandler = new UsersHandler();
+
+            int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
+            int myID = userHandler.GetUserInfo(session).UserId;
+            int participantID = IDs.First(x => x != myID);
+            var participantInfo = userHandler.GetUserInfo(participantID);
+            string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);
+            Clients.Caller.SendName(participantName);
+        }
 
 
         /// <summary>
@@ -44,14 +59,29 @@ namespace Slug.Hubs
         /// <returns></returns>
         public async Task SendMessage(string message, string convId, int toUserId)
         {
-            var messageHub = new MessagersHub(base.Context, base.Clients);
-            PartialHubResponse userMessageHubResp = await messageHub.SendMessage(message, convId, toUserId);
+            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
 
-            Clients.Clients(userMessageHubResp.ConnectionIds).NotifyAbout(
-                "MSG", 
-                userMessageHubResp.FromUser.Name, 
-                userMessageHubResp.FromUser.SurName, 
-                userMessageHubResp.FromUser.AvatarUri, null);
+            bool isFriends = true;
+            if (convId == "0")
+            {
+                isFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(cookies.Value, toUserId);
+            }
+            else
+            {
+                isFriends = FriendshipChecker.IsUsersAreFriendsByConversationGuidANDid(Guid.Parse(convId), toUserId);
+            }
+
+            if (isFriends)
+            {
+                var messageHub = new MessagersHub(base.Context, base.Clients);
+                PartialHubResponse userMessageHubResp = await messageHub.SendMessage(message, convId, toUserId);
+
+                Clients.Clients(userMessageHubResp.ConnectionIds).NotifyAbout(
+                    "MSG",
+                    userMessageHubResp.FromUser.Name,
+                    userMessageHubResp.FromUser.SurName,
+                    userMessageHubResp.FromUser.AvatarUri, null);
+            }
         }
 
 
@@ -62,6 +92,7 @@ namespace Slug.Hubs
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
             cryptoHub.CreateNewCryptoConversation(create_request);
         }
+
 
         public async Task InviteUsersToCryptoChat(string offerToCriptoChat, Guid cryptoConversationGuidID)
         {
@@ -75,6 +106,7 @@ namespace Slug.Hubs
                 response.PublicDataToExcange
                 );
         }
+
         public async Task AcceptInvite(string ansver_to_cripto_chat)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
@@ -91,13 +123,15 @@ namespace Slug.Hubs
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
             var response = await cryptoHub.SendMessage(message);
-
-            Clients.Clients(response.ConnectionIds).NotifyAbout(
-                "C_MSG",
-                response.FromUser.Name,
-                response.FromUser.SurName,
-                response.FromUser.AvatarUri
-                );
+            if (response != null)
+            {
+                Clients.Clients(response.ConnectionIds).NotifyAbout(
+                    "C_MSG",
+                    response.FromUser.Name,
+                    response.FromUser.SurName,
+                    response.FromUser.AvatarUri
+                    );
+            }
         }
 
 
@@ -147,7 +181,7 @@ namespace Slug.Hubs
             var userWorker = new UsersHandler();
             var connectionsWorker = new UsersConnectionHandler();
 
-            string session = base.Context.Request.Cookies["session_id"].Value;
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             CutUserInfoModel userSenderFriendsRequest = userWorker.AddInviteToContacts(session, userID);
             if (userSenderFriendsRequest != null)
             {
@@ -163,7 +197,7 @@ namespace Slug.Hubs
         public async Task DropContact(int userID)
         {
             var userWorker = new UsersHandler();
-            string session = base.Context.Request.Cookies["session_id"].Value;
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
 
             userWorker.DropFrienship(session, userID);
         }
@@ -171,7 +205,7 @@ namespace Slug.Hubs
         public async Task AcceptContact(int userID)
         {
             var userWorker = new UsersHandler();
-            string session = base.Context.Request.Cookies["session_id"].Value;
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
 
             PartialHubResponse response = await userWorker.AcceptInviteToContacts(session, userID);
 

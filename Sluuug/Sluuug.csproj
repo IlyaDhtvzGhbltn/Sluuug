@@ -210,10 +210,12 @@
     <Compile Include="Crypto\Converting.cs" />
     <Compile Include="DbInitialisation\NewUserInitial.cs" />
     <Compile Include="Helpers\ActivationHandler.cs" />
+    <Compile Include="Helpers\BaseController\AppSettingsEnum.cs" />
     <Compile Include="Helpers\ConversationHandler.cs" />
     <Compile Include="Helpers\CryptoChatHandler.cs" />
     <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
+    <Compile Include="Helpers\FriendshipChecker.cs" />
     <Compile Include="Helpers\SearchHandler.cs" />
     <Compile Include="Helpers\SettingsHandler.cs" />
     <Compile Include="Helpers\UsersDialogHandler.cs" />
@@ -241,25 +243,9 @@
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Hubs\MessagersHub.cs" />
     <Compile Include="Hubs\VideoChatInviteHub.cs" />
-    <Compile Include="Migrations\201904290752253_00.cs" />
-    <Compile Include="Migrations\201904290752253_00.Designer.cs">
-      <DependentUpon>201904290752253_00.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291001085_country_code_instead_country_str.cs" />
-    <Compile Include="Migrations\201904291001085_country_code_instead_country_str.Designer.cs">
-      <DependentUpon>201904291001085_country_code_instead_country_str.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291019484_country_code_instead_country_str2.cs" />
-    <Compile Include="Migrations\201904291019484_country_code_instead_country_str2.Designer.cs">
-      <DependentUpon>201904291019484_country_code_instead_country_str2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291143162_country_code_in_city_tbo.cs" />
-    <Compile Include="Migrations\201904291143162_country_code_in_city_tbo.Designer.cs">
-      <DependentUpon>201904291143162_country_code_in_city_tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291605500_add sex.cs" />
-    <Compile Include="Migrations\201904291605500_add sex.Designer.cs">
-      <DependentUpon>201904291605500_add sex.cs</DependentUpon>
+    <Compile Include="Migrations\201905031528072_sca.cs" />
+    <Compile Include="Migrations\201905031528072_sca.Designer.cs">
+      <DependentUpon>201905031528072_sca.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -297,6 +283,7 @@
     <Content Include="Views\Private\settings.cshtml" />
     <Content Include="Views\Private\search.cshtml" />
     <Content Include="Views\Private\search_result.cshtml" />
+    <Content Include="Views\Error\ooops.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,20 +295,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904290752253_00.resx">
-      <DependentUpon>201904290752253_00.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291001085_country_code_instead_country_str.resx">
-      <DependentUpon>201904291001085_country_code_instead_country_str.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291019484_country_code_instead_country_str2.resx">
-      <DependentUpon>201904291019484_country_code_instead_country_str2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291143162_country_code_in_city_tbo.resx">
-      <DependentUpon>201904291143162_country_code_in_city_tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291605500_add sex.resx">
-      <DependentUpon>201904291605500_add sex.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905031528072_sca.resx">
+      <DependentUpon>201905031528072_sca.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

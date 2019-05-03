@@ -28,7 +28,7 @@ namespace Context
         public virtual DbSet<FriendsRelationship> FriendsRelationship { get; set; }
         public virtual DbSet<SecretMessages> SecretMessage { get; set; }
         public virtual DbSet<SecretChat> SecretChat { get; set; }
-        public virtual DbSet<SecretChatGroup> SecretChatGroup { get; set; }
+        public virtual DbSet<SecretChatGroup> SecretChatGroups { get; set; }
         public virtual DbSet<VideoConference> VideoConferences { get; set; }
         public virtual DbSet<VideoConferenceGroups> VideoConferenceGroups { get; set; }
 

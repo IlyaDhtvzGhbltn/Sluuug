@@ -1,4 +1,5 @@
 ﻿using Slug.Context;
+using Slug.Helpers.BaseController;
 using System.Web.Mvc;
 
 
@@ -15,4 +16,6 @@ namespace Slug.Helpers
         public VideoConferenceHandler VideoConferenceHandler { get; set; } = new VideoConferenceHandler();
         public SearchHandler SearchHandler { get; set; } = new SearchHandler();
     }
+
+
 }

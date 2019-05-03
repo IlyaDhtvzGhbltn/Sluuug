@@ -42,7 +42,11 @@ HUB.on('exchangeCandidates', function (candidate) {
 });
 HUB.on('Close', function () {
     callClose();
-})
+});
+HUB.on('SendName', function (name) {
+    console.log(name);
+    $('#participant_name')[0].innerHTML = name;
+});
 
 
 function initiate_call() {
@@ -140,6 +144,10 @@ function callClose() {
 
 
 function onLoad() {
+    connection.start().done(function () {
+        HUB.invoke('GetVideoParticipantName', getGuidID());
+    })
+
     checType().then(function (result) {
         console.log(result);
         if (result == 'CALLER') {

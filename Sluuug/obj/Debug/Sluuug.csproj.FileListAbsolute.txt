@@ -160,12 +160,11 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csprojResolveAssemblyReference
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CoreCompileInputs.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.pdb
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._00.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.notifytypeinsteadbool.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._00.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.country_code_instead_country_str.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.country_code_instead_country_str2.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.country_code_in_city_tbo.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.addsex.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.sca.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
