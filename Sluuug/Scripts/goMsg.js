@@ -2,6 +2,11 @@
 [].forEach.call(msg_divs, function (item) {
     item.addEventListener('click', function () {
         var ids = this.id;
-        window.location = 'http://localhost:32033/private/msg?id=' + ids + '&page=1';
+        let protocol = location.protocol;
+        let domain = window.location.host;
+        let cnv_url = domain + '/private/msg?id=' + ids + '&page=1';
+        let url = protocol + '//' + cnv_url;
+        console.log(url);
+        window.location.replace(url);
     })
 });

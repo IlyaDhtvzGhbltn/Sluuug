@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = "~/Views/Shared/private_view.cshtml";
+}
+<div>My messangers</div>
+
+<div id="conversations">
+    @if (Model.Cnv != null)
+    {
+        foreach (var item in Model.Cnv)
+        {
+            <div class="conver_div" id="@item.GuidId" style="background-color:cadetblue; cursor:grabbing">
+                <img height="20" width="20" src="@item.AvatarPath" />
+                <p>@item.InterlocutorName  @item.InterlocutorSurName</p>
+                <p>@item.LastMessage</p>
+            </div>
+        }
+    }
+</div>
+<script src="~/Scripts/goMsg.js"></script>
+<script src="~/Scripts/newMsgInConv.js"></script>

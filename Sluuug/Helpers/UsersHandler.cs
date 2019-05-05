@@ -24,6 +24,8 @@ namespace Slug.Context
             using (var context = new DataBaseContext())
             {
                 var newUser = new Context.Tables.User();
+                newUser.Settings = new UserSettings();
+                newUser.UserFullInfo = new UserInfo();
 
                 newUser.CountryCode = user.CountryCode;
                 newUser.UserFullInfo.DateOfBirth = user.DateBirth;
@@ -42,7 +44,9 @@ namespace Slug.Context
                 {
                     context.SaveChanges();
                     var linkMail = new ActivationHandler();
-                    activationMailParam = linkMail.CreateActivationEntries(context.Users.First(x => x.Settings.Email == user.Email).Id);
+                    activationMailParam = linkMail.CreateActivationEntries(context.Users
+                       
+                        .Last(x => x.Settings.Email == user.Email).Id);
                     context.SaveChanges();
 
                 }

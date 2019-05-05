@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "crypto_cnv";
+    Layout = "~/Views/Shared/private_view.cshtml";
+}
+
+<h2>Secure Chat</h2>
+<div id="create_new">
+    <div id="friends_list">
+        @foreach (var friend in Model.FriendsICanInvite)
+        {
+            <div class="ready_to_invite_div">
+                <input class="ready_to_invite" type="radio" value="@friend.UserId"> @friend.Name <img src="@friend.AvatarPath" width="30" height="30" />
+            </div>
+        }
+    </div>
+    <p>
+        <input type="button" value="Invite to secret chat" id="new_crypto_chat" onclick="invite()" />
+    </p>
+</div>
+
+<div id="self_created">
+    @foreach (var item in Model.SelfCreatedChats)
+    {
+        <div class="cryptp_chat" id="@item.GuidId" style="background-color:azure; cursor:pointer">
+            <span>Ваш собственный чат с пользователями</span>
+            @foreach (var user in item.Users)
+            {
+                <p>
+                    <img src="@user.AvatarPath" height="30" width="30" />
+                </p>
+            }
+            <span class="last_msg_crypto">@item.LastMessage</span>
+        </div>
+    }
+</div>
+
+<div id="currentSC">
+    @foreach (var item in Model.CurrentChats)
+    {
+        <div class="cryptp_chat" id="@item.GuidId" style="background-color:coral; cursor:pointer">
+            <b>Opening date : @item.OpenDate</b>
+            <span> Chat Active : @item.ActiveStatus</span>
+            <p>
+                <span> Participants : </span>
+            </p>
+            @foreach (var part in item.Users)
+            {
+                <p>
+                    <span> @part.Name </span>
+                    <img src="@part.AvatarPath" height="30" width="30" />
+                </p>
+            }
+            <span class="last_msg_crypto">@item.LastMessage</span>
+        </div>
+    }
+</div>
+
+<div id="accept_need">
+    @foreach (var item in Model.AcceptNeeded)
+    {
+        <span>Вас пригласил в секретный чат к пользователям :</span>
+        foreach (var user in item.Users)
+        {
+            <p>
+                <img src="@user.AvatarPath" width="30" height="30" />
+            </p>
+        }
+        <button onclick="accept_invite(this)" id="@item.GuidId">Accept</button>
+    }
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="~/Scripts/crypto_chat.js"></script>

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "conference";
+    Layout = "~/Views/Shared/private_view.cshtml";
+}
+<h3>call now:</h3>
+<div id="friends">
+    @foreach (var item in Model.Friends)
+    {
+        <div class="friend_div" id="@item.UserId">
+            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
+        </div>
+    }
+</div>
+
+<h3>incomming calls</h3>
+<div id="incomming">
+    @foreach (var item in Model.IncomingCalls)
+    {
+        <div class="incomming_call" id="called__@item.CallerID" onclick="acceptInvite('@item.CallerID', '@item.ConferenceID')">
+            <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1553527278/incomming_call.png" height="45" width="45">
+            <span>Not canceled call @item.CallerName  @item.CallerSurName
+            </span>
+        </div>
+    }
+</div>
+<h3>calls history</h3>
+<div id="calls_history">
+    @foreach (var friend in Model.CallsHistory)
+    {
+    <div class="history_call" >
+        <p>
+            @if (friend.State == 0)
+    {
+        <img class="img_call_id" id="@friend.CallerUserId" width="30" height="30" />
+        <span class="call_name" id="@friend.CallerUserId"></span>
+        <span>Call to you</span>
+        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555601678/in_call.png" width="30" height="30" />
+}
+else
+{
+        <span>You called to</span>
+        <img class="img_call_id" id="@friend.CalleUserId" width="30" height="30" />
+        <span class="call_name" id="@friend.CalleUserId"></span>
+        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555601712/out_call.png" width="30" height="30" />
+}
+        </p>
+        <span>@friend.Date</span>
+
+    </div>
+    }
+</div>
+<script src="~/Scripts/vDialogs.js"></script>

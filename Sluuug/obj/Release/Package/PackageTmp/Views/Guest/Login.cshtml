@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/Logo.cshtml";
+}
+
+<h2>Login</h2>
+<div id="await_confirmation" style="display: @ViewBag.await_confirmation_div_display">
+    <p>You must confirm your E-mail addres before we continue</p>
+</div>
+
+<div id="logining" style="display: @ViewBag.immediately_login_div_display">
+    <p>Login now</p>
+    <div>
+        @using (Html.BeginForm("auth", "guest", null, FormMethod.Post, new { @id = "_subm" }))
+        {
+            <p><input type="text" placeholder="your login" name="login" required /></p>
+            <p><input type="password" placeholder="password" name="hashPassword" id="psw" required /></p>
+            <p><input type="submit" value="Login" /></p>
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+<script src="~/Scripts/jquery-1.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
+<script src="~/Scripts/SHA-512.js"></script>
+<script>
+    document.getElementById("_subm").addEventListener("submit", function (e) {
+        var hash = getSHA(document.getElementById("psw").value);
+        document.getElementById("psw").value = hash;
+    });
+</script>
