@@ -10,7 +10,7 @@
 </div>
 
 <div id="logining" style="display: @ViewBag.immediately_login_div_display">
-    <p>Login now</p>
+    <p>Login or <a href="/guest/register">register</a> now</p>
     <div>
         @using (Html.BeginForm("auth", "guest", null, FormMethod.Post, new { @id = "_subm" }))
         {

@@ -14,12 +14,10 @@ class public_data_crypto_conversation {
     creatorAvatar;
     creatorName;
 }
-
 class private_data_crypto_conversation {
     a;
     K;
 }
-
 class Participant {
     UserId;
     PublicKey;
@@ -29,50 +27,56 @@ class Crypto {
 
     generate_public_key(gValue, aValue, pValue) {
         console.log('public key');
-        console.log('g ' + gValue);
-        console.log('a ' + aValue);
-        console.log('p ' + pValue);
+        console.log('g = ' + gValue);
+        console.log('a = ' + aValue);
+        console.log('p = ' + pValue);
 
-        var key = gValue ** aValue % pValue;
-        console.log(key);
+        var key = bigInt(gValue).pow(aValue);
+        console.log('g(' + gValue + ') ** a(' + aValue + ') = ' + key);
+        key = key.mod(pValue);
+        console.log('g ** a mod p(' + pValue + ') = ' + key);
         console.log('------');
-
+        show();
         return key;
     }
+
     check_mod(g, p) {
-        var mod = (g ** (p - 1)) % p;
+        var mod = bigInt(g).pow(p - 1).mod(p);
+        console.log('mod = ' + mod);
         return mod;
     }
 
     generate_secret_key(AB, a, p) {
-        var K = (AB ** a) % p;
+        var K = bigInt(AB).pow(a);
+        console.log('publicKey(' + AB + ') ** secret a(' + a + ') = ' + K);
+        K = K.mod(p);
+        console.log('publicKey ** secret a mod p(' + p + ') = ' + K);
         return K;
     }
 
     generate_pre_value() {
         var mod = -1;
-
+        var primes_mass = this.generate_p();
         while (mod != 1) {
-            var p = this.generate_p();
-            var g = getRandomInt(p/3, p/2);;
-
-            console.log(p);
-            for (let i = g; i < p; i++) {
+            for (let i = primes_mass.length; i > 1; i--) {
+                var g = getRandomInt(4, 8);
+                var p = primes_mass[getRandomInt(0, primes_mass.length - 1)];
+                console.log('p = ' + p + ' g = ' + g);
                 mod = this.check_mod(g, p);
                 if (mod == 1) {
-                    break;
+                    return { 'p': p, 'g': g };
                 }
-                g++;
+                else {
+                    g++;
+                }
             }
         }
-        
-        return { 'p': p, 'g': g };
     }
 
     generate_p() {
         console.log('generate primires');
         var p = null;
-        var max = getRandomInt(100,100);
+        var max = getRandomInt(100000, 10000000);
         var sieve = [], i, j, primes = [];
         for (i = 2; i <= max; ++i) {
             if (!sieve[i]) {
@@ -82,10 +86,8 @@ class Crypto {
                 }
             }
         }
-        var randPrime = primes[getRandomInt(0, primes.length)];
-        console.log('all ' + primes);
-        console.log('rand prime ---- ' + randPrime);
-        return randPrime;
+        console.log('generate primes completed with ' + primes.length + ' values');
+        return primes;
     }
 
     generate_a() {
@@ -93,14 +95,11 @@ class Crypto {
         var a = null;
         while (!flag) {
             a = Math.floor(Math.random() * 100);
-            if (a > 3 && a < 15) {
-                flag = true;
-            }
+            flag = true;
         }
         return a;
     }
 }
-
 class Invited {
 
     save_invitation(crypto_conversation) {
@@ -179,7 +178,6 @@ class Invited {
 
     }
 }
-
 class Inviter {
 
     create_new_crypto_conversation() {
@@ -195,6 +193,7 @@ class Inviter {
             console.log('no one friend selected');
         }
         else {
+            hide();
             console.log(invitersIds);
             let crypto_cnv = new public_data_crypto_conversation();
 
@@ -293,8 +292,6 @@ class Inviter {
 
 }
 
-
-
 var inviter = new Inviter();
 var invited = new Invited();
 
@@ -304,6 +301,22 @@ function invite() {
 
 function accept_invite(object) {
     invited.accept_invitation(object);
+}
+
+function hide() {
+    $('#new_crypto_chat')[0].type = 'hidden';
+    $('#new_crypto_chat')[0].onclick = null;
+    document.querySelector('#create_new').insertAdjacentHTML('beforeend',
+        '<div id="wait_div"><p><span>key generation... please be patient.</span></p></div>');
+}
+
+function show() {
+    $('#new_crypto_chat')[0].onclick = 'invite()';
+    $('#new_crypto_chat')[0].type = 'button';
+    let wait = $('#wait_div')[0];
+    if (wait !== undefined) {
+        wait.innerHTML = '';
+    }
 }
 
 HUB.on('NewCryptoConversationCreated', function (crypto_cnv) {
@@ -336,7 +349,6 @@ function ready() {
 }
 document.addEventListener('onload', ready());
 
-
 function getElementByXpath(path) {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
@@ -344,10 +356,13 @@ function getElementByXpath(path) {
 function decryption(message, id) {
     //let url = new URL(window.location.href);
     //let id = url.searchParams.get('id');
-
-    let skey = JSON.parse(localStorage.getItem('__' + id));
-    var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
-    return decrypted.toString(CryptoJS.enc.Utf8);
+    console.log(id);
+    var skey = JSON.parse(localStorage.getItem('__' + id));
+    if (skey.K != undefined) {
+        var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+    else return 'user not accept invitation.';
 }
 
 function got_message(crypto_msg, guidChatId) {
@@ -363,5 +378,3 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-

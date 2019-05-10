@@ -1,3 +1,7 @@
 ﻿function redirectToUser(id) {
-    window.location.replace('http://localhost:32033/private/user/' + id)
+    let domain = window.location.host;
+    let protocol = location.protocol;
+    let url = protocol + '//' + domain + '/private/user/' + id;
+    console.log(url);
+    window.location.replace(url)
 }

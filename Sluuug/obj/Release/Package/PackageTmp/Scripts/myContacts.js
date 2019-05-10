@@ -1,8 +1,11 @@
-﻿var friend_divs = $('.friend_div');
+﻿const protocol = location.protocol;
+const domain = window.location.host;
+
+var friend_divs = $('.friend_div');
 [].forEach.call(friend_divs, function (item) {
     item.addEventListener('click', function () {
         var fr_id = this.id;
-        window.location = 'http://localhost:32033/private/friend/' + fr_id;
+        window.location = protocol + '//' + domain + '/private/friend/' + fr_id;
     })
 });
 
@@ -10,7 +13,7 @@ var friend_divs = $('.invitation');
 [].forEach.call(friend_divs, function (item) {
     item.addEventListener('click', function () {
         var fr_id = this.id;
-        window.location = 'http://localhost:32033/private/user/' + fr_id;
+        window.location = protocol + '//' + domain + '/private/user/' + fr_id;
     })
 });
 

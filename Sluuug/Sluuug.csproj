@@ -137,6 +137,8 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
+    <Content Include="Scripts\BigInteger.js" />
+    <Content Include="Scripts\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
     <Content Include="Scripts\goUser.js" />
