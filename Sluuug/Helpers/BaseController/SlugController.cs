@@ -15,6 +15,7 @@ namespace Slug.Helpers
         public CryptoChatHandler CryptoChatHandler { get; set; } = new CryptoChatHandler();
         public VideoConferenceHandler VideoConferenceHandler { get; set; } = new VideoConferenceHandler();
         public SearchHandler SearchHandler { get; set; } = new SearchHandler();
+        public FullInfoHandler FullInfoHandler { get; set; } = new FullInfoHandler();
     }
 
 

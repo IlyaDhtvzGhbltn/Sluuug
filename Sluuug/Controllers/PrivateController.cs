@@ -33,7 +33,7 @@ namespace Slug.Controllers
         public ActionResult my()
         {
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-            var userInfoModel = UsersHandler.GetUserInfo(cookies.Value);
+            FullUserInfoModel userInfoModel = UsersHandler.GetUserInfo(cookies.Value);
             return View(userInfoModel);
         }
 
@@ -233,5 +233,13 @@ namespace Slug.Controllers
             }
             return View(response);
         }
+
+
+        [HttpGet]
+        public ActionResult edit_profile()
+        {
+            return View();
+        }
+
     }
 }

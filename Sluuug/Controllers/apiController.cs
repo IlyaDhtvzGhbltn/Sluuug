@@ -86,5 +86,19 @@ namespace Slug.Controllers
             SearchUsersResponse responce = handler.SearchUsers(request, 0, page);
             return new JsonResult() { };
         }
+
+        [HttpPost]
+        public JsonResult drop_entry(Guid EntryId)
+        {
+            string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            int userSessionId = UsersHandler.GetUserInfo(session).UserId;
+            int userEntryID = FullInfoHandler.GetUserByInfoEnrtuGuid(EntryId).Id;
+            if (userSessionId == userEntryID)
+            {
+                FullInfoHandler.DropEntryByGuid(EntryId);
+                return new JsonResult() { Data = true };
+            }
+            return new JsonResult() { Data = false };
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Slug.Context.Dto.UserFullInfo
 {
-    public class BaseLiveEpisode
+    public class BaseLiveEpisode : EntryBase
     {
         [Required]
         [Range(1,2000)]
@@ -14,20 +14,22 @@ namespace Slug.Context.Dto.UserFullInfo
 
         [Required]
         [Range(1, 10000)]
-        public string SityCode { get; set; }
+        public int SityCode { get; set; }
 
         [Required]
         public bool UntilNow { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Start { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? End { get; set; }
         
         [MaxLength(500)]
         public string Comment { get; set; }
 
-        [Range(1,5)]
+        [Range(0,5)]
         public int PersonalRating { get; set; }
     }
 }

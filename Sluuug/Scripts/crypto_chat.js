@@ -354,8 +354,6 @@ function getElementByXpath(path) {
 }
 
 function decryption(message, id) {
-    //let url = new URL(window.location.href);
-    //let id = url.searchParams.get('id');
     console.log(id);
     var skey = JSON.parse(localStorage.getItem('__' + id));
     if (skey.K != undefined) {

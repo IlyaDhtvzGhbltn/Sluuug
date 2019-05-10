@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slug.Context.Tables;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,5 +18,8 @@ namespace Slug.Context.Dto.UserFullInfo
 
         [Required]
         public string Position { get; set; }
+
+        public virtual User User { get; set; }
+
     }
 }

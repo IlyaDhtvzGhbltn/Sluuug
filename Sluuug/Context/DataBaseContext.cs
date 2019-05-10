@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using Slug.Context.Dto.UserFullInfo;
 using Slug.Context.Tables;
 
 namespace Context
@@ -36,5 +37,11 @@ namespace Context
 
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<Cities> Cities { get; set; }
+
+        public virtual DbSet<WorkPlaces> WorkPlaces { get; set; }
+        public virtual DbSet<MemorableEvents> MemorableEvents { get; set; }
+        public virtual DbSet<LifePlaces> LifePlaces { get; set; }
+        public virtual DbSet<Education> Educations { get; set; }
+
     }
 }

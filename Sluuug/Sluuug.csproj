@@ -137,6 +137,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
+    <Content Include="Scripts\EditInfo.js" />
     <Content Include="Scripts\BigInteger.js" />
     <Content Include="Scripts\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
@@ -191,6 +192,7 @@
     <Compile Include="Context\Dto\UserFullInfo\BaseLiveEpisode.cs" />
     <Compile Include="Context\Dto\UserFullInfo\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo\EducationType.cs" />
+    <Compile Include="Context\Dto\UserFullInfo\EntryBase.cs" />
     <Compile Include="Context\Dto\UserFullInfo\LifePlaces.cs" />
     <Compile Include="Context\Dto\UserFullInfo\MemorableEvents.cs" />
     <Compile Include="Context\Dto\UserFullInfo\WorkPlaces.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
     <Compile Include="Helpers\FriendshipChecker.cs" />
+    <Compile Include="Helpers\FullInfoHandler.cs" />
     <Compile Include="Helpers\SearchHandler.cs" />
     <Compile Include="Helpers\SettingsHandler.cs" />
     <Compile Include="Helpers\UsersDialogHandler.cs" />
@@ -250,19 +253,41 @@
     <Compile Include="Migrations\201905031528072_sca.Designer.cs">
       <DependentUpon>201905031528072_sca.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905101458106_city_code_to_int.cs" />
+    <Compile Include="Migrations\201905101458106_city_code_to_int.Designer.cs">
+      <DependentUpon>201905101458106_city_code_to_int.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905101649516_datetime_to_date.cs" />
+    <Compile Include="Migrations\201905101649516_datetime_to_date.Designer.cs">
+      <DependentUpon>201905101649516_datetime_to_date.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905101715527_guid_for_entrys.cs" />
+    <Compile Include="Migrations\201905101715527_guid_for_entrys.Designer.cs">
+      <DependentUpon>201905101715527_guid_for_entrys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905102029157_key.cs" />
+    <Compile Include="Migrations\201905102029157_key.Designer.cs">
+      <DependentUpon>201905102029157_key.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\FullInfo\BaseInfoModel.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoChatModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoDialogModel.cs" />
     <Compile Include="Model\Users\CutUserInfoModel.cs" />
     <Compile Include="Model\SimpleChat\DialogModel.cs" />
+    <Compile Include="Model\FullInfo\EducationModel.cs" />
     <Compile Include="Model\Users\ForeignUserViewModel.cs" />
     <Compile Include="Model\Users\FriendModel.cs" />
+    <Compile Include="Model\FullInfo\FullUserInfoModel.cs" />
+    <Compile Include="Model\FullInfo\LifePlacesModel.cs" />
+    <Compile Include="Model\FullInfo\MemorableEventsModel.cs" />
     <Compile Include="Model\Users\RegisteringUserModel.cs" />
     <Compile Include="Model\SimpleChat\SendingMSG.cs" />
     <Compile Include="Model\Users\FriendlyUserModel.cs" />
     <Compile Include="Model\Users\MyFriendsModel.cs" />
     <Compile Include="Model\Users\UserSettingsModel.cs" />
+    <Compile Include="Model\FullInfo\WorkPlacesModel.cs" />
     <Compile Include="Model\VideoConference\CallModel.cs" />
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
     <Compile Include="Model\VideoConference\IncomingInvite.cs" />
@@ -287,6 +312,7 @@
     <Content Include="Views\Private\search.cshtml" />
     <Content Include="Views\Private\search_result.cshtml" />
     <Content Include="Views\Error\ooops.cshtml" />
+    <Content Include="Views\Private\edit_profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -300,6 +326,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905031528072_sca.resx">
       <DependentUpon>201905031528072_sca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905101458106_city_code_to_int.resx">
+      <DependentUpon>201905101458106_city_code_to_int.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905101649516_datetime_to_date.resx">
+      <DependentUpon>201905101649516_datetime_to_date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905101715527_guid_for_entrys.resx">
+      <DependentUpon>201905101715527_guid_for_entrys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905102029157_key.resx">
+      <DependentUpon>201905102029157_key.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

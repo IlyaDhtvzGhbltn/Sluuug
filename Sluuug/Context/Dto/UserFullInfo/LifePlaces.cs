@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slug.Context.Tables;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,5 +12,10 @@ namespace Slug.Context.Dto.UserFullInfo
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public virtual User User { get; set; }
+
+        //[ForeignKey("UserInfo_Id")]
+        //public virtual UserInfo User { get; set; }
     }
 }

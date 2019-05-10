@@ -81,13 +81,13 @@ namespace Slug.Context
             return 0;
         }
 
-        public CutUserInfoModel GetUserInfo(string session_id)
+        public FullUserInfoModel GetUserInfo(string session_id)
         {
-            var userModel = new CutUserInfoModel();
+            var userModel = new FullUserInfoModel();
             using (var context = new DataBaseContext())
             {
                 Session session = context.Sessions.First(x => x.Number == session_id);
-                var user = context.Users.First(x => x.Id == session.UserId);
+                User user = context.Users.First(x => x.Id == session.UserId);
 
                 Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
                 userModel.Name = user.UserFullInfo.Name;
@@ -104,6 +104,90 @@ namespace Slug.Context
                 userModel.AvatarUri = avatar.ImgPath;
                 userModel.UserId = user.Id;
                 userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
+
+                var Educations = user.UserFullInfo.Educations;
+                userModel.Educations = new List<EducationModel>();
+                Educations.ForEach(x=>
+                userModel.Educations.Add(new EducationModel()
+                {
+                     Comment = x.Comment,
+                     EducationType = x.EducationType,
+                     End = x.End,
+                     Faculty = x.Faculty,
+                     PersonalRating = x.PersonalRating,
+                     Start = x.Start,
+                     Specialty = x.Specialty,
+                     UntilNow = x.UntilNow,
+                     Title = x.Title,
+                    EntryId = x.EntryId,
+
+
+                    Country = context.Countries
+                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                    .First().Title,
+                     Sity = context.Cities
+                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    .First().Title
+
+                }));
+                var Events = user.UserFullInfo.Events;
+                userModel.Events = new List<MemorableEventsModel>();
+                Events.ForEach(x =>
+                userModel.Events.Add(new MemorableEventsModel()
+                {
+                    EventComment = x.EventComment,
+                    DateEvent = x.DateEvent,
+                    EventTitle = x.EventTitle,
+                    EntryId = x.EntryId,
+
+                })
+                );
+
+                var Works = user.UserFullInfo.Works;
+                userModel.Works = new List<WorkPlacesModel>();
+                Works.ForEach(x=>
+                userModel.Works.Add(new WorkPlacesModel()
+                {
+                     Comment = x.Comment,
+                     CompanyTitle = x.CompanyTitle,
+                     PersonalRating = x.PersonalRating,
+                     Position = x.Position,
+                     Start = x.Start,
+                     End = x.End,
+                     UntilNow = x.UntilNow,
+                    EntryId = x.EntryId,
+
+
+                    Country = context.Countries
+                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                    .First().Title,
+                    Sity = context.Cities
+                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    .First().Title
+
+                })
+                );
+
+                var Places = user.UserFullInfo.Places;
+                userModel.Places = new List<LifePlacesModel>();
+                Places.ForEach(x=>
+                userModel.Places.Add(new LifePlacesModel()
+                {
+                    Comment = x.Comment,
+                    Start = x.Start,
+                    End = x.End,
+                    PersonalRating = x.PersonalRating,
+                    UntilNow = x.UntilNow,
+                    EntryId = x.EntryId,
+
+                    Country = context.Countries
+                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                    .First().Title,
+                    Sity = context.Cities
+                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    .First().Title
+                })
+                );
             }
             return userModel;
         }

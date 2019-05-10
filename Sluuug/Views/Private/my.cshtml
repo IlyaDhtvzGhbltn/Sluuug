@@ -3,14 +3,42 @@
     ViewBag.Title = "My";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+<nav>
+    <div>
+        <a href="~/private/cnv">messages</a>
+    </div>
+    <div>
+        <a href="~/private/crypto_cnv">crypto chat</a>
+    </div>
+    <div>
+        <a href="~/private/invite_video_conversation">video chat</a>
+    </div>
+
+    <div>
+        <a href="~/private/contacts">contacts</a>
+    </div>
+    <div>
+        <a href="~/private/settings">settings</a>
+    </div>
+    <div>
+        <a href="~/private/search">search</a>
+    </div>
+    <div>
+        <a href="~/private/edit_profile">edit profile</a>
+    </div>
+    <div>
+        <a href="~/private/logout">logout</a>
+    </div>
+</nav>
+
 <div id="cut_info">
     <p>
         <img src=@Model.AvatarUri id="img_avatar" width="100" height="100" />
-    @using (Html.BeginForm("upload", "private", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <input type="file" name="upload" /><br>
-        <input type="submit" value="Загрузить" />
-    }
+        @using (Html.BeginForm("upload", "private", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="upload" /><br>
+            <input type="submit" value="Загрузить" />
+        }
     </p>
     <p>
         <span>@Model.Name </span>
@@ -25,25 +53,76 @@
     </p>
 </div>
 
-<div>
-    <a href="~/private/cnv">messages</a>
-</div>
-<div>
-    <a href="~/private/crypto_cnv">crypto chat</a>
-</div>
-<div>
-    <a href="~/private/invite_video_conversation">video chat</a>
+<div id="education">
+    <span>Образование : </span>
+    @foreach (var ed in Model.Educations)
+    {
+        <div class="education_div" >
+            <p>@ed.Title <button id="@ed.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+            <p>@ed.Country @ed.Sity</p>
+            <p>@ed.Start - @ed.End</p>
+        </div>
+    }
+    <button onclick="newEducation()">Добавить</button>
 </div>
 
-<div>
-    <a href="~/private/contacts">contacts</a>
+<div id="events">
+    <span>Важные события : </span>
+    @foreach (var item in Model.Events)
+    {
+        <div class="event_div">
+            <p>
+                @item.EventTitle <button id="@item.EntryId" onclick="dropEntry(this)">Удалить</button>
+                @if (item.DateEvent != new DateTime())
+                {
+                    @item.DateEvent
+                }
+                @if (!string.IsNullOrWhiteSpace(item.EventComment))
+                {
+                    @item.EventComment
+                }
+            </p>
+        </div>
+    }
+    <button onclick="newEvent()">Добавить</button>
 </div>
-<div>
-    <a href="~/private/settings">settings</a>
+
+<div id="works">
+    <span>Работа : </span>
+    @foreach (var item in Model.Works)
+    {
+        <div class="work_div" >
+            <p>@item.CompanyTitle @item.Position <button id="@item.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+            <p>@item.Country @item.Sity</p>
+            @if (item.UntilNow == false)
+            {
+                <p>@item.Start - @item.End</p>
+            }
+            else
+            {
+                <p>@item.Start - настоящее время</p>
+            }
+        </div>
+    }
+    <button onclick="newWork()">Добавить</button>
 </div>
-<div>
-    <a href="~/private/search">search</a>
+
+<div id="live_places">
+    <span>Города где я жил : </span>
+    @foreach (var item in Model.Places)
+    {
+        <div class="live_place_div" >
+            <p>@item.Country @item.Sity <button id="@item.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+            @if (item.UntilNow == false)
+            {
+                <p>@item.Start - @item.End</p>
+            }
+            else
+            {
+                <p>@item.Start - настоящее время</p>
+            }
+        </div>
+    }
+    <button onclick="newLivePlace()">Добавить</button>
 </div>
-<div>
-    <a href="~/private/logout">logout</a>
-</div>
+<script src="~/Scripts/EditInfo.js"></script>
