@@ -12,7 +12,6 @@
     fields_alert_visible('event_requered_field', false);
 
 }
-
 function newEducation() {
 
     fields_alert_visible('new_educatio_button', false);
@@ -27,11 +26,29 @@ function newEducation() {
     }
     fields_alert_visible('edu_requered_field', false);
 }
-
 function newWork() {
+    fields_alert_visible('new_work_button', false);
+    var ed = $('#add_work_entry');
+    if (ed[0] == undefined) {
+        var ed_block = $('#works');
+        ed_block[0].insertAdjacentHTML('beforeend', work_form);
+    }
+    else {
+        ed[0].innerHTML = work_form;
+    }
+    fields_alert_visible('work_requered_field', false);
 }
-
 function newLivePlace() {
+    fields_alert_visible('new_place_button', false);
+    var ed = $('#add_place_entry');
+    if (ed[0] == undefined) {
+        var ed_block = $('#live_places');
+        ed_block[0].insertAdjacentHTML('beforeend', places_form);
+    }
+    else {
+        ed[0].innerHTML = places_form;
+    }
+    fields_alert_visible('place_requered_field', false);
 }
 //////////////////////////////////////////////////////////////////
 function fields_alert_visible(field_class, is_visible) {
@@ -59,19 +76,19 @@ function dropEntry(entry) {
 }
 
 function dropHTMLForm(form, show_button_class) {
-    console.log(show_button_class);
-
     var form = $('#' + form)[0];
     form.remove();
     fields_alert_visible(show_button_class, true);
 }
 
 function send(api_url, formID, show_button_class, requred_field_alerr) {
-    let val = validate(formID.id);
-    console.log(val);
+    console.log(formID);
+
+    let val = validate(formID);
+    console.log('validation result ' + val);
     if (val == true) {
-        let data = $('#' + formID.id).serializeArray();
-        dropHTMLForm(formID.id, show_button_class);
+        let data = $('#' + formID).serializeArray();
+        dropHTMLForm(formID, show_button_class);
         let json = parceJSON(data);
         if (json.UntilNow == "on") {
             json.UntilNow = true;
@@ -198,7 +215,7 @@ const education_form = '<div id="add_education_entry"><form action="" id="edu_fo
     '<p><span>Your Comment <input type="text" name="Comment"></span></p>' +
 
     '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_education_entry.id, \'new_educatio_button\')">' +
-    '<input type="button" onclick="send(\'/api/add_education\', edu_form, \'new_educatio_button\', \'edu_requered_field\')" value="Send"></div>' +
+    '<input type="button" onclick="send(\'/api/add_education\', \'edu_form\', \'new_educatio_button\', \'edu_requered_field\')" value="Send"></div>' +
     '</form></div>';
 
 const mem_events_form = '<div id="add_event_entry"><form action="" id="event_form">' +
@@ -206,6 +223,30 @@ const mem_events_form = '<div id="add_event_entry"><form action="" id="event_for
     '<p><span>Event Date <input type="date" name="DateEvent" required></span><span class="event_requered_field" style="color:red"> * Field is requered</span></p>' +
     '<p><span>Event Comment <input type="text" name="EventComment"></span></p>' +
 
-
     '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_event_entry.id,\'new_event_button\')">' +
-    '<input type="button" onclick="send(\'/api/add_event\', event_form, \'new_event_button\', \'event_requered_field\')" value="Send"></form></div>';
+    '<input type="button" onclick="send(\'/api/add_event\', \'event_form\', \'new_event_button\', \'event_requered_field\')" value="Send"></form></div>';
+
+const work_form = '<div id="add_work_entry"><form action="" id="work_form">' +
+    '<p><span>Company Title<input type="text" name="CompanyTitle" required></span><span class="work_requered_field" style="color:red"> * Field is requered</span></p>' +
+    '<p><span>Position <input type="text" name="Position" required></span><span class="work_requered_field" style="color:red"> * Field is requered</span></p>' +
+    '<p><span>Start Date <input type="date" name="Start" required></span><span class="work_requered_field" style="color:red"> * Field is requered</span></p>' +
+    '<p><span>End Date<input type="date" name="End" id="end_work"></span> Untill Now : <input type="checkbox" id="work_till_now" name="UntilNow" onClick="untill_now_date(end_work.id, this.id)"></p>' +
+    '<p><span>Country <select id="user_search_country_w" name="Country" onchange="getCities(user_search_country_w.id, user_search_city_w.id)"><option value="7">Россия</option><option value = "1" >USA</option></select></span></p>' +
+    '<p><span>City <select id="user_search_city_w" name="Sity"><option value="495">Москва</option></select></span></p>' +
+    '<p><span>Comment <input type="text" name="Comment"></span></p>' +
+
+    '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_work_entry.id, \'new_work_button\')">' +
+    '<input type="button" onclick="send(\'/api/add_works\', \'work_form\',\'new_work_button\',\'work_requered_field\')" value="Send"></div>';
+'</div></form></div>';
+
+const places_form = '<div id="add_place_entry"><form action="" id="place_form">' +
+
+    '<p><span>Comment <input type="text" name="Comment"></span></p>' +
+    '<p><span>Start Date <input type="date" name="Start" required></span><span class="place_requered_field" style="color:red"> * Field is requered</span></p>' +
+    '<p><span>End Date <input type="date" name="End" id="end_live_l"></span> Untill Now : <input type="checkbox" id="live_till_now" name="UntilNow" onClick="untill_now_date(end_live_l.id, this.id)"></p>' +
+    '<p><span>Country <select id="user_search_country_l" name="Country" onchange="getCities(user_search_country_l.id, user_search_city_l.id)"><option value="7">Россия</option><option value = "1" >USA</option></select></span></p>' +
+    '<p><span>City <select id="user_search_city_l" name="Sity"><option value="495">Москва</option></select></span></p>' +
+
+    '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_place_entry.id, \'new_place_button\')">' +
+    '<input type="button" onclick="send(\'/api/add_places\', \'place_form\',\'new_place_button\',\'place_requered_field\')" value="Send"></div>';
+    '</form></div>';

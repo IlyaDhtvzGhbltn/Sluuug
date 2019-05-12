@@ -95,7 +95,7 @@ namespace Slug.Helpers
                 newEducation.Comment = model.Comment;
                 newEducation.User = context.Users.First(x => x.Id == userID);
 
-                if (model.UntilNow)
+                if (model.UntilNow || model.End == null)
                 {
                     newEducation.UntilNow = true;
                 }
@@ -147,7 +147,7 @@ namespace Slug.Helpers
                 var lifePlace = new LifePlaces();
                 lifePlace.EntryId = Guid.NewGuid();
                 lifePlace.Start = model.Start;
-                if (model.UntilNow == true)
+                if (model.UntilNow == true || model.End == null)
                 {
                     lifePlace.UntilNow = true;
                 }
@@ -155,6 +155,7 @@ namespace Slug.Helpers
                 {
                     lifePlace.End = model.End;
                 }
+
                 lifePlace.Comment = model.Comment;
                 lifePlace.CountryCode = int.Parse(model.Country);
                 lifePlace.SityCode = int.Parse(model.Sity);

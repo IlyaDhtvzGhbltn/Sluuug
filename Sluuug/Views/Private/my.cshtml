@@ -106,7 +106,7 @@
             }
         </div>
     }
-    <button onclick="newWork()">Добавить</button>
+    <button onclick="newWork()"  class="new_work_button">Добавить</button>
 </div>
 <hr />
 
@@ -116,6 +116,7 @@
     {
         <div class="live_place_div">
             <p>@item.Country @item.Sity <button id="@item.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+            <p><b>@item.Comment</b></p>
             @if (item.UntilNow == false)
             {
                 <p>@item.Start - @item.End</p>
@@ -126,7 +127,7 @@
             }
         </div>
     }
-    <button onclick="newLivePlace()">Добавить</button>
+    <button onclick="newLivePlace()" class="new_place_button">Добавить</button>
 </div>
 
 <script src="~/Scripts/EditInfo.js"></script>
