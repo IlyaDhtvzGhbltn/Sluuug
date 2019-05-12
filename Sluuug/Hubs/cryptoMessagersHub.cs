@@ -32,7 +32,7 @@ namespace Slug.Hubs
             var Cookie = base.Context.Request.Cookies;
             var session_id = Cookie[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             var uW = new UsersHandler();
-            var UserInfo = uW.GetUserInfo(session_id.Value);
+            var UserInfo = uW.GetFullUserInfo(session_id.Value);
 
             var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
             int participantID = CryptoChatResponce.Participants[0].UserId;
@@ -62,7 +62,7 @@ namespace Slug.Hubs
         {
             Cookie Session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             UsersHandler worker = new UsersHandler();
-            CutUserInfoModel fromUser = worker.GetUserInfo(Session.Value);
+            CutUserInfoModel fromUser = worker.GetFullUserInfo(Session.Value);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
             cryptoConversation.CreatorAvatar = fromUser.AvatarUri;
@@ -90,7 +90,7 @@ namespace Slug.Hubs
             var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            CutUserInfoModel userAccepter = UsWorker.GetUserInfo(cookies.Value);
+            CutUserInfoModel userAccepter = UsWorker.GetFullUserInfo(cookies.Value);
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
 
 
@@ -115,7 +115,7 @@ namespace Slug.Hubs
 
             UsersHandler UsWorker = new UsersHandler();
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            int fromUserID = UsWorker.GetUserInfo(cookies.Value).UserId;
+            int fromUserID = UsWorker.GetFullUserInfo(cookies.Value).UserId;
 
             string uri = base.Context.QueryString["URL"];
             var reg = new Regex("=.{36}");

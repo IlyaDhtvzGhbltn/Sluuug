@@ -13,6 +13,8 @@ using System.Web;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using System.Web.Mvc;
 using Slug.Helpers.BaseController;
+using Slug.Model.Users;
+using Slug.Context.Dto.UserFullInfo;
 
 namespace Slug.Controllers
 {
@@ -24,7 +26,7 @@ namespace Slug.Controllers
         public JsonResult get_user_info()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            var UserInfo = UsersHandler.GetUserInfo(sessionId);
+            var UserInfo = UsersHandler.GetFullUserInfo(sessionId);
             var result = new JsonResult();
             result.Data = UserInfo;
             return result;
@@ -91,7 +93,7 @@ namespace Slug.Controllers
         public JsonResult drop_entry(Guid EntryId)
         {
             string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int userSessionId = UsersHandler.GetUserInfo(session).UserId;
+            int userSessionId = UsersHandler.GetFullUserInfo(session).UserId;
             int userEntryID = FullInfoHandler.GetUserByInfoEnrtuGuid(EntryId).Id;
             if (userSessionId == userEntryID)
             {
@@ -99,6 +101,34 @@ namespace Slug.Controllers
                 return new JsonResult() { Data = true };
             }
             return new JsonResult() { Data = false };
+        }
+
+        [HttpPost]
+        public JsonResult add_education(EducationModel model)
+        {
+            bool resultFlag = FullInfoHandler.AddEducationEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);
+            return new JsonResult() { Data = resultFlag };
+        }
+
+        [HttpPost]
+        public JsonResult add_event(MemorableEventsModel model)
+        {
+            bool resultFlag = FullInfoHandler.AddMemEventEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);
+            return new JsonResult() { Data = resultFlag };
+        }
+
+        [HttpPost]
+        public JsonResult add_places(LifePlacesModel model)
+        {
+            bool resultFlag = FullInfoHandler.AddLifePlacesEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);
+            return new JsonResult() { Data = resultFlag };
+        }
+
+        [HttpPost]
+        public JsonResult add_works(WorkPlacesModel model)
+        {
+            bool resultFlag = FullInfoHandler.AddWorkPlacesEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);
+            return new JsonResult() { Data = resultFlag };
         }
     }
 }

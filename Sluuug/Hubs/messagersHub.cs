@@ -32,7 +32,7 @@ namespace Sluuug.Hubs
             var UsWork = new UsersHandler();
             var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-            CutUserInfoModel user = UsWork.GetUserInfo(cookies.Value);
+            CutUserInfoModel user = UsWork.GetFullUserInfo(cookies.Value);
             if (user != null)
             {
                 var dialogWorker = new UsersDialogHandler();

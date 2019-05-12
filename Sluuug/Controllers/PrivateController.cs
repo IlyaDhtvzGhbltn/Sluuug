@@ -33,7 +33,7 @@ namespace Slug.Controllers
         public ActionResult my()
         {
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-            FullUserInfoModel userInfoModel = UsersHandler.GetUserInfo(cookies.Value);
+            FullUserInfoModel userInfoModel = UsersHandler.GetFullUserInfo(cookies.Value);
             return View(userInfoModel);
         }
 
@@ -68,7 +68,7 @@ namespace Slug.Controllers
         {
             
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            var user = UsersHandler.GetUserInfo(sessionId);
+            var user = UsersHandler.GetFullUserInfo(sessionId);
             var Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
         }
@@ -94,7 +94,7 @@ namespace Slug.Controllers
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
 
             var friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
-            int ownId = UsersHandler.GetUserInfo(sessionId).UserId;
+            int ownId = UsersHandler.GetFullUserInfo(sessionId).UserId;
             if (ownId != id)
             {
                 if (friends)
@@ -115,24 +115,15 @@ namespace Slug.Controllers
         public ActionResult friend(int id)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int ownId = UsersHandler.GetUserInfo(sessionId).UserId;
+            int ownId = UsersHandler.GetFullUserInfo(sessionId).UserId;
 
             if (ownId != id)
             {
                 bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
-                    var fUserModel = new FriendlyUserModel();
-                    CutUserInfoModel userInfo = UsersHandler.GetUserInfo(id);
-
-                    fUserModel.AvatarPath = userInfo.AvatarUri;
-                    fUserModel.DateOfBirth = userInfo.DateBirth;
-                    fUserModel.Sity = userInfo.Sity;
-                    fUserModel.Name = userInfo.Name;
-                    fUserModel.SurName = userInfo.SurName;
-                    fUserModel.UserId = userInfo.UserId;
-
-                    return View(fUserModel);
+                    FullUserInfoModel userInfo = UsersHandler.GetFullUserInfo(id);
+                    return View(userInfo);
                 }
                 else
                     return RedirectToAction("my", "private");
@@ -224,7 +215,7 @@ namespace Slug.Controllers
                  userSearchSity = user_city,
                  userSearchSex = (SexEnum)user_sex
             };
-            int ownID = this.UsersHandler.GetUserInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
+            int ownID = this.UsersHandler.GetFullUserInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
             var response = SearchHandler.SearchUsers(parseRequest, ownID, page);
             foreach (var item in response.Users)
             {

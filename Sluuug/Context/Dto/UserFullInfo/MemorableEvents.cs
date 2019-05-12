@@ -16,7 +16,6 @@ namespace Slug.Context.Dto.UserFullInfo
         [Required]
         public string EventTitle { get; set; }
 
-        [Required]
         public string EventComment { get; set; }
 
         public DateTime? DateEvent { get; set; }

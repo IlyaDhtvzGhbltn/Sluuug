@@ -66,7 +66,8 @@ namespace Slug.DbInitialisation
                     SityCode = 495,
                     EducationType = Context.Dto.UserFullInfo.EducationTypes.School,
                     Comment = "комеентарий про школу.",
-                    EntryId = new Guid()
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
                 user.UserFullInfo.Educations.Add(new Context.Dto.UserFullInfo.Education()
                 {
@@ -79,8 +80,8 @@ namespace Slug.DbInitialisation
                     Specialty = "ИТ",
                     EducationType = Context.Dto.UserFullInfo.EducationTypes.College,
                     Comment = "Колледж комент.",
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
                 user.UserFullInfo.Educations.Add(new Context.Dto.UserFullInfo.Education()
                 {
@@ -93,8 +94,8 @@ namespace Slug.DbInitialisation
                     Specialty = "ИТиВТ",
                     EducationType = Context.Dto.UserFullInfo.EducationTypes.University,
                     Comment = "А теперь коммент про универ",
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
 
                 user.UserFullInfo.Events = new List<Context.Dto.UserFullInfo.MemorableEvents>();
@@ -103,8 +104,8 @@ namespace Slug.DbInitialisation
                     EventTitle = "Свадьба",
                     EventComment = "тамада был отстой",
                     DateEvent = new DateTime().AddYears(2011),
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
 
                 user.UserFullInfo.Places = new List<Context.Dto.UserFullInfo.LifePlaces>();
@@ -115,8 +116,8 @@ namespace Slug.DbInitialisation
                      Start = new DateTime().AddYears(2011),
                      End = new DateTime().AddYears(2012),
                      Comment = "неплохо пожил, но уехал",
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
                 user.UserFullInfo.Places.Add(new Context.Dto.UserFullInfo.LifePlaces()
                 {
@@ -125,8 +126,8 @@ namespace Slug.DbInitialisation
                     Start = new DateTime().AddYears(2012),
                     UntilNow = true,
                     Comment = "до сих пор тут живу",
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
                 user.UserFullInfo.Works = new List<Context.Dto.UserFullInfo.WorkPlaces>();
                 user.UserFullInfo.Works.Add(new Context.Dto.UserFullInfo.WorkPlaces()
@@ -138,8 +139,8 @@ namespace Slug.DbInitialisation
                     SityCode = 495,
                     Comment = "отстой работа, зп никакой", 
                     Position = "разработчик unity",
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
                 user.UserFullInfo.Works.Add(new Context.Dto.UserFullInfo.WorkPlaces()
                 {
@@ -150,8 +151,8 @@ namespace Slug.DbInitialisation
                     SityCode = 718,
                     Comment = "норм место",
                     Position = "Старший разработчик unity",
-                    EntryId = new Guid()
-
+                    EntryId = Guid.NewGuid(),
+                    User = user
                 });
 
                 context.SaveChanges();

@@ -269,6 +269,10 @@
     <Compile Include="Migrations\201905102029157_key.Designer.cs">
       <DependentUpon>201905102029157_key.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905121428186_EventComment_non_requered.cs" />
+    <Compile Include="Migrations\201905121428186_EventComment_non_requered.Designer.cs">
+      <DependentUpon>201905121428186_EventComment_non_requered.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\FullInfo\BaseInfoModel.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
@@ -338,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905102029157_key.resx">
       <DependentUpon>201905102029157_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905121428186_EventComment_non_requered.resx">
+      <DependentUpon>201905121428186_EventComment_non_requered.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

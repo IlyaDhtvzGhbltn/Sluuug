@@ -52,20 +52,21 @@
         <span>@Model.FullAges</span>
     </p>
 </div>
-
+<hr />
 <div id="education">
     <span>Образование : </span>
     @foreach (var ed in Model.Educations)
     {
-        <div class="education_div" >
+        <div class="education_div">
             <p>@ed.Title <button id="@ed.EntryId" onclick="dropEntry(this)">Удалить</button></p>
             <p>@ed.Country @ed.Sity</p>
             <p>@ed.Start - @ed.End</p>
+            <p><span>@ed.Comment</span></p>
         </div>
     }
-    <button onclick="newEducation()">Добавить</button>
+    <button onclick="newEducation()" class="new_educatio_button">Добавить</button>
 </div>
-
+<hr />
 <div id="events">
     <span>Важные события : </span>
     @foreach (var item in Model.Events)
@@ -84,14 +85,15 @@
             </p>
         </div>
     }
-    <button onclick="newEvent()">Добавить</button>
+    <button onclick="newEvent()"  class="new_event_button">Добавить</button>
 </div>
+<hr />
 
 <div id="works">
     <span>Работа : </span>
     @foreach (var item in Model.Works)
     {
-        <div class="work_div" >
+        <div class="work_div">
             <p>@item.CompanyTitle @item.Position <button id="@item.EntryId" onclick="dropEntry(this)">Удалить</button></p>
             <p>@item.Country @item.Sity</p>
             @if (item.UntilNow == false)
@@ -106,12 +108,13 @@
     }
     <button onclick="newWork()">Добавить</button>
 </div>
+<hr />
 
 <div id="live_places">
     <span>Города где я жил : </span>
     @foreach (var item in Model.Places)
     {
-        <div class="live_place_div" >
+        <div class="live_place_div">
             <p>@item.Country @item.Sity <button id="@item.EntryId" onclick="dropEntry(this)">Удалить</button></p>
             @if (item.UntilNow == false)
             {
@@ -125,4 +128,5 @@
     }
     <button onclick="newLivePlace()">Добавить</button>
 </div>
+
 <script src="~/Scripts/EditInfo.js"></script>

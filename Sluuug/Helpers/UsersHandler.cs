@@ -81,7 +81,7 @@ namespace Slug.Context
             return 0;
         }
 
-        public FullUserInfoModel GetUserInfo(string session_id)
+        public FullUserInfoModel GetFullUserInfo(string session_id)
         {
             var userModel = new FullUserInfoModel();
             using (var context = new DataBaseContext())
@@ -192,6 +192,116 @@ namespace Slug.Context
             return userModel;
         }
 
+        public FullUserInfoModel GetFullUserInfo(int userId)
+        {
+            var userModel = new FullUserInfoModel();
+
+            using (var context = new DataBaseContext())
+            {
+                User user = context.Users.First(x => x.Id == userId);
+                Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+                userModel.Name = user.UserFullInfo.Name;
+                userModel.SurName = user.UserFullInfo.SurName;
+
+                userModel.Country = context.Countries
+                    .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+                    .First()
+                    .Title;
+                userModel.Sity = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                    .First().Title;
+
+                userModel.DateBirth = user.UserFullInfo.DateOfBirth;
+                userModel.AvatarUri = avatar.ImgPath;
+                userModel.UserId = user.Id;
+                userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
+
+                var Educations = user.UserFullInfo.Educations.OrderBy(x=>x.Start).ToList();
+                userModel.Educations = new List<EducationModel>();
+                Educations.ForEach(x =>
+                userModel.Educations.Add(new EducationModel()
+                {
+                    Comment = x.Comment,
+                    EducationType = x.EducationType,
+                    End = x.End,
+                    Faculty = x.Faculty,
+                    PersonalRating = x.PersonalRating,
+                    Start = x.Start,
+                    Specialty = x.Specialty,
+                    UntilNow = x.UntilNow,
+                    Title = x.Title,
+                    EntryId = x.EntryId,
+
+
+                    Country = context.Countries
+                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                    .First().Title,
+                    Sity = context.Cities
+                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    .First().Title
+
+                }));
+                var Events = user.UserFullInfo.Events.OrderBy(x => x.DateEvent).ToList();
+                userModel.Events = new List<MemorableEventsModel>();
+                Events.ForEach(x =>
+                userModel.Events.Add(new MemorableEventsModel()
+                {
+                    EventComment = x.EventComment,
+                    DateEvent = x.DateEvent,
+                    EventTitle = x.EventTitle,
+                    EntryId = x.EntryId,
+
+                })
+                );
+
+                var Works = user.UserFullInfo.Works.OrderBy(x => x.Start).ToList();
+                userModel.Works = new List<WorkPlacesModel>();
+                Works.ForEach(x =>
+                userModel.Works.Add(new WorkPlacesModel()
+                {
+                    Comment = x.Comment,
+                    CompanyTitle = x.CompanyTitle,
+                    PersonalRating = x.PersonalRating,
+                    Position = x.Position,
+                    Start = x.Start,
+                    End = x.End,
+                    UntilNow = x.UntilNow,
+                    EntryId = x.EntryId,
+
+
+                    Country = context.Countries
+                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                    .First().Title,
+                    Sity = context.Cities
+                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    .First().Title
+
+                })
+                );
+
+                var Places = user.UserFullInfo.Places.OrderBy(x => x.Start).ToList();
+                userModel.Places = new List<LifePlacesModel>();
+                Places.ForEach(x =>
+                userModel.Places.Add(new LifePlacesModel()
+                {
+                    Comment = x.Comment,
+                    Start = x.Start,
+                    End = x.End,
+                    PersonalRating = x.PersonalRating,
+                    UntilNow = x.UntilNow,
+                    EntryId = x.EntryId,
+
+                    Country = context.Countries
+                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                    .First().Title,
+                    Sity = context.Cities
+                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    .First().Title
+                }));
+            }
+
+            return userModel;
+        }
+
         public UserSettings GetUserSettings(string sessionID)
         {
             using (var context = new DataBaseContext())
@@ -240,7 +350,7 @@ namespace Slug.Context
         {
             var dW = new UsersDialogHandler();
             var ids = dW.GetConversatorsIds(conversationGuidId);
-            CutUserInfoModel user = GetUserInfo(sessionId);
+            CutUserInfoModel user = GetFullUserInfo(sessionId);
             if (ids != null)
             {
                 if (ids.Count() != 0 && ids.Contains(user.UserId))
@@ -260,7 +370,7 @@ namespace Slug.Context
 
             using (var context = new DataBaseContext())
             {
-                int userId = GetUserInfo(sessionId).UserId;
+                int userId = GetFullUserInfo(sessionId).UserId;
                 FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
@@ -334,7 +444,7 @@ namespace Slug.Context
 
         public Guid GetConversationId(string userSenderSession, int userRecipientId)
         {
-            int userSenderId = GetUserInfo(userSenderSession).UserId;
+            int userSenderId = GetFullUserInfo(userSenderSession).UserId;
             Guid guidID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
@@ -381,7 +491,7 @@ namespace Slug.Context
 
         public void ChangeAvatarUri(string session, Uri newUri)
         {
-            int userID = GetUserInfo(session).UserId;
+            int userID = GetFullUserInfo(session).UserId;
             string uri = newUri.ToString();
             using (var context = new DataBaseContext())
             {
@@ -403,7 +513,7 @@ namespace Slug.Context
         public UserSettingsModel GetSettings(string session)
         {
             var model = new UserSettingsModel();
-            CutUserInfoModel user = GetUserInfo(session);
+            CutUserInfoModel user = GetFullUserInfo(session);
             using (var context = new DataBaseContext())
             {
                 User userSett = context.Users.Where(x => x.Id == user.UserId).First();
@@ -415,7 +525,7 @@ namespace Slug.Context
 
         public CutUserInfoModel AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
-            CutUserInfoModel userSenderRequest = GetUserInfo(session);
+            CutUserInfoModel userSenderRequest = GetFullUserInfo(session);
             using (var context = new DataBaseContext())
             {
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
@@ -471,7 +581,7 @@ namespace Slug.Context
 
         public void DropFrienship(string session, int userID)
         {
-            int myID = GetUserInfo(session).UserId;
+            int myID = GetFullUserInfo(session).UserId;
             bool isUsersFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, userID);
             if (isUsersFriends)
             {
@@ -489,7 +599,7 @@ namespace Slug.Context
 
         public async Task<PartialHubResponse> AcceptInviteToContacts(string session, int userID)
         {
-            CutUserInfoModel accepterUser = GetUserInfo(session);
+            CutUserInfoModel accepterUser = GetFullUserInfo(session);
             using (var context = new DataBaseContext())
             {
                 FriendsRelationship item = context.FriendsRelationship

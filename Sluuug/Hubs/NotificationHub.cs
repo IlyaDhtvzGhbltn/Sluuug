@@ -42,7 +42,7 @@ namespace Slug.Hubs
             var userHandler = new UsersHandler();
 
             int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
-            int myID = userHandler.GetUserInfo(session).UserId;
+            int myID = userHandler.GetFullUserInfo(session).UserId;
             int participantID = IDs.First(x => x != myID);
             var participantInfo = userHandler.GetUserInfo(participantID);
             string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);

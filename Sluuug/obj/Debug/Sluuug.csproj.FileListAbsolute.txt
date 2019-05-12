@@ -54,3 +54,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.city_code_to_int.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.datetime_to_date.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.guid_for_entrys.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.key.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.EventComment_non_requered.resources

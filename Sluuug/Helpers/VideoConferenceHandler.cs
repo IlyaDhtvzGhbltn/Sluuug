@@ -83,7 +83,7 @@ namespace Slug.Helpers
             {
                 int userCreatorConferenceID = context.VideoConferences.First(x=>x.GuidId == videoConverenceID).ConferenceCreatorUserId;
                 var UWorker = new UsersHandler();
-                int userRequestedId = UWorker.GetUserInfo(sessionID).UserId;
+                int userRequestedId = UWorker.GetFullUserInfo(sessionID).UserId;
                 if (userRequestedId == userCreatorConferenceID)
                     return VideoConverenceCallType.Caller;
                 else
@@ -99,7 +99,7 @@ namespace Slug.Helpers
             model.IncomingCalls = new List<IncomingInvite>();
 
             var userWorker = new UsersHandler();
-            int myId = userWorker.GetUserInfo(sessionID).UserId;
+            int myId = userWorker.GetFullUserInfo(sessionID).UserId;
 
             MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID);
             foreach (var item in fMod.Friends)

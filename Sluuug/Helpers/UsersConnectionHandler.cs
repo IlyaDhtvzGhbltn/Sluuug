@@ -19,7 +19,7 @@ namespace Slug.Helpers
                 connectionItem.ConnectionID = Guid.Parse( connectionID );
                 connectionItem.ConnectionTime = DateTime.UtcNow;
                 connectionItem.ConnectionActiveStatus = true;
-                connectionItem.UserID = UW.GetUserInfo(session).UserId;
+                connectionItem.UserID = UW.GetFullUserInfo(session).UserId;
 
                 context.UserConnections.Add(connectionItem);
                 context.SaveChanges();
@@ -30,7 +30,7 @@ namespace Slug.Helpers
         {
             UsersHandler UW = new UsersHandler();
             Guid guidID = Guid.Parse (connectionID);
-            int userID = UW.GetUserInfo(session).UserId;
+            int userID = UW.GetFullUserInfo(session).UserId;
 
             using (var context = new DataBaseContext())
             {

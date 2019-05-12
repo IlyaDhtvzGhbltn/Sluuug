@@ -7,11 +7,106 @@
 
 
 <div id="user_cut_data">
-    <img src="@Model.AvatarPath" width="100" height="100" />
+    <img src="@Model.AvatarUri" width="100" height="100" />
     <p>@Model.Name</p>
     <p>@Model.SurName</p>
-    <p>@Model.DateOfBirth</p>
+    <p>@Model.DateBirth</p>
     <p>@Model.Sity</p>
     <p><button id="@Model.UserId" onclick="create_form(this)">Send Message</button></p>
 </div>
+<div id="education">
+    <span>Образование : </span>
+    @if (Model.Educations.Count != 0)
+    {
+        foreach (var ed in Model.Educations)
+        {
+            <div class="education_div">
+                <p>@ed.Title
+                <p>@ed.Country @ed.Sity</p>
+                <p>@ed.Start - @ed.End</p>
+            </div>
+        }
+    }
+    else
+    {
+        <span>не указано</span>
+    }
+</div>
+<div id="events">
+    <span>Важные события : </span>
+    @if (Model.Events.Count != 0)
+    {
+        foreach (var item in Model.Events)
+        {
+            <div class="event_div">
+                <p>
+                    @item.EventTitle
+                    @if (item.DateEvent != new DateTime())
+                    {
+                        @item.DateEvent
+                    }
+                    @if (!string.IsNullOrWhiteSpace(item.EventComment))
+                    {
+                        @item.EventComment
+                    }
+                </p>
+            </div>
+        }
+    }
+    else
+    {
+        <span>не указано</span>
+    }
+</div>
+<div id="works">
+    <span>Работа : </span>
+    @if (Model.Works.Count != 0)
+    {
+        foreach (var item in Model.Works)
+        {
+            <div class="work_div">
+                <p>@item.CompanyTitle @item.Position</p>
+                <p>@item.Country @item.Sity</p>
+                @if (item.UntilNow == false)
+                {
+                    <p>@item.Start - @item.End</p>
+                }
+                else
+                {
+                    <p>@item.Start - настоящее время</p>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <span>не указано</span>
+    }
+</div>
+<div id="live_places">
+    <span>Города где я жил : </span>
+    @if (Model.Places.Count != 0)
+    {
+        foreach (var item in Model.Places)
+        {
+        <div class="live_place_div">
+            <p>@item.Country @item.Sity</p>
+            @if (item.UntilNow == false)
+            {
+                <p>@item.Start - @item.End</p>
+            }
+            else
+            {
+                <p>@item.Start - настоящее время</p>
+            }
+        </div>
+        }
+    }
+    else
+    {
+        <span>не указано</span>
+    }
+
+</div>
+
 <script src="~/Scripts/newMessageFromPage.js"></script>
