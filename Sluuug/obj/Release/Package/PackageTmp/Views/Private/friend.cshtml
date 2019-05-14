@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "friend";
+    Layout = "~/Views/Shared/private_view.cshtml";
+}
+<h2>@Model.Name @Model.SurName</h2>
+
+
+<div id="user_cut_data">
+    <img src="@Model.AvatarPath" width="100" height="100" />
+    <p>@Model.Name</p>
+    <p>@Model.SurName</p>
+    <p>@Model.DateOfBirth</p>
+    <p>@Model.Sity</p>
+    <p><button id="@Model.UserId" onclick="create_form(this)">Send Message</button></p>
+</div>
+<script src="~/Scripts/newMessageFromPage.js"></script>

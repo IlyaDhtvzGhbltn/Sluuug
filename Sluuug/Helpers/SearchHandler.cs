@@ -9,6 +9,8 @@ namespace Slug.Helpers
 {
     public class SearchHandler
     {
+        private const int usersOnPage = 5;
+
         private readonly IDictionary<AgeEnum, DatesUserSearch> datesOfBirth =
             new Dictionary<AgeEnum, DatesUserSearch>()
             {
@@ -41,7 +43,7 @@ namespace Slug.Helpers
                 },
 
                 { AgeEnum.morethan70, new DatesUserSearch()
-                    { UserMinDateOfBirth = DateTime.Now.AddYears(-70), UserMaxDateOfBirth = DateTime.Now.AddYears(-200) }
+                    { UserMinDateOfBirth = DateTime.Now.AddYears(-200), UserMaxDateOfBirth = DateTime.Now.AddYears(-77) }
                 }
             };
 
@@ -62,8 +64,10 @@ namespace Slug.Helpers
             }
         }
 
-        public SearchUsersResponse SearchUsers(SearchUsersRequest request, int insteadUserID)
+        public SearchUsersResponse SearchUsers(SearchUsersRequest request, int insteadUserID, int page)
         {
+            if (page <= 0)
+                page = 1;
             var responce = new SearchUsersResponse();
 
             using (var context = new DataBaseContext())
@@ -83,11 +87,21 @@ namespace Slug.Helpers
                     )
                     .ToList();
 
+                int multipleCount = result.Count;
+                decimal del = ((decimal)multipleCount / (decimal)usersOnPage);
+                int resMultiple = Convert.ToInt32(Math.Ceiling(del));
+                if (page > resMultiple)
+                    page = resMultiple;
 
-                responce.Users = result.Take(25).Select(collect => new Model.CutUserInfoModel()
+                responce.PagesCount = resMultiple;
+
+                responce.Users = result
+                    .Skip((page - 1) * usersOnPage)
+                    .Take(usersOnPage)
+                    .Select(collect => new Model.CutUserInfoModel()
                 {
                     UserId = collect.Id,
-                    AvatarUri = context.Avatars.First(ava => collect.AvatarId == collect.AvatarId).ImgPath,
+                    AvatarUri = context.Avatars.First(ava => ava.Id == collect.AvatarId).ImgPath,
                     Country = context.Countries.First(country => collect.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title,
                     Sity = context.Cities.First(cit => collect.UserFullInfo.NowSityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title,
                     DateBirth = collect.UserFullInfo.DateOfBirth,
@@ -96,7 +110,6 @@ namespace Slug.Helpers
                 })
                     .ToList();
 
-                responce.TotalCount = result.Count;
             }
             return responce;
         }

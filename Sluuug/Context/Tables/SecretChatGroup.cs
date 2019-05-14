@@ -20,5 +20,6 @@ namespace Slug.Context.Tables
 
         [Required]
         public bool Accepted { get; set; }
+
     }
 }

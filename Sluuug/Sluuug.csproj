@@ -134,8 +134,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
+    <Content Include="Scripts\Albums.js" />
+    <Content Include="Scripts\EditInfo.js" />
+    <Content Include="Scripts\BigInteger.js" />
+    <Content Include="Scripts\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
     <Content Include="Scripts\goUser.js" />
@@ -171,6 +176,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\Attributes\AuthAttribute.cs" />
     <Compile Include="Context\Attributes\SessionCheckAttribute.cs" />
+    <Compile Include="Context\Dto\Albums\CreateAlbumRespose.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
@@ -185,17 +191,41 @@
     <Compile Include="Context\Dto\Settings\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Settings\SetSettingsRequest.cs" />
     <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
-    <Compile Include="Context\Dto\UserFullInfo\BaseLiveEpisode.cs" />
-    <Compile Include="Context\Dto\UserFullInfo\Education.cs" />
-    <Compile Include="Context\Dto\UserFullInfo\EducationType.cs" />
-    <Compile Include="Context\Dto\UserFullInfo\LifePlaces.cs" />
-    <Compile Include="Context\Dto\UserFullInfo\MemorableEvents.cs" />
-    <Compile Include="Context\Dto\UserFullInfo\WorkPlaces.cs" />
-    <Compile Include="Context\Dto\UserWorker\CloudImageUploadResult.cs" />
-    <Compile Include="Context\Dto\UserWorker\UserConfirmationDitails.cs" />
-    <Compile Include="Context\Dto\VideoConference\Role.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\BaseLiveEpisode.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\Education.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\EntryBase.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\LifePlaces.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\MemorableEvents.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\CloudImageUploadResult.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
+    <Compile Include="Migrations\201905141311584_keys.cs" />
+    <Compile Include="Migrations\201905141311584_keys.Designer.cs">
+      <DependentUpon>201905141311584_keys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141522182_keys_not_DB_gen.cs" />
+    <Compile Include="Migrations\201905141522182_keys_not_DB_gen.Designer.cs">
+      <DependentUpon>201905141522182_keys_not_DB_gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141525036_keys_not_DB_gen2.cs" />
+    <Compile Include="Migrations\201905141525036_keys_not_DB_gen2.Designer.cs">
+      <DependentUpon>201905141525036_keys_not_DB_gen2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141527169_keys_not_DB_gen3.cs" />
+    <Compile Include="Migrations\201905141527169_keys_not_DB_gen3.Designer.cs">
+      <DependentUpon>201905141527169_keys_not_DB_gen3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141531075_keys_not_DB_gen4.cs" />
+    <Compile Include="Migrations\201905141531075_keys_not_DB_gen4.Designer.cs">
+      <DependentUpon>201905141531075_keys_not_DB_gen4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\VideoConference\Role.cs" />
+    <Compile Include="Context\Tables\Album.cs" />
     <Compile Include="Context\Tables\Cities.cs" />
+    <Compile Include="Context\Tables\FotoComment.cs" />
     <Compile Include="Context\Tables\Countries.cs" />
+    <Compile Include="Context\Tables\Foto.cs" />
     <Compile Include="Context\Tables\UserConnections.cs" />
     <Compile Include="Context\Tables\UserInfo.cs" />
     <Compile Include="Context\Tables\UserSettings.cs" />
@@ -210,10 +240,14 @@
     <Compile Include="Crypto\Converting.cs" />
     <Compile Include="DbInitialisation\NewUserInitial.cs" />
     <Compile Include="Helpers\ActivationHandler.cs" />
+    <Compile Include="Helpers\AlbumsHandler.cs" />
+    <Compile Include="Helpers\BaseController\AppSettingsEnum.cs" />
     <Compile Include="Helpers\ConversationHandler.cs" />
     <Compile Include="Helpers\CryptoChatHandler.cs" />
     <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Context\Enums.cs" />
+    <Compile Include="Helpers\FriendshipChecker.cs" />
+    <Compile Include="Helpers\FullInfoHandler.cs" />
     <Compile Include="Helpers\SearchHandler.cs" />
     <Compile Include="Helpers\SettingsHandler.cs" />
     <Compile Include="Helpers\UsersDialogHandler.cs" />
@@ -241,39 +275,36 @@
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Hubs\MessagersHub.cs" />
     <Compile Include="Hubs\VideoChatInviteHub.cs" />
-    <Compile Include="Migrations\201904290752253_00.cs" />
-    <Compile Include="Migrations\201904290752253_00.Designer.cs">
-      <DependentUpon>201904290752253_00.cs</DependentUpon>
+    <Compile Include="Migrations\201905131031303_update.cs" />
+    <Compile Include="Migrations\201905131031303_update.Designer.cs">
+      <DependentUpon>201905131031303_update.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904291001085_country_code_instead_country_str.cs" />
-    <Compile Include="Migrations\201904291001085_country_code_instead_country_str.Designer.cs">
-      <DependentUpon>201904291001085_country_code_instead_country_str.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291019484_country_code_instead_country_str2.cs" />
-    <Compile Include="Migrations\201904291019484_country_code_instead_country_str2.Designer.cs">
-      <DependentUpon>201904291019484_country_code_instead_country_str2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291143162_country_code_in_city_tbo.cs" />
-    <Compile Include="Migrations\201904291143162_country_code_in_city_tbo.Designer.cs">
-      <DependentUpon>201904291143162_country_code_in_city_tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291605500_add sex.cs" />
-    <Compile Include="Migrations\201904291605500_add sex.Designer.cs">
-      <DependentUpon>201904291605500_add sex.cs</DependentUpon>
+    <Compile Include="Migrations\201905131224027_fotos_albums_comments.cs" />
+    <Compile Include="Migrations\201905131224027_fotos_albums_comments.Designer.cs">
+      <DependentUpon>201905131224027_fotos_albums_comments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Albums\AlbumModel.cs" />
+    <Compile Include="Model\Albums\FotoCommentModel.cs" />
+    <Compile Include="Model\Albums\FotoModel.cs" />
+    <Compile Include="Model\FullInfo\BaseInfoModel.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoChatModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoDialogModel.cs" />
     <Compile Include="Model\Users\CutUserInfoModel.cs" />
     <Compile Include="Model\SimpleChat\DialogModel.cs" />
+    <Compile Include="Model\FullInfo\EducationModel.cs" />
     <Compile Include="Model\Users\ForeignUserViewModel.cs" />
     <Compile Include="Model\Users\FriendModel.cs" />
+    <Compile Include="Model\FullInfo\FullUserInfoModel.cs" />
+    <Compile Include="Model\FullInfo\LifePlacesModel.cs" />
+    <Compile Include="Model\FullInfo\MemorableEventsModel.cs" />
     <Compile Include="Model\Users\RegisteringUserModel.cs" />
     <Compile Include="Model\SimpleChat\SendingMSG.cs" />
     <Compile Include="Model\Users\FriendlyUserModel.cs" />
     <Compile Include="Model\Users\MyFriendsModel.cs" />
     <Compile Include="Model\Users\UserSettingsModel.cs" />
+    <Compile Include="Model\FullInfo\WorkPlacesModel.cs" />
     <Compile Include="Model\VideoConference\CallModel.cs" />
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
     <Compile Include="Model\VideoConference\IncomingInvite.cs" />
@@ -297,6 +328,8 @@
     <Content Include="Views\Private\settings.cshtml" />
     <Content Include="Views\Private\search.cshtml" />
     <Content Include="Views\Private\search_result.cshtml" />
+    <Content Include="Views\Error\ooops.cshtml" />
+    <Content Include="Views\Private\edit_profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,20 +341,26 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904290752253_00.resx">
-      <DependentUpon>201904290752253_00.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905131031303_update.resx">
+      <DependentUpon>201905131031303_update.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291001085_country_code_instead_country_str.resx">
-      <DependentUpon>201904291001085_country_code_instead_country_str.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905131224027_fotos_albums_comments.resx">
+      <DependentUpon>201905131224027_fotos_albums_comments.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291019484_country_code_instead_country_str2.resx">
-      <DependentUpon>201904291019484_country_code_instead_country_str2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905141311584_keys.resx">
+      <DependentUpon>201905141311584_keys.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291143162_country_code_in_city_tbo.resx">
-      <DependentUpon>201904291143162_country_code_in_city_tbo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905141522182_keys_not_DB_gen.resx">
+      <DependentUpon>201905141522182_keys_not_DB_gen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291605500_add sex.resx">
-      <DependentUpon>201904291605500_add sex.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905141525036_keys_not_DB_gen2.resx">
+      <DependentUpon>201905141525036_keys_not_DB_gen2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141527169_keys_not_DB_gen3.resx">
+      <DependentUpon>201905141527169_keys_not_DB_gen3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141531075_keys_not_DB_gen4.resx">
+      <DependentUpon>201905141531075_keys_not_DB_gen4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

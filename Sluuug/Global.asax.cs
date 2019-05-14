@@ -14,7 +14,7 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //NewUserInitial.Initialize();
+            //NewUserInitial.UserFullInfo("login18");
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -42,11 +42,14 @@ namespace Sluuug
                 Server.ClearError();
                 Response.Redirect("~/error/notfound");
             }
-
-            if (internalServerError)
+            else if (internalServerError)
             {
                 Server.ClearError();
                 Response.Redirect("~/guest/index");
+            }
+            else
+            {
+                Response.Redirect("~/error/ooops");
             }
         }
 

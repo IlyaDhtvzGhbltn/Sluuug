@@ -7,6 +7,8 @@ using Slug.Context.Tables;
 using Slug.Helpers;
 using Slug.Context.Attributes;
 using Slug.Context.Dto.UserWorker;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using Slug.Helpers.BaseController;
 
 namespace Slug.Controllers
 {
@@ -21,7 +23,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult register()
         {
-            HttpCookie session_id = Request.Cookies.Get("session_id");
+            HttpCookie session_id = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             if (session_id == null || string.IsNullOrWhiteSpace(session_id.Value))
                 return View();
             else
@@ -70,7 +72,7 @@ namespace Slug.Controllers
                         ActivationMailHandler.CloseActivationEntries(user.Id);
 
                         string sessionNumber = SessionHandler.OpenSession(SessionTypes.Exit, user.Id);
-                        var cookie = new HttpCookie("session_id");
+                        var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
                         cookie.Value = sessionNumber;
                         Response.Cookies.Set(cookie);
 
@@ -88,7 +90,7 @@ namespace Slug.Controllers
             ViewBag.await_confirmation_div_display = "none";
             ViewBag.immediately_login_div_display = "block";
 
-            //var cook = Request.Cookies.Get("session_id");
+            //var cook = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             //if (cook != null)
             //{
             //    SessionTypes sessionType = SessionWorker.GetSessionType(cook.Value);
@@ -112,7 +114,7 @@ namespace Slug.Controllers
                     ViewBag.immediately_login_div_display = "none";
 
 
-                    var cookies = new HttpCookie("session_id");
+                    var cookies = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
                     cookies.Value = a;
                     Response.Cookies.Set(cookies);
                 }
@@ -127,7 +129,7 @@ namespace Slug.Controllers
             if (userId > 0)
             {
                 string session_id = SessionHandler.OpenSession(SessionTypes.Private, userId);
-                var cookie = new HttpCookie("session_id");
+                var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
                 cookie.Value = session_id;
                 Response.Cookies.Set(cookie);
 

@@ -44,13 +44,13 @@ namespace Slug.Helpers
                     var secretGroups = new SecretChatGroup();
                     secretGroups.PartyGUID = newSecretChat.PartyGUID;
                     secretGroups.UserId = userId;
-                    context.SecretChatGroup.Add(secretGroups);
+                    context.SecretChatGroups.Add(secretGroups);
                 }
                 var secretGroup = new SecretChatGroup();
                 secretGroup.PartyGUID = newSecretChat.PartyGUID;
                 secretGroup.UserId = Inviter;
                 secretGroup.Accepted = true;
-                context.SecretChatGroup.Add(secretGroup);
+                context.SecretChatGroups.Add(secretGroup);
                 context.SaveChanges();
 
                 var response = new CreateNewCryptoChatResponse();
@@ -73,7 +73,7 @@ namespace Slug.Helpers
             model.FriendsICanInvite = new List<FriendModel>();
 
             MyFriendsModel friends = user.GetFriendsBySession(sessionId);
-            CutUserInfoModel userInformation = user.GetUserInfo(sessionId);
+            CutUserInfoModel userInformation = user.GetFullUserInfo(sessionId);
 
             foreach (var item in friends.Friends)
             {
@@ -82,7 +82,7 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                List<SecretChatGroup> chatIDs = context.SecretChatGroup.Where(x => x.UserId == userInformation.UserId).Select(c => c).ToList();
+                List<SecretChatGroup> chatIDs = context.SecretChatGroups.Where(x => x.UserId == userInformation.UserId).Select(c => c).ToList();
                 foreach (var item in chatIDs)
                 {
                     SecretChat secretChat = context.SecretChat.FirstOrDefault(x => x.PartyGUID == item.PartyGUID);
@@ -125,7 +125,7 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
-                var chatGroup = context.SecretChatGroup.Where(x=>x.UserId == userId && x.PartyGUID == chatID).First();
+                var chatGroup = context.SecretChatGroups.Where(x=>x.UserId == userId && x.PartyGUID == chatID).First();
                 chatGroup.Accepted = true;
                 context.SaveChanges();
             }
@@ -215,7 +215,7 @@ namespace Slug.Helpers
             int ids = 0;
             using (var context = new DataBaseContext())
             {
-                int IDs = context.SecretChatGroup
+                int IDs = context.SecretChatGroups
                     .Where(x => x.PartyGUID == cryptoCnvId && x.UserId != insteadID)
                     .Select(x => x.UserId)
                     .First();
@@ -230,7 +230,7 @@ namespace Slug.Helpers
                 if (secretChat.CreatorUserId == userId)
                     return CryptoChatStatus.SelfCreated;
 
-                SecretChatGroup chatGroup = context.SecretChatGroup.Where(x => x.UserId == userId && x.PartyGUID == chatId).First();
+                SecretChatGroup chatGroup = context.SecretChatGroups.Where(x => x.UserId == userId && x.PartyGUID == chatId).First();
                 if (chatGroup.Accepted == true)
                     return CryptoChatStatus.Accepted;
 
@@ -239,7 +239,7 @@ namespace Slug.Helpers
         private List<FriendModel> getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user)
         {
             List<FriendModel> chatParticipants = new List<FriendModel>();
-            var participators = context.SecretChatGroup.Where(x => x.PartyGUID == PartyGUID).ToList();
+            var participators = context.SecretChatGroups.Where(x => x.PartyGUID == PartyGUID).ToList();
             foreach (var participator in participators)
             {
                 var friendModel = new FriendModel();

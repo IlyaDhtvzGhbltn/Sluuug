@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "activate";
+    Layout = "~/Views/Shared/Logo.cshtml";
+}
+
+<h2>Activate</h2>
+
+<div id = "incorrect" style="display: @ViewBag.incorrect_div_display">
+    <p>Activation parameter incorrect or Expired.</p>
+    <p>Please check your gmail spam folder or try to repeat registration.</p>
+</div>
+
+<div id="success" style="display: @ViewBag.success_div_display">
+    <p>Your Account was successfully confirmation.</p>
+    <p>You can Logging <a href="@Url.Action("login","guest")">here</a></p>
+</div>
+
+

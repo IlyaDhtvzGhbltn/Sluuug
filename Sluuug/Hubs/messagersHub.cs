@@ -8,8 +8,11 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context;
 using Slug.Context.Dto.Messages;
 using Slug.Helpers;
+using Slug.Helpers.BaseController;
 using Slug.Hubs;
 using Slug.Model;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+
 
 namespace Sluuug.Hubs
 {
@@ -25,11 +28,11 @@ namespace Sluuug.Hubs
         {
             int toUserID = toUserId;
             IList<string> UserRecipientsConnectionIds = new List<string>();
-            Cookie cookies = base.Context.Request.Cookies["session_id"];
+            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             var UsWork = new UsersHandler();
             var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-            CutUserInfoModel user = UsWork.GetUserInfo(cookies.Value);
+            CutUserInfoModel user = UsWork.GetFullUserInfo(cookies.Value);
             if (user != null)
             {
                 var dialogWorker = new UsersDialogHandler();

@@ -14,7 +14,7 @@ namespace Slug.Helpers
     public class UsersDialogHandler
     {
         private UsersHandler UserWorker = new UsersHandler();
-        private readonly int multiple = 5;
+        private const int multiple = 5;
 
         public DialogModel GetMessanges(Guid convId, int page)
         {
@@ -30,7 +30,7 @@ namespace Slug.Helpers
                                         .Where(x => x.ConvarsationGuidId == convId)
                                         .Count();
 
-                decimal del = ( (decimal)multipleCount / (decimal)this.multiple);
+                decimal del = ( (decimal)multipleCount / (decimal)multiple);
                 int resMultiple = Convert.ToInt32( Math.Ceiling(del) );
                 if (page > resMultiple)
                     page = resMultiple;
@@ -92,7 +92,6 @@ namespace Slug.Helpers
                 await context.SaveChangesAsync();
             }
         }
-
 
     }
 }

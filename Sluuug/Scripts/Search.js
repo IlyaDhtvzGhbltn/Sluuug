@@ -15,7 +15,7 @@
         },
     });
 }
-
+ 
 function serchUser() {
     var data = $("#searchSubmit").serializeArray();
     var json = parceJSON(data);
