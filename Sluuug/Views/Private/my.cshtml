@@ -58,19 +58,26 @@
     <div id="old">
         @foreach (var item in Model.Albums)
         {
-            <div class="album" style="cursor:pointer">
-                <b>@item.Title</b> <span>Создан <b>@item.CreationTime</b></span>
-                  <p>
-                     <img src="@item.AlbumLabelUrl" height="50" width="50" /><span>@item.AuthorComment</span>
-                     <button onclick="upload_foto('@item.Guid')">Загрузить фото</button>
-                   </p>
-                <div class="uplpad_form" id="@item.Guid"></div>
-            </div>
+        <div class="album">
+            <b>@item.Title</b> <span>Создан <b>@item.CreationTime</b></span>
+            <p>
+                <img src="@item.AlbumLabelUrl" height="50" width="50" /><span>@item.AuthorComment</span>
+                <button onclick="show_form_upload_foto('@item.Guid')">Загрузить фото</button>
+            </p>
+            <div class="uplpad_form" id="upload_foto_div_@item.Guid"></div>
+            @if (item.FotosCount > 0)
+            {
+                <button id="@item.Guid" onclick="show_album(this.id)">Показать</button>
+            }
+            <div class="fotos_view" id="view_@item.Guid"></div>
+        </div>
         }
     </div>
     <div id="create_new_album">
-        <button onclick="ShowAlbumCreateForm()" id="create_new_album_button">Create New</button>
-        <div id="create_album_form"></div>
+        <p>
+            <button onclick="ShowAlbumCreateForm()" id="create_new_album_button">Create New</button>
+            <div id="create_album_form"></div>
+        </p>
     </div>
 </div>
 <hr />

@@ -141,10 +141,18 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult upload_foto(HttpPostedFileBase foto)
+        public JsonResult upload_foto(FotoModel model, UploadModel form)
         {
+            var uploadResult = AlbumsHandler.UploadToAlbum(GetCookiesValue(Request), model, form);
+            return new JsonResult() { Data = uploadResult.isSuccess };
+        }
 
-            return new JsonResult() { Data = false };
+        [HttpPost]
+        public JsonResult my_fotos(string album)
+        {
+            var guid = Guid.Parse(album);
+            var result = AlbumsHandler.GetMyPhotosInAlbum(GetCookiesValue(Request), guid);
+            return new JsonResult { Data = result };
         }
     }
 }

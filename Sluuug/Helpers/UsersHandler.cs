@@ -1,4 +1,5 @@
 ﻿using Context;
+using Slug.Context;
 using Slug.Context.Dto.Messages;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
@@ -13,7 +14,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Slug.Context
+namespace Slug.Helpers
 {
     public class UsersHandler
     {
@@ -201,10 +202,11 @@ namespace Slug.Context
                         AlbumLabelUrl = album.AlbumLabelUrl,
                         AuthorComment = album.AuthorComment,
                         CreationTime = album.CreationDate,
-                        Title = album.Title
+                        Title = album.Title,
+                        FotosCount = album.Fotos.Count
                     };
                     userModel.Albums.Add(albumModel);
-                }
+                }                
             }
             return userModel;
         }

@@ -30,7 +30,6 @@ namespace Slug.Context.Tables
         [Required]
         public int UploadUserID { get; set; }
 
-        [Required]
         public string AuthorComment { get; set; }
 
         public virtual List<FotoComment> UserComments { get; set; }

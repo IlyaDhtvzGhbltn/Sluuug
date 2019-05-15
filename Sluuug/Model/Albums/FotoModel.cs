@@ -15,6 +15,8 @@ namespace Slug.Model.Albums
 
         public string AuthorComment { get; set; }
 
+        public Guid Album { get; set; }
+
         public List<FotoCommentModel> FotoComments { get; set; }
     }
 }

@@ -176,7 +176,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\Attributes\AuthAttribute.cs" />
     <Compile Include="Context\Attributes\SessionCheckAttribute.cs" />
-    <Compile Include="Context\Dto\Albums\CreateAlbumRespose.cs" />
+    <Compile Include="Context\Dto\Albums\AlbumPhotosResponse.cs" />
+    <Compile Include="Context\Dto\Albums\CreateAlbumResponse.cs" />
+    <Compile Include="Context\Dto\Albums\UploadAlbumResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
@@ -200,6 +202,8 @@
     <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
+    <Compile Include="ImageEdit\ModTypes.cs" />
+    <Compile Include="ImageEdit\Resize.cs" />
     <Compile Include="Migrations\201905141311584_keys.cs" />
     <Compile Include="Migrations\201905141311584_keys.Designer.cs">
       <DependentUpon>201905141311584_keys.cs</DependentUpon>
@@ -220,6 +224,11 @@
     <Compile Include="Migrations\201905141531075_keys_not_DB_gen4.Designer.cs">
       <DependentUpon>201905141531075_keys_not_DB_gen4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905151217523_not requered.cs" />
+    <Compile Include="Migrations\201905151217523_not requered.Designer.cs">
+      <DependentUpon>201905151217523_not requered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Albums\UploadModel.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />
     <Compile Include="Context\Tables\Cities.cs" />
@@ -361,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905141531075_keys_not_DB_gen4.resx">
       <DependentUpon>201905141531075_keys_not_DB_gen4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905151217523_not requered.resx">
+      <DependentUpon>201905151217523_not requered.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

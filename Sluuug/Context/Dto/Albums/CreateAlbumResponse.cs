@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Slug.Context.Dto.Albums
 {
-    public class CreateAlbumRespose
+    public class CreateAlbumResponse
     {
         public bool isSuccess { get; set; }
 

@@ -112,3 +112,4 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen.res
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen2.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen3.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen4.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.notrequered.resources
