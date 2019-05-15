@@ -7,7 +7,9 @@ namespace Slug.Model.Albums
 {
     public class FotoModel
     {
-        public string FotoUri { get; set; }
+        public string FullFotoUri { get; set; }
+
+        public string SmallFotoUri { get; set; }
 
         public DateTime UploadDate { get; set; }
 

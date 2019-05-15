@@ -147,13 +147,17 @@ function show_album(album) {
                 });
 
                 let view_album = $('#view_' + album)[0];
-                view_album.innerHTML = '<hr/>';
+                view_album.innerHTML = genAlbumView(resp);
             }
             else {
                 console.log(resp.Comment);
             }
         }
     });
+}
+
+function show_full_img(full, index) {
+
 }
 
 const new_album_form =
@@ -177,7 +181,21 @@ function genPhotoUploadForm(album) {
 }
 
 function genAlbumView(album) {
-    var wrapper = '';
+    var wrapper = '<div>';
+    [].forEach.call(album.Photos, function (foto) {
+        wrapper += '<div class="img_frame" style="display:inline-block;cursor:pointer">';
+        wrapper += '<p><b>' + foto.Title + '</b></p>';
+        wrapper += '<img src="' + foto.SmallFotoUri + '" />';
+
+        if (foto.AuthorComment != null) {
+            wrapper += '<p><span>' + foto.AuthorComment + '</span></p>';
+        }
+
+        wrapper += '<div class="full_view" id="f_' + foto.Album +'"></div>';
+        wrapper += '</div>';
+    });
+    wrapper += '</div>';
+    return wrapper;
 }
 
 

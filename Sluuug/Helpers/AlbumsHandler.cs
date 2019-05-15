@@ -133,10 +133,11 @@ namespace Slug.Helpers
                            var fModel = new FotoModel()
                            {
                                Album = foto.AlbumID,
-                               FotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale , 50), 
+                               SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale , 50),
+                               FullFotoUri = foto.Url,
                                AuthorComment = foto.AuthorComment,
                                Title = foto.Title,
-                               UploadDate = foto.UploadDate
+                               UploadDate = foto.UploadDate, 
                            };
                            resp.Photos.Add(fModel);
                        });
