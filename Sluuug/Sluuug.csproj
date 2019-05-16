@@ -143,6 +143,7 @@
     <Content Include="Scripts\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
+    <Content Include="Scripts\FriendAlbum.js" />
     <Content Include="Scripts\goUser.js" />
     <Content Include="Scripts\Search.js" />
     <Content Include="Scripts\notificationHub.js" />
@@ -182,6 +183,7 @@
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
+    <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
     <Compile Include="Context\Dto\Messages\MessagesHubResponse.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
@@ -228,6 +230,8 @@
     <Compile Include="Migrations\201905151217523_not requered.Designer.cs">
       <DependentUpon>201905151217523_not requered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
+    <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\UploadModel.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />

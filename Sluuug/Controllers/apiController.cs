@@ -148,10 +148,17 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult my_fotos(string album)
+        public JsonResult fotos(string album)
         {
             var guid = Guid.Parse(album);
             var result = AlbumsHandler.GetMyPhotosInAlbum(GetCookiesValue(Request), guid);
+            return new JsonResult { Data = result };
+        }
+
+        [HttpPost]
+        public JsonResult edit(EditFotoInfoModel model)
+        {
+            var result = AlbumsHandler.EditFotoInfo(GetCookiesValue(Request), model);
             return new JsonResult { Data = result };
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Context;
 using Slug.Context.Dto.Albums;
+using Slug.Context.Dto.Fotos;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
 using Slug.ImageEdit;
@@ -120,34 +121,82 @@ namespace Slug.Helpers
                 }
                 else
                 {
-                    if (album.CreateUserID != getUserId)
+                    bool isFriendlyAlbum = FriendshipChecker.CheckUsersFriendshipByIDS(getUserId, album.CreateUserID);
+
+                    if (isFriendlyAlbum || album.CreateUserID == getUserId)
                     {
-                        resp.Comment = AlbumPhotosResponse.Errors.NOT_ACCESS;
+                        resp.Photos = new List<FotoModel>();
+                        album.Fotos.ToList().ForEach(foto =>
+                        {
+                            var fModel = new FotoModel()
+                            {
+                                Album = foto.AlbumID,
+                                SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 50),
+                                FullFotoUri = foto.Url,
+                                AuthorComment = foto.AuthorComment,
+                                Title = foto.Title,
+                                UploadDate = foto.UploadDate,
+                                ID = foto.FotoGUID
+                            };
+                            resp.Photos.Add(fModel);
+                        });
+
+                        resp.isSucces = true;
+                        resp.Count = album.Fotos.Count;
                         return resp;
                     }
                     else
                     {
-                       resp.Photos = new List<FotoModel>();
-                       album.Fotos.ToList().ForEach(foto => 
-                       {
-                           var fModel = new FotoModel()
-                           {
-                               Album = foto.AlbumID,
-                               SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale , 50),
-                               FullFotoUri = foto.Url,
-                               AuthorComment = foto.AuthorComment,
-                               Title = foto.Title,
-                               UploadDate = foto.UploadDate, 
-                           };
-                           resp.Photos.Add(fModel);
-                       });
-
-                        resp.isSucces = true;
-                        resp.Count = album.Fotos.Count;
-                        return resp; 
+                        resp.Comment = AlbumPhotosResponse.Errors.NOT_ACCESS;
+                        return resp;
                     }
                 }
             }
+        }
+
+        public EditFotoResponse EditFotoInfo(string session, EditFotoInfoModel model)
+        {
+            var resp = new EditFotoResponse();
+            var handler = new UsersHandler();
+            int editorID = handler.GetFullUserInfo(session).UserId;
+            using (var context = new DataBaseContext())
+            {
+                Foto foto = context.Fotos.FirstOrDefault(x => x.FotoGUID == model.PhotoGUID);
+                if (foto == null)
+                {
+                    resp.Comment = EditFotoResponse.Errors.NOT_EXIST;
+                }
+                else
+                {
+                    int fotoUploadedUserID = foto.UploadUserID;
+                    if (editorID != fotoUploadedUserID)
+                    {
+                        resp.Comment = EditFotoResponse.Errors.NOT_ACCESS;
+                    }
+                    else
+                    {
+                        if (string.IsNullOrWhiteSpace(model.NewValue))
+                        {
+                            resp.Comment = EditFotoResponse.Errors.EMPTY_VALUE;
+                        }
+                        else
+                        {
+                            if (model.EditMode == EditMode.EditTitle)
+                            {
+                                foto.Title = model.NewValue;
+                            }
+                            else if (model.EditMode == EditMode.EditDesc)
+                            {
+                                foto.AuthorComment = model.NewValue;
+                            }
+                            context.SaveChanges();
+                            resp.isSuccess = true;
+                        }
+                    }
+                }
+            }
+
+            return resp;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿function ShowAlbumCreateForm() {
+﻿const editIMG = 'http://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1558014890/system/fgy1pkgfwhlemkvatoiu.png';
+const endEDIT = 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1558016108/system/images.png';
+
+function ShowAlbumCreateForm() {
     let div_form = $('#create_album_form')[0];
     if (div_form.innerHTML.length == 0) {
         changeElementVisibility('create_new_album_button', 'none');
@@ -22,7 +25,6 @@ function send(api_url, formID, show_button, requred_field_alert) {
         });
 
         let upload_file = $('#album_label')[0].files[0];
-        console.log(upload_file);
 
         close_form(formID, 'create_new_album_button', 'inline-block');
         drop_elem('create_album_form');
@@ -35,7 +37,6 @@ function send(api_url, formID, show_button, requred_field_alert) {
             contentType: false,
             data: form,
             success: function (response) {
-                console.log(response)
                 if (response) {
                     document.location.reload();
                 }
@@ -60,7 +61,6 @@ function upload(album) {
         var form = new FormData();
         [].forEach.call(selected_files, function (file) {
             form.append('Files', file);
-            console.log(form.get(file.name));
         });
 
         [].forEach.call(data, function (item) {
@@ -81,6 +81,36 @@ function upload(album) {
     
         drop_elem('upload_foto_div_' + album);
     }
+}
+
+function send_edit(photoID, type) {
+    let idtype = 'inp_t_';
+    let imgtype = 'edit_tit_';
+    let newdiv = 'newt_';
+
+    if (type == 1) {
+        idtype = 'inp_d_';
+        imgtype = 'edit_desc_';
+        newdiv = 'newd_';
+    }
+    let elementID = idtype + photoID;
+    let new_value = $('#' + elementID)[0].value;
+    if (new_value.length > 0) {
+        $.ajax({
+            type: "post",
+            url: "/api/edit",
+            data: { PhotoGUID: photoID, EditMode: type, NewValue: new_value },
+            success: function (resp) {
+                if (resp.isSucces) {
+                    document.location.reload();
+                }
+            }
+        });
+
+        //SEEEEEEEEEEEEEEEENDDD
+    }
+    $('#' + imgtype + photoID)[0].src = editIMG;
+    $('#' + newdiv + photoID)[0].remove();
 }
 
 function validate(formID) {
@@ -136,18 +166,22 @@ function show_form_upload_foto(alb) {
 function show_album(album) {
     $.ajax({
         type: "post",
-        url: "/api/my_fotos",
+        url: "/api/fotos",
         data: { album },
         success: function (resp) {
             if (resp.isSucces) {
-                console.log(resp);
                 let albums = $('.fotos_view');
+                let full = $('.full_view');
                 [].forEach.call(albums, function (item) {
                     item.innerHTML = '';
                 });
+                [].forEach.call(full, function (item) {
+                    item.innerHTML = '';
+                })
 
                 let view_album = $('#view_' + album)[0];
                 view_album.innerHTML = genAlbumView(resp);
+
             }
             else {
                 console.log(resp.Comment);
@@ -155,9 +189,69 @@ function show_album(album) {
         }
     });
 }
+function add_info(fotoID, type) {
+    switch (type)
+    {
+        case 0 :
+            {
+                let elem = $('#newt_' + fotoID)[0];
+                if (elem == undefined) {
+                    let div = $('#title_' + fotoID)[0];
+                    div.insertAdjacentHTML('afterend', getEditInfo(fotoID, 0));
+                    $('#edit_tit_' + fotoID)[0].src = endEDIT;
 
-function show_full_img(full, index) {
+                }
+                else {
+                    new_tit = $('#newt_' + fotoID)[0];
+                    new_tit.remove();
+                    $('#edit_tit_' + fotoID)[0].src = editIMG;
 
+                }
+                break;
+            }
+        case 1:
+            {
+                let elem = $('#newd_' + fotoID)[0];
+                if (elem == undefined) {
+                    let div = $('#desc_' + fotoID)[0];
+                    div.insertAdjacentHTML('afterend', getEditInfo(fotoID, 1));
+                    $('#edit_desc_' + fotoID)[0].src = endEDIT;
+                }
+                else {
+                    new_tit = $('#newd_' + fotoID)[0];
+                    new_tit.remove();
+                    $('#edit_desc_' + fotoID)[0].src = editIMG;
+                }
+                break;
+            }
+    }
+
+}
+
+function drop_foto(fotoID) {
+    console.log(fotoID);
+}
+
+function drop_edit_info(id) {
+    $('#t_' + id).remove();
+    $('#d_' + id).remove();
+}
+
+function show_full_img(number, fullFoto, title, comment, index, fotoId) {
+    let elem = $('#f_' + number)[0];
+    var titl = 'add title';
+    if (title != 'null') {
+        titl = title;
+    } 
+    var comm = 'add description';
+    if (comment != 'null') {
+        comm = comment;
+    }
+    elem.innerHTML =
+    '<p><div id="title_' + fotoId + '" onclick="add_info(\'' + fotoId + '\', 0)"><b>' + titl + '</b><img id="edit_tit_' + fotoId + '" src="' + editIMG+'"/></div></p>' +
+    '<p><img src="' + fullFoto + '"/><button>Удалить</button></p>' +
+    '<p><div id="desc_' + fotoId + '" onclick="add_info(\'' + fotoId + '\', 1)"><span>' + comm + '</span><img id="edit_desc_' + fotoId + '" src="' + editIMG+'"/></div></p>' +
+        '';
 }
 
 const new_album_form =
@@ -180,20 +274,36 @@ function genPhotoUploadForm(album) {
         '<button onclick="upload(\'' + album + '\')">Create</button>'; 
 }
 
+function getEditInfo(fotoID, type) {
+    let idtype = 'newt_';
+    let inptyper = 'inp_t_';
+    if (type == 1) {
+        idtype = 'newd_';
+        inptyper = 'inp_d_';
+    }
+    let html = '<div id="' + idtype + fotoID + '"><input id="'+inptyper + fotoID + '" type="text"/><button onclick="send_edit(\'' + fotoID + '\', \'' + type +'\')">Сохранить</button></div>'
+    return html;
+}
+
+
 function genAlbumView(album) {
+    console.log(album);
     var wrapper = '<div>';
     [].forEach.call(album.Photos, function (foto) {
-        wrapper += '<div class="img_frame" style="display:inline-block;cursor:pointer">';
-        wrapper += '<p><b>' + foto.Title + '</b></p>';
-        wrapper += '<img src="' + foto.SmallFotoUri + '" />';
+        wrapper += '<div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">';
+        if (foto.Title != null) {
+            wrapper += '<p><b>' + foto.Title + '</b></p>';
+        }
+        let index = album.Photos.indexOf(foto);
+        wrapper += '<img src="' + foto.SmallFotoUri + '" onclick="show_full_img(\'' + foto.Album + '\', \'' + foto.FullFotoUri + '\', \'' + foto.Title + '\', \'' + foto.AuthorComment + '\', \'' + index + '\', \'' + foto.ID + '\')" />';
 
         if (foto.AuthorComment != null) {
             wrapper += '<p><span>' + foto.AuthorComment + '</span></p>';
         }
 
-        wrapper += '<div class="full_view" id="f_' + foto.Album +'"></div>';
         wrapper += '</div>';
     });
+    wrapper += '<div class="full_view" id="f_' + album.Photos[0].Album + '"></div>';
     wrapper += '</div>';
     return wrapper;
 }

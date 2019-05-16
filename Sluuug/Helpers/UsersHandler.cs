@@ -316,6 +316,22 @@ namespace Slug.Helpers
                     .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
                     .First().Title
                 }));
+
+                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
+                userModel.Albums = new List<AlbumModel>();
+                foreach (var album in albums)
+                {
+                    AlbumModel albumModel = new AlbumModel
+                    {
+                        Guid = album.Id,
+                        AlbumLabelUrl = album.AlbumLabelUrl,
+                        AuthorComment = album.AuthorComment,
+                        CreationTime = album.CreationDate,
+                        Title = album.Title,
+                        FotosCount = album.Fotos.Count
+                    };
+                    userModel.Albums.Add(albumModel);
+                }
             }
 
             return userModel;
