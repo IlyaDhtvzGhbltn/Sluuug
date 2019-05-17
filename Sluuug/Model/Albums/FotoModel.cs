@@ -22,5 +22,10 @@ namespace Slug.Model.Albums
         public string AuthorComment { get; set; }
 
         public List<FotoCommentModel> FotoComments { get; set; }
+
+        public int PositiveRating { get; set; }
+
+        public int NegativeRating { get; set; }
+
     }
 }

@@ -1,14 +1,19 @@
-﻿using Context;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Context;
 using Slug.Context.Dto.Albums;
+using Slug.Context.Dto.Cloudinary;
 using Slug.Context.Dto.Fotos;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
+using Slug.Helpers.BaseController;
 using Slug.ImageEdit;
 using Slug.Model.Albums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 
 namespace Slug.Helpers
 {
@@ -21,10 +26,12 @@ namespace Slug.Helpers
             var userUploader = handler.GetFullUserInfo(session);
 
             string labelUri = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1557838909/system/template.jpg";
+            string labePubID = null;
             if(albumLabel != null )
             {
                 CloudImageUploadResult upl = SlugController.UploadImg(albumLabel, "/users/albums/" + albumGUID.ToString());
                 labelUri = upl.SecureUrl.ToString();
+                labePubID = upl.PublicId;
             }
             try
             {
@@ -34,11 +41,12 @@ namespace Slug.Helpers
                     {
                         Id = albumGUID,
                         AlbumLabelUrl = labelUri,
-                        AuthorComment = model.AuthorComment,
+                        Description = model.AuthorComment,
                         CreateUserID = userUploader.UserId,
                         CreationDate = DateTime.Now,
                         Title = model.Title,
-                        User = context.Users.First(x => x.Id == userUploader.UserId)
+                        User = context.Users.First(x => x.Id == userUploader.UserId),
+                        AlbumLabesPublicID = labePubID
                     };
                     context.Albums.Add(album);
                     context.SaveChanges();
@@ -84,10 +92,11 @@ namespace Slug.Helpers
                                     AlbumID = model.Album,
                                     FotoGUID = Guid.NewGuid(),
                                     Title = model.Title,
-                                    AuthorComment = model.AuthorComment,
+                                    Description = model.AuthorComment,
                                     UploadDate = DateTime.Now,
                                     UploadUserID = userUploaderID,
-                                    Url = uploadCloud.SecureUrl.ToString()
+                                    Url = uploadCloud.SecureUrl.ToString(),
+                                    ImagePublicID = uploadCloud.PublicId
                                 };
                                 context.Fotos.Add(uplFoto);
                             }
@@ -133,10 +142,12 @@ namespace Slug.Helpers
                                 Album = foto.AlbumID,
                                 SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 50),
                                 FullFotoUri = foto.Url,
-                                AuthorComment = foto.AuthorComment,
+                                AuthorComment = foto.Description,
                                 Title = foto.Title,
                                 UploadDate = foto.UploadDate,
-                                ID = foto.FotoGUID
+                                ID = foto.FotoGUID,
+                                PositiveRating = foto.PositiveRating,
+                                NegativeRating = foto.NegativeRating
                             };
                             resp.Photos.Add(fModel);
                         });
@@ -187,11 +198,164 @@ namespace Slug.Helpers
                             }
                             else if (model.EditMode == EditMode.EditDesc)
                             {
-                                foto.AuthorComment = model.NewValue;
+                                foto.Description = model.NewValue;
                             }
                             context.SaveChanges();
                             resp.isSuccess = true;
                         }
+                    }
+                }
+            }
+
+            return resp;
+        }
+
+        public DropFotoResponse DropFoto(string session, Guid fotoGUID)
+        {
+            var resp = new DropFotoResponse();
+            var handler = new UsersHandler();
+            int userID = handler.GetFullUserInfo(session).UserId;
+            using (var context = new DataBaseContext())
+            {
+                var fotoInf = context.Fotos.FirstOrDefault(x => x.FotoGUID == fotoGUID);
+                if (fotoInf == null)
+                {
+                    resp.Comment = DropFotoResponse.Errors.NOT_EXIST;
+                }
+                else
+                {
+                    if (fotoInf.UploadUserID != userID)
+                    {
+                        resp.Comment = DropFotoResponse.Errors.NOT_ACCESS;
+                    }
+                    else
+                    {
+
+                        var account = new Account(
+                          WebAppSettings.AppSettings[AppSettingsEnum.cloud.ToString()],
+                          WebAppSettings.AppSettings[AppSettingsEnum.apiKey.ToString()],
+                          WebAppSettings.AppSettings[AppSettingsEnum.apiSecret.ToString()]);
+
+                        Cloudinary cloudinary = new Cloudinary(account);
+                        DelResResult delResponse = cloudinary.DeleteResources(ResourceType.Image, fotoInf.ImagePublicID);
+                        var deleteResult = delResponse.JsonObj.ToObject<CloudDeleteImage>();
+                        if (deleteResult.deleted != null && delResponse.Deleted.Count == 1)
+                        {
+                            context.Fotos.Remove(fotoInf);
+                            context.FotoComments.RemoveRange(fotoInf.UserComments);
+                            context.SaveChanges();
+                            resp.isSuccess = true;
+                        }
+                    }
+                }
+            }
+            return resp;
+        }
+
+        public DropAlbumResponse DropAlbum(string session, Guid albumGUID)
+        {
+            var response = new DropAlbumResponse();
+            var handler = new UsersHandler();
+
+            int userID = handler.GetFullUserInfo(session).UserId;
+            using (var context = new DataBaseContext())
+            {
+                var album = context.Albums.FirstOrDefault(x => x.Id == albumGUID);
+                if (album == null)
+                {
+                    response.Comment = DropAlbumResponse.Errors.NOT_EXIST;
+                }
+                else
+                {
+                    if (album.CreateUserID != userID)
+                    {
+                        response.Comment = DropAlbumResponse.Errors.NOT_ACCESS;
+                    }
+                    else
+                    {
+                        var fotosPublicID = album.Fotos.Select(x => x.ImagePublicID).ToList();
+                        if (!string.IsNullOrWhiteSpace(album.AlbumLabesPublicID) && !album.AlbumLabelUrl.Contains("system/template.jpg"))
+                        {
+                            fotosPublicID.Add(album.AlbumLabesPublicID);
+                        }
+
+                        var comments = new List<FotoComment>();
+                        foreach (var item in album.Fotos)
+                        {
+                            comments.AddRange(item.UserComments);
+                        }
+                        context.FotoComments.RemoveRange(comments);
+                        context.Fotos.RemoveRange(album.Fotos);
+                        context.Albums.Remove(album);
+
+                        context.SaveChanges();
+
+                        if (fotosPublicID.Count > 0)
+                        {
+                            var account = new Account(
+                                  WebAppSettings.AppSettings[AppSettingsEnum.cloud.ToString()],
+                                  WebAppSettings.AppSettings[AppSettingsEnum.apiKey.ToString()],
+                                  WebAppSettings.AppSettings[AppSettingsEnum.apiSecret.ToString()]);
+                            Cloudinary cloudinary = new Cloudinary(account);
+
+                            DelResResult delResponse = cloudinary.DeleteResources(ResourceType.Image, fotosPublicID.ToArray());
+                            var deleteResult = delResponse.JsonObj.ToObject<CloudDeleteImage>();
+
+                            if (deleteResult.deleted != null && delResponse.Deleted.Count > 0)
+                            {
+                                response.isSuccess = true;
+                            }
+                        }
+                        else
+                        {
+                            response.isSuccess = true;
+                        }
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        public FotoCommentsResponse GetCommentsToFoto(string session, Guid fotoGUID)
+        {
+            var handler = new UsersHandler();
+            int userID = handler.GetFullUserInfo(session).UserId;
+
+            var resp = new FotoCommentsResponse();
+            using (var context = new DataBaseContext())
+            {
+                var fotoInf = context.Fotos.FirstOrDefault(x => x.FotoGUID == fotoGUID);
+                if (fotoInf == null)
+                {
+                    resp.Comment = DropFotoResponse.Errors.NOT_EXIST;
+                }
+                else
+                {
+                    bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, fotoInf.UploadUserID);
+
+                    if (fotoInf.UploadUserID != userID && !friends)
+                    {
+                        resp.Comment = DropFotoResponse.Errors.NOT_ACCESS;
+                    }
+                    else
+                    {
+                        resp.isSuccess = true;
+
+                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).ToList();
+                        resp.FotoComments = new List<FotoCommentModel>();
+                        comments.ForEach(comm => 
+                        {
+                            var commModel = new FotoCommentModel()
+                            {
+                                 PostDate = comm.CommentWriteDate,
+                                 Text = comm.CommentText,
+                                 UserName = context.Users.First(x=>x.Id == comm.Id).UserFullInfo.Name,
+                                 UserSurName = context.Users.First(x => x.Id == comm.Id).UserFullInfo.SurName,
+                                 UserPostedID = comm.UserCommenter
+                            };
+                            resp.FotoComments.Add(commModel);
+                        });
                     }
                 }
             }

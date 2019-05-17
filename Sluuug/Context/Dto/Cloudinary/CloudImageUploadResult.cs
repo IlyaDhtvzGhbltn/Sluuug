@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Slug.Context.Dto.UserWorker
+namespace Slug.Context.Dto.Cloudinary
 {
     public class CloudImageUploadResult
     {

@@ -161,5 +161,29 @@ namespace Slug.Controllers
             var result = AlbumsHandler.EditFotoInfo(GetCookiesValue(Request), model);
             return new JsonResult { Data = result };
         }
+
+        [HttpPost]
+        public JsonResult drop_foto(string fotoID)
+        {
+            var guid = Guid.Parse(fotoID);
+            var result = AlbumsHandler.DropFoto(GetCookiesValue(Request), guid);
+            return new JsonResult { Data = result };
+        }
+
+        [HttpPost]
+        public JsonResult drop_album(string albumID)
+        {
+            Guid guid = Guid.Parse(albumID);
+            var result = AlbumsHandler.DropAlbum(GetCookiesValue(Request), guid);
+            return new JsonResult { Data = result };
+        }
+
+        [HttpPost]
+        public JsonResult get_comments(string fotoID)
+        {
+            Guid guid = Guid.Parse(fotoID);
+            var result = AlbumsHandler.GetCommentsToFoto(GetCookiesValue(Request), guid);
+            return new JsonResult { Data = result };
+        }
     }
 }

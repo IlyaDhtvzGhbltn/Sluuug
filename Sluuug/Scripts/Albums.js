@@ -101,16 +101,28 @@ function send_edit(photoID, type) {
             url: "/api/edit",
             data: { PhotoGUID: photoID, EditMode: type, NewValue: new_value },
             success: function (resp) {
-                if (resp.isSucces) {
+                if (resp.isSuccess) {
                     document.location.reload();
                 }
             }
         });
-
-        //SEEEEEEEEEEEEEEEENDDD
     }
     $('#' + imgtype + photoID)[0].src = editIMG;
     $('#' + newdiv + photoID)[0].remove();
+}
+
+function drop_album(albumID) {
+    $.ajax({
+        type: "post",
+        url: "/api/drop_album",
+        data: { albumID },
+        success: function (resp) {
+            console.log(resp);
+            if (resp.isSuccess) {
+                document.location.reload();
+            }
+        }
+    });
 }
 
 function validate(formID) {
@@ -181,7 +193,6 @@ function show_album(album) {
 
                 let view_album = $('#view_' + album)[0];
                 view_album.innerHTML = genAlbumView(resp);
-
             }
             else {
                 console.log(resp.Comment);
@@ -225,12 +236,39 @@ function add_info(fotoID, type) {
                 break;
             }
     }
-
 }
 
 function drop_foto(fotoID) {
     console.log(fotoID);
+    $.ajax({
+        type: "post",
+        url: '/api/drop_foto',
+        data: { fotoID },
+        success: function (resp) {
+            console.log(resp);
+            if (resp.isSuccess) {
+                window.location.reload();
+            }
+        }
+    });
 }
+
+function loadComments(fotoID) {
+    $.ajax({
+        type: "post",
+        url: '/api/get_comments',
+        data: { fotoID },
+        success: function (resp) {
+            console.log('comments ' + resp.FotoComments[0].Text);
+        }
+    });
+}
+
+function comment_now(fotoID) {
+    console.log(fotoID);
+
+}
+ 
 
 function drop_edit_info(id) {
     $('#t_' + id).remove();
@@ -249,7 +287,7 @@ function show_full_img(number, fullFoto, title, comment, index, fotoId) {
     }
     elem.innerHTML =
     '<p><div id="title_' + fotoId + '" onclick="add_info(\'' + fotoId + '\', 0)"><b>' + titl + '</b><img id="edit_tit_' + fotoId + '" src="' + editIMG+'"/></div></p>' +
-    '<p><img src="' + fullFoto + '"/><button>Удалить</button></p>' +
+    '<p><img src="' + fullFoto + '"/><button onclick="drop_foto(\'' + fotoId +'\')">Удалить</button></p>' +
     '<p><div id="desc_' + fotoId + '" onclick="add_info(\'' + fotoId + '\', 1)"><span>' + comm + '</span><img id="edit_desc_' + fotoId + '" src="' + editIMG+'"/></div></p>' +
         '';
 }
@@ -287,7 +325,7 @@ function getEditInfo(fotoID, type) {
 
 
 function genAlbumView(album) {
-    console.log(album);
+
     var wrapper = '<div>';
     [].forEach.call(album.Photos, function (foto) {
         wrapper += '<div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">';
@@ -296,14 +334,18 @@ function genAlbumView(album) {
         }
         let index = album.Photos.indexOf(foto);
         wrapper += '<img src="' + foto.SmallFotoUri + '" onclick="show_full_img(\'' + foto.Album + '\', \'' + foto.FullFotoUri + '\', \'' + foto.Title + '\', \'' + foto.AuthorComment + '\', \'' + index + '\', \'' + foto.ID + '\')" />';
-
         if (foto.AuthorComment != null) {
             wrapper += '<p><span>' + foto.AuthorComment + '</span></p>';
         }
+        loadComments(foto.ID);
+
+        wrapper += '<div class="comments"><span></span><button onclick="loadComments(\'' + foto.ID + '\')">Показать все(' + 8 + ')</button></div>';
+        wrapper += '<div class="my_comment"><button onclick="comment_now(\'' + foto.ID + '\')">Комментировать</button></div>';
 
         wrapper += '</div>';
     });
     wrapper += '<div class="full_view" id="f_' + album.Photos[0].Album + '"></div>';
+
     wrapper += '</div>';
     return wrapper;
 }

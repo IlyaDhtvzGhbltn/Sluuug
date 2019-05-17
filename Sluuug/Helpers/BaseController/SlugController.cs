@@ -8,6 +8,7 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using CloudinaryDotNet.Actions;
 using Newtonsoft.Json;
 using System.IO;
+using Slug.Context.Dto.Cloudinary;
 
 namespace Slug.Helpers
 {
@@ -44,13 +45,10 @@ namespace Slug.Helpers
             return result;
         }
 
-
         public static string GetCookiesValue(HttpRequestBase request)
         {
            string session = request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
            return session;
         }
     }
-
-
 }

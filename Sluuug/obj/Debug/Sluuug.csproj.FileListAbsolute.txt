@@ -113,3 +113,6 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen2.re
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen3.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.keys_not_DB_gen4.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.notrequered.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.imgtbo_add_publicID.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.pubID_in_Album_label.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.rating.resources

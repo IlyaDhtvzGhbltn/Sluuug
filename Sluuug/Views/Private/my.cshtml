@@ -60,14 +60,15 @@
         {
         <div class="album">
             <b>@item.Title</b> <p><span>Создан <b>@item.CreationTime</b></span></p>
-            <p>
-                <img src="@item.AlbumLabelUrl" height="50" width="50" /><span>@item.AuthorComment</span>
-                <button onclick="show_form_upload_foto('@item.Guid')">Загрузить фото</button>
-            </p>
+                               <p>
+                                   <img src="@item.AlbumLabelUrl" height="50" width="50" /><span>@item.AuthorComment</span>
+                                   <button onclick="show_form_upload_foto('@item.Guid')">Загрузить фото</button>
+                                   <button onclick="drop_album('@item.Guid')">Удалить альбом</button>
+                               </p>
             <div class="uplpad_form" id="upload_foto_div_@item.Guid"></div>
             @if (item.FotosCount > 0)
             {
-                <p><button id="@item.Guid" onclick="show_album(this.id)">Показать</button></p>
+                <p><button class="show_btn" id="@item.Guid" onclick="show_album(this.id)">Показать</button></p>
             }
             else
             {

@@ -24,10 +24,12 @@ namespace Slug.Context.Tables
         public DateTime CreationDate { get; set; }
 
         [MaxLength(5000)]
-        public string AuthorComment { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public string AlbumLabelUrl { get; set; }
+
+        public string AlbumLabesPublicID { get; set; }
 
         public virtual List<Foto> Fotos { get; set; }
 

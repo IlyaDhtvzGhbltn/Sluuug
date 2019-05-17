@@ -200,7 +200,7 @@ namespace Slug.Helpers
                     {
                         Guid = album.Id,
                         AlbumLabelUrl = album.AlbumLabelUrl,
-                        AuthorComment = album.AuthorComment,
+                        AuthorComment = album.Description,
                         CreationTime = album.CreationDate,
                         Title = album.Title,
                         FotosCount = album.Fotos.Count
@@ -325,7 +325,7 @@ namespace Slug.Helpers
                     {
                         Guid = album.Id,
                         AlbumLabelUrl = album.AlbumLabelUrl,
-                        AuthorComment = album.AuthorComment,
+                        AuthorComment = album.Description,
                         CreationTime = album.CreationDate,
                         Title = album.Title,
                         FotosCount = album.Fotos.Count

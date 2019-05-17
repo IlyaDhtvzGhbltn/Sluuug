@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Slug.Context.Dto.Search;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
+using Slug.Context.Dto.Cloudinary;
 
 namespace Slug.Controllers
 {

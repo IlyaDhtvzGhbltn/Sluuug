@@ -179,11 +179,15 @@
     <Compile Include="Context\Attributes\SessionCheckAttribute.cs" />
     <Compile Include="Context\Dto\Albums\AlbumPhotosResponse.cs" />
     <Compile Include="Context\Dto\Albums\CreateAlbumResponse.cs" />
+    <Compile Include="Context\Dto\Albums\DropAlbumResponse.cs" />
     <Compile Include="Context\Dto\Albums\UploadAlbumResponse.cs" />
+    <Compile Include="Context\Dto\Cloudinary\CloudDeleteImage.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
+    <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
+    <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
     <Compile Include="Context\Dto\Messages\MessagesHubResponse.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
@@ -202,7 +206,7 @@
     <Compile Include="Context\Dto\UserFullInfo_refactor\LifePlaces.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\MemorableEvents.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
-    <Compile Include="Context\Dto\UserWorker_refactor\CloudImageUploadResult.cs" />
+    <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
@@ -229,6 +233,18 @@
     <Compile Include="Migrations\201905151217523_not requered.cs" />
     <Compile Include="Migrations\201905151217523_not requered.Designer.cs">
       <DependentUpon>201905151217523_not requered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905170816507_img.tbo_add_publicID.cs" />
+    <Compile Include="Migrations\201905170816507_img.tbo_add_publicID.Designer.cs">
+      <DependentUpon>201905170816507_img.tbo_add_publicID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905171145383_pubID_in_Album_label.cs" />
+    <Compile Include="Migrations\201905171145383_pubID_in_Album_label.Designer.cs">
+      <DependentUpon>201905171145383_pubID_in_Album_label.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905171243139_rating.cs" />
+    <Compile Include="Migrations\201905171243139_rating.Designer.cs">
+      <DependentUpon>201905171243139_rating.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -377,6 +393,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905151217523_not requered.resx">
       <DependentUpon>201905151217523_not requered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905170816507_img.tbo_add_publicID.resx">
+      <DependentUpon>201905170816507_img.tbo_add_publicID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905171145383_pubID_in_Album_label.resx">
+      <DependentUpon>201905171145383_pubID_in_Album_label.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905171243139_rating.resx">
+      <DependentUpon>201905171243139_rating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
