@@ -185,5 +185,12 @@ namespace Slug.Controllers
             var result = AlbumsHandler.GetCommentsToFoto(GetCookiesValue(Request), guid);
             return new JsonResult { Data = result };
         }
+
+        [HttpPost]
+        public JsonResult post_comments(PostCommentToFoto model)
+        {
+            var result = AlbumsHandler.PostNewComments(GetCookiesValue(Request), model);
+            return new JsonResult { Data = result };
+        }
     }
 }

@@ -78,14 +78,21 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\CloudinaryDotNet.1.7.0\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.3\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -134,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
@@ -182,6 +195,7 @@
     <Compile Include="Context\Dto\Albums\DropAlbumResponse.cs" />
     <Compile Include="Context\Dto\Albums\UploadAlbumResponse.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudDeleteImage.cs" />
+    <Compile Include="Context\Dto\Comments\PostCommentsResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
@@ -210,44 +224,13 @@
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201905141311584_keys.cs" />
-    <Compile Include="Migrations\201905141311584_keys.Designer.cs">
-      <DependentUpon>201905141311584_keys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905141522182_keys_not_DB_gen.cs" />
-    <Compile Include="Migrations\201905141522182_keys_not_DB_gen.Designer.cs">
-      <DependentUpon>201905141522182_keys_not_DB_gen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905141525036_keys_not_DB_gen2.cs" />
-    <Compile Include="Migrations\201905141525036_keys_not_DB_gen2.Designer.cs">
-      <DependentUpon>201905141525036_keys_not_DB_gen2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905141527169_keys_not_DB_gen3.cs" />
-    <Compile Include="Migrations\201905141527169_keys_not_DB_gen3.Designer.cs">
-      <DependentUpon>201905141527169_keys_not_DB_gen3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905141531075_keys_not_DB_gen4.cs" />
-    <Compile Include="Migrations\201905141531075_keys_not_DB_gen4.Designer.cs">
-      <DependentUpon>201905141531075_keys_not_DB_gen4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905151217523_not requered.cs" />
-    <Compile Include="Migrations\201905151217523_not requered.Designer.cs">
-      <DependentUpon>201905151217523_not requered.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905170816507_img.tbo_add_publicID.cs" />
-    <Compile Include="Migrations\201905170816507_img.tbo_add_publicID.Designer.cs">
-      <DependentUpon>201905170816507_img.tbo_add_publicID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905171145383_pubID_in_Album_label.cs" />
-    <Compile Include="Migrations\201905171145383_pubID_in_Album_label.Designer.cs">
-      <DependentUpon>201905171145383_pubID_in_Album_label.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905171243139_rating.cs" />
-    <Compile Include="Migrations\201905171243139_rating.Designer.cs">
-      <DependentUpon>201905171243139_rating.cs</DependentUpon>
+    <Compile Include="Migrations\201905181601351_new.cs" />
+    <Compile Include="Migrations\201905181601351_new.Designer.cs">
+      <DependentUpon>201905181601351_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
+    <Compile Include="Model\Albums\PostCommentToFoto.cs" />
     <Compile Include="Model\Albums\UploadModel.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />
@@ -304,14 +287,6 @@
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Hubs\MessagersHub.cs" />
     <Compile Include="Hubs\VideoChatInviteHub.cs" />
-    <Compile Include="Migrations\201905131031303_update.cs" />
-    <Compile Include="Migrations\201905131031303_update.Designer.cs">
-      <DependentUpon>201905131031303_update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905131224027_fotos_albums_comments.cs" />
-    <Compile Include="Migrations\201905131224027_fotos_albums_comments.Designer.cs">
-      <DependentUpon>201905131224027_fotos_albums_comments.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\AlbumModel.cs" />
     <Compile Include="Model\Albums\FotoCommentModel.cs" />
@@ -370,38 +345,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905131031303_update.resx">
-      <DependentUpon>201905131031303_update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905131224027_fotos_albums_comments.resx">
-      <DependentUpon>201905131224027_fotos_albums_comments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141311584_keys.resx">
-      <DependentUpon>201905141311584_keys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141522182_keys_not_DB_gen.resx">
-      <DependentUpon>201905141522182_keys_not_DB_gen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141525036_keys_not_DB_gen2.resx">
-      <DependentUpon>201905141525036_keys_not_DB_gen2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141527169_keys_not_DB_gen3.resx">
-      <DependentUpon>201905141527169_keys_not_DB_gen3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141531075_keys_not_DB_gen4.resx">
-      <DependentUpon>201905141531075_keys_not_DB_gen4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905151217523_not requered.resx">
-      <DependentUpon>201905151217523_not requered.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905170816507_img.tbo_add_publicID.resx">
-      <DependentUpon>201905170816507_img.tbo_add_publicID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905171145383_pubID_in_Album_label.resx">
-      <DependentUpon>201905171145383_pubID_in_Album_label.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905171243139_rating.resx">
-      <DependentUpon>201905171243139_rating.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905181601351_new.resx">
+      <DependentUpon>201905181601351_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
