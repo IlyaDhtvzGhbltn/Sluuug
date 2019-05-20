@@ -384,7 +384,7 @@ namespace Slug.Helpers
                 {
                     bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, foto.UploadUserID);
 
-                    if (foto.UploadUserID != userID || !friends)
+                    if (foto.UploadUserID != userID && !friends)
                     {
                         response.Comment = DropAlbumResponse.Errors.NOT_ACCESS;
                     }

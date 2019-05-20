@@ -62,6 +62,8 @@ namespace Slug.Helpers
                     }
                 }
             }
+            ChangeQuickMessage(userID, newSettings.QuickMessage);
+
             return settingsChangeResult;
         }
 
@@ -91,6 +93,16 @@ namespace Slug.Helpers
             {
                 var settings = context.Users.First(x => x.Id == userID).Settings;
                 settings.Email = newEmail;
+                context.SaveChanges();
+            }
+        }
+
+        private void ChangeQuickMessage(int userID, bool flag)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var settings = context.Users.First(x => x.Id == userID).Settings;
+                settings.QuickMessage = flag;
                 context.SaveChanges();
             }
         }

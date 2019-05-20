@@ -49,6 +49,20 @@
             <input type="button" value="Change" onclick="savePassword()" />
         </form>
     </div>
+    <div>
+        <form id="changeQuickMessage" action="" method="post">
+            @if (Model.QuickMessage)
+         {
+                <input type="checkbox" name="QuickMessage" checked />
+        }
+        else
+        {
+                <input type="checkbox" name="QuickMessage" />
+        }
+            <span>Quick Message</span>
+            <input type="button" value="Change" onclick="saveQuickMessage()" />
+        </form>
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
 <script src="~/Scripts/SHA-512.js"></script>

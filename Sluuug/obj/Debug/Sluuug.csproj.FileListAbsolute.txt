@@ -96,7 +96,6 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csprojResolveAssemblyReference
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CoreCompileInputs.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.pdb
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._new.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
 D:\SLUG\Sluuug\Sluuug\bin\NLog.config
@@ -106,4 +105,5 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\NLog.config
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\NLog.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\NLog.xml
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._new.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.cut_msg_settings.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache

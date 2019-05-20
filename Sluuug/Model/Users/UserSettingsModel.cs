@@ -11,5 +11,7 @@ namespace Slug.Model.Users
         public NotificationTypes NotifyType { get; set; }
 
         public string Email { get; set; }
+
+        public bool QuickMessage { get; set; }
     }
 }

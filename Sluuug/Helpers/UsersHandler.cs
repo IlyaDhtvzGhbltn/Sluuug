@@ -554,6 +554,7 @@ namespace Slug.Helpers
                 User userSett = context.Users.Where(x => x.Id == user.UserId).First();
                 model.NotifyType = userSett.Settings.NotificationType;
                 model.Email = userSett.Settings.Email;
+                model.QuickMessage = userSett.Settings.QuickMessage;
             }
             return model;
         }

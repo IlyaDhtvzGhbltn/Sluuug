@@ -224,9 +224,9 @@
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201905181601351_new.cs" />
-    <Compile Include="Migrations\201905181601351_new.Designer.cs">
-      <DependentUpon>201905181601351_new.cs</DependentUpon>
+    <Compile Include="Migrations\201905201018182_cut_msg_settings.cs" />
+    <Compile Include="Migrations\201905201018182_cut_msg_settings.Designer.cs">
+      <DependentUpon>201905201018182_cut_msg_settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -345,8 +345,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905181601351_new.resx">
-      <DependentUpon>201905181601351_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905201018182_cut_msg_settings.resx">
+      <DependentUpon>201905201018182_cut_msg_settings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

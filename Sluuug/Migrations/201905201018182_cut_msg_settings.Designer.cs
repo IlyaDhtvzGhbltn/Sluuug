@@ -7,13 +7,13 @@ namespace Sluuug.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _new : IMigrationMetadata
+    public sealed partial class cut_msg_settings : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_new));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(cut_msg_settings));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905181601351_new"; }
+            get { return "201905201018182_cut_msg_settings"; }
         }
         
         string IMigrationMetadata.Source

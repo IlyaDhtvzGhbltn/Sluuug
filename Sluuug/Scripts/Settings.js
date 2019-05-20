@@ -37,6 +37,15 @@ function savePassword() {
     }
 }
 
+function saveQuickMessage() {
+    var data = $("#changeQuickMessage").serializeArray();
+    var json = parceJSON(data);
+    if (json.QuickMessage == 'on') {
+        json.QuickMessage = true;
+    }
+    send(json);
+}
+
 function parceJSON(array)
 {
     var obj = new Object();
