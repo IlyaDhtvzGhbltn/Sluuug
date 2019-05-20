@@ -148,13 +148,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
     <Content Include="Scripts\Common\CommonAlbums.js" />
     <Content Include="Scripts\EditInfo.js" />
-    <Content Include="Scripts\BigInteger.js" />
-    <Content Include="Scripts\BigInteger.min.js" />
+    <Content Include="Scripts\System\BigInteger.js" />
+    <Content Include="Scripts\System\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
     <Content Include="Scripts\FriendAlbum.js" />
@@ -163,16 +163,16 @@
     <Content Include="Scripts\notificationHub.js" />
     <Content Include="Scripts\myContacts.js" />
     <Content Include="Scripts\goMsg.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.4.0.js" />
-    <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\System\jquery-1.6.4.js" />
+    <Content Include="Scripts\System\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\System\jquery.signalR-2.4.0.js" />
+    <Content Include="Scripts\System\jquery.signalR-2.4.0.min.js" />
     <Content Include="Scripts\chatp2pWS.js" />
     <Content Include="Scripts\newMessageFromPage.js" />
     <Content Include="Scripts\newMsgInConv.js" />
-    <Content Include="Scripts\SHA-512.js" />
+    <Content Include="Scripts\System\SHA-512.js" />
     <Content Include="Scripts\Settings.js" />
-    <Content Include="Scripts\sha512.js" />
+    <Content Include="Scripts\System\sha512.js" />
     <Content Include="Scripts\vConferens.js" />
     <Content Include="Scripts\vDialogRedirection.js" />
     <Content Include="Scripts\vDialogs.js" />
