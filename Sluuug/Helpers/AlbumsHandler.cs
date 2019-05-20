@@ -3,6 +3,7 @@ using CloudinaryDotNet.Actions;
 using Context;
 using Slug.Context.Dto.Albums;
 using Slug.Context.Dto.Cloudinary;
+using Slug.Context.Dto.Comments;
 using Slug.Context.Dto.Fotos;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
@@ -342,17 +343,20 @@ namespace Slug.Helpers
                     {
                         resp.isSuccess = true;
 
-                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).ToList();
+                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).OrderByDescending(x=>x.CommentWriteDate).ToList();
                         resp.FotoComments = new List<FotoCommentModel>();
                         comments.ForEach(comm => 
                         {
+                            int? avatarID = context.Users.First(x => x.Id == comm.UserCommenter).AvatarId;
+                            string avatarImgPath = context.Avatars.First(x => x.Id == avatarID).ImgPath;
                             var commModel = new FotoCommentModel()
                             {
-                                 PostDate = comm.CommentWriteDate,
-                                 Text = comm.CommentText,
-                                 UserName = context.Users.First(x=>x.Id == comm.Id).UserFullInfo.Name,
-                                 UserSurName = context.Users.First(x => x.Id == comm.Id).UserFullInfo.SurName,
-                                 UserPostedID = comm.UserCommenter
+                                UserPostedAvatarUri = Resize.ResizedUri(avatarImgPath, ModTypes.c_scale, 50),
+                                PostDate = comm.CommentWriteDate,
+                                Text = comm.CommentText,
+                                UserName = context.Users.First(x=>x.Id == comm.UserCommenter).UserFullInfo.Name,
+                                UserSurName = context.Users.First(x => x.Id == comm.UserCommenter).UserFullInfo.SurName,
+                                UserPostedID = comm.UserCommenter
                             };
                             resp.FotoComments.Add(commModel);
                         });
@@ -361,6 +365,46 @@ namespace Slug.Helpers
             }
 
             return resp;
+        }
+
+        public PostCommentsResponse PostNewComments(string session, PostCommentToFoto model)
+        {
+            var response = new PostCommentsResponse();
+            var handler = new UsersHandler();
+
+            int userID = handler.GetFullUserInfo(session).UserId;
+            using (var context = new DataBaseContext())
+            {
+                var foto = context.Fotos.FirstOrDefault(x => x.FotoGUID == model.FotoID);
+                if (foto == null)
+                {
+                    response.Comment = DropAlbumResponse.Errors.NOT_EXIST;
+                }
+                else
+                {
+                    bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, foto.UploadUserID);
+
+                    if (foto.UploadUserID != userID || !friends)
+                    {
+                        response.Comment = DropAlbumResponse.Errors.NOT_ACCESS;
+                    }
+                    else
+                    {
+                        var comment = new FotoComment()
+                        {
+                             CommentWriteDate = DateTime.Now,
+                             UserCommenter = userID,
+                             CommentText = model.CommentText,
+                             Foto = foto
+                        };
+                        context.FotoComments.Add(comment);
+                        context.SaveChanges();
+                        response.isSuccess = true;
+                    }
+                }
+            
+            }
+            return response;
         }
     }
 }

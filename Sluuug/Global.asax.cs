@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Text.RegularExpressions;
 using Slug.DbInitialisation;
+using NLog;
 
 namespace Sluuug
 {
@@ -26,6 +27,9 @@ namespace Sluuug
             bool internalServerError = false;
             if (lastErrorInfo != null)
             {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Trace(lastErrorInfo);
+
                 errorInfo = lastErrorInfo.GetBaseException();
                 var error = errorInfo as HttpException;
                 if (error != null)

@@ -15,17 +15,21 @@
     }
 </div>
 <div id="pages" style="display:inline">
-    @for (int i=1; i<=Model.PagesCount; i++)
+    @for (int i = 1; i <= Model.PagesCount; i++)
     {
         <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
     }
-    </div>
-
+</div>
+<div id="user_cut_msg">
+    <br />
+    <span id="remote_cut_msg"></span>
+    <br/>
+</div>
 <div id="send_msg">
     <input type="text" id="new_msg" />
     <p>
-        <input type="submit" value="send now" id="sendButton" name="@Model.DialogId"/>
+        <input type="submit" value="send now" id="sendButton" name="@Model.DialogId" />
     </p>
 </div>
 
-<script src="~/Scripts/chatp2pWS.js"> </script>
+<script src="~/Scripts/chatp2pWS.js"></script>

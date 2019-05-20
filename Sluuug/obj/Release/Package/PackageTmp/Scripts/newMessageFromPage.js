@@ -17,7 +17,7 @@ function create_form(elem) {
     );
 }
 
-function drop_form(id) {
+function drop_elem(id) {
     document.getElementById('new_message_' + id).remove();
     let button = document.getElementById(id);
     button.hidden = false;

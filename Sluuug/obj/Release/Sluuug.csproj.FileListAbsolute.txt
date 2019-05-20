@@ -43,10 +43,13 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Deployment.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Mvc.xml
-D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.sca.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.GenerateResource.cache
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CoreCompileInputs.cache
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.pdb
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
+D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.Migrations._new.resources
+D:\SLUG\Sluuug\Sluuug\bin\NLog.config
+D:\SLUG\Sluuug\Sluuug\bin\NLog.dll
+D:\SLUG\Sluuug\Sluuug\bin\NLog.xml

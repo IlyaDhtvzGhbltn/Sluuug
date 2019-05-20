@@ -12,6 +12,7 @@ using Slug.Model;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Sluuug.Hubs;
 using Slug.Helpers.BaseController;
+using Context;
 
 namespace Slug.Hubs
 {
@@ -84,6 +85,38 @@ namespace Slug.Hubs
             }
         }
 
+        public async Task SendCutMessage(string message, Guid convID)
+        {
+            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
+
+            using (var context = new DataBaseContext())
+            {
+                var conversation = context.Conversations.FirstOrDefault(x => x.ConversationGuidId == convID);
+                if (conversation != null)
+                {
+                    int[] participants = context.ConversationGroup
+                        .Where(x => x.ConversationGuidId == convID)
+                        .Select(x => x.UserId).ToArray();
+                    if (participants.Length >= 2)
+                    {
+                        var UsWork = new UsersHandler();
+                        int ownID = UsWork.GetFullUserInfo(cookies.Value).UserId;
+
+                        if (participants.Contains(ownID))
+                        {
+                            int toUserID = participants.Where(x => x != ownID).First();
+                            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDS(ownID, toUserID);
+                            if (isFriends)
+                            {
+                                var connectionHandler = new UsersConnectionHandler();
+                                IList<string> UserRecipientsConnectionIds = connectionHandler.GetConnectionById(toUserID);
+                                Clients.Clients(UserRecipientsConnectionIds).getCutMessage(message);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
 
