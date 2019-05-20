@@ -56,7 +56,7 @@ namespace Slug.Controllers
             
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var user = UsersHandler.GetFullUserInfo(sessionId);
-            var Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
+            ConversationsModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
         }
 
@@ -203,7 +203,7 @@ namespace Slug.Controllers
                  userSearchSex = (SexEnum)user_sex
             };
             int ownID = this.UsersHandler.GetFullUserInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
-            var response = SearchHandler.SearchUsers(parseRequest, ownID, page);
+            SearchUsersResponse response = SearchHandler.SearchUsers(parseRequest, ownID, page);
             foreach (var item in response.Users)
             {
                 TimeSpan date = TimeSpan.FromTicks(DateTime.Now.Ticks - item.DateBirth.Ticks);
@@ -211,13 +211,5 @@ namespace Slug.Controllers
             }
             return View(response);
         }
-
-
-        [HttpGet]
-        public ActionResult edit_profile()
-        {
-            return View();
-        }
-
     }
 }

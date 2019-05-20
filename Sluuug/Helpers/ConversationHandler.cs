@@ -2,6 +2,7 @@
 using Slug.Context;
 using Slug.Context.Tables;
 using Slug.Model;
+using Slug.Model.SimpleChat;
 using System;
 using System.Collections.Generic;
 using System.Linq;

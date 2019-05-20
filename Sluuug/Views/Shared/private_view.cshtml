@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "private_view";
+    //ViewBag.Title = "private_view";
     Layout = "~/Views/Shared/logo.cshtml";
 }
 <head>
@@ -9,7 +9,30 @@
     <script src="~/Scripts/notificationHub.js"></script>
 </head>
 <div id="notification_div"></div>
+<nav id="navigation_bar">
+    <div>
+        <a href="~/private/cnv">messages</a>
+    </div>
+    <div>
+        <a href="~/private/crypto_cnv">crypto chat</a>
+    </div>
+    <div>
+        <a href="~/private/invite_video_conversation">video chat</a>
+    </div>
 
+    <div>
+        <a href="~/private/contacts">contacts</a>
+    </div>
+    <div>
+        <a href="~/private/settings">settings</a>
+    </div>
+    <div>
+        <a href="~/private/search">search</a>
+    </div>
+    <div>
+        <a href="~/private/logout">logout</a>
+    </div>
+</nav>
 @{
     @RenderBody();
 }

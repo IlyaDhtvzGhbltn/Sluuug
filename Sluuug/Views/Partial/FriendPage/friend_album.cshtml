@@ -1,0 +1,18 @@
+﻿@model Slug.Model.Albums.AlbumModel
+
+<div class="album">
+    <b>@Model.Title</b> <p><span>Создан <b>@Model.CreationTime</b></span></p>
+    <p>
+        <img src="@Model.AlbumLabelUrl" height="50" width="50" /><span>@Model.AuthorComment</span>
+    </p>
+    @if (Model.FotosCount > 0)
+    {
+        <p><button id="@Model.Guid" onclick="expandAlbum(this.id)">Показать</button></p>
+    }
+    else
+    {
+        <p><span>Альбом пуст</span></p>
+    }
+    <div class="fotos_view" id="view_@Model.Guid"></div>
+    <div class="comments" id="users_comments_@Model.Guid"></div>
+</div>

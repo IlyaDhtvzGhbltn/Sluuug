@@ -1,0 +1,13 @@
+﻿
+@model Slug.Model.CryptoChat
+
+<div class="cryptp_chat" id="@Model.GuidId" style="background-color:azure; cursor:pointer">
+    <span>Ваш собственный чат с пользователями</span>
+    @foreach (var user in Model.Users)
+    {
+        <p>
+            <img src="@user.AvatarPath" height="30" width="30" />
+        </p>
+    }
+    <span class="last_msg_crypto">@Model.LastMessage</span>
+</div>

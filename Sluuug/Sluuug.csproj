@@ -151,6 +151,7 @@
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
+    <Content Include="Scripts\Common\CommonAlbums.js" />
     <Content Include="Scripts\EditInfo.js" />
     <Content Include="Scripts\BigInteger.js" />
     <Content Include="Scripts\BigInteger.min.js" />
@@ -171,6 +172,7 @@
     <Content Include="Scripts\newMsgInConv.js" />
     <Content Include="Scripts\SHA-512.js" />
     <Content Include="Scripts\Settings.js" />
+    <Content Include="Scripts\sha512.js" />
     <Content Include="Scripts\vConferens.js" />
     <Content Include="Scripts\vDialogRedirection.js" />
     <Content Include="Scripts\vDialogs.js" />
@@ -232,6 +234,7 @@
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\PostCommentToFoto.cs" />
     <Compile Include="Model\Albums\UploadModel.cs" />
+    <Compile Include="Model\SimpleChat\CutConversation.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />
     <Compile Include="Context\Tables\Cities.cs" />
@@ -333,7 +336,29 @@
     <Content Include="Views\Private\search.cshtml" />
     <Content Include="Views\Private\search_result.cshtml" />
     <Content Include="Views\Error\ooops.cshtml" />
-    <Content Include="Views\Private\edit_profile.cshtml" />
+    <Content Include="Views\Partial\OwnPage\my_album.cshtml" />
+    <Content Include="Views\Partial\FriendPage\friend_album.cshtml" />
+    <Content Include="Views\Partial\OwnPage\education.cshtml" />
+    <Content Include="Views\Partial\OwnPage\events.cshtml" />
+    <Content Include="Views\Partial\OwnPage\work.cshtml" />
+    <Content Include="Views\Partial\OwnPage\place.cshtml" />
+    <Content Include="Views\Partial\FriendPage\education.cshtml" />
+    <Content Include="Views\Partial\FriendPage\events.cshtml" />
+    <Content Include="Views\Partial\FriendPage\place.cshtml" />
+    <Content Include="Views\Partial\FriendPage\work.cshtml" />
+    <Content Include="Views\Partial\Dialogs\dialog_preview.cshtml" />
+    <Content Include="Views\Partial\Dialogs\dialog_message.cshtml" />
+    <Content Include="Views\Partial\OtherUser\fount_user.cshtml" />
+    <Content Include="Views\Partial\VideoConference\conference_history_item.cshtml" />
+    <Content Include="Views\Partial\VideoConference\friend_to_call.cshtml" />
+    <Content Include="Views\Partial\VideoConference\incomming_call.cshtml" />
+    <Content Include="Views\Partial\Contacts\incomming_invitations.cshtml" />
+    <Content Include="Views\Partial\Contacts\outcomming_invitations.cshtml" />
+    <Content Include="Views\Partial\Contacts\accept_friend.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\current_crypto_dialog.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\accept_needed_crypto_dialog.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\self_created_dialog.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\friends_can_invite_crypto_dialog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
