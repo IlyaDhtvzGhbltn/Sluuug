@@ -24,11 +24,11 @@
                     <span>No</span>
                     <input type="radio" name="NotifyType" value="0" checked />
                 }
-                    <p>
-                        <input type="button" value="Change" onclick="saveNotifyType()" />
-                    </p>
+                <p>
+                    <input type="button" value="Change" onclick="saveNotifyType()" />
+                </p>
             </div>
-          
+
         </form>
     </div>
     <div>
@@ -52,18 +52,19 @@
     <div>
         <form id="changeQuickMessage" action="" method="post">
             @if (Model.QuickMessage)
-         {
+            {
                 <input type="checkbox" name="QuickMessage" checked />
-        }
-        else
-        {
+            }
+            else
+            {
                 <input type="checkbox" name="QuickMessage" />
-        }
+            }
             <span>Quick Message</span>
             <input type="button" value="Change" onclick="saveQuickMessage()" />
         </form>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
+<script src="~/Scripts/System/ParseFormArray.js"></script>
+<script src="~/Scripts/System/sha512.js"></script>
 <script src="~/Scripts/System/SHA-512.js"></script>
 <script src="~/Scripts/Settings.js"></script>

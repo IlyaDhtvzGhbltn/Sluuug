@@ -360,7 +360,7 @@ function decryption(message, id) {
         var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
         return decrypted.toString(CryptoJS.enc.Utf8);
     }
-    else return 'user not accept invitation.';
+    else return '...';
 }
 
 function got_message(crypto_msg, guidChatId) {

@@ -46,18 +46,6 @@ function saveQuickMessage() {
     send(json);
 }
 
-function parceJSON(array)
-{
-    var obj = new Object();
-    for (let i = 0; i < array.length; i++)
-    {
-        let nm = array[i].name;
-        let vl = array[i].value;
-        obj[nm] = vl;
-    }
-    return obj;
-}
-
 function send(request) {
     console.log('sending...');
     $.post("/api/save_settings", 

@@ -1,0 +1,27 @@
+﻿<div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">
+    <div class="full_view" id="f_@Model.ID"></div>
+    @if (Model.Title != null && Model.Title != "null")
+    {
+        <p><b>@Model.Title</b></p>
+    }
+    else
+    {
+        <p><b></b></p>
+    }
+    <img src="@Model.SmallFotoUri" onclick="ExpandFoto('@Model.ID', '@Model.FullFotoUri', '@Model.Title', '@Model.AuthorComment')" />
+    @if (Model.AuthorComment != null && Model.AuthorComment != "null")
+    {
+        <p><span>@Model.AuthorComment</span></p>
+    }
+    else
+    {
+        <p><span></span></p>
+    }
+    <div class="comments" id="users_comments_@Model.ID"></div>
+    <div class="my_comment">
+        <div class="comment_form" id="cF_@Model.ID">
+        </div>
+        <input type="text" id="fcomment_@Model.ID" />
+        <button onclick="commentFoto('@Model.ID')">Комментировать</button>
+    </div>
+</div>

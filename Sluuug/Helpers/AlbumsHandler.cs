@@ -242,8 +242,11 @@ namespace Slug.Helpers
                         var deleteResult = delResponse.JsonObj.ToObject<CloudDeleteImage>();
                         if (deleteResult.deleted != null && delResponse.Deleted.Count == 1)
                         {
+                            if (fotoInf.UserComments != null)
+                            {
+                                context.FotoComments.RemoveRange(fotoInf.UserComments);
+                            }
                             context.Fotos.Remove(fotoInf);
-                            context.FotoComments.RemoveRange(fotoInf.UserComments);
                             context.SaveChanges();
                             resp.isSuccess = true;
                         }
@@ -343,7 +346,7 @@ namespace Slug.Helpers
                     {
                         resp.isSuccess = true;
 
-                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).OrderByDescending(x=>x.CommentWriteDate).ToList();
+                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).OrderBy(x=>x.CommentWriteDate).ToList();
                         resp.FotoComments = new List<FotoCommentModel>();
                         comments.ForEach(comm => 
                         {
@@ -352,7 +355,7 @@ namespace Slug.Helpers
                             var commModel = new FotoCommentModel()
                             {
                                 UserPostedAvatarUri = Resize.ResizedUri(avatarImgPath, ModTypes.c_scale, 50),
-                                PostDate = comm.CommentWriteDate,
+                                PostDate = comm.CommentWriteDate.Ticks,
                                 Text = comm.CommentText,
                                 UserName = context.Users.First(x=>x.Id == comm.UserCommenter).UserFullInfo.Name,
                                 UserSurName = context.Users.First(x => x.Id == comm.UserCommenter).UserFullInfo.SurName,

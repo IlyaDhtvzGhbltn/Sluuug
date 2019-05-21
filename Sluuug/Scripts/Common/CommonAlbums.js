@@ -21,34 +21,36 @@ function commentFoto(fotoID) {
     elem.value = '';
 }
 
-function addCommentEntry(comment) {
-    var html = '<div class="comment_item" >';
-    let date = new Date(parseInt(parseDate(comment.PostDate)));
-    html += '<span>' + date.getFullYear() + '.' + date.getDate() + '.' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes() + '</span>';
-    html += '<a href="/private/user/' + comment.UserPostedID + '"><img src="' + comment.UserPostedAvatarUri + '" /></a>';
-    html += '<span>' + comment.UserName + ' ' + comment.UserSurName + '</span><p>';
-    html += '<b>' + comment.Text + '</b></p>';
-
-    html += '</div>';
-    return html;
-}
-
-
 function loadComments(fotoID) {
+    $('#users_comments_' + fotoID)[0].innerHTML = '';
     $.ajax({
         type: "post",
         url: '/api/get_comments',
         data: { fotoID },
         success: function (resp) {
+            console.log(resp.FotoComments[0].PostDate);
             let user_comments_form = $('#users_comments_' + fotoID)[0];
-            [].forEach.call(resp.FotoComments, function (item) {
-                user_comments_form.insertAdjacentHTML('afterbegin', addCommentEntry(item));
-            });
+                $.ajax({
+                    data: { comments : resp.FotoComments },
+                    url:"/partial/commententry",
+                    type:"post",
+                    success: function (html) {
+                        user_comments_form.insertAdjacentHTML('afterbegin', html);
+                    }
+                });
         }
     });
 }
 
 function expandAlbum(album) {
+    let allBtns = $(".show_btn");
+    [].forEach.call(allBtns, function (item) {
+        item.style = "display: block";
+    });
+
+    let btn = $("#" + album)[0];
+    btn.style = "display: none";
+
     $.ajax({
         type: "post",
         url: "/api/fotos",
@@ -62,10 +64,20 @@ function expandAlbum(album) {
                 });
                 [].forEach.call(full, function (item) {
                     item.innerHTML = '';
-                })
+                });
 
-                let view_album = $('#view_' + album)[0];
-                view_album.innerHTML = genAlbumView(resp);
+                [].forEach.call(resp.Photos, function (foto) {
+                    $.ajax({
+                        url: "/partial/albumreview",
+                        type: "post",
+                        data: { album: foto },
+                        success: function (html) {
+                            let view_album = $('#view_' + album)[0];
+                            view_album.insertAdjacentHTML('beforebegin', html);
+                            loadComments(foto.ID)
+                        }
+                    });
+                });
             }
             else {
                 console.log(resp.Comment);

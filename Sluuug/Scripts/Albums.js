@@ -5,7 +5,43 @@ function ShowAlbumCreateForm() {
     let div_form = $('#create_album_form')[0];
     if (div_form.innerHTML.length == 0) {
         changeElementVisibility('create_new_album_button', 'none');
-        div_form.insertAdjacentHTML('beforeend', new_album_form);
+        let htmlForm = $.get('/partial/ownalbum', function (new_album_form) {
+            div_form.insertAdjacentHTML('beforeend', new_album_form);
+        });
+    }
+}
+
+function ExpandFoto(fotoId, fullFoto, title, comment) {
+    var titl = 'add title';
+    if (title != 'null') {
+        titl = title;
+    }
+    var comm = 'add description';
+    if (comment != 'null') {
+        comm = comment;
+    }
+    $.ajax({
+        type : "post",
+        url: "/partial/expandfoto", 
+        data: { fotoID: fotoId, fullFoto: fullFoto, titl: title, comm: comment },
+        success: function (html) {
+            let elem = $('#f_' + fotoId)[0];
+            elem.innerHTML = html;
+        }
+    }); 
+}
+
+function show_form_upload_foto(alb) {
+    let div_form = $('#upload_foto_div_' + alb)[0];
+    if (div_form.innerHTML.length == 0) {
+        $.ajax({
+            type: "post",
+            url: "/partial/uploadfotoform",
+            data: { albumID: alb },
+            success: function (html) {
+                div_form.insertAdjacentHTML('beforeend', html);
+            }
+        });
     }
 }
 /////////////////////////////////////
@@ -148,16 +184,6 @@ function validate(formID) {
     else return false;
 }
 
-function parceJSON(array) {
-    var obj = new Object();
-    for (let i = 0; i < array.length; i++) {
-        let nm = array[i].name;
-        let vl = array[i].value;
-        obj[nm] = vl;
-    }
-    return obj;
-}
-
 function close_form(formID, call_form_btn_ID, style) {
     drop_elem(formID);
     $('#' + call_form_btn_ID)[0].style.display = style;
@@ -168,49 +194,40 @@ function drop_elem(formID) {
     form.innerHTML = '';
 }
 
-function show_form_upload_foto(alb) {
-    let div_form = $('#upload_foto_div_' + alb)[0];
-    if (div_form.innerHTML.length == 0) {
-        div_form.insertAdjacentHTML('beforeend', genPhotoUploadForm(alb));
-    }}
-
-
 function add_info(fotoID, type) {
-    switch (type)
-    {
-        case 0 :
-            {
-                let elem = $('#newt_' + fotoID)[0];
-                if (elem == undefined) {
-                    let div = $('#title_' + fotoID)[0];
-                    div.insertAdjacentHTML('afterend', getEditInfo(fotoID, 0));
-                    $('#edit_tit_' + fotoID)[0].src = endEDIT;
+    var edit = [];
+    edit[0] = 'newt_';
+    edit[1] = 'newd_';
+    var inp = [];
+    inp[0] = 'edit_tit_';
+    inp[1] = 'edit_desc_';
+    var elem = [];
+    elem[0] = 'title_';
+    elem[1] = 'desc_';
 
-                }
-                else {
-                    new_tit = $('#newt_' + fotoID)[0];
-                    new_tit.remove();
-                    $('#edit_tit_' + fotoID)[0].src = editIMG;
+    let elem_ = $('#' + edit[type] + fotoID)[0];
+    if (elem_ == undefined) {
+        let div = $('#' + elem[type] + fotoID)[0];
 
-                }
-                break;
-            }
-        case 1:
-            {
-                let elem = $('#newd_' + fotoID)[0];
-                if (elem == undefined) {
-                    let div = $('#desc_' + fotoID)[0];
-                    div.insertAdjacentHTML('afterend', getEditInfo(fotoID, 1));
-                    $('#edit_desc_' + fotoID)[0].src = endEDIT;
-                }
-                else {
-                    new_tit = $('#newd_' + fotoID)[0];
-                    new_tit.remove();
-                    $('#edit_desc_' + fotoID)[0].src = editIMG;
-                }
-                break;
-            }
+
+
+        $.ajax({
+            type: "post",
+            url: "/partial/editinfo",
+            data: { fotoID: fotoID, type: type },
+        })
+            .then(function (html) {
+                div.insertAdjacentHTML('afterend', html);
+                $('#' + inp[type] + fotoID)[type].src = endEDIT;
+            });
     }
+    else {
+        new_tit = $('#' + edit[type] + fotoID)[0];
+        new_tit.remove();
+        $('#' + inp[type] + fotoID)[type].src = editIMG;
+    }
+
+
 }
 
 function drop_foto(fotoID) {
@@ -231,80 +248,4 @@ function drop_foto(fotoID) {
 function drop_edit_info(id) {
     $('#t_' + id).remove();
     $('#d_' + id).remove();
-}
-
-function expandFoto(number, fullFoto, title, comment, index, fotoId) {
-    let elem = $('#f_' + number)[0];
-    var titl = 'add title';
-    if (title != 'null') {
-        titl = title;
-    } 
-    var comm = 'add description';
-    if (comment != 'null') {
-        comm = comment;
-    }
-    elem.innerHTML =
-    '<p><div id="title_' + fotoId + '" onclick="add_info(\'' + fotoId + '\', 0)"><b>' + titl + '</b><img id="edit_tit_' + fotoId + '" src="' + editIMG+'"/></div></p>' +
-    '<p><img src="' + fullFoto + '"/><button onclick="drop_foto(\'' + fotoId +'\')">Удалить</button></p>' +
-    '<p><div id="desc_' + fotoId + '" onclick="add_info(\'' + fotoId + '\', 1)"><span>' + comm + '</span><img id="edit_desc_' + fotoId + '" src="' + editIMG+'"/></div></p>' +
-        '';
-}
-
-const new_album_form =
-    '<form action="" id="new_album">' +
-    '<p><span>Album Title </span><input type="text" name="Title" required/><span id="album_field_requered" style="color:red; display:none"> * Requered Field</span></p>' + 
-    '<p><span>Album Comment </span><input type="text" name="AuthorComment" id="album_comment"></p>' + 
-    '<p><span>Album Label </span><input type="file" id="album_label" accept=".jpg, .bmp, .png"></p>' +
-    '</form>' +
-    '<button id="close_album_form" onclick="close_form(\'create_album_form\', \'create_new_album_button\', \'inline-block\')">Close</button>' +
-    '<button onclick="send( \'/api/create_album\' ,\'new_album\', \'create_new_album_button\', \'album_field_requered\')">Create</button>'; 
-
-function genPhotoUploadForm(album) {
-    return '<form action="" id="upload_foto_form_' + album + '">' +
-        '<p><span>Photo Title </span><input type="text" name="Title"/></p>' +
-        '<p><span>Photo Comment </span><input type="text" name="AuthorComment"/></p>' +
-        '<p><span>Select Images </span><input type="file" enctype="multipart/form-data" id="input_photo" accept=".jpg, .bmp, .png" required multiple/><span id="foto_not_upload" style="color:red; display:none">* Field requred</span></p>' +
-        '</form>' +
-
-        '<button id="close_album_form" onclick="close_form(\'upload_foto_div_' + album + '\', \'create_new_album_button\', \'inline-block\')">Close</button>' +
-        '<button onclick="uploadFotoToAlbum(\'' + album + '\')">Create</button>'; 
-}
-
-function getEditInfo(fotoID, type) {
-    let idtype = 'newt_';
-    let inptyper = 'inp_t_';
-    if (type == 1) {
-        idtype = 'newd_';
-        inptyper = 'inp_d_';
-    }
-    let html = '<div id="' + idtype + fotoID + '"><input id="'+inptyper + fotoID + '" type="text"/><button onclick="send_edit(\'' + fotoID + '\', \'' + type +'\')">Сохранить</button></div>'
-    return html;
-}
-
-
-function genAlbumView(album) {
-
-    var wrapper = '<div>';
-    [].forEach.call(album.Photos, function (foto) {
-        wrapper += '<div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">';
-        if (foto.Title != null) {
-            wrapper += '<p><b>' + foto.Title + '</b></p>';
-        }
-        let index = album.Photos.indexOf(foto);
-        wrapper += '<img src="' + foto.SmallFotoUri + '" onclick="expandFoto(\'' + foto.Album + '\', \'' + foto.FullFotoUri + '\', \'' + foto.Title + '\', \'' + foto.AuthorComment + '\', \'' + index + '\', \'' + foto.ID + '\')" />';
-        if (foto.AuthorComment != null) {
-            wrapper += '<p><span>' + foto.AuthorComment + '</span></p>';
-        }
-        wrapper += '<div class="comments" id="users_comments_' + foto.ID+'"></div>';
-        wrapper += '<div class="my_comment"><div class="comment_form" id="cF_' + foto.ID + '">' +
-            '<input type="text" id="fcomment_' + foto.ID+'" />'+
-            '<button onclick="commentFoto(\'' + foto.ID + '\')">Комментировать</button></div></div>';
-
-        wrapper += '</div>';
-        loadComments(foto.ID);
-    });
-    wrapper += '<div class="full_view" id="f_' + album.Photos[0].Album + '"></div>';
-    wrapper += '</div>';
-
-    return wrapper;
 }
