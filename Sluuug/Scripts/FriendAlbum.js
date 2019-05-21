@@ -1,4 +1,4 @@
-﻿function expandFoto(number, fullFoto, title, comment, index) {
+﻿function ExpandFoto(number, fullFoto, title, comment, index) {
     let elem = $('#f_' + number)[0];
     console.log(elem);
     var titl = '';

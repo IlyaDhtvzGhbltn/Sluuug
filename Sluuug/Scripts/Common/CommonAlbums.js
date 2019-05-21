@@ -22,6 +22,7 @@ function commentFoto(fotoID) {
 }
 
 function loadComments(fotoID) {
+    console.log('#users_comments_' + fotoID);
     $('#users_comments_' + fotoID)[0].innerHTML = '';
     $.ajax({
         type: "post",

@@ -366,6 +366,7 @@
     <Content Include="Views\Partial\Albums\AlbumReview.cshtml" />
     <Content Include="Views\Partial\Albums\CommentEntry.cshtml" />
     <Content Include="Views\Partial\Albums\EditFotoInfo.cshtml" />
+    <Content Include="Views\Partial\Albums\FriendAlbumReview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

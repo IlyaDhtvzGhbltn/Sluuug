@@ -130,15 +130,6 @@ function uploadFotoToAlbum(album) {
 }
 
 function send_edit(photoID, type) {
-    //let idtype = 'inp_t_';
-    //let imgtype = 'edit_tit_';
-    //let newdiv = 'newt_';
-
-    //if (type == 1) {
-    //    idtype = 'inp_d_';
-    //    imgtype = 'edit_desc_';
-    //    newdiv = 'newd_';
-    //}
     let elementID = inp[type] + photoID;
     let new_value = $('#' + elementID)[0].value;
     console.log(elementID);

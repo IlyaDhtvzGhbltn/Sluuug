@@ -53,6 +53,12 @@ namespace Slug.Controllers
             return View("~/Views/Partial/Albums/AlbumReview.cshtml", album);
         }
 
+        //[HttpPost]
+        //public ActionResult FriendAlbumReview(FotoModel album)
+        //{
+        //    return View("~/Views/Partial/Albums/FriendAlbumReview.cshtml", album);
+        //}
+
         [HttpPost]
         public ActionResult CommentEntry(List<FotoCommentModel> comments)
         {
