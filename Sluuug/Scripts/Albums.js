@@ -1,6 +1,16 @@
 ﻿const editIMG = 'http://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1558014890/system/fgy1pkgfwhlemkvatoiu.png';
 const endEDIT = 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1558016108/system/images.png';
 
+var edit = [];
+edit[0] = 'newt_';
+edit[1] = 'newd_';
+var inp = [];
+inp[0] = 'edit_tit_';
+inp[1] = 'edit_desc_';
+var elem = [];
+elem[0] = 'title_';
+elem[1] = 'desc_';
+
 function ShowAlbumCreateForm() {
     let div_form = $('#create_album_form')[0];
     if (div_form.innerHTML.length == 0) {
@@ -120,17 +130,19 @@ function uploadFotoToAlbum(album) {
 }
 
 function send_edit(photoID, type) {
-    let idtype = 'inp_t_';
-    let imgtype = 'edit_tit_';
-    let newdiv = 'newt_';
+    //let idtype = 'inp_t_';
+    //let imgtype = 'edit_tit_';
+    //let newdiv = 'newt_';
 
-    if (type == 1) {
-        idtype = 'inp_d_';
-        imgtype = 'edit_desc_';
-        newdiv = 'newd_';
-    }
-    let elementID = idtype + photoID;
+    //if (type == 1) {
+    //    idtype = 'inp_d_';
+    //    imgtype = 'edit_desc_';
+    //    newdiv = 'newd_';
+    //}
+    let elementID = inp[type] + photoID;
     let new_value = $('#' + elementID)[0].value;
+    console.log(elementID);
+
     if (new_value.length > 0) {
         $.ajax({
             type: "post",
@@ -143,8 +155,8 @@ function send_edit(photoID, type) {
             }
         });
     }
-    $('#' + imgtype + photoID)[0].src = editIMG;
-    $('#' + newdiv + photoID)[0].remove();
+    $('#' + inp[type] + photoID)[0].src = editIMG;
+    $('#' + edit[type] + photoID)[0].remove();
 }
 
 function drop_album(albumID) {
@@ -195,36 +207,22 @@ function drop_elem(formID) {
 }
 
 function add_info(fotoID, type) {
-    var edit = [];
-    edit[0] = 'newt_';
-    edit[1] = 'newd_';
-    var inp = [];
-    inp[0] = 'edit_tit_';
-    inp[1] = 'edit_desc_';
-    var elem = [];
-    elem[0] = 'title_';
-    elem[1] = 'desc_';
-
     let elem_ = $('#' + edit[type] + fotoID)[0];
     if (elem_ == undefined) {
-        let div = $('#' + elem[type] + fotoID)[0];
-
-
-
         $.ajax({
             type: "post",
             url: "/partial/editinfo",
             data: { fotoID: fotoID, type: type },
         })
             .then(function (html) {
+                let div = $('#' + elem[type] + fotoID)[0];
                 div.insertAdjacentHTML('afterend', html);
-                $('#' + inp[type] + fotoID)[type].src = endEDIT;
+                $('#' + inp[type] + fotoID)[0].src = endEDIT;
             });
     }
     else {
         new_tit = $('#' + edit[type] + fotoID)[0];
         new_tit.remove();
-        $('#' + inp[type] + fotoID)[type].src = editIMG;
     }
 
 
