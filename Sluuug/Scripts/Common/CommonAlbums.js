@@ -21,26 +21,6 @@ function commentFoto(fotoID) {
     elem.value = '';
 }
 
-function loadComments(fotoID) {
-    $('#users_comments_' + fotoID)[0].innerHTML = '';
-    $.ajax({
-        type: "post",
-        url: '/api/get_comments',
-        data: { fotoID },
-        success: function (resp) {
-            let user_comments_form = $('#users_comments_' + fotoID)[0];
-                $.ajax({
-                    data: { comments : resp.FotoComments },
-                    url:"/partial/commententry",
-                    type:"post",
-                    success: function (html) {
-                        user_comments_form.insertAdjacentHTML('afterbegin', html);
-                    }
-                });
-        }
-    });
-}
-
 function expandAlbum(album) {
     let allBtns = $(".show_btn");
     [].forEach.call(allBtns, function (item) {
@@ -51,36 +31,22 @@ function expandAlbum(album) {
     btn.style = "display: none";
 
     $.ajax({
+        url: "/partial/albumreview",
         type: "post",
-        url: "/api/fotos",
-        data: { album },
-        success: function (resp) {
-            if (resp.isSucces) {
-                let albums = $('.fotos_view');
-                let full = $('.full_view');
-                [].forEach.call(albums, function (item) {
-                    item.innerHTML = '';
-                });
-                [].forEach.call(full, function (item) {
-                    item.innerHTML = '';
-                });
+        data: { album: album },
+        success: function (html) {
+            let albums = $('.fotos_view');
+            let full = $('.full_view');
+            [].forEach.call(albums, function (item) {
+                item.innerHTML = '';
+            });
+            [].forEach.call(full, function (item) {
+                item.innerHTML = '';
+            });
 
-                [].forEach.call(resp.Photos, function (foto) {
-                    $.ajax({
-                        url: "/partial/albumreview",
-                        type: "post",
-                        data: { album: foto },
-                        success: function (html) {
-                            let view_album = $('#view_' + album)[0];
-                            view_album.insertAdjacentHTML('beforebegin', html);
-                            loadComments(foto.ID)
-                        }
-                    });
-                });
-            }
-            else {
-                console.log(resp.Comment);
-            }
+            let view_album = $('#view_' + album)[0];
+            view_album.insertAdjacentHTML('beforebegin', html);
+            //loadComments(foto.ID)
         }
     });
 }

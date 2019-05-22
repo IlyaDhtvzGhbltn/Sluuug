@@ -204,13 +204,12 @@ function add_info(fotoID, type) {
             .then(function (html) {
                 let div = $('#' + elem[type] + fotoID)[0];
                 div.insertAdjacentHTML('afterend', html);
-                $('#' + inp[type] + fotoID)[0].src = endEDIT;
+                $('#' + img[type] + fotoID)[0].src = endEDIT;
             });
     }
     else {
         new_tit = $('#' + edit[type] + fotoID)[0];
         new_tit.remove();
-        console.log('edit_img_titl_' + img[type] + fotoID);
         $('#' + img[type] + fotoID)[0].src = editIMG;
     }
 

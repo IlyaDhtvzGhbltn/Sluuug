@@ -36,7 +36,7 @@ namespace Slug.Hubs
 
             var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
             int participantID = CryptoChatResponce.Participants[0].UserId;
-            bool isFriend = FriendshipChecker.CheckUsersFriendshipByIDS(UserInfo.UserId, participantID);
+            bool isFriend = FriendshipChecker.CheckUsersFriendshipByIDs(UserInfo.UserId, participantID);
             if (isFriend)
             {
                 CryptoChatResponce.CreatorName = UserInfo.Name;
@@ -123,7 +123,7 @@ namespace Slug.Hubs
             string guidChatId = matches[0].ToString().Substring(1);
             CutUserInfoModel fromUser = UsWorker.GetUserInfo(fromUserID);
             int toUserID = cryptoChatWorker.GetInterlocutorID(Guid.Parse(guidChatId), fromUser.UserId);
-            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDS(fromUserID, toUserID);
+            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUserID, toUserID);
 
             if (isFriends)
             {

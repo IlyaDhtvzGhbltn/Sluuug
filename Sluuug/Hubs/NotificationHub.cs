@@ -106,7 +106,7 @@ namespace Slug.Hubs
                         if (participants.Contains(fromUser.UserId))
                         {
                             int toUserID = participants.Where(x => x != fromUser.UserId).First();
-                            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDS(fromUser.UserId, toUserID);
+                            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUser.UserId, toUserID);
                             if (isFriends)
                             {
 

@@ -22,26 +22,29 @@ namespace Slug.Controllers
         {
             var handler = new AlbumsHandler(); 
             FotoModel model = handler.GetFotoByGUID(GetCookiesValue(Request), fotoID);
-
-            ViewBag.fotoId = fotoID;
-            ViewBag.fullFoto = model.FullFotoUri;
-            if (!string.IsNullOrWhiteSpace(model.Title) && model.Title != "null")
+            if (model != null)
             {
-                ViewBag.titl = model.Title;
+                ViewBag.fotoId = fotoID;
+                ViewBag.fullFoto = model.FullFotoUri;
+                if (!string.IsNullOrWhiteSpace(model.Title) && model.Title != "null")
+                {
+                    ViewBag.titl = model.Title;
+                }
+                else
+                {
+                    ViewBag.titl = "Add Title";
+                }
+                if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
+                {
+                    ViewBag.comm = model.AuthorDescription;
+                }
+                else
+                {
+                    ViewBag.comm = "Add Description";
+                }
+                return View("~/Views/Partial/Albums/Expand.cshtml");
             }
-            else
-            {
-                ViewBag.titl = "Add Title";
-            }
-            if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
-            {
-                ViewBag.comm = model.AuthorDescription;
-            }
-            else
-            {
-                ViewBag.comm = "Add Description";
-            }
-            return View("~/Views/Partial/Albums/Expand.cshtml");
+            return RedirectToAction("notfound", "error");
         }
 
         [HttpPost]
@@ -52,9 +55,15 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public ActionResult AlbumReview(FotoModel album)
+        public ActionResult AlbumReview(Guid album)
         {
-            return View("~/Views/Partial/Albums/AlbumReview.cshtml", album);
+            var handler = new AlbumsHandler();
+            AlbumModel model = handler.GetAlbumByGUID(GetCookiesValue(Request), album);
+            if (model != null)
+            {
+                return View("~/Views/Partial/Albums/AlbumReview.cshtml", model);
+            }
+            return RedirectToAction("notfound", "error");
         }
 
         [HttpPost]

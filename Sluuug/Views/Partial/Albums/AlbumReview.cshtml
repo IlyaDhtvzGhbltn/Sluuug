@@ -1,27 +1,32 @@
-﻿<div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">
-    <div class="full_view" id="f_@Model.ID"></div>
-    @if (Model.Title != null && Model.Title != "null")
+﻿@model Slug.Model.Albums.AlbumModel
+<div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">
+    @foreach (var foto in Model.Fotos)
     {
-        <p><b>@Model.Title</b></p>
-    }
-    else
-    {
-        <p><b></b></p>
-    }
-    <img src="@Model.SmallFotoUri" onclick="ExpandFoto('@Model.ID')" />
-    @if (Model.AuthorDescription != null && Model.AuthorDescription != "null")
-    {
-        <p><span>@Model.AuthorDescription</span></p>
-    }
-    else
-    {
-        <p><span></span></p>
-    }
-    <div class="comments" id="users_comments_@Model.ID"></div>
-    <div class="my_comment">
-        <div class="comment_form" id="cF_@Model.ID">
+        <div class="full_view" id="f_@foto.ID"></div>
+        if (foto.Title != null && foto.Title != "null")
+        {
+            <p><b>@foto.Title</b></p>
+        }
+        else
+        {
+            <p><b></b></p>
+        }
+        <img src="@foto.SmallFotoUri" onclick="ExpandFoto('@foto.ID')" />
+        if (foto.AuthorDescription != null && foto.AuthorDescription != "null")
+        {
+            <p><span>@foto.AuthorDescription</span></p>
+        }
+        else
+        {
+            <p><span></span></p>
+        }
+        <div class="comments" id="users_comments_@foto.ID"></div>
+        <div class="my_comment">
+            <div class="comment_form" id="cF_@foto.ID">
+                    @Html.Partial("~/Views/Partial/Albums/CommentEntry.cshtml", foto.FotoComments)
+            </div>
+            <input type="text" id="fcomment_@foto.ID" />
+            <button onclick="commentFoto('@foto.ID')">Комментировать</button>
         </div>
-        <input type="text" id="fcomment_@Model.ID" />
-        <button onclick="commentFoto('@Model.ID')">Комментировать</button>
-    </div>
+    }
 </div>
