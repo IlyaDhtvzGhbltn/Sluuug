@@ -1,5 +1,6 @@
 ﻿using Slug.Context.Dto.Albums;
 using Slug.Context.Tables;
+using Slug.Helpers;
 using Slug.Model.Albums;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Slug.Controllers
 {
-    public class partialController : Controller
+    public class partialController : SlugController
     {
         public ActionResult OwnAlbum()
         {
@@ -17,21 +18,24 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExpandFoto(Guid fotoID, Uri fullFoto, string titl, string comm)
+        public ActionResult ExpandFoto(Guid fotoID)
         {
+            var handler = new AlbumsHandler(); 
+            FotoModel model = handler.GetFotoByGUID(GetCookiesValue(Request), fotoID);
+
             ViewBag.fotoId = fotoID;
-            ViewBag.fullFoto = fullFoto;
-            if (!string.IsNullOrWhiteSpace(titl) && titl!="null")
+            ViewBag.fullFoto = model.FullFotoUri;
+            if (!string.IsNullOrWhiteSpace(model.Title) && model.Title != "null")
             {
-                ViewBag.titl = titl;
+                ViewBag.titl = model.Title;
             }
             else
             {
                 ViewBag.titl = "Add Title";
             }
-            if (!string.IsNullOrWhiteSpace(comm) && comm != "null")
+            if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
             {
-                ViewBag.comm = comm;
+                ViewBag.comm = model.AuthorDescription;
             }
             else
             {
@@ -52,12 +56,6 @@ namespace Slug.Controllers
         {
             return View("~/Views/Partial/Albums/AlbumReview.cshtml", album);
         }
-
-        //[HttpPost]
-        //public ActionResult FriendAlbumReview(FotoModel album)
-        //{
-        //    return View("~/Views/Partial/Albums/FriendAlbumReview.cshtml", album);
-        //}
 
         [HttpPost]
         public ActionResult CommentEntry(List<FotoCommentModel> comments)
@@ -85,6 +83,33 @@ namespace Slug.Controllers
                 ViewBag.inptype = "edit_desc_";
             }
             return View("~/Views/Partial/Albums/EditFotoInfo.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult FriendExpand(Guid fotoID)
+        {
+            var handler = new AlbumsHandler();
+            FotoModel model = handler.GetFotoByGUID(GetCookiesValue(Request), fotoID);
+
+            ViewBag.fotoId = model.ID;
+            ViewBag.fullFoto = model.FullFotoUri;
+            if (!string.IsNullOrWhiteSpace(model.Title) && model.Title != "null")
+            {
+                ViewBag.titl = model.Title;
+            }
+            else
+            {
+                ViewBag.titl = "";
+            }
+            if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
+            {
+                ViewBag.comm = model.AuthorDescription;
+            }
+            else
+            {
+                ViewBag.comm = "";
+            }
+            return View("~/Views/Partial/Albums/FriendExpand.cshtml");
         }
     }
 }

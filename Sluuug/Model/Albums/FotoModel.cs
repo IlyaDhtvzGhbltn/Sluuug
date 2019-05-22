@@ -19,7 +19,7 @@ namespace Slug.Model.Albums
 
         public string Title { get; set; }
 
-        public string AuthorComment { get; set; }
+        public string AuthorDescription { get; set; }
 
         public List<FotoCommentModel> FotoComments { get; set; }
 

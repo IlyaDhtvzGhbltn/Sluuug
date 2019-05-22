@@ -10,6 +10,10 @@ inp[1] = 'edit_desc_';
 var elem = [];
 elem[0] = 'title_';
 elem[1] = 'desc_';
+var img = [];
+img[0] = 'edit_img_titl_';
+img[1] = 'edit_img_desc_';
+
 
 function ShowAlbumCreateForm() {
     let div_form = $('#create_album_form')[0];
@@ -21,19 +25,11 @@ function ShowAlbumCreateForm() {
     }
 }
 
-function ExpandFoto(fotoId, fullFoto, title, comment) {
-    var titl = 'add title';
-    if (title != 'null') {
-        titl = title;
-    }
-    var comm = 'add description';
-    if (comment != 'null') {
-        comm = comment;
-    }
+function ExpandFoto(fotoId) {
     $.ajax({
         type : "post",
         url: "/partial/expandfoto", 
-        data: { fotoID: fotoId, fullFoto: fullFoto, titl: title, comm: comment },
+        data: { fotoID: fotoId },
         success: function (html) {
             let elem = $('#f_' + fotoId)[0];
             elem.innerHTML = html;
@@ -214,6 +210,8 @@ function add_info(fotoID, type) {
     else {
         new_tit = $('#' + edit[type] + fotoID)[0];
         new_tit.remove();
+        console.log('edit_img_titl_' + img[type] + fotoID);
+        $('#' + img[type] + fotoID)[0].src = editIMG;
     }
 
 

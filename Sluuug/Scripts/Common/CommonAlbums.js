@@ -22,14 +22,12 @@ function commentFoto(fotoID) {
 }
 
 function loadComments(fotoID) {
-    console.log('#users_comments_' + fotoID);
     $('#users_comments_' + fotoID)[0].innerHTML = '';
     $.ajax({
         type: "post",
         url: '/api/get_comments',
         data: { fotoID },
         success: function (resp) {
-            console.log(resp.FotoComments[0].PostDate);
             let user_comments_form = $('#users_comments_' + fotoID)[0];
                 $.ajax({
                     data: { comments : resp.FotoComments },
@@ -85,4 +83,8 @@ function expandAlbum(album) {
             }
         }
     });
+}
+
+function rollUpFoto(ID) {
+    $('#' + ID)[0].innerHTML = '';
 }

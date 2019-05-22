@@ -10,6 +10,7 @@ using Slug.Context.Tables;
 using Slug.Helpers.BaseController;
 using Slug.ImageEdit;
 using Slug.Model.Albums;
+using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,34 @@ namespace Slug.Helpers
 {
     public class AlbumsHandler
     {
+        public FotoModel GetFotoByGUID(string session, Guid foto)
+        {
+            var handler = new UsersHandler();
+            FullUserInfoModel userUploader = handler.GetFullUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                Foto calledFoto = context.Fotos.Where(x => x.FotoGUID == foto).FirstOrDefault();
+                if (calledFoto != null)
+                {
+                    bool isFriens = FriendshipChecker.CheckUsersFriendshipByIDS(userUploader.UserId, calledFoto.UploadUserID);
+                    if (isFriens || userUploader.UserId == calledFoto.UploadUserID)
+                    {
+                        FotoModel model = new FotoModel()
+                        {
+                            ID = calledFoto.FotoGUID,
+                            FullFotoUri = calledFoto.Url,
+                            AuthorDescription = calledFoto.Description,
+                            Title = calledFoto.Title,
+                            UploadDate = calledFoto.UploadDate
+                        };
+
+                        return model;
+                    }
+                }
+            }
+            return null;
+        }
+
         public CreateAlbumResponse CreateAlbum(string session, AlbumModel model, HttpPostedFileBase albumLabel)
         {
             Guid albumGUID = Guid.NewGuid();
@@ -93,7 +122,7 @@ namespace Slug.Helpers
                                     AlbumID = model.Album,
                                     FotoGUID = Guid.NewGuid(),
                                     Title = model.Title,
-                                    Description = model.AuthorComment,
+                                    Description = model.AuthorDescription,
                                     UploadDate = DateTime.Now,
                                     UploadUserID = userUploaderID,
                                     Url = uploadCloud.SecureUrl.ToString(),
@@ -143,7 +172,7 @@ namespace Slug.Helpers
                                 Album = foto.AlbumID,
                                 SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 50),
                                 FullFotoUri = foto.Url,
-                                AuthorComment = foto.Description,
+                                AuthorDescription = foto.Description,
                                 Title = foto.Title,
                                 UploadDate = foto.UploadDate,
                                 ID = foto.FotoGUID,

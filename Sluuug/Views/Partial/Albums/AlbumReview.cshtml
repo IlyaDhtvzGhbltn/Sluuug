@@ -8,10 +8,10 @@
     {
         <p><b></b></p>
     }
-    <img src="@Model.SmallFotoUri" onclick="ExpandFoto('@Model.ID', '@Model.FullFotoUri', '@Model.Title', '@Model.AuthorComment')" />
-    @if (Model.AuthorComment != null && Model.AuthorComment != "null")
+    <img src="@Model.SmallFotoUri" onclick="ExpandFoto('@Model.ID')" />
+    @if (Model.AuthorDescription != null && Model.AuthorDescription != "null")
     {
-        <p><span>@Model.AuthorComment</span></p>
+        <p><span>@Model.AuthorDescription</span></p>
     }
     else
     {
