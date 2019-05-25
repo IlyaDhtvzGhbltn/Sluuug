@@ -1,0 +1,15 @@
+﻿@model Slug.Model.Users.MemorableEventsModel
+
+<div class="event_div">
+    <p>
+        @Model.EventTitle <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button>
+        @if (Model.DateEvent != new DateTime())
+        {
+            @Model.DateEvent
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.EventComment))
+        {
+            @Model.EventComment
+        }
+    </p>
+</div>

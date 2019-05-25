@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@model  Slug.Model.ConversationsModel
 <div>My messangers</div>
 
 <div id="conversations">
@@ -9,13 +10,9 @@
     {
         foreach (var item in Model.Cnv)
         {
-            <div class="conver_div" id="@item.GuidId" style="background-color:cadetblue; cursor:grabbing">
-                <img height="20" width="20" src="@item.AvatarPath" />
-                <p>@item.InterlocutorName  @item.InterlocutorSurName</p>
-                <p>@item.LastMessage</p>
-            </div>
+            Html.RenderPartial("~/Views/Partial/Dialogs/dialog_preview.cshtml", item, new ViewDataDictionary<Slug.Model.SimpleChat.CutConversation>(item));
         }
     }
 </div>
-<script src="~/Scripts/goMsg.js"></script>
+<script src="~/Scripts/RelocationToUser.js"></script>
 <script src="~/Scripts/newMsgInConv.js"></script>

@@ -16,5 +16,7 @@ namespace Slug.Context.Dto.Settings
         public string OldPasswRep { get; set; }
 
         public string NewPassw { get; set; }
-    }
+
+        public bool QuickMessage { get; set; }
+    } 
 }

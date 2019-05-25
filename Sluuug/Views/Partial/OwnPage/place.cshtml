@@ -1,0 +1,14 @@
+﻿@model Slug.Model.Users.LifePlacesModel
+
+<div class="live_place_div">
+    <p>@Model.Country @Model.Sity <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+    <p><b>@Model.Comment</b></p>
+    @if (Model.UntilNow == false)
+    {
+        <p>@Model.Start - @Model.End</p>
+    }
+    else
+    {
+        <p>@Model.Start - настоящее время</p>
+    }
+</div>

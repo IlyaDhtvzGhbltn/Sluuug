@@ -1,0 +1,17 @@
+﻿@model Slug.Model.CryptoChat
+
+<div class="cryptp_chat" id="@Model.GuidId" style="background-color:coral; cursor:pointer">
+    <b>Opening date : @Model.OpenDate</b>
+    <span> Chat Active : @Model.ActiveStatus</span>
+    <p>
+        <span> Participants : </span>
+    </p>
+    @foreach (var part in Model.Users)
+    {
+        <p>
+            <span> @part.Name </span>
+            <img src="@part.AvatarPath" height="30" width="30" />
+        </p>
+    }
+    <span class="last_msg_crypto">@Model.LastMessage</span>
+</div>

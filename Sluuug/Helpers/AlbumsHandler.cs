@@ -10,6 +10,7 @@ using Slug.Context.Tables;
 using Slug.Helpers.BaseController;
 using Slug.ImageEdit;
 using Slug.Model.Albums;
+using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,95 @@ namespace Slug.Helpers
 {
     public class AlbumsHandler
     {
+        public FotoModel GetFotoByGUID(string session, Guid foto)
+        {
+            var handler = new UsersHandler();
+            FullUserInfoModel userUploader = handler.GetFullUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                Foto calledFoto = context.Fotos.Where(x => x.FotoGUID == foto).FirstOrDefault();
+                if (calledFoto != null)
+                {
+                    bool isFriens = FriendshipChecker.CheckUsersFriendshipByIDs(userUploader.UserId, calledFoto.UploadUserID);
+                    if (isFriens || userUploader.UserId == calledFoto.UploadUserID)
+                    {
+                        FotoModel model = new FotoModel()
+                        {
+                            ID = calledFoto.FotoGUID,
+                            FullFotoUri = calledFoto.Url,
+                            AuthorDescription = calledFoto.Description,
+                            Title = calledFoto.Title,
+                            UploadDate = calledFoto.UploadDate
+                        };
+                        return model;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public AlbumModel GetAlbumByGUID(string session, Guid album)
+        {
+            var handler = new UsersHandler();
+            FullUserInfoModel userUploader = handler.GetFullUserInfo(session);
+            using (var context = new DataBaseContext())
+            {
+                Album calledAlbum = context.Albums.FirstOrDefault(x => x.Id == album);
+                if (calledAlbum != null)
+                {
+                    bool friends = FriendshipChecker.CheckUsersFriendshipByIDs(userUploader.UserId, calledAlbum.CreateUserID);
+                    if (friends || calledAlbum.CreateUserID == userUploader.UserId)
+                    {
+
+                        var fotos = new List<FotoModel>();
+                        calledAlbum.Fotos.ForEach(foto => 
+                        {
+                            var comments = new List<FotoCommentModel>();
+                            foto.UserComments.ForEach(comment => 
+                            {
+                                FullUserInfoModel userCommenter = handler.GetFullUserInfo(comment.UserCommenter);
+                                var userComment = new FotoCommentModel()
+                                {
+                                     Text = comment.CommentText,
+                                     UserName = userCommenter.Name,
+                                     UserSurName = userCommenter.SurName,
+                                     UserPostedAvatarUri = Resize.ResizedUri( userCommenter.AvatarUri, ModTypes.c_scale, 40
+                                     ),
+                                     UserPostedID = userCommenter.UserId,
+                                     DateFormat = comment.CommentWriteDate.ToLongDateString()
+                                };
+                                comments.Add(userComment);
+                            });
+
+                            var fotoModel = new FotoModel()
+                            {
+                                 Album = calledAlbum.Id,
+                                 AuthorDescription = foto.Description,
+                                 Title = foto.Title,
+                                 ID = foto.FotoGUID,
+                                 SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 50), 
+                                 UploadDate = foto.UploadDate,
+                                 FotoComments = comments
+                            };
+                            fotos.Add(fotoModel);
+                        });
+
+                        AlbumModel model = new AlbumModel()
+                        {
+                             AlbumLabelUrl = calledAlbum.AlbumLabelUrl,
+                             AuthorComment = calledAlbum.Description,
+                             CreationTime = calledAlbum.CreationDate,
+                             Title = calledAlbum.Title,
+                             Guid = calledAlbum.Id,
+                             Fotos = fotos
+                        };
+                        return model;
+                    }
+                }
+            }
+            return null;
+        }
+
         public CreateAlbumResponse CreateAlbum(string session, AlbumModel model, HttpPostedFileBase albumLabel)
         {
             Guid albumGUID = Guid.NewGuid();
@@ -93,7 +183,7 @@ namespace Slug.Helpers
                                     AlbumID = model.Album,
                                     FotoGUID = Guid.NewGuid(),
                                     Title = model.Title,
-                                    Description = model.AuthorComment,
+                                    Description = model.AuthorDescription,
                                     UploadDate = DateTime.Now,
                                     UploadUserID = userUploaderID,
                                     Url = uploadCloud.SecureUrl.ToString(),
@@ -131,7 +221,7 @@ namespace Slug.Helpers
                 }
                 else
                 {
-                    bool isFriendlyAlbum = FriendshipChecker.CheckUsersFriendshipByIDS(getUserId, album.CreateUserID);
+                    bool isFriendlyAlbum = FriendshipChecker.CheckUsersFriendshipByIDs(getUserId, album.CreateUserID);
 
                     if (isFriendlyAlbum || album.CreateUserID == getUserId)
                     {
@@ -143,7 +233,7 @@ namespace Slug.Helpers
                                 Album = foto.AlbumID,
                                 SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 50),
                                 FullFotoUri = foto.Url,
-                                AuthorComment = foto.Description,
+                                AuthorDescription = foto.Description,
                                 Title = foto.Title,
                                 UploadDate = foto.UploadDate,
                                 ID = foto.FotoGUID,
@@ -242,8 +332,11 @@ namespace Slug.Helpers
                         var deleteResult = delResponse.JsonObj.ToObject<CloudDeleteImage>();
                         if (deleteResult.deleted != null && delResponse.Deleted.Count == 1)
                         {
+                            if (fotoInf.UserComments != null)
+                            {
+                                context.FotoComments.RemoveRange(fotoInf.UserComments);
+                            }
                             context.Fotos.Remove(fotoInf);
-                            context.FotoComments.RemoveRange(fotoInf.UserComments);
                             context.SaveChanges();
                             resp.isSuccess = true;
                         }
@@ -343,7 +436,7 @@ namespace Slug.Helpers
                     {
                         resp.isSuccess = true;
 
-                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).OrderByDescending(x=>x.CommentWriteDate).ToList();
+                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).OrderBy(x=>x.CommentWriteDate).ToList();
                         resp.FotoComments = new List<FotoCommentModel>();
                         comments.ForEach(comm => 
                         {
@@ -352,7 +445,7 @@ namespace Slug.Helpers
                             var commModel = new FotoCommentModel()
                             {
                                 UserPostedAvatarUri = Resize.ResizedUri(avatarImgPath, ModTypes.c_scale, 50),
-                                PostDate = comm.CommentWriteDate,
+                                PostDate = comm.CommentWriteDate.Ticks,
                                 Text = comm.CommentText,
                                 UserName = context.Users.First(x=>x.Id == comm.UserCommenter).UserFullInfo.Name,
                                 UserSurName = context.Users.First(x => x.Id == comm.UserCommenter).UserFullInfo.SurName,
@@ -384,7 +477,7 @@ namespace Slug.Helpers
                 {
                     bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, foto.UploadUserID);
 
-                    if (foto.UploadUserID != userID || !friends)
+                    if (foto.UploadUserID != userID && !friends)
                     {
                         response.Comment = DropAlbumResponse.Errors.NOT_ACCESS;
                     }

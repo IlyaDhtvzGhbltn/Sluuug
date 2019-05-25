@@ -1,0 +1,7 @@
+﻿<form action="" id="new_album">
+    <p><span>Album Title </span><input type="text" name="Title" required /><span id="album_field_requered" style="color:red; display:none"> * Requered Field</span></p>
+    <p><span>Album Comment </span><input type="text" name="AuthorComment" id="album_comment"></p>
+    <p><span>Album Label </span><input type="file" id="album_label" accept=".jpg, .bmp, .png"></p>
+</form>
+    <button id="close_album_form" onclick="close_form('create_album_form', 'create_new_album_button', 'inline-block')">Close</button>
+    <button onclick="send( '/api/create_album' ,'new_album', 'create_new_album_button', 'album_field_requered')">Create</button>

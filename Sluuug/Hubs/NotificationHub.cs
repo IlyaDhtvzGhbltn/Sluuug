@@ -12,6 +12,8 @@ using Slug.Model;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Sluuug.Hubs;
 using Slug.Helpers.BaseController;
+using Context;
+using Slug.Model.Users;
 
 namespace Slug.Hubs
 {
@@ -84,6 +86,45 @@ namespace Slug.Hubs
             }
         }
 
+        public async Task SendCutMessage(string message, Guid convID)
+        {
+            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
+
+            using (var context = new DataBaseContext())
+            {
+                var conversation = context.Conversations.FirstOrDefault(x => x.ConversationGuidId == convID);
+                if (conversation != null)
+                {
+                    int[] participants = context.ConversationGroup
+                        .Where(x => x.ConversationGuidId == convID)
+                        .Select(x => x.UserId).ToArray();
+                    if (participants.Length >= 2)
+                    {
+                        var UsWork = new UsersHandler();
+                        FullUserInfoModel fromUser = UsWork.GetFullUserInfo(cookies.Value);
+
+                        if (participants.Contains(fromUser.UserId))
+                        {
+                            int toUserID = participants.Where(x => x != fromUser.UserId).First();
+                            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUser.UserId, toUserID);
+                            if (isFriends)
+                            {
+
+                                bool fromUserQuickSett = context.Users.Where(x => x.Id == fromUser.UserId).First().Settings.QuickMessage;
+                                bool toUserQuickSett = context.Users.Where(x => x.Id == toUserID).First().Settings.QuickMessage;
+
+                                if (fromUserQuickSett && toUserQuickSett)
+                                {
+                                    var connectionHandler = new UsersConnectionHandler();
+                                    IList<string> UserRecipientsConnectionIds = connectionHandler.GetConnectionById(toUserID);
+                                    Clients.Clients(UserRecipientsConnectionIds).getCutMessage(message);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
 

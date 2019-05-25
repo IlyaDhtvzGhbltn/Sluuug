@@ -9,7 +9,7 @@ namespace Slug.Model.Albums
     {
         public string Text { get; set; }
 
-        public DateTime PostDate { get; set; }
+        public long PostDate { get; set; }
 
         public string UserPostedAvatarUri { get; set; }
 
@@ -18,5 +18,7 @@ namespace Slug.Model.Albums
         public string UserName { get; set; }
 
         public string UserSurName { get; set; }
+
+        public string DateFormat { get; set; }
     }
 }

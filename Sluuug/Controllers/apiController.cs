@@ -17,6 +17,8 @@ using Slug.Model.Users;
 using Slug.Context.Dto.UserFullInfo;
 using Slug.Model.Albums;
 using Slug.Context.Dto.UserWorker;
+using Slug.Context.Dto.Albums;
+using Slug.Context.Dto.Fotos;
 
 namespace Slug.Controllers
 {
@@ -151,7 +153,7 @@ namespace Slug.Controllers
         public JsonResult fotos(string album)
         {
             var guid = Guid.Parse(album);
-            var result = AlbumsHandler.GetMyPhotosInAlbum(GetCookiesValue(Request), guid);
+            AlbumPhotosResponse result = AlbumsHandler.GetMyPhotosInAlbum(GetCookiesValue(Request), guid);
             return new JsonResult { Data = result };
         }
 
@@ -182,7 +184,7 @@ namespace Slug.Controllers
         public JsonResult get_comments(string fotoID)
         {
             Guid guid = Guid.Parse(fotoID);
-            var result = AlbumsHandler.GetCommentsToFoto(GetCookiesValue(Request), guid);
+            FotoCommentsResponse result = AlbumsHandler.GetCommentsToFoto(GetCookiesValue(Request), guid);
             return new JsonResult { Data = result };
         }
 

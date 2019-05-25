@@ -24,5 +24,8 @@ namespace Slug.Context.Tables
         [Required]
         [DataType( DataType.Password )]
         public string PasswordHash { get; set; }
+
+        [Required]
+        public bool QuickMessage { get; set; }
     }
 }

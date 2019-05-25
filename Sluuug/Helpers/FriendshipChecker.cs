@@ -40,10 +40,10 @@ namespace Slug.Helpers
 
 
             int[] IDs = dialogHandler.GetConversatorsIds(conversationID);
-            return CheckUsersFriendshipByIDS(IDs[0], IDs[1]);
+            return CheckUsersFriendshipByIDs(IDs[0], IDs[1]);
         }
 
-        public static bool CheckUsersFriendshipByIDS(int userFirst, int userSecond)
+        public static bool CheckUsersFriendshipByIDs(int userFirst, int userSecond)
         {
             using (var context = new DataBaseContext())
             {
