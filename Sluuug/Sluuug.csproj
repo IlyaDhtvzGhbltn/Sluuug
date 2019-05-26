@@ -149,6 +149,9 @@
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Resources\favicon.ico" />
+    <Content Include="Resources\guest_footer_073349.jpg" />
+    <Content Include="Resources\guest_header_073349.jpg" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
     <Content Include="Scripts\Common\CommonAlbums.js" />
@@ -176,6 +179,7 @@
     <Content Include="Scripts\vConferens.js" />
     <Content Include="Scripts\vDialogRedirection.js" />
     <Content Include="Scripts\vDialogs.js" />
+    <Content Include="Styles\guest.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -227,9 +231,9 @@
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201905201018182_cut_msg_settings.cs" />
-    <Compile Include="Migrations\201905201018182_cut_msg_settings.Designer.cs">
-      <DependentUpon>201905201018182_cut_msg_settings.cs</DependentUpon>
+    <Compile Include="Migrations\201905251638544_n.cs" />
+    <Compile Include="Migrations\201905251638544_n.Designer.cs">
+      <DependentUpon>201905251638544_n.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -378,8 +382,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905201018182_cut_msg_settings.resx">
-      <DependentUpon>201905201018182_cut_msg_settings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905251638544_n.resx">
+      <DependentUpon>201905251638544_n.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

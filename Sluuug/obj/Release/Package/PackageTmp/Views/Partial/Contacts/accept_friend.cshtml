@@ -1,0 +1,8 @@
+﻿@model Slug.Model.Users.FriendModel
+
+<div id="friend_@Model.UserId">
+    <div class="friend_div" id="@Model.UserId">
+        <img src="@Model.AvatarPath" height="50" width="50" /> <span>@Model.Name  @Model.SurName</span>
+    </div>
+    <input type="button" value="drop from contacts" onclick="dropFromContacts(@Model.UserId)" />
+</div>

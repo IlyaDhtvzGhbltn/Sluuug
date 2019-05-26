@@ -1,0 +1,15 @@
+﻿@model Slug.Model.Users.MemorableEventsModel
+
+<div class="event_div">
+    <p>
+        @Model.EventTitle
+        @if (Model.DateEvent != new DateTime())
+        {
+            @Model.DateEvent
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.EventComment))
+        {
+            @Model.EventComment
+        }
+    </p>
+</div>

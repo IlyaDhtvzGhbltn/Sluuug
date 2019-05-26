@@ -3,7 +3,7 @@ namespace Sluuug.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class cut_msg_settings : DbMigration
+    public partial class n : DbMigration
     {
         public override void Up()
         {

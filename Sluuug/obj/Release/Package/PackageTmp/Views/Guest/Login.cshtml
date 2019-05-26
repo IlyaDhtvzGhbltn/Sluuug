@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/Logo.cshtml";
 }
@@ -21,10 +20,10 @@
     </div>
 </div>
 
-<script src="~/Scripts/jquery-1.6.4.js"></script>
-<script src="~/Scripts/jquery-1.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
-<script src="~/Scripts/SHA-512.js"></script>
+<script src="~/Scripts/System/sha512.js"></script>
+<script src="~/Scripts/System/jquery-1.6.4.js"></script>
+<script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
+<script src="~/Scripts/System/SHA-512.js"></script>
 <script>
     document.getElementById("_subm").addEventListener("submit", function (e) {
         var hash = getSHA(document.getElementById("psw").value);

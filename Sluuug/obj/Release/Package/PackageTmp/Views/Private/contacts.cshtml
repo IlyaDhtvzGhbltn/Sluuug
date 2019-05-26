@@ -3,28 +3,20 @@
     ViewBag.Title = "contacts";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
-
+@model Slug.Model.Users.MyFriendsModel
 <h2>My contacts</h2>
 <h3>Incomming invitations</h3>
 <div id="in_invitations">
     @foreach (var item in Model.IncommingInvitations)
     {
-        <div id="incomm_invitations_@item.UserId">
-            <div class="invitation" id="@item.UserId">
-                <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
-            </div>
-                <input type="button" id="add_contact_button" value="accept friendship" onclick="acceptFriendshipInvitation(@item.UserId)" />
-         </div>
+        Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
     }
 </div>
 <h3>Outcomming invitations</h3>
 <div id="out_invitations">
     @foreach (var item in Model.OutCommingInvitations)
     {
-
-        <div class="invitation" id="@item.UserId">
-            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
-        </div>
+        Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
     }
 </div>
 <h3>My Contacts</h3>
@@ -32,12 +24,7 @@
 
     @foreach (var item in Model.Friends)
     {
-    <div id="friend_@item.UserId">
-        <div class="friend_div" id="@item.UserId">
-            <img src="@item.AvatarPath" height="50" width="50" /> <span>@item.Name  @item.SurName</span>
-        </div>
-        <input type="button" value="drop from contacts" onclick="dropFromContacts(@item.UserId)" />
-    </div>
+        Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
     }
 </div>
 <script src="~/Scripts/myContacts.js"></script>
