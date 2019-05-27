@@ -37,16 +37,13 @@ function savePassword() {
     }
 }
 
-function parceJSON(array)
-{
-    var obj = new Object();
-    for (let i = 0; i < array.length; i++)
-    {
-        let nm = array[i].name;
-        let vl = array[i].value;
-        obj[nm] = vl;
+function saveQuickMessage() {
+    var data = $("#changeQuickMessage").serializeArray();
+    var json = parceJSON(data);
+    if (json.QuickMessage == 'on') {
+        json.QuickMessage = true;
     }
-    return obj;
+    send(json);
 }
 
 function send(request) {

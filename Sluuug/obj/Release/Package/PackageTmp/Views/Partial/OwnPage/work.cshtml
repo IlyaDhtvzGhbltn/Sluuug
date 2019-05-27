@@ -1,0 +1,14 @@
+﻿@model Slug.Model.Users.WorkPlacesModel
+
+<div class="work_div">
+    <p>@Model.CompanyTitle @Model.Position <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+    <p>@Model.Country @Model.Sity</p>
+    @if (Model.UntilNow == false)
+    {
+        <p>@Model.Start - @Model.End</p>
+    }
+    else
+    {
+        <p>@Model.Start - настоящее время</p>
+    }
+</div>

@@ -1,7 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "friend";
+﻿@{
     Layout = "~/Views/Shared/private_view.cshtml";
+    @model Slug.Model.Users.FullUserInfoModel
 }
 <h2>@Model.Name @Model.SurName</h2>
 
@@ -24,21 +23,7 @@
         <p><span>Альбомы пользователя</span></p>
         foreach (var item in Model.Albums)
         {
-            <div class="album">
-                <b>@item.Title</b> <p><span>Создан <b>@item.CreationTime</b></span></p>
-                <p>
-                    <img src="@item.AlbumLabelUrl" height="50" width="50" /><span>@item.AuthorComment</span>
-                </p>
-                @if (item.FotosCount > 0)
-                {
-                    <p><button id="@item.Guid" onclick="show_album(this.id)">Показать</button></p>
-                }
-                else
-                {
-                    <p><span>Альбом пуст</span></p>
-                }
-                <div class="fotos_view" id="view_@item.Guid"></div>
-            </div>
+            Html.RenderPartial("~/Views/Partial/FriendPage/friend_album.cshtml", item, new ViewDataDictionary<Slug.Model.Albums.AlbumModel>(item));
         }
 
     }
@@ -47,13 +32,9 @@
     <span>Образование : </span>
     @if (Model.Educations.Count != 0)
     {
-        foreach (var ed in Model.Educations)
+        foreach (var item in Model.Educations)
         {
-            <div class="education_div">
-                <p>@ed.Title
-                <p>@ed.Country @ed.Sity</p>
-                <p>@ed.Start - @ed.End</p>
-            </div>
+            Html.RenderPartial("~/Views/Partial/FriendPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
         }
     }
     else
@@ -67,19 +48,7 @@
     {
         foreach (var item in Model.Events)
         {
-            <div class="event_div">
-                <p>
-                    @item.EventTitle
-                    @if (item.DateEvent != new DateTime())
-                    {
-                        @item.DateEvent
-                    }
-                    @if (!string.IsNullOrWhiteSpace(item.EventComment))
-                    {
-                        @item.EventComment
-                    }
-                </p>
-            </div>
+            Html.RenderPartial("~/Views/Partial/FriendPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
         }
     }
     else
@@ -93,18 +62,7 @@
     {
         foreach (var item in Model.Works)
         {
-            <div class="work_div">
-                <p>@item.CompanyTitle @item.Position</p>
-                <p>@item.Country @item.Sity</p>
-                @if (item.UntilNow == false)
-                {
-                    <p>@item.Start - @item.End</p>
-                }
-                else
-                {
-                    <p>@item.Start - настоящее время</p>
-                }
-            </div>
+            Html.RenderPartial("~/Views/Partial/FriendPage/work.cshtml", item, new ViewDataDictionary<Slug.Model.Users.WorkPlacesModel>(item));
         }
     }
     else
@@ -118,17 +76,7 @@
     {
         foreach (var item in Model.Places)
         {
-            <div class="live_place_div">
-                <p>@item.Country @item.Sity</p>
-                @if (item.UntilNow == false)
-                {
-                    <p>@item.Start - @item.End</p>
-                }
-                else
-                {
-                    <p>@item.Start - настоящее время</p>
-                }
-            </div>
+            Html.RenderPartial("~/Views/Partial/FriendPage/place.cshtml", item, new ViewDataDictionary<Slug.Model.Users.LifePlacesModel>(item));
         }
     }
     else
@@ -137,6 +85,6 @@
     }
 
 </div>
-
+<script src="~/Scripts/Common/CommonAlbums.js"></script>
 <script src="~/Scripts/newMessageFromPage.js"></script>
 <script src="~/Scripts/FriendAlbum.js"></script>

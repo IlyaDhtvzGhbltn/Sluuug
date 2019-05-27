@@ -3,19 +3,16 @@
     ViewBag.Title = "search_result";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@model Slug.Context.Dto.Search.SearchUsersResponse
 
 <h2>search result</h2>
 <div id="result_out">
     @foreach (var user in Model.Users)
     {
-        <div class="found_user" id="user_@user.UserId" onclick="redirectToUser(@user.UserId)">
-            <img src="@user.AvatarUri" height="45" width="45" /><span>@user.Name @user.SurName @user.FullAges</span>
-            <p><b>@user.Country @user.Sity</b></p>
-
-        </div>
+        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.CutUserInfoModel>(user));
     }
 
-    @{ 
+    @{
         var param = Url.RequestContext.HttpContext.Request.Params;
         var userName = param["user_name"];
         if (string.IsNullOrWhiteSpace(userName))
@@ -24,16 +21,16 @@
         }
         for (int i = 1; i <= Model.PagesCount; i++)
         {
-        <a href="@Url.Action("search_result","private", new {
+            <a href="@Url.Action("search_result","private", new {
                 user_name = userName,
                 user_country = param["user_country"],
                 user_city = param["user_city"],
                 user_sex = param["user_sex"],
                 user_age = param["user_age"],
                 page =i })">@i</a>
-        }
+            }
     }
 
 
 </div>
-<script src="~/Scripts/goUser.js"></script>
+<script src="~/Scripts/RelocationToUser.js"></script>
