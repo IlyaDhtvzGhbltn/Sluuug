@@ -144,8 +144,17 @@
   <data name="Button_Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="Button_Add_Comment" xml:space="preserve">
+    <value>Комментировать</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
   <data name="Button_Change_Avatar" xml:space="preserve">
     <value>Сменить аватар</value>
+  </data>
+  <data name="Button_Create" xml:space="preserve">
+    <value>Создать</value>
   </data>
   <data name="Button_Create_Album" xml:space="preserve">
     <value>Создать альбом</value>
@@ -159,6 +168,9 @@
   <data name="Button_Delete_Contact" xml:space="preserve">
     <value>Удалить контакт</value>
   </data>
+  <data name="Button_Delte" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="Button_Login" xml:space="preserve">
     <value>Войти</value>
   </data>
@@ -167,6 +179,9 @@
   </data>
   <data name="Button_Saerch_Start" xml:space="preserve">
     <value>Найти</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Сохранить</value>
   </data>
   <data name="Button_Send_Message" xml:space="preserve">
     <value>Отправить</value>
@@ -315,8 +330,17 @@
   <data name="Text_Events" xml:space="preserve">
     <value>События</value>
   </data>
+  <data name="Text_Fielsd_Requered" xml:space="preserve">
+    <value>Обязательно к заполнению</value>
+  </data>
   <data name="Text_For_Now_Time" xml:space="preserve">
     <value>Настоящее время</value>
+  </data>
+  <data name="Text_Foto_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Text_Foto_Title" xml:space="preserve">
+    <value>Название фото</value>
   </data>
   <data name="Text_Incomming_To_Me_Call" xml:space="preserve">
     <value>Входящие вызовы</value>
@@ -345,6 +369,15 @@
   <data name="Text_My_Message_Title" xml:space="preserve">
     <value>Мои сообщения</value>
   </data>
+  <data name="Text_New_Album_Description" xml:space="preserve">
+    <value>Описание альбома</value>
+  </data>
+  <data name="Text_New_Album_Label" xml:space="preserve">
+    <value>Обложка альбома</value>
+  </data>
+  <data name="Text_New_Album_Title" xml:space="preserve">
+    <value>Название альбома</value>
+  </data>
   <data name="Text_Not_Answered_Call" xml:space="preserve">
     <value>Вам звонит :</value>
   </data>
@@ -353,6 +386,9 @@
   </data>
   <data name="Text_Opening_Date" xml:space="preserve">
     <value>Дата создания</value>
+  </data>
+  <data name="Text_Open_Image" xml:space="preserve">
+    <value>Загрузить фотографию</value>
   </data>
   <data name="Text_Outcomm_Investigation" xml:space="preserve">
     <value>Исходящие заявки</value>
