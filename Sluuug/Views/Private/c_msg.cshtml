@@ -3,12 +3,14 @@
     ViewBag.Title = "c_msg";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@using Slug.Extensions
 
-<h2>c_msg</h2>
+<h2>@Html.Translate("Text_Secret_Dialog_Title")</h2>
 <div id="c_msgs">
     @foreach (var msg in Model.Messages)
     {
-    <div class="c_msg"><img src="@msg.AvatatURI" height="30" width="30" /><span>@msg.Name</span>
+    <div class="c_msg"><img src="@msg.AvatatURI" height="30" width="30" />
+    <span>@msg.Name</span>
     <p>@msg.SendDate</p>
     <span>@msg.Text</span>
     </div>
@@ -22,7 +24,7 @@
 </div>
 <div id="new_msg_form">
     <input id="new_text" type="text" />
-    <input id="send" type="button" value="Send" onclick="crypt_send()" />
+    <input id="send" type="button" value="@Html.Translate("Button_Send_Message")" onclick="crypt_send()" />
 </div>
 
 

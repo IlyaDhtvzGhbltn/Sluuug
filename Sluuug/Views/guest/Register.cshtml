@@ -4,20 +4,21 @@
     Layout = "~/Views/Shared/Logo.cshtml";
     //Layout = "~/Views/Shared/Logo2.cshtml"; // some layouts available
 }
+@using Slug.Extensions;
 
-<h2>Register</h2>
+<h2>@Html.Translate("Button_Register")</h2>
 
 <link href="~/resources/styles/registration_country_list.css" rel="stylesheet" />
 @using (Html.BeginForm("userconfirmation", "guest", null, FormMethod.Post, new { @id = "reg_subm" }))
 {
     <p>
-        <input type="text" name="Login" placeholder="login" required />
+        <input type="text" name="Login" placeholder="@Html.Translate("Register_Login")" required />
     </p>
     <p>
-        <input type="text" name="Name" required placeholder="enter your name" />
+        <input type="text" name="Name" required placeholder="@Html.Translate("Register_Name")" />
     </p>
     <p>
-        <input type="text" name="ForName" required placeholder="enter your forname" />
+        <input type="text" name="ForName" required placeholder="@Html.Translate("Register_Surname")" />
     </p>
     <p>
         <select name="CountryCode" id="country_list">
@@ -26,23 +27,22 @@
         </select>
     </p>
     <p>
-        <input type="email" name="Email" required  placeholder="insert you e-mail"/>
+        <input type="email" name="Email" required placeholder="@Html.Translate("Register_email")" />
     </p>
     <p>
         <input type="date" name="DateBirth" required />
     </p>
     <p>
-        <input type="password" name="PasswordHash" required id="psw" placeholder="password"/>
+        <input type="password" name="PasswordHash" required id="psw" placeholder="@Html.Translate("Register_Password")" />
     </p>
     <p>
-        <input type="submit" value="Register Me"/>
+        <input type="submit" value="@Html.Translate("Button_Register")" />
     </p>
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
 <script>
-    document.getElementById("reg_subm").addEventListener("submit", function (e)
-    {
+    document.getElementById("reg_subm").addEventListener("submit", function (e) {
         var val = document.getElementById("psw").value;
         var shaObj = new jsSHA("SHA-512", "TEXT");
         shaObj.update(val);

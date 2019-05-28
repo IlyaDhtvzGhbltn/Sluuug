@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Activate" xml:space="preserve">
+    <value>Активация учетной записи</value>
+  </data>
+  <data name="Activate_Atention" xml:space="preserve">
+    <value>Что бы продолжить, подтвердите свой почтовый адрес</value>
+  </data>
+  <data name="Activate_Can_Login" xml:space="preserve">
+    <value>Вы можете войти</value>
+  </data>
+  <data name="Activate_Confirm" xml:space="preserve">
+    <value>Ваша учетная запись успешно активирована</value>
+  </data>
+  <data name="Activate_Incorrect" xml:space="preserve">
+    <value>Ссылка активации неверна или истекла</value>
+  </data>
+  <data name="Activate_Incorrect_Check_Email" xml:space="preserve">
+    <value>Пожалуйста, проверьте папку "Спам" на вашем почтовый ящик или повторите регистрацию</value>
+  </data>
+  <data name="Button_Accept_Contact" xml:space="preserve">
+    <value>Добавить контакт</value>
+  </data>
+  <data name="Button_Accept_Invite" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="Button_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Button_Change_Avatar" xml:space="preserve">
+    <value>Сменить аватар</value>
+  </data>
+  <data name="Button_Create_Album" xml:space="preserve">
+    <value>Создать альбом</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Button_Delete_Album" xml:space="preserve">
+    <value>Удалить альбом</value>
+  </data>
+  <data name="Button_Delete_Contact" xml:space="preserve">
+    <value>Удалить контакт</value>
+  </data>
+  <data name="Button_Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Button_Register" xml:space="preserve">
+    <value>Зарегестрироваться</value>
+  </data>
+  <data name="Button_Saerch_Start" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="Button_Send_Message" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Button_Show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Button_Show_Album" xml:space="preserve">
+    <value>Все фото ..</value>
+  </data>
+  <data name="Button_Upload_Foto_To_Album" xml:space="preserve">
+    <value>Добавить фото</value>
+  </data>
+  <data name="Error_Internal_Message" xml:space="preserve">
+    <value>для того что бы вернутся на главную страницу, нажмите</value>
+  </data>
+  <data name="Error_Internal_Title" xml:space="preserve">
+    <value>Что то пошло не так...</value>
+  </data>
+  <data name="Error_Not_Authorized_Message" xml:space="preserve">
+    <value>Запрашиваемая страница не доступна для неавторизованных пользователей. Что бы войти нажмите</value>
+  </data>
+  <data name="Error_Not_Authorized_Title" xml:space="preserve">
+    <value>Неавторизованный пользователь</value>
+  </data>
+  <data name="Error_Not_Fount_Message" xml:space="preserve">
+    <value>Запрашиваемая страница не найдена, если ваш браузер не потдержитвает переадресацию нажмите</value>
+  </data>
+  <data name="Error_Not_Fount_Title" xml:space="preserve">
+    <value>Страница не найдена</value>
+  </data>
+  <data name="Header_Video_Connection" xml:space="preserve">
+    <value>Видео связь</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>здесь.</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Navigate_Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="Navigate_Crypto" xml:space="preserve">
+    <value>Секретный Чат</value>
+  </data>
+  <data name="Navigate_LogOut" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Navigate_Main" xml:space="preserve">
+    <value>Мой профиль</value>
+  </data>
+  <data name="Navigate_Mess" xml:space="preserve">
+    <value>Сообщения</value>
+  </data>
+  <data name="Navigate_Seasrch" xml:space="preserve">
+    <value>Поиск знакомств</value>
+  </data>
+  <data name="Navigate_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Navigate_Video" xml:space="preserve">
+    <value>Видео-связь</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Pre_Login_msg" xml:space="preserve">
+    <value>Если у вас нет учетной записи, зарегестрируйтесь</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Зарегестрироваться</value>
+  </data>
+  <data name="Register_email" xml:space="preserve">
+    <value>Ваша почта</value>
+  </data>
+  <data name="Register_Login" xml:space="preserve">
+    <value>Придумайте свой логин</value>
+  </data>
+  <data name="Register_Name" xml:space="preserve">
+    <value>Ваше Имя</value>
+  </data>
+  <data name="Register_Password" xml:space="preserve">
+    <value>Придумайте пароль</value>
+  </data>
+  <data name="Register_Surname" xml:space="preserve">
+    <value>Ваша Фамилия</value>
+  </data>
+  <data name="Saerch_Ages" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Saerch_City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Saerch_Country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="Saerch_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Saerch_Sex" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="Search_Title" xml:space="preserve">
+    <value>Поиск людей</value>
+  </data>
+  <data name="Settings_Change" xml:space="preserve">
+    <value>Изменить настройку</value>
+  </data>
+  <data name="Settings_New_Password" xml:space="preserve">
+    <value>Старый пароль еще раз</value>
+  </data>
+  <data name="Settings_Old_Password" xml:space="preserve">
+    <value>Старый пароль</value>
+  </data>
+  <data name="Settings_Old_Password_Rep" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="Settings_Pre_messages" xml:space="preserve">
+    <value>Быстрые сообщения</value>
+  </data>
+  <data name="Text_Add_Contact" xml:space="preserve">
+    <value>Добавить в контакты</value>
+  </data>
+  <data name="Text_Album_Empty" xml:space="preserve">
+    <value>Альбом пуст</value>
+  </data>
+  <data name="Text_Avaliable_To_Call" xml:space="preserve">
+    <value>Доступны для звонка</value>
+  </data>
+  <data name="Text_Call_History" xml:space="preserve">
+    <value>История видео переговоров</value>
+  </data>
+  <data name="Text_Contact_Not_Accepted" xml:space="preserve">
+    <value>Пользователь не подтвердил вашей заявки</value>
+  </data>
+  <data name="Text_Created" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Text_Current_Contacts" xml:space="preserve">
+    <value>Текущие принятые контакты</value>
+  </data>
+  <data name="Text_Education" xml:space="preserve">
+    <value>Образование</value>
+  </data>
+  <data name="Text_Events" xml:space="preserve">
+    <value>События</value>
+  </data>
+  <data name="Text_For_Now_Time" xml:space="preserve">
+    <value>Настоящее время</value>
+  </data>
+  <data name="Text_Incomming_To_Me_Call" xml:space="preserve">
+    <value>Входящие вызовы</value>
+  </data>
+  <data name="Text_Incomm_To_Friend" xml:space="preserve">
+    <value>Входящие заявки</value>
+  </data>
+  <data name="Text_Invite_To_Secret_Help_To_Button" xml:space="preserve">
+    <value>Отправьте приглашение в секретный чат одному из своих контактов</value>
+  </data>
+  <data name="Text_Jobs" xml:space="preserve">
+    <value>Работа</value>
+  </data>
+  <data name="Text_Live_Plaves" xml:space="preserve">
+    <value>Места</value>
+  </data>
+  <data name="Text_Me_In_Video" xml:space="preserve">
+    <value>Я</value>
+  </data>
+  <data name="Text_My_Contacts" xml:space="preserve">
+    <value>Мои контакты</value>
+  </data>
+  <data name="Text_My_Fotos" xml:space="preserve">
+    <value>Мои альбомы</value>
+  </data>
+  <data name="Text_My_Message_Title" xml:space="preserve">
+    <value>Мои сообщения</value>
+  </data>
+  <data name="Text_Not_Answered_Call" xml:space="preserve">
+    <value>Вам звонит :</value>
+  </data>
+  <data name="Text_Not_Filled" xml:space="preserve">
+    <value>Не указано</value>
+  </data>
+  <data name="Text_Opening_Date" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="Text_Outcomm_Investigation" xml:space="preserve">
+    <value>Исходящие заявки</value>
+  </data>
+  <data name="Text_Secret_Chat_Title" xml:space="preserve">
+    <value>Шифрованное соединение</value>
+  </data>
+  <data name="Text_Secret_Dialog_Participants" xml:space="preserve">
+    <value>Участники</value>
+  </data>
+  <data name="Text_Secret_Dialog_Title" xml:space="preserve">
+    <value>Зашифрованный диалог</value>
+  </data>
+  <data name="Text_Self_Signed_Secret_Chat" xml:space="preserve">
+    <value>Вы создали зашифрованный диалог с : </value>
+  </data>
+  <data name="Text_Status_Secret_Chat" xml:space="preserve">
+    <value>Статус диалога</value>
+  </data>
+  <data name="Text_User_Albums" xml:space="preserve">
+    <value>Альбомы пользователя</value>
+  </data>
+  <data name="Text_User_Have_Not_Albums" xml:space="preserve">
+    <value>Пользователь не добавил не одного альбома</value>
+  </data>
+  <data name="Text_Video_Connect" xml:space="preserve">
+    <value>Видео связь</value>
+  </data>
+  <data name="Text_Video_Hist_Incomming" xml:space="preserve">
+    <value>Входящий звонок</value>
+  </data>
+  <data name="Text_Video_Hist_Outcomming" xml:space="preserve">
+    <value>Исходящий звонок</value>
+  </data>
+  <data name="Text_You_Got_Invite_Secret_Chat" xml:space="preserve">
+    <value>Вас пригласили в зашифрованный диалог с : </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Your_Login" xml:space="preserve">
+    <value>Ваш Логин</value>
+  </data>
+  <data name="Your_Password" xml:space="preserve">
+    <value>Ваш Пароль</value>
+  </data>
+</root>

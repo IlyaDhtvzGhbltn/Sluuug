@@ -28,10 +28,10 @@ namespace Slug.Controllers
                 return View();
             else
             {
-                SessionTypes type = SessionHandler.GetSessionType(session_id.Value);
-                if (type == SessionTypes.AwaitEmailConfirm)
-                    return RedirectToAction("login", "guest");
-                else
+                //SessionTypes type = SessionHandler.GetSessionType(session_id.Value);
+                //if (type == SessionTypes.AwaitEmailConfirm)
+                //    return RedirectToAction("login", "guest");
+                //else
                     return View();
             }
         }

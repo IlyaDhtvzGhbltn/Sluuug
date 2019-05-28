@@ -3,15 +3,20 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Logo.cshtml";
 }
-<h2>Index</h2>
-<div id="register_lnk">
+@using Slug.Extensions;
+
+
+<h2>Full Connect</h2>
+<div id="login_lnk">
     <p>
-        <a href="~/guest/register">register</a>
+        <a href="~/guest/login">@Html.Translate("Login")</a>
     </p>
 </div>
 
-<div id="login_lnk">
+<div id="register_lnk">
     <p>
-        <a href="~/guest/login">log in</a>
+        <a href="~/guest/register">@Html.Translate("Register")</a>
     </p>
 </div>
+
+

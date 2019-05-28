@@ -1,4 +1,5 @@
 ﻿@model Slug.Model.Users.WorkPlacesModel
+@using Slug.Extensions
 
 <div class="work_div">
     <p>@Model.CompanyTitle @Model.Position</p>
@@ -9,6 +10,6 @@
     }
     else
     {
-        <p>@Model.Start - настоящее время</p>
+        <p>@Model.Start -  @Html.Translate("Text_For_Now_Time")</p>
     }
 </div>

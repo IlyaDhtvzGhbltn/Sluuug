@@ -1,4 +1,6 @@
 ﻿@model Slug.Model.Users.LifePlacesModel
+@using Slug.Extensions
+
 
 <div class="live_place_div">
     <p>@Model.Country @Model.Sity </p>
@@ -9,6 +11,6 @@
     }
     else
     {
-        <p>@Model.Start - настоящее время</p>
+        <p>@Model.Start - @Html.Translate("Text_For_Now_Time")</p>
     }
 </div>

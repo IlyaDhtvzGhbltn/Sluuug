@@ -46,9 +46,12 @@ namespace Slug.Helpers
                 {
                     context.SaveChanges();
                     var linkMail = new ActivationHandler();
-                    activationMailParam = linkMail.CreateActivationEntries(context.Users
-                       
-                        .Last(x => x.Settings.Email == user.Email).Id);
+                    List<User> User = context.Users
+                        .Where(x => x.Settings.Email == user.Email).ToList();
+
+
+                    activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
+
                     context.SaveChanges();
 
                 }

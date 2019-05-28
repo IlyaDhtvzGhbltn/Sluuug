@@ -1,7 +1,8 @@
 ﻿@model Slug.Model.Users.EducationModel
+@using Slug.Extensions;
 
 <div class="education_div">
-    <p>@Model.Title <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+    <p>@Model.Title <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
     <p>@Model.Country @Model.Sity</p>
     <p>@Model.Start - @Model.End</p>
     <p><span>@Model.Comment</span></p>

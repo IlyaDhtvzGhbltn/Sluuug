@@ -3,17 +3,19 @@
     ViewBag.Title = "activate";
     Layout = "~/Views/Shared/Logo.cshtml";
 }
+@using Slug.Extensions;
 
-<h2>Activate</h2>
 
-<div id = "incorrect" style="display: @ViewBag.incorrect_div_display">
-    <p>Activation parameter incorrect or Expired.</p>
-    <p>Please check your gmail spam folder or try to repeat registration.</p>
+<h2>@Html.Translate("Activate")</h2>
+
+<div id="incorrect" style="display: @ViewBag.incorrect_div_display">
+    <p>@Html.Translate("Activate_Incorrect")</p>
+    <p>@Html.Translate("Activate_Incorrect_Check_Email")</p>
 </div>
 
 <div id="success" style="display: @ViewBag.success_div_display">
-    <p>Your Account was successfully confirmation.</p>
-    <p>You can Logging <a href="@Url.Action("login","guest")">here</a></p>
+    <p>@Html.Translate("Activate_Confirm")</p>
+    <p>@Html.Translate("Activate_Can_Login") <a href="@Url.Action("login","guest")">@Html.Translate("Here")</a></p>
 </div>
 
 

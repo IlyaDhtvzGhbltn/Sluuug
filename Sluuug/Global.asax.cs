@@ -6,11 +6,22 @@ using System.Web.Routing;
 using System.Text.RegularExpressions;
 using Slug.DbInitialisation;
 using NLog;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace Sluuug
 {
     public class MvcApplication : HttpApplication
     {
+        private readonly Dictionary<string, string> CultureDictionary 
+            = new Dictionary<string, string>()
+            {
+                { "RU", "ru-RU" },
+                { "EN", "en-US"},
+                { "US", "en-US" }
+            };
+
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -64,6 +75,7 @@ namespace Sluuug
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+
             //Don't rewrite requests for content (.png, .css) or scripts (.js)
             if (Request.Url.ToString().Contains("Content") ||
                 Request.Url.ToString().Contains("Scripts") ||
@@ -80,21 +92,32 @@ namespace Sluuug
                 Response.Redirect(url, false);
                 Context.ApplicationInstance.CompleteRequest();
             }
+
+            Regex regex = new Regex("[A-Z]{2,}");
+            var ip = Slug.Helpers.SlugController.GetIPAddress(base.Request);
+            WebClient client = new WebClient();
+            string codeUrl = string.Format("https://ipinfo.io/{0}/country", ip);
+            try
+            {
+                string ipResp = client.DownloadString(codeUrl);
+                MatchCollection country = regex.Matches(ipResp);
+                if (country.Count == 1)
+                {
+                    string code = country[0].Value;
+                    var ruCulture = new System.Globalization.CultureInfo(CultureDictionary[code]);
+                    Thread.CurrentThread.CurrentCulture = ruCulture;
+                }
+                else
+                {
+                    var enCulture = new System.Globalization.CultureInfo("ru-RU");
+                    Thread.CurrentThread.CurrentCulture = enCulture;
+                }
+            }
+            catch (Exception ex)
+            {
+                var enCulture = new System.Globalization.CultureInfo("ru-RU");
+                Thread.CurrentThread.CurrentCulture = enCulture;
+            }
         }
-        //protected void Application_EndRequest()
-        //{
-        //    if (Context.Response.StatusCode == 404)
-        //    {
-        //        Response.Clear();
-
-        //        var rd = new RouteData();
-        //        rd.DataTokens["area"] = "AreaName"; // In case controller is in another area
-        //        rd.Values["controller"] = "Errors";
-        //        rd.Values["action"] = "NotFound";
-
-        //        Response.Redirect("~/err/notfound");
-        //    }
-        //}
-
     }
 }

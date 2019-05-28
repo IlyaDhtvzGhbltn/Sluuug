@@ -1,7 +1,9 @@
 ﻿@model Slug.Model.Users.LifePlacesModel
+@using Slug.Extensions;
+
 
 <div class="live_place_div">
-    <p>@Model.Country @Model.Sity <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+    <p>@Model.Country @Model.Sity <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
     <p><b>@Model.Comment</b></p>
     @if (Model.UntilNow == false)
     {

@@ -1,8 +1,9 @@
 ﻿@model Slug.Model.Users.MemorableEventsModel
+@using Slug.Extensions;
 
 <div class="event_div">
     <p>
-        @Model.EventTitle <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button>
+        @Model.EventTitle <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button>
         @if (Model.DateEvent != new DateTime())
         {
             @Model.DateEvent

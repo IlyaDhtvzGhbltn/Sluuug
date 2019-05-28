@@ -10,6 +10,13 @@ namespace Slug.Helpers.BaseController
         appSession,
         cloud,
         apiKey,
-        apiSecret
+        apiSecret,
+
+        smtpServerEmail,
+        smtpServerPassword,
+        smtpServerDisplayName,
+        smtpHost,
+        smtpPort,
+        smtpSubject
     }
 }

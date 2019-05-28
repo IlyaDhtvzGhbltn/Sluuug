@@ -148,7 +148,7 @@ namespace Slug.Controllers
             var uploadResult = AlbumsHandler.UploadToAlbum(GetCookiesValue(Request), model, form);
             return new JsonResult() { Data = uploadResult.isSuccess };
         }
-
+        
         [HttpPost]
         public JsonResult fotos(string album)
         {

@@ -1,7 +1,8 @@
 ﻿@model Slug.Model.Users.WorkPlacesModel
+@using Slug.Extensions;
 
 <div class="work_div">
-    <p>@Model.CompanyTitle @Model.Position <button id="@Model.EntryId" onclick="dropEntry(this)">Удалить</button></p>
+    <p>@Model.CompanyTitle @Model.Position <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
     <p>@Model.Country @Model.Sity</p>
     @if (Model.UntilNow == false)
     {

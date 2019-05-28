@@ -5,7 +5,11 @@
 }
 
 @model Slug.Model.VideoConference.VideoConferenceModel
-<h3>call now:</h3>
+@using Slug.Extensions
+
+<h2>@Html.Translate("Text_Video_Connect")</h2>
+<h3>@Html.Translate("Text_Avaliable_To_Call")</h3>
+
 <div id="friends">
     @foreach (var friend in Model.Friends)
     {
@@ -13,14 +17,14 @@
     }
 </div>
 
-<h3>incomming calls</h3>
+<h3>@Html.Translate("Text_Incomming_To_Me_Call")</h3>
 <div id="incomming">
     @foreach (var item in Model.IncomingCalls)
     {
         Html.RenderPartial("~/Views/Partial/VideoConference/incomming_call.cshtml", item, new ViewDataDictionary<Slug.Model.VideoConference.IncomingInvite>(item));
     }
 </div>
-<h3>calls history</h3>
+<h3>@Html.Translate("Text_Call_History")</h3>
 <div id="calls_history">
     @foreach (var friend in Model.CallsHistory)
     {

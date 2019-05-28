@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Slug.Helpers.BaseController;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+
 
 namespace Slug.Context
 {
@@ -20,16 +23,22 @@ namespace Slug.Context
 
         public void SendActivationMail()
         {
-            MailAddress from = new MailAddress("alter.22.04@gmail.com", "Tom");
+            string email = WebAppSettings.AppSettings[AppSettingsEnum.smtpServerEmail.ToString()];
+            string displayName = WebAppSettings.AppSettings[AppSettingsEnum.smtpServerDisplayName.ToString()];
+            MailAddress from = new MailAddress(email, displayName);
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);
             string domain = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-            m.Subject = "Slug Confirm your registration";
+            m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubject.ToString()];
             m.Body = "<h2>To confirm registration</h2>" +
                 "<a  href="+ domain+"/guest/activate?id=" + this.activate_param + "> clic here</a>";
             m.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential("alter.22.04@gmail.com", "Quipu20041889ss");
+
+            string smtpHost = WebAppSettings.AppSettings[AppSettingsEnum.smtpHost.ToString()];
+            int smtpPort = int.Parse(WebAppSettings.AppSettings[AppSettingsEnum.smtpPort.ToString()]);
+            SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
+            string pass = WebAppSettings.AppSettings[AppSettingsEnum.smtpServerPassword.ToString()];
+            smtp.Credentials = new NetworkCredential(email, pass);
             smtp.EnableSsl = true;
             smtp.Send(m);
         }

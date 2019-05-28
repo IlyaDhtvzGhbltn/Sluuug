@@ -3,9 +3,10 @@
     Layout = "~/Views/Shared/private_view.cshtml";
 }
 @model  Slug.Model.DialogModel
+@using Slug.Extensions;
 
 
-<h2>My messangers</h2>
+<h2>@Html.Translate("Text_My_Message_Title")</h2>
 <div id="dialog">
     @foreach (var item in Model.Messages)
     {
@@ -26,7 +27,7 @@
 <div id="send_msg">
     <input type="text" id="new_msg" />
     <p>
-        <input type="submit" value="send now" id="sendButton" name="@Model.DialogId" />
+        <input type="submit" value="@Html.Translate("Button_Send_Message")" id="sendButton" name="@Model.DialogId" />
     </p>
 </div>
 

@@ -4,8 +4,9 @@
     Layout = "~/Views/Shared/private_view.cshtml";
 }
 @model Slug.Model.CryptoChatModel
+@using Slug.Extensions
 
-<h2>Secure Chat</h2>
+<h2>@Html.Translate("Text_Secret_Chat_Title")</h2>
 <div id="create_new">
     <div id="friends_list">
         @foreach (var friend in Model.FriendsICanInvite)
@@ -13,8 +14,8 @@
             Html.RenderPartial("~/Views/Partial/CryptoDialogs/friends_can_invite_crypto_dialog.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.FriendModel>(friend));
         }
     </div>
-    <p>
-        <input type="button" value="Invite to secret chat" id="new_crypto_chat" onclick="invite()" />
+    <p><span>@Html.Translate("Text_Invite_To_Secret_Help_To_Button")</span>
+        <input type="button" value="@Html.Translate("Button_Send_Message")" id="new_crypto_chat" onclick="invite()" />
     </p>
 </div>
 

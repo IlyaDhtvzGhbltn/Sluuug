@@ -1,8 +1,9 @@
-﻿
-@model Slug.Model.CryptoChat
+﻿@model Slug.Model.CryptoChat
+@using Slug.Extensions
+
 
 <div class="cryptp_chat" id="@Model.GuidId" style="background-color:azure; cursor:pointer">
-    <span>Ваш собственный чат с пользователями</span>
+    <span>@Html.Translate("Text_Self_Signed_Secret_Chat")</span>
     @foreach (var user in Model.Users)
     {
         <p>

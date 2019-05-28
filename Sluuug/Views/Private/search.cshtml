@@ -3,35 +3,36 @@
     ViewBag.Title = "search";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@using Slug.Extensions;
 
-<h2>search</h2>
+<h2>@Html.Translate("Search_Title")</h2>
 <div>
     <form id="searchSubmit" action="" method="post">
-        <p><p><span>Имя</span></p>
+        <p><p><span>@Html.Translate("Saerch_Name")</span></p>
         <input type="text" name="user_name" />
         </p>
         <p>
-        <p><span>Страна</span></p>
+        <p><span>@Html.Translate("Saerch_Country")</span></p>
         <select id="user_search_country" name="user_country" onchange="getCities()">
             <option value="7">Россия</option>
             <option value="1">USA</option>
         </select>
         </p>
         <p>
-        <p><span>Город</span></p>
+        <p><span>@Html.Translate("Saerch_City")</span></p>
         <select id="user_search_city" name="user_city">
             <option value="495">Москва</option>
         </select>
         </p>
         <p>
-        <p><span>Пол</span></p>
+        <p><span>@Html.Translate("Saerch_Sex")</span></p>
         <select name="user_sex">
             <option value="1">Муж</option>
             <option value="0">Жен</option>
         </select>
         </p>
         <p>
-        <p><span>Возраст</span></p>
+        <p><span>@Html.Translate("Saerch_Ages")</span></p>
         <select id="user_search_age" name="user_age">
             <option value="0">16-20</option>
             <option value="1">21-26</option>
@@ -43,7 +44,7 @@
             <option value="7">> 70</option>
         </select>
         </p>
-        <input type="button" value="Найти" onclick="serchUser()" />
+        <input type="button" value="@Html.Translate("Button_Saerch_Start")" onclick="serchUser()" />
     </form>
 </div>
 <script src="~/Scripts/System/ParseFormArray.js"></script>
