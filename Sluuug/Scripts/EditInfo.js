@@ -1,52 +1,52 @@
-﻿function newEvent() {
+﻿async function newEvent() {
     fields_alert_visible('new_event_button', false);
 
     var ed = $('#add_event_entry');
     if (ed[0] == undefined) {
         var ed_block = $('#events');
-        ed_block[0].insertAdjacentHTML('beforeend', mem_events_form);
+        ed_block[0].insertAdjacentHTML('beforeend',await mem_events_form());
     }
     else {
-        ed[0].innerHTML = mem_events_form;
+        ed[0].innerHTML = await mem_events_form();
     }
     fields_alert_visible('event_requered_field', false);
 
 }
-function newEducation() {
+async function newEducation() {
 
     fields_alert_visible('new_educatio_button', false);
 
-    var ed = $('#add_education_entry');
+    var ed = $('#new_education');
     if (ed[0] == undefined) {
         var ed_block = $('#education');
-        ed_block[0].insertAdjacentHTML('beforeend', education_form);
+        ed_block[0].innerHTML = await education_form();
     }
     else {
-        ed[0].innerHTML = education_form;
+        ed[0].innerHTML = await education_form();
     }
     fields_alert_visible('edu_requered_field', false);
 }
-function newWork() {
+async function newWork() {
     fields_alert_visible('new_work_button', false);
     var ed = $('#add_work_entry');
     if (ed[0] == undefined) {
         var ed_block = $('#works');
-        ed_block[0].insertAdjacentHTML('beforeend', work_form);
+        ed_block[0].insertAdjacentHTML('beforeend', await work_form());
     }
     else {
-        ed[0].innerHTML = work_form;
+        ed[0].innerHTML = await work_form();
     }
     fields_alert_visible('work_requered_field', false);
 }
-function newLivePlace() {
+async function newLivePlace() {
     fields_alert_visible('new_place_button', false);
     var ed = $('#add_place_entry');
     if (ed[0] == undefined) {
         var ed_block = $('#live_places');
-        ed_block[0].insertAdjacentHTML('beforeend', places_form);
+        ed_block[0].insertAdjacentHTML('beforeend',await places_form());
     }
     else {
-        ed[0].innerHTML = places_form;
+        ed[0].innerHTML = await places_form();
     }
     fields_alert_visible('place_requered_field', false);
 }
@@ -82,7 +82,7 @@ function dropHTMLForm(formID, show_button_class) {
 }
 
 function send(api_url, formID, show_button_class, requred_field_alerr) {
-    console.log(formID);
+    console.log('send edit info');
 
     let val = validate(formID);
     console.log('validation result ' + val);
@@ -114,8 +114,10 @@ function send(api_url, formID, show_button_class, requred_field_alerr) {
     }
 }
 function validate(formID) {
+    console.log('validete edit info');
     let validate_errors = 0;
     let data = $('#' + formID).serializeArray();
+    console.log(data);
     let required_elems = [];
     [].forEach.call(data, function (form_input) {
         let input = document.getElementsByName(form_input.name)[0];
@@ -133,33 +135,6 @@ function validate(formID) {
         return true;
     }
     else return false;
-}
-
-function onEducationLevelChange(value) {
-    let int = parseInt(value);
-    switch (int) {
-        case 0:
-            drop_high_school_education();
-            break;
-        case 1: 
-            add_high_school_education();
-            break;
-        case 2:
-            add_high_school_education();
-            break;
-    }
-}
-
-function add_high_school_education() {
-    let created_element = $('#high_school_education')[0];
-    if (created_element == undefined) {
-        let title = $('#level')[0];
-        title.insertAdjacentHTML('beforeend', high_level_form);
-    }
-}
-function drop_high_school_education() {
-    var form = $('#high_school_education')[0];
-    form.remove();
 }
 
 function untill_now_date(dateInputId, checkboxId) {
@@ -190,53 +165,115 @@ function getCities(countryListBoxId, citiesListBoxId) {
     });
 }
 //////////////////////////////////////////////////////////////////
-const high_level_form = '<div id="high_school_education">' +
-    '<p><span>Faculty <input type="text" name="Faculty"></p>' +
-    '<p><span>Specialty <input type="text" name="Specialty"></p>' +
-    '</div>';
+function high_level_form() {
+    return $.ajax({
+        url: '/partial/hight_education_level_form',
+        data: {},
+        type: "post"
+    })
+}
 
-const education_form = '<div id="add_education_entry"><form action="" id="edu_form">' +
-    '<p id="level"><span>Education Level <select name="EducationType" onchange="onEducationLevelChange(this.value)"><option value=0>School</option><option value=1>Colledje</option><option value=2>University</option></select></span></p>' +
-    '<p><span>Education Title <input type="text" name="Title" required></span><span class="edu_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>Start Education Date <input type="date" name="Start" required><span class="edu_requered_field" style="color:red"> * Field is requered</span></span></p>' +
-    '<p><span>End Education Date <input type="date" name="End" id="end_education"></span> Untill Now : <input type="checkbox" id="education_till_now" name="UntilNow" onClick="untill_now_date(end_education.id, this.id)"></p>' +
-    '<p><span>Country <select id="user_search_country" name="Country" onchange="getCities(user_search_country.id, user_search_city.id)"><option value="7">Россия</option><option value = "1" >USA</option></select></span></p>' +
-    '<p><span>Country <select id="user_search_city" name="Sity"><option value="495">Москва</option></select></span></p>' +
-    '<p><span>Your Comment <input type="text" name="Comment"></span></p>' +
+function education_form() {
+    return $.ajax({
+        url: '/partial/add_education_form',
+        data: {},
+        type: "post"
+    })
+}
 
-    '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_education_entry.id, \'new_educatio_button\')">' +
-    '<input type="button" onclick="send(\'/api/add_education\', \'edu_form\', \'new_educatio_button\', \'edu_requered_field\')" value="Send"></div>' +
-    '</form></div>';
+function mem_events_form() {
+    return $.ajax({
+        url: '/partial/mem_events_form',
+        data: {},
+        type: "post"
+    })
+};
 
-const mem_events_form = '<div id="add_event_entry"><form action="" id="event_form">' +
-    '<p><span>Event Title <input type="text" name="EventTitle" required></span><span class="event_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>Event Date <input type="date" name="DateEvent" required></span><span class="event_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>Event Comment <input type="text" name="EventComment"></span></p>' +
+function work_form() {
+    return $.ajax({
+        url: '/partial/work_form',
+        data: {},
+        type: "post"
+    })
+};
 
-    '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_event_entry.id,\'new_event_button\')">' +
-    '<input type="button" onclick="send(\'/api/add_event\', \'event_form\', \'new_event_button\', \'event_requered_field\')" value="Send"></form></div>';
+function places_form() {
+    return $.ajax({
+        url: '/partial/places_form',
+        data: {},
+        type: "post"
+    })
+};
 
-const work_form = '<div id="add_work_entry"><form action="" id="work_form">' +
-    '<p><span>Company Title<input type="text" name="CompanyTitle" required></span><span class="work_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>Position <input type="text" name="Position" required></span><span class="work_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>Start Date <input type="date" name="Start" required></span><span class="work_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>End Date<input type="date" name="End" id="end_work"></span> Untill Now : <input type="checkbox" id="work_till_now" name="UntilNow" onClick="untill_now_date(end_work.id, this.id)"></p>' +
-    '<p><span>Country <select id="user_search_country_w" name="Country" onchange="getCities(user_search_country_w.id, user_search_city_w.id)"><option value="7">Россия</option><option value = "1" >USA</option></select></span></p>' +
-    '<p><span>City <select id="user_search_city_w" name="Sity"><option value="495">Москва</option></select></span></p>' +
-    '<p><span>Comment <input type="text" name="Comment"></span></p>' +
+function send_simple(api_url, formID, show_button, requred_field_alert) {
+    console.log('send -education form');
 
-    '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_work_entry.id, \'new_work_button\')">' +
-    '<input type="button" onclick="send(\'/api/add_works\', \'work_form\',\'new_work_button\',\'work_requered_field\')" value="Send"></div>';
-'</div></form></div>';
+    let val = validate(formID);
+    if (val == true) {
+        let data = $('#' + formID).serializeArray();
+        let dt = parceJSON(data);
 
-const places_form = '<div id="add_place_entry"><form action="" id="place_form">' +
+        console.log(data);
+        close_form(formID, 'create_new_album_button', 'inline-block');
+        drop_elem('create_album_form');
 
-    '<p><span>Comment <input type="text" name="Comment"></span></p>' +
-    '<p><span>Start Date <input type="date" name="Start" required></span><span class="place_requered_field" style="color:red"> * Field is requered</span></p>' +
-    '<p><span>End Date <input type="date" name="End" id="end_live_l"></span> Untill Now : <input type="checkbox" id="live_till_now" name="UntilNow" onClick="untill_now_date(end_live_l.id, this.id)"></p>' +
-    '<p><span>Country <select id="user_search_country_l" name="Country" onchange="getCities(user_search_country_l.id, user_search_city_l.id)"><option value="7">Россия</option><option value = "1" >USA</option></select></span></p>' +
-    '<p><span>City <select id="user_search_city_l" name="Sity"><option value="495">Москва</option></select></span></p>' +
+        $.ajax({
+            url: api_url,
+            type: "post",
+            data: dt,
+            success: function (response) {
+                if (response) {
+                    document.location.reload();
+                }
+            }
+        });
+    }
+    else {
+        changeElementVisibility('edu_requered_field', 'inline-block');
+    }
+}
 
-    '<div id="command_form"><input type="button" value="Close" onclick="dropHTMLForm(add_place_entry.id, \'new_place_button\')">' +
-    '<input type="button" onclick="send(\'/api/add_places\', \'place_form\',\'new_place_button\',\'place_requered_field\')" value="Send"></div>';
-    '</form></div>';
+function validate(formID) {
+    console.log('validete album');
+
+    let validate_errors = 0;
+    let data = $('#' + formID).serializeArray();
+
+    let required_elems = [];
+    [].forEach.call(data, function (form_input) {
+        let input = document.getElementsByName(form_input.name)[0];
+        if (input.required) {
+            required_elems.push(input.name);
+        }
+    });
+    [].forEach.call(required_elems, function (item) {
+        let elem = document.getElementsByName(item)[0];
+        if (elem.value.length == 0) {
+            validate_errors++;
+        }
+    });
+    if (validate_errors == 0) {
+        return true;
+    }
+    else return false;
+}
+
+function onEducationLevelChange(value) {
+    let int = parseInt(value);
+    switch (int) {
+        case 0:
+            drop_high_school_education();
+            break;
+        default:
+            add_high_school_education();
+            break;
+    }
+}
+
+async function add_high_school_education() {
+    let created_element = $('#high_school_education')[0];
+    if (created_element == undefined) {
+        let title = $('#level')[0];
+        title.insertAdjacentHTML('beforeend', await high_level_form());
+    }
+}

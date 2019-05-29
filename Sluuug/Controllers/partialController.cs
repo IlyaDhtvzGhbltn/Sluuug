@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Slug.Extensions;
 
 namespace Slug.Controllers
 {
@@ -24,6 +25,8 @@ namespace Slug.Controllers
             FotoModel model = handler.GetFotoByGUID(GetCookiesValue(Request), fotoID);
             if (model != null)
             {
+                var cultureInfo = System.Globalization.CultureInfo.CurrentCulture;
+
                 ViewBag.fotoId = fotoID;
                 ViewBag.fullFoto = model.FullFotoUri;
                 if (!string.IsNullOrWhiteSpace(model.Title) && model.Title != "null")
@@ -32,7 +35,10 @@ namespace Slug.Controllers
                 }
                 else
                 {
-                    ViewBag.titl = "Add Title";
+                    string value = Properties.Resources.ResourceManager.GetString("Text_Add_Title", cultureInfo);
+                    var text = MvcHtmlString.Create(value);
+
+                    ViewBag.titl = text;
                 }
                 if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
                 {
@@ -40,7 +46,10 @@ namespace Slug.Controllers
                 }
                 else
                 {
-                    ViewBag.comm = "Add Description";
+                    string value = Properties.Resources.ResourceManager.GetString("Text_Add_Description", cultureInfo);
+                    var text = MvcHtmlString.Create(value);
+
+                    ViewBag.comm = text;
                 }
                 return View("~/Views/Partial/Albums/Expand.cshtml");
             }
@@ -119,6 +128,36 @@ namespace Slug.Controllers
                 ViewBag.comm = "";
             }
             return View("~/Views/Partial/Albums/FriendExpand.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Add_Education_Form()
+        {
+            return View("~/Views/Partial/OwnPage/AddInfo/education_form.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Hight_Education_Level_Form()
+        {
+            return View("~/Views/Partial/OwnPage/AddInfo/high_level_form.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Mem_Events_Form()
+        {
+            return View("~/Views/Partial/OwnPage/AddInfo/mem_events_form.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Work_Form()
+        {
+            return View("~/Views/Partial/OwnPage/AddInfo/work_form.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Places_Form()
+        {
+            return View("~/Views/Partial/OwnPage/AddInfo/places_form.cshtml");
         }
     }
 }

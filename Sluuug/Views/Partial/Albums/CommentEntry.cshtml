@@ -1,6 +1,6 @@
 ﻿@foreach (var item in Model) {
 <div class="comment_item">
-    <a href="/private/user/'@item.UserPostedID"><img src="@item.UserPostedAvatarUri" /></a>
+    <a href="/private/user/@item.UserPostedID"><img src="@item.UserPostedAvatarUri" /></a>
     <span>@item.DateFormat</span>
     <span>@item.UserName  @item.UserSurName</span><p>
         <b>@item.Text</b>

@@ -382,6 +382,11 @@
     <Content Include="Views\Partial\Albums\CommentEntry.cshtml" />
     <Content Include="Views\Partial\Albums\EditFotoInfo.cshtml" />
     <Content Include="Views\Partial\Albums\FriendExpand.cshtml" />
+    <Content Include="Views\Partial\OwnPage\AddInfo\education_form.cshtml" />
+    <Content Include="Views\Partial\OwnPage\AddInfo\high_level_form.cshtml" />
+    <Content Include="Views\Partial\OwnPage\AddInfo\mem_events_form.cshtml" />
+    <Content Include="Views\Partial\OwnPage\AddInfo\work_form.cshtml" />
+    <Content Include="Views\Partial\OwnPage\AddInfo\places_form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -50,7 +50,9 @@
         Html.RenderPartial("~/Views/Partial/OwnPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
     }
     <button onclick="newEducation()" class="new_educatio_button">@Html.Translate("Button_Add")</button>
+    <div id="new_education"></div>
 </div>
+
 <hr />
 <div id="events">
     <span>@Html.Translate("Text_Events")</span>

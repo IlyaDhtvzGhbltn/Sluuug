@@ -195,6 +195,21 @@
   <data name="Button_Upload_Foto_To_Album" xml:space="preserve">
     <value>Добавить фото</value>
   </data>
+  <data name="Education_Faculty" xml:space="preserve">
+    <value>Факультет</value>
+  </data>
+  <data name="Education_Level_0" xml:space="preserve">
+    <value>Школа</value>
+  </data>
+  <data name="Education_Level_1" xml:space="preserve">
+    <value>Колледж</value>
+  </data>
+  <data name="Education_Level_2" xml:space="preserve">
+    <value>Университет</value>
+  </data>
+  <data name="Education_Speciality" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
   <data name="Error_Internal_Message" xml:space="preserve">
     <value>для того что бы вернутся на главную страницу, нажмите</value>
   </data>
@@ -212,6 +227,12 @@
   </data>
   <data name="Error_Not_Fount_Title" xml:space="preserve">
     <value>Страница не найдена</value>
+  </data>
+  <data name="Events_Date" xml:space="preserve">
+    <value>Дата события</value>
+  </data>
+  <data name="Event_Title" xml:space="preserve">
+    <value>Событие</value>
   </data>
   <data name="Header_Video_Connection" xml:space="preserve">
     <value>Видео связь</value>
@@ -244,7 +265,7 @@
     <value>Настройки</value>
   </data>
   <data name="Navigate_Video" xml:space="preserve">
-    <value>Видео-связь</value>
+    <value>Видео связь</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
@@ -306,6 +327,12 @@
   <data name="Text_Add_Contact" xml:space="preserve">
     <value>Добавить в контакты</value>
   </data>
+  <data name="Text_Add_Description" xml:space="preserve">
+    <value>Добавить описание</value>
+  </data>
+  <data name="Text_Add_Title" xml:space="preserve">
+    <value>Добавить название</value>
+  </data>
   <data name="Text_Album_Empty" xml:space="preserve">
     <value>Альбом пуст</value>
   </data>
@@ -326,6 +353,15 @@
   </data>
   <data name="Text_Education" xml:space="preserve">
     <value>Образование</value>
+  </data>
+  <data name="Text_Education_Level" xml:space="preserve">
+    <value>Уровень образования</value>
+  </data>
+  <data name="Text_Education_Title" xml:space="preserve">
+    <value>Учебное заведение</value>
+  </data>
+  <data name="Text_End_Date" xml:space="preserve">
+    <value>Дата окончания</value>
   </data>
   <data name="Text_Events" xml:space="preserve">
     <value>События</value>
@@ -405,6 +441,9 @@
   <data name="Text_Self_Signed_Secret_Chat" xml:space="preserve">
     <value>Вы создали зашифрованный диалог с : </value>
   </data>
+  <data name="Text_Start_Date" xml:space="preserve">
+    <value>Дата начала</value>
+  </data>
   <data name="Text_Status_Secret_Chat" xml:space="preserve">
     <value>Статус диалога</value>
   </data>
@@ -423,6 +462,15 @@
   <data name="Text_Video_Hist_Outcomming" xml:space="preserve">
     <value>Исходящий звонок</value>
   </data>
+  <data name="Text_Work_Company_Title" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="Text_Work_Position" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="Text_Your_Comment" xml:space="preserve">
+    <value>Ваш комментарий</value>
+  </data>
   <data name="Text_You_Got_Invite_Secret_Chat" xml:space="preserve">
     <value>Вас пригласили в зашифрованный диалог с : </value>
   </data>
@@ -430,9 +478,9 @@
     <value>Да</value>
   </data>
   <data name="Your_Login" xml:space="preserve">
-    <value>Ваш Логин</value>
+    <value>Ваш логин</value>
   </data>
   <data name="Your_Password" xml:space="preserve">
-    <value>Ваш Пароль</value>
+    <value>Ваш пароль</value>
   </data>
 </root>
