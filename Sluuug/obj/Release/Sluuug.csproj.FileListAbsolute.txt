@@ -52,3 +52,7 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.GenerateResource.Cach
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CoreCompileInputs.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.pdb
+D:\My_Utilits\Slug\Sluuug\Sluuug\bin\ru\Slug.resources.dll
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.ru.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\ru\Slug.resources.dll

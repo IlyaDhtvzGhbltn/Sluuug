@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/private_view.cshtml";
 }
 @using Context;
+@using Slug.Extensions;
+
 
 <h2>@Model.Name @Model.SurName</h2>
 
@@ -12,15 +14,15 @@
         <img src="@Model.AvatarPath" height="100" width="100" />
         @if (Model.Status == FriendshipItemStatus.Close || Model.Status == FriendshipItemStatus.None)
         {
-        <p>
-            <div id="add_contact">
-                <button onclick="addToContacts()">Add to Contacts</button>
-            </div>
-        </p>
+            <p>
+                <div id="add_contact">
+                    <button onclick="addToContacts()">@Html.Translate("Text_Add_Contact")</button>
+                </div>
+            </p>
         }
         else if (Model.Status == FriendshipItemStatus.Pending)
         {
-            <p>User not accept your invitation</p>
+            <p>@Html.Translate("Text_Contact_Not_Accepted")</p>
         }
     </div>
 </div>

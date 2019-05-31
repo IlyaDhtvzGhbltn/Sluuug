@@ -3,9 +3,8 @@
     ViewBag.Title = "NotFound";
     Layout = "~/Views/Shared/Logo.cshtml";
 }
+@using Slug.Extensions;
 
-<h2>NotFound</h2>
-<span>We are sorry ...</span>
-<p>
-    <a href="/guest/login">login</a> here.
-</p>
+
+<h2>@Html.Translate("Error_Not_Fount_Title")</h2>
+<span>@Html.Translate("Error_Not_Fount_Message") <a href="~/guest/index">@Html.Translate("Here")</a></span>

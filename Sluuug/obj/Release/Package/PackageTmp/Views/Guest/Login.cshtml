@@ -2,20 +2,21 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/Logo.cshtml";
 }
+@using Slug.Extensions
 
-<h2>Login</h2>
+<h2>@Html.Translate("Login")</h2>
 <div id="await_confirmation" style="display: @ViewBag.await_confirmation_div_display">
-    <p>You must confirm your E-mail addres before we continue</p>
+    <p>@Html.Translate("Activate_Atention")</p>
 </div>
 
 <div id="logining" style="display: @ViewBag.immediately_login_div_display">
-    <p>Login or <a href="/guest/register">register</a> now</p>
+    <p>@Html.Translate("Pre_Login_msg")  <a href="/guest/register">@Html.Translate("Here")</a></p>
     <div>
         @using (Html.BeginForm("auth", "guest", null, FormMethod.Post, new { @id = "_subm" }))
         {
-            <p><input type="text" placeholder="your login" name="login" required /></p>
-            <p><input type="password" placeholder="password" name="hashPassword" id="psw" required /></p>
-            <p><input type="submit" value="Login" /></p>
+            <p><input type="text" placeholder="@Html.Translate("Your_Login")" name="login" required /></p>
+            <p><input type="password" placeholder="@Html.Translate("Your_Password")" name="hashPassword" id="psw" required /></p>
+            <p><input type="submit" value="@Html.Translate("Button_Login")" /></p>
         }
     </div>
 </div>

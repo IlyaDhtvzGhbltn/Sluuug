@@ -1,16 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "v_conversation";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@using Slug.Extensions;
 
-<h2>video chat</h2>
+
+<h2>@Html.Translate("Header_Video_Connection")</h2>
 <style>
     #friend_video_container {
-        height:400px;
-        width:500px;
-    };
-    #me_video_container { align-self:auto;
+        height: 400px;
+        width: 500px;
+    }
+
+    #me_video_container {
+        align-self: auto;
     }
 </style>
 <div id="video_streaming">
@@ -20,7 +23,7 @@
     </div>
 
     <div id="me_video_container" class="vid_container">
-        <span>Me</span>
+        <span>@Html.Translate("Text_Me_In_Video")</span>
         <video autoplay height="200" width="200" id="localVideo"></video>
     </div>
     <audio autoplay id="remoteAudio" />

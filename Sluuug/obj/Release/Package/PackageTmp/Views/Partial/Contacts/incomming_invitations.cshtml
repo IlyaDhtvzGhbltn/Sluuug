@@ -1,9 +1,12 @@
 ﻿
 @model Slug.Model.Users.FriendModel
+@using Slug.Extensions
+
 
 <div id="incomm_invitations_@Model.UserId">
     <div class="invitation" id="@Model.UserId">
-        <img src="@Model.AvatarPath" height="50" width="50" /> <span>@Model.Name  @Model.SurName</span>
+        <img src="@Model.AvatarPath" height="50" width="50" />
+        <span>@Model.Name  @Model.SurName</span>
     </div>
-    <input type="button" id="add_contact_button" value="accept friendship" onclick="acceptFriendshipInvitation(@Model.UserId)" />
+    <input type="button" id="add_contact_button" value="@Html.Translate("Button_Accept_Contact")" onclick="acceptFriendshipInvitation(@Model.UserId)" />
 </div>

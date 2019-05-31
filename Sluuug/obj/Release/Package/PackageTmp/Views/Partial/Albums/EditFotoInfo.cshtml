@@ -1,4 +1,6 @@
-﻿<div id="@ViewBag.idtype@ViewBag.fotoID">
+﻿@using Slug.Extensions
+
+<div id="@ViewBag.idtype@ViewBag.fotoID">
     <input id="@ViewBag.inptype@ViewBag.fotoID" type="text" />
-    <button onclick="send_edit('@ViewBag.fotoID', '@ViewBag.type')">Сохранить</button>
+    <button onclick="send_edit('@ViewBag.fotoID', '@ViewBag.type')">@Html.Translate("Button_Save")</button>
 </div>

@@ -77,7 +77,8 @@ function uploadFotoToAlbum(album) {
 
     let selected_files = $('#input_photo')[0].files;
     if (selected_files.length == 0) {
-        changeElementVisibility('foto_not_upload', 'inline-block');
+        var foto_req = $("#foto_not_upload")[0];
+        foto_req.style.display = 'inline-block';
     }
     else {
         var form = new FormData();

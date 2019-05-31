@@ -3,11 +3,10 @@
     ViewBag.Title = "unauthorized";
     Layout = "~/Views/Shared/logo.cshtml";
 }
+@using Slug.Extensions;
 
-<h2>unauthorized</h2>
-
-
+<h2>@Html.Translate("Error_Not_Authorized_Title")</h2>
 <p>
-    <span>Please </span>
-    <a href="/guest/login">login</a> here.
+    <span>@Html.Translate("Error_Not_Authorized_Message") </span>
+    <a href="/guest/login">@Html.Translate("Here")</a>
 </p>

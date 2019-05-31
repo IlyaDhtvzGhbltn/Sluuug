@@ -1,20 +1,21 @@
 ﻿@model Slug.Model.Albums.AlbumModel
+@using Slug.Extensions
 
 <div class="album" style="display:inline-block">
-    <b>@Model.Title</b> <p><span>Создан <b>@Model.CreationTime</b></span></p>
+    <b>@Model.Title</b> <p><span>@Html.Translate("Button_Create_Album") <b>@Model.CreationTime</b></span></p>
     <p>
         <img src="@Model.AlbumLabelUrl" height="50" width="50" /><span>@Model.AuthorComment</span>
-        <button onclick="show_form_upload_foto('@Model.Guid')">Загрузить фото</button>
-        <button onclick="drop_album('@Model.Guid')">Удалить альбом</button>
+        <button onclick="show_form_upload_foto('@Model.Guid')">@Html.Translate("Button_Upload_Foto_To_Album")</button>
+        <button onclick="drop_album('@Model.Guid')">@Html.Translate("Button_Delete_Album")</button>
     </p>
     <div class="uplpad_form" id="upload_foto_div_@Model.Guid"></div>
     @if (Model.FotosCount > 0)
     {
-        <p><button class="show_btn" id="@Model.Guid" onclick="expandAlbum(this.id)">Показать</button></p>
+        <p><button class="show_btn" id="@Model.Guid" onclick="expandAlbum(this.id)">@Html.Translate("Button_Show_Album")</button></p>
     }
     else
     {
-        <p><span>Альбом пуст</span></p>
+      <p><span>@Html.Translate("Text_Album_Empty")</span></p>
     }
     <div class="fotos_view" id="view_@Model.Guid"></div>
 </div>

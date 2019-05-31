@@ -2,6 +2,8 @@
     Layout = "~/Views/Shared/private_view.cshtml";
     @model Slug.Model.Users.FullUserInfoModel
 }
+@using Slug.Extensions
+
 <h2>@Model.Name @Model.SurName</h2>
 
 
@@ -11,16 +13,16 @@
     <p>@Model.SurName</p>
     <p>@Model.DateBirth</p>
     <p>@Model.Sity</p>
-    <p><button id="@Model.UserId" onclick="create_form(this)">Send Message</button></p>
+    <p><button id="@Model.UserId" onclick="create_form(this)">@Html.Translate("Button_Send_Message")</button></p>
 </div>
 <div id="user_albums">
     @if (Model.Albums.Count == 0)
     {
-        <p><span>У пользователя нет альбомов</span></p>
+        <p><span>@Html.Translate("Text_User_Have_Not_Albums")</span></p>
     }
     else
     {
-        <p><span>Альбомы пользователя</span></p>
+        <p><span>@Html.Translate("Text_User_Albums")</span></p>
         foreach (var item in Model.Albums)
         {
             Html.RenderPartial("~/Views/Partial/FriendPage/friend_album.cshtml", item, new ViewDataDictionary<Slug.Model.Albums.AlbumModel>(item));
@@ -29,7 +31,7 @@
     }
 </div>
 <div id="education">
-    <span>Образование : </span>
+    <span>@Html.Translate("Text_Education") </span>
     @if (Model.Educations.Count != 0)
     {
         foreach (var item in Model.Educations)
@@ -39,11 +41,11 @@
     }
     else
     {
-        <span>не указано</span>
+        <span>@Html.Translate("Text_Not_Filled")</span>
     }
 </div>
 <div id="events">
-    <span>Важные события : </span>
+    <span>@Html.Translate("Text_Events") </span>
     @if (Model.Events.Count != 0)
     {
         foreach (var item in Model.Events)
@@ -53,11 +55,11 @@
     }
     else
     {
-        <span>не указано</span>
+        <span>@Html.Translate("Text_Not_Filled")</span>
     }
 </div>
 <div id="works">
-    <span>Работа : </span>
+    <span>@Html.Translate("Text_Jobs") </span>
     @if (Model.Works.Count != 0)
     {
         foreach (var item in Model.Works)
@@ -67,11 +69,11 @@
     }
     else
     {
-        <span>не указано</span>
+        <span>@Html.Translate("Text_Not_Filled")</span>
     }
 </div>
 <div id="live_places">
-    <span>Города где я жил : </span>
+    <span>@Html.Translate("Text_Live_Plaves") </span>
     @if (Model.Places.Count != 0)
     {
         foreach (var item in Model.Places)
@@ -81,7 +83,7 @@
     }
     else
     {
-        <span>не указано</span>
+        <span>@Html.Translate("Text_Not_Filled")</span>
     }
 
 </div>

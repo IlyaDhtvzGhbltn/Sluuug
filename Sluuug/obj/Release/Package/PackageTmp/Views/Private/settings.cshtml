@@ -3,6 +3,7 @@
     ViewBag.Title = "settings";
     Layout = "~/Views/Shared/private_view.cshtml";
 }
+@using Slug.Extensions;
 @using type = Slug.Context.Dto.Settings.NotificationTypes;
 
 <h2>settings</h2>
@@ -12,20 +13,20 @@
             <div id="notify_email">
                 @if (Model.NotifyType == type.Login)
                 {
-                    <span>Yes</span>
+                <span>@Html.Translate("Yes")</span>
                     <input type="radio" name="NotifyType" value="1" checked />
-                    <span>No</span>
+                    <span>@Html.Translate("No")</span>
                     <input type="radio" name="NotifyType" value="0" />
                 }
                 else
                 {
-                    <span>Yes</span>
+                    <span>@Html.Translate("Yes")</span>
                     <input type="radio" name="NotifyType" value="1" />
-                    <span>No</span>
+                    <span>@Html.Translate("No")</span>
                     <input type="radio" name="NotifyType" value="0" checked />
                 }
                 <p>
-                    <input type="button" value="Change" onclick="saveNotifyType()" />
+                    <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveNotifyType()" />
                 </p>
             </div>
 
@@ -36,17 +37,17 @@
             <div id="email">
                 <input type="email" name="NewEmail" placeholder="@Model.Email" />
             </div>
-            <input type="button" value="Change" onclick="saveEmail()" />
+            <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveEmail()" />
         </form>
     </div>
     <div>
         <form id="changePasswSubmit" action="" method="post">
             <div id="change_pass">
-                <input type="password" name="OldPassw" placeholder="old password" />
-                <input type="password" name="OldPasswRep" placeholder="old password repeat" />
-                <input type="password" name="NewPassw" placeholder="new password" />
+                <input type="password" name="OldPassw" placeholder="@Html.Translate("Settings_Old_Password")" />
+                <input type="password" name="OldPasswRep" placeholder="@Html.Translate("Settings_Old_Password_Rep")" />
+                <input type="password" name="NewPassw" placeholder="@Html.Translate("Settings_New_Password")" />
             </div>
-            <input type="button" value="Change" onclick="savePassword()" />
+            <input type="button" value="@Html.Translate("Settings_Change")" onclick="savePassword()" />
         </form>
     </div>
     <div>
@@ -59,8 +60,8 @@
             {
                 <input type="checkbox" name="QuickMessage" />
             }
-            <span>Quick Message</span>
-            <input type="button" value="Change" onclick="saveQuickMessage()" />
+                <span>@Html.Translate("Settings_Pre_messages")</span>
+            <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveQuickMessage()" />
         </form>
     </div>
 </div>

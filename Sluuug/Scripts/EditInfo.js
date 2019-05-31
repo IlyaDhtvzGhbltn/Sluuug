@@ -4,10 +4,10 @@
     var ed = $('#add_event_entry');
     if (ed[0] == undefined) {
         var ed_block = $('#events');
-        ed_block[0].insertAdjacentHTML('beforeend',await mem_events_form());
+        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/mem_events_form'));
     }
     else {
-        ed[0].innerHTML = await mem_events_form();
+        ed[0].innerHTML = await getPartialView('/partial/mem_events_form');
     }
     fields_alert_visible('event_requered_field', false);
 
@@ -19,10 +19,10 @@ async function newEducation() {
     var ed = $('#new_education');
     if (ed[0] == undefined) {
         var ed_block = $('#education');
-        ed_block[0].innerHTML = await education_form();
+        ed_block[0].innerHTML = await getPartialView('/partial/add_education_form');
     }
     else {
-        ed[0].innerHTML = await education_form();
+        ed[0].innerHTML = await getPartialView('/partial/add_education_form');
     }
     fields_alert_visible('edu_requered_field', false);
 }
@@ -31,10 +31,10 @@ async function newWork() {
     var ed = $('#add_work_entry');
     if (ed[0] == undefined) {
         var ed_block = $('#works');
-        ed_block[0].insertAdjacentHTML('beforeend', await work_form());
+        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/work_form'));
     }
     else {
-        ed[0].innerHTML = await work_form();
+        ed[0].innerHTML = await getPartialView('/partial/work_form');
     }
     fields_alert_visible('work_requered_field', false);
 }
@@ -43,10 +43,10 @@ async function newLivePlace() {
     var ed = $('#add_place_entry');
     if (ed[0] == undefined) {
         var ed_block = $('#live_places');
-        ed_block[0].insertAdjacentHTML('beforeend',await places_form());
+        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/places_form'));
     }
     else {
-        ed[0].innerHTML = await places_form();
+        ed[0].innerHTML = await getPartialView('/partial/places_form');
     }
     fields_alert_visible('place_requered_field', false);
 }
@@ -165,45 +165,13 @@ function getCities(countryListBoxId, citiesListBoxId) {
     });
 }
 //////////////////////////////////////////////////////////////////
-function high_level_form() {
+function getPartialView(url_addres) {
     return $.ajax({
-        url: '/partial/hight_education_level_form',
+        url: url_addres,
         data: {},
         type: "post"
     })
 }
-
-function education_form() {
-    return $.ajax({
-        url: '/partial/add_education_form',
-        data: {},
-        type: "post"
-    })
-}
-
-function mem_events_form() {
-    return $.ajax({
-        url: '/partial/mem_events_form',
-        data: {},
-        type: "post"
-    })
-};
-
-function work_form() {
-    return $.ajax({
-        url: '/partial/work_form',
-        data: {},
-        type: "post"
-    })
-};
-
-function places_form() {
-    return $.ajax({
-        url: '/partial/places_form',
-        data: {},
-        type: "post"
-    })
-};
 
 function send_simple(api_url, formID, show_button, requred_field_alert) {
     console.log('send -education form');
@@ -274,6 +242,6 @@ async function add_high_school_education() {
     let created_element = $('#high_school_education')[0];
     if (created_element == undefined) {
         let title = $('#level')[0];
-        title.insertAdjacentHTML('beforeend', await high_level_form());
+        title.insertAdjacentHTML('beforeend', await getPartialView('/partial/hight_education_level_form'));
     }
 }

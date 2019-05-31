@@ -1,10 +1,11 @@
 ﻿@model Slug.Model.CryptoChat
+@using Slug.Extensions
 
 <div class="cryptp_chat" id="@Model.GuidId" style="background-color:coral; cursor:pointer">
-    <b>Opening date : @Model.OpenDate</b>
-    <span> Chat Active : @Model.ActiveStatus</span>
+    <b>@Html.Translate("Text_Opening_Date") @Model.OpenDate</b>
+    <span>@Html.Translate("Text_Status_Secret_Chat") @Model.ActiveStatus</span>
     <p>
-        <span> Participants : </span>
+        <span>@Html.Translate("Text_Secret_Dialog_Participants") </span>
     </p>
     @foreach (var part in Model.Users)
     {

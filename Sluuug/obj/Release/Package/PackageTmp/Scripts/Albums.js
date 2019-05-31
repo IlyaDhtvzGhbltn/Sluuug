@@ -18,7 +18,10 @@ img[1] = 'edit_img_desc_';
 function ShowAlbumCreateForm() {
     let div_form = $('#create_album_form')[0];
     if (div_form.innerHTML.length == 0) {
-        changeElementVisibility('create_new_album_button', 'none');
+
+        let div_ = $('#create_new_album_button')[0];
+        div_.style.display = 'none';
+
         let htmlForm = $.get('/partial/ownalbum', function (new_album_form) {
             div_form.insertAdjacentHTML('beforeend', new_album_form);
         });
@@ -51,43 +54,20 @@ function show_form_upload_foto(alb) {
     }
 }
 /////////////////////////////////////
+
 function changeElementVisibility(element_id, v_style) {
-    let div_form = $('#' + element_id)[0];
-    div_form.style.display = v_style;
+    let div_form = $('.' + element_id);
+    [].forEach.call(div_form, function (item) {
+        item.style.display = v_style;
+    });
 }
 
-function send(api_url, formID, show_button, requred_field_alert) {
-    let val = validate(formID);
-    if (val == true) {
-        let data = $('#' + formID).serializeArray();
 
-        var form = new FormData();
-        [].forEach.call(data, function (item) {
-            form.append(item.name, item.value);
-        });
 
-        let upload_file = $('#album_label')[0].files[0];
 
-        close_form(formID, 'create_new_album_button', 'inline-block');
-        drop_elem('create_album_form');
-
-        form.append('album_label', upload_file);
-        $.ajax({
-            url: api_url,
-            type: "post",
-            processData: false,
-            contentType: false,
-            data: form,
-            success: function (response) {
-                if (response) {
-                    document.location.reload();
-                }
-            }
-        });
-    }
-    else {
-        changeElementVisibility(requred_field_alert, 'inline-block');
-    }
+function drop_high_school_education() {
+    var form = $('#high_school_education')[0];
+    form.remove();
 }
 
 function uploadFotoToAlbum(album) {
@@ -97,7 +77,8 @@ function uploadFotoToAlbum(album) {
 
     let selected_files = $('#input_photo')[0].files;
     if (selected_files.length == 0) {
-        changeElementVisibility('foto_not_upload', 'inline-block');
+        var foto_req = $("#foto_not_upload")[0];
+        foto_req.style.display = 'inline-block';
     }
     else {
         var form = new FormData();
@@ -158,29 +139,6 @@ function drop_album(albumID) {
             }
         }
     });
-}
-
-function validate(formID) {
-    let validate_errors = 0;
-    let data = $('#' + formID).serializeArray();
-    
-    let required_elems = [];
-    [].forEach.call(data, function (form_input) {
-        let input = document.getElementsByName(form_input.name)[0];
-        if (input.required) {
-            required_elems.push(input.name);
-        }
-    });
-    [].forEach.call(required_elems, function (item) {
-        let elem = document.getElementsByName(item)[0];
-        if (elem.value.length == 0) {
-            validate_errors++;
-        }
-    });
-    if (validate_errors == 0) {
-        return true;
-    }
-    else return false;
 }
 
 function close_form(formID, call_form_btn_ID, style) {

@@ -1,4 +1,7 @@
 ﻿@model Slug.Model.Albums.AlbumModel
+@using Slug.Extensions
+
+
 <div class="img_frame" style="display:inline-block;cursor:pointer;margin:10">
     @foreach (var foto in Model.Fotos)
     {
@@ -23,10 +26,10 @@
         <div class="comments" id="users_comments_@foto.ID"></div>
         <div class="my_comment">
             <div class="comment_form" id="cF_@foto.ID">
-                    @Html.Partial("~/Views/Partial/Albums/CommentEntry.cshtml", foto.FotoComments)
+                @Html.Partial("~/Views/Partial/Albums/CommentEntry.cshtml", foto.FotoComments)
             </div>
             <input type="text" id="fcomment_@foto.ID" />
-            <button onclick="commentFoto('@foto.ID')">Комментировать</button>
+            <button onclick="commentFoto('@foto.ID')">@Html.Translate("Button_Add_Comment")</button>
         </div>
     }
 </div>
