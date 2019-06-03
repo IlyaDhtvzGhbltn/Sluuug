@@ -61,6 +61,366 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account activation.
+        /// </summary>
+        internal static string Activate {
+            get {
+                return ResourceManager.GetString("Activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm your email address before continuing.
+        /// </summary>
+        internal static string Activate_Atention {
+            get {
+                return ResourceManager.GetString("Activate_Atention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can login.
+        /// </summary>
+        internal static string Activate_Can_Login {
+            get {
+                return ResourceManager.GetString("Activate_Can_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Account successfully activated.
+        /// </summary>
+        internal static string Activate_Confirm {
+            get {
+                return ResourceManager.GetString("Activate_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activation link is expired or invalid.
+        /// </summary>
+        internal static string Activate_Incorrect {
+            get {
+                return ResourceManager.GetString("Activate_Incorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, check your spam folder or try registration again..
+        /// </summary>
+        internal static string Activate_Incorrect_Check_Email {
+            get {
+                return ResourceManager.GetString("Activate_Incorrect_Check_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add contact.
+        /// </summary>
+        internal static string Button_Accept_Contact {
+            get {
+                return ResourceManager.GetString("Button_Accept_Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string Button_Accept_Invite {
+            get {
+                return ResourceManager.GetString("Button_Accept_Invite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Button_Add {
+            get {
+                return ResourceManager.GetString("Button_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        internal static string Button_Add_Comment {
+            get {
+                return ResourceManager.GetString("Button_Add_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Button_Cancel {
+            get {
+                return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Avatar.
+        /// </summary>
+        internal static string Button_Change_Avatar {
+            get {
+                return ResourceManager.GetString("Button_Change_Avatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string Button_Create {
+            get {
+                return ResourceManager.GetString("Button_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Album.
+        /// </summary>
+        internal static string Button_Create_Album {
+            get {
+                return ResourceManager.GetString("Button_Create_Album", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Button_Delete {
+            get {
+                return ResourceManager.GetString("Button_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Album.
+        /// </summary>
+        internal static string Button_Delete_Album {
+            get {
+                return ResourceManager.GetString("Button_Delete_Album", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Contact.
+        /// </summary>
+        internal static string Button_Delete_Contact {
+            get {
+                return ResourceManager.GetString("Button_Delete_Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string Button_Login {
+            get {
+                return ResourceManager.GetString("Button_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        internal static string Button_Register {
+            get {
+                return ResourceManager.GetString("Button_Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Search.
+        /// </summary>
+        internal static string Button_Saerch_Start {
+            get {
+                return ResourceManager.GetString("Button_Saerch_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Button_Save {
+            get {
+                return ResourceManager.GetString("Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        internal static string Button_Send_Message {
+            get {
+                return ResourceManager.GetString("Button_Send_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        internal static string Button_Show {
+            get {
+                return ResourceManager.GetString("Button_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Photos ...
+        /// </summary>
+        internal static string Button_Show_Album {
+            get {
+                return ResourceManager.GetString("Button_Show_Album", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Photo.
+        /// </summary>
+        internal static string Button_Upload_Foto_To_Album {
+            get {
+                return ResourceManager.GetString("Button_Upload_Foto_To_Album", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faculty.
+        /// </summary>
+        internal static string Education_Faculty {
+            get {
+                return ResourceManager.GetString("Education_Faculty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School.
+        /// </summary>
+        internal static string Education_Level_0 {
+            get {
+                return ResourceManager.GetString("Education_Level_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to College.
+        /// </summary>
+        internal static string Education_Level_1 {
+            get {
+                return ResourceManager.GetString("Education_Level_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to University.
+        /// </summary>
+        internal static string Education_Level_2 {
+            get {
+                return ResourceManager.GetString("Education_Level_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speciality.
+        /// </summary>
+        internal static string Education_Speciality {
+            get {
+                return ResourceManager.GetString("Education_Speciality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to return to main page, press.
+        /// </summary>
+        internal static string Error_Internal_Message {
+            get {
+                return ResourceManager.GetString("Error_Internal_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong.
+        /// </summary>
+        internal static string Error_Internal_Title {
+            get {
+                return ResourceManager.GetString("Error_Internal_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This page is inaccessible for unauthorized users. To login click.
+        /// </summary>
+        internal static string Error_Not_Authorized_Message {
+            get {
+                return ResourceManager.GetString("Error_Not_Authorized_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unauthorized User.
+        /// </summary>
+        internal static string Error_Not_Authorized_Title {
+            get {
+                return ResourceManager.GetString("Error_Not_Authorized_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page not found if your browser does not support redirection, press.
+        /// </summary>
+        internal static string Error_Not_Fount_Message {
+            get {
+                return ResourceManager.GetString("Error_Not_Fount_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found.
+        /// </summary>
+        internal static string Error_Not_Fount_Title {
+            get {
+                return ResourceManager.GetString("Error_Not_Fount_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.
+        /// </summary>
+        internal static string Event_Title {
+            get {
+                return ResourceManager.GetString("Event_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event Date.
+        /// </summary>
+        internal static string Events_Date {
+            get {
+                return ResourceManager.GetString("Events_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video - connection.
+        /// </summary>
+        internal static string Header_Video_Connection {
+            get {
+                return ResourceManager.GetString("Header_Video_Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to here..
+        /// </summary>
+        internal static string Here {
+            get {
+                return ResourceManager.GetString("Here", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string Login {
@@ -70,11 +430,722 @@ namespace Slug.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register.
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        internal static string Navigate_Contacts {
+            get {
+                return ResourceManager.GetString("Navigate_Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crypto Chat.
+        /// </summary>
+        internal static string Navigate_Crypto {
+            get {
+                return ResourceManager.GetString("Navigate_Crypto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string Navigate_LogOut {
+            get {
+                return ResourceManager.GetString("Navigate_LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Profile.
+        /// </summary>
+        internal static string Navigate_Main {
+            get {
+                return ResourceManager.GetString("Navigate_Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages.
+        /// </summary>
+        internal static string Navigate_Mess {
+            get {
+                return ResourceManager.GetString("Navigate_Mess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dating search.
+        /// </summary>
+        internal static string Navigate_Seasrch {
+            get {
+                return ResourceManager.GetString("Navigate_Seasrch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Navigate_Settings {
+            get {
+                return ResourceManager.GetString("Navigate_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video - connection.
+        /// </summary>
+        internal static string Navigate_Video {
+            get {
+                return ResourceManager.GetString("Navigate_Video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you haven&apos;t Account, register..
+        /// </summary>
+        internal static string Pre_Login_msg {
+            get {
+                return ResourceManager.GetString("Pre_Login_msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
         /// </summary>
         internal static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your email.
+        /// </summary>
+        internal static string Register_email {
+            get {
+                return ResourceManager.GetString("Register_email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Think up your login.
+        /// </summary>
+        internal static string Register_Login {
+            get {
+                return ResourceManager.GetString("Register_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Name.
+        /// </summary>
+        internal static string Register_Name {
+            get {
+                return ResourceManager.GetString("Register_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Think up your password.
+        /// </summary>
+        internal static string Register_Password {
+            get {
+                return ResourceManager.GetString("Register_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Surname.
+        /// </summary>
+        internal static string Register_Surname {
+            get {
+                return ResourceManager.GetString("Register_Surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        internal static string Saerch_Ages {
+            get {
+                return ResourceManager.GetString("Saerch_Ages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string Saerch_City {
+            get {
+                return ResourceManager.GetString("Saerch_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        internal static string Saerch_Country {
+            get {
+                return ResourceManager.GetString("Saerch_Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Saerch_Name {
+            get {
+                return ResourceManager.GetString("Saerch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sex.
+        /// </summary>
+        internal static string Saerch_Sex {
+            get {
+                return ResourceManager.GetString("Saerch_Sex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search People.
+        /// </summary>
+        internal static string Search_Title {
+            get {
+                return ResourceManager.GetString("Search_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Setting.
+        /// </summary>
+        internal static string Settings_Change {
+            get {
+                return ResourceManager.GetString("Settings_Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Old Password again.
+        /// </summary>
+        internal static string Settings_New_Password {
+            get {
+                return ResourceManager.GetString("Settings_New_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The old Password.
+        /// </summary>
+        internal static string Settings_Old_Password {
+            get {
+                return ResourceManager.GetString("Settings_Old_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new Password.
+        /// </summary>
+        internal static string Settings_Old_Password_Rep {
+            get {
+                return ResourceManager.GetString("Settings_Old_Password_Rep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick messages.
+        /// </summary>
+        internal static string Settings_Pre_messages {
+            get {
+                return ResourceManager.GetString("Settings_Pre_messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to Contacts.
+        /// </summary>
+        internal static string Text_Add_Contact {
+            get {
+                return ResourceManager.GetString("Text_Add_Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Description.
+        /// </summary>
+        internal static string Text_Add_Description {
+            get {
+                return ResourceManager.GetString("Text_Add_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Title.
+        /// </summary>
+        internal static string Text_Add_Title {
+            get {
+                return ResourceManager.GetString("Text_Add_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Album is empty.
+        /// </summary>
+        internal static string Text_Album_Empty {
+            get {
+                return ResourceManager.GetString("Text_Album_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available to Call.
+        /// </summary>
+        internal static string Text_Avaliable_To_Call {
+            get {
+                return ResourceManager.GetString("Text_Avaliable_To_Call", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to History of Video - conversations.
+        /// </summary>
+        internal static string Text_Call_History {
+            get {
+                return ResourceManager.GetString("Text_Call_History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User did not accept your invitation.
+        /// </summary>
+        internal static string Text_Contact_Not_Accepted {
+            get {
+                return ResourceManager.GetString("Text_Contact_Not_Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        internal static string Text_Created {
+            get {
+                return ResourceManager.GetString("Text_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Contacts.
+        /// </summary>
+        internal static string Text_Current_Contacts {
+            get {
+                return ResourceManager.GetString("Text_Current_Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Education.
+        /// </summary>
+        internal static string Text_Education {
+            get {
+                return ResourceManager.GetString("Text_Education", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Education Level.
+        /// </summary>
+        internal static string Text_Education_Level {
+            get {
+                return ResourceManager.GetString("Text_Education_Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Educational institution.
+        /// </summary>
+        internal static string Text_Education_Title {
+            get {
+                return ResourceManager.GetString("Text_Education_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Date.
+        /// </summary>
+        internal static string Text_End_Date {
+            get {
+                return ResourceManager.GetString("Text_End_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Events.
+        /// </summary>
+        internal static string Text_Events {
+            get {
+                return ResourceManager.GetString("Text_Events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required to fill.
+        /// </summary>
+        internal static string Text_Fielsd_Requered {
+            get {
+                return ResourceManager.GetString("Text_Fielsd_Requered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Till now.
+        /// </summary>
+        internal static string Text_For_Now_Time {
+            get {
+                return ResourceManager.GetString("Text_For_Now_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string Text_Foto_Description {
+            get {
+                return ResourceManager.GetString("Text_Foto_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo Title.
+        /// </summary>
+        internal static string Text_Foto_Title {
+            get {
+                return ResourceManager.GetString("Text_Foto_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming invitation.
+        /// </summary>
+        internal static string Text_Incomm_To_Friend {
+            get {
+                return ResourceManager.GetString("Text_Incomm_To_Friend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming calls.
+        /// </summary>
+        internal static string Text_Incomming_To_Me_Call {
+            get {
+                return ResourceManager.GetString("Text_Incomming_To_Me_Call", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Invitation to crypto-chat to one of Contacts.
+        /// </summary>
+        internal static string Text_Invite_To_Secret_Help_To_Button {
+            get {
+                return ResourceManager.GetString("Text_Invite_To_Secret_Help_To_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        internal static string Text_Jobs {
+            get {
+                return ResourceManager.GetString("Text_Jobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Places.
+        /// </summary>
+        internal static string Text_Live_Plaves {
+            get {
+                return ResourceManager.GetString("Text_Live_Plaves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I am.
+        /// </summary>
+        internal static string Text_Me_In_Video {
+            get {
+                return ResourceManager.GetString("Text_Me_In_Video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Contacts.
+        /// </summary>
+        internal static string Text_My_Contacts {
+            get {
+                return ResourceManager.GetString("Text_My_Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Albums.
+        /// </summary>
+        internal static string Text_My_Fotos {
+            get {
+                return ResourceManager.GetString("Text_My_Fotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Messages.
+        /// </summary>
+        internal static string Text_My_Message_Title {
+            get {
+                return ResourceManager.GetString("Text_My_Message_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Album Description.
+        /// </summary>
+        internal static string Text_New_Album_Description {
+            get {
+                return ResourceManager.GetString("Text_New_Album_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Album Label.
+        /// </summary>
+        internal static string Text_New_Album_Label {
+            get {
+                return ResourceManager.GetString("Text_New_Album_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Album Title.
+        /// </summary>
+        internal static string Text_New_Album_Title {
+            get {
+                return ResourceManager.GetString("Text_New_Album_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming Call from :.
+        /// </summary>
+        internal static string Text_Not_Answered_Call {
+            get {
+                return ResourceManager.GetString("Text_Not_Answered_Call", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty.
+        /// </summary>
+        internal static string Text_Not_Filled {
+            get {
+                return ResourceManager.GetString("Text_Not_Filled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Photo.
+        /// </summary>
+        internal static string Text_Open_Image {
+            get {
+                return ResourceManager.GetString("Text_Open_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation Date.
+        /// </summary>
+        internal static string Text_Opening_Date {
+            get {
+                return ResourceManager.GetString("Text_Opening_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outcoming invitation.
+        /// </summary>
+        internal static string Text_Outcomm_Investigation {
+            get {
+                return ResourceManager.GetString("Text_Outcomm_Investigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted Connection.
+        /// </summary>
+        internal static string Text_Secret_Chat_Title {
+            get {
+                return ResourceManager.GetString("Text_Secret_Chat_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participants.
+        /// </summary>
+        internal static string Text_Secret_Dialog_Participants {
+            get {
+                return ResourceManager.GetString("Text_Secret_Dialog_Participants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted Dialog.
+        /// </summary>
+        internal static string Text_Secret_Dialog_Title {
+            get {
+                return ResourceManager.GetString("Text_Secret_Dialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You created encrypted Dialog with :.
+        /// </summary>
+        internal static string Text_Self_Signed_Secret_Chat {
+            get {
+                return ResourceManager.GetString("Text_Self_Signed_Secret_Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        internal static string Text_Start_Date {
+            get {
+                return ResourceManager.GetString("Text_Start_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dialog status.
+        /// </summary>
+        internal static string Text_Status_Secret_Chat {
+            get {
+                return ResourceManager.GetString("Text_Status_Secret_Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User&apos;s Albums.
+        /// </summary>
+        internal static string Text_User_Albums {
+            get {
+                return ResourceManager.GetString("Text_User_Albums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User haven&apos;t any Albums.
+        /// </summary>
+        internal static string Text_User_Have_Not_Albums {
+            get {
+                return ResourceManager.GetString("Text_User_Have_Not_Albums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video-Connection.
+        /// </summary>
+        internal static string Text_Video_Connect {
+            get {
+                return ResourceManager.GetString("Text_Video_Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming Call.
+        /// </summary>
+        internal static string Text_Video_Hist_Incomming {
+            get {
+                return ResourceManager.GetString("Text_Video_Hist_Incomming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outcoming Call.
+        /// </summary>
+        internal static string Text_Video_Hist_Outcomming {
+            get {
+                return ResourceManager.GetString("Text_Video_Hist_Outcomming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        internal static string Text_Work_Company_Title {
+            get {
+                return ResourceManager.GetString("Text_Work_Company_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        internal static string Text_Work_Position {
+            get {
+                return ResourceManager.GetString("Text_Work_Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You got invitation to encrypted-dialog with :.
+        /// </summary>
+        internal static string Text_You_Got_Invite_Secret_Chat {
+            get {
+                return ResourceManager.GetString("Text_You_Got_Invite_Secret_Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Comment.
+        /// </summary>
+        internal static string Text_Your_Comment {
+            get {
+                return ResourceManager.GetString("Text_Your_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Login.
+        /// </summary>
+        internal static string Your_Login {
+            get {
+                return ResourceManager.GetString("Your_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Password.
+        /// </summary>
+        internal static string Your_Password {
+            get {
+                return ResourceManager.GetString("Your_Password", resourceCulture);
             }
         }
     }

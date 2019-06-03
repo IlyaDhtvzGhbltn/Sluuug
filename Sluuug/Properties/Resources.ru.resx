@@ -168,9 +168,6 @@
   <data name="Button_Delete_Contact" xml:space="preserve">
     <value>Удалить контакт</value>
   </data>
-  <data name="Button_Delte" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
   <data name="Button_Login" xml:space="preserve">
     <value>Войти</value>
   </data>
