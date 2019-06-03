@@ -9,11 +9,16 @@ using CloudinaryDotNet.Actions;
 using Newtonsoft.Json;
 using System.IO;
 using Slug.Context.Dto.Cloudinary;
+using System.Text.RegularExpressions;
 
 namespace Slug.Helpers
 {
     public class SlugController : Controller
     {
+        public static Regex ValidateSymbols = new Regex(@"[^\w\s,.]");
+
+
+
         public SessionsHandler SessionHandler { get; set; } = new SessionsHandler();
         public ActivationHandler ActivationMailHandler { get; set; } = new ActivationHandler();
         public UsersHandler UsersHandler { get; set; } = new UsersHandler();

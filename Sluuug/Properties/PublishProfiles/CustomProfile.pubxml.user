@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>05/29/2019 15:53:37</publishTime>
+      <publishTime>06/03/2019 13:54:59</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>05/29/2019 15:53:37</publishTime>
+      <publishTime>06/03/2019 13:54:59</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>05/29/2019 15:53:37</publishTime>
+      <publishTime>06/03/2019 13:54:59</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>04/23/2019 17:45:01</publishTime>
@@ -275,7 +275,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/13/2019 12:05:09</publishTime>
     </File>
     <File Include="Scripts/EditInfo.js">
-      <publishTime>05/29/2019 15:49:45</publishTime>
+      <publishTime>05/31/2019 15:10:42</publishTime>
     </File>
     <File Include="Scripts/FriendAlbum.js">
       <publishTime>05/22/2019 11:50:03</publishTime>
@@ -353,7 +353,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/27/2019 18:57:05</publishTime>
     </File>
     <File Include="Views/Guest/Index.cshtml">
-      <publishTime>05/27/2019 17:52:05</publishTime>
+      <publishTime>06/03/2019 13:54:25</publishTime>
     </File>
     <File Include="Views/Guest/Login.cshtml">
       <publishTime>05/28/2019 18:30:48</publishTime>
@@ -374,7 +374,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2019 20:35:23</publishTime>
     </File>
     <File Include="Views/Partial/Albums/Expand.cshtml">
-      <publishTime>05/28/2019 20:34:12</publishTime>
+      <publishTime>06/03/2019 12:23:33</publishTime>
     </File>
     <File Include="Views/Partial/Albums/FriendExpand.cshtml">
       <publishTime>05/28/2019 20:27:45</publishTime>
@@ -440,10 +440,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/29/2019 14:57:03</publishTime>
     </File>
     <File Include="Views/Partial/OwnPage/AddInfo/work_form.cshtml">
-      <publishTime>05/29/2019 15:53:22</publishTime>
+      <publishTime>05/31/2019 15:07:49</publishTime>
     </File>
     <File Include="Views/Partial/OwnPage/education.cshtml">
-      <publishTime>05/29/2019 13:57:52</publishTime>
+      <publishTime>05/31/2019 15:25:38</publishTime>
     </File>
     <File Include="Views/Partial/OwnPage/events.cshtml">
       <publishTime>05/28/2019 20:18:12</publishTime>
@@ -488,7 +488,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2019 18:13:48</publishTime>
     </File>
     <File Include="Views/Private/my.cshtml">
-      <publishTime>05/21/2019 11:27:15</publishTime>
+      <publishTime>05/29/2019 13:59:49</publishTime>
     </File>
     <File Include="Views/Private/search.cshtml">
       <publishTime>05/28/2019 17:54:14</publishTime>
@@ -506,7 +506,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/27/2019 20:16:18</publishTime>
     </File>
     <File Include="Views/Shared/logo.cshtml">
-      <publishTime>05/27/2019 17:51:58</publishTime>
+      <publishTime>06/03/2019 13:54:47</publishTime>
     </File>
     <File Include="Views/Shared/private_view.cshtml">
       <publishTime>05/27/2019 19:00:37</publishTime>

@@ -19,6 +19,7 @@ using Slug.Model.Albums;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Dto.Albums;
 using Slug.Context.Dto.Fotos;
+using Slug.Context.Dto;
 
 namespace Slug.Controllers
 {
@@ -193,6 +194,13 @@ namespace Slug.Controllers
         {
             var result = AlbumsHandler.PostNewComments(GetCookiesValue(Request), model);
             return new JsonResult { Data = result };
+        }
+
+        [HttpPost]
+        public JsonResult save_parameter(UserParams paramNumer, string newValue)
+        {
+            var resp = UsersHandler.ChangeParameter(GetCookiesValue(Request), paramNumer, newValue);
+            return new JsonResult { Data = resp };
         }
     }
 }

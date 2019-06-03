@@ -242,6 +242,6 @@ async function add_high_school_education() {
     let created_element = $('#high_school_education')[0];
     if (created_element == undefined) {
         let title = $('#level')[0];
-        title.insertAdjacentHTML('beforeend', await high_level_form('/partial/hight_education_level_form'));
+        title.insertAdjacentHTML('beforeend', await getPartialView('/partial/hight_education_level_form'));
     }
 }

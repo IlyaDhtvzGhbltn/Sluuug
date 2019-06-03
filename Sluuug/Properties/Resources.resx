@@ -321,6 +321,9 @@
   <data name="Settings_Pre_messages" xml:space="preserve">
     <value>Quick messages</value>
   </data>
+  <data name="Site_Title" xml:space="preserve">
+    <value>Comet Connect</value>
+  </data>
   <data name="Text_Add_Contact" xml:space="preserve">
     <value>Add to Contacts</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="Text_Live_Plaves" xml:space="preserve">
     <value>Places</value>
+  </data>
+  <data name="Text_Login_Taken" xml:space="preserve">
+    <value>Current login already taken</value>
   </data>
   <data name="Text_Me_In_Video" xml:space="preserve">
     <value>I am</value>
@@ -479,5 +485,14 @@
   </data>
   <data name="Your_Password" xml:space="preserve">
     <value>Your Password</value>
+  </data>
+  <data name="Text_User_Exist" xml:space="preserve">
+    <value>User with current parameters, already registered.</value>
+  </data>
+  <data name="Text_Email_Already_Taken" xml:space="preserve">
+    <value>Current Email already taken</value>
+  </data>
+  <data name="Text_Some_Error" xml:space="preserve">
+    <value>Error!</value>
   </data>
 </root>

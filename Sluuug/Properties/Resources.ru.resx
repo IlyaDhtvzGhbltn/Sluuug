@@ -480,4 +480,19 @@
   <data name="Your_Password" xml:space="preserve">
     <value>Ваш пароль</value>
   </data>
+  <data name="Site_Title" xml:space="preserve">
+    <value>Comet Connect</value>
+  </data>
+  <data name="Text_Login_Taken" xml:space="preserve">
+    <value>Логин уже занят</value>
+  </data>
+  <data name="Text_User_Exist" xml:space="preserve">
+    <value>Пользователь с указанными параметрами уже зарегестрирован</value>
+  </data>
+  <data name="Text_Email_Already_Taken" xml:space="preserve">
+    <value>Адрес Электронной почты уже занят</value>
+  </data>
+  <data name="Text_Some_Error" xml:space="preserve">
+    <value>Ошибка!</value>
+  </data>
 </root>

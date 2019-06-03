@@ -39,7 +39,6 @@ namespace Slug.Controllers
         [HttpPost]
         public ActionResult userconfirmation(RegisteringUserModel user)
         {
-
             if (isUserEmpty(user))
             {
                 return RedirectToAction("register", "guest");
@@ -47,10 +46,15 @@ namespace Slug.Controllers
             else
             {
                 UserConfirmationDitails userConfirmation = UsersHandler.RegisterNew(user);
-
-                var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
-                mailer.SendActivationMail();
-                return RedirectToAction("login", "guest", new { a = userConfirmation.ActivationSessionId });
+                if (userConfirmation != null)
+                {
+                    var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
+                    mailer.SendActivationMail();
+                    return RedirectToAction("login", "guest", new
+                    { a = userConfirmation.ActivationSessionId });
+                }
+                else
+                    return RedirectToAction("user_already_exist", "error");
             }
         }
 

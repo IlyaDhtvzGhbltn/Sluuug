@@ -46,7 +46,6 @@ function expandAlbum(album) {
 
             let view_album = $('#view_' + album)[0];
             view_album.insertAdjacentHTML('beforebegin', html);
-            //loadComments(foto.ID)
         }
     });
 }

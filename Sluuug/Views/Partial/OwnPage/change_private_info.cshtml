@@ -1,0 +1,7 @@
+﻿
+@using Slug.Extensions
+<div>
+    <input type="text" class="change_param_inp" id="inp_param_@ViewBag.Num" />
+    <button onclick="save_edit_info(@ViewBag.Num)" id="@ViewBag.Num">@Html.Translate("Button_Save")</button>
+    <button onclick="rollUpFoto('param_@ViewBag.Num')">@Html.Translate("Button_Cancel")</button>
+</div>

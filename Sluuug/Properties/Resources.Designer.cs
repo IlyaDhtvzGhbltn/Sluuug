@@ -673,6 +673,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comet Connect.
+        /// </summary>
+        internal static string Site_Title {
+            get {
+                return ResourceManager.GetString("Site_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to Contacts.
         /// </summary>
         internal static string Text_Add_Contact {
@@ -781,6 +790,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Email already taken.
+        /// </summary>
+        internal static string Text_Email_Already_Taken {
+            get {
+                return ResourceManager.GetString("Text_Email_Already_Taken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Date.
         /// </summary>
         internal static string Text_End_Date {
@@ -876,6 +894,15 @@ namespace Slug.Properties {
         internal static string Text_Live_Plaves {
             get {
                 return ResourceManager.GetString("Text_Live_Plaves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current login already taken.
+        /// </summary>
+        internal static string Text_Login_Taken {
+            get {
+                return ResourceManager.GetString("Text_Login_Taken", resourceCulture);
             }
         }
         
@@ -1024,6 +1051,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error!.
+        /// </summary>
+        internal static string Text_Some_Error {
+            get {
+                return ResourceManager.GetString("Text_Some_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Date.
         /// </summary>
         internal static string Text_Start_Date {
@@ -1047,6 +1083,15 @@ namespace Slug.Properties {
         internal static string Text_User_Albums {
             get {
                 return ResourceManager.GetString("Text_User_Albums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with current parameters, already registered..
+        /// </summary>
+        internal static string Text_User_Exist {
+            get {
+                return ResourceManager.GetString("Text_User_Exist", resourceCulture);
             }
         }
         

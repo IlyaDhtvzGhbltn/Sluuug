@@ -1,5 +1,6 @@
 ﻿using Context;
 using Slug.Context;
+using Slug.Context.Dto;
 using Slug.Context.Dto.Messages;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
@@ -13,6 +14,8 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
 
 namespace Slug.Helpers
 {
@@ -25,42 +28,47 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                var newUser = new Context.Tables.User();
-                newUser.Settings = new UserSettings();
-                newUser.UserFullInfo = new UserInfo();
-
-                newUser.CountryCode = user.CountryCode;
-                newUser.UserFullInfo.DateOfBirth = user.DateBirth;
-                newUser.Settings.Email = user.Email;
-                newUser.UserFullInfo.Name = user.Name;
-                newUser.UserFullInfo.SurName = user.ForName;
-                newUser.Login = user.Login;
-                newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
-
-                newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
-
-                context.Users.Add(newUser);
-                var sesWk = new SessionsHandler();
-                activationSessionId = sesWk.OpenSession(SessionTypes.AwaitEmailConfirm, 0);
-                try
+                var loginAlreadyUsed = context.Users.FirstOrDefault(x => x.Login == user.Login);
+                var emailAlreadyUsed = context.Users.FirstOrDefault(x => x.Settings.Email == user.Email);
+                if (loginAlreadyUsed == null && emailAlreadyUsed == null)
                 {
-                    context.SaveChanges();
-                    var linkMail = new ActivationHandler();
-                    List<User> User = context.Users
-                        .Where(x => x.Settings.Email == user.Email).ToList();
+                    var newUser = new User();
+                    newUser.Settings = new UserSettings();
+                    newUser.UserFullInfo = new UserInfo();
 
+                    newUser.CountryCode = user.CountryCode;
+                    newUser.UserFullInfo.DateOfBirth = user.DateBirth;
+                    newUser.Settings.Email = user.Email;
+                    newUser.UserFullInfo.Name = user.Name;
+                    newUser.UserFullInfo.SurName = user.ForName;
+                    newUser.Login = user.Login;
+                    newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
 
-                    activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
+                    newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
 
-                    context.SaveChanges();
+                    context.Users.Add(newUser);
+                    var sesWk = new SessionsHandler();
+                    activationSessionId = sesWk.OpenSession(SessionTypes.AwaitEmailConfirm, 0);
+                    try
+                    {
+                        context.SaveChanges();
+                        var linkMail = new ActivationHandler();
+                        List<User> User = context.Users
+                            .Where(x => x.Settings.Email == user.Email).ToList();
 
-                }
-                catch (DbEntityValidationException e)
-                {
+                        activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
 
+                        context.SaveChanges();
+                        return new UserConfirmationDitails { ActivatioMailParam = activationMailParam, ActivationSessionId = activationSessionId };
+
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+
+                    }
                 }
             }
-            return new UserConfirmationDitails { ActivatioMailParam = activationMailParam, ActivationSessionId = activationSessionId };
+            return null;
         }
 
         public void ConfirmUser(int id)
@@ -656,6 +664,54 @@ namespace Slug.Helpers
                 responce.ConnectionIds = connections;
                 responce.FromUser = accepterUser;
                 return responce;
+            }
+        }
+
+        public ChangeParameterResponce ChangeParameter(string session, UserParams parameter, string newValue)
+        {
+            MatchCollection matches = SlugController.ValidateSymbols.Matches(newValue);
+            if (matches.Count > 0)
+            {
+                return new ChangeParameterResponce
+                {
+                    IsSuccess = false,
+                    Message = ChangeParameterResponce.Errors.INVALID_CHARACTERS
+                };
+            }
+            else
+            {
+                using (var context = new DataBaseContext())
+                {
+                    FullUserInfoModel user = GetFullUserInfo(session);
+                    
+                    if (user == null)
+                    {
+                        return new ChangeParameterResponce
+                        {
+                            IsSuccess = false,
+                            Message = ChangeParameterResponce.Errors.ACCESS_DENIED
+                        };
+                    }
+                    else
+                    {
+                        User s_user = context.Users.First(x => x.Id == user.UserId);
+                        switch (parameter)
+                        {
+                            case UserParams.UserName :
+                                s_user.UserFullInfo.Name = newValue;
+                                break;
+                            case UserParams.UserSurname:
+                                s_user.UserFullInfo.SurName = newValue;
+                                break;
+                        }
+                        context.SaveChanges();
+                        return new ChangeParameterResponce()
+                        {
+                            IsSuccess = true,
+                            Message = parameter.ToString()
+                        };
+                    }
+                }
             }
         }
     }

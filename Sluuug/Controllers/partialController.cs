@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Slug.Extensions;
+using Slug.Context.Dto;
 
 namespace Slug.Controllers
 {
@@ -158,6 +159,31 @@ namespace Slug.Controllers
         public ActionResult Places_Form()
         {
             return View("~/Views/Partial/OwnPage/AddInfo/places_form.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Login_Already_Taken()
+        {
+            return View("~/Views/Partial/Register/login_already_taken.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Email_Already_Taken()
+        {
+            return View("~/Views/Partial/Register/email_already_taken.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Change_Parameter(UserParams param)
+        {
+            ViewBag.Num = (int)param;
+            return View("~/Views/Partial/OwnPage/change_private_info.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Internal_Error()
+        {
+            return View("~/Views/Error/internal_part_error.cshtml");
         }
     }
 }

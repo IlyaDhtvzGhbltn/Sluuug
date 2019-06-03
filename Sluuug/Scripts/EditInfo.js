@@ -201,30 +201,6 @@ function send_simple(api_url, formID, show_button, requred_field_alert) {
     }
 }
 
-function validate(formID) {
-    console.log('validete album');
-
-    let validate_errors = 0;
-    let data = $('#' + formID).serializeArray();
-
-    let required_elems = [];
-    [].forEach.call(data, function (form_input) {
-        let input = document.getElementsByName(form_input.name)[0];
-        if (input.required) {
-            required_elems.push(input.name);
-        }
-    });
-    [].forEach.call(required_elems, function (item) {
-        let elem = document.getElementsByName(item)[0];
-        if (elem.value.length == 0) {
-            validate_errors++;
-        }
-    });
-    if (validate_errors == 0) {
-        return true;
-    }
-    else return false;
-}
 
 function onEducationLevelChange(value) {
     let int = parseInt(value);

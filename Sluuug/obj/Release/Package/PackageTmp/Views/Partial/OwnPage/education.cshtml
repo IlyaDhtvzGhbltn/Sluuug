@@ -4,6 +4,15 @@
 <div class="education_div">
     <p>@Model.Title <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
     <p>@Model.Country @Model.Sity</p>
+    @if (Model.EducationType != Slug.Context.Dto.UserFullInfo.EducationTypes.School)
+    {
+    <p>
+        @Html.Translate("Education_Faculty") @Model.Faculty
+    </p>
+    <p>
+        @Html.Translate("Education_Speciality") @Model.Specialty
+    </p>
+    }
 
     @if (Model.UntilNow == false)
     {

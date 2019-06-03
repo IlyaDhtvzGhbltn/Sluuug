@@ -200,11 +200,13 @@
     <Compile Include="Context\Dto\Albums\CreateAlbumResponse.cs" />
     <Compile Include="Context\Dto\Albums\DropAlbumResponse.cs" />
     <Compile Include="Context\Dto\Albums\UploadAlbumResponse.cs" />
+    <Compile Include="Context\Dto\ChangeParameterResponce.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudDeleteImage.cs" />
     <Compile Include="Context\Dto\Comments\PostCommentsResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
+    <Compile Include="Context\Dto\EnumParameters.cs" />
     <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
     <Compile Include="Controllers\partialController.cs" />
+    <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
@@ -387,6 +390,11 @@
     <Content Include="Views\Partial\OwnPage\AddInfo\mem_events_form.cshtml" />
     <Content Include="Views\Partial\OwnPage\AddInfo\work_form.cshtml" />
     <Content Include="Views\Partial\OwnPage\AddInfo\places_form.cshtml" />
+    <Content Include="Views\Partial\Register\login_already_taken.cshtml" />
+    <Content Include="Views\Error\user_already_exist.cshtml" />
+    <Content Include="Views\Partial\Register\email_already_taken.cshtml" />
+    <Content Include="Views\Partial\OwnPage\change_private_info.cshtml" />
+    <Content Include="Views\Error\internal_part_error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -396,6 +404,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\public_api\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905251638544_n.resx">
@@ -405,10 +414,12 @@
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

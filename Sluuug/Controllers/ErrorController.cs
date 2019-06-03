@@ -25,5 +25,11 @@ namespace Sluuug.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult user_already_exist()
+        {
+            return View();
+        }
     }
 }
