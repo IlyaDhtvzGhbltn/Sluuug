@@ -21,7 +21,7 @@
 <div id="incomming">
     @foreach (var item in Model.IncomingCalls)
     {
-        Html.RenderPartial("~/Views/Partial/VideoConference/incomming_call.cshtml", item, new ViewDataDictionary<Slug.Model.VideoConference.IncomingInvite>(item));
+        Html.RenderPartial("~/Views/Partial/VideoConference/incomming_call.cshtml", item, new ViewDataDictionary<Slug.Model.VideoConference.IncomingInviteModel>(item));
     }
 </div>
 <h3>@Html.Translate("Text_Call_History")</h3>

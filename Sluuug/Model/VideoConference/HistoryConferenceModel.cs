@@ -12,6 +12,6 @@ namespace Slug.Model.VideoConference
 
         public List<CallModel> CallsHistory { get; set; }
 
-        public List<IncomingInvite> IncomingCalls { get; set; }
+        public List<IncomingInviteModel> IncomingCalls { get; set; }
     }
 }

@@ -15,14 +15,21 @@
         }
     </p>
     <p>
-        <span>@Model.Name </span>
+        <span class="parameter" id="0" style="cursor:pointer" onclick="edit_private_info(this.id)">@Model.Name </span>
+        <div id="param_0"></div>
     </p>
     <p>
-        <span>@Model.SurName </span>
+        <span class="parameter" id="1" style="cursor:pointer" onclick="edit_private_info(this.id)">@Model.SurName </span>
+        <div id="param_1"></div>
+
     </p>
     <p>
-        <span>@Model.Country</span>
-        <span>@Model.Sity </span>
+        <span class="parameter" id="2" style="cursor:pointer" >@Model.Country</span>
+        <div id="param_2"></div>
+    </p>
+        <span class="parameter" id="3" style="cursor:pointer" >@Model.Sity </span>
+        <div id="param_3"></div>
+    <p>
         <span>@Model.FullAges</span>
     </p>
 </div>
@@ -86,3 +93,51 @@
 <script src="~/Scripts/Common/CommonAlbums.js"></script>
 <script src="~/Scripts/EditInfo.js"></script>
 <script src="~/Scripts/Albums.js"></script>
+<script>
+    function edit_private_info(id) {
+        $.ajax({
+            url: "/partial/change_parameter",
+            data: { param: id },
+            type: "post"
+        })
+            .done(function (resp) {
+            $('#param_' + id)[0].innerHTML = resp;
+            });
+    }
+
+    function save_edit_info(id) {
+        let new_val = $('#inp_param_' + id)[0].value;
+
+        $.ajax({
+            url: "/api/save_parameter",
+            data: { paramNumer: id, newValue: new_val},
+            type: "post"
+        })
+            .done(function (resp) {
+                if (resp.IsSuccess) {
+                    document.location.reload();
+                }
+                else {
+                    $.ajax({
+                        url: "/partial/internal_error",
+                        data: {},
+                        type: "post",
+                        success: function (resp) {
+                            gotError(resp, id);
+                        }
+                    })
+                }
+            })
+    }
+
+    function gotError(resp, id) {
+        let form_change = $("#param_" + id)[0];
+
+        form_change.innerHTML = resp;
+        setTimeout(function () {
+            let paramID = 'param_' + id;
+            console.log(paramID);
+            rollUpFoto(paramID)
+        }, 2000)
+    }
+</script>

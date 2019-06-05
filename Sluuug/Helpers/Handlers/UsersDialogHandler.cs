@@ -50,7 +50,7 @@ namespace Slug.Helpers
                     var msg = new DialogMessage();
                     msg.Text = message.Text;
                     msg.SendTime = message.SendingDate.ToString("yyyy-mm-dd");
-                    msg.UserId = message.ConvarsationGuidId;
+                    msg.ConversationId = message.ConvarsationGuidId;
                     msg.AvatarPath = UserWorker.GetUserInfo(message.UserId).AvatarUri;
                     msg.UserName = UserWorker.GetUserInfo(message.UserId).Name;
                     msg.Text = message.Text;

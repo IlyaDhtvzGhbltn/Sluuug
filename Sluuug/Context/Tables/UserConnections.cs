@@ -16,6 +16,12 @@ namespace Slug.Context.Tables
         public Guid ConnectionID { get; set; }
 
         [Required]
+        public string IpAddress { get; set; }
+
+        [Required]
+        public string CultureCode { get; set; }
+
+        [Required]
         public int UserID { get; set; }
 
         [Required]

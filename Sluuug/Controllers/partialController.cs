@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Slug.Extensions;
 using Slug.Context.Dto;
+using Slug.Model;
 
 namespace Slug.Controllers
 {

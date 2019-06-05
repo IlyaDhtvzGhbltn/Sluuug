@@ -14,19 +14,28 @@ using Sluuug.Hubs;
 using Slug.Helpers.BaseController;
 using Context;
 using Slug.Model.Users;
+using NLog;
 
 namespace Slug.Hubs
 {
     [HubName("notificationHub")]
     public class NotificationHub : Hub
     {
-
         public void OpenConnect()
         {
             var UCW = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             string connection = Context.ConnectionId;
-            UCW.AddConnection(connection, session);
+
+            object tempObject;
+
+            Context.Request.Environment.TryGetValue("server.RemoteIpAddress", out tempObject);
+            string ipAddress = (string)tempObject;
+
+            //Logger logger = LogManager.GetCurrentClassLogger();
+            //logger.Debug(ipAddress);
+
+            UCW.AddConnection(connection, session, ipAddress);
         }
 
         public void CloseConnect()
@@ -78,11 +87,14 @@ namespace Slug.Hubs
                 var messageHub = new MessagersHub(base.Context, base.Clients);
                 PartialHubResponse userMessageHubResp = await messageHub.SendMessage(message, convId, toUserId);
 
-                Clients.Clients(userMessageHubResp.ConnectionIds).NotifyAbout(
-                    "MSG",
-                    userMessageHubResp.FromUser.Name,
-                    userMessageHubResp.FromUser.SurName,
-                    userMessageHubResp.FromUser.AvatarUri, null);
+                if (userMessageHubResp != null)
+                {
+                    Clients.Clients(userMessageHubResp.ConnectionIds).NotifyAbout(
+                        "MSG",
+                        userMessageHubResp.FromUser.Name,
+                        userMessageHubResp.FromUser.SurName,
+                        userMessageHubResp.FromUser.AvatarUri, null);
+                }
             }
         }
 
@@ -116,8 +128,8 @@ namespace Slug.Hubs
                                 if (fromUserQuickSett && toUserQuickSett)
                                 {
                                     var connectionHandler = new UsersConnectionHandler();
-                                    IList<string> UserRecipientsConnectionIds = connectionHandler.GetConnectionById(toUserID);
-                                    Clients.Clients(UserRecipientsConnectionIds).getCutMessage(message);
+                                    UserConnectionIdModel UserRecipientsConnectionIds = connectionHandler.GetConnectionById(toUserID);
+                                    Clients.Clients(UserRecipientsConnectionIds.ConnectionId).getCutMessage(message);
                                 }
                             }
                         }
@@ -226,8 +238,8 @@ namespace Slug.Hubs
             CutUserInfoModel userSenderFriendsRequest = userWorker.AddInviteToContacts(session, userID);
             if (userSenderFriendsRequest != null)
             {
-               IList<string> connections = connectionsWorker.GetConnectionById(userID);
-                Clients.Clients(connections).NotifyAbout(
+               UserConnectionIdModel connections = connectionsWorker.GetConnectionById(userID);
+                Clients.Clients(connections.ConnectionId).NotifyAbout(
                     "FRND",
                     userSenderFriendsRequest.Name,
                     userSenderFriendsRequest.SurName,

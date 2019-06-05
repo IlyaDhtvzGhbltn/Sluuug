@@ -1,28 +1,35 @@
 ﻿using Context;
 using Slug.Context;
 using Slug.Context.Tables;
+using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Slug.Helpers
 {
     public class UsersConnectionHandler
     {
-        public void AddConnection(string connectionID, string session)
+        public async Task AddConnection(string connectionID, string session, string ipAddress)
         {
             UsersHandler UW = new UsersHandler();
             using (var context = new DataBaseContext())
             {
+                CultureByIpChecker cultureDetecter = new CultureByIpChecker(ipAddress);
+                string cultureCode = cultureDetecter.GetCulture().Name;
+
                 var connectionItem = new UserConnections();
                 connectionItem.ConnectionID = Guid.Parse( connectionID );
                 connectionItem.ConnectionTime = DateTime.UtcNow;
                 connectionItem.ConnectionActiveStatus = true;
                 connectionItem.UserID = UW.GetFullUserInfo(session).UserId;
+                connectionItem.IpAddress = ipAddress;
+                connectionItem.CultureCode = cultureCode;
 
                 context.UserConnections.Add(connectionItem);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
@@ -41,36 +48,53 @@ namespace Slug.Helpers
             }
         }
 
-        public IList<string> GetConnectionById(int userID)
+        public UserConnectionIdModel GetConnectionById(int userID)
         {
             using (var context = new DataBaseContext())
             {
-                IList<string> userConnect = context.UserConnections
+                var userConnect = context.UserConnections
                     .Where(x => x.UserID == userID && x.ConnectionActiveStatus == true)
-                    .Select(x => x.ConnectionID.ToString())
-                    .ToArray();
-                return userConnect;
+                    .ToList();
+
+                UserConnectionIdModel connections = new UserConnectionIdModel()
+                {
+                    ConnectionId = new List<string>(),
+                    CultureCode = new List<string>()
+                };
+                userConnect.ForEach(x => 
+                {
+                    connections.ConnectionId.Add(x.ConnectionID.ToString());
+                    connections.CultureCode.Add(x.CultureCode);
+                });
+
+                return connections;
             }
         }
 
-        public IList<string> GetConnectionsByIds(int[] userID)
+        public UserConnectionIdModel GetConnectionsByIds(int[] userID)
         {
+            UserConnectionIdModel connections = new UserConnectionIdModel()
+            {
+                ConnectionId = new List<string>(),
+                CultureCode = new List<string>()
+            };
+
             using (var context = new DataBaseContext())
             {
-                IList<string> userConnect = new List<string>();
+                var userConnect = new List<string>();
                 foreach (int item in userID)
                 {
-                    string[] connections = context.UserConnections
+                    var userConnections = context.UserConnections
                     .Where(x => x.UserID == item && x.ConnectionActiveStatus == true)
-                    .Select(x => x.ConnectionID.ToString())
-                    .ToArray();
+                    .ToList();
 
-                    foreach (string connection in connections)
+                    foreach (var connection in userConnections)
                     {
-                        userConnect.Add(connection);
+                        connections.ConnectionId.Add(connection.ConnectionID.ToString());
+                        connections.CultureCode.Add(connection.CultureCode);
                     }
                 }
-                return userConnect;
+                return connections;
             }
         }
     }

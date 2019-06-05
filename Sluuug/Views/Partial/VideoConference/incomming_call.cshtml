@@ -1,9 +1,10 @@
-﻿@model Slug.Model.VideoConference.IncomingInvite
+﻿@model Slug.Model.VideoConference.IncomingInviteModel
 @using Slug.Extensions
 
 
-<div class="incomming_call" id="called__@Model.CallerID" onclick="acceptInvite('@Model.CallerID', '@Model.ConferenceID')">
-    <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_50/v1553527278/incomming_call.png" height="45" width="45">
+<div class="incomming_call" id="called__@Model.InviterID" onclick="acceptInvite('@Model.InviterID', '@Model.ConferenceID')">
+    <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_50/v1553527278/incomming_call.png">
+    <img src="@Model.AvatarUri" />
     <span>
         @Html.Translate("Text_Not_Answered_Call") @Model.CallerName  @Model.CallerSurName
     </span>

@@ -495,4 +495,7 @@
   <data name="Text_Some_Error" xml:space="preserve">
     <value>Ошибка!</value>
   </data>
+  <data name="Text_Call_To_You" xml:space="preserve">
+    <value>звонит вам ...</value>
+  </data>
 </root>

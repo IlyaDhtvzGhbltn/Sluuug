@@ -12,6 +12,11 @@ using Slug.Helpers;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Model;
 using Slug.Helpers.BaseController;
+using Slug.Model.VideoConference;
+using Newtonsoft.Json;
+using Slug.ImageEdit;
+using System.Globalization;
+using Slug.Model.Users;
 
 namespace Slug.Hubs
 {
@@ -34,18 +39,31 @@ namespace Slug.Hubs
         /// <returns></returns>
         public async Task<PartialHubResponse> CreateAndInvite(int calleUserId)
         {
+            var info = CultureInfo.CurrentCulture;
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
-
             Guid guid = this.videoConferenceHandler.Create(userInfo.UserId, calleUserId);
-            IList<string> UserRecipientsConnectionIds = new List<string>();
+            var UserRecipientsConnectionIds = new UserConnectionIdModel();
             UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
 
-            Clients.Clients(UserRecipientsConnectionIds).CalleInviteToRedirect(guid, userInfo.UserId);
+            var model = new IncomingInviteModel()
+            {
+                CallerName = userInfo.Name,
+                CallerSurName = userInfo.SurName,
+                InviterID = userInfo.UserId,
+                ConferenceID = guid,
+                AvatarUri = Resize.ResizedUri(userInfo.AvatarUri, ModTypes.c_scale, 40)
+            };
+            var culture = CultureInfo.CurrentCulture;
+            string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
+            model.Html = html;
+            string json = JsonConvert.SerializeObject(model);
+
+            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
             Clients.Caller.CallerGuidToRedirect(guid);
 
             var response = new PartialHubResponse();
-            response.ConnectionIds = UserRecipientsConnectionIds;
+            response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
             response.FromUser = userInfo;
             return response;
         }
@@ -58,9 +76,9 @@ namespace Slug.Hubs
             this.videoConferenceHandler.UpdateConferenceOffer(callOffer, userInfo.UserId, videoConverenceGuidID);
 
             int invitedID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceGuidID, userInfo.UserId);
-            IList<string> inviteConnectionsID = this.connectionsHandler.GetConnectionById(invitedID);
+            var inviteConnectionsID = connectionsHandler.GetConnectionById(invitedID);
 
-            Clients.Clients(inviteConnectionsID).GotInvite(videoConverenceGuidID, callOffer);
+            Clients.Clients(inviteConnectionsID.ConnectionId).GotInvite(videoConverenceGuidID, callOffer);
         }
 
         public async Task<PartialHubResponse> ConfirmInvite(Guid videoConverenceID, string callAnswer)
@@ -70,12 +88,12 @@ namespace Slug.Hubs
             int callerNeedAnswerID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceID, userInfo.UserId);
 
             this.videoConferenceHandler.SaveAnswerVideoConference(callAnswer, videoConverenceID);
-            IList<string> inviteConnectionsID = this.connectionsHandler.GetConnectionById(callerNeedAnswerID);
+            var inviteConnectionsID = connectionsHandler.GetConnectionById(callerNeedAnswerID);
 
-            Clients.Clients(inviteConnectionsID).ConfirmInvite(videoConverenceID, callAnswer);
+            Clients.Clients(inviteConnectionsID.ConnectionId).ConfirmInvite(videoConverenceID, callAnswer);
 
             var response = new PartialHubResponse();
-            response.ConnectionIds = inviteConnectionsID;
+            response.ConnectionIds = inviteConnectionsID.ConnectionId;
             response.FromUser = userInfo;
             return response;
         }
@@ -86,20 +104,18 @@ namespace Slug.Hubs
             CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
             int otherUserID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceID, userInfo.UserId);
 
-            IList<string> inviteConnectionsID = this.connectionsHandler.GetConnectionById(otherUserID);
+            var inviteConnectionsID = connectionsHandler.GetConnectionById(otherUserID);
 
 
-            Clients.Clients(inviteConnectionsID).exchangeCandidates(iceCandidate);
+            Clients.Clients(inviteConnectionsID.ConnectionId).exchangeCandidates(iceCandidate);
         }
 
         public void CloseVideoConverence(Guid ID)
         {
             this.videoConferenceHandler.CloseConverence(ID);
             int[] usersParticipants = this.videoConferenceHandler.GetVideoConferenceParticipantsIDs(ID);
-            IList<string> UserRecipientsConnectionIds = new List<string>();
-            UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionsByIds(usersParticipants);
-
-            Clients.Clients(UserRecipientsConnectionIds).Close();
+            var UserRecipientsConnectionIds = connectionsHandler.GetConnectionsByIds(usersParticipants);
+            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).Close();
         }
     }
 }

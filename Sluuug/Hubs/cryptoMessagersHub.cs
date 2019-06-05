@@ -16,6 +16,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context.Dto.Messages;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
+using Slug.Model.Users;
 
 namespace Slug.Hubs
 {
@@ -71,13 +72,12 @@ namespace Slug.Hubs
             var connectionWorker = new UsersConnectionHandler();
             var cryptoChatWorker = new CryptoChatHandler();
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
-            IList<string> UserRecipientsConnectionIds = new List<string>();
-            UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
+            UserConnectionIdModel UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
 
-            Clients.Clients(UserRecipientsConnectionIds).ObtainNewInvitation(cryptoConversation);
+            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation);
 
             var responce = new PartialHubResponse();
-            responce.ConnectionIds = UserRecipientsConnectionIds;
+            responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
             responce.PublicDataToExcange = cryptoConversation;
             responce.FromUser = fromUser;
             return responce;
@@ -96,12 +96,12 @@ namespace Slug.Hubs
 
             CrWorker.UpdateAcceptCryptoChat(userAccepter.UserId, cryptoConversation.ConvGuidId);
             int interlocutor = CrWorker.GetInterlocutorID(cryptoConversation.ConvGuidId, userAccepter.UserId);
-            IList<string> connections = connectionWorker.GetConnectionById(interlocutor);
+            UserConnectionIdModel connections = connectionWorker.GetConnectionById(interlocutor);
 
-            Clients.Clients(connections).AcceptInvitation(ansver_to_cripto_chat);
+            Clients.Clients(connections.ConnectionId).AcceptInvitation(ansver_to_cripto_chat);
 
             var responce = new PartialHubResponse();
-            responce.ConnectionIds = connections;
+            responce.ConnectionIds = connections.ConnectionId;
             responce.PublicDataToExcange = cryptoConversation;
             responce.FromUser = userAccepter;
             return responce;
@@ -111,7 +111,7 @@ namespace Slug.Hubs
         {
             var connectionWorker = new UsersConnectionHandler();
             var cryptoChatWorker = new CryptoChatHandler();
-            IList<string> UserRecipientsConnectionIds = new List<string>();
+            var UserRecipientsConnectionIds = new UserConnectionIdModel();
 
             UsersHandler UsWorker = new UsersHandler();
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
@@ -130,11 +130,11 @@ namespace Slug.Hubs
                 await cryptoChatWorker.SaveSecretMessageHashAsync(guidChatId, fromUserID, message);
                 UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
 
-                Clients.Clients(UserRecipientsConnectionIds).NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
+                Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
                 Clients.Caller.NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
 
                 var response = new PartialHubResponse();
-                response.ConnectionIds = UserRecipientsConnectionIds;
+                response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                 response.FromUser = fromUser;
                 return response;
             }

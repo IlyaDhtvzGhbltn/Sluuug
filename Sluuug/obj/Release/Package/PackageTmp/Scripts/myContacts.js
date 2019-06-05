@@ -19,7 +19,8 @@ var friend_divs = $('.invitation');
 
 function acceptFriendshipInvitation(userID) {
     console.log('accept...' + userID);
-    HUB.invoke('AcceptContact', userID).done(function () {
+    HUB.invoke('AcceptContact', userID)
+        .done(function () {
         $("#incomm_invitations_" + userID)[0].innerHTML = '';
 
         var acceptedFriends = $("#accepted_friends")[0];
@@ -34,8 +35,8 @@ function acceptFriendshipInvitation(userID) {
                 acceptedFriends.insertAdjacentHTML('beforeend',
                     '<div id="friend_' + userID + '"><div class="friend_div" id="' + userID + '">' +
                     '<img src="' + json.AvatarUri + '" height="50" width="50">' +
-                    ' <span>' + json.Name + ' ' + json.SurName + '</span>' +
-                    ' </div>' +
+                    '<span>' + json.Name + ' ' + json.SurName + '</span>' +
+                    '</div>' +
                     '<input type="button" value="drop from contacts" onclick="dropFromContacts(' + userID + ')">' +
                     '</div>');
             });

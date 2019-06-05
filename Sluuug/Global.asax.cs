@@ -8,20 +8,12 @@ using Slug.DbInitialisation;
 using NLog;
 using System.Threading;
 using System.Collections.Generic;
+using Slug.Helpers;
 
 namespace Sluuug
 {
     public class MvcApplication : HttpApplication
     {
-        private readonly Dictionary<string, string> CultureDictionary 
-            = new Dictionary<string, string>()
-            {
-                { "RU", "ru-RU" },
-                { "EN", "en-US"},
-                { "US", "en-US" }
-            };
-
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -38,13 +30,15 @@ namespace Sluuug
             bool internalServerError = false;
             if (lastErrorInfo != null)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Trace(lastErrorInfo);
+                Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
+                loggerInternal.Error(lastErrorInfo);
 
                 errorInfo = lastErrorInfo.GetBaseException();
                 var error = errorInfo as HttpException;
                 if (error != null)
                 {
+                    Logger logger = LogManager.GetLogger("http_exception_logger");
+                    logger.Trace(error);
                     isNotFound = error.GetHttpCode() == (int)HttpStatusCode.NotFound;
                 }
                 if (errorInfo.Message.Contains("contains a null entry for parameter"))
@@ -70,8 +64,9 @@ namespace Sluuug
 
         private void AppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            // Log as unhandled exception: e.ExceptionObject.ToString()
+
         }
+        
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
@@ -93,31 +88,9 @@ namespace Sluuug
                 Context.ApplicationInstance.CompleteRequest();
             }
 
-            Regex regex = new Regex("[A-Z]{2,}");
             var ip = Slug.Helpers.SlugController.GetIPAddress(base.Request);
-            WebClient client = new WebClient();
-            string codeUrl = string.Format("https://ipinfo.io/{0}/country", ip);
-            try
-            {
-                string ipResp = client.DownloadString(codeUrl);
-                MatchCollection country = regex.Matches(ipResp);
-                if (country.Count == 1)
-                {
-                    string code = country[0].Value;
-                    var ruCulture = new System.Globalization.CultureInfo(CultureDictionary[code]);
-                    Thread.CurrentThread.CurrentCulture = ruCulture;
-                }
-                else
-                {
-                    var enCulture = new System.Globalization.CultureInfo("ru-RU");
-                    Thread.CurrentThread.CurrentCulture = enCulture;
-                }
-            }
-            catch (Exception ex)
-            {
-                var enCulture = new System.Globalization.CultureInfo("ru-RU");
-                Thread.CurrentThread.CurrentCulture = enCulture;
-            }
+            CultureByIpChecker culture = new CultureByIpChecker(ip);
+            Thread.CurrentThread.CurrentCulture = culture.GetCulture();
         }
     }
 }

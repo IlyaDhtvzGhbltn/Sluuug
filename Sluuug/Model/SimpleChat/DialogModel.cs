@@ -16,9 +16,11 @@ namespace Slug.Model
 
     public class DialogMessage
     {
-        public Guid UserId { get; set; }
+        public Guid ConversationId { get; set; }
 
         public string UserName { get; set; }
+
+        public string UserSurname { get; set; }
 
         public string AvatarPath { get; set; }
 

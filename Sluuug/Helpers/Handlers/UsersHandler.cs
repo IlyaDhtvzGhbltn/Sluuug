@@ -659,9 +659,9 @@ namespace Slug.Helpers
                 context.SaveChanges();
 
                 var connectionHandler = new UsersConnectionHandler();
-                IList<string> connections = connectionHandler.GetConnectionById(userID);
+                var connections = connectionHandler.GetConnectionById(userID);
                 var responce = new PartialHubResponse();
-                responce.ConnectionIds = connections;
+                responce.ConnectionIds = connections.ConnectionId;
                 responce.FromUser = accepterUser;
                 return responce;
             }

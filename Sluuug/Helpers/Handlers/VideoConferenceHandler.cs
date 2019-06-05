@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 using Slug.Context;
 using Slug.Context.Tables;
 using Slug.Helpers.BaseController;
+using Slug.ImageEdit;
 using Slug.Model.Users;
 using Slug.Model.VideoConference;
 using System;
@@ -96,7 +97,7 @@ namespace Slug.Helpers
             var model = new VideoConferenceModel();
             model.Friends = new List<FriendModel>();
             model.CallsHistory = new List<CallModel>();
-            model.IncomingCalls = new List<IncomingInvite>();
+            model.IncomingCalls = new List<IncomingInviteModel>();
 
             var userWorker = new UsersHandler();
             int myId = userWorker.GetFullUserInfo(sessionID).UserId;
@@ -144,16 +145,18 @@ namespace Slug.Helpers
 
                 foreach (var item in incomingCalls)
                 {
-                    var incoming = new IncomingInvite();
+                    var incoming = new IncomingInviteModel();
                     incoming.ConferenceID = item.GuidId;
                     int participantID = context.VideoConferenceGroups
                         .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
                         .Select(x => x.UserId)
                         .First();
-                    incoming.CallerID = participantID;
+                    var info = userWorker.GetUserInfo(participantID);
+
+                    incoming.InviterID = participantID;
                     incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
                     incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
-
+                    incoming.AvatarUri = Resize.ResizedUri(info.AvatarUri, ModTypes.c_scale, 45);
                     model.IncomingCalls.Add(incoming);
                 }
  

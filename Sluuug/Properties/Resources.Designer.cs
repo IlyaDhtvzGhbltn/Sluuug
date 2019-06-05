@@ -736,6 +736,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to call to you ....
+        /// </summary>
+        internal static string Text_Call_To_You {
+            get {
+                return ResourceManager.GetString("Text_Call_To_You", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User did not accept your invitation.
         /// </summary>
         internal static string Text_Contact_Not_Accepted {

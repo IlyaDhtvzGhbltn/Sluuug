@@ -25,13 +25,13 @@ namespace Slug.Controllers
     public class PrivateController : SlugController
     {
         [HttpGet]
-        public ActionResult index()
+        public async Task<ActionResult> index()
         {
             return RedirectToAction("my", "private");
         }
 
         [HttpGet]
-        public ActionResult my()
+        public async Task<ActionResult> my()
         {
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             FullUserInfoModel userInfoModel = UsersHandler.GetFullUserInfo(cookies.Value);
@@ -39,7 +39,7 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public ActionResult upload(HttpPostedFileBase upload)
+        public async Task<ActionResult> upload(HttpPostedFileBase upload)
         {
             if (upload != null)
             {
@@ -51,7 +51,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult cnv()
+        public async Task<ActionResult> cnv()
         {
             
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
@@ -61,7 +61,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult msg(Guid id, int page = 1)
+        public async Task<ActionResult> msg(Guid id, int page = 1)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, id);
@@ -76,7 +76,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult user(int id)
+        public async Task<ActionResult> user(int id)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
 
@@ -99,7 +99,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult friend(int id)
+        public async Task<ActionResult> friend(int id)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             int ownId = UsersHandler.GetFullUserInfo(sessionId).UserId;
@@ -120,7 +120,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult contacts()
+        public async Task<ActionResult> contacts()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             MyFriendsModel model = base.UsersHandler.GetFriendsBySession(sessionId);
@@ -128,16 +128,15 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult invite_video_conversation()
+        public async Task<ActionResult> invite_video_conversation()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             VideoConferenceModel model = base.VideoConferenceHandler.VideoConferenceModel(sessionId);
-            Response.Cache.SetExpires(DateTime.Now.AddYears(-1));
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult v_conversation(Guid id)
+        public async Task<ActionResult> v_conversation(Guid id)
         {
             bool isActive = base.VideoConferenceHandler.IsConverenceActive(id);
             if (isActive)
@@ -147,7 +146,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult crypto_cnv()
+        public async Task<ActionResult> crypto_cnv()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             CryptoChatModel model = CryptoChatHandler.GetCryptoChat(sessionId);
@@ -155,7 +154,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult c_msg(string id, int page = 1)
+        public async Task<ActionResult> c_msg(string id, int page = 1)
         {
             var model = CryptoChatHandler.GetCryptoDialogs(id, page);
             if (model != null)
@@ -166,7 +165,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult logout()
+        public async Task<ActionResult> logout()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             SessionTypes type = SessionHandler.GetSessionType(sessionId);
@@ -178,7 +177,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult settings()
+        public async Task<ActionResult> settings()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             UserSettingsModel model = UsersHandler.GetSettings(sessionId);
@@ -186,13 +185,13 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult search()
+        public async Task<ActionResult> search()
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult search_result(string user_name, int user_country, int user_city, int user_sex, int user_age, int page = 1)
+        public async Task<ActionResult> search_result(string user_name, int user_country, int user_city, int user_sex, int user_age, int page = 1)
         {
             var parseRequest = new SearchUsersRequest()
             {

@@ -7,8 +7,8 @@ HUB.on('CallerGuidToRedirect', function (guid) {
     callerToRedirect(guid);
 });
 
-HUB.on('CalleInviteToRedirect', function (guid, inviterId) {
-    calleInviteToRedirect(guid, inviterId);
+HUB.on('CalleInviteToRedirect', function (model) {
+    calleInviteToRedirect(model);
 });
 
 
@@ -48,29 +48,18 @@ function createConference(friend_id) {
     HUB.invoke('CreateAndInvite', friend_id);
 }
 
-function calleInviteToRedirect(guid, inviterId) {
-    fetch('/api/get_info_other_user?id=' + inviterId, {
-        method: 'post',
-        body: '{}'
-    })
-        .then(function (resp) {
-            return resp.json();
-        })
-        .then(function (json) {
-            var caller_phone = document.getElementById("called__" + inviterId);
-            if (caller_phone == null) {
-                var mylist = $('#incomming');
-                mylist[0].insertAdjacentHTML('beforeend',
-                    '<div class="incomming_call" id="called__' + inviterId + '">' +
-                    '<img src= "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1553527278/incomming_call.png" height= "45" width= "45"/>' +
-                    '<span>' + json.Name + '  ' + json.SurName + '</span> call to you ... </div>');
+function calleInviteToRedirect(model) {
+    var model = JSON.parse(model);
+    var caller_phone = document.getElementById("called__" + model.inviterId);
+    if (caller_phone == null) {
+        var mylist = $('#incomming');
+        mylist[0].insertAdjacentHTML('beforeend', model.html);
 
-                document.getElementById('called__' + inviterId).addEventListener(
-                    'click', function () {
-                        acceptInvite(inviterId, guid);
-                    })
-            }
-        })
+        document.getElementById('called__' + model.inviterId).addEventListener(
+            'click', function () {
+                acceptInvite(model.inviterId, model.conferenceID);
+            })
+    }
 }
 
 function callerToRedirect(guid) {

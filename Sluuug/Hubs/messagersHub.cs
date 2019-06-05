@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Slug.Context;
@@ -11,6 +12,7 @@ using Slug.Helpers;
 using Slug.Helpers.BaseController;
 using Slug.Hubs;
 using Slug.Model;
+using Slug.Model.Users;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 
 
@@ -26,39 +28,53 @@ namespace Sluuug.Hubs
 
         public async Task<PartialHubResponse> SendMessage(string message, string convId, int toUserId)
         {
-            int toUserID = toUserId;
-            IList<string> UserRecipientsConnectionIds = new List<string>();
-            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            var UsWork = new UsersHandler();
-            var clearMsg = System.Net.WebUtility.HtmlDecode(message);
-
-            CutUserInfoModel user = UsWork.GetFullUserInfo(cookies.Value);
-            if (user != null)
+            if (!string.IsNullOrWhiteSpace(message))
             {
-                var dialogWorker = new UsersDialogHandler();
-                Guid convGuidID = Guid.Empty;
-                if (convId == "0")
-                {
-                    convGuidID = UsWork.GetConversationId(cookies.Value, toUserId);
-                }
-                else
-                {
-                    convGuidID = Guid.Parse(convId);
-                    toUserID = dialogWorker.GetConversatorsIds(convGuidID).Where(x => x != user.UserId).First();
-                }
+                int toUserID = toUserId;
+                var UserRecipientsConnectionIds = new UserConnectionIdModel();
+                Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
+                var UsWork = new UsersHandler();
+                var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-                await dialogWorker.SaveMsg(convGuidID, user.UserId, clearMsg);
-                var connectionWorker = new UsersConnectionHandler();
-                UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
+                CutUserInfoModel user = UsWork.GetFullUserInfo(cookies.Value);
+                if (user != null)
+                {
+                    var dialogWorker = new UsersDialogHandler();
+                    Guid convGuidID = Guid.Empty;
+                    if (convId == "0")
+                    {
+                        convGuidID = UsWork.GetConversationId(cookies.Value, toUserId);
+                    }
+                    else
+                    {
+                        convGuidID = Guid.Parse(convId);
+                        toUserID = dialogWorker.GetConversatorsIds(convGuidID).Where(x => x != user.UserId).First();
+                    }
 
-                Clients.Caller.sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);
-                Clients.Clients(UserRecipientsConnectionIds).sendAsync(user.AvatarUri, user.Name, user.SurName, clearMsg, DateTime.Now.ToString("yyyy-mm-dd"), convGuidID);
+                    await dialogWorker.SaveMsg(convGuidID, user.UserId, clearMsg);
+                    var connectionWorker = new UsersConnectionHandler();
+                    UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
+
+                    var model = new DialogMessage()
+                    {
+                        AvatarPath = user.AvatarUri,
+                        UserName = user.Name,
+                        UserSurname = user.SurName,
+                        SendTime = DateTime.Now.ToString("yyyy-mm-dd"),
+                        Text = clearMsg,
+                    };
+                    string html = Slug.Helpers.HTMLGenerated.DialogMessage.GenerateHtml(model);
+
+                    Clients.Caller.sendAsync(html, convGuidID);
+                    Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(html, convGuidID);
+                }
+                var responce = new PartialHubResponse();
+                responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
+                responce.FromUser = user;
+
+                return responce;
             }
-            var responce = new PartialHubResponse();
-            responce.ConnectionIds = UserRecipientsConnectionIds;
-            responce.FromUser = user;
-
-            return responce;
+            else return null;
         }
     }
 }

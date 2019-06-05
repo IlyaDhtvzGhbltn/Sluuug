@@ -53,7 +53,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:00</publishTime>
     </File>
     <File Include="bin/NLog.config">
-      <publishTime>05/20/2019 10:52:39</publishTime>
+      <publishTime>06/05/2019 18:18:07</publishTime>
     </File>
     <File Include="bin/NLog.dll">
       <publishTime>05/20/2019 10:52:39</publishTime>
@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>06/03/2019 13:54:59</publishTime>
+      <publishTime>06/05/2019 18:19:46</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>06/03/2019 13:54:59</publishTime>
+      <publishTime>06/05/2019 18:19:46</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>06/03/2019 13:54:59</publishTime>
+      <publishTime>06/05/2019 18:19:46</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>04/23/2019 17:45:01</publishTime>
@@ -245,7 +245,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:44:59</publishTime>
     </File>
     <File Include="NLog.config">
-      <publishTime>05/20/2019 10:52:39</publishTime>
+      <publishTime>06/05/2019 18:18:07</publishTime>
     </File>
     <File Include="Resources/favicon.ico">
       <publishTime>05/27/2019 12:30:00</publishTime>
@@ -263,10 +263,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/29/2019 15:45:41</publishTime>
     </File>
     <File Include="Scripts/chatp2pWS.js">
-      <publishTime>05/20/2019 12:16:14</publishTime>
+      <publishTime>06/04/2019 19:44:58</publishTime>
     </File>
     <File Include="Scripts/Common/CommonAlbums.js">
-      <publishTime>05/29/2019 13:50:23</publishTime>
+      <publishTime>06/03/2019 18:24:49</publishTime>
     </File>
     <File Include="Scripts/crypto_chat.js">
       <publishTime>05/21/2019 11:21:29</publishTime>
@@ -275,22 +275,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/13/2019 12:05:09</publishTime>
     </File>
     <File Include="Scripts/EditInfo.js">
-      <publishTime>05/31/2019 15:10:42</publishTime>
+      <publishTime>06/03/2019 18:19:33</publishTime>
     </File>
     <File Include="Scripts/FriendAlbum.js">
       <publishTime>05/22/2019 11:50:03</publishTime>
     </File>
     <File Include="Scripts/myContacts.js">
-      <publishTime>05/13/2019 12:05:09</publishTime>
+      <publishTime>06/05/2019 11:24:08</publishTime>
     </File>
     <File Include="Scripts/newMessageFromPage.js">
-      <publishTime>05/13/2019 19:10:35</publishTime>
+      <publishTime>06/04/2019 19:38:54</publishTime>
     </File>
     <File Include="Scripts/newMsgInConv.js">
-      <publishTime>04/24/2019 12:07:40</publishTime>
+      <publishTime>06/04/2019 19:48:44</publishTime>
     </File>
     <File Include="Scripts/notificationHub.js">
-      <publishTime>04/29/2019 16:12:18</publishTime>
+      <publishTime>06/05/2019 14:54:43</publishTime>
     </File>
     <File Include="Scripts/RelocationToUser.js">
       <publishTime>05/21/2019 11:09:32</publishTime>
@@ -329,37 +329,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/20/2019 17:43:43</publishTime>
     </File>
     <File Include="Scripts/vConferens.js">
-      <publishTime>05/13/2019 12:05:09</publishTime>
+      <publishTime>06/05/2019 12:37:51</publishTime>
     </File>
     <File Include="Scripts/vDialogRedirection.js">
       <publishTime>05/13/2019 12:05:09</publishTime>
     </File>
     <File Include="Scripts/vDialogs.js">
-      <publishTime>04/25/2019 11:24:34</publishTime>
+      <publishTime>06/05/2019 17:17:10</publishTime>
     </File>
     <File Include="Styles/guest.css">
       <publishTime>05/27/2019 12:30:00</publishTime>
     </File>
+    <File Include="Views/Error/internal_part_error.cshtml">
+      <publishTime>06/03/2019 19:25:36</publishTime>
+    </File>
     <File Include="Views/Error/notfound.cshtml">
-      <publishTime>05/27/2019 19:39:55</publishTime>
+      <publishTime>06/03/2019 16:31:20</publishTime>
     </File>
     <File Include="Views/Error/ooops.cshtml">
-      <publishTime>05/27/2019 19:38:56</publishTime>
+      <publishTime>06/03/2019 16:31:17</publishTime>
     </File>
     <File Include="Views/Error/unauthorized.cshtml">
-      <publishTime>05/27/2019 19:36:40</publishTime>
+      <publishTime>06/03/2019 16:31:24</publishTime>
+    </File>
+    <File Include="Views/Error/user_already_exist.cshtml">
+      <publishTime>06/03/2019 17:02:25</publishTime>
     </File>
     <File Include="Views/Guest/Activate.cshtml">
       <publishTime>05/27/2019 18:57:05</publishTime>
     </File>
     <File Include="Views/Guest/Index.cshtml">
-      <publishTime>06/03/2019 13:54:25</publishTime>
+      <publishTime>06/03/2019 14:50:20</publishTime>
     </File>
     <File Include="Views/Guest/Login.cshtml">
       <publishTime>05/28/2019 18:30:48</publishTime>
     </File>
     <File Include="Views/Guest/Register.cshtml">
-      <publishTime>05/28/2019 19:57:31</publishTime>
+      <publishTime>06/03/2019 16:51:44</publishTime>
     </File>
     <File Include="Views/Partial/Albums/AlbumReview.cshtml">
       <publishTime>05/28/2019 20:36:44</publishTime>
@@ -371,7 +377,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2019 20:22:24</publishTime>
     </File>
     <File Include="Views/Partial/Albums/EditFotoInfo.cshtml">
-      <publishTime>05/28/2019 20:35:23</publishTime>
+      <publishTime>06/03/2019 17:55:57</publishTime>
     </File>
     <File Include="Views/Partial/Albums/Expand.cshtml">
       <publishTime>06/03/2019 12:23:33</publishTime>
@@ -404,10 +410,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2019 19:35:54</publishTime>
     </File>
     <File Include="Views/Partial/Dialogs/dialog_message.cshtml">
-      <publishTime>05/28/2019 20:19:04</publishTime>
+      <publishTime>06/04/2019 18:18:12</publishTime>
     </File>
     <File Include="Views/Partial/Dialogs/dialog_preview.cshtml">
-      <publishTime>05/28/2019 20:19:06</publishTime>
+      <publishTime>06/04/2019 19:47:54</publishTime>
     </File>
     <File Include="Views/Partial/FriendPage/education.cshtml">
       <publishTime>05/28/2019 20:19:08</publishTime>
@@ -442,6 +448,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Partial/OwnPage/AddInfo/work_form.cshtml">
       <publishTime>05/31/2019 15:07:49</publishTime>
     </File>
+    <File Include="Views/Partial/OwnPage/change_private_info.cshtml">
+      <publishTime>06/04/2019 10:26:58</publishTime>
+    </File>
     <File Include="Views/Partial/OwnPage/education.cshtml">
       <publishTime>05/31/2019 15:25:38</publishTime>
     </File>
@@ -457,6 +466,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Partial/OwnPage/work.cshtml">
       <publishTime>05/29/2019 13:58:27</publishTime>
     </File>
+    <File Include="Views/Partial/Register/email_already_taken.cshtml">
+      <publishTime>06/03/2019 16:59:48</publishTime>
+    </File>
+    <File Include="Views/Partial/Register/login_already_taken.cshtml">
+      <publishTime>06/03/2019 15:44:08</publishTime>
+    </File>
     <File Include="Views/Partial/VideoConference/conference_history_item.cshtml">
       <publishTime>05/28/2019 18:27:45</publishTime>
     </File>
@@ -464,7 +479,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2019 18:28:07</publishTime>
     </File>
     <File Include="Views/Partial/VideoConference/incomming_call.cshtml">
-      <publishTime>05/28/2019 18:30:26</publishTime>
+      <publishTime>06/05/2019 17:14:12</publishTime>
     </File>
     <File Include="Views/Private/cnv.cshtml">
       <publishTime>05/28/2019 19:51:33</publishTime>
@@ -482,13 +497,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2019 19:09:39</publishTime>
     </File>
     <File Include="Views/Private/invite_video_conversation.cshtml">
-      <publishTime>05/28/2019 18:24:14</publishTime>
+      <publishTime>06/05/2019 12:31:26</publishTime>
     </File>
     <File Include="Views/Private/msg.cshtml">
-      <publishTime>05/28/2019 18:13:48</publishTime>
+      <publishTime>06/04/2019 18:17:38</publishTime>
     </File>
     <File Include="Views/Private/my.cshtml">
-      <publishTime>05/29/2019 13:59:49</publishTime>
+      <publishTime>06/04/2019 10:44:57</publishTime>
     </File>
     <File Include="Views/Private/search.cshtml">
       <publishTime>05/28/2019 17:54:14</publishTime>
@@ -509,13 +524,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/03/2019 13:54:47</publishTime>
     </File>
     <File Include="Views/Shared/private_view.cshtml">
-      <publishTime>05/27/2019 19:00:37</publishTime>
+      <publishTime>06/05/2019 14:56:13</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>05/13/2019 12:05:09</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/29/2019 16:00:02</publishTime>
+      <publishTime>06/05/2019 17:17:40</publishTime>
     </File>
   </ItemGroup>
 </Project>

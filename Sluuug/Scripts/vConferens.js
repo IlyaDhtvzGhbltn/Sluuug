@@ -90,6 +90,7 @@ function accept_send_answer(guidID, offer) {
                     return peerConn.setLocalDescription(answer);
                 })
                 .catch(function (err) {
+                    console.log('error!');
                     console.log(err.message);
                 });
         })
