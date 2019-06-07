@@ -498,4 +498,28 @@
   <data name="Text_Call_To_You" xml:space="preserve">
     <value>call to you ...</value>
   </data>
+  <data name="Notify_Accept_Your_Friendship" xml:space="preserve">
+    <value>is your contact now</value>
+  </data>
+  <data name="Notify_Accept_Your_Invite_Secret" xml:space="preserve">
+    <value>Your Invite to secret Chat was accepted</value>
+  </data>
+  <data name="Notify_Friendship_Invite" xml:space="preserve">
+    <value>You got Invite to friendship</value>
+  </data>
+  <data name="Notify_New_Message" xml:space="preserve">
+    <value>New message from</value>
+  </data>
+  <data name="Notify_New_Message_Secret" xml:space="preserve">
+    <value>New secret message from</value>
+  </data>
+  <data name="Notify_New_Secret_Chat" xml:space="preserve">
+    <value>You got Invite to secret chat from</value>
+  </data>
+  <data name="Notify_New_VideoConference_Invite" xml:space="preserve">
+    <value>You got Invite to video-conference from</value>
+  </data>
+  <data name="Text_Click_Here_Details" xml:space="preserve">
+    <value>click to know more</value>
+  </data>
 </root>

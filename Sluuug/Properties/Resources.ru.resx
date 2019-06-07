@@ -498,4 +498,28 @@
   <data name="Text_Call_To_You" xml:space="preserve">
     <value>звонит вам ...</value>
   </data>
+  <data name="Notify_Accept_Your_Friendship" xml:space="preserve">
+    <value>принята заявка в контакты</value>
+  </data>
+  <data name="Notify_Accept_Your_Invite_Secret" xml:space="preserve">
+    <value>принята ваша заявка в секретный чат</value>
+  </data>
+  <data name="Notify_Friendship_Invite" xml:space="preserve">
+    <value>Новая заявка в контакты</value>
+  </data>
+  <data name="Notify_New_Message" xml:space="preserve">
+    <value>Новое сообщение от пользователя</value>
+  </data>
+  <data name="Notify_New_Message_Secret" xml:space="preserve">
+    <value>Новое секретное сообщение от пользователя</value>
+  </data>
+  <data name="Notify_New_Secret_Chat" xml:space="preserve">
+    <value>Приглашение в секретный чат от пользователя</value>
+  </data>
+  <data name="Notify_New_VideoConference_Invite" xml:space="preserve">
+    <value>Приглашение к видео конференции от пользователя</value>
+  </data>
+  <data name="Text_Click_Here_Details" xml:space="preserve">
+    <value>нажмите, что бы узнать подробности</value>
+  </data>
 </root>

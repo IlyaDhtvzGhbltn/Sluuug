@@ -644,7 +644,7 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task<PartialHubResponse> AcceptInviteToContacts(string session, int userID)
+        public async Task<NotifyHubModel> AcceptInviteToContacts(string session, int userID)
         {
             CutUserInfoModel accepterUser = GetFullUserInfo(session);
             using (var context = new DataBaseContext())
@@ -660,9 +660,10 @@ namespace Slug.Helpers
 
                 var connectionHandler = new UsersConnectionHandler();
                 var connections = connectionHandler.GetConnectionById(userID);
-                var responce = new PartialHubResponse();
+                var responce = new NotifyHubModel();
                 responce.ConnectionIds = connections.ConnectionId;
                 responce.FromUser = accepterUser;
+                responce.Culture = connections.CultureCode[0];
                 return responce;
             }
         }

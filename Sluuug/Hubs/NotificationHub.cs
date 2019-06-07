@@ -15,6 +15,7 @@ using Slug.Helpers.BaseController;
 using Context;
 using Slug.Model.Users;
 using NLog;
+using Slug.Helpers.HTMLGenerated;
 
 namespace Slug.Hubs
 {
@@ -85,15 +86,12 @@ namespace Slug.Hubs
             if (isFriends)
             {
                 var messageHub = new MessagersHub(base.Context, base.Clients);
-                PartialHubResponse userMessageHubResp = await messageHub.SendMessage(message, convId, toUserId);
+                NotifyHubModel hubResp = await messageHub.SendMessage(message, convId, toUserId);
 
-                if (userMessageHubResp != null)
+                if (hubResp != null)
                 {
-                    Clients.Clients(userMessageHubResp.ConnectionIds).NotifyAbout(
-                        "MSG",
-                        userMessageHubResp.FromUser.Name,
-                        userMessageHubResp.FromUser.SurName,
-                        userMessageHubResp.FromUser.AvatarUri, null);
+                    string html = Notifications.GenerateHtml(NotificationType.NewMessage, hubResp.FromUser, hubResp.Culture);
+                    Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null);
                 }
             }
         }
@@ -150,26 +148,17 @@ namespace Slug.Hubs
         public async Task InviteUsersToCryptoChat(string offerToCriptoChat, Guid cryptoConversationGuidID)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
-            PartialHubResponse response = await cryptoHub.InviteUsersToCryptoChat(offerToCriptoChat, cryptoConversationGuidID);
-            Clients.Clients(response.ConnectionIds).NotifyAbout(
-                "ICC",
-                response.FromUser.Name,
-                response.FromUser.SurName,
-                response.FromUser.AvatarUri, 
-                response.PublicDataToExcange
-                );
+            NotifyHubModel response = await cryptoHub.InviteUsersToCryptoChat(offerToCriptoChat, cryptoConversationGuidID);
+            string html = Notifications.GenerateHtml(NotificationType.NewInviteSecretChat, response.FromUser, response.Culture);
+            Clients.Clients(response.ConnectionIds).NotifyAbout(html, response.PublicDataToExcange);
         }
 
         public async Task AcceptInvite(string ansver_to_cripto_chat)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
-            PartialHubResponse response = await cryptoHub.AcceptInvite(ansver_to_cripto_chat);
-            Clients.Clients(response.ConnectionIds).NotifyAbout(
-                "ICC_A",
-                response.FromUser.Name,
-                response.FromUser.SurName,
-                response.FromUser.AvatarUri
-                );
+            NotifyHubModel response = await cryptoHub.AcceptInvite(ansver_to_cripto_chat);
+            string html = Notifications.GenerateHtml(NotificationType.AcceptYourInviteSecretChat, response.FromUser, response.Culture );
+            Clients.Clients(response.ConnectionIds).NotifyAbout(html, response.PublicDataToExcange);
         }
 
         public async Task SendMessage(string message)
@@ -178,12 +167,8 @@ namespace Slug.Hubs
             var response = await cryptoHub.SendMessage(message);
             if (response != null)
             {
-                Clients.Clients(response.ConnectionIds).NotifyAbout(
-                    "C_MSG",
-                    response.FromUser.Name,
-                    response.FromUser.SurName,
-                    response.FromUser.AvatarUri
-                    );
+                string html = Notifications.GenerateHtml(NotificationType.NewMessageSecret, response.FromUser, response.Culture);
+                Clients.Clients(response.ConnectionIds).NotifyAbout( html, null );
             }
         }
 
@@ -194,12 +179,9 @@ namespace Slug.Hubs
         public async Task CreateAndInvite(int calleUserId)
         {
             var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
-            PartialHubResponse responce = await videoHub.CreateAndInvite(calleUserId);
-            Clients.Clients(responce.ConnectionIds).NotifyAbout(
-                "VC",
-                responce.FromUser.Name,
-                responce.FromUser.SurName,
-                responce.FromUser.AvatarUri, null);
+            NotifyHubModel responce = await videoHub.CreateAndInvite(calleUserId);
+            string html = Notifications.GenerateHtml(NotificationType.NewInviteVideoConference, responce.FromUser, responce.Culture);
+            Clients.Clients(responce.ConnectionIds).NotifyAbout(html, null);
         }
 
         public async Task Invite(string callOffer, Guid videoConverenceGuidID)
@@ -235,15 +217,12 @@ namespace Slug.Hubs
             var connectionsWorker = new UsersConnectionHandler();
 
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
-            CutUserInfoModel userSenderFriendsRequest = userWorker.AddInviteToContacts(session, userID);
-            if (userSenderFriendsRequest != null)
+            CutUserInfoModel responce = userWorker.AddInviteToContacts(session, userID);
+            if (responce != null)
             {
                UserConnectionIdModel connections = connectionsWorker.GetConnectionById(userID);
-                Clients.Clients(connections.ConnectionId).NotifyAbout(
-                    "FRND",
-                    userSenderFriendsRequest.Name,
-                    userSenderFriendsRequest.SurName,
-                    userSenderFriendsRequest.AvatarUri);
+               string html = Notifications.GenerateHtml(NotificationType.NewInviteFriendship, responce, connections.CultureCode[0]);
+               Clients.Clients(connections.ConnectionId).NotifyAbout(html, null);
             }
         }
 
@@ -260,13 +239,9 @@ namespace Slug.Hubs
             var userWorker = new UsersHandler();
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
 
-            PartialHubResponse response = await userWorker.AcceptInviteToContacts(session, userID);
-
-            Clients.Clients(response.ConnectionIds).NotifyAbout(
-                "ACC_FRND",
-                response.FromUser.Name,
-                response.FromUser.SurName,
-                response.FromUser.AvatarUri);
+            NotifyHubModel response = await userWorker.AcceptInviteToContacts(session, userID);
+            string html = Notifications.GenerateHtml( NotificationType.AcceptFriendship, response.FromUser, response.Culture);
+            Clients.Clients(response.ConnectionIds).NotifyAbout(html, null);
         }
 
     }

@@ -7,13 +7,14 @@ using System.Web;
 
 namespace Slug.Context.Dto.Messages
 {
-    public class PartialHubResponse
+    public class NotifyHubModel
     {
         public CutUserInfoModel FromUser { get; set; }
 
         public IList<string> ConnectionIds { get; set; }
 
-        public dynamic PublicDataToExcange { get; set; }
+        public string Culture { get; set; }
 
+        public dynamic PublicDataToExcange { get; set; }
     }
 }

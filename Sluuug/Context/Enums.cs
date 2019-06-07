@@ -77,4 +77,15 @@ namespace Context
         Month,
         Year
     }
+
+    public enum NotificationType
+    {
+        NewMessage = 0,
+        NewInviteVideoConference,
+        NewInviteSecretChat,
+        NewMessageSecret,
+        AcceptYourInviteSecretChat,
+        NewInviteFriendship,
+        AcceptFriendship
+    }
 }

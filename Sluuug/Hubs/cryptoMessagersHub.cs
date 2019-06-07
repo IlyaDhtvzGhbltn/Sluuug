@@ -59,7 +59,7 @@ namespace Slug.Hubs
             }
         }
 
-        public async Task<PartialHubResponse> InviteUsersToCryptoChat(string offer_to_cripto_chat, Guid userInvited)
+        public async Task<NotifyHubModel> InviteUsersToCryptoChat(string offer_to_cripto_chat, Guid userInvited)
         {
             Cookie Session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             UsersHandler worker = new UsersHandler();
@@ -76,14 +76,15 @@ namespace Slug.Hubs
 
             Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation);
 
-            var responce = new PartialHubResponse();
+            var responce = new NotifyHubModel();
             responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
             responce.PublicDataToExcange = cryptoConversation;
             responce.FromUser = fromUser;
+            responce.Culture = UserRecipientsConnectionIds.CultureCode[0];
             return responce;
         }
 
-        public async Task<PartialHubResponse> AcceptInvite(string ansver_to_cripto_chat)
+        public async Task<NotifyHubModel> AcceptInvite(string ansver_to_cripto_chat)
         {
             var connectionWorker = new UsersConnectionHandler();
             var CrWorker = new CryptoChatHandler();
@@ -100,14 +101,15 @@ namespace Slug.Hubs
 
             Clients.Clients(connections.ConnectionId).AcceptInvitation(ansver_to_cripto_chat);
 
-            var responce = new PartialHubResponse();
+            var responce = new NotifyHubModel();
             responce.ConnectionIds = connections.ConnectionId;
             responce.PublicDataToExcange = cryptoConversation;
             responce.FromUser = userAccepter;
+            responce.Culture = connections.CultureCode[0];
             return responce;
         }
 
-        public async Task<PartialHubResponse> SendMessage(string message)
+        public async Task<NotifyHubModel> SendMessage(string message)
         {
             var connectionWorker = new UsersConnectionHandler();
             var cryptoChatWorker = new CryptoChatHandler();
@@ -133,9 +135,10 @@ namespace Slug.Hubs
                 Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
                 Clients.Caller.NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
 
-                var response = new PartialHubResponse();
+                var response = new NotifyHubModel();
                 response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                 response.FromUser = fromUser;
+                response.Culture = UserRecipientsConnectionIds.CultureCode[0];
                 return response;
             }
             else return null;

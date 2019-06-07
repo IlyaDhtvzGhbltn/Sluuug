@@ -511,6 +511,69 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to is your contact now.
+        /// </summary>
+        internal static string Notify_Accept_Your_Friendship {
+            get {
+                return ResourceManager.GetString("Notify_Accept_Your_Friendship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Invite to secret Chat was accepted.
+        /// </summary>
+        internal static string Notify_Accept_Your_Invite_Secret {
+            get {
+                return ResourceManager.GetString("Notify_Accept_Your_Invite_Secret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You got Invite to friendship.
+        /// </summary>
+        internal static string Notify_Friendship_Invite {
+            get {
+                return ResourceManager.GetString("Notify_Friendship_Invite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New message from.
+        /// </summary>
+        internal static string Notify_New_Message {
+            get {
+                return ResourceManager.GetString("Notify_New_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New secret message from.
+        /// </summary>
+        internal static string Notify_New_Message_Secret {
+            get {
+                return ResourceManager.GetString("Notify_New_Message_Secret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You got Invite to secret chat from.
+        /// </summary>
+        internal static string Notify_New_Secret_Chat {
+            get {
+                return ResourceManager.GetString("Notify_New_Secret_Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You got Invite to video-conference from.
+        /// </summary>
+        internal static string Notify_New_VideoConference_Invite {
+            get {
+                return ResourceManager.GetString("Notify_New_VideoConference_Invite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you haven&apos;t Account, register..
         /// </summary>
         internal static string Pre_Login_msg {
@@ -741,6 +804,15 @@ namespace Slug.Properties {
         internal static string Text_Call_To_You {
             get {
                 return ResourceManager.GetString("Text_Call_To_You", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to click to know more.
+        /// </summary>
+        internal static string Text_Click_Here_Details {
+            get {
+                return ResourceManager.GetString("Text_Click_Here_Details", resourceCulture);
             }
         }
         

@@ -26,7 +26,7 @@ namespace Sluuug.Hubs
             this.Clients = clients;
         }
 
-        public async Task<PartialHubResponse> SendMessage(string message, string convId, int toUserId)
+        public async Task<NotifyHubModel> SendMessage(string message, string convId, int toUserId)
         {
             if (!string.IsNullOrWhiteSpace(message))
             {
@@ -68,10 +68,10 @@ namespace Sluuug.Hubs
                     Clients.Caller.sendAsync(html, convGuidID);
                     Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(html, convGuidID);
                 }
-                var responce = new PartialHubResponse();
+                var responce = new NotifyHubModel();
                 responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                 responce.FromUser = user;
-
+                responce.Culture = UserRecipientsConnectionIds.CultureCode[0];
                 return responce;
             }
             else return null;

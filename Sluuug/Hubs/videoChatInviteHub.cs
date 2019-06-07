@@ -37,7 +37,7 @@ namespace Slug.Hubs
         /// </summary>
         /// <param name="calleUserId"></param>
         /// <returns></returns>
-        public async Task<PartialHubResponse> CreateAndInvite(int calleUserId)
+        public async Task<NotifyHubModel> CreateAndInvite(int calleUserId)
         {
             var info = CultureInfo.CurrentCulture;
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
@@ -62,9 +62,10 @@ namespace Slug.Hubs
             Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
             Clients.Caller.CallerGuidToRedirect(guid);
 
-            var response = new PartialHubResponse();
+            var response = new NotifyHubModel();
             response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
             response.FromUser = userInfo;
+            response.Culture = UserRecipientsConnectionIds.CultureCode[0];
             return response;
         }
 
@@ -81,7 +82,7 @@ namespace Slug.Hubs
             Clients.Clients(inviteConnectionsID.ConnectionId).GotInvite(videoConverenceGuidID, callOffer);
         }
 
-        public async Task<PartialHubResponse> ConfirmInvite(Guid videoConverenceID, string callAnswer)
+        public async Task<NotifyHubModel> ConfirmInvite(Guid videoConverenceID, string callAnswer)
         {
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
@@ -92,7 +93,7 @@ namespace Slug.Hubs
 
             Clients.Clients(inviteConnectionsID.ConnectionId).ConfirmInvite(videoConverenceID, callAnswer);
 
-            var response = new PartialHubResponse();
+            var response = new NotifyHubModel();
             response.ConnectionIds = inviteConnectionsID.ConnectionId;
             response.FromUser = userInfo;
             return response;
