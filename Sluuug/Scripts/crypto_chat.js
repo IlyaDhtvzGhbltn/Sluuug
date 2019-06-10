@@ -106,19 +106,10 @@ class Invited {
         localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
     }
 
-    got_invitation(crypto_conversation) {
+    got_invitation(crypto_conversation, html) {
+        console.log(html);
         localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
-
-        document.querySelector('#currentSC').insertAdjacentHTML('beforeend',
-            '<div class="cryptp_chat" style="cursor:pointer" >' +
-            '<span>Opening date : ' + crypto_conversation.creationDate + ' </span>' +
-            '<span>Chat Active : True</span>' +
-            '<p><span>Inviter : </span></p>' +
-            '<span>' + crypto_conversation.creatorName + '</span>' +
-            '<img src="' + crypto_conversation.creatorAvatar + '" height="30" width="30">' +
-            '<button onclick="accept_invite(this)" id="' + crypto_conversation.convGuidId +'" />Accept</button>' +
-            '</div>');
-
+        document.querySelector('#currentSC').insertAdjacentHTML('beforeend', html);
     }
 
     accept_invitation(event_handler) {
@@ -159,7 +150,7 @@ class Invited {
                 localStorage.setItem(chatSecretName, JSON.stringify(privateData));
 
                 for (var i = 0; i < localPublicJSON.participants.length; i++) {
-                    if (localPublicJSON.participants[i].UserId === userId) {
+                    if (localPublicJSON.participants[i].UserId == userId) {
                         localPublicJSON.participants[i].PublicKey = publicKey;
                     }
                 }
@@ -244,10 +235,7 @@ class Inviter {
                 }
                 HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv), crypto_cnv.convGuidId);
                 localStorage.setItem(crypto_cnv.convGuidId, JSON.stringify(crypto_cnv));
-
-                document.querySelector('#self_created').insertAdjacentHTML('beforeend',
-                    '<div class="cryptp_chat" style="background-color:azure; cursor:pointer">'+
-                   '<span>Ваш собственный чат с пользователями :</span></div>');
+                window.location.reload();
             });
     }
 
@@ -303,11 +291,11 @@ function accept_invite(object) {
     invited.accept_invitation(object);
 }
 
-function hide() {
+async function hide() {
     $('#new_crypto_chat')[0].type = 'hidden';
     $('#new_crypto_chat')[0].onclick = null;
-    document.querySelector('#create_new').insertAdjacentHTML('beforeend',
-        '<div id="wait_div"><p><span>key generation... please be patient.</span></p></div>');
+    let wait = await getPartialView('/partial/await_key_generation');
+    document.querySelector('#create_new').insertAdjacentHTML('beforeend', wait);
 }
 
 function show() {
@@ -323,8 +311,8 @@ HUB.on('NewCryptoConversationCreated', function (crypto_cnv) {
     inviter.send_notivication_to_participants(crypto_cnv);
 });
 
-HUB.on('ObtainNewInvitation', function (crypto_cnv) {
-    invited.got_invitation(crypto_cnv);
+HUB.on('ObtainNewInvitation', function (crypto_cnv, html) {
+    invited.got_invitation(crypto_cnv, html);
 });
 
 HUB.on('AcceptInvitation', function (crypto_cnv) {
@@ -375,4 +363,12 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getPartialView(url_addres) {
+    return $.ajax({
+        url: url_addres,
+        data: {},
+        type: "post"
+    });
 }

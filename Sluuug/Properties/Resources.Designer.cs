@@ -880,6 +880,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sending not allowed, because Message is empty.
+        /// </summary>
+        internal static string Text_Empty_Message {
+            get {
+                return ResourceManager.GetString("Text_Empty_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Date.
         /// </summary>
         internal static string Text_End_Date {
@@ -894,6 +903,15 @@ namespace Slug.Properties {
         internal static string Text_Events {
             get {
                 return ResourceManager.GetString("Text_Events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiration after mins :.
+        /// </summary>
+        internal static string Text_Expiration_After {
+            get {
+                return ResourceManager.GetString("Text_Expiration_After", resourceCulture);
             }
         }
         
@@ -952,6 +970,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You did send Invite, but you need to wait user need to accept it..
+        /// </summary>
+        internal static string Text_Invite_To_Friendship {
+            get {
+                return ResourceManager.GetString("Text_Invite_To_Friendship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Invitation to crypto-chat to one of Contacts.
         /// </summary>
         internal static string Text_Invite_To_Secret_Help_To_Button {
@@ -961,11 +988,29 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Inviter.
+        /// </summary>
+        internal static string Text_Inviter {
+            get {
+                return ResourceManager.GetString("Text_Inviter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jobs.
         /// </summary>
         internal static string Text_Jobs {
             get {
                 return ResourceManager.GetString("Text_Jobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key generation,  please be patient..
+        /// </summary>
+        internal static string Text_Key_Generation {
+            get {
+                return ResourceManager.GetString("Text_Key_Generation", resourceCulture);
             }
         }
         
@@ -1051,6 +1096,24 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send New Message.
+        /// </summary>
+        internal static string Text_New_Message {
+            get {
+                return ResourceManager.GetString("Text_New_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert your message here..
+        /// </summary>
+        internal static string Text_New_Message_Insert {
+            get {
+                return ResourceManager.GetString("Text_New_Message_Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incoming Call from :.
         /// </summary>
         internal static string Text_Not_Answered_Call {
@@ -1092,6 +1155,15 @@ namespace Slug.Properties {
         internal static string Text_Outcomm_Investigation {
             get {
                 return ResourceManager.GetString("Text_Outcomm_Investigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat status.
+        /// </summary>
+        internal static string Text_Secret_Chat_Status {
+            get {
+                return ResourceManager.GetString("Text_Secret_Chat_Status", resourceCulture);
             }
         }
         
@@ -1146,6 +1218,24 @@ namespace Slug.Properties {
         internal static string Text_Start_Date {
             get {
                 return ResourceManager.GetString("Text_Start_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        internal static string Text_Status_Active {
+            get {
+                return ResourceManager.GetString("Text_Status_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expired.
+        /// </summary>
+        internal static string Text_Status_Expired {
+            get {
+                return ResourceManager.GetString("Text_Status_Expired", resourceCulture);
             }
         }
         

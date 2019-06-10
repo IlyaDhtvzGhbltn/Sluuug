@@ -235,7 +235,9 @@
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
     <Compile Include="Helpers\HTMLGenerated\DialogMessage.cs" />
+    <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
     <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
+    <Compile Include="Helpers\HTMLGenerated\UserFriendshipResponce.cs" />
     <Compile Include="Helpers\HTMLGenerated\VideoConferenceInviteToRedirect.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
@@ -404,6 +406,7 @@
     <Content Include="Views\Partial\Register\email_already_taken.cshtml" />
     <Content Include="Views\Partial\OwnPage\change_private_info.cshtml" />
     <Content Include="Views\Error\internal_part_error.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\await_key_generation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

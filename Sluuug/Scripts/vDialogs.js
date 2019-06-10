@@ -20,7 +20,7 @@ function checkWebrtcAndLoad() {
             item.addEventListener('click', function () {
                 createConference(this.id);
             });
-        })
+        });
     }
     else {
         alert("Sorry, your browser does not support WebRTC!");
@@ -48,10 +48,10 @@ function createConference(friend_id) {
     HUB.invoke('CreateAndInvite', friend_id);
 }
 
-function calleInviteToRedirect(model) {
-    var model = JSON.parse(model);
+function calleInviteToRedirect(modeljson) {
+    var model = JSON.parse(modeljson);
     var caller_phone = document.getElementById("called__" + model.inviterId);
-    if (caller_phone == null) {
+    if (caller_phone === null) {
         var mylist = $('#incomming');
         mylist[0].insertAdjacentHTML('beforeend', model.html);
 

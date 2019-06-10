@@ -522,4 +522,34 @@
   <data name="Text_Click_Here_Details" xml:space="preserve">
     <value>click to know more</value>
   </data>
+  <data name="Text_Expiration_After" xml:space="preserve">
+    <value>Expiration after mins :</value>
+  </data>
+  <data name="Text_Secret_Chat_Status" xml:space="preserve">
+    <value>Chat status</value>
+  </data>
+  <data name="Text_Status_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Text_Status_Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="Text_Inviter" xml:space="preserve">
+    <value>The Inviter</value>
+  </data>
+  <data name="Text_Key_Generation" xml:space="preserve">
+    <value>Key generation,  please be patient.</value>
+  </data>
+  <data name="Text_Invite_To_Friendship" xml:space="preserve">
+    <value>You did send Invite, but you need to wait user need to accept it.</value>
+  </data>
+  <data name="Text_Empty_Message" xml:space="preserve">
+    <value>Sending not allowed, because Message is empty</value>
+  </data>
+  <data name="Text_New_Message" xml:space="preserve">
+    <value>Send New Message</value>
+  </data>
+  <data name="Text_New_Message_Insert" xml:space="preserve">
+    <value>Insert your message here.</value>
+  </data>
 </root>

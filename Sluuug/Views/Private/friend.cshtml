@@ -13,8 +13,18 @@
     <p>@Model.SurName</p>
     <p>@Model.DateBirth</p>
     <p>@Model.Sity</p>
-    <p><button id="@Model.UserId" onclick="create_form(this)">@Html.Translate("Button_Send_Message")</button></p>
-</div>
+    <p><button id="@Model.UserId" onclick="create_form()">@Html.Translate("Text_New_Message")</button></p>
+    <div id="new_message_to_user" hidden="hidden">
+        <span>@Html.Translate("Text_New_Message_Insert")</span>
+        <p><input type="text" id="form_@Model.UserId"></p>
+        <p>
+            <button onclick="send_msg(@Model.UserId)">@Html.Translate("Button_Send_Message")</button>
+            <button onclick="drop_elem()">@Html.Translate("Button_Cancel")</button></p>
+        </div>
+    <div id="error" hidden="hidden"><span>@Html.Translate("Text_Empty_Message")</span></div>
+    </div>
+
+
 <div id="user_albums">
     @if (Model.Albums.Count == 0)
     {

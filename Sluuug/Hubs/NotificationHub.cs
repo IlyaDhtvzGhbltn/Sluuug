@@ -218,12 +218,14 @@ namespace Slug.Hubs
 
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             CutUserInfoModel responce = userWorker.AddInviteToContacts(session, userID);
+            UserConnectionIdModel connections = connectionsWorker.GetConnectionById(userID);
             if (responce != null)
             {
-               UserConnectionIdModel connections = connectionsWorker.GetConnectionById(userID);
-               string html = Notifications.GenerateHtml(NotificationType.NewInviteFriendship, responce, connections.CultureCode[0]);
-               Clients.Clients(connections.ConnectionId).NotifyAbout(html, null);
+                string html = Notifications.GenerateHtml(NotificationType.NewInviteFriendship, responce, connections.CultureCode[0]);
+                Clients.Clients(connections.ConnectionId).NotifyAbout(html, null);
             }
+            string htmlToCaller = UserFriendshipResponce.GenerateHtml(connections.CultureCode[0]);
+            Clients.Caller.AddUserResponce(htmlToCaller);
         }
 
         public async Task DropContact(int userID)

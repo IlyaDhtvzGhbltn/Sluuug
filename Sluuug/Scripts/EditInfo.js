@@ -170,7 +170,7 @@ function getPartialView(url_addres) {
         url: url_addres,
         data: {},
         type: "post"
-    })
+    });
 }
 
 function send_simple(api_url, formID, show_button, requred_field_alert) {

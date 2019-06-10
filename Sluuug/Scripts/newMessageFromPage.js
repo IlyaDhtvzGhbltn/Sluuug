@@ -4,30 +4,32 @@ connection.qs = 'URL=' + window.location.href;
 
 connection.start();
 
-function create_form(elem) {
-    let button = document.getElementById(elem.id);
-    button.hidden = true;
-    let info = document.getElementById('user_cut_data');
-    info.insertAdjacentHTML('beforeend',
-        '<div id="new_message_' + elem.id + '">' +
-        '<span> insert your message</span>' +
-        '<p><input type="text" id ="form_' + elem.id + '"></p>' +
-        '<p><button onclick="send_msg(' + elem.id + ')">Send</button>' +
-        '<button onclick="drop_form(' + elem.id + ')">Close</button></div></p>'
-    );
+function create_form() {
+    let elem = document.getElementById("new_message_to_user");
+    elem.hidden = false;
 }
 
-function drop_elem(id) {
-    document.getElementById('new_message_' + id).remove();
-    let button = document.getElementById(id);
-    button.hidden = false;
+function drop_elem() {
+    let elem = document.getElementById("new_message_to_user");
+    elem.hidden = true;
+    let error_elem = document.getElementById("error");
+    error_elem.hidden = true;
 }
 
 function send_msg(to_id) {
     let text = document.getElementById('form_' + to_id).value;
-
-    HUB.invoke('SendMessage', text, 0, to_id);
+    if (text.length > 0) {
+        HUB.invoke('SendMessage', text, 0, to_id);
         window.location.href = '/private/cnv';
+    }
+    else {
+        let elem = document.getElementById("error");
+        elem.hidden = false;
+        setTimeout(function () {
+            let elem = document.getElementById("error");
+            elem.hidden = true;
+        }, 4000);
+    }
 }
 
 function is_empty(text) {

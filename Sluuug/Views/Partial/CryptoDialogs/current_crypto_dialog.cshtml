@@ -7,12 +7,9 @@
     <p>
         <span>@Html.Translate("Text_Secret_Dialog_Participants") </span>
     </p>
-    @foreach (var part in Model.Users)
-    {
         <p>
-            <span> @part.Name </span>
-            <img src="@part.AvatarPath" height="30" width="30" />
+            <span> @Model.UserCreator.Name </span>
+            <img src="@Model.UserCreator.AvatarPath" height="30" width="30" />
         </p>
-    }
     <span class="last_msg_crypto">@Model.LastMessage</span>
 </div>

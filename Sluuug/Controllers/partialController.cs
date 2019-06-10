@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Slug.Extensions;
 using Slug.Context.Dto;
 using Slug.Model;
+using System.Globalization;
 
 namespace Slug.Controllers
 {
@@ -185,6 +186,18 @@ namespace Slug.Controllers
         public ActionResult Internal_Error()
         {
             return View("~/Views/Error/internal_part_error.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Await_Key_Generation()
+        {
+            string session = GetCookiesValue(this.Request);
+            var handler = new UsersConnectionHandler();
+            var cultureCode = handler.GetConnectionBySession(session).CultureCode[0];
+            CultureInfo cul = CultureInfo.CreateSpecificCulture(cultureCode);
+            string mess = Properties.Resources.ResourceManager.GetString("Text_Key_Generation", cul);
+            ViewBag.BePatient = mess;
+            return View("~/Views/Partial/CryptoDialogs/await_key_generation.cshtml");
         }
     }
 }

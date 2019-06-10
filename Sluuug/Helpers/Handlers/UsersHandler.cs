@@ -581,6 +581,7 @@ namespace Slug.Helpers
                     FriendsRelationship invitationAlreadySand = context.FriendsRelationship
                         .FirstOrDefault(x => x.UserOferFrienshipSender == userSenderRequest.UserId && x.UserConfirmer == invitedUser.Id ||
                         x.UserConfirmer == userSenderRequest.UserId && x.UserOferFrienshipSender == invitedUser.Id);
+
                     if (invitationAlreadySand == null)
                     {
                         var relation = new FriendsRelationship();

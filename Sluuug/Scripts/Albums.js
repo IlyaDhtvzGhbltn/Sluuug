@@ -17,7 +17,7 @@ img[1] = 'edit_img_desc_';
 
 function ShowAlbumCreateForm() {
     let div_form = $('#create_album_form')[0];
-    if (div_form.innerHTML.length == 0) {
+    if (div_form.innerHTML.length === 0) {
 
         let div_ = $('#create_new_album_button')[0];
         div_.style.display = 'none';
@@ -42,7 +42,7 @@ function ExpandFoto(fotoId) {
 
 function show_form_upload_foto(alb) {
     let div_form = $('#upload_foto_div_' + alb)[0];
-    if (div_form.innerHTML.length == 0) {
+    if (div_form.innerHTML.length === 0) {
         $.ajax({
             type: "post",
             url: "/partial/uploadfotoform",
@@ -76,7 +76,7 @@ function uploadFotoToAlbum(album) {
     data.push({name:"Album", value:album}); 
 
     let selected_files = $('#input_photo')[0].files;
-    if (selected_files.length == 0) {
+    if (selected_files.length === 0) {
         var foto_req = $("#foto_not_upload")[0];
         foto_req.style.display = 'inline-block';
     }
@@ -153,7 +153,7 @@ function drop_elem(formID) {
 
 function add_info(fotoID, type) {
     let elem_ = $('#' + edit[type] + fotoID)[0];
-    if (elem_ == undefined) {
+    if (elem_ === undefined) {
         $.ajax({
             type: "post",
             url: "/partial/editinfo",

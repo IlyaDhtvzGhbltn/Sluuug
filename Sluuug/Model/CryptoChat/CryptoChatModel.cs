@@ -18,7 +18,7 @@ namespace Slug.Model
     {
         public Guid GuidId { get; set; }
 
-        public List<FriendModel> Users { get; set; }
+        public FriendModel UserCreator { get; set; }
 
         public DateTime OpenDate { get; set; }
 

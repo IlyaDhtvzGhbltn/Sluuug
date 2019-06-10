@@ -522,4 +522,34 @@
   <data name="Text_Click_Here_Details" xml:space="preserve">
     <value>нажмите, что бы узнать подробности</value>
   </data>
+  <data name="Text_Expiration_After" xml:space="preserve">
+    <value>Истекает через минут :</value>
+  </data>
+  <data name="Text_Inviter" xml:space="preserve">
+    <value>Приглашает :</value>
+  </data>
+  <data name="Text_Secret_Chat_Status" xml:space="preserve">
+    <value>Статус чата</value>
+  </data>
+  <data name="Text_Status_Active" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="Text_Status_Expired" xml:space="preserve">
+    <value>Неактивен</value>
+  </data>
+  <data name="Text_Key_Generation" xml:space="preserve">
+    <value>Идет генерация ключей, пожалуйста подождите</value>
+  </data>
+  <data name="Text_Invite_To_Friendship" xml:space="preserve">
+    <value>Вы отправили приглашение, но нужно подождать пока пользователь примет его.</value>
+  </data>
+  <data name="Text_Empty_Message" xml:space="preserve">
+    <value>Нельзя отправлять пустое сообщение</value>
+  </data>
+  <data name="Text_New_Message" xml:space="preserve">
+    <value>Отправить сообщение</value>
+  </data>
+  <data name="Text_New_Message_Insert" xml:space="preserve">
+    <value>Наберите ваше сообщение</value>
+  </data>
 </root>

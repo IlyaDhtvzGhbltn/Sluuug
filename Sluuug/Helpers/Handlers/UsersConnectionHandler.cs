@@ -81,7 +81,6 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                var userConnect = new List<string>();
                 foreach (int item in userID)
                 {
                     var userConnections = context.UserConnections
@@ -94,6 +93,32 @@ namespace Slug.Helpers
                         connections.CultureCode.Add(connection.CultureCode);
                     }
                 }
+                return connections;
+            }
+        }
+
+        public UserConnectionIdModel GetConnectionBySession(string sessionID)
+        {
+            var connections = new UserConnectionIdModel()
+            {
+                ConnectionId = new List<string>(),
+                CultureCode = new List<string>()
+            };
+
+            using (var context = new DataBaseContext())
+            {
+                Session session = context.Sessions.First(x => x.Number == sessionID);
+                User user = context.Users.First(x => x.Id == session.UserId);
+
+                List<UserConnections> userConnect = context.UserConnections
+                    .Where(x => x.UserID == user.Id && x.ConnectionActiveStatus == true)
+                    .ToList();
+
+                userConnect.ForEach(x=> 
+                {
+                    connections.ConnectionId.Add(x.ConnectionID.ToString());
+                    connections.CultureCode.Add(x.CultureCode);
+                });
                 return connections;
             }
         }

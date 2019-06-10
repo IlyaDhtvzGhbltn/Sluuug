@@ -94,7 +94,7 @@ namespace Slug.Helpers
                             chat.OpenDate = secretChat.Create;
                             chat.GuidId = secretChat.PartyGUID;
                             chat.ActiveStatus = true;
-                            chat.Users = new List<FriendModel>();
+                            chat.UserCreator = new FriendModel();
                             var GuidId = item.PartyGUID.ToString();
                             var count = context.SecretMessage.Count(x=>x.PartyId == GuidId);
                             if (count != 0)
@@ -105,7 +105,7 @@ namespace Slug.Helpers
 
                             CryptoChatStatus status = ChatStatus(context, item.UserId, secretChat.PartyGUID);
                             chat.GuidId = item.PartyGUID;
-                            chat.Users = getChatUser(context, item.PartyGUID, ref user);
+                            chat.UserCreator = getChatUser(context, item.PartyGUID, ref user, userInformation);
 
 
                             if (status == CryptoChatStatus.SelfCreated)
@@ -236,22 +236,23 @@ namespace Slug.Helpers
 
                 return CryptoChatStatus.PendingAccepted;
         }
-        private List<FriendModel> getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user)
+        private FriendModel getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user, CutUserInfoModel userCaller)
         {
-            List<FriendModel> chatParticipants = new List<FriendModel>();
+            var chatUser = new FriendModel();
+
             var participators = context.SecretChatGroups.Where(x => x.PartyGUID == PartyGUID).ToList();
             foreach (var participator in participators)
             {
-                var friendModel = new FriendModel();
-                var userInfo = user.GetUserInfo(participator.UserId);
-                friendModel.UserId = userInfo.UserId;
-                friendModel.AvatarPath = userInfo.AvatarUri;
-                friendModel.Name = userInfo.Name;
-                friendModel.SurName = userInfo.SurName;
-
-                chatParticipants.Add(friendModel);
+                if (participator.UserId != userCaller.UserId)
+                {
+                    var userInfo = user.GetUserInfo(participator.UserId);
+                    chatUser.UserId = userInfo.UserId;
+                    chatUser.AvatarPath = userInfo.AvatarUri;
+                    chatUser.Name = userInfo.Name;
+                    chatUser.SurName = userInfo.SurName;
+                }
             }
-            return chatParticipants;
+            return chatUser;
         }
         private bool CryptoChatExpired(DataBaseContext context, Guid GuidId)
         {

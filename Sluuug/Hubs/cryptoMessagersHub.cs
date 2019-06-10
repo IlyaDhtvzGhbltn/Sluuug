@@ -17,6 +17,7 @@ using Slug.Context.Dto.Messages;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
 using Slug.Model.Users;
+using Slug.Helpers.HTMLGenerated;
 
 namespace Slug.Hubs
 {
@@ -66,6 +67,7 @@ namespace Slug.Hubs
             CutUserInfoModel fromUser = worker.GetFullUserInfo(Session.Value);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
+
             cryptoConversation.CreatorAvatar = fromUser.AvatarUri;
             cryptoConversation.CreatorName = fromUser.Name;
 
@@ -74,7 +76,8 @@ namespace Slug.Hubs
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
             UserConnectionIdModel UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
 
-            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation);
+            string html = InviteToSecretConversation.GenerateHtml(cryptoConversation, UserRecipientsConnectionIds.CultureCode[0]);
+            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation, html);
 
             var responce = new NotifyHubModel();
             responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
