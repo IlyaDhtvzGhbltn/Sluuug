@@ -199,5 +199,17 @@ namespace Slug.Controllers
             ViewBag.BePatient = mess;
             return View("~/Views/Partial/CryptoDialogs/await_key_generation.cshtml");
         }
+
+        [HttpPost]
+        public ActionResult success_register()
+        {
+            return View("~/Views/Partial/Register/success_register.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult fail_register()
+        {
+            return View("~/Views/Partial/Register/fail_register.cshtml");
+        }
     }
 }

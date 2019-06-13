@@ -745,6 +745,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comet Connection | Public Part.
+        /// </summary>
+        internal static string Site_Title_Public {
+            get {
+                return ResourceManager.GetString("Site_Title_Public", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to Contacts.
         /// </summary>
         internal static string Text_Add_Contact {

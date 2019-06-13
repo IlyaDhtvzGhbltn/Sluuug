@@ -15,7 +15,7 @@ namespace Slug.Model
         public string Name { get; set; }
 
         [MinLength(2), MaxLength(20)]
-        public string ForName { get; set; }
+        public string SurName { get; set; }
 
         public int CountryCode { get; set; }
 

@@ -149,13 +149,19 @@
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Resources\favicon.ico" />
-    <Content Include="Resources\guest_footer_073349.jpg" />
-    <Content Include="Resources\guest_header_073349.jpg" />
+    <Content Include="Resources\images\abstract_footer_left.png" />
+    <Content Include="Resources\images\close.png" />
+    <Content Include="Resources\images\comet.png" />
+    <Content Include="Resources\images\favicon.ico" />
+    <Content Include="Resources\images\social_media_img.png" />
+    <Content Include="Resources\images\space_main_background.png" />
+    <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
     <Content Include="Scripts\Common\CommonAlbums.js" />
     <Content Include="Scripts\EditInfo.js" />
+    <Content Include="Scripts\Guest\index_form.js" />
+    <Content Include="Scripts\Guest\validationGuest.js" />
     <Content Include="Scripts\System\BigInteger.js" />
     <Content Include="Scripts\System\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
@@ -176,10 +182,13 @@
     <Content Include="Scripts\System\SHA-512.js" />
     <Content Include="Scripts\Settings.js" />
     <Content Include="Scripts\System\sha512.js" />
+    <Content Include="Scripts\System\Validation.js" />
     <Content Include="Scripts\vConferens.js" />
     <Content Include="Scripts\vDialogRedirection.js" />
     <Content Include="Scripts\vDialogs.js" />
-    <Content Include="Styles\guest.css" />
+    <Content Include="Styles\common\await.css" />
+    <Content Include="Styles\guest\index_form.css" />
+    <Content Include="Styles\guest\index_style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -187,8 +196,6 @@
     <Content Include="Views\Error\notfound.cshtml" />
     <Content Include="Views\Guest\Activate.cshtml" />
     <Content Include="Views\Guest\Index.cshtml" />
-    <Content Include="Views\Guest\Login.cshtml" />
-    <Content Include="Views\Guest\Register.cshtml" />
     <Content Include="Views\Private\my.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +358,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Shared\logo.cshtml" />
+    <Content Include="Views\Shared\guest.cshtml" />
     <Content Include="Views\Private\msg.cshtml" />
     <Content Include="Views\Error\unauthorized.cshtml" />
     <Content Include="Views\Private\user.cshtml" />
@@ -407,6 +414,8 @@
     <Content Include="Views\Partial\OwnPage\change_private_info.cshtml" />
     <Content Include="Views\Error\internal_part_error.cshtml" />
     <Content Include="Views\Partial\CryptoDialogs\await_key_generation.cshtml" />
+    <Content Include="Views\Partial\Register\success_register.cshtml" />
+    <Content Include="Views\Partial\Register\fail_register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

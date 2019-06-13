@@ -40,7 +40,7 @@ namespace Slug.Helpers
                     newUser.UserFullInfo.DateOfBirth = user.DateBirth;
                     newUser.Settings.Email = user.Email;
                     newUser.UserFullInfo.Name = user.Name;
-                    newUser.UserFullInfo.SurName = user.ForName;
+                    newUser.UserFullInfo.SurName = user.SurName;
                     newUser.Login = user.Login;
                     newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
 

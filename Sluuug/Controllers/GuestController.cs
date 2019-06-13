@@ -20,28 +20,12 @@ namespace Slug.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult register()
-        {
-            HttpCookie session_id = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-            if (session_id == null || string.IsNullOrWhiteSpace(session_id.Value))
-                return View();
-            else
-            {
-                //SessionTypes type = SessionHandler.GetSessionType(session_id.Value);
-                //if (type == SessionTypes.AwaitEmailConfirm)
-                //    return RedirectToAction("login", "guest");
-                //else
-                    return View();
-            }
-        }
-
         [HttpPost]
-        public ActionResult userconfirmation(RegisteringUserModel user)
+        public JsonResult userconfirmation(RegisteringUserModel user)
         {
             if (isUserEmpty(user))
             {
-                return RedirectToAction("register", "guest");
+                return new JsonResult() { Data = false };
             }
             else
             {
@@ -50,11 +34,10 @@ namespace Slug.Controllers
                 {
                     var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
                     mailer.SendActivationMail();
-                    return RedirectToAction("login", "guest", new
-                    { a = userConfirmation.ActivationSessionId });
+                    return new JsonResult() { Data = true };
                 }
                 else
-                    return RedirectToAction("user_already_exist", "error");
+                    return new JsonResult() { Data = false };
             }
         }
 
@@ -88,44 +71,6 @@ namespace Slug.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult login(string a)
-        {
-            ViewBag.await_confirmation_div_display = "none";
-            ViewBag.immediately_login_div_display = "block";
-
-            //var cook = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-            //if (cook != null)
-            //{
-            //    SessionTypes sessionType = SessionWorker.GetSessionType(cook.Value);
-            //    if (sessionType == SessionTypes.Private)
-            //    {
-            //        return RedirectToAction("my", "private");
-            //    }
-            //    if (sessionType == SessionTypes.AwaitEmailConfirm)
-            //    {
-            //        ViewBag.await_confirmation_div_display = "block";
-            //        ViewBag.immediately_login_div_display = "none";
-            //    }
-            //}
-
-            if (!string.IsNullOrWhiteSpace(a))
-            {
-                SessionTypes type = SessionHandler.GetSessionType(a);
-                if (type == SessionTypes.AwaitEmailConfirm)
-                {
-                    ViewBag.await_confirmation_div_display = "block";
-                    ViewBag.immediately_login_div_display = "none";
-
-
-                    var cookies = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-                    cookies.Value = a;
-                    Response.Cookies.Set(cookies);
-                }
-            }
-            return View();
-        }
-
         [HttpPost]
         public ActionResult auth(string login, string hashPassword)
         {
@@ -147,7 +92,7 @@ namespace Slug.Controllers
         {
             if
               (string.IsNullOrWhiteSpace(user.Email) &&
-               string.IsNullOrWhiteSpace(user.ForName) &&
+               string.IsNullOrWhiteSpace(user.SurName) &&
                string.IsNullOrWhiteSpace(user.Name) &&
                string.IsNullOrWhiteSpace(user.PasswordHash))
             {
@@ -155,6 +100,5 @@ namespace Slug.Controllers
             }
             return false;
         }
-
     }
 }

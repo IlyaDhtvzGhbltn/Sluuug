@@ -552,4 +552,7 @@
   <data name="Text_New_Message_Insert" xml:space="preserve">
     <value>Наберите ваше сообщение</value>
   </data>
+  <data name="Site_Title_Public" xml:space="preserve">
+    <value>Comet Connection | Гость</value>
+  </data>
 </root>

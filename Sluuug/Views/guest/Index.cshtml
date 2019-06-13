@@ -1,22 +1,151 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Logo.cshtml";
+    Layout = "~/Views/Shared/guest.cshtml";
 }
 @using Slug.Extensions;
 
+<div class="content">
+    <div class="result_empty"></div>
 
-<h2>@Html.Translate("Site_Title")</h2>
-<div id="login_lnk">
-    <p>
-        <a href="~/guest/login">@Html.Translate("Login")</a>
-    </p>
+    <div class="main" id="main">
+        <h2>Главная</h2>
+        <p>Comet Connection - это современный бесплатный сервис для поиска знакомств и контактов, сочетающий в себе множество полезных функций, включая видео и аудио связь.</p>
+        <p>
+            Наш сервис позволяет отправлять мгновенные сообщения, создавать собственные профили, обмениваться зашифрованными с помощью <b>end-to-end</b> шифрования сообщениями и находить других пользователей по всему миру совершенно бесплатно.
+            Чёткая, стабильная видео-связь позволит передать ваши эмоции на любые расстояния! Хотите, чтобы ваш разговор с собеседником остался конфиденциальным - к вашим услугам секретный чат, доступ к которому имеете только вы с собеседником.
+        </p>
+        <p>Получите возможность сделать общение ярче, читая ещё не отправленное сообщение собеседника.</p>
+    </div>
+    <div class="form" id="reg_log">
+        <ul class="tab-group">
+            <li class="tab active" id="reg_toggle" onclick="show_register()"><a>Регистрация</a></li>
+            <li class="tab" id="login_toggle" onclick="show_login()"><a>Вход</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="signup_form">
+                <form id="register_form">
+                    <h4>Регистрация</h4>
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <input type="text" name="Name" placeholder="Имя *" required autocomplete="off" />
+                        </div>
+                        <div class="field-wrap">
+                            <input type="text" name="SurName" placeholder="Фамилия *" required autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <input type="email" name="Email" placeholder="Email Адрес *" required autocomplete="off" oninput="verify_email(this)" />
+                        <div id="email_space"></div>
+                    </div>
+                    <div class="field-wrap">
+                        <input type="text" name="Login" placeholder="Придумайте логин *" required autocomplete="off" oninput="verify_login(this)" />
+                        <div id="login_space"></div>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Выберите страну :</label>
+                        <p>
+                            <select name="CountryCode" id="country_list">
+                                <option class="option" value="7">Россия</option>
+                                <option class="option" value="1">USA</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Выберите дату рождения :</label>
+                        <input id="select_date" name="DateBirth" type="date" required autocomplete="off" />
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
+                    </div>
+                    <input type="button" class="button button-block" id="reg_subm" onclick="register()" value="Зарегестрироваться" />
+                </form>
+            </div>
+
+            <div id="login_form">
+                <form>
+                    <h4>Добро пожаловать снова!</h4>
+                    <div class="field-wrap">
+                        <input placeholder="Email Адрес *" type="email" required autocomplete="off" />
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Пароль *" required autocomplete="off" />
+                    </div>
+                    <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
+                    <button class="button button-block" />Вход</button>
+                </form>
+            </div>
+            <div id="repassword_form">
+                <form>
+                    <h4>Обновить пароль</h4>
+                    <p>Введите адрес электронной почты, использованный при регистрации.</p>
+                    <div class="field-wrap">
+                        <input placeholder="Email Адрес *" type="email" required autocomplete="off" />
+                    </div>
+                    <button class="button button-block" />Выслать пароль</button>
+                </form>
+            </div>
+        </div><!-- tab-content -->
+        <div class="alert_form"><p>Пожалуйста, заполните верно все поля *</p></div>
+
+        <div id="circular3dG" hidden>
+            <div id="circular3d_1G" class="circular3dG"></div>
+            <div id="circular3d_2G" class="circular3dG"></div>
+            <div id="circular3d_3G" class="circular3dG"></div>
+            <div id="circular3d_4G" class="circular3dG"></div>
+            <div id="circular3d_5G" class="circular3dG"></div>
+            <div id="circular3d_6G" class="circular3dG"></div>
+            <div id="circular3d_7G" class="circular3dG"></div>
+            <div id="circular3d_8G" class="circular3dG"></div>
+        </div>
+    </div>
+    <div class="functions" id="functions">
+        <h2>Возможности</h2>
+        <h3>Меседжер</h3>
+        <p>
+            Ищете новых знакомств? Comet Connection предоставляет услуги классического мессаджера, с возможностью мгновенных сообщений между собеседниками.
+            А кроме стандартных для всех месаджеров возможностей, вы можете попробовать общение в стиле <b>non-send-message</b> при котором вы и ваш собеседник видите не только отправленное сообщение но и процесс его набора со всеми правками.
+            Это может быть гораздо интереснее т.к. вы видите не только то что было отправлено но и то что вам так и не решились отправить.
+        </p>
+        <h3>Секретный чат</h3>
+        <p>
+            Для того что бы ваши переписки всегда оставались тайной, воспользуйтесь функцией <b>секретный-чат</b>.
+            Его особенность в том, что каждое полученное и отправленное сообщение шифруется в вашем браузере и никто кроме вас и вашего собеседника не сможет их прочесть. Даже если злоумышленник сумеет залогинится от вашего имени - он не сможет прочитать переписку.
+            Т.к. сообщения привязаны к устройству на котором был создан чат.
+        </p>
+        <p>Однако, будте внимательны - каждый секретный чат обладает специальным таймаутом, по прошествию которого чат будет автоматически очищен.</p>
+        <h3>Видео-связь</h3>
+        <p>
+            Что бы ваше общение и знакомства оставляли только позитивные впечатления, воспользуйтей сервисом <b>видео-связь</b> от Comet Connection.
+            Высокое качество видео и низкая задержка блягодаря <b>perr-to-peer</b> технологии позволит вам легко связатся с друзьями и коллегами где бы они ни были.
+        </p>
+    </div>
+
+    <div class="help" id="help">
+        <h2>Справка (FAQ)</h2>
+        <h3>Что необходимо для регистрации на сервисе?</h3>
+        <p>Регистрация и возможность пользоватся всеми функциями сервиса совершенно бесплатно. Достаточно только <b>email</b> адреса.</p>
+        <h3>Пропали сообщения в секретном чате.</h3>
+        <p>
+            Каждый секретный чат имеет строго отведенное время жизни (от одного часа до одного года), по прошествию которого сообщения безвозвратно удаляются.
+            Это сделано в целях безопасности, что бы никто не смог взломать вашу переписку.
+        </p>
+        <h3>Сообщения в секретном чате отображаются некоректно.</h3>
+        <p>
+            Если при входе в секретный чат вы обнаружили, что переписка стала нечитаемой на то может быть несколько причин. Самая распространенная - вход с другово устройства или браузера.
+            При создании чата генерируются секретные ключи которые сохраняются только в вашем браузере и следовательно переписка будет доступна только в нем.
+        </p>
+        <p>Если вы переустановили браузер или удалили профиль в браузере или очистили папку профиля браузера, который создавал чат - ключи будут утеряны вместе с перепиской.</p>
+        <h3>У меня стоит настройка <b>non-send-message</b> но я все равно вижу сообщения только после отправки мне.</h3>
+        <p>Режим <b>non-send-message</b> должен быть включен у обоих собеседников.</p>
+        <h3>Как включить режим <b>non-send-message</b>?</h3>
+        <p>Для этого необходимо пройти в настройки и активоровать переключатель <b>быстрые сообщения</b>.</p>
+        <h3>Как отправлять сообщения другим пользователям?</h3>
+        <p>Что бы отправить сообщение пользователю, нужно вначале добавить его в свои контакты и дождаться положительного ответа. Если пользователь не примет ваше приглашение то - отправка сообщений и видео-связь будет недоступна.</p>
+        <h3>Я переписывался с пользователем но теперь не могу с ним связатся.</h3>
+        <p>Возможно пользователь случайно удалил вас из контактов. Если это так попробуйте отправить заявку еще раз.</p>
+        <h3>Здесь нет нужного ответа.</h3>
+        <p>Если у вас остались вопросы, воспользуйтесь формой обратной связи. Мы постпраемся ответить вам в ближайшее время.</p>
+    </div>
 </div>
-
-<div id="register_lnk">
-    <p>
-        <a href="~/guest/register">@Html.Translate("Register")</a>
-    </p>
-</div>
-
 
