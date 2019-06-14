@@ -133,7 +133,7 @@
     <value>Ссылка активации неверна или истекла</value>
   </data>
   <data name="Activate_Incorrect_Check_Email" xml:space="preserve">
-    <value>Пожалуйста, проверьте папку "Спам" на вашем почтовый ящик или повторите регистрацию</value>
+    <value>Пожалуйста, проверьте папку &lt;b&gt;Спам&lt;/b&gt; на вашем почтовом ящик или повторите регистрацию</value>
   </data>
   <data name="Button_Accept_Contact" xml:space="preserve">
     <value>Добавить контакт</value>
@@ -214,7 +214,7 @@
     <value>Что то пошло не так...</value>
   </data>
   <data name="Error_Not_Authorized_Message" xml:space="preserve">
-    <value>Запрашиваемая страница не доступна для неавторизованных пользователей. Что бы войти нажмите</value>
+    <value>Запрашиваемая страница не доступна для неавторизованных пользователей. Что бы зарегестрироваться или войти нажмите</value>
   </data>
   <data name="Error_Not_Authorized_Title" xml:space="preserve">
     <value>Неавторизованный пользователь</value>

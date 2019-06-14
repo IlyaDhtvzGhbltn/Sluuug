@@ -46,5 +46,7 @@ namespace Context
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Foto> Fotos { get; set; }
         public virtual DbSet<FotoComment> FotoComments { get; set; }
+
+        public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
     }
 }

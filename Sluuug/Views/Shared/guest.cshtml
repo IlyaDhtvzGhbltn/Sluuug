@@ -7,16 +7,22 @@
     @*<script src="~/Scripts/System/jquery-1.6.4.js"></script>
         <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>*@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="~/Scripts/Guest/index_form.js"></script>
-    <script src="~/Scripts/Guest/validationGuest.js"></script>
-    <script src="~/Scripts/System/ParseFormArray.js"></script>
-    <script src="~/Scripts/System/sha512.js"></script>
-    <script src="~/Scripts/System/SHA-512.js"></script>
-    <script src="~/Scripts/System/Validation.js"></script>
-    <link href="~/Styles/guest/index_form.css" rel="stylesheet" />
-    <link href="~/Styles/guest/index_style.css" rel="stylesheet" />
-    <link href="~/Styles/common/await.css" rel="stylesheet" />
-</head>
+    @if (ViewBag.IsIndex)
+    {
+        <script src="~/Scripts/Guest/index_form.js"></script>
+    }
+        <script src="~/Scripts/Guest/validationGuest.js"></script>
+        <script src="~/Scripts/System/ParseFormArray.js"></script>
+        <script src="~/Scripts/System/sha512.js"></script>
+        <script src="~/Scripts/System/SHA-512.js"></script>
+        <script src="~/Scripts/System/Validation.js"></script>
+        <link href="~/Styles/guest/index_form.css" rel="stylesheet" />
+        <link href="~/Styles/guest/index_style.css" rel="stylesheet" />
+        <link href="~/Styles/common/await.css" rel="stylesheet" />
+    </head>
+
+@if (ViewBag.IsIndex)
+{
 <div class="right_navigation" id="right_navigation" hidden>
     <nav>
         <ul>
@@ -52,20 +58,21 @@
         </ul>
     </nav>
 </div>
+}
 <div class="navigation">
-    <nav id="menu">
-        <a href="#main" id="main">Главная</a>
-        <a href="#functions">Возможности</a>
-        <a href="#help">Справка (FAQ)</a>
-        <a onclick="show_feedback_form()">Обратная связь</a>
-        <a href="#reg_log" onclick="show_register()">Зарегестрироваться</a>
-        <a href="#reg_log" onclick="show_login()">Войти</a>
-    </nav>
+    @if (ViewBag.IsIndex)
+    {
+        @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
+    }
+    else
+    {
+        @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
+    }
 </div>
 <div class="feed_back_form">
     <form>
         <h4>Связаться с нами</h4>
-        <img src="Resources/images/close.png" onclick="close_feedback_form()" />
+        <img src="/Resources/images/close.png" onclick="close_feedback_form()" />
         <div class="feed_back_property">
             <input type="text" placeholder="Тема обращения" required autocomplete="off" />
         </div>
@@ -79,16 +86,16 @@
     </form>
 </div>
 <div class="title_image">
-    <img src="Resources/images/social_media_img.png" />
+    <img src="/Resources/images/social_media_img.png" />
 </div>
 <div class="fullscreen-bg">
     <div class="overlay">
-        <img id="connection_vectors" src="Resources/images/comet.png" />
+        <img id="connection_vectors" src="/Resources/images/comet.png" />
         <h1>Comet Connection<h1>
         <h2>Будь всегда на связи</h2>
     </div>
-    <video loop muted autoplay poster="Resources/images/space_main_background.png" class="fullscreen-bg__video">
-        <source src="Resources/video/space_main_background.mp4" type="video/mp4">
+    <video loop muted autoplay poster="/Resources/images/space_main_background.png" class="fullscreen-bg__video">
+        <source src="/Resources/video/space_main_background.mp4" type="video/mp4">
     </video>
 </div>
 
@@ -97,16 +104,16 @@
 }
 
 <div class="footer">
-    <img src="Resources/images/abstract_footer_left.png" />
+    <img src="/Resources/images/abstract_footer_left.png" />
     <div class="gradient_footer">
-        <nav id="menu">
-            <a href="#main">Главная</a>
-            <a href="#functions">Возможности</a>
-            <a href="#help">Справка (FAQ)</a>
-            <a onclick="show_feedback_form()">Обратная связь</a>
-            <a href="#reg_log" onclick="show_register()">Зарегестрироваться</a>
-            <a href="#reg_log" onclick="show_login()">Войти</a>
-        </nav>
+        @if (ViewBag.IsIndex)
+        {
+            @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
+        }
+        else
+        {
+            @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
+        }
         <p>Copyright © 2019, Comet Connection, All rights reserved.</p>
         <div class="about">
             <h3>О сервисе Comet Connection</h3>

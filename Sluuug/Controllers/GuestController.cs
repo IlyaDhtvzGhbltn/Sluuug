@@ -15,10 +15,52 @@ namespace Slug.Controllers
     [SessionCheck]
     public class guestController : SlugController
     {
-       public ActionResult index()
+        [HttpGet]
+        public ActionResult index()
         {
+            ViewBag.IsIndex = true;
             return View();
         }
+
+        [HttpGet]
+        public ActionResult activate(string id)
+        {
+            ViewBag.IsIndex = false;
+
+            ViewBag.incorrect_div_display = "block";
+            ViewBag.success_div_display = "none";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                ActivationLink user = ActivationMailHandler.GetActivateLink(id);
+                if (user != null && user.IsExpired != true)
+                {
+                    ActivationLnkStatus status = ActivationMailHandler.GetLinkStatus(id);
+                    if (status == ActivationLnkStatus.Correct)
+                    {
+                        UsersHandler.ConfirmUser(user.UserId);
+
+                        ActivationMailHandler.CloseActivationEntries(user.Id);
+
+                        string sessionNumber = SessionHandler.OpenSession(SessionTypes.Exit, user.Id);
+                        var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
+                        cookie.Value = sessionNumber;
+                        Response.Cookies.Set(cookie);
+
+                        ViewBag.incorrect_div_display = "none";
+                        ViewBag.success_div_display = "block";
+                    }
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult reset(string reset_param)
+        {
+            ViewBag.IsActive = false;
+            return View();
+        }
+
 
         [HttpPost]
         public JsonResult userconfirmation(RegisteringUserModel user)
@@ -41,52 +83,20 @@ namespace Slug.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult activate(string id)
-        {
-            ViewBag.incorrect_div_display = "block";
-            ViewBag.success_div_display = "none";
-            if (!string.IsNullOrWhiteSpace(id))
-            {
-                ActivationLink user = ActivationMailHandler.GetActivateLink(id);
-                if (user != null && user.IsExpired != true)
-                {
-                    ActivationLnkStatus status = ActivationMailHandler.GetLinkStatus(id);
-                    if (status == ActivationLnkStatus.Correct)
-                    {
-                        UsersHandler.ConfirmUser(user.Id);
-
-                        ActivationMailHandler.CloseActivationEntries(user.Id);
-
-                        string sessionNumber = SessionHandler.OpenSession(SessionTypes.Exit, user.Id);
-                        var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-                        cookie.Value = sessionNumber;
-                        Response.Cookies.Set(cookie);
-
-                        ViewBag.incorrect_div_display = "none";
-                        ViewBag.success_div_display = "block";
-                    }
-                }
-            }
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult auth(string login, string hashPassword)
+        public JsonResult auth(LoginingUserModel loginModel)
         {
-            int userId = UsersHandler.VerifyUser(login, hashPassword);
+            int userId = UsersHandler.VerifyUser(loginModel.login, loginModel.hashPassword);
             if (userId > 0)
             {
                 string session_id = SessionHandler.OpenSession(SessionTypes.Private, userId);
                 var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
                 cookie.Value = session_id;
                 Response.Cookies.Set(cookie);
-
-                return RedirectToAction("my", "private");
+                return new JsonResult() { Data = true };
             }
-            return RedirectToAction("login", "guest");
+            return new JsonResult() { Data = false };
         }
-
 
         private bool isUserEmpty(RegisteringUserModel user)
         {

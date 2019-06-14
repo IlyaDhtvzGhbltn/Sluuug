@@ -6,7 +6,6 @@
 
 <div class="content">
     <div class="result_empty"></div>
-
     <div class="main" id="main">
         <h2>Главная</h2>
         <p>Comet Connection - это современный бесплатный сервис для поиска знакомств и контактов, сочетающий в себе множество полезных функций, включая видео и аудио связь.</p>
@@ -24,7 +23,7 @@
 
         <div class="tab-content">
             <div id="signup_form">
-                <form id="register_form">
+                <form id="validate_register_form">
                     <h4>Регистрация</h4>
                     <div class="top-row">
                         <div class="field-wrap">
@@ -63,30 +62,33 @@
             </div>
 
             <div id="login_form">
-                <form>
+                <form id="validate_login_form">
                     <h4>Добро пожаловать снова!</h4>
                     <div class="field-wrap">
-                        <input placeholder="Email Адрес *" type="email" required autocomplete="off" />
+                        <input type="text" placeholder="Логин при регистрации *" name="login" required autocomplete="off" />
                     </div>
                     <div class="field-wrap">
-                        <input type="password" placeholder="Пароль *" required autocomplete="off" />
+                        <input type="password" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
                     </div>
                     <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
-                    <button class="button button-block" />Вход</button>
+                    <input type="button" class="button button-block" id="log_subm" onclick="logIn()" value="Вход" />
                 </form>
             </div>
             <div id="repassword_form">
-                <form>
+                <form id="reset_password_form">
                     <h4>Обновить пароль</h4>
                     <p>Введите адрес электронной почты, использованный при регистрации.</p>
                     <div class="field-wrap">
-                        <input placeholder="Email Адрес *" type="email" required autocomplete="off" />
+                        <input placeholder="Email Адрес *" type="email" name="email" id="oldEmailToReset" required autocomplete="off" />
                     </div>
-                    <button class="button button-block" />Выслать пароль</button>
+                    <input type="button" class="button button-block" id="reset_subm" onclick="resetPassword()" value="Выслать пароль" />
                 </form>
             </div>
         </div><!-- tab-content -->
-        <div class="alert_form"><p>Пожалуйста, заполните верно все поля *</p></div>
+        <div class="alert_form" id="not_filled"><p>Пожалуйста, заполните верно все поля *</p></div>
+        <div class="alert_form" id="invalid_credentials"><p>Логин или пароль неверен или учетная запись не активированна</p></div>
+        <div class="alert_form" id="reset_emeil"><p>Инструкция по восстановлению пароля выслана на указанный адрес.</p></div>
+        <div class="alert_form" id="invalid_emeil"><p>Неверный адрес электронной почты.</p></div>
 
         <div id="circular3dG" hidden>
             <div id="circular3d_1G" class="circular3dG"></div>
@@ -120,7 +122,6 @@
             Высокое качество видео и низкая задержка блягодаря <b>perr-to-peer</b> технологии позволит вам легко связатся с друзьями и коллегами где бы они ни были.
         </p>
     </div>
-
     <div class="help" id="help">
         <h2>Справка (FAQ)</h2>
         <h3>Что необходимо для регистрации на сервисе?</h3>

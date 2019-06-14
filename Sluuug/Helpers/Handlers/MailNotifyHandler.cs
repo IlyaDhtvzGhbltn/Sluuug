@@ -21,6 +21,11 @@ namespace Slug.Context
             this.activate_param = activate_param;
         }
 
+        public MailNotifyHandler(string recipient)
+        {
+            this.recipient = recipient;
+        }
+
         public void SendActivationMail()
         {
             string email = WebAppSettings.AppSettings[AppSettingsEnum.smtpServerEmail.ToString()];
@@ -30,8 +35,8 @@ namespace Slug.Context
             MailMessage m = new MailMessage(from, to);
             string domain = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
             m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubject.ToString()];
-            m.Body = "<h2>To confirm registration</h2>" +
-                "<a  href="+ domain+"/guest/activate?id=" + this.activate_param + "> clic here</a>";
+            m.Body = "<h2>Confirm registration</h2>" +
+                "<a  href="+ domain+ "/guest/activate?id=" + this.activate_param + "#menu" + "> clic here</a>";
             m.IsBodyHtml = true;
 
             string smtpHost = WebAppSettings.AppSettings[AppSettingsEnum.smtpHost.ToString()];
@@ -42,5 +47,11 @@ namespace Slug.Context
             smtp.EnableSsl = true;
             smtp.Send(m);
         }
+
+        public void SendResetPasswordMail()
+        {
+
+        }
+
     }
 }

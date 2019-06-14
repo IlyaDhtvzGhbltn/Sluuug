@@ -58,3 +58,4 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.pdb
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset_password_tbo.resources

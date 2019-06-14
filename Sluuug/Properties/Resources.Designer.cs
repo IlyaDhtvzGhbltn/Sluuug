@@ -106,7 +106,7 @@ namespace Slug.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, check your spam folder or try registration again..
+        ///   Looks up a localized string similar to Please, check your &lt;b&gt;Spam&lt;/b&gt; folder or try registration again..
         /// </summary>
         internal static string Activate_Incorrect_Check_Email {
             get {

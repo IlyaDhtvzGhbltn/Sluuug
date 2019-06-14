@@ -6,8 +6,10 @@ function show_login(){
 	$('#login_toggle').addClass('active');
     $('#reg_toggle').removeClass('active');
 
-    $('.alert_form')[0].style.display = 'none';
-
+    var alerts = $('.alert_form');
+    [].forEach.call(alerts, function (item) {
+        item.style.display = 'none';
+    });
 }
 function show_register(){
 	$('#login_form')[0].style.display = 'none';
@@ -17,7 +19,10 @@ function show_register(){
 	$('#reg_toggle').addClass('active');
     $('#login_toggle').removeClass('active');
 
-    $('.alert_form')[0].style.display = 'none';
+    var alerts = $('.alert_form');
+    [].forEach.call(alerts, function (item) {
+        item.style.display = 'none';
+    });
 
 }
 function show_repass(){
@@ -28,15 +33,17 @@ function show_repass(){
 	$('#reg_toggle').removeClass('active');
     $('#login_toggle').removeClass('active');
 
-    $('.alert_form')[0].style.display = 'none';
-
+    var alerts = $('.alert_form');
+    [].forEach.call(alerts, function (item) {
+        item.style.display = 'none';
+    });
 }
 
 function show_feedback_form(){
 	$('.feed_back_form')[0].style.display = 'block';
 }
-function close_feedback_form(){
-	$('.feed_back_form')[0].style.display = 'none';
+function close_feedback_form() {
+    $('.feed_back_form').fadeOut();
 }
 
 $(document).ready(function () {

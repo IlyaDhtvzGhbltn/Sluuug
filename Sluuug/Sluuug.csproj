@@ -153,8 +153,10 @@
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\comet.png" />
     <Content Include="Resources\images\favicon.ico" />
+    <Content Include="Resources\images\rotating_earth_background.png" />
     <Content Include="Resources\images\social_media_img.png" />
     <Content Include="Resources\images\space_main_background.png" />
+    <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
@@ -237,6 +239,7 @@
     <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
+    <Compile Include="Context\Tables\ResetPassword.cs" />
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
@@ -256,11 +259,16 @@
     <Compile Include="Migrations\201906051146593_add_culture_code_UserConnections.Designer.cs">
       <DependentUpon>201906051146593_add_culture_code_UserConnections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906141538091_reset_password_tbo.cs" />
+    <Compile Include="Migrations\201906141538091_reset_password_tbo.Designer.cs">
+      <DependentUpon>201906141538091_reset_password_tbo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\PostCommentToFoto.cs" />
     <Compile Include="Model\Albums\UploadModel.cs" />
     <Compile Include="Model\SimpleChat\CutConversation.cs" />
+    <Compile Include="Model\Users\LoginingUserModel.cs" />
     <Compile Include="Model\Users\UserConnectionIdModel.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />
@@ -416,6 +424,11 @@
     <Content Include="Views\Partial\CryptoDialogs\await_key_generation.cshtml" />
     <Content Include="Views\Partial\Register\success_register.cshtml" />
     <Content Include="Views\Partial\Register\fail_register.cshtml" />
+    <Content Include="Views\Shared\public_index_navigation.cshtml" />
+    <Content Include="Views\Shared\public_other_navigation.cshtml" />
+    <Content Include="Views\Guest\reset.cshtml" />
+    <Content Include="Views\Shared\reset_active.cshtml" />
+    <Content Include="Views\Shared\reset_invalid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -425,7 +438,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\public_api\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906051126483_ip_address_add_UserConnections.resx">
@@ -433,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906051146593_add_culture_code_UserConnections.resx">
       <DependentUpon>201906051146593_add_culture_code_UserConnections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906141538091_reset_password_tbo.resx">
+      <DependentUpon>201906141538091_reset_password_tbo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -460,7 +475,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>32033</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:32033/</IISUrl>
+          <IISUrl>http://localhost:32035/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

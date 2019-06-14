@@ -1,4 +1,7 @@
 ﻿using Context;
+using Slug.Context;
+using Slug.Helpers;
+using Slug.Helpers.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +36,30 @@ namespace Slug.Controllers
                     freeMail = true;
             }
             return new JsonResult() { Data = freeMail };
+        }
+
+        [HttpPost]
+        public void resetpassword(string email)
+        {
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                UsersHandler uHandler = new UsersHandler();
+                int isEmailValid = uHandler.IsEmailValid(email);
+                if (isEmailValid > 0)
+                {
+                    ResetPasswordHandler resetHandler = new ResetPasswordHandler();
+                    string parameter = resetHandler.CreateRequest(email, isEmailValid);
+
+                    MailNotifyHandler mailHandler = new MailNotifyHandler(email, parameter);
+                    mailHandler.SendResetPasswordMail();
+                }
+            }
+        }
+
+        [HttpPost]
+        public void reset_password_confirm(string passHash, string reset_param)
+        {
+
         }
     }
 }

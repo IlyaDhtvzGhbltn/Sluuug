@@ -1,36 +1,28 @@
 ﻿var validateLoginError = 0;
 var validateEmailError = 0;
 
-$('#reg_subm').bind("submit", function (e) {
-    var val = document.getElementById("psw").value;
-    var shaObj = new jsSHA("SHA-512", "TEXT");
-    shaObj.update(val);
-    var hash = shaObj.getHash("HEX");
-    document.getElementById("psw").value = hash;
-});
 
 function register() {
-    let validationResult = validateFormById('register_form');
+    let validationResult = validateFormById('validate_register_form');
     if (validationResult) {
-        var data = $("#register_form").serializeArray();
+        var data = $("#validate_register_form").serializeArray();
         var json = parceJSON(data);
+
         let passHash = getSHA(json.PasswordHash);
         json.PasswordHash = passHash;
 
-
-        $('.alert_form')[0].style.display = 'none';
-        $('#circular3dG').fadeIn();
+        correctInput('reg_subm');
+        console.log('submit to register');
         $.ajax({
             url: '/guest/userconfirmation',
             data:  json , 
             method: 'post',
             success: function (resp) {
-                console.log('access to register ' + resp);
+                $('#reg_subm').attr("disabled", false);
                 $('#circular3dG').fadeOut();
-                let registerResultForm = $('.result_empty').offset().top;
-
+                let registerResultForm = $('.content').offset().top;
                 window.scrollTo({
-                    top: registerResultForm + 100,
+                    top: registerResultForm,
                     behavior: 'smooth'});
 
                 if (resp) {
@@ -44,9 +36,56 @@ function register() {
 
     }
     else {
-        $('#circular3dG')[0].style.display = 'none';
-        $('.alert_form').fadeOut();
-        $('.alert_form').fadeIn();
+        incorrectInput();
+    }
+}
+function logIn() {
+    let validationResult = validateFormById('validate_login_form');
+    if (validationResult) {
+        correctInput('log_subm');
+
+        var data = $("#validate_login_form").serializeArray();
+        var json = parceJSON(data);
+        let passHash = getSHA(json.hashPassword);
+        json.hashPassword = passHash;
+
+        $.ajax({
+            method: 'post',
+            url: '/guest/auth',
+            data: json,
+            success: function (resp) {
+                $('#log_subm').attr("disabled", false);
+                $('#circular3dG').fadeOut();
+
+                console.log(resp);
+                if (resp === false) {
+                    $('#invalid_credentials').fadeIn();
+                }
+                else {
+                    window.location.replace('/private/my');
+                }
+            }
+        });
+    }
+    else {
+        incorrectInput();
+    }
+}
+function resetPassword() {
+    let validate = validateFormById('reset_password_form');
+    if (validate) {
+        $('#reset_emeil').fadeOut();
+        $('#reset_emeil').fadeIn();
+        $('#reset_subm').attr("disabled", true);
+        $.ajax({
+            method: 'post',
+            url: 'public_api/resetpassword',
+            data: { email: $('#oldEmailToReset').val() }
+        });
+    }
+    else {
+        $('#invalid_emeil').fadeOut();
+        $('#invalid_emeil').fadeIn();
     }
 }
 
@@ -126,4 +165,16 @@ async function showResultForm(addres) {
             $('.result').fadeIn();
         }
     });
+}
+
+function incorrectInput() {
+    $('#circular3dG')[0].style.display = 'none';
+    $('#not_filled').fadeOut();
+    $('#not_filled').fadeIn();
+}
+
+function correctInput(disableId) {
+    $('#not_filled')[0].style.display = 'none';
+    $('#circular3dG').fadeIn();
+    $('#' + disableId).attr("disabled", true);
 }

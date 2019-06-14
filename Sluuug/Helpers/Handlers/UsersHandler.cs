@@ -15,7 +15,8 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-
+using System.Net.Mail;
+using NLog;
 
 namespace Slug.Helpers
 {
@@ -43,7 +44,7 @@ namespace Slug.Helpers
                     newUser.UserFullInfo.SurName = user.SurName;
                     newUser.Login = user.Login;
                     newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
-
+                    newUser.AvatarId = context.Avatars.First(x => x.CountryCode == user.CountryCode).Id;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
 
                     context.Users.Add(newUser);
@@ -87,7 +88,7 @@ namespace Slug.Helpers
             using (var dbContext = new DataBaseContext())
             {
                 User user = dbContext.Users
-                    .FirstOrDefault(x => x.Settings.PasswordHash == hashPassword && x.Login == login);
+                    .FirstOrDefault(x => x.Settings.PasswordHash == savedPassword && x.Login == login && x.UserStatus == (int)UserStatuses.Active);
                 if (user != null)
                     return user.Id;
             }
@@ -106,12 +107,22 @@ namespace Slug.Helpers
                 userModel.Name = user.UserFullInfo.Name;
                 userModel.SurName = user.UserFullInfo.SurName;
 
-                userModel.Country = context.Countries
+                var userCountry = context.Countries
                     .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
-                    .First()
-                    .Title;
-                userModel.Sity = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
-                    .First().Title;
+                    .FirstOrDefault();
+
+                if (userCountry != null)
+                    userModel.Country = userCountry.Title;
+                else
+                    userModel.Country = "Не указана";
+
+                var City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                    .FirstOrDefault();
+
+                if (City != null)
+                    userModel.Sity = City.Title;
+                else
+                    userModel.Sity = "Не указана";
 
                 userModel.DateBirth = user.UserFullInfo.DateOfBirth;
                 userModel.AvatarUri = avatar.ImgPath;
@@ -715,6 +726,26 @@ namespace Slug.Helpers
                     }
                 }
             }
+        }
+
+        public int IsEmailValid(string email)
+        {
+            try
+            {
+                MailAddress addres = new MailAddress(email);
+                using (var context = new DataBaseContext())
+                {
+                    var user = context.Users.FirstOrDefault(x=>x.Settings.Email == email);
+                    if (user != null)
+                        return user.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
+                loggerInternal.Error(ex);
+            }
+            return 0;
         }
     }
 }
