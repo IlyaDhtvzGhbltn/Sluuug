@@ -1,8 +1,0 @@
-﻿@model Slug.Model.CutUserInfoModel
-@using Slug.Extensions;
-
-
-<div class="found_user" id="user_@Model.UserId" onclick="redirectToUser(@Model.UserId)">
-    <img src="@Model.AvatarUri" height="45" width="45" /><span>@Model.Name @Model.SurName @Model.FullAges</span>
-    <p><b>@Model.Country @Model.Sity</b></p>
-</div>

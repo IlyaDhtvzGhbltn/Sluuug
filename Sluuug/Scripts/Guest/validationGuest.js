@@ -74,14 +74,17 @@ function logIn() {
 function resetPassword() {
     let validate = validateFormById('reset_password_form');
     if (validate) {
+        $('#invalid_emeil').fadeOut();
         $('#reset_emeil').fadeOut();
         $('#reset_emeil').fadeIn();
-        $('#reset_subm').attr("disabled", true);
+
         $.ajax({
             method: 'post',
-            url: 'public_api/resetpassword',
+            url: '/public_api/resetpassword',
             data: { email: $('#oldEmailToReset').val() }
         });
+
+        $('#oldEmailToReset').val('');
     }
     else {
         $('#invalid_emeil').fadeOut();

@@ -33,10 +33,15 @@ namespace Slug.Helpers
                 var emailAlreadyUsed = context.Users.FirstOrDefault(x => x.Settings.Email == user.Email);
                 if (loginAlreadyUsed == null && emailAlreadyUsed == null)
                 {
+
+                    if (user.DateBirth >= DateTime.Now)
+                    {
+                        return null;
+                    }
+
                     var newUser = new User();
                     newUser.Settings = new UserSettings();
                     newUser.UserFullInfo = new UserInfo();
-
                     newUser.CountryCode = user.CountryCode;
                     newUser.UserFullInfo.DateOfBirth = user.DateBirth;
                     newUser.Settings.Email = user.Email;
@@ -127,6 +132,7 @@ namespace Slug.Helpers
                 userModel.DateBirth = user.UserFullInfo.DateOfBirth;
                 userModel.AvatarUri = avatar.ImgPath;
                 userModel.UserId = user.Id;
+
                 userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
 
                 var Educations = user.UserFullInfo.Educations;

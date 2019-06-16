@@ -9,6 +9,8 @@ using Slug.Context.Attributes;
 using Slug.Context.Dto.UserWorker;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
+using System;
+using Slug.Helpers.Handlers;
 
 namespace Slug.Controllers
 {
@@ -18,6 +20,9 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult index()
         {
+            ViewBag.MinRegistrationDate = new DateTime(1900, 1, 1).ToString("yyyy-MM-dd");
+            ViewBag.MaxRegistrationDate = DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd");
+
             ViewBag.IsIndex = true;
             return View();
         }
@@ -57,7 +62,9 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult reset(string reset_param)
         {
-            ViewBag.IsActive = false;
+            ViewBag.IsIndex = false;
+            ResetPasswordHandler resetHandler = new ResetPasswordHandler();
+            ViewBag.IsActive = resetHandler.IsParamActive(reset_param);
             return View();
         }
 

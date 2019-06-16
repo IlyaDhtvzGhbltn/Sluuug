@@ -23,6 +23,16 @@
 
 @if (ViewBag.IsIndex)
 {
+<div class="head_navigation" hidden>
+	<div class="head_fix_menu">
+		<button class="header-button" onclick="scrolling('main', +80)">Главная</button>
+		<button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
+		<button class="header-button" onclick="scrolling('help', -100)">Справка (FAQ)</button>
+		<button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
+		<button class="header-button" onclick="scrolling('reg_log', -70), show_register()">Зарегистрироваться</button>
+		<button class="header-button" onclick="scrolling('reg_log', -70), show_login()">Войти</button>
+	</div>
+</div>
 <div class="right_navigation" id="right_navigation" hidden>
     <nav>
         <ul>
@@ -71,8 +81,8 @@
 </div>
 <div class="feed_back_form">
     <form>
+        <b onclick="close_feedback_form()">X</b>
         <h4>Связаться с нами</h4>
-        <img src="/Resources/images/close.png" onclick="close_feedback_form()" />
         <div class="feed_back_property">
             <input type="text" placeholder="Тема обращения" required autocomplete="off" />
         </div>
@@ -82,7 +92,7 @@
         <div class="feed_back_property">
             <input id="feed_back_text" type="text" placeholder="Текст сообщения" required autocomplete="off" />
         </div>
-        <button/>Отправить</button>
+        <button />Отправить</button>
     </form>
 </div>
 <div class="title_image">

@@ -39,7 +39,7 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public void resetpassword(string email)
+        public bool resetpassword(string email)
         {
             if (!string.IsNullOrWhiteSpace(email))
             {
@@ -49,17 +49,30 @@ namespace Slug.Controllers
                 {
                     ResetPasswordHandler resetHandler = new ResetPasswordHandler();
                     string parameter = resetHandler.CreateRequest(email, isEmailValid);
-
                     MailNotifyHandler mailHandler = new MailNotifyHandler(email, parameter);
                     mailHandler.SendResetPasswordMail();
+                    return true;
                 }
             }
+            return false;
         }
 
         [HttpPost]
-        public void reset_password_confirm(string passHash, string reset_param)
+        public JsonResult reset_password_confirm(string passHash, string reset_param)
         {
-
+            if (!string.IsNullOrWhiteSpace(reset_param) && !string.IsNullOrWhiteSpace(passHash))
+            {
+                ResetPasswordHandler resetHandler = new ResetPasswordHandler();
+                bool flag = resetHandler.IsParamActive(reset_param);
+                if (flag)
+                {
+                    int userID = resetHandler.CompleteRequest(passHash, reset_param);
+                    if(userID > 0)
+                            resetHandler.ClosePrevievRequests(userID);
+                    return new JsonResult() { Data = true };
+                }
+            }
+            return new JsonResult() { Data = false };
         }
     }
 }

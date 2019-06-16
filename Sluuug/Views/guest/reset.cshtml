@@ -2,13 +2,13 @@
 @{
     Layout = "~/Views/Shared/guest.cshtml";
 }
-
-<h2>Смена пароля</h2>
-@if (ViewBag.IsActive)
-{
-    @RenderPage("~/Views/Shared/reset_active.cshtml")
-}
-else
-{
-    @RenderPage("~/Views/Shared/reset_invalid.cshtml")
-}
+<div class="content">
+    @if (ViewBag.IsActive)
+    {
+        @RenderPage("~/Views/Shared/reset_active.cshtml")
+    }
+    else
+    {
+        @RenderPage("~/Views/Shared/reset_invalid.cshtml")
+    }
+</div>

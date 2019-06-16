@@ -244,6 +244,7 @@
     <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
+    <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\DialogMessage.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
     <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
@@ -262,6 +263,10 @@
     <Compile Include="Migrations\201906141538091_reset_password_tbo.cs" />
     <Compile Include="Migrations\201906141538091_reset_password_tbo.Designer.cs">
       <DependentUpon>201906141538091_reset_password_tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906151106031_no min length Name Surnem.cs" />
+    <Compile Include="Migrations\201906151106031_no min length Name Surnem.Designer.cs">
+      <DependentUpon>201906151106031_no min length Name Surnem.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -448,6 +453,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906141538091_reset_password_tbo.resx">
       <DependentUpon>201906141538091_reset_password_tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906151106031_no min length Name Surnem.resx">
+      <DependentUpon>201906151106031_no min length Name Surnem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

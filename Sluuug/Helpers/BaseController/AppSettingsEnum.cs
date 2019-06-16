@@ -17,6 +17,7 @@ namespace Slug.Helpers.BaseController
         smtpServerDisplayName,
         smtpHost,
         smtpPort,
-        smtpSubject
+        smtpSubjectConfirmRegister,
+        smtpSubjectResetPassword
     }
 }

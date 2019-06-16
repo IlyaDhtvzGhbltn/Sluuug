@@ -20,11 +20,11 @@ namespace Slug.Context.Tables
         public DateTime DateOfBirth { get; set; }
 
         [Required]
-        [MinLength(2), MaxLength(20)]
+        [MaxLength(20)]
         public string Name { get; set; }
 
         [Required]
-        [MinLength(2), MaxLength(20)]
+        [MaxLength(20)]
         public string SurName { get; set; }
 
         [Required]
