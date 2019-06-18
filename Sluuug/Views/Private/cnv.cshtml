@@ -1,11 +1,11 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model  Slug.Model.ConversationsModel
 @using Slug.Extensions
 
-<h2>@Html.Translate("Text_My_Message_Title")</h2>
+<h1>@Html.Translate("Text_My_Message_Title")</h1>
 
 <div id="conversations">
     @if (Model.Cnv != null)

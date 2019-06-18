@@ -16,5 +16,5 @@ function redirectToUser(id) {
     let protocol = location.protocol;
     let url = protocol + '//' + domain + '/private/user/' + id;
     console.log(url);
-    window.location.replace(url)
+    window.location.replace(url);
 }

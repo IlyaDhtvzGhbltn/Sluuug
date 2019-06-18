@@ -43,7 +43,7 @@ namespace Slug.Helpers
                 },
 
                 { AgeEnum.morethan70, new DatesUserSearch()
-                    { UserMinDateOfBirth = DateTime.Now.AddYears(-200), UserMaxDateOfBirth = DateTime.Now.AddYears(-77) }
+                    { UserMinDateOfBirth = DateTime.Now.AddYears(-200), UserMaxDateOfBirth = DateTime.Now.AddYears(-70) }
                 }
             };
 

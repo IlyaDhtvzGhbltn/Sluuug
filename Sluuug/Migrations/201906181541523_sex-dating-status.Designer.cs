@@ -7,13 +7,13 @@ namespace Sluuug.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class reset_password_tbo : IMigrationMetadata
+    public sealed partial class sexdatingstatus : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(reset_password_tbo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(sexdatingstatus));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906141538091_reset_password_tbo"; }
+            get { return "201906181541523_sex-dating-status"; }
         }
         
         string IMigrationMetadata.Source

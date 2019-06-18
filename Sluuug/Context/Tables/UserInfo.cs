@@ -34,7 +34,7 @@ namespace Slug.Context.Tables
 
         public int NowSityCode { get; set; }
 
-        public PrivateStatus PrivateStatus { get; set; }
+        public DatingTypes DatingForStatus { get; set; }
 
         public virtual List<Education> Educations { get; set; }
 

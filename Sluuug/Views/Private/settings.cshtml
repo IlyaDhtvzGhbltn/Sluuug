@@ -1,19 +1,20 @@
 ﻿
 @{
     ViewBag.Title = "settings";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @using Slug.Extensions;
 @using type = Slug.Context.Dto.Settings.NotificationTypes;
 
-<h2>settings</h2>
+<h1>Настройки</h1>
 <div>
     <div>
         <form id="changeNotifyTypeSubmit" action="" method="post">
             <div id="notify_email">
+                <p>Отправлять уведомление на <b>e-mail</b> при логине</p>
                 @if (Model.NotifyType == type.Login)
                 {
-                <span>@Html.Translate("Yes")</span>
+                    <span>@Html.Translate("Yes")</span>
                     <input type="radio" name="NotifyType" value="1" checked />
                     <span>@Html.Translate("No")</span>
                     <input type="radio" name="NotifyType" value="0" />
@@ -25,20 +26,21 @@
                     <span>@Html.Translate("No")</span>
                     <input type="radio" name="NotifyType" value="0" checked />
                 }
-                <p>
-                    <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveNotifyType()" />
-                </p>
             </div>
-
         </form>
+        <p>
+            <button onclick="saveNotifyType()">@Html.Translate("Settings_Change")</button>
+        </p>
     </div>
     <div>
         <form id="changeEmailSubmit" action="" method="post">
             <div id="email">
                 <input type="email" name="NewEmail" placeholder="@Model.Email" />
             </div>
-            <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveEmail()" />
         </form>
+        <p>
+            <button onclick="saveEmail()">@Html.Translate("Settings_Change")</button>
+        </p>
     </div>
     <div>
         <form id="changePasswSubmit" action="" method="post">
@@ -47,8 +49,10 @@
                 <input type="password" name="OldPasswRep" placeholder="@Html.Translate("Settings_Old_Password_Rep")" />
                 <input type="password" name="NewPassw" placeholder="@Html.Translate("Settings_New_Password")" />
             </div>
-            <input type="button" value="@Html.Translate("Settings_Change")" onclick="savePassword()" />
         </form>
+        <p>
+            <button onclick="savePassword()">@Html.Translate("Settings_Change")</button>
+        </p>
     </div>
     <div>
         <form id="changeQuickMessage" action="" method="post">
@@ -61,8 +65,10 @@
                 <input type="checkbox" name="QuickMessage" />
             }
                 <span>@Html.Translate("Settings_Pre_messages")</span>
-            <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveQuickMessage()" />
         </form>
+        <p>
+            <button onclick="saveQuickMessage()">@Html.Translate("Settings_Change")</button>
+        </p>
     </div>
 </div>
 <script src="~/Scripts/System/ParseFormArray.js"></script>

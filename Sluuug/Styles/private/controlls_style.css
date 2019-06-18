@@ -1,0 +1,71 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300&subset=latin,cyrillic);
+
+button{
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size:18px;
+	border:0;
+    outline: none;
+    border-radius: 0;
+	
+	background: #49B2DA;
+	color:#fff;
+	
+	transition: all 0.5s ease;
+}
+
+button:hover, .button:focus {
+	background:rgb(162, 236, 243);
+	color: #7f7f7f;
+	cursor:pointer;
+}
+
+button:active{
+	background-color:#49B2DA;
+	color:#fff;
+
+}
+
+select{
+    color: #7f7f7f;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.new {
+    position: relative;
+    top: 15px;
+    right: 2px;
+    float: right;
+    width: 20px;
+    height: 20px;
+    display:table;
+}
+
+.new svg{
+	width:inherit;
+	height:inherit;
+}
+.new circle{
+	cx:10;
+	cy:10;
+	r:10; 
+	fill:#7db7af; 
+}
+    .new span {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 16px;
+        color: #fff;
+        display: table-cell;
+        position: inherit;
+        left: -14px;
+        top: -5px;
+    }
+
+
+
+
+
+
+
+
+
+

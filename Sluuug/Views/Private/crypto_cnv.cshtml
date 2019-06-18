@@ -1,12 +1,12 @@
 ﻿
 @{
     ViewBag.Title = "crypto_cnv";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model Slug.Model.CryptoChatModel
 @using Slug.Extensions
 
-<h2>@Html.Translate("Text_Secret_Chat_Title")</h2>
+<h1>@Html.Translate("Text_Secret_Chat_Title")</h1>
 <div id="create_new">
     <div id="friends_list">
         @foreach (var friend in Model.FriendsICanInvite)
@@ -15,7 +15,7 @@
         }
     </div>
     <p><span>@Html.Translate("Text_Invite_To_Secret_Help_To_Button")</span>
-        <input type="button" value="@Html.Translate("Button_Send_Message")" id="new_crypto_chat" onclick="invite()" />
+       <button id="new_crypto_chat" onclick="invite()">@Html.Translate("Button_Send_Message")</button>
     </p>
 </div>
 

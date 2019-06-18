@@ -1,10 +1,11 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
     @model Slug.Model.Users.FullUserInfoModel
 }
-@using Slug.Extensions;
+@using Slug.Extensions
 
+<h1>Мой профиль</h1>
 <div id="cut_info">
     <p>
         <img src=@Model.AvatarUri id="img_avatar" width="100" height="100" />
@@ -24,11 +25,11 @@
 
     </p>
     <p>
-        <span class="parameter" id="2" style="cursor:pointer" >@Model.Country</span>
+        <span class="parameter" id="2" style="cursor:pointer">@Model.Country</span>
         <div id="param_2"></div>
     </p>
-        <span class="parameter" id="3" style="cursor:pointer" >@Model.Sity </span>
-        <div id="param_3"></div>
+    <span class="parameter" id="3" style="cursor:pointer">@Model.Sity </span>
+    <div id="param_3"></div>
     <p>
         <span>@Model.FullAges</span>
     </p>
@@ -101,7 +102,7 @@
             type: "post"
         })
             .done(function (resp) {
-            $('#param_' + id)[0].innerHTML = resp;
+                $('#param_' + id)[0].innerHTML = resp;
             });
     }
 
@@ -110,7 +111,7 @@
 
         $.ajax({
             url: "/api/save_parameter",
-            data: { paramNumer: id, newValue: new_val},
+            data: { paramNumer: id, newValue: new_val },
             type: "post"
         })
             .done(function (resp) {

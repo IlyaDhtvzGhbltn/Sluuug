@@ -13,11 +13,11 @@ namespace Context
         Ru
     }
 
-    public enum PrivateStatus
+    public enum DatingTypes
     {
-        Alone,
-        Dating,
-        Wedding,
+        FriendshipAndCommunication,
+        Family,
+        Sex,
     }
 
     public enum FriendshipItemStatus

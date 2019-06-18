@@ -1,13 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "search_result";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model Slug.Context.Dto.Search.SearchUsersResponse
 @using Slug.Extensions;
 
 
-<h2>@Html.Translate("Search_Title")</h2>
+<h1>Результаты поиска</h1>
 <div id="result_out">
     @foreach (var user in Model.Users)
     {

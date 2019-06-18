@@ -147,23 +147,6 @@ function untill_now_date(dateInputId, checkboxId) {
         input_elem.disabled = false;
     }
 }
-function getCities(countryListBoxId, citiesListBoxId) {
-    let countryCode = $("#" + countryListBoxId + " :selected").val();
-    $.ajax({
-        type: "post",
-        url: "/api/cities",
-        data: { countryCode },
-        success: function (response) {
-            console.log(response);
-
-            let countryList = $("#" + citiesListBoxId);
-            countryList.empty();
-            for (let i = 0; i < response.Cities.length; i++) {
-                countryList.append(new Option(response.Cities[i].Title, response.Cities[i].CityCode));
-            }
-        },
-    });
-}
 //////////////////////////////////////////////////////////////////
 function getPartialView(url_addres) {
     return $.ajax({

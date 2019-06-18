@@ -1,10 +1,10 @@
 ﻿@{
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
     @model Slug.Model.Users.FullUserInfoModel
 }
 @using Slug.Extensions
 
-<h2>@Model.Name @Model.SurName</h2>
+<h1>@Model.Name @Model.SurName</h1>
 
 
 <div id="user_cut_data">
@@ -19,10 +19,11 @@
         <p><input type="text" id="form_@Model.UserId"></p>
         <p>
             <button onclick="send_msg(@Model.UserId)">@Html.Translate("Button_Send_Message")</button>
-            <button onclick="drop_elem()">@Html.Translate("Button_Cancel")</button></p>
-        </div>
-    <div id="error" hidden="hidden"><span>@Html.Translate("Text_Empty_Message")</span></div>
+            <button onclick="drop_elem()">@Html.Translate("Button_Cancel")</button>
+        </p>
     </div>
+    <div id="error" hidden="hidden"><span>@Html.Translate("Text_Empty_Message")</span></div>
+</div>
 
 
 <div id="user_albums">
