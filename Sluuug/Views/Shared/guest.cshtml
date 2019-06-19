@@ -11,15 +11,16 @@
     {
         <script src="~/Scripts/Guest/index_form.js"></script>
     }
-        <script src="~/Scripts/Guest/validationGuest.js"></script>
-        <script src="~/Scripts/System/ParseFormArray.js"></script>
-        <script src="~/Scripts/System/sha512.js"></script>
-        <script src="~/Scripts/System/SHA-512.js"></script>
-        <script src="~/Scripts/System/Validation.js"></script>
-        <link href="~/Styles/guest/index_form.css" rel="stylesheet" />
-        <link href="~/Styles/guest/index_style.css" rel="stylesheet" />
-        <link href="~/Styles/common/await.css" rel="stylesheet" />
-    </head>
+    <script src="~/Scripts/System/AsyncRequest.js"></script>
+    <script src="~/Scripts/Guest/validationGuest.js"></script>
+    <script src="~/Scripts/System/ParseFormArray.js"></script>
+    <script src="~/Scripts/System/sha512.js"></script>
+    <script src="~/Scripts/System/SHA-512.js"></script>
+    <script src="~/Scripts/System/Validation.js"></script>
+    <link href="~/Styles/guest/index_form.css" rel="stylesheet" />
+    <link href="~/Styles/guest/index_style.css" rel="stylesheet" />
+    <link href="~/Styles/common/await.css" rel="stylesheet" />
+</head>
 
 @if (ViewBag.IsIndex)
 {
@@ -80,20 +81,6 @@
     }
 </div>
 <div class="feed_back_form">
-    <form>
-        <b onclick="close_feedback_form()">X</b>
-        <h4>Связаться с нами</h4>
-        <div class="feed_back_property">
-            <input type="text" placeholder="Тема обращения" required autocomplete="off" />
-        </div>
-        <div class="feed_back_property">
-            <input type="email" placeholder="Обратный адрес" required autocomplete="off" />
-        </div>
-        <div class="feed_back_property">
-            <input id="feed_back_text" type="text" placeholder="Текст сообщения" required autocomplete="off" />
-        </div>
-        <button />Отправить</button>
-    </form>
 </div>
 <div class="title_image">
     <img src="/Resources/images/social_media_img.png" />

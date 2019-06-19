@@ -148,13 +148,6 @@ function untill_now_date(dateInputId, checkboxId) {
     }
 }
 //////////////////////////////////////////////////////////////////
-function getPartialView(url_addres) {
-    return $.ajax({
-        url: url_addres,
-        data: {},
-        type: "post"
-    });
-}
 
 function send_simple(api_url, formID, show_button, requred_field_alert) {
     console.log('send -education form');

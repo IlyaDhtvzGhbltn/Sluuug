@@ -118,4 +118,4 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Mvc.xml
 D:\SLUG\Sluuug\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.nominlengthNameSurnem.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.sexdatingstatus.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.feedback_tbo5.resources

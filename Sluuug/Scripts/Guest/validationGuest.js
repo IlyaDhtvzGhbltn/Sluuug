@@ -91,6 +91,28 @@ function resetPassword() {
         $('#invalid_emeil').fadeIn();
     }
 }
+function sendFeedback() {
+    $('#success').fadeOut();
+    $('#error').fadeOut();
+
+    let validation = validateFormById('feedBackForm');
+    var json = parceJSON($('#feedBackForm').serializeArray());
+    if (validation) {
+        $.ajax({
+            url: '/public_api/feed_back',
+            method: 'post',
+            data:  json ,
+            success: function (resp) {
+                if (resp.IsSuccess) {
+                    $('#success').fadeIn();
+                }
+            }
+        });
+    }
+    else {
+        $('#error').fadeIn();
+    }
+}
 
 async function verify_login(elem) {
     let n_login = elem.value;
@@ -175,7 +197,6 @@ function incorrectInput() {
     $('#not_filled').fadeOut();
     $('#not_filled').fadeIn();
 }
-
 function correctInput(disableId) {
     $('#not_filled')[0].style.display = 'none';
     $('#circular3dG').fadeIn();

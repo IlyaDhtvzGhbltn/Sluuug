@@ -48,5 +48,6 @@ namespace Context
         public virtual DbSet<FotoComment> FotoComments { get; set; }
 
         public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
     }
 }

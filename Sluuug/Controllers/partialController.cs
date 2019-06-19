@@ -211,5 +211,11 @@ namespace Slug.Controllers
         {
             return View("~/Views/Partial/Register/fail_register.cshtml");
         }
+
+        [HttpPost]
+        public ActionResult feedback()
+        {
+            return View("~/Views/Partial/feed_backView.cshtml");
+        }
     }
 }

@@ -173,6 +173,7 @@
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
     <Content Include="Scripts\Private\menu_template.js" />
+    <Content Include="Scripts\System\AsyncRequest.js" />
     <Content Include="Scripts\System\BigInteger.js" />
     <Content Include="Scripts\System\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
@@ -227,6 +228,9 @@
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\EnumParameters.cs" />
+    <Compile Include="Context\Dto\FeedBack\FeedBackRequest.cs" />
+    <Compile Include="Context\Dto\FeedBack\FeedBackResponce.cs" />
+    <Compile Include="Context\Dto\FeedBack\SubjectEnums.cs" />
     <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
@@ -250,11 +254,13 @@
     <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
+    <Compile Include="Context\Tables\Feedback.cs" />
     <Compile Include="Context\Tables\ResetPassword.cs" />
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
+    <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\DialogMessage.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
@@ -263,9 +269,9 @@
     <Compile Include="Helpers\HTMLGenerated\VideoConferenceInviteToRedirect.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201906181541523_sex-dating-status.cs" />
-    <Compile Include="Migrations\201906181541523_sex-dating-status.Designer.cs">
-      <DependentUpon>201906181541523_sex-dating-status.cs</DependentUpon>
+    <Compile Include="Migrations\201906191232094_feedback_tbo5.cs" />
+    <Compile Include="Migrations\201906191232094_feedback_tbo5.Designer.cs">
+      <DependentUpon>201906191232094_feedback_tbo5.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -433,6 +439,7 @@
     <Content Include="Views\Shared\reset_active.cshtml" />
     <Content Include="Views\Shared\reset_invalid.cshtml" />
     <Content Include="Views\Shared\private_template.cshtml" />
+    <Content Include="Views\Partial\feed_backView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -444,8 +451,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906181541523_sex-dating-status.resx">
-      <DependentUpon>201906181541523_sex-dating-status.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906191232094_feedback_tbo5.resx">
+      <DependentUpon>201906191232094_feedback_tbo5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

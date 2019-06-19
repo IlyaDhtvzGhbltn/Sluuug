@@ -100,12 +100,12 @@ namespace Slug.Helpers
             return 0;
         }
 
-        public FullUserInfoModel GetFullUserInfo(string session_id)
+        public FullUserInfoModel GetFullUserInfo(string sessioID)
         {
             var userModel = new FullUserInfoModel();
             using (var context = new DataBaseContext())
             {
-                Session session = context.Sessions.First(x => x.Number == session_id);
+                Session session = context.Sessions.First(x => x.Number == sessioID);
                 User user = context.Users.First(x => x.Id == session.UserId);
 
                 Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
@@ -369,9 +369,13 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
-                Session session = context.Sessions.First(x => x.Number == sessionID);
-                User user = context.Users.First(x => x.Id == session.UserId);
-                return user.Settings;
+                Session session = context.Sessions.FirstOrDefault(x => x.Number == sessionID);
+                if (session != null)
+                {
+                    User user = context.Users.First(x => x.Id == session.UserId);
+                    return user.Settings;
+                }
+                else return null;
             }
         }
 
