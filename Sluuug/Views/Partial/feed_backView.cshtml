@@ -1,6 +1,7 @@
-﻿<form id="feedBackForm">
+﻿
+<div class="feed_back_form">
     <b onclick="close_feedback_form()">X</b>
-    <h4>Связаться с нами</h4>
+    <h1>Связаться с нами</h1>
     <span>Выберите тему обращения</span>
     <div class="feed_back_property">
         <select name="Subject">
@@ -17,9 +18,9 @@
     <div class="feed_back_property">
         <textarea id="feed_back_text" name="Message" required placeholder="Введите сообщение"></textarea>
     </div>
-</form>
-<p>
-    <button onclick="sendFeedback()">Отправить</button>
-</p>
-<div class="alert_form" style="color:red" hidden id="error">Заполните Текст сообщения.</div>
-<div class="alert_form" style="color:green" hidden id="success">Ваше сообщение принято!</div>
+    <p>
+        <button onclick="sendFeedback()">Отправить</button>
+    </p>
+    <div class="alert_form" style="color:red" hidden id="error">Текст сообщения слишком короткий. Минимум 100 символов. </div>
+    <div class="alert_form" style="color:green" hidden id="success">Ваше сообщение принято!</div>
+</div>

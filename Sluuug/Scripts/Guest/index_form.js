@@ -40,23 +40,23 @@ function show_repass(){
 }
 
 async function show_feedback_form() {
-    var len = $('.feed_back_form')[0].innerHTML.length;
-    $('.feed_back_form').fadeIn();
+    var len = $('.feed_back')[0].innerHTML.length;
+    $('.feed_back').fadeIn();
 
     console.log(len);
     if (len <= 1) {
         var html = await getPartialView('/partial/feedback');
-        $('.feed_back_form')[0].innerHTML = html;
+        $('.feed_back')[0].innerHTML = html;
     }
     else
     {
-        $('.feed_back_form').fadeIn();
+        $('.feed_back').fadeIn();
     }
 }
 
 
 function close_feedback_form() {
-    $('.feed_back_form').fadeOut();
+    $('.feed_back').fadeOut();
 }
 
 function scrolling(elementID, offset) {

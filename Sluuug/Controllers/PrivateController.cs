@@ -210,5 +210,11 @@ namespace Slug.Controllers
             }
             return View(response);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> support()
+        {
+            return View();
+        }
     }
 }

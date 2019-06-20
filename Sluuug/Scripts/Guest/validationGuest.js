@@ -96,8 +96,10 @@ function sendFeedback() {
     $('#error').fadeOut();
 
     let validation = validateFormById('feedBackForm');
+    var len = $('#feed_back_text')[0].textLength;
+    console.log(len);
     var json = parceJSON($('#feedBackForm').serializeArray());
-    if (validation) {
+    if (validation && len >= 100) {
         $.ajax({
             url: '/public_api/feed_back',
             method: 'post',
