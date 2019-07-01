@@ -1,5 +1,6 @@
 ﻿using Context;
 using Slug.Context.Dto.Messages;
+using Slug.Context.Dto.Notification;
 using Slug.ImageEdit;
 using Slug.Model;
 using System;
@@ -35,7 +36,6 @@ namespace Slug.Helpers.HTMLGenerated
                         { NotificationType.AcceptYourInviteSecretChat, "/private/crypto_cnv" },
                         { NotificationType.NewInviteFriendship, "/private/contacts" },
                         { NotificationType.AcceptFriendship, "/private/contacts" },
-
             };
 
         public static string GenerateHtml(NotificationType type, CutUserInfoModel model, string culture)

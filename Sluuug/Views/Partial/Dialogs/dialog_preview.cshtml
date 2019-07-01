@@ -2,8 +2,8 @@
 @using Slug.Extensions
 
 
-<div class="conver_div" id="@Model.GuidId" style="background-color:cadetblue; cursor:grabbing">
-    <img height="45" width="45" src="@Model.AvatarPath" />
-    <p>@Model.InterlocutorName  @Model.InterlocutorSurName</p>
+<div class="conver_div" id="@Model.GuidId">
+    <img src="@Model.InterlocutorAvatar" />
+    <h2>@Model.InterlocutorName  @Model.InterlocutorSurName</h2>
     <p>@Model.LastMessage</p>
 </div>

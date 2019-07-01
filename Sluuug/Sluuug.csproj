@@ -202,6 +202,7 @@
     <Content Include="Styles\guest\index_form.css" />
     <Content Include="Styles\guest\index_style.css" />
     <Content Include="Styles\private\controlls_style.css" />
+    <Content Include="Styles\private\feedBackStyle.css" />
     <Content Include="Styles\private\private_style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -234,6 +235,7 @@
     <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
+    <Compile Include="Context\Dto\Notification\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
@@ -255,28 +257,32 @@
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
     <Compile Include="Context\Tables\Feedback.cs" />
+    <Compile Include="Context\Tables\Notification.cs" />
     <Compile Include="Context\Tables\ResetPassword.cs" />
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
     <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
+    <Compile Include="Helpers\Handlers\NotificationHandler.cs" />
     <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\DialogMessage.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
     <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
     <Compile Include="Helpers\HTMLGenerated\UserFriendshipResponce.cs" />
     <Compile Include="Helpers\HTMLGenerated\VideoConferenceInviteToRedirect.cs" />
+    <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201906191232094_feedback_tbo5.cs" />
-    <Compile Include="Migrations\201906191232094_feedback_tbo5.Designer.cs">
-      <DependentUpon>201906191232094_feedback_tbo5.cs</DependentUpon>
+    <Compile Include="Migrations\201906201353250_notifis tbo.cs" />
+    <Compile Include="Migrations\201906201353250_notifis tbo.Designer.cs">
+      <DependentUpon>201906201353250_notifis tbo.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\PostCommentToFoto.cs" />
     <Compile Include="Model\Albums\UploadModel.cs" />
+    <Compile Include="Model\Notifications\UserNotivication.cs" />
     <Compile Include="Model\SimpleChat\CutConversation.cs" />
     <Compile Include="Model\Users\LoginingUserModel.cs" />
     <Compile Include="Model\Users\UserConnectionIdModel.cs" />
@@ -452,8 +458,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906191232094_feedback_tbo5.resx">
-      <DependentUpon>201906191232094_feedback_tbo5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906201353250_notifis tbo.resx">
+      <DependentUpon>201906201353250_notifis tbo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -67,7 +67,8 @@ namespace Slug.Controllers
             bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, id);
             if (verifyConvers)
             {
-                DialogModel dialog = DialogsHandler.GetMessanges(id, page);
+                int userID = UsersHandler.GetFullUserInfo(sessionId).UserId;
+                DialogModel dialog = DialogsHandler.GetMessanges(id, userID, page);
                 dialog.DialogId = id;
                 return View(dialog);
             }
@@ -213,6 +214,12 @@ namespace Slug.Controllers
 
         [HttpGet]
         public async Task<ActionResult> support()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> notification_history()
         {
             return View();
         }

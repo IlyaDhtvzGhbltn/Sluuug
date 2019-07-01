@@ -16,6 +16,7 @@ using Context;
 using Slug.Model.Users;
 using NLog;
 using Slug.Helpers.HTMLGenerated;
+using Slug.Context.Dto.Notification;
 
 namespace Slug.Hubs
 {
@@ -27,9 +28,7 @@ namespace Slug.Hubs
             var UCW = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             string connection = Context.ConnectionId;
-
             object tempObject;
-
             Context.Request.Environment.TryGetValue("server.RemoteIpAddress", out tempObject);
             string ipAddress = (string)tempObject;
 

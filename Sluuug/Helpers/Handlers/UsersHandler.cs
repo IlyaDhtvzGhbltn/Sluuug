@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 using NLog;
+using Slug.ImageEdit;
 
 namespace Slug.Helpers
 {
@@ -465,7 +466,7 @@ namespace Slug.Helpers
                         var friend = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = friendUserInfo.AvatarUri,
+                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -482,7 +483,7 @@ namespace Slug.Helpers
                         var inInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = friendUserInfo.AvatarUri,
+                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -498,7 +499,7 @@ namespace Slug.Helpers
                         var outInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = friendUserInfo.AvatarUri,
+                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };

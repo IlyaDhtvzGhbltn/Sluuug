@@ -49,5 +49,6 @@ namespace Context
 
         public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<Notification> Notivications { get; set; }
     }
 }
