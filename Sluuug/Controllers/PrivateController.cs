@@ -157,7 +157,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> c_msg(string id, int page = 1)
         {
-            var model = CryptoChatHandler.GetCryptoDialogs(id, page);
+            string session = GetCookiesValue(this.Request);
+            CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, id, page);
             if (model != null)
             {
                 return View(model);

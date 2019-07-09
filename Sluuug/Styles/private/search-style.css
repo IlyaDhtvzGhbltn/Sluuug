@@ -1,0 +1,55 @@
+.advanced-search span, .advanced-search select{
+	font-size:20px;
+}
+.advanced-search input{
+	color:#7f7f7f;
+}
+
+.button-container{
+	width:400px;
+	text-align:center;
+}
+.button-container button{
+	height:40px;
+	width:100px;
+	margin:15px 0;
+}
+
+.search{
+	margin:15px 0px;
+	width:400px;
+}
+
+.search input, .search select{
+	cursor:pointer;
+	float:right;
+	width:200px;
+}
+
+[tooltip]::before{
+	content:attr(tooltip);
+	position:absolute;
+	top:50px;
+	left:410px;
+	opacity:0;
+	transition:all .25s ease-in-out;
+	font-family: 'Roboto Condensed', sans-serif;
+	color:#7f7f7f;
+	background:#749B2DA;
+	border:1px solid #7f7f7f;
+	padding:10px;
+
+}
+
+.-name:hover::before{
+	opacity:1;
+	top:84px;
+}
+.-purpose:hover::before{
+	opacity:1;
+	top:280px;
+}
+
+
+
+

@@ -14,5 +14,13 @@ namespace Slug.Model.Users
         public string Name { get; set; }
 
         public string SurName { get; set; }
+
+        public int Age { get; set; }
+
+        public string Country { get; set; }
+
+        public string City { get; set; }
+
+        public UserOnlineStatus Status { get; set; }
     }
 }

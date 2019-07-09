@@ -41,7 +41,11 @@ namespace Slug.Helpers
                     page = resMultiple;
 
                 dModel.PagesCount = resMultiple;
+                int interlocutorID = context.ConversationGroup
+                    .First(x => x.ConversationGuidId == convId && x.UserId != userID).UserId;
+                var interlocutorUser = context.Users.First(x => x.Id == interlocutorID).UserFullInfo;
 
+                dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocutorUser.SurName);
 
                 List<Message> msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)

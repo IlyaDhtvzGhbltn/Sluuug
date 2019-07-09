@@ -1,48 +1,68 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/private_template.cshtml";
 }
 @using Slug.Extensions;
+<title>Поиск Знакомств</title>
+<link href="~/Styles/private/search-style.css" rel="stylesheet" />
 
 <h1>@Html.Translate("Search_Title")</h1>
-<div>
+<div class="advanced-search">
     <form id="searchSubmit" action="" method="post">
-        <p><p><span>@Html.Translate("Saerch_Name")</span></p>
-        <input type="text" name="user_name" />
-        </p>
-        <p>
-        <p><span>@Html.Translate("Saerch_Country")</span></p>
-        <select id="user_search_country" name="user_country" onchange="getCities('user_search_country', 'user_search_city')">
-            <option value="7">Россия</option>
-            <option value="1">USA</option>
-        </select>
-        </p>
-        <p>
-        <p><span>@Html.Translate("Saerch_City")</span></p>
-        <select id="user_search_city" name="user_city">
-            <option value="495">Москва</option>
-        </select>
-        </p>
-        <p>
-        <p><span>@Html.Translate("Saerch_Sex")</span></p>
-        <select name="user_sex">
-            <option value="1">Муж</option>
-            <option value="0">Жен</option>
-        </select>
-        </p>
-        <p>
-        <p><span>@Html.Translate("Saerch_Ages")</span></p>
-        <select id="user_search_age" name="user_age">
-            <option value="0">16-20</option>
-            <option value="1">21-26</option>
-            <option value="2">27-32</option>
-            <option value="3">33-40</option>
-            <option value="4">41-49</option>
-            <option value="5">50-59</option>
-            <option value="6">60-69</option>
-            <option value="7">> 70</option>
-        </select>
-        </p>
+        <div class="search -name" tooltip="Не обязательно">
+            <span>Имя</span>
+            <input type="text" name="user_name">
+        </div>
+
+
+
+        <div class="search -location">
+            <div class="search -location-country">
+                <span>@Html.Translate("Saerch_Country")</span>
+                <select id="user_search_country" name="user_country" onchange="getCities('user_search_country', 'user_search_city')">
+                    <option value="7">Россия</option>
+                    <option value="1">USA</option>
+                </select>
+            </div>
+
+            <div class="search -location-city">
+                <span>@Html.Translate("Saerch_City")</span>
+                <select id="user_search_city" name="user_city">
+                    <option value="495">Москва</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search -sex">
+            <span>@Html.Translate("Saerch_Sex")</span>
+            <select name="user_sex">
+                <option value="1">Муж</option>
+                <option value="0">Жен</option>
+            </select>
+        </div>
+
+        <div class="search -age">
+            <span>@Html.Translate("Saerch_Ages")</span>
+            <select id="user_search_age" name="user_age">
+                <option value="0">16-20</option>
+                <option value="1">21-26</option>
+                <option value="2">27-32</option>
+                <option value="3">33-40</option>
+                <option value="4">41-49</option>
+                <option value="5">50-59</option>
+                <option value="6">60-69</option>
+                <option value="7">> 70</option>
+            </select>
+        </div>
+
+        <div class="search -purpose" tooltip="Найдите людей с похожими целями">
+            <span>Цель знакомства</span>
+            <select name="purpose">
+                <option>Дружба и общение</option>
+                <option>Создание семьи</option>
+                <option>Секс</option>
+            </select>
+        </div>
+
     </form>
     <button onclick="serchUser()">@Html.Translate("Button_Saerch_Start")</button>
 

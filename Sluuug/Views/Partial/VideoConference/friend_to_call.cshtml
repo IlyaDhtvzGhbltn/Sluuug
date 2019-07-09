@@ -1,7 +1,27 @@
 ﻿@model Slug.Model.Users.FriendModel
 @using Slug.Extensions
 
+    <div class="friend_div" id="@Model.UserId">
+        <label>
+            @*<input type="checkbox" class="fr" name="friend" value="122" />*@
+            <input type="radio" class="fr" name="friend" value="@Model.UserId" />
+            <div class="circle">
+                <div class="circle--inner circle--inner__1"></div>
+                <div class="circle--inner circle--inner__2"></div>
+                <div class="circle--inner circle--inner__3"></div>
+                <div class="circle--inner circle--inner__4"></div>
+                <div class="circle--inner circle--inner__5"></div>
+                <div class="circle--outer"></div>
+            </div>
+            <div class="selected-overflow"></div>
+        </label>
+        <div class="fr-head">
+            <img class="avatar" src="@Model.AvatarPath">
+            <h2>@Model.Name @Model.SurName</h2>
+            <br>
+            <span>@Model.Age лет @Model.Country @Model.City</span>
+            <br>
+            <span class="wire-status on">на сайте</span>
+        </div>
+    </div>
 
-<div class="friend_div" id="@Model.UserId">
-    <img src="@Model.AvatarPath" height="50" width="50" /> <span>@Model.Name  @Model.SurName</span>
-</div>

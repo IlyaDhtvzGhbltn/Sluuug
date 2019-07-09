@@ -102,7 +102,7 @@ namespace Slug.Helpers
             var userWorker = new UsersHandler();
             int myId = userWorker.GetFullUserInfo(sessionID).UserId;
 
-            MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID);
+            MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID, 80);
             foreach (var item in fMod.Friends)
             {
                 model.Friends.Add(item);
@@ -139,27 +139,33 @@ namespace Slug.Helpers
                     }
                 }
 
+                List<VideoConferenceGroups> userConverense = context.VideoConferenceGroups
+                    .Where(x => x.UserId == myId)
+                    .ToList();
+
                 List<VideoConference> incomingCalls = context.VideoConferences
                     .Where(x => x.IsActive == true)
                     .ToList();
-
-                foreach (var item in incomingCalls)
+                if (incomingCalls.Count > 0)
                 {
-                    var incoming = new IncomingInviteModel();
-                    incoming.ConferenceID = item.GuidId;
-                    int participantID = context.VideoConferenceGroups
-                        .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
-                        .Select(x => x.UserId)
-                        .First();
-                    var info = userWorker.GetUserInfo(participantID);
+                    model.IsIncommingExist = true;
+                    foreach (var item in incomingCalls)
+                    {
+                        var incoming = new IncomingInviteModel();
+                        incoming.ConferenceID = item.GuidId;
+                        int participantID = context.VideoConferenceGroups
+                            .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
+                            .Select(x => x.UserId)
+                            .First();
+                        var info = userWorker.GetUserInfo(participantID);
 
-                    incoming.InviterID = participantID;
-                    incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
-                    incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
-                    incoming.AvatarUri = Resize.ResizedUri(info.AvatarUri, ModTypes.c_scale, 45);
-                    model.IncomingCalls.Add(incoming);
+                        incoming.InviterID = participantID;
+                        incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
+                        incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
+                        incoming.AvatarUri = Resize.ResizedUri(info.AvatarUri, ModTypes.c_scale, 45);
+                        model.IncomingCalls.Add(incoming);
+                    }
                 }
- 
             }
 
             return model;

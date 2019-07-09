@@ -429,7 +429,7 @@ namespace Slug.Helpers
             return false;
         }
 
-        public MyFriendsModel GetFriendsBySession(string sessionId)
+        public MyFriendsModel GetFriendsBySession(string sessionId, int avatarResize = 100)
         {
             var model = new MyFriendsModel();
             model.Friends = new List<FriendModel>();
@@ -463,12 +463,17 @@ namespace Slug.Helpers
                     for (int i=0; i< FriendsConfirmIDs.Count(); i++)
                     {
                         CutUserInfoModel friendUserInfo = GetUserInfo(FriendsConfirmIDs[i]);
+                        int friendAges = DateTime.Now.Year - friendUserInfo.DateBirth.Year;
+                        
                         var friend = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, 100),
+                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, avatarResize),
                             Name = friendUserInfo.Name,
-                            SurName = friendUserInfo.SurName
+                            SurName = friendUserInfo.SurName,
+                            Country = friendUserInfo.Country,
+                            City = friendUserInfo.Sity,
+                            Age = friendAges
                         };
                         model.Friends.Add(friend);
                     }

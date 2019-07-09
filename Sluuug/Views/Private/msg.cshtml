@@ -4,9 +4,10 @@
 }
 @model  Slug.Model.DialogModel
 @using Slug.Extensions;
+<link href="~/Styles/private/dialog-style.css" rel="stylesheet" />
+<link href="~/Styles/private/triangle.css" rel="stylesheet" />
 
-
-<h1>@Html.Translate("Text_My_Message_Title")</h1>
+<title>На связи @Model.Interlocutor</title>
 <div class="dialog_pages">
     @for (int i = 1; i <= Model.PagesCount; i++)
     {
@@ -34,3 +35,8 @@
 
 <script src="~/Scripts/chatp2pWS.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>
+<script>
+    window.onload = function () {
+        var objDiv = $(".dialog")[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }</script>

@@ -1,15 +1,31 @@
 ﻿@model Slug.Model.CryptoChat
 @using Slug.Extensions
 
-<div class="cryptp_chat" id="@Model.GuidId" style="background-color:coral; cursor:pointer">
-    <b>@Html.Translate("Text_Opening_Date") @Model.OpenDate</b>
-    <span>@Html.Translate("Text_Status_Secret_Chat") @Model.ActiveStatus</span>
-    <p>
-        <span>@Html.Translate("Text_Secret_Dialog_Participants") </span>
-    </p>
-        <p>
-            <span> @Model.UserCreator.Name </span>
-            <img src="@Model.UserCreator.AvatarPath" height="30" width="30" />
-        </p>
-    <span class="last_msg_crypto">@Model.LastMessage</span>
+<div class="chat-wrapper">
+    <div class="cryptp-chat-active" id="@Model.GuidId">
+
+        <div class="active-chat-period">
+            <p>
+                <span>Дата создания @Model.OpenDate.ToString("yyyy MM dd hh:mm")</span>
+            </p>
+            <p>
+                <span>Дата закрытия @Model.CloseDate.ToString("yyyy MM dd hh:mm")</span>
+            </p>
+            <p>
+                <span>
+                    Осталось : <span class="experation-mins">@Model.RemainingMins</span> мин
+                    <span class="experation-sec">@Model.RemainingSecs</span> сек
+                </span>
+            </p>
+        </div>
+        <div class="chat-head">
+            <img src="@Model.InterlocutorAvatar" />
+        </div>
+        <div class="chat-body">
+            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+            <img src="@Model.UserLastMessageSenderAvatar" />
+            <span class="last_msg_crypto">@Model.LastMessage</span>
+            <span>@Model.LastMessageSendDate.ToString("hh:mm")</span>
+        </div>
+    </div>
 </div>

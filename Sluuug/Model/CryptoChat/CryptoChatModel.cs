@@ -18,13 +18,28 @@ namespace Slug.Model
     {
         public Guid GuidId { get; set; }
 
-        public FriendModel UserCreator { get; set; }
-
         public DateTime OpenDate { get; set; }
 
-        public bool ActiveStatus { get; set; }
+        public DateTime CloseDate { get; set; }
+
+        public int RemainingMins { get; set; }
+
+        public int RemainingSecs { get; set; }
+
+
+        public string InterlocutorAvatar { get; set; }
+
+        public string InterlocutorName { get; set; }
+
+        public string InterlocutorSurName { get; set; }
+
+
+        public string UserLastMessageSenderAvatar { get; set; }
 
         public string LastMessage { get; set; }
+
+        public DateTime LastMessageSendDate { get; set; }
+
 
         public bool Expired { get; set; }
     }

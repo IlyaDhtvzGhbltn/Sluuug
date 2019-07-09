@@ -4,7 +4,10 @@
 }
 @model Slug.Model.Users.MyFriendsModel
 @using Slug.Extensions
+<link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
+<link href="~/Styles/private/contacts-style.css" rel="stylesheet" />
 
+<title>Мои Контакты</title>
 <h1>@Html.Translate("Text_My_Contacts")</h1>
 <div class="tabs">
     <div class="tab">
@@ -17,7 +20,7 @@
                     Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
                 }
             </div>
-        </div>  
+        </div>
     </div>
 
 
@@ -56,6 +59,6 @@
 
 
 
-    </div>
-    <script src="~/Scripts/myContacts.js"></script>
-    <script src="~/Scripts/RelocationToUser.js"></script>
+</div>
+<script src="~/Scripts/myContacts.js"></script>
+<script src="~/Scripts/RelocationToUser.js"></script>

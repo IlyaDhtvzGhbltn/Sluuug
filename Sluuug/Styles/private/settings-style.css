@@ -1,0 +1,67 @@
+.settings span{
+	font-size:20px;
+}
+
+.settings b{
+	font-size:24px;
+	margin-bottom:10px;
+}
+
+.submit-rating label:hover{
+	background-color:transparent;
+}
+
+.settings button{
+	height:42px;
+	width:100px;
+}
+
+.settings {
+	margin-bottom:20px;
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+#email button{
+	margin-left:36px;
+}
+
+#email input{
+	margin-left:52px;
+}
+
+.normal-container{
+	margin:30px 0px;
+}
+
+#change_pass{
+	width:250px;	
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.password-container{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.password-container input{
+	margin:10px 0;
+	width:206px;
+}
+.password-container button{
+	position:relative;
+	top:54px;
+}
+
+#changePasswSubmit{
+	margin-left:52px;
+}
+
+
+
+
+
