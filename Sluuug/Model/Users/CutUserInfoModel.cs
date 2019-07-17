@@ -9,6 +9,8 @@ namespace Slug.Model
     {
         public int UserId { get; set; }
 
+        public string HelloFromUser { get; set; }
+
         public string Name { get; set; }
 
         public string SurName { get; set; }

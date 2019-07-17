@@ -1,16 +1,13 @@
 ﻿@model Slug.Model.Users.MemorableEventsModel
 @using Slug.Extensions
 
-<div class="event_div">
-    <p>
-        @Model.EventTitle <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button>
-        @if (Model.DateEvent != new DateTime())
-        {
-            @Model.DateEvent
-        }
-        @if (!string.IsNullOrWhiteSpace(Model.EventComment))
-        {
-            @Model.EventComment
-        }
-    </p>
-</div>
+<div class="info-item event">
+    <div class="item-info">
+        <h3>@Model.EventTitle</h3>
+        <span>@Model.DateEvent</span>
+        <span class="user-comment">&laquo;@Model.EventComment&raquo;</span>
+    </div>
+    <div class="item-delete">
+        <button id="@Model.EntryId" class="delete-button" onclick="dropEntry(this)">Удалить</button>
+    </div>
+</div> 

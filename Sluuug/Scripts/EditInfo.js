@@ -1,55 +1,18 @@
-﻿async function newEvent() {
-    fields_alert_visible('new_event_button', false);
+﻿//async function newEvent() {
+//    fields_alert_visible('new_event_button', false);
 
-    var ed = $('#add_event_entry');
-    if (ed[0] == undefined) {
-        var ed_block = $('#events');
-        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/mem_events_form'));
-    }
-    else {
-        ed[0].innerHTML = await getPartialView('/partial/mem_events_form');
-    }
-    fields_alert_visible('event_requered_field', false);
+//    var ed = $('#add_event_entry');
+//    if (ed[0] == undefined) {
+//        var ed_block = $('#events');
+//        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/mem_events_form'));
+//    }
+//    else {
+//        ed[0].innerHTML = await getPartialView('/partial/mem_events_form');
+//    }
+//    fields_alert_visible('event_requered_field', false);
 
-}
-async function newEducation() {
+//}
 
-    fields_alert_visible('new_educatio_button', false);
-
-    var ed = $('#new_education');
-    if (ed[0] == undefined) {
-        var ed_block = $('#education');
-        ed_block[0].innerHTML = await getPartialView('/partial/add_education_form');
-    }
-    else {
-        ed[0].innerHTML = await getPartialView('/partial/add_education_form');
-    }
-    fields_alert_visible('edu_requered_field', false);
-}
-async function newWork() {
-    fields_alert_visible('new_work_button', false);
-    var ed = $('#add_work_entry');
-    if (ed[0] == undefined) {
-        var ed_block = $('#works');
-        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/work_form'));
-    }
-    else {
-        ed[0].innerHTML = await getPartialView('/partial/work_form');
-    }
-    fields_alert_visible('work_requered_field', false);
-}
-async function newLivePlace() {
-    fields_alert_visible('new_place_button', false);
-    var ed = $('#add_place_entry');
-    if (ed[0] == undefined) {
-        var ed_block = $('#live_places');
-        ed_block[0].insertAdjacentHTML('beforeend', await getPartialView('/partial/places_form'));
-    }
-    else {
-        ed[0].innerHTML = await getPartialView('/partial/places_form');
-    }
-    fields_alert_visible('place_requered_field', false);
-}
 //////////////////////////////////////////////////////////////////
 function fields_alert_visible(field_class, is_visible) {
     let req_fields = $('.' + field_class);

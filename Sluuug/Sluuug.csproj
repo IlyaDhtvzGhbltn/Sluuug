@@ -204,6 +204,7 @@
     <Content Include="Styles\guest\index_form.css" />
     <Content Include="Styles\guest\index_style.css" />
     <Content Include="Styles\private\alert-notify-style.css" />
+    <Content Include="Styles\private\my-profile-style.css" />
     <Content Include="Styles\private\notify-style.css" />
     <Content Include="Styles\private\contacts-style.css" />
     <Content Include="Styles\private\controlls_style.css" />
@@ -297,6 +298,8 @@
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
+    <Compile Include="Model\Albums\ExpandedAlbumModel.cs" />
+    <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
     <Compile Include="Model\Albums\PostCommentToFoto.cs" />
     <Compile Include="Model\Albums\UploadModel.cs" />
     <Compile Include="Model\Notifications\UserNotivication.cs" />
@@ -414,7 +417,7 @@
     <Content Include="Views\Private\search.cshtml" />
     <Content Include="Views\Private\search_result.cshtml" />
     <Content Include="Views\Error\ooops.cshtml" />
-    <Content Include="Views\Partial\OwnPage\my_album.cshtml" />
+    <Content Include="Views\Partial\OwnPage\my_album_minimized.cshtml" />
     <Content Include="Views\Partial\FriendPage\friend_album.cshtml" />
     <Content Include="Views\Partial\OwnPage\education.cshtml" />
     <Content Include="Views\Partial\OwnPage\events.cshtml" />
@@ -466,6 +469,7 @@
     <Content Include="Views\Partial\feed_backView.cshtml" />
     <Content Include="Views\Private\support.cshtml" />
     <Content Include="Views\Private\notification_history.cshtml" />
+    <Content Include="Views\Partial\OwnPage\expand_album_fotos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

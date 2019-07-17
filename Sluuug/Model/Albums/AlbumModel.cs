@@ -7,7 +7,7 @@ namespace Slug.Model.Albums
 {
     public class AlbumModel
     {
-        public Guid Guid { get; set; }
+        public Guid AlbumId { get; set; }
 
         public string Title { get; set; }
 

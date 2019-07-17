@@ -100,7 +100,7 @@ namespace Slug.Helpers
                              AuthorComment = calledAlbum.Description,
                              CreationTime = calledAlbum.CreationDate,
                              Title = calledAlbum.Title,
-                             Guid = calledAlbum.Id,
+                             AlbumId = calledAlbum.Id,
                              Fotos = fotos
                         };
                         return model;

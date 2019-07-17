@@ -131,7 +131,7 @@ namespace Slug.Helpers
                     userModel.Sity = "Не указана";
 
                 userModel.DateBirth = user.UserFullInfo.DateOfBirth;
-                userModel.AvatarUri = avatar.ImgPath;
+                userModel.AvatarUri = Resize.ResizedUri(avatar.ImgPath, ModTypes.c_scale, 200); //c_scale,h_200,c_thumb,g_face
                 userModel.UserId = user.Id;
 
                 userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
@@ -227,7 +227,7 @@ namespace Slug.Helpers
                 {
                     AlbumModel albumModel = new AlbumModel
                     {
-                        Guid = album.Id,
+                        AlbumId = album.Id,
                         AlbumLabelUrl = album.AlbumLabelUrl,
                         AuthorComment = album.Description,
                         CreationTime = album.CreationDate,
@@ -352,7 +352,7 @@ namespace Slug.Helpers
                 {
                     AlbumModel albumModel = new AlbumModel
                     {
-                        Guid = album.Id,
+                        AlbumId = album.Id,
                         AlbumLabelUrl = album.AlbumLabelUrl,
                         AuthorComment = album.Description,
                         CreationTime = album.CreationDate,
