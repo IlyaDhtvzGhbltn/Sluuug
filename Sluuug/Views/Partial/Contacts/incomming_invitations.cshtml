@@ -4,7 +4,7 @@
 
 
 <div class="invitation_user" onclick="redirectToUser(@Model.UserId)">
-        <img src="@Model.AvatarPath" />
+        <img src="@Model.AvatarResizeUri" />
         <h2>@Model.Name  @Model.SurName</h2>
         <button id="add_contact_button" onclick="acceptFriendshipInvitation(@Model.UserId)">@Html.Translate("Button_Accept_Contact")</button>
 </div>

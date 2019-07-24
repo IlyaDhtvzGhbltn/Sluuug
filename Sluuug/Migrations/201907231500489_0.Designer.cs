@@ -7,13 +7,13 @@ namespace Sluuug.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class notifistbo : IMigrationMetadata
+    public sealed partial class _0 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(notifistbo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_0));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906201353250_notifis tbo"; }
+            get { return "201907231500489_0"; }
         }
         
         string IMigrationMetadata.Source

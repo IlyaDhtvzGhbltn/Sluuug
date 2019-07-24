@@ -9,6 +9,6 @@ namespace Slug.Context.Dto.UserFullInfo
     {
         School,
         College,
-        University
+        UniverCity
     }
 }

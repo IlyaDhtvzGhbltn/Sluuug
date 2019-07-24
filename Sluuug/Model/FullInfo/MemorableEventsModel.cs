@@ -7,11 +7,9 @@ using System.Web;
 
 namespace Slug.Model.Users
 {
-    public class MemorableEventsModel : EntryBase
+    public class MemorableEventsModel : UserInfoItem
     {
         public string EventTitle { get; set; }
-
-        public string EventComment { get; set; }
 
         public DateTime? DateEvent { get; set; }
     }

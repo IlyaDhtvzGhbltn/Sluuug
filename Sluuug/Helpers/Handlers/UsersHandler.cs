@@ -18,6 +18,8 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using NLog;
 using Slug.ImageEdit;
+using Slug.Model.Users.Relations;
+using Slug.Context.Dto.Search;
 
 namespace Slug.Helpers
 {
@@ -101,9 +103,9 @@ namespace Slug.Helpers
             return 0;
         }
 
-        public FullUserInfoModel GetFullUserInfo(string sessioID)
+        public MyProfileModel GetCurrentProfileInfo(string sessioID)
         {
-            var userModel = new FullUserInfoModel();
+            var userModel = new MyProfileModel();
             using (var context = new DataBaseContext())
             {
                 Session session = context.Sessions.First(x => x.Number == sessioID);
@@ -112,6 +114,10 @@ namespace Slug.Helpers
                 Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
                 userModel.Name = user.UserFullInfo.Name;
                 userModel.SurName = user.UserFullInfo.SurName;
+                userModel.HelloMessage = user.UserFullInfo.HelloMessage;
+                userModel.purpose = user.UserFullInfo.DatingPurpose;
+                userModel.userSearchSex = user.UserFullInfo.userDatingSex;
+                userModel.userSearchAge = user.UserFullInfo.userDatingAge;
 
                 var userCountry = context.Countries
                     .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
@@ -122,42 +128,41 @@ namespace Slug.Helpers
                 else
                     userModel.Country = "Не указана";
 
-                var City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                var City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                     .FirstOrDefault();
 
                 if (City != null)
-                    userModel.Sity = City.Title;
+                    userModel.City = City.Title;
                 else
-                    userModel.Sity = "Не указана";
+                    userModel.City = "Не указанo";
 
-                userModel.DateBirth = user.UserFullInfo.DateOfBirth;
-                userModel.AvatarUri = Resize.ResizedUri(avatar.ImgPath, ModTypes.c_scale, 200); //c_scale,h_200,c_thumb,g_face
+                userModel.AvatarResizeUri = Resize.ResizedUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
                 userModel.UserId = user.Id;
 
-                userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
+                userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
 
                 var Educations = user.UserFullInfo.Educations;
                 userModel.Educations = new List<EducationModel>();
+
                 Educations.ForEach(x=>
                 userModel.Educations.Add(new EducationModel()
                 {
-                     Comment = x.Comment,
-                     EducationType = x.EducationType,
-                     End = x.End,
-                     Faculty = x.Faculty,
-                     PersonalRating = x.PersonalRating,
-                     Start = x.Start,
-                     Specialty = x.Specialty,
-                     UntilNow = x.UntilNow,
-                     Title = x.Title,
-                    EntryId = x.EntryId,
-
+                    Comment = x.Comment,
+                    EducationType = x.EducationType,
+                    End = x.End,
+                    Faculty = x.Faculty,
+                    Start = x.Start,
+                    Specialty = x.Specialty,
+                    UntilNow = x.UntilNow,
+                    Title = x.Title,
+                    Id = x.Id,
 
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
-                     Sity = context.Cities
-                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+
+                     City = context.Cities
+                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
 
                 }));
@@ -167,10 +172,10 @@ namespace Slug.Helpers
                 Events.ForEach(x =>
                 userModel.Events.Add(new MemorableEventsModel()
                 {
-                    EventComment = x.EventComment,
+                    Comment = x.EventComment,
                     DateEvent = x.DateEvent,
                     EventTitle = x.EventTitle,
-                    EntryId = x.EntryId,
+                    Id = x.Id,
 
                 })
                 );
@@ -180,21 +185,21 @@ namespace Slug.Helpers
                 Works.ForEach(x=>
                 userModel.Works.Add(new WorkPlacesModel()
                 {
-                     Comment = x.Comment,
-                     CompanyTitle = x.CompanyTitle,
-                     PersonalRating = x.PersonalRating,
-                     Position = x.Position,
-                     Start = x.Start,
-                     End = x.End,
-                     UntilNow = x.UntilNow,
-                    EntryId = x.EntryId,
+                    Comment = x.Comment,
+                    CompanyTitle = x.CompanyTitle,
+                    Position = x.Position,
+                    Start = x.Start,
+                    End = x.End,
+                    UntilNow = x.UntilNow,
+                    Id = x.Id,
 
 
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
-                    Sity = context.Cities
-                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+
+                    City = context.Cities
+                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
 
                 })
@@ -208,18 +213,17 @@ namespace Slug.Helpers
                     Comment = x.Comment,
                     Start = x.Start,
                     End = x.End,
-                    PersonalRating = x.PersonalRating,
                     UntilNow = x.UntilNow,
-                    EntryId = x.EntryId,
+                    Id = x.Id,
 
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
-                    Sity = context.Cities
-                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+
+                    City = context.Cities
+                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
-                })               
-                );
+                }));
 
                 List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
                 userModel.Albums = new List<AlbumModel>();
@@ -229,9 +233,9 @@ namespace Slug.Helpers
                     {
                         AlbumId = album.Id,
                         AlbumLabelUrl = album.AlbumLabelUrl,
-                        AuthorComment = album.Description,
+                        AlbumDescription = album.Description,
                         CreationTime = album.CreationDate,
-                        Title = album.Title,
+                        AlbumTitle = album.Title,
                         FotosCount = album.Fotos.Count
                     };
                     userModel.Albums.Add(albumModel);
@@ -240,9 +244,9 @@ namespace Slug.Helpers
             return userModel;
         }
 
-        public FullUserInfoModel GetFullUserInfo(int userId)
+        public FriendModel GetFullUserInfo(int userId)
         {
-            var userModel = new FullUserInfoModel();
+            var userModel = new FriendModel();
 
             using (var context = new DataBaseContext())
             {
@@ -255,15 +259,15 @@ namespace Slug.Helpers
                     .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
                     .First()
                     .Title;
-                userModel.Sity = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                userModel.City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                     .First().Title;
 
-                userModel.DateBirth = user.UserFullInfo.DateOfBirth;
-                userModel.AvatarUri = avatar.ImgPath;
+                userModel.AvatarResizeUri = Resize.ResizedUri(avatar.ImgPath, ModTypes.c_scale, 200);
                 userModel.UserId = user.Id;
-                userModel.FullAges = new DateTime(DateTime.Now.Subtract(userModel.DateBirth).Ticks).Year;
+                userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
 
                 var Educations = user.UserFullInfo.Educations.OrderBy(x=>x.Start).ToList();
+
                 userModel.Educations = new List<EducationModel>();
                 Educations.ForEach(x =>
                 userModel.Educations.Add(new EducationModel()
@@ -272,19 +276,19 @@ namespace Slug.Helpers
                     EducationType = x.EducationType,
                     End = x.End,
                     Faculty = x.Faculty,
-                    PersonalRating = x.PersonalRating,
                     Start = x.Start,
                     Specialty = x.Specialty,
                     UntilNow = x.UntilNow,
                     Title = x.Title,
-                    EntryId = x.EntryId,
+                    Id = x.Id,
 
 
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
-                    Sity = context.Cities
-                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+
+                    City = context.Cities
+                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
 
                 }));
@@ -293,10 +297,10 @@ namespace Slug.Helpers
                 Events.ForEach(x =>
                 userModel.Events.Add(new MemorableEventsModel()
                 {
-                    EventComment = x.EventComment,
+                    Comment = x.EventComment,
                     DateEvent = x.DateEvent,
                     EventTitle = x.EventTitle,
-                    EntryId = x.EntryId,
+                    Id = x.Id,
 
                 })
                 );
@@ -308,19 +312,19 @@ namespace Slug.Helpers
                 {
                     Comment = x.Comment,
                     CompanyTitle = x.CompanyTitle,
-                    PersonalRating = x.PersonalRating,
                     Position = x.Position,
                     Start = x.Start,
                     End = x.End,
                     UntilNow = x.UntilNow,
-                    EntryId = x.EntryId,
+                    Id = x.Id,
 
 
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
-                    Sity = context.Cities
-                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+
+                    City = context.Cities
+                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
 
                 })
@@ -334,15 +338,14 @@ namespace Slug.Helpers
                     Comment = x.Comment,
                     Start = x.Start,
                     End = x.End,
-                    PersonalRating = x.PersonalRating,
                     UntilNow = x.UntilNow,
-                    EntryId = x.EntryId,
+                    Id = x.Id,
 
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
-                    Sity = context.Cities
-                    .Where(c => c.CitiesCode == x.SityCode && c.Language == LanguageType.Ru)
+                    City = context.Cities
+                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
                 }));
 
@@ -354,9 +357,9 @@ namespace Slug.Helpers
                     {
                         AlbumId = album.Id,
                         AlbumLabelUrl = album.AlbumLabelUrl,
-                        AuthorComment = album.Description,
+                        AlbumDescription = album.Description,
                         CreationTime = album.CreationDate,
-                        Title = album.Title,
+                        AlbumTitle = album.Title,
                         FotosCount = album.Fotos.Count
                     };
                     userModel.Albums.Add(albumModel);
@@ -380,9 +383,9 @@ namespace Slug.Helpers
             }
         }
 
-        public CutUserInfoModel GetUserInfo(int userId)
+        public BaseUser GetUserInfo(int userId)
         {
-            var userModel = new CutUserInfoModel();
+            var userModel = new BaseUser();
             using (var context = new DataBaseContext())
             {
                 try
@@ -397,14 +400,15 @@ namespace Slug.Helpers
                         .First()
                         .Title;
 
-                    userModel.Sity = context.Cities
-                        .Where(x => x.CitiesCode == user.UserFullInfo.NowSityCode && x.Language == LanguageType.Ru)
+                    userModel.City = context.Cities
+                        .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                         .First()
                         .Title; 
 
-                    userModel.DateBirth = user.UserFullInfo.DateOfBirth;
-                    userModel.AvatarUri = avatar.ImgPath;
+                    userModel.AvatarResizeUri = avatar.ImgPath;
                     userModel.UserId = user.Id;
+                    userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+
                 }
                 catch (Exception)
                 {
@@ -418,7 +422,7 @@ namespace Slug.Helpers
         {
             var dW = new UsersDialogHandler();
             var ids = dW.GetConversatorsIds(conversationGuidId);
-            CutUserInfoModel user = GetFullUserInfo(sessionId);
+            BaseUser user = GetCurrentProfileInfo(sessionId);
             if (ids != null)
             {
                 if (ids.Count() != 0 && ids.Contains(user.UserId))
@@ -438,7 +442,7 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                int userId = GetFullUserInfo(sessionId).UserId;
+                int userId = GetCurrentProfileInfo(sessionId).UserId;
                 FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
@@ -462,18 +466,18 @@ namespace Slug.Helpers
 
                     for (int i=0; i< FriendsConfirmIDs.Count(); i++)
                     {
-                        CutUserInfoModel friendUserInfo = GetUserInfo(FriendsConfirmIDs[i]);
-                        int friendAges = DateTime.Now.Year - friendUserInfo.DateBirth.Year;
-                        
+                        BaseUser friendUserInfo = GetUserInfo(FriendsConfirmIDs[i]);
+                        //int friendAges = DateTime.Now.Year - friendUserInfo.DateBirth.Year;
+
                         var friend = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, avatarResize),
+                            AvatarResizeUri = Resize.ResizedUri( friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName,
                             Country = friendUserInfo.Country,
-                            City = friendUserInfo.Sity,
-                            Age = friendAges
+                            City = friendUserInfo.City,
+                            Age = friendUserInfo.Age
                         };
                         model.Friends.Add(friend);
                     }
@@ -484,11 +488,11 @@ namespace Slug.Helpers
 
                     for (int i = 0; i < inCommingFriendshipPending.Count(); i++)
                     {
-                        CutUserInfoModel friendUserInfo = GetUserInfo(inCommingFriendshipPending[i].UserOferFrienshipSender);
+                        BaseUser friendUserInfo = GetUserInfo(inCommingFriendshipPending[i].UserOferFrienshipSender);
                         var inInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -500,11 +504,11 @@ namespace Slug.Helpers
                 {
                     for (int i = 0; i < outCommingFriendshipPending.Count(); i++)
                     {
-                        CutUserInfoModel friendUserInfo = GetUserInfo(outCommingFriendshipPending[i].UserConfirmer);
+                        BaseUser friendUserInfo = GetUserInfo(outCommingFriendshipPending[i].UserConfirmer);
                         var outInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarPath = Resize.ResizedUri(friendUserInfo.AvatarUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -517,7 +521,7 @@ namespace Slug.Helpers
 
         public Guid GetConversationId(string userSenderSession, int userRecipientId)
         {
-            int userSenderId = GetFullUserInfo(userSenderSession).UserId;
+            int userSenderId = GetCurrentProfileInfo(userSenderSession).UserId;
             Guid guidID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
@@ -562,9 +566,9 @@ namespace Slug.Helpers
             return Guid.Empty;
         }
 
-        public void ChangeAvatarUri(string session, Uri newUri)
+        public void ChangeAvatarResizeUri(string session, Uri newUri)
         {
-            int userID = GetFullUserInfo(session).UserId;
+            int userID = GetCurrentProfileInfo(session).UserId;
             string uri = newUri.ToString();
             using (var context = new DataBaseContext())
             {
@@ -586,7 +590,7 @@ namespace Slug.Helpers
         public UserSettingsModel GetSettings(string session)
         {
             var model = new UserSettingsModel();
-            CutUserInfoModel user = GetFullUserInfo(session);
+            BaseUser user = GetCurrentProfileInfo(session);
             using (var context = new DataBaseContext())
             {
                 User userSett = context.Users.Where(x => x.Id == user.UserId).First();
@@ -597,9 +601,9 @@ namespace Slug.Helpers
             return model;
         }
 
-        public CutUserInfoModel AddInviteToContacts(string session, int userIDToFriendsInvite)
+        public BaseUser AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
-            CutUserInfoModel userSenderRequest = GetFullUserInfo(session);
+            MyProfileModel userSenderRequest = GetCurrentProfileInfo(session);
             using (var context = new DataBaseContext())
             {
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
@@ -637,7 +641,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var userInfo = GetUserInfo(userID);
-                model.AvatarPath = userInfo.AvatarUri;
+                model.AvatarResizeUri = userInfo.AvatarResizeUri;
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;
                 FriendsRelationship relationItem = context.FriendsRelationship
@@ -656,7 +660,7 @@ namespace Slug.Helpers
 
         public void DropFrienship(string session, int userID)
         {
-            int myID = GetFullUserInfo(session).UserId;
+            int myID = GetCurrentProfileInfo(session).UserId;
             bool isUsersFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, userID);
             if (isUsersFriends)
             {
@@ -674,7 +678,7 @@ namespace Slug.Helpers
 
         public async Task<NotifyHubModel> AcceptInviteToContacts(string session, int userID)
         {
-            CutUserInfoModel accepterUser = GetFullUserInfo(session);
+            BaseUser accepterUser = GetCurrentProfileInfo(session);
             using (var context = new DataBaseContext())
             {
                 FriendsRelationship item = context.FriendsRelationship
@@ -711,7 +715,7 @@ namespace Slug.Helpers
             {
                 using (var context = new DataBaseContext())
                 {
-                    FullUserInfoModel user = GetFullUserInfo(session);
+                    MyProfileModel user = GetCurrentProfileInfo(session);
                     
                     if (user == null)
                     {
@@ -731,6 +735,24 @@ namespace Slug.Helpers
                                 break;
                             case UserParams.UserSurname:
                                 s_user.UserFullInfo.SurName = newValue;
+                                break;
+                            case UserParams.Country:
+                                s_user.UserFullInfo.NowCountryCode = Int32.Parse(newValue);
+                                break;
+                            case UserParams.City:
+                                s_user.UserFullInfo.NowCityCode = Int32.Parse(newValue);
+                                break;
+                            case UserParams.HelloStatus:
+                                s_user.UserFullInfo.HelloMessage = newValue;
+                                break;
+                            case UserParams.DatingPurpose:
+                                s_user.UserFullInfo.DatingPurpose = (DatingPurposeEnum)int.Parse(newValue);
+                                break;
+                            case UserParams.DatingSex:
+                                s_user.UserFullInfo.userDatingSex = (SexEnum)int.Parse(newValue);
+                                break;
+                            case UserParams.DatingAge:
+                                s_user.UserFullInfo.userDatingAge = (AgeEnum)int.Parse(newValue);
                                 break;
                         }
                         context.SaveChanges();

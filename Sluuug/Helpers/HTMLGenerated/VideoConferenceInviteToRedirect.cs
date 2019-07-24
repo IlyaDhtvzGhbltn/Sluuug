@@ -22,7 +22,7 @@ namespace Slug.Helpers.HTMLGenerated
             var sb = new StringBuilder();
             sb.AppendFormat("<div class='incomming_call' id='called__{0}'>", model.InviterID);
             sb.AppendFormat("<img src='{0}'/>", incommingICO);
-            sb.AppendFormat("<img src='{0}'/>", model.AvatarUri);
+            sb.AppendFormat("<img src='{0}'/>", model.AvatarResizeUri);
             sb.AppendFormat("<span>{0} {1} {2}</span>", model.CallerName, model.CallerSurName, mess);
             sb.AppendFormat("</div>");
             return sb.ToString();

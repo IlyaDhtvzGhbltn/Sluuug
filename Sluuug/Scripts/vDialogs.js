@@ -29,7 +29,7 @@ function checkWebrtcAndLoad() {
     //var call_imgs = $('.img_call_id');
     //[].forEach.call(call_imgs, function (item) {
     //    var friend_id = item.id;
-    //    getInfoById(friend_id, 'AvatarUri').then(function (avatar) {
+    //    getInfoById(friend_id, 'AvatarResizeUri').then(function (avatar) {
     //        item.src = avatar;
     //    });
     //});

@@ -20,7 +20,7 @@ namespace Slug.Helpers
             string settingsChangeResult = string.Empty;
 
             UserSettings currentUserSett = handler.GetUserSettings(session);
-            int userID = handler.GetFullUserInfo(session).UserId;
+            int userID = handler.GetCurrentProfileInfo(session).UserId;
 
             if (currentUserSett.Email != newSettings.NewEmail)
             {

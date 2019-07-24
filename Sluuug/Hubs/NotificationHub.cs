@@ -17,6 +17,7 @@ using Slug.Model.Users;
 using NLog;
 using Slug.Helpers.HTMLGenerated;
 using Slug.Context.Dto.Notification;
+using Slug.Model.Users.Relations;
 
 namespace Slug.Hubs
 {
@@ -53,7 +54,7 @@ namespace Slug.Hubs
             var userHandler = new UsersHandler();
 
             int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
-            int myID = userHandler.GetFullUserInfo(session).UserId;
+            int myID = userHandler.GetCurrentProfileInfo(session).UserId;
             int participantID = IDs.First(x => x != myID);
             var participantInfo = userHandler.GetUserInfo(participantID);
             string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);
@@ -110,7 +111,7 @@ namespace Slug.Hubs
                     if (participants.Length >= 2)
                     {
                         var UsWork = new UsersHandler();
-                        FullUserInfoModel fromUser = UsWork.GetFullUserInfo(cookies.Value);
+                        MyProfileModel fromUser = UsWork.GetCurrentProfileInfo(cookies.Value);
 
                         if (participants.Contains(fromUser.UserId))
                         {
@@ -216,7 +217,7 @@ namespace Slug.Hubs
             var connectionsWorker = new UsersConnectionHandler();
 
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
-            CutUserInfoModel responce = userWorker.AddInviteToContacts(session, userID);
+            BaseUser responce = userWorker.AddInviteToContacts(session, userID);
             UserConnectionIdModel connections = connectionsWorker.GetConnectionById(userID);
             if (responce != null)
             {

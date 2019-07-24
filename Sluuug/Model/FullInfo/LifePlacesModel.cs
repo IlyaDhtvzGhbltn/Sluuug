@@ -6,7 +6,9 @@ using System.Web;
 
 namespace Slug.Model.Users
 {
-    public class LifePlacesModel : BaseInfoModel
+    public class LifePlacesModel : UserInfoItem
     {
+
+
     }
 }

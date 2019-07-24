@@ -8,10 +8,10 @@ using System.Web;
 
 namespace Slug.Context.Dto.UserFullInfo
 {
-    public class MemorableEvents : EntryBase
+    public class MemorableEvents
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string EventTitle { get; set; }
@@ -21,6 +21,5 @@ namespace Slug.Context.Dto.UserFullInfo
         public DateTime? DateEvent { get; set; }
 
         public virtual User User { get; set; }
-
     }
 }

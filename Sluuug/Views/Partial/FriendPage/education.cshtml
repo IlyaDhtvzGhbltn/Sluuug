@@ -1,10 +1,9 @@
 ﻿@model Slug.Model.Users.EducationModel
 @using Slug.Extensions
 
-<div class="education_div">
-    <p>@Model.Title</p>
-    <p>@Model.Country @Model.Sity</p>
-    <p>@Model.Start - @Model.End</p>
-    <p><span>@Model.Comment</span></p>
+<div class="item-info">
+    <h3>@Model.Title</h3>
+    <span>@Model.Country @Model.City</span>
+    <span>@Model.Start - @Model.End</span>
+    <span class="user-comment">«@Model.Comment»</span>
 </div>
-

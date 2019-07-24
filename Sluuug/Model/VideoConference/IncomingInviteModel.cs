@@ -18,7 +18,7 @@ namespace Slug.Model.VideoConference
 
         public string CallerSurName { get; set; }
 
-        public string AvatarUri { get; set; }
+        public string AvatarResizeUri { get; set; }
 
         [JsonProperty("html")]
         public string Html { get; set; }

@@ -12,7 +12,7 @@ namespace Slug.Helpers
         public static bool IsUsersAreFriendsBySessionANDid(string sessionID, int userID)
         {
             var userHandler = new UsersHandler();
-            var userInfo = userHandler.GetFullUserInfo(sessionID);
+            var userInfo = userHandler.GetCurrentProfileInfo(sessionID);
             using (var context = new DataBaseContext())
             {
                 var friendShip = context.FriendsRelationship

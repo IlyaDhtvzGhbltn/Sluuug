@@ -10,7 +10,7 @@
 <div id="result_out">
     @foreach (var user in Model.Users)
     {
-        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.CutUserInfoModel>(user));
+        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.BaseUser>(user));
     }
 
     @{

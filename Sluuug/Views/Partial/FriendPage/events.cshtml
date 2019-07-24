@@ -1,16 +1,11 @@
 ﻿@model Slug.Model.Users.MemorableEventsModel
 @using Slug.Extensions
 
-<div class="event_div">
-    <p>
-        @Model.EventTitle
-        @if (Model.DateEvent != new DateTime())
-        {
-            @Model.DateEvent
-        }
-        @if (!string.IsNullOrWhiteSpace(Model.EventComment))
-        {
-            @Model.EventComment
-        }
-    </p>
+
+<div class="info-item">
+    <div class="item-info">
+        <h3>@Model.EventTitle</h3>
+        <span>@Model.DateEvent</span>
+        <span class="user-comment">«@Model.EventComment»</span>
+    </div>
 </div>

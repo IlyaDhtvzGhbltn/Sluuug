@@ -84,7 +84,7 @@ namespace Slug.Helpers
             {
                 int userCreatorConferenceID = context.VideoConferences.First(x=>x.GuidId == videoConverenceID).ConferenceCreatorUserId;
                 var UWorker = new UsersHandler();
-                int userRequestedId = UWorker.GetFullUserInfo(sessionID).UserId;
+                int userRequestedId = UWorker.GetCurrentProfileInfo(sessionID).UserId;
                 if (userRequestedId == userCreatorConferenceID)
                     return VideoConverenceCallType.Caller;
                 else
@@ -100,7 +100,7 @@ namespace Slug.Helpers
             model.IncomingCalls = new List<IncomingInviteModel>();
 
             var userWorker = new UsersHandler();
-            int myId = userWorker.GetFullUserInfo(sessionID).UserId;
+            int myId = userWorker.GetCurrentProfileInfo(sessionID).UserId;
 
             MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID, 80);
             foreach (var item in fMod.Friends)
@@ -162,7 +162,7 @@ namespace Slug.Helpers
                         incoming.InviterID = participantID;
                         incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
                         incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
-                        incoming.AvatarUri = Resize.ResizedUri(info.AvatarUri, ModTypes.c_scale, 45);
+                        incoming.AvatarResizeUri = Resize.ResizedUri(info.AvatarResizeUri, ModTypes.c_scale, 45);
                         model.IncomingCalls.Add(incoming);
                     }
                 }

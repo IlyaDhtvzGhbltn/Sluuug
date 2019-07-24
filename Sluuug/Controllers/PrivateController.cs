@@ -18,6 +18,9 @@ using Slug.Context.Dto.Search;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
 using Slug.Context.Dto.Cloudinary;
+using Slug.Model.Users.Relations;
+using Slug.DbInitialisation;
+using System.Collections.Generic;
 
 namespace Slug.Controllers
 {
@@ -34,7 +37,62 @@ namespace Slug.Controllers
         public async Task<ActionResult> my()
         {
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-            FullUserInfoModel userInfoModel = UsersHandler.GetFullUserInfo(cookies.Value);
+            MyProfileModel userInfoModel = UsersHandler.GetCurrentProfileInfo(cookies.Value);
+
+            string selectedDatingPurposeValue = ((int)userInfoModel.purpose).ToString();
+            var datingPurposeList = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Text = "Познакомлюсь для отношений", Value = "0" },
+                new SelectListItem(){ Text = "Познакомлюсь для общения", Value = "1" },
+                new SelectListItem(){ Text = "Познакомлюсь для секса", Value = "2" },
+                new SelectListItem(){ Text = "Не знакомлюсь", Value = "3" }
+            };
+            datingPurposeList.ForEach(
+                x => {
+                    if (x.Value == selectedDatingPurposeValue)
+                    {
+                        x.Selected = true;
+                    }});
+            ViewBag.DatingPurposeList = datingPurposeList;
+
+            string selectedDatingSexValue = ((int)userInfoModel.userSearchSex).ToString();
+            var datingSexList = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Text = "Женщиной", Value = "0" },
+                new SelectListItem(){ Text = "Мужчиной", Value = "1" },
+            };
+            datingSexList.ForEach(
+                x => 
+                {
+                    if (x.Value == selectedDatingSexValue)
+                    {
+                        x.Selected = true;
+                    }
+                });
+            ViewBag.DatingSexList = datingSexList;
+
+            string selectedDatingAgeValue = ((int)userInfoModel.userSearchAge).ToString();
+            var datingAgesList = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Text = "16-20", Value = "0" },
+                new SelectListItem(){ Text = "21-26", Value = "1" },
+                new SelectListItem(){ Text = "27-31", Value = "2" },
+                new SelectListItem(){ Text = "33-40", Value = "3" },
+                new SelectListItem(){ Text = "41-49", Value = "4" },
+                new SelectListItem(){ Text = "50-59", Value = "5" },
+                new SelectListItem(){ Text = "60-69", Value = "6" },
+                new SelectListItem(){ Text = "более 70", Value = "7" },
+            };
+            datingAgesList.ForEach(
+                x => 
+            {
+                if (x.Value == selectedDatingAgeValue)
+                {
+                    x.Selected = true;
+                }
+            });
+            ViewBag.DatingAgesList = datingAgesList;
+
             return View(userInfoModel);
         }
 
@@ -45,7 +103,7 @@ namespace Slug.Controllers
             {
                 CloudImageUploadResult result = UploadImg(upload);
                 string cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-                UsersHandler.ChangeAvatarUri(cookies, result.SecureUrl);
+                UsersHandler.ChangeAvatarResizeUri(cookies, result.SecureUrl);
             }
             return RedirectToAction("my", "private");
         }
@@ -55,7 +113,7 @@ namespace Slug.Controllers
         {
             
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            var user = UsersHandler.GetFullUserInfo(sessionId);
+            var user = UsersHandler.GetCurrentProfileInfo(sessionId);
             ConversationsModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
         }
@@ -67,7 +125,7 @@ namespace Slug.Controllers
             bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, id);
             if (verifyConvers)
             {
-                int userID = UsersHandler.GetFullUserInfo(sessionId).UserId;
+                int userID = UsersHandler.GetCurrentProfileInfo(sessionId).UserId;
                 DialogModel dialog = DialogsHandler.GetMessanges(id, userID, page);
                 dialog.DialogId = id;
                 return View(dialog);
@@ -82,7 +140,7 @@ namespace Slug.Controllers
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
 
             var friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
-            int ownId = UsersHandler.GetFullUserInfo(sessionId).UserId;
+            int ownId = UsersHandler.GetCurrentProfileInfo(sessionId).UserId;
             if (ownId != id)
             {
                 if (friends)
@@ -103,14 +161,14 @@ namespace Slug.Controllers
         public async Task<ActionResult> friend(int id)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int ownId = UsersHandler.GetFullUserInfo(sessionId).UserId;
+            int ownId = UsersHandler.GetCurrentProfileInfo(sessionId).UserId;
 
             if (ownId != id)
             {
                 bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
-                    FullUserInfoModel userInfo = UsersHandler.GetFullUserInfo(id);
+                    FriendModel userInfo = UsersHandler.GetFullUserInfo(id);
                     return View(userInfo);
                 }
                 else
@@ -200,16 +258,16 @@ namespace Slug.Controllers
                  userSearchAge = (AgeEnum)user_age,
                  userSearchCountry = user_country,
                  userSearchName = user_name,
-                 userSearchSity = user_city,
+                 userSearchCity = user_city,
                  userSearchSex = (SexEnum)user_sex
             };
-            int ownID = this.UsersHandler.GetFullUserInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
+            int ownID = this.UsersHandler.GetCurrentProfileInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
             SearchUsersResponse response = SearchHandler.SearchUsers(parseRequest, ownID, page);
-            foreach (var item in response.Users)
-            {
-                TimeSpan date = TimeSpan.FromTicks(DateTime.Now.Ticks - item.DateBirth.Ticks);
-                item.FullAges = new DateTime(date.Ticks).Year;
-            }
+            //foreach (var item in response.Users)
+            //{
+            //    TimeSpan date = TimeSpan.FromTicks(DateTime.Now.Ticks - item.DateBirth.Ticks);
+            //    item.Age = new DateTime(date.Ticks).Year;
+            //}
             return View(response);
         }
 

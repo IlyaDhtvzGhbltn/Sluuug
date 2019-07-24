@@ -1,16 +1,10 @@
 ﻿@model Slug.Model.Users.LifePlacesModel
 @using Slug.Extensions
 
-
-<div class="live_place_div">
-    <p>@Model.Country @Model.Sity </p>
-    <p><b>@Model.Comment</b></p>
-    @if (Model.UntilNow == false)
-    {
-        <p>@Model.Start - @Model.End</p>
-    }
-    else
-    {
-        <p>@Model.Start - @Html.Translate("Text_For_Now_Time")</p>
-    }
+<div class="info-item">
+    <div class="item-info">
+        <h3>@Model.Country @Model.City</h3>
+        <span>@Model.Start - @Model.End</span>
+        <span class="user-comment">«@Model.Comment»</span>
+    </div>
 </div>

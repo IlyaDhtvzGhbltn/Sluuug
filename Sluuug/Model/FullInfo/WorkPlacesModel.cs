@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Slug.Model.Users
 {
-    public class WorkPlacesModel : BaseInfoModel
+    public class WorkPlacesModel : UserInfoItem
     {
         public string CompanyTitle { get; set; }
 

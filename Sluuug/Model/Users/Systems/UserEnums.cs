@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Slug.Model.Users
 {
-    public enum UserOnlineStatus
+    public enum UserOnlineEnums
     {
         Online,
         OffLine

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Slug.Model.Users;
 
 namespace Slug.Helpers
 {
@@ -45,18 +46,18 @@ namespace Slug.Helpers
                                 int InterlocutorID = context.ConversationGroup
                                     .Where(x => x.ConversationGuidId == dialogGUID &&
                                     x.UserId != userId).First().UserId;
-                                CutUserInfoModel friendInterlocutor = UsWork.GetUserInfo(InterlocutorID);
+                                BaseUser friendInterlocutor = UsWork.GetUserInfo(InterlocutorID);
 
                                 var lastMessage = message.ToList().Last();
                                 int lastMessageUserId = lastMessage.UserId;
-                                CutUserInfoModel lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
+                                BaseUser lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
                                 var c = new CutConversation();
 
-                                c.InterlocutorAvatar = Resize.ResizedUri(friendInterlocutor.AvatarUri, ModTypes.c_scale, 100);
+                                c.InterlocutorAvatar = Resize.ResizedUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
                                 c.InterlocutorName = friendInterlocutor.Name;
                                 c.InterlocutorSurName = friendInterlocutor.SurName;
 
-                                c.LastMessageSenderAvatar = Resize.ResizedUri(lastSayUser.AvatarUri, ModTypes.c_scale, 100);
+                                c.LastMessageSenderAvatar = Resize.ResizedUri(lastSayUser.AvatarResizeUri, ModTypes.c_scale, 100);
                                 c.LastMessageSenderName = lastSayUser.Name;
                                 c.LastMessageSenderSurName = lastSayUser.SurName;
                                 c.LastMessage = lastMessage.Text;

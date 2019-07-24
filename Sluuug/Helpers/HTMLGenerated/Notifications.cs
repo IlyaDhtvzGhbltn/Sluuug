@@ -3,6 +3,7 @@ using Slug.Context.Dto.Messages;
 using Slug.Context.Dto.Notification;
 using Slug.ImageEdit;
 using Slug.Model;
+using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,13 +39,13 @@ namespace Slug.Helpers.HTMLGenerated
                         { NotificationType.AcceptFriendship, "/private/contacts" },
             };
 
-        public static string GenerateHtml(NotificationType type, CutUserInfoModel model, string culture)
+        public static string GenerateHtml(NotificationType type, BaseUser model, string culture)
         {
             StringBuilder sb = new StringBuilder();
             CultureInfo cul = CultureInfo.CreateSpecificCulture(culture);
             string mess = Properties.Resources.ResourceManager.GetString(typeToResx[type], cul);
             sb.AppendFormat("<span>{0} {1} {2}</span>", mess, model.Name, model.SurName);
-            string uriAvatar = Resize.ResizedUri(model.AvatarUri, ModTypes.c_scale, 30);
+            string uriAvatar = Resize.ResizedUri(model.AvatarResizeUri, ModTypes.c_scale, 30);
             sb.AppendFormat("<img src='{0}' height='30' width='30' />", uriAvatar);
             string uriMore = typeToLink[type];
             string click = Properties.Resources.ResourceManager.GetString("Text_Click_Here_Details", cul);

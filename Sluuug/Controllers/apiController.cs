@@ -31,7 +31,7 @@ namespace Slug.Controllers
         public JsonResult get_user_info()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            var UserInfo = UsersHandler.GetFullUserInfo(sessionId);
+            var UserInfo = UsersHandler.GetCurrentProfileInfo(sessionId);
             var result = new JsonResult();
             result.Data = UserInfo;
             return result;
@@ -98,7 +98,7 @@ namespace Slug.Controllers
         public JsonResult drop_entry(Guid EntryId)
         {
             string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int userSessionId = UsersHandler.GetFullUserInfo(session).UserId;
+            int userSessionId = UsersHandler.GetCurrentProfileInfo(session).UserId;
             int userEntryID = FullInfoHandler.GetUserByInfoEnrtuGuid(EntryId).Id;
             if (userSessionId == userEntryID)
             {
@@ -144,17 +144,17 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult upload_foto(FotoModel model, UploadModel form)
+        public JsonResult upload_foto(string albumId, IEnumerable<HttpPostedFileBase> files)
         {
-            var uploadResult = AlbumsHandler.UploadToAlbum(GetCookiesValue(Request), model, form);
+            var Id = Guid.Parse(albumId);
+            var uploadResult = AlbumsHandler.UploadToAlbum(GetCookiesValue(Request), Id, files);
             return new JsonResult() { Data = uploadResult.isSuccess };
         }
         
         [HttpPost]
-        public JsonResult fotos(string album)
+        public JsonResult fotos(Guid album)
         {
-            var guid = Guid.Parse(album);
-            AlbumPhotosResponse result = AlbumsHandler.GetMyPhotosInAlbum(GetCookiesValue(Request), guid);
+            AlbumPhotosResponse result = AlbumsHandler.ExpandAlbum(GetCookiesValue(Request), album);
             return new JsonResult { Data = result };
         }
 
@@ -166,25 +166,25 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult drop_foto(string fotoID)
+        public JsonResult drop_foto(string fotoId)
         {
-            var guid = Guid.Parse(fotoID);
+            var guid = Guid.Parse(fotoId);
             var result = AlbumsHandler.DropFoto(GetCookiesValue(Request), guid);
             return new JsonResult { Data = result };
         }
 
         [HttpPost]
-        public JsonResult drop_album(string albumID)
+        public JsonResult drop_album(string albumId)
         {
-            Guid guid = Guid.Parse(albumID);
+            Guid guid = Guid.Parse(albumId);
             var result = AlbumsHandler.DropAlbum(GetCookiesValue(Request), guid);
             return new JsonResult { Data = result };
         }
 
         [HttpPost]
-        public JsonResult get_comments(string fotoID)
+        public JsonResult get_comments(string fotoId)
         {
-            Guid guid = Guid.Parse(fotoID);
+            Guid guid = Guid.Parse(fotoId);
             FotoCommentsResponse result = AlbumsHandler.GetCommentsToFoto(GetCookiesValue(Request), guid);
             return new JsonResult { Data = result };
         }

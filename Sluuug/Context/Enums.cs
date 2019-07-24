@@ -13,13 +13,6 @@ namespace Context
         Ru
     }
 
-    public enum DatingTypes
-    {
-        FriendshipAndCommunication,
-        Family,
-        Sex,
-    }
-
     public enum FriendshipItemStatus
     {
         None,

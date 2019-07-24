@@ -41,7 +41,7 @@ namespace Slug.Hubs
         {
             var info = CultureInfo.CurrentCulture;
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
+            BaseUser userInfo = this.userInfoHandler.GetCurrentProfileInfo(cookies.Value);
             Guid guid = this.videoConferenceHandler.Create(userInfo.UserId, calleUserId);
             var UserRecipientsConnectionIds = new UserConnectionIdModel();
             UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
@@ -52,7 +52,7 @@ namespace Slug.Hubs
                 CallerSurName = userInfo.SurName,
                 InviterID = userInfo.UserId,
                 ConferenceID = guid,
-                AvatarUri = Resize.ResizedUri(userInfo.AvatarUri, ModTypes.c_scale, 40)
+                AvatarResizeUri = Resize.ResizedUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 40)
             };
             var culture = CultureInfo.CurrentCulture;
             string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
@@ -72,7 +72,7 @@ namespace Slug.Hubs
         public void Invite(string callOffer, Guid videoConverenceGuidID)
         {
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
+            BaseUser userInfo = this.userInfoHandler.GetCurrentProfileInfo(cookies.Value);
 
             this.videoConferenceHandler.UpdateConferenceOffer(callOffer, userInfo.UserId, videoConverenceGuidID);
 
@@ -85,7 +85,7 @@ namespace Slug.Hubs
         public async Task<NotifyHubModel> ConfirmInvite(Guid videoConverenceID, string callAnswer)
         {
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
+            BaseUser userInfo = this.userInfoHandler.GetCurrentProfileInfo(cookies.Value);
             int callerNeedAnswerID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceID, userInfo.UserId);
 
             this.videoConferenceHandler.SaveAnswerVideoConference(callAnswer, videoConverenceID);
@@ -102,7 +102,7 @@ namespace Slug.Hubs
         public void ExchangeICandidates(dynamic iceCandidate, Guid videoConverenceID)
         {
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            CutUserInfoModel userInfo = this.userInfoHandler.GetFullUserInfo(cookies.Value);
+            BaseUser userInfo = this.userInfoHandler.GetCurrentProfileInfo(cookies.Value);
             int otherUserID = this.videoConferenceHandler.GetVideoConferenceParticipantID(videoConverenceID, userInfo.UserId);
 
             var inviteConnectionsID = connectionsHandler.GetConnectionById(otherUserID);

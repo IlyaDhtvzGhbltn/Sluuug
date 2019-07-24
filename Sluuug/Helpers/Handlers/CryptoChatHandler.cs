@@ -74,7 +74,7 @@ namespace Slug.Helpers
             model.FriendsICanInvite = new List<FriendModel>();
 
             MyFriendsModel friends = userHandler.GetFriendsBySession(sessionId, 45);
-            CutUserInfoModel userInformation = userHandler.GetFullUserInfo(sessionId);
+            BaseUser userInformation = userHandler.GetCurrentProfileInfo(sessionId);
 
             foreach (var item in friends.Friends)
             {
@@ -117,13 +117,13 @@ namespace Slug.Helpers
                         int interlocutorID = fullGroups.First(x => x.PartyGUID == secretChat.PartyGUID &&
                                                               x.UserId != userInformation.UserId)
                                                               .UserId;
-                        CutUserInfoModel interlocutor = userHandler.GetUserInfo(interlocutorID);
+                        BaseUser interlocutor = userHandler.GetUserInfo(interlocutorID);
                         chat.InterlocutorName = interlocutor.Name;
                         chat.InterlocutorSurName = interlocutor.SurName;
                         if (status == CryptoChatStatus.SelfCreated)
-                            chat.InterlocutorAvatar = Resize.ResizedUri(interlocutor.AvatarUri, ModTypes.c_scale, 45);
+                            chat.InterlocutorAvatar = Resize.ResizedUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 45);
                         else
-                            chat.InterlocutorAvatar = Resize.ResizedUri(interlocutor.AvatarUri, ModTypes.c_scale, 100);
+                            chat.InterlocutorAvatar = Resize.ResizedUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
 
                         //chat.Expired = false;
                         var GuidId = chatGroup.PartyGUID.ToString();
@@ -133,7 +133,7 @@ namespace Slug.Helpers
                             SecretMessages last = context.SecretMessage.ToList().Last();
                             chat.LastMessage = last.Text;
                             chat.LastMessageSendDate = last.SendingDate;
-                            string lastSenderAvatar = userHandler.GetFullUserInfo(last.UserSender).AvatarUri;
+                            string lastSenderAvatar = userHandler.GetFullUserInfo(last.UserSender).AvatarResizeUri;
                             chat.UserLastMessageSenderAvatar = Resize.ResizedUri(lastSenderAvatar, ModTypes.c_scale, 45);
                         }
 
@@ -190,9 +190,9 @@ namespace Slug.Helpers
 
             var model = new CryptoDialogModel();
             var userWorker = new UsersHandler();
-            int userReaderID = userWorker.GetFullUserInfo(session).UserId;
+            int userReaderID = userWorker.GetCurrentProfileInfo(session).UserId;
 
-            var userInfos = new Dictionary<int, CutUserInfoModel>();
+            var userInfos = new Dictionary<int, BaseUser>();
 
             model.GuidId = Guid.Parse(GuidId);
             model.Messages = new List<CryptoMessage>();
@@ -232,7 +232,7 @@ namespace Slug.Helpers
                     var CrMessage = new CryptoMessage()
                     {
                         SendDate = item.SendingDate,
-                        AvatatURI = Resize.ResizedUri(userInfos[item.UserSender].AvatarUri, ModTypes.c_scale, 50),
+                        AvatatURI = Resize.ResizedUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 50),
                         Text = item.Text,
                         Name = userInfos[item.UserSender].Name,
                         SurName = userInfos[item.UserSender].SurName,
@@ -272,7 +272,7 @@ namespace Slug.Helpers
 
                 return CryptoChatStatus.PendingAccepted;
         }
-        private FriendModel getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user, CutUserInfoModel userCaller)
+        private FriendModel getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user, BaseUser userCaller)
         {
             var chatUser = new FriendModel();
 
@@ -283,7 +283,7 @@ namespace Slug.Helpers
                 {
                     var userInfo = user.GetUserInfo(participator.UserId);
                     chatUser.UserId = userInfo.UserId;
-                    chatUser.AvatarPath = userInfo.AvatarUri;
+                    chatUser.AvatarResizeUri = userInfo.AvatarResizeUri;
                     chatUser.Name = userInfo.Name;
                     chatUser.SurName = userInfo.SurName;
                 }

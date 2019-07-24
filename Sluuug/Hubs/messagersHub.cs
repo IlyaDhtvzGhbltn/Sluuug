@@ -36,7 +36,7 @@ namespace Sluuug.Hubs
                 var UsWork = new UsersHandler();
                 var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-                CutUserInfoModel user = UsWork.GetFullUserInfo(cookies.Value);
+                BaseUser user = UsWork.GetCurrentProfileInfo(cookies.Value);
                 if (user != null)
                 {
                     var dialogWorker = new UsersDialogHandler();
@@ -57,7 +57,7 @@ namespace Sluuug.Hubs
 
                     var model = new DialogMessage()
                     {
-                        AvatarPath = user.AvatarUri,
+                        AvatarPath = user.AvatarResizeUri,
                         UserName = user.Name,
                         UserSurname = user.SurName,
                         SendTime = DateTime.Now.ToString("yyyy-mm-dd"),

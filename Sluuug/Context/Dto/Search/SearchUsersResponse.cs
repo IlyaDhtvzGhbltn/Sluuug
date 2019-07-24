@@ -1,14 +1,11 @@
-﻿using Slug.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using Slug.Model.Users;
 
 namespace Slug.Context.Dto.Search
 {
     public class SearchUsersResponse
     {
-        public ICollection<CutUserInfoModel> Users { get; set; }
+        public ICollection<BaseUser> Users { get; set; }
         public int PagesCount { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Slug.Hubs
             var Cookie = base.Context.Request.Cookies;
             var session_id = Cookie[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             var uW = new UsersHandler();
-            var UserInfo = uW.GetFullUserInfo(session_id.Value);
+            var UserInfo = uW.GetCurrentProfileInfo(session_id.Value);
 
             var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
             int participantID = CryptoChatResponce.Participants[0].UserId;
@@ -42,7 +42,7 @@ namespace Slug.Hubs
             if (isFriend)
             {
                 CryptoChatResponce.CreatorName = UserInfo.Name;
-                CryptoChatResponce.CreatorAvatar = UserInfo.AvatarUri;
+                CryptoChatResponce.CreatorAvatar = UserInfo.AvatarResizeUri;
                 CryptoChatResponce.CreationDate = DateTime.Now;
 
                 var CryptWorker = new CryptoChatHandler();
@@ -64,11 +64,11 @@ namespace Slug.Hubs
         {
             Cookie Session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             UsersHandler worker = new UsersHandler();
-            CutUserInfoModel fromUser = worker.GetFullUserInfo(Session.Value);
+            BaseUser fromUser = worker.GetCurrentProfileInfo(Session.Value);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
 
-            cryptoConversation.CreatorAvatar = fromUser.AvatarUri;
+            cryptoConversation.CreatorAvatar = fromUser.AvatarResizeUri;
             cryptoConversation.CreatorName = fromUser.Name;
 
             var connectionWorker = new UsersConnectionHandler();
@@ -94,7 +94,7 @@ namespace Slug.Hubs
             var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            CutUserInfoModel userAccepter = UsWorker.GetFullUserInfo(cookies.Value);
+            BaseUser userAccepter = UsWorker.GetCurrentProfileInfo(cookies.Value);
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
 
 
@@ -120,13 +120,13 @@ namespace Slug.Hubs
 
             UsersHandler UsWorker = new UsersHandler();
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            int fromUserID = UsWorker.GetFullUserInfo(cookies.Value).UserId;
+            int fromUserID = UsWorker.GetCurrentProfileInfo(cookies.Value).UserId;
 
             string uri = base.Context.QueryString["URL"];
             var reg = new Regex("=.{36}");
             MatchCollection matches = reg.Matches(uri);
             string guidChatId = matches[0].ToString().Substring(1);
-            CutUserInfoModel fromUser = UsWorker.GetUserInfo(fromUserID);
+            BaseUser fromUser = UsWorker.GetUserInfo(fromUserID);
             int toUserID = cryptoChatWorker.GetInterlocutorID(Guid.Parse(guidChatId), fromUser.UserId);
             bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUserID, toUserID);
 
@@ -135,8 +135,8 @@ namespace Slug.Hubs
                 await cryptoChatWorker.SaveSecretMessageHashAsync(guidChatId, fromUserID, message);
                 UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
 
-                Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
-                Clients.Caller.NewMessage(message, fromUser.AvatarUri, fromUser.Name, DateTime.Now, guidChatId);
+                Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, fromUser.AvatarResizeUri, fromUser.Name, DateTime.Now, guidChatId);
+                Clients.Caller.NewMessage(message, fromUser.AvatarResizeUri, fromUser.Name, DateTime.Now, guidChatId);
 
                 var response = new NotifyHubModel();
                 response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

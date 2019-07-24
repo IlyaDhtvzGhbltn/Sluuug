@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Slug.Context.Dto.UserFullInfo;
 using Slug.Context.Tables;
+using Slug.DbInitialisation;
 
 namespace Context
 {

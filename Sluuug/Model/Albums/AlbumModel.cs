@@ -8,14 +8,13 @@ namespace Slug.Model.Albums
     public class AlbumModel
     {
         public Guid AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
+        public string AlbumDescription { get; set; }
 
-        public string Title { get; set; }
 
         public string AlbumLabelUrl { get; set; }
 
         public DateTime CreationTime { get; set; }
-
-        public string AuthorComment { get; set; }
 
         public List<FotoModel> Fotos { get; set; }
 

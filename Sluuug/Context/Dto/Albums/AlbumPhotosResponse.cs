@@ -8,11 +8,11 @@ namespace Slug.Context.Dto.Albums
 {
     public class AlbumPhotosResponse
     {
-        public bool isSucces { get; set; }
+        public bool Succes { get; set; }
 
         public string Comment { get; set; }
 
-        public int Count { get; set; }
+        public int PhotosCount { get; set; }
 
         public List<FotoModel> Photos { get; set; }
 

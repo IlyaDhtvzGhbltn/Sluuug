@@ -11,7 +11,7 @@ namespace Slug.Model.Albums
 
         public long PostDate { get; set; }
 
-        public string UserPostedAvatarUri { get; set; }
+        public string UserPostedAvatarResizeUri { get; set; }
 
         public int UserPostedID { get; set; }
 
