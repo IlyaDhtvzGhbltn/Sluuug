@@ -52,7 +52,7 @@ namespace Slug.Hubs
                 CallerSurName = userInfo.SurName,
                 InviterID = userInfo.UserId,
                 ConferenceID = guid,
-                AvatarResizeUri = Resize.ResizedUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 40)
+                AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 40)
             };
             var culture = CultureInfo.CurrentCulture;
             string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);

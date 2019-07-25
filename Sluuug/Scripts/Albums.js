@@ -23,6 +23,7 @@
     }
 }
 
+
 function DeleteAlbum(albumID) {
     $.ajax({
         type: "post",
@@ -36,6 +37,7 @@ function DeleteAlbum(albumID) {
         }
     });
 }
+
 
 function ExpandAlbum(albumId) {
     console.log(albumId);
@@ -64,6 +66,7 @@ function ExpandAlbum(albumId) {
                 $('.image-description span')[0].innerHTML = resp.Photos[0].PhotoDescription;
                 $('.full-image-container')[0].id = resp.Photos[0].ID;
                 $('.full-image-container img')[0].src = resp.Photos[0].FullFotoUri;
+                $('.photo-manage')[0].id = resp.Photos[0].ID;
 
                 $('.album-images-browse').append('<div class="small-image" id="' + resp.Photos[0].ID + '" full_url="' + resp.Photos[0].FullFotoUri +'" onclick="ExpandPhoto(this)">' +
                     '<input type="radio" name="select-img" class="image-select-checkbox" checked>' +
@@ -95,11 +98,13 @@ function ExpandAlbum(albumId) {
     }); 
 }
 
+
 function ExpandPhoto(targetPhoto) {
     let fullSizeURL = targetPhoto.getAttribute('full_url');
     let photoId = targetPhoto.getAttribute('id');
     $('.full-image-container img')[0].src = fullSizeURL;
     $('.full-image-container')[0].id = photoId;
+    $('.photo-manage')[0].id = photoId;
     $('.users-comments')[0].innerHTML = '';
 
 
@@ -109,22 +114,28 @@ function ExpandPhoto(targetPhoto) {
         data: { fotoId: photoId },
         success: function (resp) {
             console.log(resp);
+            if (resp.isSuccess) {
 
-            [].forEach.call(resp.FotoComments, function (comment) {
-                $('.users-comments').append('<div class="image-user-comment" onclick="redirectToUser(' + comment.UserPostedID + ')">' +
-                    '<div class="comment-header">' +
-                    '<h4>' + comment.UserName + ' ' + comment.UserSurName + '</h4>' +
-                    '<span>' + comment.DateFormat + '</span>' +
-                    '</div>' +
-                    '<div class="comment-body">' +
-                    '<img src="' + comment.UserPostedAvatarResizeUri + '"/>' +
-                    '<span>' + comment.Text + '</span>' +
-                    '</div>' +
-                    '</div > ');
-            });
+                $('#photo-h3-titlte')[0].innerHTML = resp.PhotoTitle;
+                $('#photo-span-description')[0].innerHTML = resp.PhotoDescription;
+
+                [].forEach.call(resp.FotoComments, function (comment) {
+                    $('.users-comments').append('<div class="image-user-comment" onclick="redirectToUser(' + comment.UserPostedID + ')">' +
+                        '<div class="comment-header">' +
+                        '<h4>' + comment.UserName + ' ' + comment.UserSurName + '</h4>' +
+                        '<span>' + comment.DateFormat + '</span>' +
+                        '</div>' +
+                        '<div class="comment-body">' +
+                        '<img src="' + comment.UserPostedAvatarResizeUri + '"/>' +
+                        '<span>' + comment.Text + '</span>' +
+                        '</div>' +
+                        '</div >');
+                });
+            }
         }
     });
 }
+
 
 function SendPhotoComment() {
     var photoId = $('.full-image-container')[0].id;
@@ -136,17 +147,54 @@ function SendPhotoComment() {
         success: function (resp) {
             console.log(resp);
             if (resp.isSuccess) {
-                document.location.reload();
+                $('.users-comments').append("<div class='image-user-comment' onclick='redirectToMe()'>" +
+                    '<div class="comment-header">' +
+                    '<h4>Я</h4>' + 
+                    '<span>только что</span>' +
+                    '</div>' +
+                    '<div class="comment-body">' +
+                    '<img src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +
+                    '<span>' + commentText + '</span>' +
+                    '</div>' +
+                    '</div>'
+                );
+                $('.area-to-comment').val('');
             }
         }
     });
 }
 
+
+function ChangePhotoParameter(parameter, newValue) {
+    var photoId = $('.full-image-container')[0].id;
+    $.ajax({
+        type: "post",
+        url: "/api/edit_photo",
+        data: { PhotoGUID: photoId, NewValue: newValue, EditMode: parameter },
+        success: function (resp) {
+            console.log(resp);
+            if (resp.isSuccess) {
+                switch (parameter)
+                {
+                    case 0:
+                        $('#photo-h3-titlte')[0].innerHTML = newValue;
+                        $('.new-photo-title').val('');
+                        break;
+                    case 1:
+                        $('#photo-span-description')[0].innerHTML = newValue;
+                        $('.new-photo-description').val('');
+                        break;
+                }
+            }
+        }
+    });
+}
+
+
 function CloseExpandedAlbum() {
     $('.expand-foto').css('display', 'none');
 }
 
-/////////////////////////////////////
 
 function UploadFotosToAlbum(inputUploaded) {
     if (inputUploaded.files.length !== 0) {
@@ -166,33 +214,13 @@ function UploadFotosToAlbum(inputUploaded) {
             success: function (resp) {
                 if (resp) {
                     console.log(resp);
-                    //window.location.reload();
+                    window.location.reload();
                 }
             }
         });
     }
 }
 
-//function add_info(fotoID, type) {
-//    let elem_ = $('#' + edit[type] + fotoID)[0];
-//    if (elem_ === undefined) {
-//        $.ajax({
-//            type: "post",
-//            url: "/partial/editinfo",
-//            data: { fotoID: fotoID, type: type },
-//        })
-//            .then(function (html) {
-//                let div = $('#' + elem[type] + fotoID)[0];
-//                div.insertAdjacentHTML('afterend', html);
-//                $('#' + img[type] + fotoID)[0].src = endEDIT;
-//            });
-//    }
-//    else {
-//        new_tit = $('#' + edit[type] + fotoID)[0];
-//        new_tit.remove();
-//        $('#' + img[type] + fotoID)[0].src = editIMG;
-//    }
-//}
 
 function DeletePhoto(photoId) {
     console.log(photoId);

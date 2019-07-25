@@ -15,6 +15,10 @@ namespace Slug.Context.Dto.Fotos
 
         public List<FotoCommentModel> FotoComments { get; set; } 
 
+        public string PhotoTitle { get; set; }
+
+        public string PhotoDescription { get; set; }
+
         public static class Errors
         {
             public const string NOT_ACCESS = "You don't have an access to current foto.";

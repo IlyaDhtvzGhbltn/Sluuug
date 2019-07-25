@@ -162,7 +162,7 @@ namespace Slug.Helpers
                         incoming.InviterID = participantID;
                         incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
                         incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
-                        incoming.AvatarResizeUri = Resize.ResizedUri(info.AvatarResizeUri, ModTypes.c_scale, 45);
+                        incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 45);
                         model.IncomingCalls.Add(incoming);
                     }
                 }

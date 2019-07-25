@@ -53,11 +53,11 @@ namespace Slug.Helpers
                                 BaseUser lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
                                 var c = new CutConversation();
 
-                                c.InterlocutorAvatar = Resize.ResizedUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
+                                c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
                                 c.InterlocutorName = friendInterlocutor.Name;
                                 c.InterlocutorSurName = friendInterlocutor.SurName;
 
-                                c.LastMessageSenderAvatar = Resize.ResizedUri(lastSayUser.AvatarResizeUri, ModTypes.c_scale, 100);
+                                c.LastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSayUser.AvatarResizeUri, ModTypes.c_scale, 100);
                                 c.LastMessageSenderName = lastSayUser.Name;
                                 c.LastMessageSenderSurName = lastSayUser.SurName;
                                 c.LastMessage = lastMessage.Text;

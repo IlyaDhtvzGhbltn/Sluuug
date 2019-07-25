@@ -300,6 +300,10 @@
     <Compile Include="Migrations\201907231500489_0.Designer.cs">
       <DependentUpon>201907231500489_0.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907250752124_photo.tbo_height+width.cs" />
+    <Compile Include="Migrations\201907250752124_photo.tbo_height+width.Designer.cs">
+      <DependentUpon>201907250752124_photo.tbo_height+width.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -481,6 +485,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907231500489_0.resx">
       <DependentUpon>201907231500489_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907250752124_photo.tbo_height+width.resx">
+      <DependentUpon>201907250752124_photo.tbo_height+width.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

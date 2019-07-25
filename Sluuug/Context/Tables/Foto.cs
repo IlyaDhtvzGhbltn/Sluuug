@@ -33,6 +33,10 @@ namespace Slug.Context.Tables
         [Required]
         public string ImagePublicID { get; set; }
 
+        public long Height { get; set; }
+
+        public long Width { get; set; }
+
         public int PositiveRating { get; set; }
 
         public int NegativeRating { get; set; }

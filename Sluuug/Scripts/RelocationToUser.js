@@ -25,3 +25,10 @@ function redirectToFriend(id) {
     let url = protocol + '//' + domain + '/private/friend/' + id;
     window.open(url, "_blank");
 }
+
+function redirectToMe() {
+    let domain = window.location.host;
+    let protocol = location.protocol;
+    let url = protocol + '//' + domain + '/private/my';
+    window.open(url, "_blank");
+}

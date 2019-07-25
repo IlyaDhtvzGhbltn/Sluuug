@@ -75,7 +75,7 @@ namespace Slug.Helpers
                                      Text = comment.CommentText,
                                      UserName = userCommenter.Name,
                                      UserSurName = userCommenter.SurName,
-                                     UserPostedAvatarResizeUri = Resize.ResizedUri( userCommenter.AvatarResizeUri, ModTypes.c_scale, 40
+                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri( userCommenter.AvatarResizeUri, ModTypes.c_scale, 40
                                      ),
                                      UserPostedID = userCommenter.UserId,
                                      DateFormat = comment.CommentWriteDate.ToLongDateString()
@@ -89,7 +89,7 @@ namespace Slug.Helpers
                                  PhotoDescription = foto.Description,
                                  Title = foto.Title,
                                  ID = foto.FotoGUID,
-                                 SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 50), 
+                                 SmallFotoUri = Resize.ResizedAvatarUri(foto.Url, ModTypes.c_scale, 50), 
                                  UploadDate = foto.UploadDate,
                                  FotoComments = comments
                             };
@@ -126,6 +126,7 @@ namespace Slug.Helpers
                 labelUri = upl.SecureUrl.ToString();
                 labePubID = upl.PublicId;
             }
+            string albumDescription = model.AlbumDescription == null ? model.AlbumDescription = "..." : model.AlbumDescription;
             try
             {
                 using (var context = new DataBaseContext())
@@ -134,7 +135,7 @@ namespace Slug.Helpers
                     {
                         Id = albumGUID,
                         AlbumLabelUrl = labelUri,
-                        Description = model.AlbumDescription,
+                        Description = albumDescription,
                         CreateUserID = userUploader.UserId,
                         CreationDate = DateTime.Now,
                         Title = model.AlbumTitle,
@@ -189,7 +190,10 @@ namespace Slug.Helpers
                                     UploadDate = DateTime.Now,
                                     UploadUserID = userUploaderID,
                                     Url = uploadCloud.SecureUrl.ToString(),
-                                    ImagePublicID = uploadCloud.PublicId
+                                    ImagePublicID = uploadCloud.PublicId,
+                                    Height = uploadCloud.Height,
+                                    Width = uploadCloud.Width
+
                                 };
                                 context.Fotos.Add(uplFoto);
                             }
@@ -239,15 +243,15 @@ namespace Slug.Helpers
                         resp.Photos = new List<FotoModel>();
                         album.Fotos
                             .OrderBy(x => x.UploadDate)
-                            .Select(col => new { col.AlbumID, col.Url, col.Title, col.FotoGUID, col.Description })
+                            .Select(col => new { col.AlbumID, col.Url, col.Title, col.FotoGUID, col.Description, col.Height, col.Width })
                             .ToList()
                             .ForEach(foto =>
                         {
                             var fModel = new FotoModel()
                             { 
                                 Album = foto.AlbumID,
-                                SmallFotoUri = Resize.ResizedUri(foto.Url, ModTypes.c_scale, 60, 50),
-                                FullFotoUri = foto.Url,
+                                SmallFotoUri = Resize.ResizedAvatarUri(foto.Url, ModTypes.c_scale, 60, 50),
+                                FullFotoUri = Resize.ResizedFullPhoto(foto.Url, foto.Height, foto.Width), 
                                 PhotoDescription = foto.Description,
                                 Title = foto.Title,
                                 ID = foto.FotoGUID,
@@ -274,7 +278,7 @@ namespace Slug.Helpers
                                     DateFormat = comment.CommentWriteDate.ToString("ddd d MMM HH:mm", CultureInfo.CreateSpecificCulture("ru-RU")),
                                     UserName = commenter.UserFullInfo.Name,
                                     UserSurName = commenter.UserFullInfo.SurName,
-                                    UserPostedAvatarResizeUri = Resize.ResizedUri(commenterAvatar, ModTypes.c_scale, 55, 55),
+                                    UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(commenterAvatar, ModTypes.c_scale, 55, 55),
                                     UserPostedID = comment.UserCommenter
                                 });
                             });
@@ -450,24 +454,25 @@ namespace Slug.Helpers
             var resp = new FotoCommentsResponse();
             using (var context = new DataBaseContext())
             {
-                var fotoInf = context.Fotos.FirstOrDefault(x => x.FotoGUID == fotoGUID);
-                if (fotoInf == null)
+                Foto photoInf = context.Fotos.FirstOrDefault(x => x.FotoGUID == fotoGUID);
+                if (photoInf == null)
                 {
                     resp.Comment = DropFotoResponse.Errors.NOT_EXIST;
                 }
                 else
                 {
-                    bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, fotoInf.UploadUserID);
+                    bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, photoInf.UploadUserID);
 
-                    if (fotoInf.UploadUserID != userID && !friends)
+                    if (photoInf.UploadUserID != userID && !friends)
                     {
                         resp.Comment = DropFotoResponse.Errors.NOT_ACCESS;
                     }
                     else
                     {
                         resp.isSuccess = true;
-
-                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == fotoInf.FotoGUID).OrderBy(x=>x.CommentWriteDate).ToList();
+                        resp.PhotoDescription = photoInf.Description;
+                        resp.PhotoTitle = photoInf.Title;
+                        var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == photoInf.FotoGUID).OrderBy(x=>x.CommentWriteDate).ToList();
                         resp.FotoComments = new List<FotoCommentModel>();
                         comments.ForEach(comm => 
                         {
@@ -475,7 +480,7 @@ namespace Slug.Helpers
                             string avatarImgPath = context.Avatars.First(x => x.Id == avatarID).ImgPath;
                             var commModel = new FotoCommentModel()
                             {
-                                UserPostedAvatarResizeUri = Resize.ResizedUri(avatarImgPath, ModTypes.c_scale, 50),
+                                UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(avatarImgPath, ModTypes.c_scale, 50),
                                 PostDate = comm.CommentWriteDate.Ticks,
                                 Text = comm.CommentText,
                                 UserName = context.Users.First(x=>x.Id == comm.UserCommenter).UserFullInfo.Name,

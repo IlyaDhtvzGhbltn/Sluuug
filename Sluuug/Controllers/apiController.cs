@@ -159,7 +159,7 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult edit(EditFotoInfoModel model)
+        public JsonResult edit_photo(EditFotoInfoModel model)
         {
             var result = AlbumsHandler.EditFotoInfo(GetCookiesValue(Request), model);
             return new JsonResult { Data = result };
@@ -197,7 +197,7 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult save_parameter(UserParams paramNumer, string newValue)
+        public JsonResult edit_profile(UserParams paramNumer, string newValue)
         {
             var resp = UsersHandler.ChangeParameter(GetCookiesValue(Request), paramNumer, newValue);
             return new JsonResult { Data = resp };

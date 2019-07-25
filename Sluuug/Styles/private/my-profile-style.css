@@ -487,4 +487,131 @@
 }
 /* NEW ALBUMS END*/
 
+/* MANAGE ALBUM START */
 
+
+.album:hover > .album-manage {
+visibility: visible;
+bottom: 200px;
+opacity: 1;
+z-index: 999;
+}
+
+.album-manage {
+width: auto;
+opacity: 0;
+visibility: hidden;
+position: relative;
+bottom: 60px;
+flex-direction: column;
+flex-wrap: nowrap;
+transition: all .3s ease-in;
+}
+
+.album-manage .upload-fotos-to-album-input {
+    margin-left: 15%;
+    margin-right: 15%;
+    position: relative;
+    top: 40px;
+    width: 70%;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+    .album-manage .upload-fotos-to-album-input:hover + button {
+        background: rgb(162, 236, 243);
+        color: #7f7f7f;
+        cursor: pointer;
+        border: 1px solid #7f7f7f;
+    }
+
+.album-manage button {
+    margin-bottom: 3px;
+}
+
+.album-manage button {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 10px;
+}
+
+/* MANAGE ALBUM END */
+
+/* PHOTO MANAGE START */
+.full-image-container:hover + .photo-manage {
+    top: -504px;
+    opacity: 1;
+}
+
+.photo-manage {
+width: 200px;
+position: relative;
+top: -1000px;
+opacity:0;
+top: -504px;
+left: 0;
+transition: all 0.2s ease .5s;
+}
+
+.photo-manage:hover {
+    opacity: 1;
+}
+
+.photo-manage input[type="checkbox"] {
+    position: absolute;
+    display: block;
+    width: 185px;
+    height: 40px;
+    opacity: 0;
+    z-index: 10;
+    cursor: pointer;
+}
+.photo-edit:hover > .edit-wrapper{
+    margin-left:192px;
+    opacity : 1;
+}
+
+.decoration-button:hover {
+    cursor: auto;
+    background-color: #49B2DA;
+    color: white;
+}
+
+.photo-manage .photo-edit {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 5px;
+    height: 44px;
+}
+
+.photo-manage .photo-edit button {
+    display: block;
+    width: 100%;
+    height: 45px;
+    z-index: 1;
+}
+
+.edit-wrapper {
+    display:flex;
+    flex-direction:row;
+    position:absolute;
+    transition:all .3s ease;
+    z-index:0;
+    opacity:0;
+    height: 35px;
+    margin-top:5px;
+}
+
+.edit-wrapper input{
+    width:150px;
+}
+
+.photo-manage .photo-edit .edit-wrapper button{
+    height:35px;
+    margin-left: 3px;
+}
+
+/* PHOTO MANAGE END*/

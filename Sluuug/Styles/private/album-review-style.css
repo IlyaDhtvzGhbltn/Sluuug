@@ -39,52 +39,6 @@ COMMENTS
 .album:hover{
 	background:#a2ecf3;
 }
-.album:hover > .album-manage{
-	visibility:visible;
-	bottom:100px;
-	opacity:1;
-    z-index:999;
-}
-
-.album-manage{
-    width:auto;
-	opacity:0;
-	visibility:hidden;
-	position:relative;
-	bottom:60px;
-	flex-direction:column;
-	flex-wrap:nowrap;
-    transition: all .3s ease-in;
-}
-
-.album-manage .upload-fotos-to-album-input{
-    margin-left:15%;
-    margin-right:15%;
-    position:relative;
-    top:40px;
-    width:70%;
-    height:40px;
-    opacity:0;
-    cursor:pointer;
-}
-
-.album-manage .upload-fotos-to-album-input:hover + button{
-    background: rgb(162, 236, 243);
-    color: #7f7f7f;
-    cursor: pointer;
-    border: 1px solid #7f7f7f;
-}
-
-.album-manage button{
-	margin-bottom:3px;
-}
-
-.album-manage button{
-	width: 70%;
-	margin-left: 15%;
-	margin-right: 15%;
-	padding:10px;
-}
 
 .album-info{
 	text-align:center;
@@ -207,11 +161,26 @@ COMMENTS
 .full-image-container
 {
 	background-color:#7f7f7f;
+    width:669px;
+    height:510px;
+}
+
+.full-image-container table{
+   height:100%;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   border: 0;
+}
+
+.full-image-container table td{
+   vertical-align: middle;
+   text-align: center;
 }
 
 .album-images-browse .small-image img,
-.full-image img{
-	border-radius:0;
+.full-image img {
+    border-radius: 0;
 }
 
 .small-image .image-select-checkbox{
@@ -232,6 +201,7 @@ COMMENTS
 }
 
 .album-images-browse{
+    z-index:10;
 	padding:20px;
 	padding-right:20px;
 	margin: 10px 200px;
@@ -288,10 +258,6 @@ COMMENTS
 	margin:5px;
 }
 
-.image-title,
-.image-description{
-	cursor:pointer;
-}
 .image-title-manage:hover,
 .image-title:hover ~ .image-manage > .image-title-manage
 {
@@ -371,7 +337,9 @@ COMMENTS
 .comment-body img
 {
 	height:55px;
-	width:55px;
+	width:55px;	
+    min-height:55px;
+	min-width:55px;
 	position:relative;
 	left:10px;
 	float:left;

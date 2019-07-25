@@ -121,9 +121,9 @@ namespace Slug.Helpers
                         chat.InterlocutorName = interlocutor.Name;
                         chat.InterlocutorSurName = interlocutor.SurName;
                         if (status == CryptoChatStatus.SelfCreated)
-                            chat.InterlocutorAvatar = Resize.ResizedUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 45);
+                            chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 45);
                         else
-                            chat.InterlocutorAvatar = Resize.ResizedUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
+                            chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
 
                         //chat.Expired = false;
                         var GuidId = chatGroup.PartyGUID.ToString();
@@ -134,7 +134,7 @@ namespace Slug.Helpers
                             chat.LastMessage = last.Text;
                             chat.LastMessageSendDate = last.SendingDate;
                             string lastSenderAvatar = userHandler.GetFullUserInfo(last.UserSender).AvatarResizeUri;
-                            chat.UserLastMessageSenderAvatar = Resize.ResizedUri(lastSenderAvatar, ModTypes.c_scale, 45);
+                            chat.UserLastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSenderAvatar, ModTypes.c_scale, 45);
                         }
 
 
@@ -232,7 +232,7 @@ namespace Slug.Helpers
                     var CrMessage = new CryptoMessage()
                     {
                         SendDate = item.SendingDate,
-                        AvatatURI = Resize.ResizedUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 50),
+                        AvatatURI = Resize.ResizedAvatarUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 50),
                         Text = item.Text,
                         Name = userInfos[item.UserSender].Name,
                         SurName = userInfos[item.UserSender].SurName,

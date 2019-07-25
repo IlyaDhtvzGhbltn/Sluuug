@@ -34,7 +34,7 @@ function SaveEditedProfileInfo(parameter, value) {
     console.log(parameter);
     console.log(value);
     $.ajax({
-        url: "/api/save_parameter",
+        url: "/api/edit_profile",
         data: { paramNumer: parameter, newValue: value },
         type: "post"
     })

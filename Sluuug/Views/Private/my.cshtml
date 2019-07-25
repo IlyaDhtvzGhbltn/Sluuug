@@ -22,13 +22,38 @@
             <div class="image-view">
                 <div class="full-image">
                     <div class="image-title">
-                        <h3></h3>
+                        <h3 id="photo-h3-titlte"></h3>
                     </div>
                     <div class="image-description">
-                        <span></span>
+                        <span id="photo-span-description"></span>
                     </div>
                     <div class="full-image-container" id="">
-                        <img id="album-full-img"/>
+                        <table>
+                        <tr>
+                            <td>
+                                <img id="album-full-img" />
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                    <div class="photo-manage" id="">
+                        <div class="photo-edit -title">
+                            <button class="decoration-button">Сменить название</button>
+                            <div class="edit-wrapper">
+                                <input type="text" class="new-photo-title" />
+                                <button class="save-button" onclick="ChangePhotoParameter(0, $('.new-photo-title').val())">Ok</button>
+                            </div>
+                        </div>
+                        <div class="photo-edit -edit-description">
+                            <button class="decoration-button">Сменить описание</button>
+                            <div class="edit-wrapper">
+                                <input type="text" class="new-photo-description" />
+                                <button class="save-button" onclick="ChangePhotoParameter(1, $('.new-photo-description').val())">Ok</button>
+                            </div>
+                        </div>
+                        <div class="photo-edit -delete">
+                            <button class="delete-photo-button">Удалить фото</button>
+                        </div>
                     </div>
                 </div>
             </div>

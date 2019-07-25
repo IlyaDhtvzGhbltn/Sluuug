@@ -136,7 +136,7 @@ namespace Slug.Helpers
                 else
                     userModel.City = "Не указанo";
 
-                userModel.AvatarResizeUri = Resize.ResizedUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
+                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
                 userModel.UserId = user.Id;
 
                 userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
@@ -262,7 +262,7 @@ namespace Slug.Helpers
                 userModel.City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                     .First().Title;
 
-                userModel.AvatarResizeUri = Resize.ResizedUri(avatar.ImgPath, ModTypes.c_scale, 200);
+                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200);
                 userModel.UserId = user.Id;
                 userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
 
@@ -472,7 +472,7 @@ namespace Slug.Helpers
                         var friend = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarResizeUri = Resize.ResizedUri( friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedAvatarUri( friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName,
                             Country = friendUserInfo.Country,
@@ -492,7 +492,7 @@ namespace Slug.Helpers
                         var inInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarResizeUri = Resize.ResizedUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -508,7 +508,7 @@ namespace Slug.Helpers
                         var outInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarResizeUri = Resize.ResizedUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
