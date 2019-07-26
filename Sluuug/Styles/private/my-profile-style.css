@@ -398,8 +398,21 @@
 	z-index:0;
 }
 #country-title{
-	margin-top:70px;
+	margin-top:70px; 
 }
+
+#tooltip-container-education[tooltip]:before {
+    content: attr(tooltip);
+    position: absolute;
+    opacity:0;
+    left: 470px;
+    transition: all .25s ease-in-out;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #7f7f7f;
+    padding: 3px;
+    z-index: 999;
+}
+
 
 /* ADD ITEM END*/
 

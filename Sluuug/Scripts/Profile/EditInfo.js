@@ -53,35 +53,14 @@ function VisibleHightShoolParameterInNewEntry(selectedValue) {
 }
 
 
-//////////////////////////////////////////////////////////////////
 
-//function send_simple(api_url, formID, show_button, requred_field_alert) {
-//    console.log('send -education form');
-
-//    let val = validate(formID);
-//    if (val === true) {
-//        let data = $('#' + formID).serializeArray();
-//        let dt = parceJSON(data);
-
-//        console.log(data);
-//        close_form(formID, 'create_new_album_button', 'inline-block');
-//        drop_elem('create_album_form');
-
-//        $.ajax({
-//            url: api_url,
-//            type: "post",
-//            data: dt,
-//            success: function (response) {
-//                if (response) {
-//                    document.location.reload();
-//                }
-//            }
-//        });
-//    }
-//    else {
-//        changeElementVisibility('edu_requered_field', 'inline-block');
-//    }
-//}
-
-
+function AddEducation() {
+    let validateResult = ValidateProfileInfoItem('-education');
+    if (!validateResult.successful) {
+        [].forEach.call(validateResult.result, function (property) {
+            var emptyRequeredProperty = $('*[name="' + property + '"][id="tooltip-container-education"]');
+            emptyRequeredProperty[0].before.css({"opacity":"1"});
+        });
+    }
+}
 

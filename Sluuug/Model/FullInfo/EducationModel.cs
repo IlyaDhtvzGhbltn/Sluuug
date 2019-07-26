@@ -13,7 +13,7 @@ namespace Slug.Model.Users
 
         public string Title { get; set; }
 
-        public string Faculty { get; set; }
+        //public string Faculty { get; set; }
 
         public string Specialty { get; set; }
 

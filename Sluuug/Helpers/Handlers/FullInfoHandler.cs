@@ -105,7 +105,7 @@ namespace Slug.Helpers
                 }
                 if (model.EducationType != EducationTypes.School)
                 {
-                    newEducation.Faculty = model.Faculty;
+                    //newEducation.Faculty = model.Faculty;
                     newEducation.Specialty = model.Specialty;
                 }
 
