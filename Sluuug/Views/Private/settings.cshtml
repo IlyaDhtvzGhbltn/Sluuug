@@ -1,68 +1,66 @@
-﻿
-@{
-    ViewBag.Title = "settings";
-    Layout = "~/Views/Shared/private_view.cshtml";
+﻿@{
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @using Slug.Extensions;
-@using type = Slug.Context.Dto.Settings.NotificationTypes;
 
-<h2>settings</h2>
-<div>
-    <div>
-        <form id="changeNotifyTypeSubmit" action="" method="post">
-            <div id="notify_email">
-                @if (Model.NotifyType == type.Login)
-                {
-                <span>@Html.Translate("Yes")</span>
-                    <input type="radio" name="NotifyType" value="1" checked />
-                    <span>@Html.Translate("No")</span>
-                    <input type="radio" name="NotifyType" value="0" />
-                }
-                else
-                {
-                    <span>@Html.Translate("Yes")</span>
-                    <input type="radio" name="NotifyType" value="1" />
-                    <span>@Html.Translate("No")</span>
-                    <input type="radio" name="NotifyType" value="0" checked />
-                }
-                <p>
-                    <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveNotifyType()" />
-                </p>
-            </div>
+<link href="~/Styles/private/toggle-style.css" rel="stylesheet" />
+<link href="~/Styles/private/settings-style.css" rel="stylesheet" />
+<title>Мои Настройки</title>
+<h1>Настройки</h1>
 
-        </form>
-    </div>
-    <div>
-        <form id="changeEmailSubmit" action="" method="post">
-            <div id="email">
-                <input type="email" name="NewEmail" placeholder="@Model.Email" />
+
+
+<div class="settings notify">
+    <span><b>Быстрые сообщения</b></span><br>
+    <span>Быстрые сообщения позволяют видеть текст набираемый собеседником, до того как он был отправлен. </span>
+    <div class="normal-container">
+        <div class="smile-rating-container">
+            <div class="smile-rating-toggle-container">
+                <form class="submit-rating">
+                    @if (Model.QuickMessage)
+                    {
+                        <input id="meh" name="NotifyType" type="radio" />
+                        <input id="fun" name="NotifyType" type="radio" checked />
+                    }
+                    else
+                    {
+                        <input id="meh" name="NotifyType" type="radio" checked />
+                        <input id="fun" name="NotifyType" type="radio" />
+                    }
+                    <label for="meh" class="rating-label rating-label-meh">Off</label>
+
+                    <div class="smile-rating-toggle"></div>
+                    <div class="rating-eye rating-eye-left"></div>
+                    <div class="rating-eye rating-eye-right"></div>
+
+                    <div class="mouth rating-eye-bad-mouth"></div>
+
+                    <div class="toggle-rating-pill"></div>
+                    <label for="fun" class="rating-label rating-label-fun">On</label>
+                </form>
             </div>
-            <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveEmail()" />
-        </form>
+        </div>
+        <button onclick="saveQuickMessage()">Сохранить</button>
     </div>
-    <div>
-        <form id="changePasswSubmit" action="" method="post">
+</div>
+<div class="settings email">
+    <span><b>Адрес почты</b></span><br>
+    <div id="email">
+        <input type="email" name="NewEmail" placeholder="@Model.Email">
+        <button onclick="saveEmail()">Сохранить</button>
+    </div>
+</div>
+<div class="settings password">
+    <span><b>Смена пароля</b></span><br>
+    <div class="password-container">
+        <form id="changePasswSubmit" action="http://localhost:32035/private/settings" method="post">
             <div id="change_pass">
-                <input type="password" name="OldPassw" placeholder="@Html.Translate("Settings_Old_Password")" />
-                <input type="password" name="OldPasswRep" placeholder="@Html.Translate("Settings_Old_Password_Rep")" />
-                <input type="password" name="NewPassw" placeholder="@Html.Translate("Settings_New_Password")" />
+                <input type="password" name="OldPassw" placeholder="Старый пароль">
+                <input type="password" name="OldPasswRep" placeholder="Старый пароль еще раз">
+                <input type="password" name="NewPassw" placeholder="Новый пароль">
             </div>
-            <input type="button" value="@Html.Translate("Settings_Change")" onclick="savePassword()" />
         </form>
-    </div>
-    <div>
-        <form id="changeQuickMessage" action="" method="post">
-            @if (Model.QuickMessage)
-            {
-                <input type="checkbox" name="QuickMessage" checked />
-            }
-            else
-            {
-                <input type="checkbox" name="QuickMessage" />
-            }
-                <span>@Html.Translate("Settings_Pre_messages")</span>
-            <input type="button" value="@Html.Translate("Settings_Change")" onclick="saveQuickMessage()" />
-        </form>
+        <button onclick="savePassword()">Сохранить</button>
     </div>
 </div>
 <script src="~/Scripts/System/ParseFormArray.js"></script>

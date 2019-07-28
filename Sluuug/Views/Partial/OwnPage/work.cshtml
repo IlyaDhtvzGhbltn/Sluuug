@@ -1,15 +1,14 @@
 ﻿@model Slug.Model.Users.WorkPlacesModel
 @using Slug.Extensions
 
-<div class="work_div">
-    <p>@Model.CompanyTitle @Model.Position <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
-    <p>@Model.Country @Model.Sity</p>
-    @if (Model.UntilNow == false)
-    {
-        <p>@Model.Start - @Model.End</p>
-    }
-    else
-    {
-        <p>@Model.Start - @Html.Translate("Text_For_Now_Time")</p>
-    }
+<div class="info-item work">
+    <div class="item-info">
+        <h3>@Model.CompanyTitle</h3>
+        <span>@Model.Country @Model.City</span>
+        <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
+        <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+    </div>
+    <div class="item-delete">
+        <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>
+    </div>
 </div>

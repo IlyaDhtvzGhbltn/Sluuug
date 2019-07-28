@@ -7,6 +7,8 @@ namespace Slug.Model
 {
     public class DialogModel
     {
+        public string Interlocutor { get; set; }
+
         public Guid DialogId { get; set; }
 
         public int PagesCount { get; set; }
@@ -27,5 +29,7 @@ namespace Slug.Model
         public string Text { get; set; }
 
         public string SendTime { get; set; }
+
+        public bool IsIncomming { get; set; }
     }
 }

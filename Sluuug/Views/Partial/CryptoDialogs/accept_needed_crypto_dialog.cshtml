@@ -2,9 +2,28 @@
 @model Slug.Model.CryptoChat
 @using Slug.Extensions
 
+<div class="chat-wrapper">
+    <div class="cryptp-chat-incoming-invite">
+        <div class="active-chat-period">
+            <p>
+                <span>Чат будет закрыт @Model.CloseDate.ToString("yyyy MM dd hh:mm")</span>
+            </p>
+            <p>
+                <span>
+                    Осталось <span class="experation-mins">@Model.RemainingMins </span> мин
+                    <span class="experation-sec">@Model.RemainingSecs </span> сек
+                </span>
+            </p>
+        </div>
+        <div class="chat-head">
+            <img src="@Model.InterlocutorAvatar" />
+        </div>
+        <div class="chat-body">
+            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+            <span>Приглашает в зашифрованный чат</span>
+        </div>
 
-<span>@Html.Translate("Text_You_Got_Invite_Secret_Chat")</span>
-    <p>
-        <img src="@Model.UserCreator.AvatarPath" width="30" height="30" />
-    </p>
-    <button onclick="accept_invite(this)" id="@Model.GuidId">@Html.Translate("Button_Accept_Invite")</button>
+        <button onclick="accept_invite(this)" id="@Model.GuidId" title="Присоеденится к чату">@Html.Translate("Button_Accept_Invite")</button>
+        <button onclick="refuse_invite(this)" id="@Model.GuidId" title="Отказаться и удалить приглашение">Отклонить</button>
+    </div>
+    </div>

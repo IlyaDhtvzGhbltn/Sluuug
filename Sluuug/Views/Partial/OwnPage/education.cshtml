@@ -1,27 +1,18 @@
 ﻿@model Slug.Model.Users.EducationModel
 @using Slug.Extensions
 
-<div class="education_div">
-    <p>@Model.Title <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
-    <p>@Model.Country @Model.Sity</p>
-    @if (Model.EducationType != Slug.Context.Dto.UserFullInfo.EducationTypes.School)
-    {
-    <p>
-        @Html.Translate("Education_Faculty") @Model.Faculty
-    </p>
-    <p>
-        @Html.Translate("Education_Speciality") @Model.Specialty
-    </p>
-    }
-
-    @if (Model.UntilNow == false)
-    {
-        <p>@Model.Start - @Model.End</p>
-    }
-    else
-    {
-        <p>@Model.Start - @Html.Translate("Text_For_Now_Time")</p>
-    }
-    <p><span>@Model.Comment</span></p>
+<div class="info-item education">
+    <div class="item-info">
+        <h3>@Model.Title</h3>
+        @if (Model.Specialty != null)
+        {
+            <span>@Model.Specialty</span>
+        }
+        <span>@Model.Country @Model.City</span>
+        <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
+        <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+    </div>
+    <div class="item-delete">
+        <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>
+    </div>
 </div>
-

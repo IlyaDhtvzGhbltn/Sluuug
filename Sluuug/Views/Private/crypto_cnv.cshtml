@@ -1,44 +1,93 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "crypto_cnv";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model Slug.Model.CryptoChatModel
 @using Slug.Extensions
+<link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
+<link href="~/Styles/private/secret-conversations-style.css" rel="stylesheet" />
+<link href="~/Styles/private/controlls_style.css" rel="stylesheet" />
+<link href="~/Styles/common/await.css" rel="stylesheet" />
 
-<h2>@Html.Translate("Text_Secret_Chat_Title")</h2>
-<div id="create_new">
-    <div id="friends_list">
-        @foreach (var friend in Model.FriendsICanInvite)
-        {
-            Html.RenderPartial("~/Views/Partial/CryptoDialogs/friends_can_invite_crypto_dialog.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.FriendModel>(friend));
-        }
+<title>Зашифрованные Сообщения</title>
+
+<div class="tabs">
+    <div class="tab">
+        <div id="currentSC">
+            <input type="radio" id="tab1" name="tab-group" checked>
+            <label class="tab-title" for="tab1">Активные чаты</label>
+            <div class="tab-content">
+                @foreach (var item in Model.CurrentChats)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.CryptoChat>(item));
+                }
+            </div>
+        </div>
     </div>
-    <p><span>@Html.Translate("Text_Invite_To_Secret_Help_To_Button")</span>
-        <input type="button" value="@Html.Translate("Button_Send_Message")" id="new_crypto_chat" onclick="invite()" />
-    </p>
-</div>
 
-<div id="self_created">
-    @foreach (var item in Model.SelfCreatedChats)
-    {
-        Html.RenderPartial("~/Views/Partial/CryptoDialogs/self_created_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.CryptoChat>(item));
-    }
-</div>
+    <div class="tab">
+        <div id="accept_need">
+            <input type="radio" id="tab2" name="tab-group">
+            <label class="tab-title" for="tab2">Входящие заявки</label>
+            <div class="tab-content">
+                @foreach (var item in Model.AcceptNeeded)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/accept_needed_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.CryptoChat>(item));
+                }
+            </div>
+        </div>
+    </div>
 
-<div id="currentSC">
-    @foreach (var item in Model.CurrentChats)
-    {
-        Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.CryptoChat>(item));
-    }
-</div>
+    <div class="tab">
+        <div id="self_created">
+            <input type="radio" id="tab3" name="tab-group">
+            <label class="tab-title" for="tab3">Исходящие заявки</label>
+            <div class="tab-content">
 
-<div id="accept_need">
-    @foreach (var item in Model.AcceptNeeded)
-    {
-        Html.RenderPartial("~/Views/Partial/CryptoDialogs/accept_needed_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.CryptoChat>(item));
-    }
+                @foreach (var item in Model.SelfCreatedChats)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/self_created_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.CryptoChat>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div id="create_new">
+            <input type="radio" id="tab4" name="tab-group">
+            <label class="tab-title" for="tab4">+ Новая беседа</label>
+            <div class="tab-content">
+                <div class="invite_div">
+                    <h2>Выберите пользователя и создайте чат</h2>
+                </div>
+
+                <div id="friends_list">
+                    @foreach (var friend in Model.FriendsICanInvite)
+                    {
+                        Html.RenderPartial("~/Views/Partial/CryptoDialogs/friends_can_invite_crypto_dialog.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.FriendModel>(friend));
+                    }
+                </div>
+
+                <div class="await">
+                    <span id="not_selected" style="color:red">Никто не выбран</span>
+                    <button id="new_crypto_chat" onclick="invite()">Создать</button>
+                    <span>Идет генерация ключей, пожалуйста подождите...</span>
+                    <div id="circular3dG">
+                        <div id="circular3d_1G" class="circular3dG"></div>
+                        <div id="circular3d_2G" class="circular3dG"></div>
+                        <div id="circular3d_3G" class="circular3dG"></div>
+                        <div id="circular3d_4G" class="circular3dG"></div>
+                        <div id="circular3d_5G" class="circular3dG"></div>
+                        <div id="circular3d_6G" class="circular3dG"></div>
+                        <div id="circular3d_7G" class="circular3dG"></div>
+                        <div id="circular3d_8G" class="circular3dG"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 <script src="~/Scripts/crypto_chat.js"></script>
+<script src="~/Scripts/Private/ExperationTimer.js"></script>

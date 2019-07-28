@@ -1,16 +1,18 @@
 ﻿using Context;
 using Slug.Context;
+using Slug.Context.Dto.FeedBack;
 using Slug.Helpers;
 using Slug.Helpers.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Slug.Controllers
 {
-    public class public_apiController : Controller
+    public class public_apiController : SlugController
     {
         [HttpPost]
         public JsonResult verify_login(string login)
@@ -73,6 +75,37 @@ namespace Slug.Controllers
                 }
             }
             return new JsonResult() { Data = false };
+        }
+
+        [HttpPost]
+        public JsonResult feed_back(FeedBackRequest request)
+        {
+            var ValidateErrors = new List<int>();
+            if (string.IsNullOrWhiteSpace(request.Message) || request.Message.Length <= 10 || request.Message.Length > 1000)
+            {
+                ValidateErrors.Add(FeedBackResponce.Errors.ErrorCodes[FeedBackResponce.Errors.FEEDBACK_MESSAGE_INVALID]);
+            }
+            if ((int)request.Subject < 0 || (int)request.Subject > 3)
+            {
+                ValidateErrors.Add(FeedBackResponce.Errors.ErrorCodes[FeedBackResponce.Errors.SUBJECT_INVALID]);
+            }
+
+            //string sessionID = GetCookiesValue(this.Request);
+            //var user = UsersHandler.GetUserSettings(sessionID);
+      
+            if (ValidateErrors.Count == 0)
+            {
+                var handler = new FeedbackHandler();
+                handler.SaveFeedback(request);
+            }
+
+            return new JsonResult()
+            {
+                Data = new FeedBackResponce()
+                {
+                    IsSuccess = true
+                }
+            };
         }
     }
 }

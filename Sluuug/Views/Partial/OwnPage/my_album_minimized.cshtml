@@ -1,0 +1,20 @@
+﻿@model Slug.Model.Albums.AlbumModel
+@using Slug.Extensions
+
+<div class="album" id="@Model.AlbumId">
+    <div class="album-info">
+        <h3>@Model.AlbumTitle</h3>
+        <span>@Model.AlbumDescription</span>
+    </div>
+    <div class="album-view">
+        <img src="@Model.AlbumLabelUrl">
+        <span>@Model.CreationTime</span>
+    </div>
+    <div class="album-manage">
+        <input type="file" class="upload-fotos-to-album-input" id="@Model.AlbumId" multiple onchange="UploadFotosToAlbum(this)" accept=".jpg, .bmp, .png" />
+        <button>Добавить фото</button>
+        <button onclick="ExpandAlbum('@Model.AlbumId')">Открыть альбом</button>
+        <button onclick="DeleteAlbum('@Model.AlbumId')">Удалить альбом</button>
+    </div>
+</div>
+

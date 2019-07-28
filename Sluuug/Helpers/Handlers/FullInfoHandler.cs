@@ -17,25 +17,25 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var entryEducation = context.Educations
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryEducation != null)
                 {
                     return entryEducation.User;
                 }
                var entryWorkPlaces = context.WorkPlaces
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryWorkPlaces != null)
                 {
                     return entryWorkPlaces.User;
                 }
                 var entryLifePlaces = context.LifePlaces
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryLifePlaces != null)
                 {
                     return entryLifePlaces.User;
                 }
                 var entryMemorableEvents = context.MemorableEvents
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryMemorableEvents != null)
                 {
                     return entryMemorableEvents.User;
@@ -50,25 +50,25 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var entryEducation = context.Educations
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryEducation != null)
                 {
                     context.Educations.Remove(entryEducation);
                 }
                 var entryWorkPlaces = context.WorkPlaces
-                     .FirstOrDefault(x => x.EntryId == guid);
+                     .FirstOrDefault(x => x.Id == guid);
                 if (entryWorkPlaces != null)
                 {
                     context.WorkPlaces.Remove(entryWorkPlaces);
                 }
                 var entryLifePlaces = context.LifePlaces
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryLifePlaces != null)
                 {
                     context.LifePlaces.Remove(entryLifePlaces);
                 }
                 var entryMemorableEvents = context.MemorableEvents
-                    .FirstOrDefault(x => x.EntryId == guid);
+                    .FirstOrDefault(x => x.Id == guid);
                 if (entryMemorableEvents != null)
                 {
                     context.MemorableEvents.Remove(entryMemorableEvents);
@@ -81,17 +81,17 @@ namespace Slug.Helpers
         public bool AddEducationEntry(EducationModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetFullUserInfo(session).UserId;
+            int userID = handler.GetCurrentProfileInfo(session).UserId;
 
             using (var context = new DataBaseContext())
             {
                 Education newEducation = new Education();
-                newEducation.EntryId = Guid.NewGuid();
+                newEducation.Id = Guid.NewGuid();
                 newEducation.EducationType = model.EducationType;
                 newEducation.Title = model.Title;
                 newEducation.Start = model.Start;
                 newEducation.CountryCode = int.Parse(model.Country);
-                newEducation.SityCode = int.Parse(model.Sity);
+                newEducation.CityCode = int.Parse(model.City);
                 newEducation.Comment = model.Comment;
                 newEducation.User = context.Users.First(x => x.Id == userID);
 
@@ -105,7 +105,7 @@ namespace Slug.Helpers
                 }
                 if (model.EducationType != EducationTypes.School)
                 {
-                    newEducation.Faculty = model.Faculty;
+                    //newEducation.Faculty = model.Faculty;
                     newEducation.Specialty = model.Specialty;
                 }
 
@@ -119,15 +119,15 @@ namespace Slug.Helpers
         public bool AddMemEventEntry(MemorableEventsModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetFullUserInfo(session).UserId;
+            int userID = handler.GetCurrentProfileInfo(session).UserId;
 
             using (var context = new DataBaseContext())
             {
                 var newEducation = new MemorableEvents();
-                newEducation.EntryId = Guid.NewGuid();
+                newEducation.Id = Guid.NewGuid();
                 newEducation.EventTitle = model.EventTitle;
                 newEducation.DateEvent = model.DateEvent;
-                newEducation.EventComment = model.EventComment;
+                newEducation.EventComment = model.Comment;
                 newEducation.User = context.Users.First(x => x.Id == userID);
 
                 User user = context.Users.First(x => x.Id == userID);
@@ -140,14 +140,14 @@ namespace Slug.Helpers
         public bool AddLifePlacesEntry(LifePlacesModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetFullUserInfo(session).UserId;
+            int userID = handler.GetCurrentProfileInfo(session).UserId;
 
             using (var context = new DataBaseContext())
             {
                 var lifePlace = new LifePlaces();
-                lifePlace.EntryId = Guid.NewGuid();
+                lifePlace.Id = Guid.NewGuid();
                 lifePlace.Start = model.Start;
-                if (model.UntilNow == true || model.End == null)
+                if (model.UntilNow)
                 {
                     lifePlace.UntilNow = true;
                 }
@@ -158,7 +158,7 @@ namespace Slug.Helpers
 
                 lifePlace.Comment = model.Comment;
                 lifePlace.CountryCode = int.Parse(model.Country);
-                lifePlace.SityCode = int.Parse(model.Sity);
+                lifePlace.CityCode = int.Parse(model.City);
                 lifePlace.User = context.Users.First(x => x.Id == userID);
 
 
@@ -172,16 +172,16 @@ namespace Slug.Helpers
         public bool AddWorkPlacesEntry(WorkPlacesModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetFullUserInfo(session).UserId;
+            int userID = handler.GetCurrentProfileInfo(session).UserId;
 
             using (var context = new DataBaseContext())
             {
                 var workPlaces = new WorkPlaces();
-                workPlaces.EntryId = Guid.NewGuid();
+                workPlaces.Id = Guid.NewGuid();
                 workPlaces.Comment = model.Comment;
                 workPlaces.CompanyTitle = model.CompanyTitle;
                 workPlaces.CountryCode = int.Parse(model.Country);
-                workPlaces.SityCode = int.Parse(model.Sity);
+                workPlaces.CityCode = int.Parse(model.City);
                 workPlaces.Position = model.Position;
                 workPlaces.Start = model.Start;
                 if (model.UntilNow)
@@ -200,7 +200,5 @@ namespace Slug.Helpers
                 return true;
             }
         }
-
-
     }
 }

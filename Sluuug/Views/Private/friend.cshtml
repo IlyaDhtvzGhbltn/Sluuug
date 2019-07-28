@@ -1,102 +1,146 @@
 ﻿@{
-    Layout = "~/Views/Shared/private_view.cshtml";
-    @model Slug.Model.Users.FullUserInfoModel
+    Layout = "~/Views/Shared/private_template.cshtml";
+    @model Slug.Model.Users.FriendModel
 }
 @using Slug.Extensions
+<link href="~/Styles/private/album-review-style.css" rel="stylesheet" />
+<link href="~/Styles/private/friend-profile-style.css" rel="stylesheet" />
+<link href="~/Styles/private/profile-info-style.css" rel="stylesheet" />
+<title>@Model.Name @Model.SurName</title>
 
-<h2>@Model.Name @Model.SurName</h2>
-
-
-<div id="user_cut_data">
-    <img src="@Model.AvatarUri" width="100" height="100" />
-    <p>@Model.Name</p>
-    <p>@Model.SurName</p>
-    <p>@Model.DateBirth</p>
-    <p>@Model.Sity</p>
-    <p><button id="@Model.UserId" onclick="create_form()">@Html.Translate("Text_New_Message")</button></p>
-    <div id="new_message_to_user" hidden="hidden">
-        <span>@Html.Translate("Text_New_Message_Insert")</span>
-        <p><input type="text" id="form_@Model.UserId"></p>
-        <p>
-            <button onclick="send_msg(@Model.UserId)">@Html.Translate("Button_Send_Message")</button>
-            <button onclick="drop_elem()">@Html.Translate("Button_Cancel")</button></p>
-        </div>
-    <div id="error" hidden="hidden"><span>@Html.Translate("Text_Empty_Message")</span></div>
+<div class="-user-profile">
+    <div class="-info -left">
+        <img src="@Model.AvatarResizeUri">
     </div>
 
+    <div class="-info -right">
+        <h2>@Model.Name @Model.SurName</h2>
+        <span>@Model.Age лет</span>
+        <span>@Model.Country @Model.City</span>
+        <span id="hello-status">@Model.HelloMessage</span>
+        <div class="user-search-data">
+            <span>Ищу</span>
+            <span>девушку</span>
+            <span>26 - 30</span>
+            <span>лет для общения</span>
+        </div>
 
-<div id="user_albums">
-    @if (Model.Albums.Count == 0)
-    {
-        <p><span>@Html.Translate("Text_User_Have_Not_Albums")</span></p>
-    }
-    else
-    {
-        <p><span>@Html.Translate("Text_User_Albums")</span></p>
-        foreach (var item in Model.Albums)
-        {
-            Html.RenderPartial("~/Views/Partial/FriendPage/friend_album.cshtml", item, new ViewDataDictionary<Slug.Model.Albums.AlbumModel>(item));
-        }
+        <div class="message-form">
+            <input type="checkbox" id="new-message-checkbox" />
+            <button id="open-new-message-button">Сообщение</button>
+            <div id="new_message_to_user">
+                <div>
+                    <textarea id="message-to-user-area"></textarea>
+                </div>
+                <div class="send-new-message-form">
+                    <button>Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    }
-</div>
-<div id="education">
-    <span>@Html.Translate("Text_Education") </span>
-    @if (Model.Educations.Count != 0)
-    {
-        foreach (var item in Model.Educations)
+<div class="profile-full-info-item-wrapper">
+    <h2>Альбомы</h2>
+    <div id="user_albums">
+        @if (Model.Albums.Count == 0)
         {
-            Html.RenderPartial("~/Views/Partial/FriendPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
+            <span>@Html.Translate("Text_User_Have_Not_Albums")</span>
         }
-    }
-    else
-    {
-        <span>@Html.Translate("Text_Not_Filled")</span>
-    }
-</div>
-<div id="events">
-    <span>@Html.Translate("Text_Events") </span>
-    @if (Model.Events.Count != 0)
-    {
-        foreach (var item in Model.Events)
+        else
         {
-            Html.RenderPartial("~/Views/Partial/FriendPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
+            foreach (var item in Model.Albums)
+            {
+                Html.RenderPartial("~/Views/Partial/FriendPage/friend_album.cshtml", item, new ViewDataDictionary<Slug.Model.Albums.AlbumModel>(item));
+            }
         }
-    }
-    else
-    {
-        <span>@Html.Translate("Text_Not_Filled")</span>
-    }
+    </div>
 </div>
-<div id="works">
-    <span>@Html.Translate("Text_Jobs") </span>
-    @if (Model.Works.Count != 0)
-    {
-        foreach (var item in Model.Works)
-        {
-            Html.RenderPartial("~/Views/Partial/FriendPage/work.cshtml", item, new ViewDataDictionary<Slug.Model.Users.WorkPlacesModel>(item));
-        }
-    }
-    else
-    {
-        <span>@Html.Translate("Text_Not_Filled")</span>
-    }
-</div>
-<div id="live_places">
-    <span>@Html.Translate("Text_Live_Plaves") </span>
-    @if (Model.Places.Count != 0)
-    {
-        foreach (var item in Model.Places)
-        {
-            Html.RenderPartial("~/Views/Partial/FriendPage/place.cshtml", item, new ViewDataDictionary<Slug.Model.Users.LifePlacesModel>(item));
-        }
-    }
-    else
-    {
-        <span>@Html.Translate("Text_Not_Filled")</span>
-    }
 
+
+<div class="profile-full-info-item-wrapper">
+    <h2>Образование </h2>
+    <input type="checkbox" class="expand-checkbox">
+    <div class="expand"></div>
+    <div class="expanded-info">
+
+        @if (Model.Educations.Count != 0)
+        {
+            foreach (var item in Model.Educations)
+            {
+                Html.RenderPartial("~/Views/Partial/FriendPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
+            }
+        }
+        else
+        {
+            <span>@Html.Translate("Text_Not_Filled")</span>
+        }
+    </div>
 </div>
+
+
+<div class="profile-full-info-item-wrapper">
+    <h2>События</h2>
+    <input type="checkbox" class="expand-checkbox">
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @if (Model.Events.Count != 0)
+        {
+            foreach (var item in Model.Events)
+            {
+                Html.RenderPartial("~/Views/Partial/FriendPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
+            }
+        }
+        else
+        {
+            <span>@Html.Translate("Text_Not_Filled")</span>
+        }
+    </div>
+</div>
+
+
+<div class="profile-full-info-item-wrapper">
+    <h2>Работа </h2>
+    <input type="checkbox" class="expand-checkbox">
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @if (Model.Works.Count != 0)
+        {
+            foreach (var item in Model.Works)
+            {
+                Html.RenderPartial("~/Views/Partial/FriendPage/work.cshtml", item, new ViewDataDictionary<Slug.Model.Users.WorkPlacesModel>(item));
+            }
+        }
+        else
+        {
+            <span>@Html.Translate("Text_Not_Filled")</span>
+        }
+    </div>
+</div>
+
+
+<div class="profile-full-info-item-wrapper">
+    <h2>Места</h2>
+    <input type="checkbox" class="expand-checkbox">
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @if (Model.Places.Count != 0)
+        {
+            foreach (var item in Model.Places)
+            {
+                Html.RenderPartial("~/Views/Partial/FriendPage/place.cshtml", item, new ViewDataDictionary<Slug.Model.Users.LifePlacesModel>(item));
+            }
+        }
+        else
+        {
+            <span>@Html.Translate("Text_Not_Filled")</span>
+        }
+    </div>
+</div>
+
+
+
+
 <script src="~/Scripts/Common/CommonAlbums.js"></script>
 <script src="~/Scripts/newMessageFromPage.js"></script>
 <script src="~/Scripts/FriendAlbum.js"></script>

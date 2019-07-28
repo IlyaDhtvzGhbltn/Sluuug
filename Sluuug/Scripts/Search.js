@@ -1,5 +1,5 @@
-﻿function getCities() {
-    let countryCode = $("#user_search_country :selected").val();
+﻿function getCities(countryListBoxId, citiesListBoxId) {
+    let countryCode = $("#" + countryListBoxId + " :selected").val();
     $.ajax({
         type: "post",
         url: "/api/cities",
@@ -7,17 +7,20 @@
         success: function (response) {
             console.log(response);
 
-            let countryList = $("#user_search_city");
+            let countryList = $("#" + citiesListBoxId);
             countryList.empty();
-            for (let i = 0; i < response.Cities.length; i++){
+            for (let i = 0; i < response.Cities.length; i++) {
                 countryList.append(new Option(response.Cities[i].Title, response.Cities[i].CityCode));
             }
         },
     });
 }
  
-function serchUser() {
-    var data = $("#searchSubmit").serializeArray();
-    var json = parceJSON(data);
-    window.location.replace('/private/search_result?' + $("#searchSubmit").serialize());
+function serchUser(formId) {
+    console.log($("#"+formId+"").serialize());
+
+    let domain = window.location.host;
+    let protocol = location.protocol;
+    let url = protocol + '//' + domain + '/private/search_result?' + $("#" + formId + "").serialize();
+    window.open(url);
 }

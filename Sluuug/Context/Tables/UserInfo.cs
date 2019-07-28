@@ -32,9 +32,16 @@ namespace Slug.Context.Tables
 
         public int NowCountryCode { get; set; }
 
-        public int NowSityCode { get; set; }
+        public int NowCityCode { get; set; }
 
-        public PrivateStatus PrivateStatus { get; set; }
+        public string HelloMessage { get; set; }
+
+        public SexEnum userDatingSex { get; set; }
+
+        public DatingPurposeEnum DatingPurpose { get; set; }
+
+        public AgeEnum userDatingAge { get; set; }
+
 
         public virtual List<Education> Educations { get; set; }
 

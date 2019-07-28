@@ -1,12 +1,14 @@
 ﻿using Context;
 using Slug.Context;
 using Slug.Context.Tables;
+using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.SimpleChat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Slug.Model.Users;
 
 namespace Slug.Helpers
 {
@@ -23,7 +25,7 @@ namespace Slug.Helpers
                     .Where(x => x.UserId == userId).ToList();
                 var UsWork = new UsersHandler();
 
-                foreach (var dialog in ConversationGroup)
+                foreach (ConversationGroup dialog in ConversationGroup)
                 {
                     List<Conversation> conversations =
                         context.Conversations
@@ -40,15 +42,24 @@ namespace Slug.Helpers
                             var message = messages.OrderBy(x => x.Id);
                             if (message.Count() >= 1)
                             {
-                                var lastMessage = message.ToList().Last();
+                                Guid dialogGUID = dialog.ConversationGuidId;
+                                int InterlocutorID = context.ConversationGroup
+                                    .Where(x => x.ConversationGuidId == dialogGUID &&
+                                    x.UserId != userId).First().UserId;
+                                BaseUser friendInterlocutor = UsWork.GetUserInfo(InterlocutorID);
 
+                                var lastMessage = message.ToList().Last();
                                 int lastMessageUserId = lastMessage.UserId;
-                                var lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
+                                BaseUser lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
                                 var c = new CutConversation();
 
-                                c.AvatarPath = lastSayUser.AvatarUri;
-                                c.InterlocutorName = lastSayUser.Name;
-                                c.InterlocutorSurName = lastSayUser.SurName;
+                                c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
+                                c.InterlocutorName = friendInterlocutor.Name;
+                                c.InterlocutorSurName = friendInterlocutor.SurName;
+
+                                c.LastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSayUser.AvatarResizeUri, ModTypes.c_scale, 100);
+                                c.LastMessageSenderName = lastSayUser.Name;
+                                c.LastMessageSenderSurName = lastSayUser.SurName;
                                 c.LastMessage = lastMessage.Text;
                                 c.GuidId = conv.ConversationGuidId;
 

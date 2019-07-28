@@ -1,32 +1,69 @@
 ﻿
 @{
     ViewBag.Title = "c_msg";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @using Slug.Extensions
+<link href="~/Styles/private/secret-dialog-style.css" rel="stylesheet" />
+<link href="~/Styles/private/triangle.css" rel="stylesheet" />
 
-<h2>@Html.Translate("Text_Secret_Dialog_Title")</h2>
-<div id="c_msgs">
-    @foreach (var msg in Model.Messages)
-    {
-    <div class="c_msg"><img src="@msg.AvatatURI" height="30" width="30" />
-    <span>@msg.Name</span>
-    <p>@msg.SendDate</p>
-    <span>@msg.Text</span>
-    </div>
-    }
+<title>Зашифрованный диалог</title>
+<div class="active-chat-period">
+    <p>
+        <span>
+            Осталось : <span class="experation-mins">59</span> мин
+            <span class="experation-sec">33</span> сек
+        </span>
+    </p>
 </div>
-<div id="pages" style="display:inline">
+<div class="dialog_pages">
     @for (int i = 1; i <= Model.PagesCount; i++)
     {
         <a href="@Url.Action("c_msg","private", new { id=Model.GuidId, page=i })">@i</a>
     }
 </div>
-<div id="new_msg_form">
-    <input id="new_text" type="text" />
-    <input id="send" type="button" value="@Html.Translate("Button_Send_Message")" onclick="crypt_send()" />
+
+<div class="dialog">
+    @foreach (var msg in Model.Messages)
+    {
+        if (msg.IsIncomming)
+        {
+            <div class="dialog_msg_in">
+                <div class="in-content-secret">
+                    <img class="lock-msg-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png">
+                    <img src="@msg.AvatatURI" />
+                    <a>@msg.Name</a>
+                    <span>@msg.SendDate.ToString("hh:mm")</span>
+                    <p>@msg.Text</p>
+                    <div class="triangle_wrapper_in"><div class="triangle_container"><div class="triangle"></div></div></div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="dialog_msg_out">
+                <div class="out-content-secret">
+                    <img class="lock-msg-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png">
+                    <img src="@msg.AvatatURI" />
+                    <a>@msg.Name</a>
+                    <span>@msg.SendDate.ToString("hh:mm")</span>
+                    <p>@msg.Text</p>
+                    <div class="triangle_wrapper_out"><div class="triangle_container"><div class="triangle"></div></div></div>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+
+<div class="send_msg" style="margin-top:33px">
+    <textarea id="new_text"></textarea>
+    <p>
+        <button id="sendButton" onclick="crypt_send()">@Html.Translate("Button_Send_Message")</button>
+    </p>
 </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 <script src="~/Scripts/crypto_dialog.js"></script>
+<script src="~/Scripts/Private/ExperationTimer.js"></script>

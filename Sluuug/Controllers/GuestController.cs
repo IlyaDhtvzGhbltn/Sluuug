@@ -11,6 +11,7 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
 using System;
 using Slug.Helpers.Handlers;
+using Slug.DbInitialisation;
 
 namespace Slug.Controllers
 {

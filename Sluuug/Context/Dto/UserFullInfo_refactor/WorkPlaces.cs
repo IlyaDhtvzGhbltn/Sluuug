@@ -11,7 +11,7 @@ namespace Slug.Context.Dto.UserFullInfo
     public class WorkPlaces : BaseLiveEpisode
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string CompanyTitle { get; set; }

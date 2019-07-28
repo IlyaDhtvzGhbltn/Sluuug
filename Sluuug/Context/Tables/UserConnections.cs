@@ -10,9 +10,6 @@ namespace Slug.Context.Tables
     public class UserConnections
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Required]
         public Guid ConnectionID { get; set; }
 
         [Required]

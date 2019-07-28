@@ -1,31 +1,64 @@
 ﻿@{
     ViewBag.Title = "contacts";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model Slug.Model.Users.MyFriendsModel
 @using Slug.Extensions
+<link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
+<link href="~/Styles/private/contacts-style.css" rel="stylesheet" />
 
-<h2>@Html.Translate("Text_My_Contacts")</h2>
-<h3>@Html.Translate("Text_Incomm_To_Friend")</h3>
-<div id="in_invitations">
-    @foreach (var item in Model.IncommingInvitations)
-    {
-        Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
-    }
-</div>
-<h3>@Html.Translate("Text_Outcomm_Investigation")</h3>
-<div id="out_invitations">
-    @foreach (var item in Model.OutCommingInvitations)
-    {
-        Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
-    }
-</div>
-<h3>@Html.Translate("Text_Current_Contacts")</h3>
-<div id="accepted_friends">
+<title>Мои Контакты</title>
+<h1>@Html.Translate("Text_My_Contacts")</h1>
+<div class="tabs">
+    <div class="tab">
+        <div id="in_invitations">
+            <input type="radio" id="tab1" name="tab-group" checked>
+            <label class="tab-title" for="tab1">@Html.Translate("Text_Incomm_To_Friend")</label>
+            <div class="tab-content">
+                @foreach (var item in Model.IncommingInvitations)
+                {
+                    Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
+                }
+            </div>
+        </div>
+    </div>
 
-    @foreach (var item in Model.Friends)
-    {
-        Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
-    }
+
+
+
+
+    <div class="tab">
+        <div id="out_invitations">
+            <input type="radio" id="tab2" name="tab-group">
+            <label class="tab-title" for="tab2">@Html.Translate("Text_Outcomm_Investigation")</label>
+            <div class="tab-content">
+                @foreach (var item in Model.OutCommingInvitations)
+                {
+                    Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="tab">
+        <div id="accepted_friends">
+            <input type="radio" id="tab3" name="tab-group">
+            <label class="tab-title" for="tab3">@Html.Translate("Text_Current_Contacts")</label>
+            <div class="tab-content">
+                @foreach (var item in Model.Friends)
+                {
+                    Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 </div>
 <script src="~/Scripts/myContacts.js"></script>
+<script src="~/Scripts/RelocationToUser.js"></script>

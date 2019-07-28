@@ -1,20 +1,35 @@
 ﻿@model Slug.Model.Albums.AlbumModel
 @using Slug.Extensions
 
-<div class="album">
+
+
+
+<div class="album" id="@Model.AlbumId" onclick="expandAlbum(this.id)">
+    <div class="album-info">
+        <h3>@Model.Title</h3>
+        <span>@Model.AuthorComment</span>
+    </div>
+    <div class="album-view">
+        <img src="@Model.AlbumLabelUrl">
+        <span>@Model.CreationTime</span>
+    </div>
+</div>
+
+
+@*<div class="album">
     <b>@Model.Title</b> <p><span>@Html.Translate("Text_Created") <b>@Model.CreationTime</b></span></p>
     <p>
         <img src="@Model.AlbumLabelUrl" height="50" width="50" /><span>@Model.AuthorComment</span>
     </p>
     @if (Model.FotosCount > 0)
     {
-        <p><button id="@Model.Guid" onclick="expandAlbum(this.id)">@Html.Translate("Button_Show")</button></p>
+        <p><button id="123-21312-54345-234" onclick="expandAlbum(this.id)">@Html.Translate("Button_Show")</button></p>
     }
     else
     {
         <p><span>@Html.Translate("Text_Album_Empty")</span></p>
     }
-    <div class="fotos_view" id="view_@Model.Guid"></div>
-    <div class="comments" id="users_comments_@Model.Guid"></div>
-</div>
+    <div class="fotos_view" id="view_123-21312-54345-234"></div>
+    <div class="comments" id="users_comments_123-21312-54345-234"></div>
+</div>*@
 <script src="~/Scripts/FriendAlbum.js"></script>

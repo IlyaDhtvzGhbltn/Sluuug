@@ -1,36 +1,232 @@
-﻿
-@{
-    Layout = "~/Views/Shared/private_view.cshtml";
-}
-@using Slug.Extensions;
+﻿@using Slug.Extensions;
+<html>
+<head>
+    <title>На видео связи</title>
+    <meta content="text/html; charset=UTF-8">
+    <link href="~/Styles/private/controlls_style.css" rel="stylesheet" />
+    <link href="~/Styles/private/video-dialog.css" rel="stylesheet" />
+    <link href="~/Styles/private/video-await.css" rel="stylesheet" />
+    <link href="~/Styles/private/private_style.css" rel="stylesheet" />
 
+    <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
+    <script src="~/Scripts/System/jquery.signalR-2.4.0.js"></script>
+    <script src="~/Scripts/System/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/Scripts/notificationHub.js"></script>
 
-<h2>@Html.Translate("Header_Video_Connection")</h2>
-<style>
-    #friend_video_container {
-        height: 400px;
-        width: 500px;
+    <script src="~/Scripts/System/AsyncRequest.js"></script>
+    <script src="~/Scripts/System/BigInteger.js"></script>
+    <script src="~/Scripts/vConferens.js"></script>
+</head>
+<body>
+    <div class="conferece">
+        <div class="video-remote-group-wrapper">
+            <div class="video-conteiner-wrapper" id="stream_1">
+                <h2 class="partisipant-name"></h2>
+                <div class="video-stream notuser">
+                    <img class="avatar" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_100,w_100,c_thumb,g_face/v1555678151/users/avatars/vxwcda0dxcxn5nlruo7b.png" />
+                    <span>Ожидает подключения...</span>
+                    <div id="circular3dG">
+                        <div id="circular3d_1G" class="circular3dG"></div>
+                        <div id="circular3d_2G" class="circular3dG"></div>
+                        <div id="circular3d_3G" class="circular3dG"></div>
+                        <div id="circular3d_4G" class="circular3dG"></div>
+                        <div id="circular3d_5G" class="circular3dG"></div>
+                        <div id="circular3d_6G" class="circular3dG"></div>
+                        <div id="circular3d_7G" class="circular3dG"></div>
+                        <div id="circular3d_8G" class="circular3dG"></div>
+                    </div>
+                </div>
+                <div class="video-stream userconnected">
+                    <video autoplay="" id="remoteVideo_1"></video>
+                    <audio autoplay="" id="remoteAudio_1"></audio>
+                </div>
+                <div class="container-manage">
+                    <button id="screen_button_stream_1" onclick="resizeDocument(stream_1, this)">
+                        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562426165/Full-Screen-icon.png" />
+                    </button>
+                    <div class="sound">
+                        <input min="0" max="100" type="range" id="stream_1_volume" onchange="onChangeVolume(this, 'stream_1_volume_img')" />
+                    </div>
+                    <div class="sound-ico">
+                        <img id="stream_1_volume_img" onclick="togleRemoteVolume(this, 'remoteAudio_1', 'stream_1_volume')"
+                             src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-middle.png" />
+                    </div>
+                    <div class="video-ico">
+                        <img id="stream_1_video_img" onclick="togleRemoteVideo(this, 'remoteVideo_1')"
+                             src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562506866/system/video-on.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container self">
+            <div class="self-video">
+                <video autoplay="" id="localVideo"></video>
+            </div>
+            <div class="conference-manage">
+                <button onclick="togleMyVolume()" id="my-Volume-Togle">
+                    <img id="panel-ico-sound"
+                         src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png" />
+                    Выключить мой звук
+                </button>
+                <button onclick="togleMyVideo()" id="my-Video-Togle">
+                    <img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png" />
+                    Выключить моё видео
+                </button>
+                <button onclick="closeCall()">
+                    <img id="panel-ico-exit" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/close.png" />
+                    Завершить звонок
+                </button>
+            </div>
+            <div class="manage-panel-visibility" onclick="closeOrOpenPanel()">
+                <div class="triangle-panel-open" hidden></div>
+                <div class="triangle-panel-close"></div>
+            </div>
+        </div>
+
+    </div>    
+            
+<script>
+    function resizeDocument(element, button) {
+        if (document.fullscreenElement) {
+            closeFullScreen(element, button);
+        }
+        else {
+            fullScreen(element, button);
+        }
     }
 
-    #me_video_container {
-        align-self: auto;
-    }
-</style>
-<div id="video_streaming">
-    <div id="friend_video_container" class="vid_container">
-        <span id="participant_name"></span>
-        <video autoplay id="remoteVideo"></video>
-    </div>
+    function fullScreen(element, button) {
+        button.innerHTML = "<img src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562427121/Close-Full-Screen-icon.png'/>";
 
-    <div id="me_video_container" class="vid_container">
-        <span>@Html.Translate("Text_Me_In_Video")</span>
-        <video autoplay height="200" width="200" id="localVideo"></video>
-    </div>
-    <audio autoplay id="remoteAudio" />
-</div>
-<div id="call_close" onclick="closeCallImmediately()" style="cursor:pointer">
-    <p>
-        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555664002/close_call.png" height="30" width="30" />
-    </p>
-</div>
-<script src="~/Scripts/vConferens.js"></script>
+        if (element.requestFullScreen) {
+            element.requestFullScreen();
+        }
+        else if (element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen();
+        }
+        else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        }
+    }
+    function closeFullScreen(element, button) {
+        button.innerHTML = "<img src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562426165/Full-Screen-icon.png'/>";
+
+        if (element.requestFullScreen) {
+            document.cancelFullScreen();
+        }
+        else if (element.webkitRequestFullScreen) {
+            document.webkitCancelFullScreen();
+        }
+        else if (element.mozRequestFullScreen) {
+            document.mozCancelFullScreen();
+        }
+    }
+    function closeOrOpenPanel() {
+        var panel = $('.conference-manage');
+        var opacity = panel.css("opacity");
+
+        if (opacity == 1) {
+            panel.addClass("hide-panel");
+            panel.removeClass("visibility-panel");
+
+            $('.triangle-panel-close').css('display', 'none');
+            $('.triangle-panel-open').css('display', 'block');
+        }
+        else {
+            panel.removeClass("hide-panel");
+            panel.addClass("visibility-panel");
+            $('.triangle-panel-open').css('display', 'none');
+            $('.triangle-panel-close').css('display', 'block');
+
+        }
+    }
+
+    function onChangeVolume(element, imgId) {
+        var id = element.id;
+        var value = element.value;
+        var imgElem = $('#' + imgId)[0];
+
+        if (value >= 70) {
+            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-full.png";
+        }
+        else if (value < 70 && value >= 40) {
+            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-middle.png";
+        }
+        else if (value < 40 && value > 0) {
+            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562504921/system/sound-low.png";
+        }
+        else {
+            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503968/system/sound-off.png";
+        }
+    }
+
+    function togleRemoteVolume(imgElem, audioStreamIdElem, inputElemId) {
+        var input = $('#' + inputElemId)[0];
+        var img = $('#' + imgElem.id)[0];
+        if (input.value > 0) {
+            input.value = 0;
+            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503968/system/sound-off.png";
+        }
+        else {
+            input.value = 50;
+            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-middle.png";
+        }
+    }
+    function togleRemoteVideo(imgElem, videoStreamIdElem) {
+        var img = $('#' + imgElem.id)[0];
+
+        if (img.src == "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562506866/system/video-on.png") {
+            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509299/system/video-off.png";
+        }
+        else {
+            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562506866/system/video-on.png";
+        }
+    }
+
+    function togleMyVolume() {
+        var img = $('#panel-ico-sound')[0];
+        var button = $('#my-Volume-Togle')[0];
+
+        if (img.src == 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png') {
+            button.innerHTML = '<img id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro-off.png"/>Транслировать мой звук';
+        }
+        else {
+            button.innerHTML = '<img id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png"/>Выключить мой звук';
+        }
+    }
+    function togleMyVideo() {
+        var img = $('#panel-ico-video')[0];
+        var button = $('#my-Video-Togle')[0];
+        if (img.src == 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png') {
+            button.innerHTML = '<img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509299/system/video-off.png"/>Транслировать моё видео';
+        }
+        else {
+            button.innerHTML = '<img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png"/>Выключить моё видео';
+        }
+    }
+
+    function closeCall() {
+        closeCallImmediately();
+    }
+</script>
+    
+    @*<div id="video_streaming">
+                <div id="friend_video_container" class="vid_container">
+                    <span id="participant_name"></span>
+                    <video autoplay id="remoteVideo"></video>
+                </div>
+
+                <div id="me_video_container" class="vid_container">
+                    <span>@Html.Translate("Text_Me_In_Video")</span>
+                    <video autoplay height="200" width="200" id="localVideo"></video>
+                </div>
+                <audio autoplay id="remoteAudio" />
+            </div>
+            <div id="call_close" onclick="closeCallImmediately()" style="cursor:pointer">
+                <p>
+                    <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555664002/close_call.png" height="30" width="30" />
+                </p>
+            </div>*@
+</body>
+</html>

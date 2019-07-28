@@ -47,8 +47,6 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Webpages.Deployment.xml
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Mvc.xml
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.ip_address_add_UserConnections.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.add_culture_code_UserConnections.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.Properties.Resources.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.Properties.Resources.ru.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.Cache
@@ -58,11 +56,7 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.pdb
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset_password_tbo.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.ip_address_add_UserConnections.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.add_culture_code_UserConnections.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset_password_tbo.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Properties.Resources.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Properties.Resources.ru.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
@@ -120,4 +114,5 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Mvc.xml
 D:\SLUG\Sluuug\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.nominlengthNameSurnem.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._0.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.phototbo_heightwidth.resources

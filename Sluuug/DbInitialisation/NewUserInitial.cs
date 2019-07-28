@@ -13,12 +13,12 @@ namespace Slug.DbInitialisation
         private readonly static string[] surNames = new string[] { "Володин", "Пригожин", "Фролов", "Карпов", "Навальный" };
         private static Random rnd = new Random((int)DateTime.Now.Ticks);
 
-        public static void Initialize()
+        public static void Initialize(int first, int item)
         {
             using (var context = new DataBaseContext())
             {
                 var usersCollection = new List<User>();
-                for (int i = 4; i < 300; i++)
+                for (int i = first; i < item; i++)
                 {
                     var user = new User()
                     {
@@ -28,17 +28,20 @@ namespace Slug.DbInitialisation
                         UserStatus = 1,
                         Settings = new UserSettings()
                         {
+                            Id = i, 
                             Email = "alter.22.04@gmail.com",
                             NotificationType = Context.Dto.Settings.NotificationTypes.Never,
-                            PasswordHash = "4DFF4EA340F0A823F15D3F4F01AB62EAE0E5DA579CCB851F8DB9DFE84C58B2B37B89903A740E1EE172DA793A6E79D560E5F7F9BD058A12A280433ED6FA46510A",
+                            PasswordHash = "a1bd4e0efc7ce8bd1d63433a0baa87e3a486fbfe2729d73d1dbf7d2822d201ee8726c6d94da1f09f1a53554e440ad6041ecab545b2085dc28c6f6849f0fcea23",
                         },
                         UserFullInfo = new UserInfo
                         {
+                            Id = i,
                             DateOfBirth = DateTime.Now.AddYears(- rnd.Next(17, 88)),
                             Name = getRandomTitle(names),
                             NowCountryCode = 7,
                             SurName = getRandomTitle(surNames),
-                            NowSityCode = 495,
+                            NowCityCode = 495,
+                            DatingPurpose = Context.Dto.Search.DatingPurposeEnum.Communication,
                             Sex = Context.Dto.Search.SexEnum.man
                         }
                     };
@@ -63,10 +66,10 @@ namespace Slug.DbInitialisation
                     Start = new DateTime().AddYears(1990),
                     End = new DateTime().AddYears(1999),
                     CountryCode = 7,
-                    SityCode = 495,
+                    CityCode = 495,
                     EducationType = Context.Dto.UserFullInfo.EducationTypes.School,
                     Comment = "комеентарий про школу.",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
                 user.UserFullInfo.Educations.Add(new Context.Dto.UserFullInfo.Education()
@@ -75,12 +78,12 @@ namespace Slug.DbInitialisation
                     Start = new DateTime().AddYears(2000),
                     End = new DateTime().AddYears(2004),
                     CountryCode = 7,
-                    SityCode = 495,
+                    CityCode = 495,
                     Faculty = "Программирование на ++",
                     Specialty = "ИТ",
                     EducationType = Context.Dto.UserFullInfo.EducationTypes.College,
                     Comment = "Колледж комент.",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
                 user.UserFullInfo.Educations.Add(new Context.Dto.UserFullInfo.Education()
@@ -89,12 +92,12 @@ namespace Slug.DbInitialisation
                     Start = new DateTime().AddYears(2006),
                     End = new DateTime().AddYears(2010),
                     CountryCode = 7,
-                    SityCode = 495,
+                    CityCode = 495,
                     Faculty = "ВчМат",
                     Specialty = "ИТиВТ",
-                    EducationType = Context.Dto.UserFullInfo.EducationTypes.University,
+                    EducationType = Context.Dto.UserFullInfo.EducationTypes.UniverCity,
                     Comment = "А теперь коммент про универ",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
 
@@ -104,7 +107,7 @@ namespace Slug.DbInitialisation
                     EventTitle = "Свадьба",
                     EventComment = "тамада был отстой",
                     DateEvent = new DateTime().AddYears(2011),
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
 
@@ -112,21 +115,21 @@ namespace Slug.DbInitialisation
                 user.UserFullInfo.Places.Add(new Context.Dto.UserFullInfo.LifePlaces()
                 {
                     CountryCode = 7,
-                    SityCode = 495,
+                    CityCode = 495,
                     Start = new DateTime().AddYears(2011),
                     End = new DateTime().AddYears(2012),
                     Comment = "неплохо пожил, но уехал",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
                 user.UserFullInfo.Places.Add(new Context.Dto.UserFullInfo.LifePlaces()
                 {
                     CountryCode = 1,
-                    SityCode = 718,
+                    CityCode = 718,
                     Start = new DateTime().AddYears(2012),
                     UntilNow = true,
                     Comment = "до сих пор тут живу",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
                 user.UserFullInfo.Works = new List<Context.Dto.UserFullInfo.WorkPlaces>();
@@ -136,10 +139,10 @@ namespace Slug.DbInitialisation
                     Start = new DateTime().AddYears(2011),
                     End = new DateTime().AddYears(2012),
                     CountryCode = 7,
-                    SityCode = 495,
+                    CityCode = 495,
                     Comment = "отстой работа, зп никакой", 
                     Position = "разработчик unity",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
                 user.UserFullInfo.Works.Add(new Context.Dto.UserFullInfo.WorkPlaces()
@@ -148,10 +151,10 @@ namespace Slug.DbInitialisation
                     Start = new DateTime().AddYears(2012),
                     UntilNow = true,
                     CountryCode = 1,
-                    SityCode = 718,
+                    CityCode = 718,
                     Comment = "норм место",
                     Position = "Старший разработчик unity",
-                    EntryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     User = user
                 });
 

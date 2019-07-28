@@ -1,34 +1,84 @@
 ﻿
 @{
     ViewBag.Title = "conference";
-    Layout = "~/Views/Shared/private_view.cshtml";
+    Layout = "~/Views/Shared/private_template.cshtml";
 }
 
 @model Slug.Model.VideoConference.VideoConferenceModel
 @using Slug.Extensions
 
-<h2>@Html.Translate("Text_Video_Connect")</h2>
-<h3>@Html.Translate("Text_Avaliable_To_Call")</h3>
+<link href="~/Styles/private/video-conversation-main.css" rel="stylesheet" />
+<link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
+<link href="~/Styles/common/await.css" rel="stylesheet" />
+<link href="~/Styles/private/alert-notify-style.css" rel="stylesheet" />
+<title>Видео Связь</title>
 
-<div id="friends">
-    @foreach (var friend in Model.Friends)
-    {
-        Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.FriendModel>(friend));
-    }
-</div>
 
-<h3>@Html.Translate("Text_Incomming_To_Me_Call")</h3>
-<div id="incomming">
-    @foreach (var item in Model.IncomingCalls)
-    {
-        Html.RenderPartial("~/Views/Partial/VideoConference/incomming_call.cshtml", item, new ViewDataDictionary<Slug.Model.VideoConference.IncomingInviteModel>(item));
-    }
-</div>
-<h3>@Html.Translate("Text_Call_History")</h3>
-<div id="calls_history">
-    @foreach (var friend in Model.CallsHistory)
-    {
-        Html.RenderPartial("~/Views/Partial/VideoConference/conference_history_item.cshtml", friend, new ViewDataDictionary<Slug.Model.VideoConference.CallModel>(friend));
-    }
+<h1>@Html.Translate("Text_Video_Connect")</h1>
+<div class="tabs">
+    <div class="tab">
+        <div id="friends">
+            <input type="radio" id="tab1" name="tab-group" checked="">
+            <label class="tab-title" for="tab1">Доступны для звонка</label>
+            <div class="tab-content">
+                @foreach (var friend in Model.Friends)
+                {
+                    Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.FriendModel>(friend));
+                }
+                <div class="call-manage">
+                    <span id="not_selected" style="color:red">Никто не выбран</span>
+                    <br>
+                    <button id="new_converence" onclick="createConference()">Вызвать выбранных</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div id="incomming">
+            <input type="radio" id="tab2" name="tab-group">
+            <label class="tab-title" for="tab2">
+                @if (Model.IsIncommingExist == true)
+                {
+                    <div class="notify"></div>
+                }
+                Входящие звонки
+            </label>
+            <div class="tab-content">
+                @foreach (var item in Model.IncomingCalls)
+                {
+                    Html.RenderPartial("~/Views/Partial/VideoConference/incomming_call.cshtml", item, new ViewDataDictionary<Slug.Model.VideoConference.IncomingInviteModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div id="calls_history">
+            <input type="radio" id="tab3" name="tab-group">
+            <label class="tab-title" for="tab3">История видео переговоров</label>
+            <div class="tab-content">
+                <div class="history-wrapper">
+                    <div class="history- filter">
+                        <span>Показать : </span>
+                        <div>
+                            <select>
+                                <option>Все</option>
+                                <option>Входящие</option>
+                                <option>Исходящие</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header"><span>Последние звонки</span></div>
+                    <div class="history- calls">
+                        @foreach (var friend in Model.CallsHistory)
+                        {
+                            Html.RenderPartial("~/Views/Partial/VideoConference/conference_history_item.cshtml", friend, new ViewDataDictionary<Slug.Model.VideoConference.CallModel>(friend));
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="~/Scripts/vDialogs.js"></script>

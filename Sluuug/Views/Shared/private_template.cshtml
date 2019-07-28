@@ -1,0 +1,176 @@
+﻿@using Slug.Extensions;
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Resources/images/favicon.ico" type="image/png">
+    <link rel="stylesheet" href="~/Styles/private/private_style.css">
+    <link rel="stylesheet" href="~/Styles/private/controlls_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="~/Scripts/Private/menu_template.js"></script>
+
+    <script src="~/Scripts/System/AsyncRequest.js"></script>
+    <script src="~/Scripts/System/BigInteger.js"></script>
+    <script src="~/Scripts/System/jquery.signalR-2.4.0.js"></script>
+    <script src="~/Scripts/System/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/Scripts/notificationHub.js"></script>
+
+    <script src="~/Scripts/Search.js"></script>
+
+</head>
+<body>
+    <nav role="navigation">
+        <ul id="menu">
+            <li id="menu-toggle">
+                <div id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </li>
+            </div>
+            <li class="quick-search">
+                <div id="search-form">
+                    <span>Быстрый поиск</span>
+                    <form id="searchSubmit">
+                        <select name="user_sex">
+                            <option value="0">Женщину</option>
+                            <option value="1">Мужчину</option>
+                        </select>
+                        <select id="countryListBoxId" name="user_country" onchange="getCities('countryListBoxId','citiesListBoxId')">
+                            <option value="7">Россия</option>
+                            <option value="1">USA</option>
+                        </select>
+                        <select id="citiesListBoxId" name="user_city">
+                            <option value="495">Москва</option>
+                        </select>
+                        <select name="user_age">
+                            <option value="0">16-20</option>
+                            <option value="1">21-26</option>
+                            <option value="2">27-32</option>
+                            <option value="3">33-40</option>
+                            <option value="4">41-49</option>
+                            <option value="5">50-59</option>
+                            <option value="6">60-69</option>
+                            <option value="7">более 70</option>
+                        </select>
+                        <select name="user_purpose">
+                            <option value="0">Серьезные отношения</option>
+                            <option value="1">Дружба и общение</option>
+                            <option value="2">Секс</option>
+                        </select>
+                    </form>
+                    <button onclick="serchUser('searchSubmit')">Начать поиск</button>
+                </div>
+            </li>
+        </ul>
+
+        </div>
+    </nav>
+    <div id="left-navigation">
+        <ul id="ul-left-navigation">
+            <a href="/private/my">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/home_ico.png" />
+                    <span>Мой профиль</span>
+                </li>
+            </a>
+
+            <a href="/private/notification_history/">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/notify_ico.png" />
+                    <span>Уведомления</span>
+                    <div class="new">
+                        <svg>
+                            <circle>
+                            </circle>
+                            <span class="new-notify">8</span>
+                        </svg>
+                    </div>
+                </li>
+            </a>
+
+            <a href="/private/cnv">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/mess_ico.png" />
+                    <span>Сообщения</span>
+                    <div class="new">
+                        <svg>
+                            <circle>
+                            </circle>
+                            <span class="new-notify">8</span>
+                        </svg>
+                    </div>
+                </li>
+            </a>
+
+            <a href="/private/crypto_cnv">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/lock_ico.png" />
+                    <span>Секретный чат</span>
+                    <div class="new">
+                        <svg>
+                            <circle>
+                            </circle>
+                            <span class="new-notify">8</span>
+                        </svg>
+                    </div>
+                </li>
+            </a>
+            <a href="/private/invite_video_conversation">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/video_connect_ico.png" />
+                    <span>Видео-связь</span>
+                </li>
+            </a>
+
+            <a href="/private/search">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/search_ico.png" />
+                    <span>Поиск</span>
+                </li>
+            </a>
+
+            <a href="/private/contacts">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/contacts_ico.png" />
+                    <span>Контакты</span>
+                    <div class="new">
+                        <svg>
+                            <circle>
+                            </circle>
+                            <span class="new-notify">8</span>
+                        </svg>
+                    </div>
+                </li>
+            </a>
+
+            <a href="/private/settings">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/settings_ico.png" />
+                    <span>Настройки</span>
+                </li>
+            </a>
+
+            <a href="/private/support">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/support_ico.png" />
+                    <span>Техпотдержка</span>
+                </li>
+            </a>
+
+            <a href="/private/logout">
+                <li>
+                    <img height="30" width="30" src="~/Resources/images/logout-ico.png" />
+                    <span>Запасной выход</span>
+                </li>
+            </a>
+        </ul>
+    </div>
+    <div class="notify-alert"><span id="notify-message"></span></div>
+    <div class="private-content">
+        @RenderBody()
+    </div>
+</body>

@@ -43,9 +43,9 @@ namespace Slug.Controllers
 
                     ViewBag.titl = text;
                 }
-                if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
+                if (!string.IsNullOrWhiteSpace(model.PhotoDescription) && model.PhotoDescription != "null")
                 {
-                    ViewBag.comm = model.AuthorDescription;
+                    ViewBag.comm = model.PhotoDescription;
                 }
                 else
                 {
@@ -122,27 +122,15 @@ namespace Slug.Controllers
             {
                 ViewBag.titl = "";
             }
-            if (!string.IsNullOrWhiteSpace(model.AuthorDescription) && model.AuthorDescription != "null")
+            if (!string.IsNullOrWhiteSpace(model.PhotoDescription) && model.PhotoDescription != "null")
             {
-                ViewBag.comm = model.AuthorDescription;
+                ViewBag.comm = model.PhotoDescription;
             }
             else
             {
                 ViewBag.comm = "";
             }
             return View("~/Views/Partial/Albums/FriendExpand.cshtml");
-        }
-
-        [HttpPost]
-        public ActionResult Add_Education_Form()
-        {
-            return View("~/Views/Partial/OwnPage/AddInfo/education_form.cshtml");
-        }
-
-        [HttpPost]
-        public ActionResult Hight_Education_Level_Form()
-        {
-            return View("~/Views/Partial/OwnPage/AddInfo/high_level_form.cshtml");
         }
 
         [HttpPost]
@@ -210,6 +198,12 @@ namespace Slug.Controllers
         public ActionResult fail_register()
         {
             return View("~/Views/Partial/Register/fail_register.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult feedback()
+        {
+            return View("~/Views/Partial/feed_backView.cshtml");
         }
     }
 }

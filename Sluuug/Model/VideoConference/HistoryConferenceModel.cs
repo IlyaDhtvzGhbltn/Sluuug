@@ -8,6 +8,8 @@ namespace Slug.Model.VideoConference
 {
     public class VideoConferenceModel
     {
+        public bool IsIncommingExist { get; set; }
+
         public List<FriendModel> Friends { get; set; }
 
         public List<CallModel> CallsHistory { get; set; }

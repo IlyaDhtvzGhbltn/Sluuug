@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Slug.Context.Dto.UserFullInfo;
 using Slug.Context.Tables;
+using Slug.DbInitialisation;
 
 namespace Context
 {
@@ -48,5 +49,7 @@ namespace Context
         public virtual DbSet<FotoComment> FotoComments { get; set; }
 
         public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<Notification> Notivications { get; set; }
     }
 }

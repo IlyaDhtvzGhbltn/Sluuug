@@ -43,7 +43,7 @@ namespace Slug.Helpers
                 },
 
                 { AgeEnum.morethan70, new DatesUserSearch()
-                    { UserMinDateOfBirth = DateTime.Now.AddYears(-200), UserMaxDateOfBirth = DateTime.Now.AddYears(-77) }
+                    { UserMinDateOfBirth = DateTime.Now.AddYears(-200), UserMaxDateOfBirth = DateTime.Now.AddYears(-70) }
                 }
             };
 
@@ -78,7 +78,7 @@ namespace Slug.Helpers
                 List<Context.Tables.User> result = context.Users
                     .Where(x =>
                     x.Id != insteadUserID &&
-                    x.UserFullInfo.NowSityCode == request.userSearchSity &&
+                    x.UserFullInfo.NowCityCode == request.userSearchCity &&
                     x.UserFullInfo.NowCountryCode == request.userSearchCountry &&
                     x.UserFullInfo.Sex == request.userSearchSex &&
                     x.UserFullInfo.DateOfBirth < maxDate &&
@@ -98,13 +98,12 @@ namespace Slug.Helpers
                 responce.Users = result
                     .Skip((page - 1) * usersOnPage)
                     .Take(usersOnPage)
-                    .Select(collect => new Model.CutUserInfoModel()
+                    .Select(collect => new Model.Users.BaseUser
                 {
                     UserId = collect.Id,
-                    AvatarUri = context.Avatars.First(ava => ava.Id == collect.AvatarId).ImgPath,
+                    AvatarResizeUri = context.Avatars.First(ava => ava.Id == collect.AvatarId).ImgPath,
                     Country = context.Countries.First(country => collect.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title,
-                    Sity = context.Cities.First(cit => collect.UserFullInfo.NowSityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title,
-                    DateBirth = collect.UserFullInfo.DateOfBirth,
+                    City = context.Cities.First(cit => collect.UserFullInfo.NowCityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title,
                     SurName = collect.UserFullInfo.SurName,
                     Name = collect.UserFullInfo.Name
                 })

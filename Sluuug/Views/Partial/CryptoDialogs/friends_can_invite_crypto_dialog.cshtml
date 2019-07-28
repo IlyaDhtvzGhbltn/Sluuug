@@ -2,5 +2,21 @@
 @using Slug.Extensions
 
 <div class="ready_to_invite_div">
-    <input class="ready_to_invite" type="radio" value="@Model.UserId"> @Model.Name <img src="@Model.AvatarPath" width="30" height="30" />
+    <label>
+        <input type="radio" class="fr" name="friend" value="@Model.UserId" />
+        <div class="circle">
+            <div class="circle--inner circle--inner__1"></div>
+            <div class="circle--inner circle--inner__2"></div>
+            <div class="circle--inner circle--inner__3"></div>
+            <div class="circle--inner circle--inner__4"></div>
+            <div class="circle--inner circle--inner__5"></div>
+            <div class="circle--outer"></div>
+        </div>
+        <div class="selected-overflow"></div>
+    </label>
+    <div class="chat-head" id="138">
+        <img src="@Model.AvatarPath" />
+        <h2>@Model.Name @Model.SurName</h2>
+    </div>    
+
 </div>

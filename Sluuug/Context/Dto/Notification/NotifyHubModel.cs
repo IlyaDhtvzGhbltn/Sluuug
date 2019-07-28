@@ -1,5 +1,6 @@
 ﻿using Slug.Context.Dto.CryptoConversation;
 using Slug.Model;
+using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Slug.Context.Dto.Messages
 {
     public class NotifyHubModel
     {
-        public CutUserInfoModel FromUser { get; set; }
+        public BaseUser FromUser { get; set; }
 
         public IList<string> ConnectionIds { get; set; }
 

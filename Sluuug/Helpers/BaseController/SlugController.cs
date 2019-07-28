@@ -50,8 +50,12 @@ namespace Slug.Helpers
 
         public static string GetCookiesValue(HttpRequestBase request)
         {
-           string session = request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
-           return session;
+            HttpCookie session = request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
+            if (session != null)
+            {
+                return session.Value;
+            }
+           return null;
         }
 
         public static string GetIPAddress(HttpRequest Request)

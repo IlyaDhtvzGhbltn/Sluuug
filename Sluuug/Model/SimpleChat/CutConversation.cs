@@ -9,11 +9,17 @@ namespace Slug.Model.SimpleChat
     {
         public Guid GuidId { get; set; }
 
+        public string LastMessageSenderName { get; set; }
+
+        public string LastMessageSenderSurName { get; set; }
+
+        public string LastMessageSenderAvatar { get; set; }
+
         public string InterlocutorName { get; set; }
 
         public string InterlocutorSurName { get; set; }
 
-        public string AvatarPath { get; set; }
+        public string InterlocutorAvatar { get; set; }
 
         public string LastMessage { get; set; }
     }

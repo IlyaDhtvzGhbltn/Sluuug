@@ -1,0 +1,392 @@
+﻿.friend_div {
+    padding: 20px;
+    margin: 20px;
+    height: 100px;
+    width: 100%;
+    display: inline;
+}
+
+    .friend_div label {
+        margin: 0px 15px;
+        border: 1px solid #7f7f7f;
+        transition: all 0.5s ease;
+        float: left;
+        cursor: pointer;
+        position: relative;
+        width: 100%;
+        height: inherit;
+        top: -10px;
+        left: -10px;
+    }
+
+        .friend_div label:hover {
+            box-shadow: 0 0 12px 5px rgba(15, 15, 15, 0.3);
+            margin: 10px;
+            height: 110px;
+        }
+
+
+            .friend_div label:hover + .fr-head {
+                margin: 20px;
+            }
+
+            .friend_div label:hover > .selected-overflow {
+                height: 120;
+                top: -40px;
+            }
+
+.fr:checked ~ .selected-overflow {
+    background-color: #a2ecf3;
+    /* background : linear-gradient(transparent, #a2ecf3, transparent); */
+}
+
+.selected-overflow {
+    transition: all 0.5s ease;
+    height: 98px;
+    position: relative;
+    top: -25px;
+}
+
+
+.circle--outer {
+    border-radius: 30%;
+}
+
+.circle--inner__1 {
+    border-radius: 30%;
+}
+
+
+.fr-head > .avatar {
+    float: left;
+}
+
+.fr-head {
+    transition: all 0.5s ease;
+    position: relative;
+    left: 88px;
+    height: auto;
+}
+
+    .fr-head > * {
+        position: absolute;
+    }
+
+    .fr-head img {
+        left: 3%;
+    }
+
+.tab-content .fr-head h2, .tab-content .fr-head span {
+    left: 130px;
+    margin: 0;
+}
+
+.tab-content .fr-head span {
+    margin-top: 10px;
+}
+
+.wire-status {
+    font-size: 18px;
+}
+
+.off {
+    color: red;
+}
+
+.on {
+    color: green;
+}
+
+.call-manage {
+    text-align: center;
+}
+
+#not_selected, #new_converence {
+    margin: 10px;
+}
+
+#new_converence {
+    height: 42px;
+}
+
+.call-wrap {
+    transition: all 0.5s ease;
+    border: 1px solid #7f7f7f;
+    margin-bottom: 20px;
+    height: 100px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+    .call-wrap:hover {
+        background-color: #a2ecf3;
+        padding: 20px;
+        height: 120px;
+    }
+
+        .call-wrap:hover > .answer .run-div {
+            visibility: visible;
+            /* left:50%; */
+            opacity: 1;
+            height: 120px;
+            width: 70%;
+            margin: -20px;
+            opacity: 1;
+        }
+
+.answer {
+    height: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+    .answer span {
+        color: #fff;
+        font-size: 28px;
+        height: 30px;
+        width: 100%;
+        position: relative;
+        top: 40px;
+    }
+
+    .answer .run-div {
+        height: 100%;
+        width: 100%;
+        float: right;
+        opacity: 0;
+        transition: all .5s ease;
+        visibility: collapse;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+.accept, .refused {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    cursor: pointer;
+}
+
+    .accept:hover, .refused:hover {
+        box-shadow: 0 0 12px 5px rgba(15, 15, 15, 0.3);
+        border: 1px solid #7f7f7f;
+    }
+
+
+.answer .run-div .accept {
+    background-color: #49b2da;
+    width: 50%;
+}
+
+.accept img, .refused img {
+    position: relative;
+    top: 40px;
+    margin: 0px 10px;
+    height: 35px;
+    width: 35px;
+}
+
+.answer .run-div .refused {
+    background-color: #d01b1b;
+    width: 50%;
+}
+
+
+
+.call-wrap:hover > .user-avatar img {
+    top: 0;
+}
+
+.user-avatar {
+    z-index: 1;
+    margin: 0px 3px 10px 40px;
+}
+
+    .user-avatar img {
+        transition: all 0.5s ease;
+        position: relative;
+        top: 10px;
+        /* float:left; */
+        /* left:50px; */
+        /* position:relative; */
+    }
+
+.user-info {
+    position: relative;
+    width: 45%;
+    height: auto;
+    left: 20px;
+}
+
+
+/* Incomming call phone START */
+.pulse {
+    z-index: 999;
+    position: relative;
+    top: 50%;
+    left: 50px;
+    transform: translate(-50%, -50%);
+    background: red;
+    border-radius: 50%;
+    width: 80px;
+    height: 50px;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    font-size: 60px;
+}
+
+    .pulse:before,
+    .pulse:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        border: 50%;
+        border: 1px solid red;
+        left: -20px;
+        right: -20px;
+        top: -20px;
+        bottom: -20px;
+        border-radius: 50%;
+        animation: animate 1.5s linear infinite;
+        opacity: 0;
+        backface-visibility: hidden;
+    }
+
+    .pulse:after {
+        animation-delay: .5s;
+    }
+
+@keyframes animate {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+/* Incomming call phone END */
+
+.calls {
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hide;
+    border: 1px solid #7f7f7f;
+    border-radius: 10px;
+}
+
+.filter {
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+    .filter span {
+        position: relative;
+        top: -7px;
+        font-size: 20px;
+        margin: 10px;
+    }
+
+    .filter select {
+        cursor: pointer;
+        font-size: 18px;
+        height: 36px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding: 8px;
+    }
+
+.header {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 777;
+    width: 100%;
+}
+
+.call-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 1px solid #7f7f7f;
+    margin: 10px;
+    padding: 10px;
+}
+
+.info-data {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+    left: 20px;
+    width: 100%;
+}
+
+    .info-data h2 {
+        margin-top: 0;
+    }
+
+.info-status {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.phone-wrapper img {
+    position: relative;
+    top: 14px;
+}
+
+/* .triangle{ */
+/* margin-right:10px; */
+/* } */
+
+/* .triangle-wrapper{ */
+/* position:relative; */
+/* top:33%; */
+/* display: flex; */
+/* flex-direction: row; */
+/* flex-wrap: nowrap; */
+/* } */
+.in-call {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 25px 25px 0 25px;
+    border-color: green transparent transparent transparent;
+}
+
+.out-call {
+    position: relative;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 25px 25px 25px;
+    border-color: transparent transparent red transparent;
+}
+
+
+.footer {
+    height: auto;
+    text-align: center;
+}
+
+    .footer button {
+        position: relative;
+        margin: 4px 0px;
+        height: 42px;
+    }

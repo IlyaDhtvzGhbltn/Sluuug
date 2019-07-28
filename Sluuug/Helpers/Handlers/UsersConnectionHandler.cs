@@ -24,7 +24,7 @@ namespace Slug.Helpers
                 connectionItem.ConnectionID = Guid.Parse( connectionID );
                 connectionItem.ConnectionTime = DateTime.UtcNow;
                 connectionItem.ConnectionActiveStatus = true;
-                connectionItem.UserID = UW.GetFullUserInfo(session).UserId;
+                connectionItem.UserID = UW.GetCurrentProfileInfo(session).UserId;
                 connectionItem.IpAddress = ipAddress;
                 connectionItem.CultureCode = cultureCode;
 
@@ -37,13 +37,18 @@ namespace Slug.Helpers
         {
             UsersHandler UW = new UsersHandler();
             Guid guidID = Guid.Parse (connectionID);
-            int userID = UW.GetFullUserInfo(session).UserId;
+            int userID = UW.GetCurrentProfileInfo(session).UserId;
 
             using (var context = new DataBaseContext())
             {
-                var connectionItem = context.UserConnections
-                    .FirstOrDefault(x => x.ConnectionID == guidID && x.UserID == userID);
-                connectionItem.ConnectionActiveStatus = false;
+                List<UserConnections> connectionItems = context.UserConnections
+                    .Where(x =>x.UserID == userID)
+                    .ToList();
+
+                foreach (var item in connectionItems)
+                {
+                    item.ConnectionActiveStatus = false;
+                }
                 context.SaveChanges();
             }
         }

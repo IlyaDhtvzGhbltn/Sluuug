@@ -1,15 +1,10 @@
 ﻿@model Slug.Model.Users.WorkPlacesModel
 @using Slug.Extensions
 
-<div class="work_div">
-    <p>@Model.CompanyTitle @Model.Position</p>
-    <p>@Model.Country @Model.Sity</p>
-    @if (Model.UntilNow == false)
-    {
-        <p>@Model.Start - @Model.End</p>
-    }
-    else
-    {
-        <p>@Model.Start -  @Html.Translate("Text_For_Now_Time")</p>
-    }
+<div class="item-info">
+    <h3>@Model.CompanyTitle</h3>
+    <span>@Model.Position</span>
+    <span>@Model.Country @Model.City</span>
+    <span>@Model.Start - @Model.End</span>
+    <span class="user-comment">«@Model.Comment»</span>
 </div>

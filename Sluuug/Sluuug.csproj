@@ -152,18 +152,30 @@
     <Content Include="Resources\images\abstract_footer_left.png" />
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\comet.png" />
+    <Content Include="Resources\images\contacts_ico.png" />
     <Content Include="Resources\images\favicon.ico" />
+    <Content Include="Resources\images\home_ico.png" />
+    <Content Include="Resources\images\lock-msg.png" />
+    <Content Include="Resources\images\lock_ico.png" />
+    <Content Include="Resources\images\mess_ico.png" />
+    <Content Include="Resources\images\notify_ico.png" />
     <Content Include="Resources\images\rotating_earth_background.png" />
+    <Content Include="Resources\images\settings_ico.png" />
     <Content Include="Resources\images\social_media_img.png" />
     <Content Include="Resources\images\space_main_background.png" />
+    <Content Include="Resources\images\support_ico.png" />
+    <Content Include="Resources\images\video_connect_ico.png" />
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
     <Content Include="Scripts\Common\CommonAlbums.js" />
-    <Content Include="Scripts\EditInfo.js" />
+    <Content Include="Scripts\Profile\EditInfo.js" />
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
+    <Content Include="Scripts\Private\ExperationTimer.js" />
+    <Content Include="Scripts\Private\menu_template.js" />
+    <Content Include="Scripts\System\AsyncRequest.js" />
     <Content Include="Scripts\System\BigInteger.js" />
     <Content Include="Scripts\System\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
@@ -191,6 +203,29 @@
     <Content Include="Styles\common\await.css" />
     <Content Include="Styles\guest\index_form.css" />
     <Content Include="Styles\guest\index_style.css" />
+    <Content Include="Styles\private\album-review-style.css" />
+    <Content Include="Styles\private\alert-notify-style.css" />
+    <Content Include="Styles\private\foreign-user-style.css" />
+    <Content Include="Styles\private\friend-profile-style.css" />
+    <Content Include="Styles\private\my-profile-style.css" />
+    <Content Include="Styles\private\notify-style.css" />
+    <Content Include="Styles\private\contacts-style.css" />
+    <Content Include="Styles\private\controlls_style.css" />
+    <Content Include="Styles\private\conversations-style.css" />
+    <Content Include="Styles\private\dialog-style.css" />
+    <Content Include="Styles\private\feedBackStyle.css" />
+    <Content Include="Styles\private\private_style.css" />
+    <Content Include="Styles\private\profile-info-style.css" />
+    <Content Include="Styles\private\search-style.css" />
+    <Content Include="Styles\private\secret-conversations-style.css" />
+    <Content Include="Styles\private\secret-dialog-style.css" />
+    <Content Include="Styles\private\settings-style.css" />
+    <Content Include="Styles\private\tabs-style.css" />
+    <Content Include="Styles\private\toggle-style.css" />
+    <Content Include="Styles\private\triangle.css" />
+    <Content Include="Styles\private\video-await.css" />
+    <Content Include="Styles\private\video-conversation-main.css" />
+    <Content Include="Styles\private\video-dialog.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -216,12 +251,17 @@
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\EnumParameters.cs" />
+    <Compile Include="Context\Dto\FeedBack\FeedBackRequest.cs" />
+    <Compile Include="Context\Dto\FeedBack\FeedBackResponce.cs" />
+    <Compile Include="Context\Dto\FeedBack\SubjectEnums.cs" />
     <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
+    <Compile Include="Context\Dto\Notification\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
+    <Compile Include="Context\Dto\Search\DatingPurposeEnum.cs" />
     <Compile Include="Context\Dto\Search\SearchCitiesModel.cs" />
     <Compile Include="Context\Dto\Search\SearchCityItem.cs" />
     <Compile Include="Context\Dto\Search\SearchUsersRequest.cs" />
@@ -233,48 +273,41 @@
     <Compile Include="Context\Dto\UserFullInfo_refactor\BaseLiveEpisode.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\EntryBase.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\LifePlaces.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\MemorableEvents.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
+    <Compile Include="Context\Tables\Feedback.cs" />
+    <Compile Include="Context\Tables\Notification.cs" />
     <Compile Include="Context\Tables\ResetPassword.cs" />
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
+    <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
+    <Compile Include="Helpers\Handlers\NotificationHandler.cs" />
     <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\DialogMessage.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
     <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
     <Compile Include="Helpers\HTMLGenerated\UserFriendshipResponce.cs" />
     <Compile Include="Helpers\HTMLGenerated\VideoConferenceInviteToRedirect.cs" />
+    <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201906051126483_ip_address_add_UserConnections.cs" />
-    <Compile Include="Migrations\201906051126483_ip_address_add_UserConnections.Designer.cs">
-      <DependentUpon>201906051126483_ip_address_add_UserConnections.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906051146593_add_culture_code_UserConnections.cs" />
-    <Compile Include="Migrations\201906051146593_add_culture_code_UserConnections.Designer.cs">
-      <DependentUpon>201906051146593_add_culture_code_UserConnections.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906141538091_reset_password_tbo.cs" />
-    <Compile Include="Migrations\201906141538091_reset_password_tbo.Designer.cs">
-      <DependentUpon>201906141538091_reset_password_tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906151106031_no min length Name Surnem.cs" />
-    <Compile Include="Migrations\201906151106031_no min length Name Surnem.Designer.cs">
-      <DependentUpon>201906151106031_no min length Name Surnem.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
+    <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
     <Compile Include="Model\Albums\PostCommentToFoto.cs" />
-    <Compile Include="Model\Albums\UploadModel.cs" />
+    <Compile Include="Model\FullInfo\UserInfoItem.cs" />
+    <Compile Include="Model\Notifications\UserNotivication.cs" />
     <Compile Include="Model\SimpleChat\CutConversation.cs" />
-    <Compile Include="Model\Users\LoginingUserModel.cs" />
-    <Compile Include="Model\Users\UserConnectionIdModel.cs" />
+    <Compile Include="Model\Users\Relations\BaseUser.cs" />
+    <Compile Include="Model\Users\Login\LoginingUserModel.cs" />
+    <Compile Include="Model\Users\Relations\MyProfileModel.cs" />
+    <Compile Include="Model\Users\Systems\UserConnectionIdModel.cs" />
+    <Compile Include="Model\Users\Systems\UserEnums.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />
     <Compile Include="Context\Tables\Cities.cs" />
@@ -334,23 +367,19 @@
     <Compile Include="Model\Albums\AlbumModel.cs" />
     <Compile Include="Model\Albums\FotoCommentModel.cs" />
     <Compile Include="Model\Albums\FotoModel.cs" />
-    <Compile Include="Model\FullInfo\BaseInfoModel.cs" />
     <Compile Include="Model\SimpleChat\ConversationsModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoChatModel.cs" />
     <Compile Include="Model\CryptoChat\CryptoDialogModel.cs" />
-    <Compile Include="Model\Users\CutUserInfoModel.cs" />
     <Compile Include="Model\SimpleChat\DialogModel.cs" />
     <Compile Include="Model\FullInfo\EducationModel.cs" />
-    <Compile Include="Model\Users\ForeignUserViewModel.cs" />
-    <Compile Include="Model\Users\FriendModel.cs" />
-    <Compile Include="Model\FullInfo\FullUserInfoModel.cs" />
+    <Compile Include="Model\Users\Relations\ForeignUserViewModel.cs" />
+    <Compile Include="Model\Users\Relations\FriendModel.cs" />
     <Compile Include="Model\FullInfo\LifePlacesModel.cs" />
     <Compile Include="Model\FullInfo\MemorableEventsModel.cs" />
-    <Compile Include="Model\Users\RegisteringUserModel.cs" />
+    <Compile Include="Model\Users\Registration\RegisteringUserModel.cs" />
     <Compile Include="Model\SimpleChat\SendingMSG.cs" />
-    <Compile Include="Model\Users\FriendlyUserModel.cs" />
-    <Compile Include="Model\Users\MyFriendsModel.cs" />
-    <Compile Include="Model\Users\UserSettingsModel.cs" />
+    <Compile Include="Model\Users\Relations\MyFriendsModel.cs" />
+    <Compile Include="Context\Dto\Settings\UserSettingsModel.cs" />
     <Compile Include="Model\FullInfo\WorkPlacesModel.cs" />
     <Compile Include="Model\VideoConference\CallModel.cs" />
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
@@ -381,12 +410,11 @@
     <Content Include="Views\Private\crypto_cnv.cshtml" />
     <Content Include="Views\Private\c_msg.cshtml" />
     <Content Include="Views\Private\v_conversation.cshtml" />
-    <Content Include="Views\Shared\private_view.cshtml" />
     <Content Include="Views\Private\settings.cshtml" />
     <Content Include="Views\Private\search.cshtml" />
     <Content Include="Views\Private\search_result.cshtml" />
     <Content Include="Views\Error\ooops.cshtml" />
-    <Content Include="Views\Partial\OwnPage\my_album.cshtml" />
+    <Content Include="Views\Partial\OwnPage\my_album_minimized.cshtml" />
     <Content Include="Views\Partial\FriendPage\friend_album.cshtml" />
     <Content Include="Views\Partial\OwnPage\education.cshtml" />
     <Content Include="Views\Partial\OwnPage\events.cshtml" />
@@ -416,8 +444,6 @@
     <Content Include="Views\Partial\Albums\CommentEntry.cshtml" />
     <Content Include="Views\Partial\Albums\EditFotoInfo.cshtml" />
     <Content Include="Views\Partial\Albums\FriendExpand.cshtml" />
-    <Content Include="Views\Partial\OwnPage\AddInfo\education_form.cshtml" />
-    <Content Include="Views\Partial\OwnPage\AddInfo\high_level_form.cshtml" />
     <Content Include="Views\Partial\OwnPage\AddInfo\mem_events_form.cshtml" />
     <Content Include="Views\Partial\OwnPage\AddInfo\work_form.cshtml" />
     <Content Include="Views\Partial\OwnPage\AddInfo\places_form.cshtml" />
@@ -434,6 +460,10 @@
     <Content Include="Views\Guest\reset.cshtml" />
     <Content Include="Views\Shared\reset_active.cshtml" />
     <Content Include="Views\Shared\reset_invalid.cshtml" />
+    <Content Include="Views\Shared\private_template.cshtml" />
+    <Content Include="Views\Partial\feed_backView.cshtml" />
+    <Content Include="Views\Private\support.cshtml" />
+    <Content Include="Views\Private\notification_history.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -445,18 +475,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906051126483_ip_address_add_UserConnections.resx">
-      <DependentUpon>201906051126483_ip_address_add_UserConnections.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906051146593_add_culture_code_UserConnections.resx">
-      <DependentUpon>201906051146593_add_culture_code_UserConnections.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906141538091_reset_password_tbo.resx">
-      <DependentUpon>201906141538091_reset_password_tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906151106031_no min length Name Surnem.resx">
-      <DependentUpon>201906151106031_no min length Name Surnem.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>

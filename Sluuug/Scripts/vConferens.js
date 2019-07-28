@@ -12,15 +12,14 @@ const peerConnCfg =
         ]
     };
 let localStream;
-var remoteVideo = document.querySelector("#remoteVideo");
-var localVideo = document.querySelector("#localVideo");
-var remoteAudio = document.querySelector("#remoteAudio");
+var remoteVideo = document.querySelector("#remoteVideo_1");
+var remoteAudio = document.querySelector("#remoteAudio_1");
 
 const peerConn = new RTCPeerConnection(peerConnCfg);
 peerConn.ontrack = function (event) {
-    remoteVideo.srcObject = event.streams[0];
-    remoteAudio.srcObject = event.streams[1];
-}
+    $("#remoteVideo_1")[0].srcObject = event.streams[0];
+    $("#remoteAudio_1")[0].srcObject = event.streams[1];
+};
 peerConn.onicecandidate = function (event) {
     if (event.candidate) {
         HUB.invoke('ExchangeICandidates', event.candidate, getGuidID());
@@ -29,7 +28,7 @@ peerConn.onicecandidate = function (event) {
     else {
         console.log('all candidates are set');
     }
-}
+};
 
 HUB.on('GotInvite', function (guidID, offer) {
     accept_send_answer(guidID, offer);
@@ -45,20 +44,20 @@ HUB.on('Close', function () {
 });
 HUB.on('SendName', function (name) {
     console.log(name);
-    $('#participant_name')[0].innerHTML = name;
+    $('.partisipant-name')[0].innerHTML = name;
 });
 
 
 function initiate_call() {
     navigator.mediaDevices.getUserMedia({ audio: true, video: true })
         .then(function (stream) {
-            localVideo.srcObject = stream;
+            $("#localVideo")[0].srcObject = stream;
 
             stream.getTracks().forEach(
                 function (track) {
                     peerConn.addTrack(track, stream);
                 }
-            )
+            );
             return peerConn.createOffer();
         })
         .then(
@@ -76,7 +75,7 @@ function accept_send_answer(guidID, offer) {
         .then(function () {
             navigator.mediaDevices.getUserMedia({ audio: true, video: true })
                 .then(function (stream) {
-                    localVideo.srcObject = stream;
+                    $("#localVideo")[0].srcObject = stream;
 
                     stream.getTracks().forEach(
                         function (track) {
@@ -105,8 +104,7 @@ function got_ansfer(guid, answer) {
         },
         function (err) {
             console.log(err.message);
-        }
-    )
+        });
 }
 
 
@@ -115,10 +113,10 @@ async function checType() {
     console.log(id);
     const this_type = await
         $.ajax({
-        url: '/api/user_vc_role',
-        type: 'post',
-        data: { converenceID: id }
-        })
+            url: '/api/user_vc_role',
+            type: 'post',
+            data: { converenceID: id }
+        });
     return this_type.type;
 }
 
@@ -135,7 +133,7 @@ function getGuidID() {
 function closeCallImmediately() {
     connection.start().done(function () {
         HUB.invoke('CloseVideoConverence', getGuidID());
-    })
+    });
 }
 
 function callClose() {
@@ -143,11 +141,10 @@ function callClose() {
     console.log('connection lost.');
 }
 
-
 function onLoad() {
     connection.start().done(function () {
         HUB.invoke('GetVideoParticipantName', getGuidID());
-    })
+    });
 
     checType().then(function (result) {
         console.log(result);

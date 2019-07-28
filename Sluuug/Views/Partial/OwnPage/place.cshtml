@@ -1,16 +1,13 @@
 ﻿@model Slug.Model.Users.LifePlacesModel
 @using Slug.Extensions
 
-
-<div class="live_place_div">
-    <p>@Model.Country @Model.Sity <button id="@Model.EntryId" onclick="dropEntry(this)">@Html.Translate("Button_Delete")</button></p>
-    <p><b>@Model.Comment</b></p>
-    @if (Model.UntilNow == false)
-    {
-        <p>@Model.Start - @Model.End</p>
-    }
-    else
-    {
-        <p>@Model.Start - @Html.Translate("Text_For_Now_Time")</p>
-    }
+<div class="info-item place">
+    <div class="item-info">
+        <h3>@Model.Country @Model.City</h3>
+        <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
+    </div>
+    <div class="item-delete">
+        <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>
+    </div>
 </div>

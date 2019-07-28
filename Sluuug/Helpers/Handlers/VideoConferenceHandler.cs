@@ -84,7 +84,7 @@ namespace Slug.Helpers
             {
                 int userCreatorConferenceID = context.VideoConferences.First(x=>x.GuidId == videoConverenceID).ConferenceCreatorUserId;
                 var UWorker = new UsersHandler();
-                int userRequestedId = UWorker.GetFullUserInfo(sessionID).UserId;
+                int userRequestedId = UWorker.GetCurrentProfileInfo(sessionID).UserId;
                 if (userRequestedId == userCreatorConferenceID)
                     return VideoConverenceCallType.Caller;
                 else
@@ -100,9 +100,9 @@ namespace Slug.Helpers
             model.IncomingCalls = new List<IncomingInviteModel>();
 
             var userWorker = new UsersHandler();
-            int myId = userWorker.GetFullUserInfo(sessionID).UserId;
+            int myId = userWorker.GetCurrentProfileInfo(sessionID).UserId;
 
-            MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID);
+            MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID, 80);
             foreach (var item in fMod.Friends)
             {
                 model.Friends.Add(item);
@@ -139,27 +139,33 @@ namespace Slug.Helpers
                     }
                 }
 
+                List<VideoConferenceGroups> userConverense = context.VideoConferenceGroups
+                    .Where(x => x.UserId == myId)
+                    .ToList();
+
                 List<VideoConference> incomingCalls = context.VideoConferences
                     .Where(x => x.IsActive == true)
                     .ToList();
-
-                foreach (var item in incomingCalls)
+                if (incomingCalls.Count > 0)
                 {
-                    var incoming = new IncomingInviteModel();
-                    incoming.ConferenceID = item.GuidId;
-                    int participantID = context.VideoConferenceGroups
-                        .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
-                        .Select(x => x.UserId)
-                        .First();
-                    var info = userWorker.GetUserInfo(participantID);
+                    model.IsIncommingExist = true;
+                    foreach (var item in incomingCalls)
+                    {
+                        var incoming = new IncomingInviteModel();
+                        incoming.ConferenceID = item.GuidId;
+                        int participantID = context.VideoConferenceGroups
+                            .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
+                            .Select(x => x.UserId)
+                            .First();
+                        var info = userWorker.GetUserInfo(participantID);
 
-                    incoming.InviterID = participantID;
-                    incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
-                    incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
-                    incoming.AvatarUri = Resize.ResizedUri(info.AvatarUri, ModTypes.c_scale, 45);
-                    model.IncomingCalls.Add(incoming);
+                        incoming.InviterID = participantID;
+                        incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
+                        incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
+                        incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 45);
+                        model.IncomingCalls.Add(incoming);
+                    }
                 }
- 
             }
 
             return model;

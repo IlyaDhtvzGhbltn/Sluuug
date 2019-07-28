@@ -6,6 +6,9 @@ using System.Web;
 using Context;
 using Slug.Context;
 using Slug.Context.Tables;
+using Slug.Helpers.BaseController;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using Slug.ImageEdit;
 using Slug.Model;
 
 
@@ -14,9 +17,11 @@ namespace Slug.Helpers
     public class UsersDialogHandler
     {
         private UsersHandler UserWorker = new UsersHandler();
-        private const int multiple = 5;
+        private readonly int multiple = int.Parse(WebAppSettings.AppSettings[AppSettingsEnum.messagesOnPage.ToString()]);
+                        
 
-        public DialogModel GetMessanges(Guid convId, int page)
+
+        public DialogModel GetMessanges(Guid convId, int userID, int page)
         {
             if (page <= 0)
                 page = 1;
@@ -36,7 +41,11 @@ namespace Slug.Helpers
                     page = resMultiple;
 
                 dModel.PagesCount = resMultiple;
+                int interlocutorID = context.ConversationGroup
+                    .First(x => x.ConversationGuidId == convId && x.UserId != userID).UserId;
+                var interlocutorUser = context.Users.First(x => x.Id == interlocutorID).UserFullInfo;
 
+                dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocutorUser.SurName);
 
                 List<Message> msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
@@ -48,10 +57,14 @@ namespace Slug.Helpers
                 msgs.ForEach(message => 
                 {
                     var msg = new DialogMessage();
+                    if(message.UserId != userID)
+                    {
+                        msg.IsIncomming = true;
+                    }
                     msg.Text = message.Text;
-                    msg.SendTime = message.SendingDate.ToString("yyyy-mm-dd");
+                    msg.SendTime = message.SendingDate.ToString("hh:mm");
                     msg.ConversationId = message.ConvarsationGuidId;
-                    msg.AvatarPath = UserWorker.GetUserInfo(message.UserId).AvatarUri;
+                    msg.AvatarPath = Resize.ResizedAvatarUri(UserWorker.GetUserInfo(message.UserId).AvatarResizeUri, ModTypes.c_scale, 50);
                     msg.UserName = UserWorker.GetUserInfo(message.UserId).Name;
                     msg.Text = message.Text;
                     messangs.Add(msg);

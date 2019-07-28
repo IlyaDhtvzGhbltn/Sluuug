@@ -1,11 +1,28 @@
 ﻿@model Slug.Model.CryptoChat
 @using Slug.Extensions
 
+<div class="chat-wrapper">
+    <div class="cryptp-chat-self-created" id="@Model.GuidId">
+        <div class="active-chat-period">
+            <p>
+                <span>Приглашение отправлено @Model.OpenDate.ToString("yyyy MM dd hh:mm")</span>
+            </p>
+            <p>
+                <span>Чат будет закрыт @Model.CloseDate.ToString("yyyy MM dd hh:mm")</span>
+            </p>
+            <p>
+                <span>
+                    Осталось <span class="experation-mins">@Model.RemainingMins </span> мин
+                    <span class="experation-sec">@Model.RemainingSecs </span> сек
+                </span>
+            </p>
+        </div>
 
-<div class="cryptp_chat" id="@Model.GuidId" style="background-color:azure; cursor:pointer">
-    <span>@Html.Translate("Text_Self_Signed_Secret_Chat")</span>
-        <p>
-            <img src="@Model.UserCreator.AvatarPath" height="30" width="30" />
-        </p>
-    <span class="last_msg_crypto">@Model.LastMessage</span>
+        <div class="chat-head">
+            <img src="@Model.InterlocutorAvatar" />
+            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+            <span>приглашение еще не принято.</span>
+        </div>
+
+    </div>
 </div>

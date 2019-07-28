@@ -16,6 +16,8 @@ namespace Slug.Model
 
     public class CryptoMessage
     {
+        public bool IsIncomming { get; set; }
+
         public string AvatatURI { get; set; }
 
         public string Name { get; set; }

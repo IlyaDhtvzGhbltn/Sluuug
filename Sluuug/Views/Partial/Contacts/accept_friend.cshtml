@@ -2,10 +2,8 @@
 @using Slug.Extensions
 
 
-<div id="friend_@Model.UserId">
-    <div class="friend_div" id="@Model.UserId">
-        <img src="@Model.AvatarPath" height="50" width="50" />
-        <span>@Model.Name  @Model.SurName</span>
-    </div>
-    <input type="button" value="@Html.Translate("Button_Delete_Contact")" onclick="dropFromContacts(@Model.UserId)" />
+<div class="invitation_user" onclick="redirectToFriend(@Model.UserId)">
+        <img src="@Model.AvatarResizeUri" />
+        <h2>@Model.Name @Model.SurName</h2>
+        <button onclick="dropFromContacts(@Model.UserId)">@Html.Translate("Button_Delete_Contact")</button>
 </div>

@@ -13,13 +13,6 @@ namespace Context
         Ru
     }
 
-    public enum PrivateStatus
-    {
-        Alone,
-        Dating,
-        Wedding,
-    }
-
     public enum FriendshipItemStatus
     {
         None,
@@ -76,16 +69,5 @@ namespace Context
         Day,
         Month,
         Year
-    }
-
-    public enum NotificationType
-    {
-        NewMessage = 0,
-        NewInviteVideoConference,
-        NewInviteSecretChat,
-        NewMessageSecret,
-        AcceptYourInviteSecretChat,
-        NewInviteFriendship,
-        AcceptFriendship
     }
 }

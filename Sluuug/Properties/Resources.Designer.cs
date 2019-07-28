@@ -313,7 +313,7 @@ namespace Slug.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to University.
+        ///   Looks up a localized string similar to UniverCity.
         /// </summary>
         internal static string Education_Level_2 {
             get {
