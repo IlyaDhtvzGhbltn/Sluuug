@@ -116,3 +116,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._0.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.phototbo_heightwidth.resources
+D:\SLUG\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll

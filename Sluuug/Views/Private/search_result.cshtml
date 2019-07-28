@@ -10,7 +10,7 @@
 <div id="result_out">
     @foreach (var user in Model.Users)
     {
-        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.BaseUser>(user));
+        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.Users.BaseUser>(user));
     }
 
     @{
@@ -31,7 +31,7 @@
                 page =i })">@i</a>
             }
     }
-
+    //user_sex=1&user_country=7&user_city=495&user_age=0&user_purpose=1&page=1
 
 </div>
 <script src="~/Scripts/RelocationToUser.js"></script>

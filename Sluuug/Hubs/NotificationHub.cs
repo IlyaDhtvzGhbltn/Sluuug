@@ -209,8 +209,6 @@ namespace Slug.Hubs
         }
 
 
-
-
         public async Task AddFriend(int userID)
         {
             var userWorker = new UsersHandler();

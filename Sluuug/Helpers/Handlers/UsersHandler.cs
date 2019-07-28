@@ -116,9 +116,9 @@ namespace Slug.Helpers
                 userModel.Name = user.UserFullInfo.Name;
                 userModel.SurName = user.UserFullInfo.SurName;
                 userModel.HelloMessage = user.UserFullInfo.HelloMessage;
-                userModel.purpose = user.UserFullInfo.DatingPurpose;
-                userModel.userSearchSex = user.UserFullInfo.userDatingSex;
-                userModel.userSearchAge = user.UserFullInfo.userDatingAge;
+                userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
+                userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
+                userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
 
                 var userCountry = context.Countries
                     .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
@@ -754,13 +754,13 @@ namespace Slug.Helpers
                                 s_user.UserFullInfo.HelloMessage = newValue;
                                 break;
                             case UserParams.DatingPurpose:
-                                s_user.UserFullInfo.DatingPurpose = (DatingPurposeEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.DatingPurpose = int.Parse(newValue);
                                 break;
                             case UserParams.DatingSex:
-                                s_user.UserFullInfo.userDatingSex = (SexEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.userDatingSex = int.Parse(newValue);
                                 break;
                             case UserParams.DatingAge:
-                                s_user.UserFullInfo.userDatingAge = (AgeEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.userDatingAge = int.Parse(newValue);
                                 break;
                         }
                         context.SaveChanges();

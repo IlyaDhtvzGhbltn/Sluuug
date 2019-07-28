@@ -1,8 +1,8 @@
-﻿@model Slug.Model.BaseUser
-@using Slug.Extensions;
+﻿@model Slug.Model.Users.BaseUser
+@using Slug.Extensions
 
 
 <div class="found_user" id="user_@Model.UserId" onclick="redirectToUser(@Model.UserId)">
-    <img src="@Model.AvatarResizeUri" height="45" width="45" /><span>@Model.Name @Model.SurName @Model.FullAges</span>
+    <img src="@Model.AvatarResizeUri" height="45" width="45" /><span>@Model.Name @Model.SurName @Model.Age</span>
     <p><b>@Model.Country @Model.City</b></p>
 </div>

@@ -24,6 +24,10 @@ namespace Slug.Model.Users
 
         public string City { get; set; }
 
+        public string Sex { get; set; }
+
+        public int SexCode { get; set; }
+
         public SexEnum userSearchSex { get; set; }
 
         public AgeEnum userSearchAge { get; set; }

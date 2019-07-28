@@ -7,16 +7,21 @@ namespace Slug.Context.Dto.Search
 {
     public class SearchUsersRequest
     {
-        public string userSearchName { get; set; }
+        public string userName { get; set; }
 
-        public int userSearchCountry { get; set; }
+        public int userCountry { get; set; }
 
-        public int userSearchCity { get; set; }
+        public int userCity { get; set; }
 
-        public SexEnum userSearchSex { get; set; }
+        public SexEnum userSex { get; set; }
 
-        public AgeEnum userSearchAge { get; set; }
+        public AgeEnum userAge { get; set; }
 
-        public DatingPurposeEnum purpose { get; set; }
+        public DatingPurposeEnum userDatingPurpose { get; set; }
+
+
+        public int userSearchSex { get; set; }
+
+        public int userSearchAge { get; set; }
     }
 }
