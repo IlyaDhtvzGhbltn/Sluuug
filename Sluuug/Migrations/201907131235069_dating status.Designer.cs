@@ -7,13 +7,13 @@ namespace Sluuug.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class phototbo_heightwidth : IMigrationMetadata
+    public sealed partial class datingstatus : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(phototbo_heightwidth));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(datingstatus));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907250752124_photo.tbo_height+width"; }
+            get { return "201907131235069_dating status"; }
         }
         
         string IMigrationMetadata.Source

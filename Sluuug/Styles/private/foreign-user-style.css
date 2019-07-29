@@ -47,3 +47,7 @@
 .user-comment{
 	font-style:italic;
  }
+
+.help-message{
+    position:relative;
+}

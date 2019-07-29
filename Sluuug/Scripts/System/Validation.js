@@ -41,8 +41,8 @@ function ValidateProfileInfoItem(formName) {
     var validateErrors = 0;
     var errorProperties = [];
 
-    var educationForm = $('*[name="' + formName + '"]');
-    [].forEach.call(educationForm, function (item) {
+    var itemForm = $('*[name="' + formName + '"]');
+    [].forEach.call(itemForm, function (item) {
 
         if (item.required) {
             let valueLength = item.value.length;

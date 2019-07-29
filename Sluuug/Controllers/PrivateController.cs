@@ -251,23 +251,30 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> search_result(string user_name, int user_country, int user_city, int user_sex, int user_age, int page = 1)
+        public async Task<ActionResult> search_result(
+            string user_name, 
+            int user_country, 
+            int user_city, 
+            int user_sex, 
+            int user_age, 
+            int user_purpose, 
+            int user_search_sex = -1, 
+            int user_search_age = -1,
+            int page = 1)
         {
             var parseRequest = new SearchUsersRequest()
             {
-                 userSearchAge = (AgeEnum)user_age,
-                 userSearchCountry = user_country,
-                 userSearchName = user_name,
-                 userSearchCity = user_city,
-                 userSearchSex = (SexEnum)user_sex
+                userCountry = user_country,
+                userName = user_name,
+                userCity = user_city,
+                userAge = (AgeEnum)user_age,
+                userSex = (SexEnum)user_sex,
+                userDatingPurpose = (DatingPurposeEnum)user_purpose,
             };
-            int ownID = this.UsersHandler.GetCurrentProfileInfo(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value).UserId;
-            SearchUsersResponse response = SearchHandler.SearchUsers(parseRequest, ownID, page);
-            //foreach (var item in response.Users)
-            //{
-            //    TimeSpan date = TimeSpan.FromTicks(DateTime.Now.Ticks - item.DateBirth.Ticks);
-            //    item.Age = new DateTime(date.Ticks).Year;
-            //}
+                parseRequest.userSearchAge = user_search_age;
+                parseRequest.userSearchSex = user_search_sex;
+
+            SearchUsersResponse response = SearchHandler.SearchUsers(parseRequest, page);
             return View(response);
         }
 

@@ -20,13 +20,13 @@ function SelectFileAvatar()
 }
 
 function untill_now_date(dateInputId, checkboxId) {
-    let input_elem = $('#' + dateInputId)[0];
     let checbox_elem = $('#' + checkboxId)[0];
     if (checbox_elem.checked === true) {
-        input_elem.disabled = true;
+        $('#' + dateInputId).val(null);
+        $('#' + dateInputId)[0].disabled = true;
     }
     else {
-        input_elem.disabled = false;
+        $('#' + dateInputId)[0].disabled = false;
     }
 }
 
@@ -52,15 +52,45 @@ function VisibleHightShoolParameterInNewEntry(selectedValue) {
         $('#speciality-new-education-entry')[0].style.display = 'none';
 }
 
-
-
-function AddEducation() {
-    let validateResult = ValidateProfileInfoItem('-education');
+function AddProfileEntry(formName, tooltipContainerId, successfulController) {
+    let validateResult = ValidateProfileInfoItem(formName);
     if (!validateResult.successful) {
         [].forEach.call(validateResult.result, function (property) {
-            var emptyRequeredProperty = $('*[name="' + property + '"][id="tooltip-container-education"]');
-            emptyRequeredProperty[0].before.css({"opacity":"1"});
+            var emptyRequeredProperty = $('*[name="' + property + '"][id="' + tooltipContainerId+'"]');
+            var inputContainer = $('*[name="'+formName+'"][property="' + property + '"]');
+            var message = emptyRequeredProperty[0].getAttribute('tooltip_message');
+
+            emptyRequeredProperty[0].setAttribute('tooltip', message);
+            inputContainer[0].style.border = "1px solid #ff5151";
+            setTimeout(function () {
+                inputContainer[0].style.border = "1px solid #7f7f7f";
+                emptyRequeredProperty[0].removeAttribute('tooltip');
+            }, 5000)
+        });
+    }
+    else {
+        $.ajax({
+            type: 'post',
+            url: successfulController,
+            data: { model: validateResult.result },
+            success: function (resp) {
+                if (resp) {
+                    window.location.reload();
+                }
+            }
         });
     }
 }
 
+function DeleteProfileEntry(guid) {
+    $.ajax({
+        type: 'post',
+        url: '/api/drop_entry',
+        data: { EntryId: guid },
+        success: function (resp) {
+            if (resp) {
+                window.location.reload();
+            }
+        }
+    });
+}

@@ -16,9 +16,11 @@
     });
 }
  
-function serchUser() {
+function serchUser(formId) {
+    console.log($("#"+formId+"").serialize());
+
     let domain = window.location.host;
     let protocol = location.protocol;
-    let url = protocol + '//' + domain + '/private/search_result?' + $("#searchSubmit").serialize();
+    let url = protocol + '//' + domain + '/private/search_result?' + $("#" + formId + "").serialize() + '&page=1';
     window.open(url);
 }

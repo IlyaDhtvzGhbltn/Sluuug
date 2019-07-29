@@ -34,34 +34,35 @@
             <li class="quick-search">
                 <div id="search-form">
                     <span>Быстрый поиск</span>
-
-                    <select name="user_sex">
-                        <option value="0">Женщину</option>
-                        <option value="1">Мужчину</option>
-                    </select>
-                    <select id="countryListBoxId" name="user_country" onchange="getCities('countryListBoxId','citiesListBoxId')">
-                        <option value="7">Россия</option>
-                        <option value="1">USA</option>
-                    </select>
-                    <select id="citiesListBoxId" name="user_city">
-                        <option value="495">Москва</option>
-                    </select>
-                    <select name="user_age">
-                        <option value="0">16-20</option>
-                        <option value="1">21-26</option>
-                        <option value="2">27-32</option>
-                        <option value="3">33-40</option>
-                        <option value="4">41-49</option>
-                        <option value="5">50-59</option>
-                        <option value="6">60-69</option>
-                        <option value="7">более 70</option>
-                    </select>
-                    <select>
-                        <option>Дружба и общение</option>
-                        <option>Создание семьи</option>
-                        <option>Секс</option>
-                    </select>
-                    <button>Начать поиск</button>
+                    <form id="searchSubmit">
+                        <select name="user_sex">
+                            <option value="0">Женщину</option>
+                            <option value="1">Мужчину</option>
+                        </select>
+                        <select id="countryListBoxId" name="user_country" onchange="getCities('countryListBoxId','citiesListBoxId')">
+                            <option value="7">Россия</option>
+                            <option value="1">USA</option>
+                        </select>
+                        <select id="citiesListBoxId" name="user_city">
+                            <option value="495">Москва</option>
+                        </select>
+                        <select name="user_age">
+                            <option value="0">16-20</option>
+                            <option value="1">21-26</option>
+                            <option value="2">27-32</option>
+                            <option value="3">33-40</option>
+                            <option value="4">41-49</option>
+                            <option value="5">50-59</option>
+                            <option value="6">60-69</option>
+                            <option value="7">более 70</option>
+                        </select>
+                        <select name="user_purpose">
+                            <option value="0">Серьезные отношения</option>
+                            <option value="1">Дружба и общение</option>
+                            <option value="2">Секс</option>
+                        </select>
+                    </form>
+                    <button onclick="serchUser('searchSubmit')">Начать поиск</button>
                 </div>
             </li>
         </ul>

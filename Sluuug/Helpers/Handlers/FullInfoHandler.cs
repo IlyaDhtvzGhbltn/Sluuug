@@ -147,7 +147,7 @@ namespace Slug.Helpers
                 var lifePlace = new LifePlaces();
                 lifePlace.Id = Guid.NewGuid();
                 lifePlace.Start = model.Start;
-                if (model.UntilNow == true || model.End == null)
+                if (model.UntilNow)
                 {
                     lifePlace.UntilNow = true;
                 }
@@ -200,7 +200,5 @@ namespace Slug.Helpers
                 return true;
             }
         }
-
-
     }
 }

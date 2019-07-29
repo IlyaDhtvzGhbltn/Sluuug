@@ -49,13 +49,17 @@ nav {
 	padding:0px;
 	background-color:#fff;
 }
-#menu li:not(:first-child) span{
-	padding-left:10px;
+#search-form span {
+    margin: 20px 10px 5px 10px;
 }
 
-nav ul{
-	height:100%;
-	margin:0px;
+#searchSubmit{
+    margin-top:10px;
+}
+
+nav ul {
+    height: 100%;
+    margin: 0px;
 }
 
 nav ul li{	
@@ -74,12 +78,10 @@ nav ul li:first-child{
 nav ul li:not(:first-child):not(.quick-search){
 	padding:10px 10px;
 }
-	
 
-ul li:not(.quick-search):hover{
-  background: #95DFE4;
-  	cursor:pointer;
-
+ul li:not(.quick-search):hover {
+    background: #95DFE4;
+    cursor: pointer;
 }
 ul li:hover > span{
 	color:#fff;	
@@ -160,7 +162,9 @@ ul li:hover > span{
 }
 
 #search-form{
-	display:block;
+	display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
 	height:auto;
 	width:100%;
 	position: absolute;
@@ -174,7 +178,7 @@ ul li:hover > span{
 }
 
 #search-form button{
-	margin:2px 2px 2px 2px;
+	margin:5px 2px 2px 10px;
 	padding:4px;
 	height:50px;
 }

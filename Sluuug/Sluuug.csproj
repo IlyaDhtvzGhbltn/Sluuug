@@ -85,6 +85,9 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -216,6 +219,7 @@
     <Content Include="Styles\private\feedBackStyle.css" />
     <Content Include="Styles\private\private_style.css" />
     <Content Include="Styles\private\profile-info-style.css" />
+    <Content Include="Styles\private\search-result-style.css" />
     <Content Include="Styles\private\search-style.css" />
     <Content Include="Styles\private\secret-conversations-style.css" />
     <Content Include="Styles\private\secret-dialog-style.css" />
@@ -296,14 +300,6 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201907231500489_0.cs" />
-    <Compile Include="Migrations\201907231500489_0.Designer.cs">
-      <DependentUpon>201907231500489_0.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907250752124_photo.tbo_height+width.cs" />
-    <Compile Include="Migrations\201907250752124_photo.tbo_height+width.Designer.cs">
-      <DependentUpon>201907250752124_photo.tbo_height+width.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -483,12 +479,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907231500489_0.resx">
-      <DependentUpon>201907231500489_0.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907250752124_photo.tbo_height+width.resx">
-      <DependentUpon>201907250752124_photo.tbo_height+width.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>

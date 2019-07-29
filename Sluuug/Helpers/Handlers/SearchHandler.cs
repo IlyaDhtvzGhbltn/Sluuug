@@ -1,15 +1,18 @@
 ﻿using Context;
 using Slug.Context.Dto.Search;
+using Slug.Context.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Linq.Expressions;
+using System.Linq.Dynamic;
+using Slug.ImageEdit;
 
 namespace Slug.Helpers
 {
     public class SearchHandler
     {
-        private const int usersOnPage = 5;
+        private const int usersOnPage = 16;
 
         private readonly IDictionary<AgeEnum, DatesUserSearch> datesOfBirth =
             new Dictionary<AgeEnum, DatesUserSearch>()
@@ -64,7 +67,7 @@ namespace Slug.Helpers
             }
         }
 
-        public SearchUsersResponse SearchUsers(SearchUsersRequest request, int insteadUserID, int page)
+        public SearchUsersResponse SearchUsers(SearchUsersRequest request, int page)
         {
             if (page <= 0)
                 page = 1;
@@ -72,22 +75,40 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                var maxDate = datesOfBirth[request.userSearchAge].UserMaxDateOfBirth;
-                var minDate = datesOfBirth[request.userSearchAge].UserMinDateOfBirth;
+                var maxDate = datesOfBirth[request.userAge].UserMaxDateOfBirth;
+                var minDate = datesOfBirth[request.userAge].UserMinDateOfBirth;
 
-                List<Context.Tables.User> result = context.Users
-                    .Where(x =>
-                    x.Id != insteadUserID &&
-                    x.UserFullInfo.NowCityCode == request.userSearchCity &&
-                    x.UserFullInfo.NowCountryCode == request.userSearchCountry &&
-                    x.UserFullInfo.Sex == request.userSearchSex &&
-                    x.UserFullInfo.DateOfBirth < maxDate &&
-                    x.UserFullInfo.DateOfBirth > minDate &&
-                    (x.UserFullInfo.Name + " " + x.UserFullInfo.SurName).Contains(request.userSearchName)
-                    )
+                string predicate = 
+                    string.Format(
+                        "UserFullInfo.NowCityCode=={0}&&" +
+                        "UserFullInfo.NowCountryCode=={1}&&"+
+                        "UserFullInfo.Sex=={2}&&"+
+                        "UserFullInfo.DatingPurpose=={3}",
+                        request.userCity, 
+                        request.userCountry,
+                        (int)request.userSex, 
+                        (int)request.userDatingPurpose);
+                //+@" &&
+                //UserFullInfo.DateOfBirth < "+maxDate + @"&&
+                //UserFullInfo.DateOfBirth > "+minDate;
+
+                if (!string.IsNullOrWhiteSpace(request.userName))
+                    predicate = predicate + string.Format("&&UserFullInfo.Name==\"{0}\"||UserFullInfo.SurName==\"{0}\"", request.userName); ;
+                if (request.userSearchSex != -1)
+                    predicate = predicate + string.Format("&&UserFullInfo.userDatingSex=={0}", request.userSearchSex);
+                if (request.userSearchAge != -1)
+                    predicate = predicate + string.Format("&&UserFullInfo.userDatingAge=={0}", request.userSearchAge);
+
+                List<User> result = context.Users
+                    .AsQueryable()
+                    .Where(predicate)
+                    .OrderBy(x => x.Id)
+                    .Skip((page - 1) * usersOnPage)
+                    .Take(usersOnPage)
                     .ToList();
 
-                int multipleCount = result.Count;
+                int multipleCount = context.Users.AsQueryable().Where(predicate).Count();
+
                 decimal del = ((decimal)multipleCount / (decimal)usersOnPage);
                 int resMultiple = Convert.ToInt32(Math.Ceiling(del));
                 if (page > resMultiple)
@@ -96,17 +117,20 @@ namespace Slug.Helpers
                 responce.PagesCount = resMultiple;
 
                 responce.Users = result
-                    .Skip((page - 1) * usersOnPage)
-                    .Take(usersOnPage)
-                    .Select(collect => new Model.Users.BaseUser
-                {
-                    UserId = collect.Id,
-                    AvatarResizeUri = context.Avatars.First(ava => ava.Id == collect.AvatarId).ImgPath,
-                    Country = context.Countries.First(country => collect.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title,
-                    City = context.Cities.First(cit => collect.UserFullInfo.NowCityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title,
-                    SurName = collect.UserFullInfo.SurName,
-                    Name = collect.UserFullInfo.Name
-                })
+                    .Select(user => new Model.Users.BaseUser
+                    {
+                        Age = DateTime.Now.Year - user.UserFullInfo.DateOfBirth.Year, 
+                        UserId = user.Id,
+                        AvatarResizeUri = Resize.ResizedAvatarUri(context.Avatars.First(ava => ava.Id == user.AvatarId).ImgPath, ModTypes.c_scale, 100, 100),
+                        Country = context.Countries.First(country => user.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title,
+                        City = context.Cities.First(cit => user.UserFullInfo.NowCityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title,
+                        SurName = user.UserFullInfo.SurName,
+                        Name = user.UserFullInfo.Name,
+                        HelloMessage = user.UserFullInfo.HelloMessage,
+                        purpose = (DatingPurposeEnum) user.UserFullInfo.DatingPurpose,
+                        userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex,
+                        userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge
+                    })
                     .ToList();
 
             }

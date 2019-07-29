@@ -4,11 +4,15 @@
 <div class="info-item education">
     <div class="item-info">
         <h3>@Model.Title</h3>
+        @if (Model.Specialty != null)
+        {
+            <span>@Model.Specialty</span>
+        }
         <span>@Model.Country @Model.City</span>
-        <span>@Model.Start - @Model.End</span>
+        <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
         <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
     </div>
     <div class="item-delete">
-        <button id="@Model.EntryId" class="delete-button" onclick="dropEntry(this)">Удалить</button>
+        <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>
     </div>
 </div>

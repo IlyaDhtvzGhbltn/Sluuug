@@ -90,7 +90,7 @@ namespace Slug.Controllers
         {
             var handler = new SearchHandler();
 
-            SearchUsersResponse responce = handler.SearchUsers(request, 0, page);
+            SearchUsersResponse responce = handler.SearchUsers(request, page);
             return new JsonResult() { };
         }
 

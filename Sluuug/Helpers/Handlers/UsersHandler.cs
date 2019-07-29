@@ -20,6 +20,7 @@ using NLog;
 using Slug.ImageEdit;
 using Slug.Model.Users.Relations;
 using Slug.Context.Dto.Search;
+using System.Globalization;
 
 namespace Slug.Helpers
 {
@@ -115,9 +116,9 @@ namespace Slug.Helpers
                 userModel.Name = user.UserFullInfo.Name;
                 userModel.SurName = user.UserFullInfo.SurName;
                 userModel.HelloMessage = user.UserFullInfo.HelloMessage;
-                userModel.purpose = user.UserFullInfo.DatingPurpose;
-                userModel.userSearchSex = user.UserFullInfo.userDatingSex;
-                userModel.userSearchAge = user.UserFullInfo.userDatingAge;
+                userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
+                userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
+                userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
 
                 var userCountry = context.Countries
                     .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
@@ -144,86 +145,93 @@ namespace Slug.Helpers
                 var Educations = user.UserFullInfo.Educations;
                 userModel.Educations = new List<EducationModel>();
 
-                Educations.ForEach(x=>
-                userModel.Educations.Add(new EducationModel()
+                Educations.ForEach(x =>
                 {
-                    Comment = x.Comment,
-                    EducationType = x.EducationType,
-                    End = x.End,
-                    //Faculty = x.Faculty,
-                    Start = x.Start,
-                    Specialty = x.Specialty,
-                    UntilNow = x.UntilNow,
-                    Title = x.Title,
-                    Id = x.Id,
+                    string endDate = (x.End == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.End).ToString("D");
+                    userModel.Educations.Add(new EducationModel()
+                    {
+                        Comment = x.Comment,
+                        EducationType = x.EducationType,
+                        //Faculty = x.Faculty,
+                        StartDateFormat = x.Start.ToString("D", CultureInfo.CreateSpecificCulture("ru-RU")),
+                        EndDateFormat = endDate,
 
-                    Country = context.Countries
-                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                    .First().Title,
+                        Specialty = x.Specialty,
+                        UntilNow = x.UntilNow,
+                        Title = x.Title,
+                        Id = x.Id,
 
-                     City = context.Cities
-                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                    .First().Title
+                        Country = context.Countries
+                        .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                        .First().Title,
 
-                }));
+                        City = context.Cities
+                        .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
+                        .First().Title
+
+                    });
+                });
 
                 var Events = user.UserFullInfo.Events;
                 userModel.Events = new List<MemorableEventsModel>();
-                Events.ForEach(x =>
-                userModel.Events.Add(new MemorableEventsModel()
-                {
-                    Comment = x.EventComment,
-                    DateEvent = x.DateEvent,
-                    EventTitle = x.EventTitle,
-                    Id = x.Id,
-
-                })
-                );
+                Events.ForEach(x => {
+                    string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.DateEvent).ToString("D");
+                    userModel.Events.Add(new MemorableEventsModel()
+                    {
+                        Comment = x.EventComment,
+                        StartDateFormat = endDate,
+                        EventTitle = x.EventTitle,
+                        Id = x.Id,
+                    });
+                });
 
                 var Works = user.UserFullInfo.Works;
                 userModel.Works = new List<WorkPlacesModel>();
-                Works.ForEach(x=>
-                userModel.Works.Add(new WorkPlacesModel()
-                {
-                    Comment = x.Comment,
-                    CompanyTitle = x.CompanyTitle,
-                    Position = x.Position,
-                    Start = x.Start,
-                    End = x.End,
-                    UntilNow = x.UntilNow,
-                    Id = x.Id,
+                Works.ForEach(x => {
+                    string endDate = (x.Start == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.Start).ToString("D");
 
+                    userModel.Works.Add(new WorkPlacesModel()
+                    {
+                        Comment = x.Comment,
+                        CompanyTitle = x.CompanyTitle,
+                        Position = x.Position,
+                        StartDateFormat = x.Start.ToString("D"),
+                        EndDateFormat = endDate,
+                        UntilNow = x.UntilNow,
+                        Id = x.Id,
 
-                    Country = context.Countries
-                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                    .First().Title,
+                        Country = context.Countries
+                        .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                        .First().Title,
 
-                    City = context.Cities
-                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                    .First().Title
-
-                })
-                );
+                        City = context.Cities
+                        .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
+                        .First().Title
+                    });
+                });
 
                 var Places = user.UserFullInfo.Places;
                 userModel.Places = new List<LifePlacesModel>();
-                Places.ForEach(x=>
-                userModel.Places.Add(new LifePlacesModel()
+                Places.ForEach(x =>
                 {
-                    Comment = x.Comment,
-                    Start = x.Start,
-                    End = x.End,
-                    UntilNow = x.UntilNow,
-                    Id = x.Id,
+                    string endDate = (x.End == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.End).ToString("D");
+                    userModel.Places.Add(new LifePlacesModel()
+                    {
+                        Comment = x.Comment,
+                        StartDateFormat = x.Start.ToString("D"),
+                        EndDateFormat = endDate,
+                        UntilNow = x.UntilNow,
+                        Id = x.Id,
 
-                    Country = context.Countries
-                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                    .First().Title,
+                        Country = context.Countries
+                        .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+                        .First().Title,
 
-                    City = context.Cities
-                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                    .First().Title
-                }));
+                        City = context.Cities
+                        .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
+                        .First().Title
+                    });
+                });
 
                 List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
                 userModel.Albums = new List<AlbumModel>();
@@ -408,7 +416,7 @@ namespace Slug.Helpers
                     userModel.AvatarResizeUri = avatar.ImgPath;
                     userModel.UserId = user.Id;
                     userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
-
+                    userModel.HelloMessage = user.UserFullInfo.HelloMessage;
                 }
                 catch (Exception)
                 {
@@ -641,7 +649,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var userInfo = GetUserInfo(userID);
-                model.AvatarResizeUri = userInfo.AvatarResizeUri;
+                model.AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 200, 200);
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;
                 FriendsRelationship relationItem = context.FriendsRelationship
@@ -649,6 +657,8 @@ namespace Slug.Helpers
                     x.UserOferFrienshipSender == userID && x.UserConfirmer == userInfo.UserId )
                     .FirstOrDefault();
                 model.Status = FriendshipItemStatus.None;
+                model.Age = userInfo.Age;
+                model.HelloMessage = userInfo.HelloMessage;
 
                 if (relationItem != null)
                 {
@@ -746,13 +756,13 @@ namespace Slug.Helpers
                                 s_user.UserFullInfo.HelloMessage = newValue;
                                 break;
                             case UserParams.DatingPurpose:
-                                s_user.UserFullInfo.DatingPurpose = (DatingPurposeEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.DatingPurpose = int.Parse(newValue);
                                 break;
                             case UserParams.DatingSex:
-                                s_user.UserFullInfo.userDatingSex = (SexEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.userDatingSex = int.Parse(newValue);
                                 break;
                             case UserParams.DatingAge:
-                                s_user.UserFullInfo.userDatingAge = (AgeEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.userDatingAge = int.Parse(newValue);
                                 break;
                         }
                         context.SaveChanges();

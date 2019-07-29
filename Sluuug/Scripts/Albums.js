@@ -21,6 +21,14 @@
             }
         });
     }
+    else {
+        $('#tooltip-container-album')[0].setAttribute('tooltip', 'Необходимо название');
+        $('#album-title')[0].style.border = "1px solid #ff5151";
+        setTimeout(function () {
+            $('#album-title')[0].style.border = "1px solid #7f7f7f";
+            $('#tooltip-container-album')[0].removeAttribute('tooltip');
+        }, 5000)
+    }
 }
 
 

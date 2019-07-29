@@ -13,7 +13,11 @@ namespace Slug.Model.FullInfo
 
         public DateTime Start { get; set; }
 
+        public string StartDateFormat { get; set; }
+
         public DateTime? End { get; set; }
+
+        public string EndDateFormat { get; set; }
 
         public bool UntilNow { get; set; }
 

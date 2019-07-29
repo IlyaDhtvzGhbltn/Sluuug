@@ -5,16 +5,13 @@
 <title>Поиск Знакомств</title>
 <link href="~/Styles/private/search-style.css" rel="stylesheet" />
 
-<h1>@Html.Translate("Search_Title")</h1>
+<h1>Расширенный поиск</h1>
 <div class="advanced-search">
-    <form id="searchSubmit" action="" method="post">
+    <form id="advancedSearchSubmit" action="" method="post">
         <div class="search -name" tooltip="Не обязательно">
             <span>Имя</span>
             <input type="text" name="user_name">
         </div>
-
-
-
         <div class="search -location">
             <div class="search -location-country">
                 <span>@Html.Translate("Saerch_Country")</span>
@@ -54,17 +51,38 @@
             </select>
         </div>
 
-        <div class="search -purpose" tooltip="Найдите людей с похожими целями">
+        <div class="search -purpose" tooltip="Найдите людей с такой же целью знакомств">
             <span>Цель знакомства</span>
-            <select name="purpose">
-                <option>Дружба и общение</option>
-                <option>Создание семьи</option>
-                <option>Секс</option>
+            <select name="user_purpose">
+                <option value="0">Серьезные отношения</option>
+                <option value="1">Дружба и общение</option>
+                <option value="2">Секс</option>
             </select>
         </div>
-
+        <br />
+        <div class="search -user-sex"  tooltip="Найдите людей которые знакомятся только с пользователями c соответствующими параметрам">
+            <span>Ищу того кто ищет</span>
+            <select name="user_search_sex">
+                <option value="1">Мужчину</option>
+                <option value="0">Женщину</option>
+            </select>
+        </div>
+        
+        <div class="search -user-age">
+            <span>Возрастом</span>
+            <select name="user_search_age">
+                <option value="0">16-20</option>
+                <option value="1">21-26</option>
+                <option value="2">27-32</option>
+                <option value="3">33-40</option>
+                <option value="4">41-49</option>
+                <option value="5">50-59</option>
+                <option value="6">60-69</option>
+                <option value="7">> 70</option>
+            </select>
+        </div>
     </form>
-    <button onclick="serchUser()">@Html.Translate("Button_Saerch_Start")</button>
+    <button class="search-button" onclick="serchUser('advancedSearchSubmit')">@Html.Translate("Button_Saerch_Start")</button>
 
 </div>
 <script src="~/Scripts/System/ParseFormArray.js"></script>

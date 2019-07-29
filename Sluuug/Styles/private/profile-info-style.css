@@ -149,6 +149,12 @@
 }
  
  /* EXPAND INFO ITEM START */
+.expanded-info {
+    max-height: 0;
+    transition: all .5s ease-out;
+    overflow: hidden;
+}
+
 .expand-checkbox:checked + .expand {
     width: 0;
     height: 0;

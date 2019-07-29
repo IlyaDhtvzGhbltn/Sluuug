@@ -28,7 +28,7 @@ namespace Slug.Context.Tables
         public string SurName { get; set; }
 
         [Required]
-        public SexEnum Sex { get; set; }
+        public int Sex { get; set; }
 
         public int NowCountryCode { get; set; }
 
@@ -36,11 +36,11 @@ namespace Slug.Context.Tables
 
         public string HelloMessage { get; set; }
 
-        public SexEnum userDatingSex { get; set; }
+        public int userDatingSex { get; set; }
 
-        public DatingPurposeEnum DatingPurpose { get; set; }
+        public int DatingPurpose { get; set; }
 
-        public AgeEnum userDatingAge { get; set; }
+        public int userDatingAge { get; set; }
 
 
         public virtual List<Education> Educations { get; set; }
