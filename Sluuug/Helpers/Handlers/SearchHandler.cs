@@ -83,17 +83,19 @@ namespace Slug.Helpers
                         "UserFullInfo.NowCityCode=={0}&&" +
                         "UserFullInfo.NowCountryCode=={1}&&"+
                         "UserFullInfo.Sex=={2}&&"+
-                        "UserFullInfo.DatingPurpose=={3}",
+                        "UserFullInfo.DatingPurpose=={3}&&"+
+                        "UserFullInfo.DateOfBirth>={4}&&" +
+                        "UserFullInfo.DateOfBirth<={5}",
                         request.userCity, 
                         request.userCountry,
                         (int)request.userSex, 
-                        (int)request.userDatingPurpose);
-                //+@" &&
-                //UserFullInfo.DateOfBirth < "+maxDate + @"&&
-                //UserFullInfo.DateOfBirth > "+minDate;
+                        (int)request.userDatingPurpose,
+                        string.Format("DateTime({0})", minDate.ToString("yyyy,MM,dd")),
+                        string.Format("DateTime({0})", maxDate.ToString("yyyy,MM,dd"))
+                        );
 
                 if (!string.IsNullOrWhiteSpace(request.userName))
-                    predicate = predicate + string.Format("&&UserFullInfo.Name==\"{0}\"||UserFullInfo.SurName==\"{0}\"", request.userName); ;
+                    predicate = predicate + string.Format("&&(UserFullInfo.Name.Contains(\"{0}\")||UserFullInfo.SurName.Contains(\"{0}\"))", request.userName); ;
                 if (request.userSearchSex != -1)
                     predicate = predicate + string.Format("&&UserFullInfo.userDatingSex=={0}", request.userSearchSex);
                 if (request.userSearchAge != -1)

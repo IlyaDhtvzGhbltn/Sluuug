@@ -13,9 +13,6 @@ namespace Slug.Context.Tables
         public string Login { get; set; }
 
         [Required]
-        public int CountryCode { get; set; }
-
-        [Required]
         public int UserStatus { get; set; }
 
         public int? AvatarId { get; set; }

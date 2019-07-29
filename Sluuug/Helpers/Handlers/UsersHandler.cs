@@ -46,7 +46,7 @@ namespace Slug.Helpers
                     var newUser = new User();
                     newUser.Settings = new UserSettings();
                     newUser.UserFullInfo = new UserInfo();
-                    newUser.CountryCode = user.CountryCode;
+                    newUser.UserFullInfo.NowCountryCode = user.CountryCode;
                     newUser.UserFullInfo.DateOfBirth = user.DateBirth;
                     newUser.Settings.Email = user.Email;
                     newUser.UserFullInfo.Name = user.Name;
@@ -417,6 +417,9 @@ namespace Slug.Helpers
                     userModel.UserId = user.Id;
                     userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
                     userModel.HelloMessage = user.UserFullInfo.HelloMessage;
+                    userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
+                    userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
+                    userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
                 }
                 catch (Exception)
                 {
@@ -652,14 +655,17 @@ namespace Slug.Helpers
                 model.AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 200, 200);
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;
-                FriendsRelationship relationItem = context.FriendsRelationship
-                    .Where(x => x.UserConfirmer == userID && x.UserOferFrienshipSender == userInfo.UserId ||
-                    x.UserOferFrienshipSender == userID && x.UserConfirmer == userInfo.UserId )
-                    .FirstOrDefault();
-                model.Status = FriendshipItemStatus.None;
                 model.Age = userInfo.Age;
                 model.HelloMessage = userInfo.HelloMessage;
-
+                model.userSearchAge = userInfo.userSearchAge;
+                model.userSearchSex = userInfo.userSearchSex;
+                model.purpose = userInfo.purpose;
+                
+                model.Status = FriendshipItemStatus.None;
+                FriendsRelationship relationItem = context.FriendsRelationship
+                    .Where(x => x.UserConfirmer == userID && x.UserOferFrienshipSender == userInfo.UserId ||
+                    x.UserOferFrienshipSender == userID && x.UserConfirmer == userInfo.UserId)
+                    .FirstOrDefault();
                 if (relationItem != null)
                 {
                     model.Status = relationItem.Status;
