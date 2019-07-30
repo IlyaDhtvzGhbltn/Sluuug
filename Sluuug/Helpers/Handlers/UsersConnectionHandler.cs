@@ -4,6 +4,7 @@ using Slug.Context.Tables;
 using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,17 +15,17 @@ namespace Slug.Helpers
     {
         public async Task AddConnection(string connectionID, string session, string ipAddress)
         {
-            UsersHandler UW = new UsersHandler();
+            UsersHandler usersHandler = new UsersHandler();
             using (var context = new DataBaseContext())
             {
                 CultureByIpChecker cultureDetecter = new CultureByIpChecker(ipAddress);
                 string cultureCode = cultureDetecter.GetCulture().Name;
 
                 var connectionItem = new UserConnections();
-                connectionItem.ConnectionID = Guid.Parse( connectionID );
-                connectionItem.ConnectionTime = DateTime.UtcNow;
-                connectionItem.ConnectionActiveStatus = true;
-                connectionItem.UserID = UW.GetCurrentProfileInfo(session).UserId;
+                connectionItem.ConnectionId = Guid.Parse( connectionID );
+                connectionItem.OpenTime = DateTime.UtcNow;
+                connectionItem.IsActive = true;
+                connectionItem.UserId = usersHandler.UserIdBySession(session);
                 connectionItem.IpAddress = ipAddress;
                 connectionItem.CultureCode = cultureCode;
 
@@ -33,23 +34,27 @@ namespace Slug.Helpers
             }
         }
 
-        public void CloseConnection(string connectionID, string session)
+        public async Task CloseConnection(string session)
         {
-            UsersHandler UW = new UsersHandler();
-            Guid guidID = Guid.Parse (connectionID);
-            int userID = UW.GetCurrentProfileInfo(session).UserId;
+            UsersHandler userHandler = new UsersHandler();
+            int userID = userHandler.UserIdBySession(session);
 
             using (var context = new DataBaseContext())
             {
-                List<UserConnections> connectionItems = context.UserConnections
-                    .Where(x =>x.UserID == userID)
-                    .ToList();
+                List<UserConnections> connectionItems =  await
+                    context.UserConnections.Where(
+                    x =>x.UserId == userID &&
+                    x.IsActive == true
+                    ).ToListAsync();
 
-                foreach (var item in connectionItems)
+                if (connectionItems.Count > 0)
                 {
-                    item.ConnectionActiveStatus = false;
+                    foreach (var item in connectionItems)
+                    {
+                        item.IsActive = false;
+                    }
+                    await context.SaveChangesAsync();
                 }
-                context.SaveChanges();
             }
         }
 
@@ -58,7 +63,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var userConnect = context.UserConnections
-                    .Where(x => x.UserID == userID && x.ConnectionActiveStatus == true)
+                    .Where(x => x.UserId == userID && x.IsActive == true)
                     .ToList();
 
                 UserConnectionIdModel connections = new UserConnectionIdModel()
@@ -68,7 +73,7 @@ namespace Slug.Helpers
                 };
                 userConnect.ForEach(x => 
                 {
-                    connections.ConnectionId.Add(x.ConnectionID.ToString());
+                    connections.ConnectionId.Add(x.ConnectionId.ToString());
                     connections.CultureCode.Add(x.CultureCode);
                 });
 
@@ -89,12 +94,12 @@ namespace Slug.Helpers
                 foreach (int item in userID)
                 {
                     var userConnections = context.UserConnections
-                    .Where(x => x.UserID == item && x.ConnectionActiveStatus == true)
+                    .Where(x => x.UserId == item && x.IsActive == true)
                     .ToList();
 
                     foreach (var connection in userConnections)
                     {
-                        connections.ConnectionId.Add(connection.ConnectionID.ToString());
+                        connections.ConnectionId.Add(connection.ConnectionId.ToString());
                         connections.CultureCode.Add(connection.CultureCode);
                     }
                 }
@@ -116,12 +121,12 @@ namespace Slug.Helpers
                 User user = context.Users.First(x => x.Id == session.UserId);
 
                 List<UserConnections> userConnect = context.UserConnections
-                    .Where(x => x.UserID == user.Id && x.ConnectionActiveStatus == true)
+                    .Where(x => x.UserId == user.Id && x.IsActive == true)
                     .ToList();
 
                 userConnect.ForEach(x=> 
                 {
-                    connections.ConnectionId.Add(x.ConnectionID.ToString());
+                    connections.ConnectionId.Add(x.ConnectionId.ToString());
                     connections.CultureCode.Add(x.CultureCode);
                 });
                 return connections;

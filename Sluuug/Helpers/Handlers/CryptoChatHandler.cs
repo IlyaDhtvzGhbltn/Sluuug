@@ -73,7 +73,7 @@ namespace Slug.Helpers
 
             model.FriendsICanInvite = new List<FriendModel>();
 
-            MyFriendsModel friends = userHandler.GetFriendsBySession(sessionId, 45);
+            MyFriendsModel friends = userHandler.GetFriendsBySession(sessionId, 50);
             BaseUser userInformation = userHandler.GetCurrentProfileInfo(sessionId);
 
             foreach (var item in friends.Friends)
@@ -121,9 +121,9 @@ namespace Slug.Helpers
                         chat.InterlocutorName = interlocutor.Name;
                         chat.InterlocutorSurName = interlocutor.SurName;
                         if (status == CryptoChatStatus.SelfCreated)
-                            chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 45);
+                            chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 50, 50);
                         else
-                            chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 100);
+                            chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 50, 50);
 
                         //chat.Expired = false;
                         var GuidId = chatGroup.PartyGUID.ToString();
@@ -134,7 +134,7 @@ namespace Slug.Helpers
                             chat.LastMessage = last.Text;
                             chat.LastMessageSendDate = last.SendingDate;
                             string lastSenderAvatar = userHandler.GetFullUserInfo(last.UserSender).AvatarResizeUri;
-                            chat.UserLastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSenderAvatar, ModTypes.c_scale, 45);
+                            chat.UserLastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSenderAvatar, ModTypes.c_scale, 50, 50);
                         }
 
 
@@ -189,8 +189,8 @@ namespace Slug.Helpers
                 page = 1;
 
             var model = new CryptoDialogModel();
-            var userWorker = new UsersHandler();
-            int userReaderID = userWorker.GetCurrentProfileInfo(session).UserId;
+            var usersHandler = new UsersHandler();
+            int userReaderID = usersHandler.UserIdBySession(session);
 
             var userInfos = new Dictionary<int, BaseUser>();
 
@@ -223,7 +223,7 @@ namespace Slug.Helpers
                 {
                     if (!userInfos.ContainsKey(item.UserSender))
                     {
-                        userInfos[item.UserSender] = userWorker.GetUserInfo(item.UserSender);
+                        userInfos[item.UserSender] = usersHandler.GetUserInfo(item.UserSender);
                     }
                     bool incommingFlag = false;
                     if (userReaderID != item.UserSender)
@@ -232,7 +232,7 @@ namespace Slug.Helpers
                     var CrMessage = new CryptoMessage()
                     {
                         SendDate = item.SendingDate,
-                        AvatatURI = Resize.ResizedAvatarUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 50),
+                        AvatatURI = Resize.ResizedAvatarUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 50, 50),
                         Text = item.Text,
                         Name = userInfos[item.UserSender].Name,
                         SurName = userInfos[item.UserSender].SurName,

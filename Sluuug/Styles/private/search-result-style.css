@@ -10,10 +10,9 @@
 .found_user:hover {
     background-color: rgb(162, 236, 243);
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
-
 }
 
-.search-result-pagination {
+.result-pagination {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -28,7 +27,7 @@
     padding-bottom: 20px;
 }
 
-.search-result-pagination .search-link-container{
+.result-pagination .search-link-container{
     margin:4px;
     height:25px;
     transition:all .3s ease;
@@ -40,17 +39,17 @@
 
 
 
-.search-result-pagination .search-link-container:hover > a{
+.result-pagination .search-link-container:hover > a{
     color:white;
 }
 
 .selected-page-container,
-.search-result-pagination .search-link-container:hover {
+.result-pagination .search-link-container:hover {
     background-color: #7db7af;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
 }
 
-.search-result-pagination .search-link-container a{
+.result-pagination .search-link-container a{
     text-decoration:none;
     text-align:center;
     color:#7f7f7f;

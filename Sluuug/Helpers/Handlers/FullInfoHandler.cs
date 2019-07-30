@@ -81,7 +81,7 @@ namespace Slug.Helpers
         public bool AddEducationEntry(EducationModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userId = handler.UserIdBySession(session);
 
             using (var context = new DataBaseContext())
             {
@@ -93,7 +93,7 @@ namespace Slug.Helpers
                 newEducation.CountryCode = int.Parse(model.Country);
                 newEducation.CityCode = int.Parse(model.City);
                 newEducation.Comment = model.Comment;
-                newEducation.User = context.Users.First(x => x.Id == userID);
+                newEducation.User = context.Users.First(x => x.Id == userId);
 
                 if (model.UntilNow || model.End == null)
                 {
@@ -109,7 +109,7 @@ namespace Slug.Helpers
                     newEducation.Specialty = model.Specialty;
                 }
 
-                User user = context.Users.First(x => x.Id == userID);
+                User user = context.Users.First(x => x.Id == userId);
                 user.UserFullInfo.Educations.Add(newEducation);
                 context.SaveChanges();
                 return true;
@@ -119,7 +119,7 @@ namespace Slug.Helpers
         public bool AddMemEventEntry(MemorableEventsModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userId = handler.UserIdBySession(session);
 
             using (var context = new DataBaseContext())
             {
@@ -128,9 +128,9 @@ namespace Slug.Helpers
                 newEducation.EventTitle = model.EventTitle;
                 newEducation.DateEvent = model.DateEvent;
                 newEducation.EventComment = model.Comment;
-                newEducation.User = context.Users.First(x => x.Id == userID);
+                newEducation.User = context.Users.First(x => x.Id == userId);
 
-                User user = context.Users.First(x => x.Id == userID);
+                User user = context.Users.First(x => x.Id == userId);
                 user.UserFullInfo.Events.Add(newEducation);
                 context.SaveChanges();
                 return true;
@@ -140,7 +140,7 @@ namespace Slug.Helpers
         public bool AddLifePlacesEntry(LifePlacesModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userId = handler.UserIdBySession(session);
 
             using (var context = new DataBaseContext())
             {
@@ -159,10 +159,10 @@ namespace Slug.Helpers
                 lifePlace.Comment = model.Comment;
                 lifePlace.CountryCode = int.Parse(model.Country);
                 lifePlace.CityCode = int.Parse(model.City);
-                lifePlace.User = context.Users.First(x => x.Id == userID);
+                lifePlace.User = context.Users.First(x => x.Id == userId);
 
 
-                User user = context.Users.First(x => x.Id == userID);
+                User user = context.Users.First(x => x.Id == userId);
                 user.UserFullInfo.Places.Add(lifePlace);
                 context.SaveChanges();
                 return true;
@@ -172,7 +172,7 @@ namespace Slug.Helpers
         public bool AddWorkPlacesEntry(WorkPlacesModel model, string session)
         {
             var handler = new UsersHandler();
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userId = handler.UserIdBySession(session);
 
             using (var context = new DataBaseContext())
             {
@@ -192,9 +192,9 @@ namespace Slug.Helpers
                 {
                     workPlaces.End = model.End;
                 }
-                workPlaces.User = context.Users.First(x => x.Id == userID);
+                workPlaces.User = context.Users.First(x => x.Id == userId);
 
-                User user = context.Users.First(x => x.Id == userID);
+                User user = context.Users.First(x => x.Id == userId);
                 user.UserFullInfo.Works.Add(workPlaces);
                 context.SaveChanges();
                 return true;

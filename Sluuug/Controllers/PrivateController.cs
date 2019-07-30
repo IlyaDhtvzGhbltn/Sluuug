@@ -127,8 +127,8 @@ namespace Slug.Controllers
             bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, id);
             if (verifyConvers)
             {
-                int userID = UsersHandler.GetCurrentProfileInfo(sessionId).UserId;
-                DialogModel dialog = DialogsHandler.GetMessanges(id, userID, page);
+                int userId = UsersHandler.UserIdBySession(sessionId);
+                DialogModel dialog = DialogsHandler.GetMessanges(id, userId, page);
                 dialog.DialogId = id;
                 return View(dialog);
             }
@@ -142,7 +142,7 @@ namespace Slug.Controllers
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
 
             var friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
-            int ownId = UsersHandler.GetCurrentProfileInfo(sessionId).UserId;
+            int ownId = UsersHandler.UserIdBySession(sessionId);
             if (ownId != id)
             {
                 if (friends)
@@ -163,7 +163,7 @@ namespace Slug.Controllers
         public async Task<ActionResult> friend(int id)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int ownId = UsersHandler.GetCurrentProfileInfo(sessionId).UserId;
+            int ownId = UsersHandler.UserIdBySession(sessionId);
 
             if (ownId != id)
             {
@@ -286,10 +286,10 @@ namespace Slug.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<ActionResult> notification_history()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult> notification_history()
+        //{
+        //    return View();
+        //}
     }
 }

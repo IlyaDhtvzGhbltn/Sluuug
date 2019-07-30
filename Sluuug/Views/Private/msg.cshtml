@@ -4,14 +4,16 @@
 }
 @model  Slug.Model.DialogModel
 @using Slug.Extensions;
+<link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 <link href="~/Styles/private/dialog-style.css" rel="stylesheet" />
-<link href="~/Styles/private/triangle.css" rel="stylesheet" />
 
 <title>На связи @Model.Interlocutor</title>
-<div class="dialog_pages">
+<div class="result-pagination">
     @for (int i = 1; i <= Model.PagesCount; i++)
     {
-        <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
+        <div class="search-link-container" id="pagination-link-@i">
+            <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
+        </div>
     }
 </div>
 <div class="dialog">
@@ -29,14 +31,16 @@
 <div class="send_msg">
     <textarea id="new_msg"></textarea>
     <p>
-        <button id="sendButton" name="@Model.DialogId">@Html.Translate("Button_Send_Message")</button>
+        <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
     </p>
 </div>
 
 <script src="~/Scripts/chatp2pWS.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/Profile/SelectPaginationActivePage.js"></script>
 <script>
-    window.onload = function () {
+    $(document).ready(function () {
         var objDiv = $(".dialog")[0];
         objDiv.scrollTop = objDiv.scrollHeight;
-    }</script>
+    });
+</script>

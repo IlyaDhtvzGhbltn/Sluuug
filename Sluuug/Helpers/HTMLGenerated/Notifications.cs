@@ -43,13 +43,25 @@ namespace Slug.Helpers.HTMLGenerated
         {
             StringBuilder sb = new StringBuilder();
             CultureInfo cul = CultureInfo.CreateSpecificCulture(culture);
-            string mess = Properties.Resources.ResourceManager.GetString(typeToResx[type], cul);
-            sb.AppendFormat("<span>{0} {1} {2}</span>", mess, model.Name, model.SurName);
-            string uriAvatar = Resize.ResizedAvatarUri(model.AvatarResizeUri, ModTypes.c_scale, 30);
-            sb.AppendFormat("<img src='{0}' height='30' width='30' />", uriAvatar);
-            string uriMore = typeToLink[type];
-            string click = Properties.Resources.ResourceManager.GetString("Text_Click_Here_Details", cul);
-            sb.AppendFormat("<p><a href='{0}'>{1}</a></p>", uriMore, click);
+
+            sb.Append("<div class='notify-avatar-container'>");
+                string uriAvatar = Resize.ResizedAvatarUri(model.AvatarResizeUri, ModTypes.c_scale, 50, 50);
+                sb.AppendFormat("<img onclick='redirectToUser({0})' src='{1}' />", model.UserId, uriAvatar);
+            sb.Append("</div>");
+            sb.Append("<div class='notify-message-container'>");
+                sb.Append("<div class='notify-message-header'>");
+                    string mess = Properties.Resources.ResourceManager.GetString(typeToResx[type], cul);
+                    sb.AppendFormat("<span>{0} <span class='user-notify-name' onclick='redirectToUser({1})'>{2} {3}</span></span>", mess, model.UserId, model.Name, model.SurName);
+                sb.Append("</div>");
+                sb.Append("<div class='notify-message-body'>");
+                    string uriMore = typeToLink[type];
+                    string click = Properties.Resources.ResourceManager.GetString("Text_Click_Here_Details", cul);
+                    sb.Append("<span class='notify-about-span'>нажмите, что бы узнать</span>");
+                    sb.AppendFormat("<a class='notify-about-a' href='{0}'>подробнее</a>", click);
+                sb.Append("</div>");
+            sb.Append("</div>");
+
+
             return sb.ToString();
         }
     }

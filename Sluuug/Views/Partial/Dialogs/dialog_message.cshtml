@@ -1,28 +1,27 @@
 ﻿@model Slug.Model.DialogMessage
 @using Slug.Extensions
 
-@if (Model.IsIncomming == false)
-{
-<div class="dialog_msg_out">
-        <div class="out_content">
-            <img src="@Model.AvatarPath" />
-            <a>@Model.UserName</a>
-            <span>@Model.SendTime</span>
-            <p>@Model.Text</p>
-            <div class="triangle_wrapper_out"><div class="triangle_container"><div class="triangle"></div></div></div>
-        </div>
-    </div>
-}
-else
-{
-<div class="dialog_msg_in">
-    <div class="in_content">
-            <img src="@Model.AvatarPath" />
-            <a>@Model.UserName</a>
-            <span>@Model.SendTime</span>
-            <p>@Model.Text</p>
-            <div class="triangle_wrapper_in"><div class="triangle_container"><div class="triangle"></div></div></div>
-        </div>
-    </div>
+@{ 
+    string dialogWrapperClass = "dialog-msg-wrapper-out";
+    string dialogContentClass = "out-content";
+    if (Model.IsIncomming == true)
+    {
+        dialogWrapperClass = "dialog-msg-wrapper-in";
+        dialogContentClass = "in-content";
+    }
 }
 
+<div class="@dialogWrapperClass">
+    <div class="@dialogContentClass">
+        <div class="message-header">
+            <h4>@Model.UserName @Model.UserSurname</h4>
+            <span>@Model.SendTime</span>
+        </div>
+        <div class="message-body">
+            <div>
+                <img src="@Model.AvatarPath" />
+            </div>
+            <span>@Model.Text</span>
+        </div>
+    </div>
+</div>

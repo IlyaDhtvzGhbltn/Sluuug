@@ -33,7 +33,7 @@
                     <textarea id="message-to-user-area"></textarea>
                 </div>
                 <div class="send-new-message-form">
-                    <button>Отправить</button>
+                    <button onclick="SendMessage(@Model.UserId, $('#message-to-user-area').val())">Отправить</button>
                 </div>
             </div>
         </div>

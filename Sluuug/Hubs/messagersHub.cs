@@ -33,17 +33,17 @@ namespace Sluuug.Hubs
                 int toUserID = toUserId;
                 var UserRecipientsConnectionIds = new UserConnectionIdModel();
                 Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-                var UsWork = new UsersHandler();
+                var userHandler = new UsersHandler();
                 var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-                BaseUser user = UsWork.GetCurrentProfileInfo(cookies.Value);
+                BaseUser user = userHandler.GetCurrentProfileInfo(cookies.Value, false);
                 if (user != null)
                 {
                     var dialogWorker = new UsersDialogHandler();
                     Guid convGuidID = Guid.Empty;
                     if (convId == "0")
                     {
-                        convGuidID = UsWork.GetConversationId(cookies.Value, toUserId);
+                        convGuidID = userHandler.GetConversationId(cookies.Value, toUserId);
                     }
                     else
                     {

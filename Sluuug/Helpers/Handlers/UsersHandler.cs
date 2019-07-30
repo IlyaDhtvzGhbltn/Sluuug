@@ -104,7 +104,7 @@ namespace Slug.Helpers
             return 0;
         }
 
-        public MyProfileModel GetCurrentProfileInfo(string sessioID)
+        public MyProfileModel GetCurrentProfileInfo(string sessioID, bool resize = true)
         {
             var userModel = new MyProfileModel();
             using (var context = new DataBaseContext())
@@ -136,8 +136,11 @@ namespace Slug.Helpers
                     userModel.City = City.Title;
                 else
                     userModel.City = "Не указанo";
+                if (resize)
+                    userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
+                else
+                    userModel.AvatarResizeUri = avatar.ImgPath;
 
-                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
                 userModel.UserId = user.Id;
 
                 userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
@@ -174,7 +177,8 @@ namespace Slug.Helpers
 
                 var Events = user.UserFullInfo.Events;
                 userModel.Events = new List<MemorableEventsModel>();
-                Events.ForEach(x => {
+                Events.ForEach(x =>
+                {
                     string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.DateEvent).ToString("D");
                     userModel.Events.Add(new MemorableEventsModel()
                     {
@@ -187,7 +191,8 @@ namespace Slug.Helpers
 
                 var Works = user.UserFullInfo.Works;
                 userModel.Works = new List<WorkPlacesModel>();
-                Works.ForEach(x => {
+                Works.ForEach(x =>
+                {
                     string endDate = (x.Start == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.Start).ToString("D");
 
                     userModel.Works.Add(new WorkPlacesModel()
@@ -247,7 +252,7 @@ namespace Slug.Helpers
                         FotosCount = album.Fotos.Count
                     };
                     userModel.Albums.Add(albumModel);
-                }                
+                }
             }
             return userModel;
         }
@@ -270,11 +275,11 @@ namespace Slug.Helpers
                 userModel.City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                     .First().Title;
 
-                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200);
+                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200);
                 userModel.UserId = user.Id;
                 userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
 
-                var Educations = user.UserFullInfo.Educations.OrderBy(x=>x.Start).ToList();
+                var Educations = user.UserFullInfo.Educations.OrderBy(x => x.Start).ToList();
 
                 userModel.Educations = new List<EducationModel>();
                 Educations.ForEach(x =>
@@ -411,7 +416,7 @@ namespace Slug.Helpers
                     userModel.City = context.Cities
                         .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                         .First()
-                        .Title; 
+                        .Title;
 
                     userModel.AvatarResizeUri = avatar.ImgPath;
                     userModel.UserId = user.Id;
@@ -453,7 +458,7 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                int userId = GetCurrentProfileInfo(sessionId).UserId;
+                int userId = UserIdBySession(sessionId);
                 FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
@@ -475,7 +480,7 @@ namespace Slug.Helpers
 
                     var FriendsConfirmIDs = confirmerIds.Concat(acceptedIds).ToArray();
 
-                    for (int i=0; i< FriendsConfirmIDs.Count(); i++)
+                    for (int i = 0; i < FriendsConfirmIDs.Count(); i++)
                     {
                         BaseUser friendUserInfo = GetUserInfo(FriendsConfirmIDs[i]);
                         //int friendAges = DateTime.Now.Year - friendUserInfo.DateBirth.Year;
@@ -483,7 +488,7 @@ namespace Slug.Helpers
                         var friend = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarResizeUri = Resize.ResizedAvatarUri( friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, avatarResize, avatarResize),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName,
                             Country = friendUserInfo.Country,
@@ -503,7 +508,7 @@ namespace Slug.Helpers
                         var inInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, avatarResize, avatarResize),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -519,7 +524,7 @@ namespace Slug.Helpers
                         var outInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
-                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, 100),
+                            AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, avatarResize, avatarResize),
                             Name = friendUserInfo.Name,
                             SurName = friendUserInfo.SurName
                         };
@@ -532,13 +537,13 @@ namespace Slug.Helpers
 
         public Guid GetConversationId(string userSenderSession, int userRecipientId)
         {
-            int userSenderId = GetCurrentProfileInfo(userSenderSession).UserId;
+            int userSenderId = UserIdBySession(userSenderSession);
             Guid guidID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
                 List<Guid> ConversationSenderGuids = context.ConversationGroup
                     .Where(user => user.UserId == userSenderId)
-                    .Select(x=>x.ConversationGuidId)
+                    .Select(x => x.ConversationGuidId)
                     .ToList();
 
                 List<Guid> ConversationRecipientGuids = context.ConversationGroup
@@ -579,7 +584,7 @@ namespace Slug.Helpers
 
         public void ChangeAvatarResizeUri(string session, Uri newUri)
         {
-            int userID = GetCurrentProfileInfo(session).UserId;
+            int userId = UserIdBySession(session);
             string uri = newUri.ToString();
             using (var context = new DataBaseContext())
             {
@@ -589,9 +594,9 @@ namespace Slug.Helpers
                 context.Avatars.Add(newAvatar);
                 context.SaveChanges();
 
-                int avatarSavedID = context.Avatars.First(x=>x.ImgPath == uri).Id;
+                int avatarSavedID = context.Avatars.First(x => x.ImgPath == uri).Id;
 
-                User userInfo = context.Users.First(x=>x.Id == userID);
+                User userInfo = context.Users.First(x => x.Id == userId);
                 userInfo.AvatarId = avatarSavedID;
 
                 context.SaveChanges();
@@ -660,7 +665,7 @@ namespace Slug.Helpers
                 model.userSearchAge = userInfo.userSearchAge;
                 model.userSearchSex = userInfo.userSearchSex;
                 model.purpose = userInfo.purpose;
-                
+
                 model.Status = FriendshipItemStatus.None;
                 FriendsRelationship relationItem = context.FriendsRelationship
                     .Where(x => x.UserConfirmer == userID && x.UserOferFrienshipSender == userInfo.UserId ||
@@ -676,15 +681,15 @@ namespace Slug.Helpers
 
         public void DropFrienship(string session, int userID)
         {
-            int myID = GetCurrentProfileInfo(session).UserId;
+            int myId = UserIdBySession(session);
             bool isUsersFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, userID);
             if (isUsersFriends)
             {
                 using (var context = new DataBaseContext())
                 {
                     FriendsRelationship entryFrienship = context.FriendsRelationship
-                        .Where(x => x.UserOferFrienshipSender == myID && x.UserConfirmer == userID ||
-                        x.UserConfirmer == myID && x.UserOferFrienshipSender == userID)
+                        .Where(x => x.UserOferFrienshipSender == myId && x.UserConfirmer == userID ||
+                        x.UserConfirmer == myId && x.UserOferFrienshipSender == userID)
                         .First();
                     entryFrienship.Status = FriendshipItemStatus.Close;
                     context.SaveChanges();
@@ -698,8 +703,8 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 FriendsRelationship item = context.FriendsRelationship
-                    .Where(x => x.Status == FriendshipItemStatus.Pending && 
-                    x.UserOferFrienshipSender == userID && 
+                    .Where(x => x.Status == FriendshipItemStatus.Pending &&
+                    x.UserOferFrienshipSender == userID &&
                     x.UserConfirmer == accepterUser.UserId)
                     .First();
 
@@ -732,7 +737,7 @@ namespace Slug.Helpers
                 using (var context = new DataBaseContext())
                 {
                     MyProfileModel user = GetCurrentProfileInfo(session);
-                    
+
                     if (user == null)
                     {
                         return new ChangeParameterResponce
@@ -746,7 +751,7 @@ namespace Slug.Helpers
                         User s_user = context.Users.First(x => x.Id == user.UserId);
                         switch (parameter)
                         {
-                            case UserParams.UserName :
+                            case UserParams.UserName:
                                 s_user.UserFullInfo.Name = newValue;
                                 break;
                             case UserParams.UserSurname:
@@ -789,7 +794,7 @@ namespace Slug.Helpers
                 MailAddress addres = new MailAddress(email);
                 using (var context = new DataBaseContext())
                 {
-                    var user = context.Users.FirstOrDefault(x=>x.Settings.Email == email);
+                    var user = context.Users.FirstOrDefault(x => x.Settings.Email == email);
                     if (user != null)
                         return user.Id;
                 }
@@ -800,6 +805,15 @@ namespace Slug.Helpers
                 loggerInternal.Error(ex);
             }
             return 0;
+        }
+
+        public int UserIdBySession(string session)
+        {
+            using (var context = new DataBaseContext())
+            {
+                Session sess = context.Sessions.First(x => x.Number == session);
+                return (int)sess.UserId;
+            }
         }
     }
 }

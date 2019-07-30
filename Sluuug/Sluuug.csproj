@@ -152,6 +152,7 @@
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Resources\audio\new-notify-sound.wav" />
     <Content Include="Resources\images\abstract_footer_left.png" />
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\comet.png" />
@@ -226,7 +227,6 @@
     <Content Include="Styles\private\settings-style.css" />
     <Content Include="Styles\private\tabs-style.css" />
     <Content Include="Styles\private\toggle-style.css" />
-    <Content Include="Styles\private\triangle.css" />
     <Content Include="Styles\private\video-await.css" />
     <Content Include="Styles\private\video-conversation-main.css" />
     <Content Include="Styles\private\video-dialog.css" />
@@ -303,6 +303,14 @@
     <Compile Include="Migrations\201907291416241_city code drop.cs" />
     <Compile Include="Migrations\201907291416241_city code drop.Designer.cs">
       <DependentUpon>201907291416241_city code drop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907300746391_user_connections_NOT_db_generate_Guid.cs" />
+    <Compile Include="Migrations\201907300746391_user_connections_NOT_db_generate_Guid.Designer.cs">
+      <DependentUpon>201907300746391_user_connections_NOT_db_generate_Guid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907300750331_user_connections_NOT_db_generate_Guid2.cs" />
+    <Compile Include="Migrations\201907300750331_user_connections_NOT_db_generate_Guid2.Designer.cs">
+      <DependentUpon>201907300750331_user_connections_NOT_db_generate_Guid2.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -485,6 +493,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907291416241_city code drop.resx">
       <DependentUpon>201907291416241_city code drop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907300746391_user_connections_NOT_db_generate_Guid.resx">
+      <DependentUpon>201907300746391_user_connections_NOT_db_generate_Guid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907300750331_user_connections_NOT_db_generate_Guid2.resx">
+      <DependentUpon>201907300750331_user_connections_NOT_db_generate_Guid2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

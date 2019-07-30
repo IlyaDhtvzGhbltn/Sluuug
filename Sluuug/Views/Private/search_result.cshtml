@@ -43,7 +43,7 @@
     }
 </table>
 
-    <div class="search-result-pagination">
+    <div class="result-pagination">
         @for (int i = 1; i <= Model.PagesCount; i++)
         {
             var param = Url.RequestContext.HttpContext.Request.Params;
@@ -81,15 +81,4 @@ else
     <span>Пользователей с указанными параметрами не найденно. Попробуйте повторить поиск позднее или начните новый с другими параметрами.</span>
 }
 <script src="~/Scripts/RelocationToUser.js"></script>
-<script>
-    window.onload = function () {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var pageNum = url.searchParams.get("page");
-        if (pageNum !== null) {
-            let query = '#pagination-link-' + (pageNum);
-            var elem = $(query);
-            elem.addClass('selected-page-container');
-        }
-    }
-</script>
+<script src="~/Scripts/Profile/SelectPaginationActivePage.js"></script>

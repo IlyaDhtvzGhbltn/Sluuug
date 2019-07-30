@@ -20,7 +20,7 @@ namespace Slug.Helpers
             string settingsChangeResult = string.Empty;
 
             UserSettings currentUserSett = handler.GetUserSettings(session);
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userId = handler.UserIdBySession(session);
 
             if (currentUserSett.Email != newSettings.NewEmail)
             {
@@ -32,14 +32,14 @@ namespace Slug.Helpers
                     }
                     else
                     {
-                        ChangeEmail(userID, newSettings.NewEmail);
+                        ChangeEmail(userId, newSettings.NewEmail);
                         settingsChangeResult += "Email adress successfully changed.";
                     }
                 }
             }
             if ((int)currentUserSett.NotificationType != newSettings.NotifyType)
             {
-                ChangeNotify(userID, (NotificationTypes)newSettings.NotifyType);
+                ChangeNotify(userId, (NotificationTypes)newSettings.NotifyType);
                 settingsChangeResult += Environment.NewLine +  "Notification Type successfully changed.";
             }
             if (currentUserSett.PasswordHash != newSettings.NewPassw)
@@ -57,12 +57,12 @@ namespace Slug.Helpers
                     }
                     else if (newSettings.OldPassw == newSettings.OldPasswRep && newSettings.OldPassw == oldPass)
                     {
-                        ChangePassword(userID, newSettings.NewPassw);
+                        ChangePassword(userId, newSettings.NewPassw);
                         settingsChangeResult += Environment.NewLine + "Password successfully changed.";
                     }
                 }
             }
-            ChangeQuickMessage(userID, newSettings.QuickMessage);
+            ChangeQuickMessage(userId, newSettings.QuickMessage);
 
             return settingsChangeResult;
         }

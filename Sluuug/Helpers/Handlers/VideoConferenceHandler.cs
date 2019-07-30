@@ -83,8 +83,8 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 int userCreatorConferenceID = context.VideoConferences.First(x=>x.GuidId == videoConverenceID).ConferenceCreatorUserId;
-                var UWorker = new UsersHandler();
-                int userRequestedId = UWorker.GetCurrentProfileInfo(sessionID).UserId;
+                var usersHandler = new UsersHandler();
+                int userRequestedId = usersHandler.UserIdBySession(sessionID);
                 if (userRequestedId == userCreatorConferenceID)
                     return VideoConverenceCallType.Caller;
                 else
@@ -99,10 +99,10 @@ namespace Slug.Helpers
             model.CallsHistory = new List<CallModel>();
             model.IncomingCalls = new List<IncomingInviteModel>();
 
-            var userWorker = new UsersHandler();
-            int myId = userWorker.GetCurrentProfileInfo(sessionID).UserId;
+            var usersHandler = new UsersHandler();
+            int myId = usersHandler.UserIdBySession(sessionID);
 
-            MyFriendsModel fMod = userWorker.GetFriendsBySession(sessionID, 80);
+            MyFriendsModel fMod = usersHandler.GetFriendsBySession(sessionID, 80);
             foreach (var item in fMod.Friends)
             {
                 model.Friends.Add(item);
@@ -157,12 +157,12 @@ namespace Slug.Helpers
                             .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
                             .Select(x => x.UserId)
                             .First();
-                        var info = userWorker.GetUserInfo(participantID);
+                        var info = usersHandler.GetUserInfo(participantID);
 
                         incoming.InviterID = participantID;
-                        incoming.CallerName = userWorker.GetUserInfo(participantID).Name;
-                        incoming.CallerSurName = userWorker.GetUserInfo(participantID).SurName;
-                        incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 45);
+                        incoming.CallerName = usersHandler.GetUserInfo(participantID).Name;
+                        incoming.CallerSurName = usersHandler.GetUserInfo(participantID).SurName;
+                        incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 50, 50);
                         model.IncomingCalls.Add(incoming);
                     }
                 }

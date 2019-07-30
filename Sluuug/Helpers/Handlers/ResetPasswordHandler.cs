@@ -104,10 +104,10 @@ namespace Slug.Helpers.Handlers
                 });
 
                 List<UserConnections> connections = context.UserConnections
-                    .Where(x => x.UserID == userID && x.ConnectionActiveStatus == true).ToList();
+                    .Where(x => x.UserId == userID && x.IsActive == true).ToList();
                 connections.ForEach(x => 
                 {
-                    x.ConnectionActiveStatus = false;
+                    x.IsActive = false;
                     x.ConnectionOff = DateTime.UtcNow;
                 });
                 context.SaveChanges();

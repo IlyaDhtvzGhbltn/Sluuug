@@ -26,7 +26,7 @@ namespace Slug.Hubs
     {
         public void OpenConnect()
         {
-            var UCW = new UsersConnectionHandler();
+            var connectionHandler = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             string connection = Context.ConnectionId;
             object tempObject;
@@ -36,15 +36,14 @@ namespace Slug.Hubs
             //Logger logger = LogManager.GetCurrentClassLogger();
             //logger.Debug(ipAddress);
 
-            UCW.AddConnection(connection, session, ipAddress);
+            connectionHandler.AddConnection(connection, session, ipAddress);
         }
 
-        public void CloseConnect()
+        public async Task CloseConnect()
         {
-            var UCW = new UsersConnectionHandler();
+            var connectionHandler = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
-            string connection = Context.ConnectionId;
-            UCW.CloseConnection(connection, session);
+            await connectionHandler.CloseConnection(session);
         }
 
         public void GetVideoParticipantName(Guid ID)
@@ -54,8 +53,8 @@ namespace Slug.Hubs
             var userHandler = new UsersHandler();
 
             int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
-            int myID = userHandler.GetCurrentProfileInfo(session).UserId;
-            int participantID = IDs.First(x => x != myID);
+            int myId = userHandler.UserIdBySession(session);
+            int participantID = IDs.First(x => x != myId);
             var participantInfo = userHandler.GetUserInfo(participantID);
             string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);
             Clients.Caller.SendName(participantName);

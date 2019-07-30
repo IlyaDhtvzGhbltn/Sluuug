@@ -118,15 +118,15 @@ namespace Slug.Hubs
             var cryptoChatWorker = new CryptoChatHandler();
             var UserRecipientsConnectionIds = new UserConnectionIdModel();
 
-            UsersHandler UsWorker = new UsersHandler();
+            UsersHandler userHandler = new UsersHandler();
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            int fromUserID = UsWorker.GetCurrentProfileInfo(cookies.Value).UserId;
+            int fromUserID = userHandler.UserIdBySession(cookies.Value);
 
             string uri = base.Context.QueryString["URL"];
             var reg = new Regex("=.{36}");
             MatchCollection matches = reg.Matches(uri);
             string guidChatId = matches[0].ToString().Substring(1);
-            BaseUser fromUser = UsWorker.GetUserInfo(fromUserID);
+            BaseUser fromUser = userHandler.GetUserInfo(fromUserID);
             int toUserID = cryptoChatWorker.GetInterlocutorID(Guid.Parse(guidChatId), fromUser.UserId);
             bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUserID, toUserID);
 

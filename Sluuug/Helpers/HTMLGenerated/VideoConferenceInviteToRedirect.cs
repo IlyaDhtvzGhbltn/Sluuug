@@ -15,7 +15,7 @@ namespace Slug.Helpers.HTMLGenerated
     {
         public static string GenerateHtml(IncomingInviteModel model, string culture)
         {
-            string incommingICO = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1553527278/incomming_call.png", ModTypes.c_scale, 45);
+            string incommingICO = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1553527278/incomming_call.png", ModTypes.c_scale, 50, 50);
             CultureInfo cul = CultureInfo.CreateSpecificCulture(culture);
             string mess = Properties.Resources.ResourceManager.GetString("Text_Call_To_You", cul);
 

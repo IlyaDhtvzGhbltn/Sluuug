@@ -98,7 +98,7 @@ namespace Slug.Controllers
         public JsonResult drop_entry(Guid EntryId)
         {
             string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int userSessionId = UsersHandler.GetCurrentProfileInfo(session).UserId;
+            int userSessionId = UsersHandler.UserIdBySession(session);
             int userEntryID = FullInfoHandler.GetUserByInfoEnrtuGuid(EntryId).Id;
             if (userSessionId == userEntryID)
             {

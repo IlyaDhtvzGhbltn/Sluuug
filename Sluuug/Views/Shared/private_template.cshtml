@@ -18,7 +18,6 @@
     <script src="~/Scripts/notificationHub.js"></script>
 
     <script src="~/Scripts/Search.js"></script>
-
 </head>
 <body>
     <nav role="navigation">
@@ -75,20 +74,6 @@
                 <li>
                     <img height="30" width="30" src="~/Resources/images/home_ico.png" />
                     <span>Мой профиль</span>
-                </li>
-            </a>
-
-            <a href="/private/notification_history/">
-                <li>
-                    <img height="30" width="30" src="~/Resources/images/notify_ico.png" />
-                    <span>Уведомления</span>
-                    <div class="new">
-                        <svg>
-                            <circle>
-                            </circle>
-                            <span class="new-notify">8</span>
-                        </svg>
-                    </div>
                 </li>
             </a>
 
@@ -169,7 +154,8 @@
             </a>
         </ul>
     </div>
-    <div class="notify-alert"><span id="notify-message"></span></div>
+    <div class="notify-alert">
+    </div>
     <div class="private-content">
         @RenderBody()
     </div>

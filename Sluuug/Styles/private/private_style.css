@@ -195,28 +195,79 @@ ul li:hover > span{
     width:100%;
 }
 
-.alert_form {
+.error-message-form {
     font-family: 'Roboto Condensed', sans-serif;
     padding:10px;
 }
 
 /*notification form START*/
 .notify-alert {
+    top: 130px;
     opacity: 0;
+    left: -400px;
+    z-index: 999;
     background-color: #fff;
     border: 1px solid #7f7f7f;
     position: absolute;
-    top: 130px;
-    left: 0px;
     height: 74px;
-    width: auto;
-    transition: all 1s;
-    text-align: left;
+    transition: all .5s ease;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
 }
 
-    .notify-alert span {
-        margin: 5px;
-        position: relative;
-        top: 20px;
-    }
+.notify-alert:hover {
+    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
+}
+
+.notify-avatar-container img{
+    margin:5px 0 0 5px;
+    cursor:pointer;
+}
+
+.notify-message-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 10px;
+}
+
+.notify-message-header,
+.notify-message-body{
+    margin-top:auto;
+    margin-bottom:auto;
+}
+
+
+.notify-message-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.notify-about-span,
+.notify-about-a {
+    width: auto;
+}
+
+.notify-about-a {
+    margin-left: 5px;
+    margin-top:1px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Roboto Condensed', sans-serif;
+    color:#7f7f7f;
+    font-weight:bold;
+}
+
+.user-notify-name {
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .5s ease;
+}
+
+.visible-notify-alert {
+    opacity: 1;
+    left: 200px;
+}
 /*notification form END*/

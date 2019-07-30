@@ -9,8 +9,11 @@ namespace Slug.Context.Tables
 {
     public class UserConnections
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ConnectionID { get; set; }
+        [Key, DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        public int Id { get; set; }
+
+        [Required]
+        public Guid ConnectionId { get; set; }
 
         [Required]
         public string IpAddress { get; set; }
@@ -19,13 +22,13 @@ namespace Slug.Context.Tables
         public string CultureCode { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        public int UserId { get; set; }
 
         [Required]
-        public bool ConnectionActiveStatus { get; set; }
+        public bool IsActive { get; set; }
 
         [Required]
-        public DateTime ConnectionTime { get; set; }
+        public DateTime OpenTime { get; set; }
 
         public DateTime? ConnectionOff { get; set; }
     }

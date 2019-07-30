@@ -197,6 +197,6 @@ input[type="date"], focus {
     -moz-box-shadow: none;
 }
 
-.alert_form {
+.error-message-form {
     display: none;
 }

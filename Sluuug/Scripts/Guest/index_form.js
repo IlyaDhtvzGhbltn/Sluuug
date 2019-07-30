@@ -6,7 +6,7 @@ function show_login(){
 	$('#login_toggle').addClass('active');
     $('#reg_toggle').removeClass('active');
 
-    var alerts = $('.alert_form');
+    var alerts = $('.error-message-form');
     [].forEach.call(alerts, function (item) {
         item.style.display = 'none';
     });
@@ -19,7 +19,7 @@ function show_register(){
 	$('#reg_toggle').addClass('active');
     $('#login_toggle').removeClass('active');
 
-    var alerts = $('.alert_form');
+    var alerts = $('.error-message-form');
     [].forEach.call(alerts, function (item) {
         item.style.display = 'none';
     });
@@ -33,7 +33,7 @@ function show_repass(){
 	$('#reg_toggle').removeClass('active');
     $('#login_toggle').removeClass('active');
 
-    var alerts = $('.alert_form');
+    var alerts = $('.error-message-form');
     [].forEach.call(alerts, function (item) {
         item.style.display = 'none';
     });

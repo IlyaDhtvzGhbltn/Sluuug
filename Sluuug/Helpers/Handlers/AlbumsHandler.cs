@@ -75,8 +75,7 @@ namespace Slug.Helpers
                                      Text = comment.CommentText,
                                      UserName = userCommenter.Name,
                                      UserSurName = userCommenter.SurName,
-                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri( userCommenter.AvatarResizeUri, ModTypes.c_scale, 40
-                                     ),
+                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri( userCommenter.AvatarResizeUri, ModTypes.c_scale, 40, 40),
                                      UserPostedID = userCommenter.UserId,
                                      DateFormat = comment.CommentWriteDate.ToLongDateString()
                                 };
@@ -89,7 +88,7 @@ namespace Slug.Helpers
                                  PhotoDescription = foto.Description,
                                  Title = foto.Title,
                                  ID = foto.FotoGUID,
-                                 SmallFotoUri = Resize.ResizedAvatarUri(foto.Url, ModTypes.c_scale, 50), 
+                                 SmallFotoUri = Resize.ResizedAvatarUri(foto.Url, ModTypes.c_scale, 50, 500), 
                                  UploadDate = foto.UploadDate,
                                  FotoComments = comments
                             };
@@ -158,7 +157,7 @@ namespace Slug.Helpers
             var result = new UploadAlbumResponse();
 
             var handler = new UsersHandler();
-            int userUploaderID = handler.GetCurrentProfileInfo(session).UserId;
+            int userUploaderID = handler.UserIdBySession(session);
             using (var context = new DataBaseContext())
             {
                 var album = context.Albums.FirstOrDefault(x => x.Id == albumId);
@@ -214,8 +213,8 @@ namespace Slug.Helpers
         public AlbumPhotosResponse ExpandAlbum(string session, Guid albumID)
         {
             var resp = new AlbumPhotosResponse();
-            var handler = new UsersHandler();
-            int getUserId = handler.GetCurrentProfileInfo(session).UserId;
+            var usersHandler = new UsersHandler();
+            int getUserId = usersHandler.UserIdBySession(session);
 
             using (var context = new DataBaseContext())
             {
@@ -294,8 +293,8 @@ namespace Slug.Helpers
         public EditFotoResponse EditFotoInfo(string session, EditFotoInfoModel model)
         {
             var resp = new EditFotoResponse();
-            var handler = new UsersHandler();
-            int editorID = handler.GetCurrentProfileInfo(session).UserId;
+            var userHandler = new UsersHandler();
+            int editorID = userHandler.UserIdBySession(session);
             using (var context = new DataBaseContext())
             {
                 Foto foto = context.Fotos.FirstOrDefault(x => x.FotoGUID == model.PhotoGUID);
@@ -339,8 +338,8 @@ namespace Slug.Helpers
         public DropFotoResponse DropFoto(string session, Guid fotoGUID)
         {
             var resp = new DropFotoResponse();
-            var handler = new UsersHandler();
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            var userHandler = new UsersHandler();
+            int userID = userHandler.UserIdBySession(session);
             using (var context = new DataBaseContext())
             {
                 var fotoInf = context.Fotos.FirstOrDefault(x => x.FotoGUID == fotoGUID);
@@ -384,9 +383,9 @@ namespace Slug.Helpers
         public DropAlbumResponse DropAlbum(string session, Guid albumGUID)
         {
             var response = new DropAlbumResponse();
-            var handler = new UsersHandler();
+            var userHandler = new UsersHandler();
 
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userID = userHandler.UserIdBySession(session);
             using (var context = new DataBaseContext())
             {
                 var album = context.Albums.FirstOrDefault(x => x.Id == albumGUID);
@@ -448,8 +447,8 @@ namespace Slug.Helpers
 
         public FotoCommentsResponse GetCommentsToFoto(string session, Guid fotoGUID)
         {
-            var handler = new UsersHandler();
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            var usersHandler = new UsersHandler();
+            int userID = usersHandler.UserIdBySession(session);
 
             var resp = new FotoCommentsResponse();
             using (var context = new DataBaseContext())
@@ -480,7 +479,7 @@ namespace Slug.Helpers
                             string avatarImgPath = context.Avatars.First(x => x.Id == avatarID).ImgPath;
                             var commModel = new FotoCommentModel()
                             {
-                                UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(avatarImgPath, ModTypes.c_scale, 50),
+                                UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(avatarImgPath, ModTypes.c_scale, 50, 50),
                                 PostDate = comm.CommentWriteDate.Ticks,
                                 Text = comm.CommentText,
                                 UserName = context.Users.First(x=>x.Id == comm.UserCommenter).UserFullInfo.Name,
@@ -503,7 +502,7 @@ namespace Slug.Helpers
             var response = new PostCommentsResponse();
             var handler = new UsersHandler();
 
-            int userID = handler.GetCurrentProfileInfo(session).UserId;
+            int userId = handler.UserIdBySession(session);
             using (var context = new DataBaseContext())
             {
                 var foto = context.Fotos.FirstOrDefault(x => x.FotoGUID == model.FotoID);
@@ -515,7 +514,7 @@ namespace Slug.Helpers
                 {
                     bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(session, foto.UploadUserID);
 
-                    if (foto.UploadUserID != userID && !friends)
+                    if (foto.UploadUserID != userId && !friends)
                     {
                         response.Comment = DropAlbumResponse.Errors.NOT_ACCESS;
                     }
@@ -524,7 +523,7 @@ namespace Slug.Helpers
                         var comment = new FotoComment()
                         {
                              CommentWriteDate = DateTime.Now,
-                             UserCommenter = userID,
+                             UserCommenter = userId,
                              CommentText = model.CommentText,
                              Foto = foto
                         };
