@@ -41,7 +41,7 @@ namespace Slug.Hubs
         {
             var info = CultureInfo.CurrentCulture;
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            BaseUser userInfo = this.userInfoHandler.GetCurrentProfileInfo(cookies.Value);
+            BaseUser userInfo = this.userInfoHandler.GetCurrentProfileInfo(cookies.Value, false);
             Guid guid = this.videoConferenceHandler.Create(userInfo.UserId, calleUserId);
             var UserRecipientsConnectionIds = new UserConnectionIdModel();
             UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
@@ -54,13 +54,13 @@ namespace Slug.Hubs
                 ConferenceID = guid,
                 AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 50, 50)
             };
-            var culture = CultureInfo.CurrentCulture;
-            string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
-            model.Html = html;
-            string json = JsonConvert.SerializeObject(model);
 
-            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
-            Clients.Caller.CallerGuidToRedirect(guid);
+            //var culture = CultureInfo.CurrentCulture;
+            //string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
+            //model.Html = html;
+            //string json = JsonConvert.SerializeObject(model);
+            //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
+            //Clients.Caller.CallerGuidToRedirect(guid);
 
             var response = new NotifyHubModel();
             response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

@@ -31,32 +31,39 @@ namespace Slug.Hubs
 
         public void CreateNewCryptoConversation(string create_request)
         {
-            var Cookie = base.Context.Request.Cookies;
-            var session_id = Cookie[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            var uW = new UsersHandler();
-            var UserInfo = uW.GetCurrentProfileInfo(session_id.Value);
-
-            var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
-            int participantID = CryptoChatResponce.Participants[0].UserId;
-            bool isFriend = FriendshipChecker.CheckUsersFriendshipByIDs(UserInfo.UserId, participantID);
-            if (isFriend)
+            try
             {
-                CryptoChatResponce.CreatorName = UserInfo.Name;
-                CryptoChatResponce.CreatorAvatar = UserInfo.AvatarResizeUri;
-                CryptoChatResponce.CreationDate = DateTime.Now;
+                var Cookie = base.Context.Request.Cookies;
+                var session_id = Cookie[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
+                var uW = new UsersHandler();
+                var UserInfo = uW.GetCurrentProfileInfo(session_id.Value);
 
-                var CryptWorker = new CryptoChatHandler();
-                var response = CryptWorker.CreateNewCryptoChat(CryptoChatResponce.Type, CryptoChatResponce.Participants, UserInfo.UserId);
-                CryptoChatResponce.ConvGuidId = response.CryptoGuidId;
-                CryptoChatResponce.CreatorUserId = UserInfo.UserId;
-                CryptoChatResponce.Participants.Add(
-                    new Participant()
-                    {
-                        UserId = CryptoChatResponce.CreatorUserId
-                    });
-                CryptoChatResponce.ExpireDate = response.ExpireDate;
+                var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
+                int participantID = CryptoChatResponce.Participants[0].UserId;
+                bool isFriend = FriendshipChecker.CheckUsersFriendshipByIDs(UserInfo.UserId, participantID);
+                if (isFriend)
+                {
+                    CryptoChatResponce.CreatorName = UserInfo.Name;
+                    CryptoChatResponce.CreatorAvatar = UserInfo.AvatarResizeUri;
+                    CryptoChatResponce.CreationDate = DateTime.Now;
 
-                Clients.Caller.NewCryptoConversationCreated(CryptoChatResponce);
+                    var CryptWorker = new CryptoChatHandler();
+                    var response = CryptWorker.CreateNewCryptoChat(CryptoChatResponce.Type, CryptoChatResponce.Participants, UserInfo.UserId);
+                    CryptoChatResponce.ConvGuidId = response.CryptoGuidId;
+                    CryptoChatResponce.CreatorUserId = UserInfo.UserId;
+                    CryptoChatResponce.Participants.Add(
+                        new Participant()
+                        {
+                            UserId = CryptoChatResponce.CreatorUserId
+                        });
+                    CryptoChatResponce.ExpireDate = response.ExpireDate;
+
+                    Clients.Caller.NewCryptoConversationCreated(CryptoChatResponce);
+                }
+            }
+            catch (Exception)
+            {
+                Clients.Caller.FailCreateNewCryptoConversation(0);
             }
         }
 
@@ -64,7 +71,7 @@ namespace Slug.Hubs
         {
             Cookie Session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             UsersHandler worker = new UsersHandler();
-            BaseUser fromUser = worker.GetCurrentProfileInfo(Session.Value);
+            BaseUser fromUser = worker.GetCurrentProfileInfo(Session.Value, false);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
 
@@ -76,8 +83,8 @@ namespace Slug.Hubs
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
             UserConnectionIdModel UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
 
-            string html = InviteToSecretConversation.GenerateHtml(cryptoConversation, UserRecipientsConnectionIds.CultureCode[0]);
-            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation, html);
+            //string html = InviteToSecretConversation.GenerateHtml(cryptoConversation, UserRecipientsConnectionIds.CultureCode[0]);
+            //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation, html);
 
             var responce = new NotifyHubModel();
             responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
@@ -94,7 +101,7 @@ namespace Slug.Hubs
             var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            BaseUser userAccepter = UsWorker.GetCurrentProfileInfo(cookies.Value);
+            BaseUser userAccepter = UsWorker.GetCurrentProfileInfo(cookies.Value, false);
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
 
 

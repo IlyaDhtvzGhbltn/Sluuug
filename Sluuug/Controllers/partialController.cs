@@ -177,18 +177,6 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public ActionResult Await_Key_Generation()
-        {
-            string session = GetCookiesValue(this.Request);
-            var handler = new UsersConnectionHandler();
-            var cultureCode = handler.GetConnectionBySession(session).CultureCode[0];
-            CultureInfo cul = CultureInfo.CreateSpecificCulture(cultureCode);
-            string mess = Properties.Resources.ResourceManager.GetString("Text_Key_Generation", cul);
-            ViewBag.BePatient = mess;
-            return View("~/Views/Partial/CryptoDialogs/await_key_generation.cshtml");
-        }
-
-        [HttpPost]
         public ActionResult success_register()
         {
             return View("~/Views/Partial/Register/success_register.cshtml");

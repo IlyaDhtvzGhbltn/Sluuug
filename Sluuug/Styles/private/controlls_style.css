@@ -83,20 +83,19 @@ border-radius:50%;
     box-sizing: border-box;
 }
 
-input[type=radio], input[type=checkbox] {
+input[type=radio][class!=fr], input[type=checkbox] {
     display: none;
 }
 
 .circle {
     position: relative;
-    z-index: 3;
+    z-index: 6;
     margin: inherit;
-    width: 25px;
+    width: 0px;
     height: 25px;
     top: 33%;
     left: 3%;
     transform: translate(-50%, -50%);
-    filter: url('#gooey');
 }
 
 @keyframes circle__in {
@@ -152,13 +151,14 @@ input:checked + .circle {
 }
 
 .circle--inner {
-    top: 29%;
-    left: 29%;
+    top: 10px;
+    left: 10px;
     position: absolute;
     width: 26px;
     height: 26px;
     border-radius: 100%;
     background: #49B2DA;
+    z-index:10;
 }
 
 @keyframes circle--inner__in {

@@ -74,7 +74,7 @@ namespace Slug.Helpers
             model.FriendsICanInvite = new List<FriendModel>();
 
             MyFriendsModel friends = userHandler.GetFriendsBySession(sessionId, 50);
-            BaseUser userInformation = userHandler.GetCurrentProfileInfo(sessionId);
+            int userId = userHandler.UserIdBySession(sessionId);
 
             foreach (var item in friends.Friends)
             {
@@ -84,16 +84,17 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 List<SecretChatGroup> fullGroups = context.SecretChatGroups
-                    .Where(x => x.UserId == userInformation.UserId)
+                    .Where(x => x.UserId == userId)
                     .ToList();
 
                 List<SecretChatGroup> chatGroups = context.SecretChatGroups
-                    .Where(x => x.UserId == userInformation.UserId)
+                    .Where(x => x.UserId == userId)
                     .ToList();
+
                 chatGroups.ForEach(x => {
                     fullGroups.Add( 
                         context.SecretChatGroups
-                        .Where(item => item.PartyGUID == x.PartyGUID && item.UserId != userInformation.UserId)
+                        .Where(item => item.PartyGUID == x.PartyGUID && item.UserId != userId)
                         .First() 
                         );
                 });
@@ -115,7 +116,7 @@ namespace Slug.Helpers
                         chat.GuidId = secretChat.PartyGUID;
 
                         int interlocutorID = fullGroups.First(x => x.PartyGUID == secretChat.PartyGUID &&
-                                                              x.UserId != userInformation.UserId)
+                                                              x.UserId != userId)
                                                               .UserId;
                         BaseUser interlocutor = userHandler.GetUserInfo(interlocutorID);
                         chat.InterlocutorName = interlocutor.Name;

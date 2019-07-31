@@ -7,6 +7,7 @@ img {
     position: relative;
 }
 
+.accepted_user_:hover,
 .invitation_user:hover {
     background-color: #a2ecf3;
     padding: 10px;
@@ -14,22 +15,27 @@ img {
     box-shadow: 0 0 12px 5px rgba(15, 15, 15, 0.3);
 }
 
+.accepted_user_,
 .invitation_user {
     cursor: pointer;
     margin: 20px;
     border: 1px solid #7f7f7f;
 }
 
-    .invitation_user h2 {
-        display: inline-block;
-        text-align: center;
-        position: absolute;
-    }
+.accepted_user_ h2,
+.invitation_user h2 {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+}
 
-    .invitation_user button, img {
-        margin: 10px;
-    }
+.accepted_user_ button,
+.invitation_user button,
+img {
+    margin: 10px;
+}
 
-    .invitation_user button {
-        height: 34px;
-    }
+.accepted_user_ button,
+.invitation_user button {
+    height: 34px;
+}

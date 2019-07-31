@@ -9,8 +9,32 @@ window.onunload = function () {
     HUB.invoke('CloseConnect');
 };
 
-HUB.on('NotifyAbout', function (html, params) {
+HUB.on('NotifyAbout', function (html, params, notifyCode) {
     console.log(html);
+    switch (notifyCode) {
+        case 0:
+            DecrementInto('.notify-decrement-message', 'notify-message');
+            break;
+        case 2:
+            DecrementInto('.notify-decrement-secret', 'notify-secret');
+            break;
+        case 3:
+            DecrementInto('.notify-decrement-secret', 'notify-secret');
+            break;
+        case 4:
+            DecrementInto('.notify-decrement-secret', 'notify-secret');
+            break;
+        case 1:
+            DecrementInto('.notify-decrement-video', 'notify-video');
+            break;
+        case 5:
+            DecrementInto('.notify-decrement-contact', 'notify-contacts');
+            break;
+        case 6:
+            DecrementInto('.notify-decrement-contact', 'notify-contacts');
+            break;
+    }
+
     if (params !== null)
     {
         newInviteToCryptChatNotification(html, params);
@@ -26,8 +50,22 @@ HUB.on('NotifyAbout', function (html, params) {
     }
 });
 
+
+function DecrementInto(element, elementCounterClassName) {
+    console.log('index ' + elementCounterClassName);
+    var decrementedElement = $(element)[0];
+    if (decrementedElement.innerHTML.length === 0) {
+        decrementedElement.innerHTML = '<svg><circle></circle><span class="new-notify ' + elementCounterClassName+'">1</span></svg >';
+    }
+    else {
+        var notivicationsCount = parseInt($('.new-notify.' + elementCounterClassName+'')[0].innerHTML);
+        notivicationsCount = notivicationsCount + 1;
+        $('.new-notify.' + elementCounterClassName + '')[0].innerHTML = notivicationsCount;
+    }
+}
+
 function newInviteToCryptChatNotification(html, publicData) {
-    var note = $('#notification_div');
+    var note = $('.notify-alert');
     note[0].insertAdjacentHTML('beforeend', html);
 
     var script = document.createElement('script');
@@ -38,7 +76,7 @@ function newInviteToCryptChatNotification(html, publicData) {
         invited.save_invitation(publicData);
     };
 
-    setTimeout(clearNotificationDiv, delay);
+    setTimeout(clearNotificationDiv, 4000);
 }
 
 

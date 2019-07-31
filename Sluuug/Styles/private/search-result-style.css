@@ -50,6 +50,7 @@
 }
 
 .result-pagination .search-link-container a{
+    font-family: 'Roboto Condensed', sans-serif;
     text-decoration:none;
     text-align:center;
     color:#7f7f7f;

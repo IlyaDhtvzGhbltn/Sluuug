@@ -63,10 +63,9 @@ namespace Sluuug.Hubs
                         SendTime = DateTime.Now.ToString("yyyy-mm-dd"),
                         Text = clearMsg,
                     };
-                    string html = Slug.Helpers.HTMLGenerated.DialogMessage.GenerateHtml(model);
-
-                    Clients.Caller.sendAsync(html, convGuidID);
-                    Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(html, convGuidID);
+                    //string html = Slug.Helpers.HTMLGenerated.DialogMessage.GenerateHtml(model);
+                    //Clients.Caller.sendAsync(html, convGuidID);
+                    //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(html, convGuidID);
                 }
                 var responce = new NotifyHubModel();
                 responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

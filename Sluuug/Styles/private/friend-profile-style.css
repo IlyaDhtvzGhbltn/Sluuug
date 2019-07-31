@@ -59,12 +59,11 @@
 	padding:10px;
 }
 
-.message-form #open-new-message-button
-{
-	height:50px;
-	position:relative;
-	top:-50px;
-	z-index:1;
+.message-form #open-new-message-button {
+    height: 50px;
+    position: relative;
+    top: -50px;
+    z-index: 1;
 }
 
 .message-form #new-message-checkbox
@@ -100,11 +99,13 @@
 	visibility:visible;
 	opacity:1;
 }
-#message-to-user-area
-{
-   resize: none;
-   height:44px;
-   margin-right:10px;
+#message-to-user-area {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size:18px;
+    color: #7f7f7f;
+    resize: none;
+    height: 44px;
+    margin-right: 10px;
 }
 
 

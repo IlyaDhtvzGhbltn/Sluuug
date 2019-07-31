@@ -259,18 +259,18 @@ input::-webkit-input-placeholder {
         height: 50px;
     }
 
-        .right_navigation nav ul li a .circle_nav {
-            cursor: pointer;
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 auto;
-            flex: 0 0 auto;
-            -webkit-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-            fill: transparent;
-            stroke: rgba(162, 236, 243, 1);
-            stroke-width: 4px;
-            padding-top: 10px;
-        }
+.right_navigation nav ul li a .circle_nav {
+    cursor: pointer;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    fill: transparent;
+    stroke: rgba(162, 236, 243, 1);
+    stroke-width: 4px;
+    padding-top: 10px;
+}
 
 .help {
     margin-top: 300px;

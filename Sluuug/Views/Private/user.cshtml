@@ -68,7 +68,9 @@
 }
 else if (Model.Status == FriendshipItemStatus.Pending)
 {
-    <span>@Html.Translate("Text_Contact_Not_Accepted")</span>
+    <div class="user-profile-status">
+        <span>@Html.Translate("Text_Contact_Not_Accepted")</span>
+    </div>
 }
 
 <script src="~/Scripts/addContact.js"></script>

@@ -60,9 +60,11 @@ namespace Slug.Helpers
                                 c.LastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSayUser.AvatarResizeUri, ModTypes.c_scale, 100, 100);
                                 c.LastMessageSenderName = lastSayUser.Name;
                                 c.LastMessageSenderSurName = lastSayUser.SurName;
-                                c.LastMessage = lastMessage.Text.Substring(0, 120) + "...";
+                                if (lastMessage.Text.Length > 50)
+                                    c.LastMessage = lastMessage.Text.Substring(0, 49) + "...";
+                                else
+                                    c.LastMessage = lastMessage.Text;
                                 c.GuidId = conv.ConversationGuidId;
-
                                 convs.Cnv.Add(c);
                             }
                         }

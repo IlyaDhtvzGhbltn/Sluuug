@@ -468,7 +468,6 @@
     <Content Include="Views\Partial\Register\email_already_taken.cshtml" />
     <Content Include="Views\Partial\OwnPage\change_private_info.cshtml" />
     <Content Include="Views\Error\internal_part_error.cshtml" />
-    <Content Include="Views\Partial\CryptoDialogs\await_key_generation.cshtml" />
     <Content Include="Views\Partial\Register\success_register.cshtml" />
     <Content Include="Views\Partial\Register\fail_register.cshtml" />
     <Content Include="Views\Shared\public_index_navigation.cshtml" />

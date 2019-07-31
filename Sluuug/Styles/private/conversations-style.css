@@ -1,4 +1,7 @@
-﻿.conver_div {
+﻿#conversations{
+    width:66%;
+}
+.conver_div {
     transition: all 0.5s ease;
     cursor: pointer;
     border: 2px solid #ddd;
@@ -6,21 +9,21 @@
     display: block;
     height: auto;
     padding: 10px;
-    background-color:white;
+    background-color: white;
 }
 
-    .conver_div img {
-        border-radius: 100px;
-        position: absolute;
-    }
+.conver_div img {
+    border-radius: 100px;
+    position: absolute;
+}
 
 
-    .conver_div h2, p {
-        display: block;
-        text-align: center;
-    }
+.conver_div h2, p {
+    display: block;
+    text-align: center;
+}
 
-    .conver_div:hover {
-        background-color: rgb(162, 236, 243);
-        -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
-    }
+.conver_div:hover {
+    background-color: rgb(162, 236, 243);
+    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
+}

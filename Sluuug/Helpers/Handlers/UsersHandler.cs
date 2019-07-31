@@ -619,7 +619,7 @@ namespace Slug.Helpers
 
         public BaseUser AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
-            MyProfileModel userSenderRequest = GetCurrentProfileInfo(session);
+            MyProfileModel userSenderRequest = GetCurrentProfileInfo(session, false);
             using (var context = new DataBaseContext())
             {
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
@@ -657,6 +657,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var userInfo = GetUserInfo(userID);
+                var secUserInfo = GetUserInfo(UserIdBySession(session));
                 model.AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 200, 200);
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;
@@ -668,9 +669,11 @@ namespace Slug.Helpers
 
                 model.Status = FriendshipItemStatus.None;
                 FriendsRelationship relationItem = context.FriendsRelationship
-                    .Where(x => x.UserConfirmer == userID && x.UserOferFrienshipSender == userInfo.UserId ||
-                    x.UserOferFrienshipSender == userID && x.UserConfirmer == userInfo.UserId)
-                    .FirstOrDefault();
+                    .Where(
+                    x => 
+                    x.UserConfirmer == secUserInfo.UserId && x.UserOferFrienshipSender == userInfo.UserId ||
+                    x.UserOferFrienshipSender == secUserInfo.UserId && x.UserConfirmer == userInfo.UserId
+                    ).FirstOrDefault();
                 if (relationItem != null)
                 {
                     model.Status = relationItem.Status;
@@ -699,7 +702,7 @@ namespace Slug.Helpers
 
         public async Task<NotifyHubModel> AcceptInviteToContacts(string session, int userID)
         {
-            BaseUser accepterUser = GetCurrentProfileInfo(session);
+            BaseUser accepterUser = GetCurrentProfileInfo(session, false);
             using (var context = new DataBaseContext())
             {
                 FriendsRelationship item = context.FriendsRelationship

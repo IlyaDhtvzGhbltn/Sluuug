@@ -109,7 +109,12 @@ class Invited {
     got_invitation(crypto_conversation, html) {
         console.log(html);
         localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
-        document.querySelector('#currentSC').insertAdjacentHTML('beforeend', html);
+
+        var urlPath = document.location.pathname;
+
+        if (urlPath.includes('crypto_cnv')) {
+            document.querySelector('#currentSC .tab-content').insertAdjacentHTML('beforeend', html);
+        }
     }
 
     accept_invitation(event_handler) {
@@ -149,9 +154,9 @@ class Invited {
 
                 localStorage.setItem(chatSecretName, JSON.stringify(privateData));
 
-                for (var i = 0; i < localPublicJSON.participants.length; i++) {
-                    if (localPublicJSON.participants[i].UserId == userId) {
-                        localPublicJSON.participants[i].PublicKey = publicKey;
+                for (var j = 0; j < localPublicJSON.participants.length; j++) {
+                    if (localPublicJSON.participants[j].UserId === userId) {
+                        localPublicJSON.participants[j].PublicKey = publicKey;
                     }
                 }
 
@@ -173,15 +178,15 @@ class Inviter {
 
     create_new_crypto_conversation() {
         var invitersIds = [];
-        var friends = $(".ready_to_invite");
+        var friends = $(".fr");
 
         for (var i = 0; i < friends.length; i++) {
             if (friends[i].checked) {
                 invitersIds.push(friends[i].value);
             }
         }
-        if (invitersIds.length == 0) {
-            console.log('no one friend selected');
+        if (invitersIds.length === 0) {
+            alert('no one friend selected');
         }
         else {
             hide();
@@ -191,13 +196,13 @@ class Inviter {
             crypto_cnv.type = 0;
             crypto_cnv.participants = [];
 
-            for (var i = 0; i < invitersIds.length; i++) {
+            for (var j = 0; j < invitersIds.length; j++) {
                 let participant = new Participant();
-                participant.UserId = invitersIds[i];
-
+                participant.UserId = invitersIds[j];
                 crypto_cnv.participants.push(participant);
             }
             HUB.invoke('CreateNewCryptoConversation', JSON.stringify(crypto_cnv));
+            show();
         }
     }
 
@@ -223,13 +228,12 @@ class Inviter {
                 let chatSecretName = '__' + crypto_cnv.convGuidId;
                 localStorage.setItem(chatSecretName, JSON.stringify(privateData));
 
-
                 crypto_cnv.p = public_pre_values['p'];
                 crypto_cnv.g = public_pre_values['g'];
 
                 let participants = crypto_cnv.participants;
                 for (let i = 0; i < participants.length; i++) {
-                    if (participants[i].UserId == userId) {
+                    if (participants[i].UserId === userId) {
                         participants[i].PublicKey = public_key;
                     }
                 }
@@ -292,23 +296,24 @@ function accept_invite(object) {
 }
 
 async function hide() {
-    $('#new_crypto_chat')[0].type = 'hidden';
-    $('#new_crypto_chat')[0].onclick = null;
-    let wait = await getPartialView('/partial/await_key_generation');
-    document.querySelector('#create_new').insertAdjacentHTML('beforeend', wait);
+    $('#new_crypto_chat')[0].style.opacity = 0;
+    $('.generation-key-container').fadeIn();
 }
 
 function show() {
-    $('#new_crypto_chat')[0].onclick = 'invite()';
-    $('#new_crypto_chat')[0].type = 'button';
-    let wait = $('#wait_div')[0];
-    if (wait !== undefined) {
-        wait.innerHTML = '';
-    }
+    $('#generate_successfull').fadeOut();
+    [].forEach.call($('.fr'), function (item) {
+        item.checked = false;
+    });
+    $('.generation-key-container').fadeOut();
+    setTimeout(function () {
+        $('#not_selected').fadeIn();
+    }, 500);
 }
 
 HUB.on('NewCryptoConversationCreated', function (crypto_cnv) {
     inviter.send_notivication_to_participants(crypto_cnv);
+    $('#generate_successfull').fadeIn();
 });
 
 HUB.on('ObtainNewInvitation', function (crypto_cnv, html) {
@@ -323,8 +328,18 @@ HUB.on('NewMessage', function (crypto_msg, avatar, name, date, guidChatId) {
     got_message(crypto_msg, guidChatId);
 });
 
+HUB.on('FailCreateNewCryptoConversation', function (errorCode) {
+    console.log('error code ' + errorCode);
+    $('#generate_failed')[0].style.display = 'block';
+    $('#generate_failed')[0].style.opacity = '1';
+    setTimeout(function () {
+        $('#generate_failed')[0].style.display = 'none';
+        $('#generate_failed')[0].style.opacity = '0';
+    }, 3000);
+});
+
 function ready() {
-    var elements = document.getElementsByClassName('cryptp_chat');
+    var elements = document.getElementsByClassName('cryptp-chat-active');
     [].forEach.call(elements, function (elem) {
         elem.addEventListener('click', function () {
             window.location.href = "/private/c_msg?id=" + elem.id;
@@ -344,7 +359,7 @@ function getElementByXpath(path) {
 function decryption(message, id) {
     console.log(id);
     var skey = JSON.parse(localStorage.getItem('__' + id));
-    if (skey.K != undefined) {
+    if (skey.K !== undefined) {
         var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
         return decrypted.toString(CryptoJS.enc.Utf8);
     }

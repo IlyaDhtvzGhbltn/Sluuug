@@ -34,25 +34,24 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task CloseConnection(string session)
+        public async Task CloseConnection(string session, string closedConnection)
         {
             UsersHandler userHandler = new UsersHandler();
             int userID = userHandler.UserIdBySession(session);
-
+            var connectionId = Guid.Parse(closedConnection);
             using (var context = new DataBaseContext())
             {
-                List<UserConnections> connectionItems =  await
+                UserConnections connectionItems =  await
                     context.UserConnections.Where(
-                    x =>x.UserId == userID &&
-                    x.IsActive == true
-                    ).ToListAsync();
+                    x =>
+                    x.UserId == userID &&
+                    x.IsActive == true &&
+                    x.ConnectionId == connectionId
+                    ).FirstOrDefaultAsync();
 
-                if (connectionItems.Count > 0)
+                if (connectionItems != null)
                 {
-                    foreach (var item in connectionItems)
-                    {
-                        item.IsActive = false;
-                    }
+                    connectionItems.IsActive = false;
                     await context.SaveChangesAsync();
                 }
             }

@@ -28,7 +28,7 @@ function acceptFriendshipInvitation(userID) {
 function dropFromContacts(userID) {
     console.log('drop...' + userID);
     HUB.invoke('DropContact', userID).done(function () {
-        $("#friend_" + userID)[0].innerHTML = '';
-    })
+        $(".accepted_user_#" + userID)[0].remove();
+    });
 
 }

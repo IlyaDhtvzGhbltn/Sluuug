@@ -340,7 +340,7 @@
     <value>История видео переговоров</value>
   </data>
   <data name="Text_Contact_Not_Accepted" xml:space="preserve">
-    <value>Пользователь не подтвердил вашей заявки</value>
+    <value>Пользователь не подтвердил вашу заявку</value>
   </data>
   <data name="Text_Created" xml:space="preserve">
     <value>Создан</value>

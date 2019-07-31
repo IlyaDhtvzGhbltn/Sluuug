@@ -46,7 +46,7 @@ namespace Slug.Helpers.HTMLGenerated
 
             sb.Append("<div class='notify-avatar-container'>");
                 string uriAvatar = Resize.ResizedAvatarUri(model.AvatarResizeUri, ModTypes.c_scale, 50, 50);
-                sb.AppendFormat("<img onclick='redirectToUser({0})' src='{1}' />", model.UserId, uriAvatar);
+                sb.AppendFormat("<img onclick='redirectToUser('{0}')' src='{1}' />", model.UserId, uriAvatar);
             sb.Append("</div>");
             sb.Append("<div class='notify-message-container'>");
                 sb.Append("<div class='notify-message-header'>");
@@ -55,9 +55,8 @@ namespace Slug.Helpers.HTMLGenerated
                 sb.Append("</div>");
                 sb.Append("<div class='notify-message-body'>");
                     string uriMore = typeToLink[type];
-                    string click = Properties.Resources.ResourceManager.GetString("Text_Click_Here_Details", cul);
                     sb.Append("<span class='notify-about-span'>нажмите, что бы узнать</span>");
-                    sb.AppendFormat("<a class='notify-about-a' href='{0}'>подробнее</a>", click);
+                    sb.AppendFormat("<a class='notify-about-a' href='{0}'>подробнее</a>", uriMore);
                 sb.Append("</div>");
             sb.Append("</div>");
 

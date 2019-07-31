@@ -6,54 +6,50 @@
     display: inline;
 }
 
-    .friend_div label {
-        margin: 0px 15px;
-        border: 1px solid #7f7f7f;
-        transition: all 0.5s ease;
-        float: left;
-        cursor: pointer;
-        position: relative;
-        width: 100%;
-        height: inherit;
-        top: -10px;
-        left: -10px;
-    }
+.friend_div label {
+    margin: 0px 15px;
+    border: 1px solid #7f7f7f;
+    transition: all 0.5s ease;
+    float: left;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    height: inherit;
+    top: -10px;
+    left: -10px;
+}
 
-        .friend_div label:hover {
-            box-shadow: 0 0 12px 5px rgba(15, 15, 15, 0.3);
-            margin: 10px;
-            height: 110px;
-        }
+.friend_div label:hover {
+    -webkit-box-shadow: 10px 10px 5px -2px rgba(19, 35, 47, 0.3);
+}
 
-
-            .friend_div label:hover + .fr-head {
-                margin: 20px;
-            }
-
-            .friend_div label:hover > .selected-overflow {
-                height: 120;
-                top: -40px;
-            }
+.fr{
+    opacity:0;
+}
+ 
 
 .fr:checked ~ .selected-overflow {
     background-color: #a2ecf3;
-    /* background : linear-gradient(transparent, #a2ecf3, transparent); */
 }
 
 .selected-overflow {
     transition: all 0.5s ease;
     height: 98px;
     position: relative;
-    top: -25px;
+    top: -51px;
 }
 
+.circle{
+    left:0;
+    top:12px;
+}
 
 .circle--outer {
-    border-radius: 30%;
+    border-radius: 50%;
 }
 
 .circle--inner__1 {
-    border-radius: 30%;
+    border-radius: 50%;
 }
 
 
@@ -68,13 +64,13 @@
     height: auto;
 }
 
-    .fr-head > * {
-        position: absolute;
-    }
+.fr-head > * {
+    position: absolute;
+}
 
-    .fr-head img {
-        left: 3%;
-    }
+.fr-head img {
+    left: 3%;
+}
 
 .tab-content .fr-head h2, .tab-content .fr-head span {
     left: 130px;
@@ -120,21 +116,21 @@
     flex-wrap: nowrap;
 }
 
-    .call-wrap:hover {
-        background-color: #a2ecf3;
-        padding: 20px;
-        height: 120px;
-    }
+.call-wrap:hover {
+    background-color: #a2ecf3;
+    padding: 20px;
+    height: 120px;
+}
 
-        .call-wrap:hover > .answer .run-div {
-            visibility: visible;
-            /* left:50%; */
-            opacity: 1;
-            height: 120px;
-            width: 70%;
-            margin: -20px;
-            opacity: 1;
-        }
+.call-wrap:hover > .answer .run-div {
+    visibility: visible;
+    /* left:50%; */
+    opacity: 1;
+    height: 120px;
+    width: 70%;
+    margin: -20px;
+    opacity: 1;
+}
 
 .answer {
     height: 100px;
