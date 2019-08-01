@@ -1,9 +1,11 @@
-﻿.dialog span{
-    font-size:20px;
-}
-
-.dialog h4{
-    font-size:22px;
+﻿
+.dialog h4 {
+    font-size: 19px;
+    cursor: pointer;
+    margin: 0;
+    color: #7f7f7f;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: normal;
 }
 
 .result-pagination{
@@ -25,17 +27,9 @@
 .dialog img {
     border-radius: 45px;
     cursor: pointer;
+    border: 1px solid #7f7f7f;
+
 }
-
-
-h4 {
-    cursor: pointer;
-    margin: 0;
-    color: #7f7f7f;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-style: normal;
-}
-
 
 .send_msg {
     margin-bottom: 120px;
@@ -54,7 +48,7 @@ h4 {
 .out-content,
 .in-content {
     border: 1px solid #7f7f7f;
-    padding: 10px;
+    padding: 1px;
     float: right;
     clear: both;
     width: 50%;
@@ -66,11 +60,11 @@ h4 {
 
 .out-content {
     margin-right: 10px;
-    background-color: #7FDBFF;
+    background-color: #c6f8e3;
 }
 .in-content {
     margin-right: 45%;
-    background-color: #7db7af;
+    background-color: #aae1e6;
 }
 
 
@@ -90,12 +84,13 @@ h4 {
 }
 
 .message-body span {
-    width:75%;
-    margin-left:10px;
-    margin-top:auto;
-    margin-bottom:auto;
-    word-wrap:break-word;
-    display:block;
+    width: 75%;
+    margin-left: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    word-wrap: break-word;
+    display: block;
+    font-size: 18px;
 }
 
 

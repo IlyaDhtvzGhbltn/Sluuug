@@ -428,7 +428,7 @@ namespace Slug.Helpers
                 }
                 catch (Exception)
                 {
-                    return null;
+                   
                 }
             }
             return userModel;
@@ -449,7 +449,54 @@ namespace Slug.Helpers
             return false;
         }
 
-        public MyFriendsModel GetFriendsBySession(string sessionId, int avatarResize = 100)
+        public List<BaseUser> GetFriendsOnlyBySession(string sessionId, int friendAvatarResize = 80)
+        {
+            int userId = UserIdBySession(sessionId);
+            var model = new List<BaseUser>();
+
+            using (var context = new DataBaseContext())
+            {
+                FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
+                    .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
+                    .Where(x => x.Status == FriendshipItemStatus.Accept)
+                    .ToArray();
+                List<int> friendsIds = friendshipAccepted
+                    .Select(x => x.UserOferFrienshipSender )
+                    .Where(x => x != userId)
+                    .ToList();
+
+                friendsIds.AddRange(
+                    friendshipAccepted.Select(x => x.UserConfirmer)
+                    .Where(x => x != userId)
+                    .ToList()
+                    );
+
+                if (friendsIds.Count > 0)
+                {
+
+                    foreach (var friendId in friendsIds)
+                    {
+                        BaseUser userInfo = GetUserInfo(friendId);
+                        var friend = new BaseUser()
+                        {
+                            UserId = friendId,
+                            AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, friendAvatarResize, friendAvatarResize),
+                            Name = userInfo.Name,
+                            SurName = userInfo.SurName,
+                            Country = userInfo.Country,
+                            City = userInfo.City,
+                            Age = userInfo.Age
+                        };
+                        bool isOnline = context.UserConnections.Any(x => x.IsActive == true && x.UserId == friendId);
+                        friend.IsActive = isOnline;
+                        model.Add(friend);
+                    }
+                }
+            }
+            return model;
+        }
+
+        public MyFriendsModel GetContactsBySession(string sessionId, int avatarResize = 100)
         {
             var model = new MyFriendsModel();
             model.Friends = new List<FriendModel>();

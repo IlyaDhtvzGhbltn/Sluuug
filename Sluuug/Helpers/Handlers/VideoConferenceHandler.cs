@@ -95,49 +95,49 @@ namespace Slug.Helpers
         public VideoConferenceModel VideoConferenceModel (string sessionID)
         {
             var model = new VideoConferenceModel();
-            model.Friends = new List<FriendModel>();
-            model.CallsHistory = new List<CallModel>();
+            model.Friends = new List<BaseUser>();
+            //model.CallsHistory = new List<CallModel>();
             model.IncomingCalls = new List<IncomingInviteModel>();
 
             var usersHandler = new UsersHandler();
             int myId = usersHandler.UserIdBySession(sessionID);
 
-            MyFriendsModel fMod = usersHandler.GetFriendsBySession(sessionID, 80);
-            foreach (var item in fMod.Friends)
+            var fMod = usersHandler.GetFriendsOnlyBySession(sessionID, 80);
+            foreach (var item in fMod)
             {
                 model.Friends.Add(item);
             }
 
             using (var context = new DataBaseContext())
             {
-                Guid[] conferenceHistoryIDs = context.VideoConferenceGroups
-                    .OrderByDescending(x => x.Id)
-                    .Where(x=>x.UserId == myId)
-                    .Select(x => x.GuidId)
-                    .Take(100)
-                    .ToArray();
-                foreach (var item in conferenceHistoryIDs)
-                {
-                    var call = new CallModel();
-                    VideoConference conference = context.VideoConferences
-                        .Where(x=>x.GuidId == item && x.IsActive == false)
-                        .FirstOrDefault();
-                    if (conference != null)
-                    {
-                        call.CallerUserId = conference.ConferenceCreatorUserId;
-                        call.Date = conference.CreationDate;
-                        if (call.CallerUserId == myId)
-                            call.State = CallState.Out;
-                        else
-                            call.State = CallState.In;
+                //Guid[] conferenceHistoryIDs = context.VideoConferenceGroups
+                //    .OrderByDescending(x => x.Id)
+                //    .Where(x=>x.UserId == myId)
+                //    .Select(x => x.GuidId)
+                //    .Take(100)
+                //    .ToArray();
+                //foreach (var item in conferenceHistoryIDs)
+                //{
+                //    var call = new CallModel();
+                //    VideoConference conference = context.VideoConferences
+                //        .Where(x=>x.GuidId == item && x.IsActive == false)
+                //        .FirstOrDefault();
+                //    if (conference != null)
+                //    {
+                //        call.CallerUserId = conference.ConferenceCreatorUserId;
+                //        call.Date = conference.CreationDate;
+                //        if (call.CallerUserId == myId)
+                //            call.State = CallState.Out;
+                //        else
+                //            call.State = CallState.In;
 
-                        int calleId = context.VideoConferenceGroups
-                            .Where(x => x.GuidId == item && x.UserId != myId)
-                            .First().UserId;
-                        call.CalleUserId = calleId;
-                        model.CallsHistory.Add(call);
-                    }
-                }
+                //        int calleId = context.VideoConferenceGroups
+                //            .Where(x => x.GuidId == item && x.UserId != myId)
+                //            .First().UserId;
+                //        call.CalleUserId = calleId;
+                //        model.CallsHistory.Add(call);
+                //    }
+                //}
 
                 List<VideoConferenceGroups> userConverense = context.VideoConferenceGroups
                     .Where(x => x.UserId == myId)

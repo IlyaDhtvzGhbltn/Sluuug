@@ -18,7 +18,6 @@ function redirectToUser(id) {
     window.open(url, "_blank");
 }
 
-
 function redirectToFriend(id) {
     let domain = window.location.host;
     let protocol = location.protocol;

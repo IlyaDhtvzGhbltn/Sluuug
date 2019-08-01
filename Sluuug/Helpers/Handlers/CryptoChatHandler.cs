@@ -73,7 +73,7 @@ namespace Slug.Helpers
 
             model.FriendsICanInvite = new List<FriendModel>();
 
-            MyFriendsModel friends = userHandler.GetFriendsBySession(sessionId, 50);
+            MyFriendsModel friends = userHandler.GetContactsBySession(sessionId, 50);
             int userId = userHandler.UserIdBySession(sessionId);
 
             foreach (var item in friends.Friends)

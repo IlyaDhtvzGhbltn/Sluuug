@@ -10,6 +10,8 @@ namespace Slug.Model.Users
     {
         public int UserId { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string Name { get; set; }
 
         public string SurName { get; set; }

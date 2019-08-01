@@ -55,6 +55,12 @@
 
 .fr-head > .avatar {
     float: left;
+    border:1px solid #7f7f7f;
+    cursor:pointer;
+}
+
+h2 {
+    cursor: pointer;
 }
 
 .fr-head {

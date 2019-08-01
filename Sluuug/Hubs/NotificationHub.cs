@@ -72,16 +72,12 @@ namespace Slug.Hubs
         public async Task SendMessage(string message, string convId, int toUserId)
         {
             Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-
+            
             bool isFriends = true;
             if (convId == "0")
-            {
                 isFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(cookies.Value, toUserId);
-            }
             else
-            {
                 isFriends = FriendshipChecker.IsUsersAreFriendsByConversationGuidANDid(Guid.Parse(convId), toUserId);
-            }
 
             if (isFriends)
             {
@@ -90,10 +86,16 @@ namespace Slug.Hubs
 
                 if (hubResp != null)
                 {
-                    string html = Notifications.GenerateHtml(NotificationType.NewMessage, hubResp.FromUser, hubResp.Culture);
-                    Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessage);
+                    if (hubResp.ConnectionIds.Count > 0)
+                    {
+                        string html = Notifications.GenerateHtml(NotificationType.NewMessage, hubResp.FromUser, hubResp.Culture);
+                        await Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessage);
+                    }
+                    await Clients.Caller.MessageSendedResult(true);
                 }
             }
+            else
+                await Clients.Caller.MessageSendedResult(false);
         }
 
         public async Task SendCutMessage(string message, Guid convID)
@@ -119,7 +121,6 @@ namespace Slug.Hubs
                             bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUser.UserId, toUserID);
                             if (isFriends)
                             {
-
                                 bool fromUserQuickSett = context.Users.Where(x => x.Id == fromUser.UserId).First().Settings.QuickMessage;
                                 bool toUserQuickSett = context.Users.Where(x => x.Id == toUserID).First().Settings.QuickMessage;
 
@@ -180,8 +181,11 @@ namespace Slug.Hubs
         {
             var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
             NotifyHubModel responce = await videoHub.CreateAndInvite(calleUserId);
-            string html = Notifications.GenerateHtml(NotificationType.NewInviteVideoConference, responce.FromUser, responce.Culture);
-            Clients.Clients(responce.ConnectionIds).NotifyAbout(html, null, NotificationType.NewInviteVideoConference);
+            if (responce.ConnectionIds.Count > 0)
+            {
+                string html = Notifications.GenerateHtml(NotificationType.NewInviteVideoConference, responce.FromUser, responce.Culture);
+                Clients.Clients(responce.ConnectionIds).NotifyAbout(html, null, NotificationType.NewInviteVideoConference);
+            }
         }
 
         public async Task Invite(string callOffer, Guid videoConverenceGuidID)

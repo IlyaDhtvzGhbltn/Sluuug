@@ -70,7 +70,7 @@ namespace Sluuug.Hubs
                 var responce = new NotifyHubModel();
                 responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                 responce.FromUser = user;
-                responce.Culture = UserRecipientsConnectionIds.CultureCode[0];
+                responce.Culture = UserRecipientsConnectionIds.CultureCode.Count > 0 ? UserRecipientsConnectionIds.CultureCode[0] : null;
                 return responce;
             }
             else return null;

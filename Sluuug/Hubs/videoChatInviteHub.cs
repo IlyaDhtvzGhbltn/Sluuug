@@ -54,18 +54,18 @@ namespace Slug.Hubs
                 ConferenceID = guid,
                 AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 50, 50)
             };
+            Clients.Caller.CallerGuidToRedirect(guid);
 
             //var culture = CultureInfo.CurrentCulture;
             //string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
             //model.Html = html;
             //string json = JsonConvert.SerializeObject(model);
             //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
-            //Clients.Caller.CallerGuidToRedirect(guid);
 
             var response = new NotifyHubModel();
             response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
             response.FromUser = userInfo;
-            response.Culture = UserRecipientsConnectionIds.CultureCode[0];
+            response.Culture = UserRecipientsConnectionIds.CultureCode.Count > 0 ? UserRecipientsConnectionIds.CultureCode[0] : null;
             return response;
         }
 

@@ -8,6 +8,7 @@ namespace Slug.Model.Users
 {
     public class FriendModel : BaseUser
     {
+
         public ICollection<AlbumModel> Albums { get; set; }
 
         public ICollection<EducationModel> Educations { get; set; }

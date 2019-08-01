@@ -20,6 +20,8 @@ namespace Slug.Model
     {
         public Guid ConversationId { get; set; }
 
+        public int SenderId { get; set; }
+
         public string UserName { get; set; }
 
         public string UserSurname { get; set; }

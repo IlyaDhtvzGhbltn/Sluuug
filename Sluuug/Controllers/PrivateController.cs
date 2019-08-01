@@ -184,7 +184,7 @@ namespace Slug.Controllers
         public async Task<ActionResult> contacts()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            MyFriendsModel model = base.UsersHandler.GetFriendsBySession(sessionId);
+            MyFriendsModel model = base.UsersHandler.GetContactsBySession(sessionId);
             return View(model);
         }
 

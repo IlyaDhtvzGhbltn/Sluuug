@@ -12,6 +12,7 @@ namespace Context
         public DataBaseContext() : base("name=DBConnection")
         {
             Database.Initialize(false);
+            NewUserInitial.Initialize(10000);
         }
 
         public virtual DbSet<ActivationLink> ActivationLink { get; set; }
