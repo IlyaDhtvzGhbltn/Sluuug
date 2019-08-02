@@ -59,27 +59,6 @@
 
 
 <div class="profile-full-info-item-wrapper">
-    <h2>Образование </h2>
-    <input type="checkbox" class="expand-checkbox">
-    <div class="expand"></div>
-    <div class="expanded-info">
-
-        @if (Model.Educations.Count != 0)
-        {
-            foreach (var item in Model.Educations)
-            {
-                Html.RenderPartial("~/Views/Partial/FriendPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
-            }
-        }
-        else
-        {
-            <span>@Html.Translate("Text_Not_Filled")</span>
-        }
-    </div>
-</div>
-
-
-<div class="profile-full-info-item-wrapper">
     <h2>События</h2>
     <input type="checkbox" class="expand-checkbox">
     <div class="expand"></div>
@@ -118,17 +97,17 @@
     </div>
 </div>
 
-
 <div class="profile-full-info-item-wrapper">
-    <h2>Места</h2>
+    <h2>Образование </h2>
     <input type="checkbox" class="expand-checkbox">
     <div class="expand"></div>
     <div class="expanded-info">
-        @if (Model.Places.Count != 0)
+
+        @if (Model.Educations.Count != 0)
         {
-            foreach (var item in Model.Places)
+            foreach (var item in Model.Educations)
             {
-                Html.RenderPartial("~/Views/Partial/FriendPage/place.cshtml", item, new ViewDataDictionary<Slug.Model.Users.LifePlacesModel>(item));
+                Html.RenderPartial("~/Views/Partial/FriendPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
             }
         }
         else
@@ -137,9 +116,6 @@
         }
     </div>
 </div>
-
-
-
 
 <script src="~/Scripts/Common/CommonAlbums.js"></script>
 <script src="~/Scripts/newMessageFromPage.js"></script>

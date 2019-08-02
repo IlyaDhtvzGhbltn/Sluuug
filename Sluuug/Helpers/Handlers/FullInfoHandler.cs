@@ -28,12 +28,6 @@ namespace Slug.Helpers
                 {
                     return entryWorkPlaces.User;
                 }
-                var entryLifePlaces = context.LifePlaces
-                    .FirstOrDefault(x => x.Id == guid);
-                if (entryLifePlaces != null)
-                {
-                    return entryLifePlaces.User;
-                }
                 var entryMemorableEvents = context.MemorableEvents
                     .FirstOrDefault(x => x.Id == guid);
                 if (entryMemorableEvents != null)
@@ -61,12 +55,7 @@ namespace Slug.Helpers
                 {
                     context.WorkPlaces.Remove(entryWorkPlaces);
                 }
-                var entryLifePlaces = context.LifePlaces
-                    .FirstOrDefault(x => x.Id == guid);
-                if (entryLifePlaces != null)
-                {
-                    context.LifePlaces.Remove(entryLifePlaces);
-                }
+
                 var entryMemorableEvents = context.MemorableEvents
                     .FirstOrDefault(x => x.Id == guid);
                 if (entryMemorableEvents != null)
@@ -123,7 +112,7 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                var newEducation = new MemorableEvents();
+                var newEducation = new Events();
                 newEducation.Id = Guid.NewGuid();
                 newEducation.EventTitle = model.EventTitle;
                 newEducation.DateEvent = model.DateEvent;
@@ -135,39 +124,7 @@ namespace Slug.Helpers
                 context.SaveChanges();
                 return true;
             }
-        }
-
-        public bool AddLifePlacesEntry(LifePlacesModel model, string session)
-        {
-            var handler = new UsersHandler();
-            int userId = handler.UserIdBySession(session);
-
-            using (var context = new DataBaseContext())
-            {
-                var lifePlace = new LifePlaces();
-                lifePlace.Id = Guid.NewGuid();
-                lifePlace.Start = model.Start;
-                if (model.UntilNow)
-                {
-                    lifePlace.UntilNow = true;
-                }
-                else
-                {
-                    lifePlace.End = model.End;
-                }
-
-                lifePlace.Comment = model.Comment;
-                lifePlace.CountryCode = int.Parse(model.Country);
-                lifePlace.CityCode = int.Parse(model.City);
-                lifePlace.User = context.Users.First(x => x.Id == userId);
-
-
-                User user = context.Users.First(x => x.Id == userId);
-                user.UserFullInfo.Places.Add(lifePlace);
-                context.SaveChanges();
-                return true;
-            }
-        }
+        }      
 
         public bool AddWorkPlacesEntry(WorkPlacesModel model, string session)
         {

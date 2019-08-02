@@ -277,7 +277,6 @@
     <Compile Include="Context\Dto\UserFullInfo_refactor\BaseLiveEpisode.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\LifePlaces.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\MemorableEvents.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
@@ -300,17 +299,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201907291416241_city code drop.cs" />
-    <Compile Include="Migrations\201907291416241_city code drop.Designer.cs">
-      <DependentUpon>201907291416241_city code drop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907300746391_user_connections_NOT_db_generate_Guid.cs" />
-    <Compile Include="Migrations\201907300746391_user_connections_NOT_db_generate_Guid.Designer.cs">
-      <DependentUpon>201907300746391_user_connections_NOT_db_generate_Guid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907300750331_user_connections_NOT_db_generate_Guid2.cs" />
-    <Compile Include="Migrations\201907300750331_user_connections_NOT_db_generate_Guid2.Designer.cs">
-      <DependentUpon>201907300750331_user_connections_NOT_db_generate_Guid2.cs</DependentUpon>
+    <Compile Include="Migrations\201908021532273_reset.cs" />
+    <Compile Include="Migrations\201908021532273_reset.Designer.cs">
+      <DependentUpon>201908021532273_reset.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -390,7 +381,6 @@
     <Compile Include="Model\FullInfo\EducationModel.cs" />
     <Compile Include="Model\Users\Relations\ForeignUserViewModel.cs" />
     <Compile Include="Model\Users\Relations\FriendModel.cs" />
-    <Compile Include="Model\FullInfo\LifePlacesModel.cs" />
     <Compile Include="Model\FullInfo\MemorableEventsModel.cs" />
     <Compile Include="Model\Users\Registration\RegisteringUserModel.cs" />
     <Compile Include="Model\SimpleChat\SendingMSG.cs" />
@@ -490,14 +480,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907291416241_city code drop.resx">
-      <DependentUpon>201907291416241_city code drop.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907300746391_user_connections_NOT_db_generate_Guid.resx">
-      <DependentUpon>201907300746391_user_connections_NOT_db_generate_Guid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907300750331_user_connections_NOT_db_generate_Guid2.resx">
-      <DependentUpon>201907300750331_user_connections_NOT_db_generate_Guid2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908021532273_reset.resx">
+      <DependentUpon>201908021532273_reset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

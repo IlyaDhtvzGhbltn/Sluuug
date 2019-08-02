@@ -18,7 +18,7 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //NewUserInitial.UserFullInfo("login18");
+            //NewUserInitial.Initialize(10000);
         }
 
         protected void Application_Error(object sender, EventArgs e)

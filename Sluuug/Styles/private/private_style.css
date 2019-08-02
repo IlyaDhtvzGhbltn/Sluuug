@@ -50,11 +50,23 @@ nav {
 	background-color:#fff;
 }
 #search-form span {
-    margin: 20px 10px 5px 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left:10px;
+    margin-right:5px;
 }
 
-#searchSubmit{
-    margin-top:10px;
+#searchSubmit {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#searchSubmit > *{
+    margin-top: auto;
+    margin-bottom: auto;
+    max-height:36px;
 }
 
 nav ul {

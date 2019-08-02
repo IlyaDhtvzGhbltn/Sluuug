@@ -11,7 +11,5 @@ namespace Slug.Model.Users.Relations
         public ICollection<AlbumModel> Albums { get; set; }
         public ICollection<EducationModel> Educations { get; set; }
         public ICollection<MemorableEventsModel> Events { get; set; }
-        public ICollection<WorkPlacesModel> Works { get; set; }
-        public ICollection<LifePlacesModel> Places { get; set; }
-    }
+        public ICollection<WorkPlacesModel> Works { get; set; }    }
 }

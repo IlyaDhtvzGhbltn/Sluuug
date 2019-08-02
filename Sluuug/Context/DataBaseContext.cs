@@ -12,7 +12,6 @@ namespace Context
         public DataBaseContext() : base("name=DBConnection")
         {
             Database.Initialize(false);
-            NewUserInitial.Initialize(10000);
         }
 
         public virtual DbSet<ActivationLink> ActivationLink { get; set; }
@@ -41,8 +40,7 @@ namespace Context
         public virtual DbSet<Cities> Cities { get; set; }
 
         public virtual DbSet<WorkPlaces> WorkPlaces { get; set; }
-        public virtual DbSet<MemorableEvents> MemorableEvents { get; set; }
-        public virtual DbSet<LifePlaces> LifePlaces { get; set; }
+        public virtual DbSet<Events> MemorableEvents { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
 
         public virtual DbSet<Album> Albums { get; set; }

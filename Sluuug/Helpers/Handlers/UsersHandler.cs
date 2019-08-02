@@ -215,29 +215,6 @@ namespace Slug.Helpers
                     });
                 });
 
-                var Places = user.UserFullInfo.Places;
-                userModel.Places = new List<LifePlacesModel>();
-                Places.ForEach(x =>
-                {
-                    string endDate = (x.End == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.End).ToString("D");
-                    userModel.Places.Add(new LifePlacesModel()
-                    {
-                        Comment = x.Comment,
-                        StartDateFormat = x.Start.ToString("D"),
-                        EndDateFormat = endDate,
-                        UntilNow = x.UntilNow,
-                        Id = x.Id,
-
-                        Country = context.Countries
-                        .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                        .First().Title,
-
-                        City = context.Cities
-                        .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                        .First().Title
-                    });
-                });
-
                 List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
                 userModel.Albums = new List<AlbumModel>();
                 foreach (var album in albums)
@@ -331,7 +308,6 @@ namespace Slug.Helpers
                     UntilNow = x.UntilNow,
                     Id = x.Id,
 
-
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
@@ -342,25 +318,6 @@ namespace Slug.Helpers
 
                 })
                 );
-
-                var Places = user.UserFullInfo.Places.OrderBy(x => x.Start).ToList();
-                userModel.Places = new List<LifePlacesModel>();
-                Places.ForEach(x =>
-                userModel.Places.Add(new LifePlacesModel()
-                {
-                    Comment = x.Comment,
-                    Start = x.Start,
-                    End = x.End,
-                    UntilNow = x.UntilNow,
-                    Id = x.Id,
-
-                    Country = context.Countries
-                    .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                    .First().Title,
-                    City = context.Cities
-                    .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                    .First().Title
-                }));
 
                 List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
                 userModel.Albums = new List<AlbumModel>();

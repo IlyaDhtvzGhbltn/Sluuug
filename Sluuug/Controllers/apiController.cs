@@ -123,13 +123,6 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult add_places(LifePlacesModel model)
-        {
-            bool resultFlag = FullInfoHandler.AddLifePlacesEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);
-            return new JsonResult() { Data = resultFlag };
-        }
-
-        [HttpPost]
         public JsonResult add_works(WorkPlacesModel model)
         {
             bool resultFlag = FullInfoHandler.AddWorkPlacesEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);

@@ -14,6 +14,5 @@ namespace Slug.Model.Users
         public ICollection<EducationModel> Educations { get; set; }
         public ICollection<MemorableEventsModel> Events { get; set; }
         public ICollection<WorkPlacesModel> Works { get; set; }
-        public ICollection<LifePlacesModel> Places { get; set; }
     }
 }

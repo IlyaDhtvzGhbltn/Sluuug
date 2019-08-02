@@ -37,15 +37,19 @@
                         <select name="user_sex">
                             <option value="0">Женщину</option>
                             <option value="1">Мужчину</option>
+                            <option value="-1">Не важно</option>
                         </select>
                         <select id="countryListBoxId" name="user_country" onchange="getCities('countryListBoxId','citiesListBoxId')">
                             <option value="7">Россия</option>
                             <option value="1">USA</option>
+                            <option value="-1">Не важно</option>
                         </select>
                         <select id="citiesListBoxId" name="user_city">
                             <option value="495">Москва</option>
+                            <option value="-1">Не важно</option>
                         </select>
                         <select name="user_age">
+                            <option value="-1">Не важно</option>
                             <option value="0">16-20</option>
                             <option value="1">21-26</option>
                             <option value="2">27-32</option>
@@ -55,11 +59,8 @@
                             <option value="6">60-69</option>
                             <option value="7">более 70</option>
                         </select>
-                        <select name="user_purpose">
-                            <option value="0">Серьезные отношения</option>
-                            <option value="1">Дружба и общение</option>
-                            <option value="2">Секс</option>
-                        </select>
+                        <span>Имя Фамилия</span>
+                        <input type="text" name="user_name">
                     </form>
                     <button onclick="serchUser('searchSubmit')">Начать поиск</button>
                 </div>
@@ -125,7 +126,7 @@
             <a href="/private/support">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/support_ico.png" />
-                    <span>Техпотдержка</span>
+                    <span>Техподдержка</span>
                 </li>
             </a>
 

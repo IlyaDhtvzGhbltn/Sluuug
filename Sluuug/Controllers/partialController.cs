@@ -146,12 +146,6 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public ActionResult Places_Form()
-        {
-            return View("~/Views/Partial/OwnPage/AddInfo/places_form.cshtml");
-        }
-
-        [HttpPost]
         public ActionResult Login_Already_Taken()
         {
             return View("~/Views/Partial/Register/login_already_taken.cshtml");

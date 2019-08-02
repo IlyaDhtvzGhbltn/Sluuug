@@ -45,9 +45,7 @@ namespace Slug.Context.Tables
 
         public virtual List<Education> Educations { get; set; }
 
-        public virtual List<LifePlaces> Places { get; set; }
-
-        public virtual List<MemorableEvents> Events { get; set; }
+        public virtual List<Events> Events { get; set; }
 
         public virtual List<WorkPlaces> Works { get; set; }
     }

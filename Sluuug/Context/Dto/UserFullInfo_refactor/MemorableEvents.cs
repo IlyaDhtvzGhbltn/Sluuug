@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Slug.Context.Dto.UserFullInfo
 {
-    public class MemorableEvents
+    public class Events
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -21,5 +21,7 @@ namespace Slug.Context.Dto.UserFullInfo
         public DateTime? DateEvent { get; set; }
 
         public virtual User User { get; set; }
+
+        public virtual List<Foto> Photos { get; set; } 
     }
 }
