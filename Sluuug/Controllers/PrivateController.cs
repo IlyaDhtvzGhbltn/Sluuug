@@ -255,11 +255,11 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> search_result(
             string user_name, 
-            int user_country, 
-            int user_city, 
-            int user_sex, 
-            int user_age, 
-            int user_purpose, 
+            int user_country = -1, 
+            int user_city = -1, 
+            int user_sex = -1, 
+            int user_age = -1, 
+            int user_purpose = -1, 
             int user_search_sex = -1, 
             int user_search_age = -1,
             int page = 1)
@@ -269,13 +269,12 @@ namespace Slug.Controllers
                 userCountry = user_country,
                 userName = user_name,
                 userCity = user_city,
-                userAge = (AgeEnum)user_age,
-                userSex = (SexEnum)user_sex,
-                userDatingPurpose = (DatingPurposeEnum)user_purpose,
+                userAge = user_age,
+                userSex = user_sex,
+                userDatingPurpose = user_purpose,
+                userSearchAge = user_search_age,
+                userSearchSex = user_search_sex
             };
-                parseRequest.userSearchAge = user_search_age;
-                parseRequest.userSearchSex = user_search_sex;
-
             SearchUsersResponse response = SearchHandler.SearchUsers(parseRequest, page);
             return View(response);
         }

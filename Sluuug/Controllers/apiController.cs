@@ -86,15 +86,6 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult users(SearchUsersRequest request, int page = 1)
-        {
-            var handler = new SearchHandler();
-
-            SearchUsersResponse responce = handler.SearchUsers(request, page);
-            return new JsonResult() { };
-        }
-
-        [HttpPost]
         public JsonResult drop_entry(Guid EntryId)
         {
             string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;

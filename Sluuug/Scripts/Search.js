@@ -1,4 +1,4 @@
-﻿function getCities(countryListBoxId, citiesListBoxId) {
+﻿function getCities(countryListBoxId, citiesListBoxId, emptyValue) {
     let countryCode = $("#" + countryListBoxId + " :selected").val();
     $.ajax({
         type: "post",
@@ -11,6 +11,9 @@
             countryList.empty();
             for (let i = 0; i < response.Cities.length; i++) {
                 countryList.append(new Option(response.Cities[i].Title, response.Cities[i].CityCode));
+            }
+            if (emptyValue) {
+                countryList.append(new Option('Не важно', -1));
             }
         },
     });

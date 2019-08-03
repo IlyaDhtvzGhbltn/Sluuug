@@ -75,41 +75,93 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                var maxDate = datesOfBirth[request.userAge].UserMaxDateOfBirth;
-                var minDate = datesOfBirth[request.userAge].UserMinDateOfBirth;
-
-                string predicate = 
+                string predicate = string.Empty;
+                if (request.userSex != -1)
+                {
+                    predicate = predicate + string.Format("UserFullInfo.Sex=={0}", request.userSex);
+                }
+                if (request.userCountry != -1)
+                {
+                    predicate = formatPredicate(predicate, 
+                        string.Format("UserFullInfo.NowCountryCode=={0}", request.userCountry));
+                }
+                if (request.userCity != -1)
+                {
+                    predicate = formatPredicate(predicate, 
+                        string.Format("UserFullInfo.NowCityCode=={0}", request.userCity));
+                }
+                if (request.userDatingPurpose != -1)
+                {
+                    predicate = formatPredicate(predicate, 
+                        string.Format("UserFullInfo.DatingPurpose=={0}", (int)request.userDatingPurpose));
+                }
+                if (request.userAge != -1)
+                {
+                    var maxDate = datesOfBirth[(AgeEnum)request.userAge].UserMaxDateOfBirth;
+                    var minDate = datesOfBirth[(AgeEnum)request.userAge].UserMinDateOfBirth;
+                    string agePredicate =
                     string.Format(
-                        "UserFullInfo.NowCityCode=={0}&&" +
-                        "UserFullInfo.NowCountryCode=={1}&&"+
-                        "UserFullInfo.Sex=={2}&&"+
-                        "UserFullInfo.DatingPurpose=={3}&&"+
-                        "UserFullInfo.DateOfBirth>={4}&&" +
-                        "UserFullInfo.DateOfBirth<={5}",
-                        request.userCity, 
-                        request.userCountry,
-                        (int)request.userSex, 
-                        (int)request.userDatingPurpose,
-                        string.Format("DateTime({0})", minDate.ToString("yyyy,MM,dd")),
-                        string.Format("DateTime({0})", maxDate.ToString("yyyy,MM,dd"))
-                        );
-
+                            "UserFullInfo.DateOfBirth>={0}&&" +
+                            "UserFullInfo.DateOfBirth<={1}",
+                            string.Format("DateTime({0})", minDate.ToString("yyyy,MM,dd")),
+                            string.Format("DateTime({0})", maxDate.ToString("yyyy,MM,dd"))
+                            );
+                    predicate = formatPredicate(predicate, agePredicate);
+                }
                 if (!string.IsNullOrWhiteSpace(request.userName))
-                    predicate = predicate + string.Format("&&(UserFullInfo.Name.Contains(\"{0}\")||UserFullInfo.SurName.Contains(\"{0}\"))", request.userName); ;
+                {
+                    int spaceIndex = request.userName.IndexOf(' ');
+                    string name = string.Empty;
+                    string surName = string.Empty;
+                    if (spaceIndex > 0)
+                    {
+                        name = request.userName.Substring(0, spaceIndex);
+                        surName = request.userName.Substring(spaceIndex + 1);
+
+                        predicate = formatPredicate(predicate,
+                            string.Format("(UserFullInfo.Name.Contains(\"{0}\")&&UserFullInfo.SurName.Contains(\"{1}\"))", name, surName));
+                    }
+                    else
+                    {
+                        predicate = formatPredicate(predicate,
+                            string.Format("(UserFullInfo.Name.Contains(\"{0}\")||UserFullInfo.SurName.Contains(\"{0}\"))", request.userName));
+                    }
+
+                }
                 if (request.userSearchSex != -1)
-                    predicate = predicate + string.Format("&&UserFullInfo.userDatingSex=={0}", request.userSearchSex);
+                {
+                    predicate = formatPredicate(predicate, 
+                        string.Format("UserFullInfo.userDatingSex=={0}", request.userSearchSex));
+                }
                 if (request.userSearchAge != -1)
-                    predicate = predicate + string.Format("&&UserFullInfo.userDatingAge=={0}", request.userSearchAge);
+                {
+                    predicate = formatPredicate(predicate, 
+                        string.Format("UserFullInfo.userDatingAge=={0}", request.userSearchAge));
+                }
+                var result = new List<User>();
+                int multipleCount = 0; 
 
-                List<User> result = context.Users
-                    .AsQueryable()
-                    .Where(predicate)
-                    .OrderBy(x => x.Id)
-                    .Skip((page - 1) * usersOnPage)
-                    .Take(usersOnPage)
-                    .ToList();
-
-                int multipleCount = context.Users.AsQueryable().Where(predicate).Count();
+                if (predicate.Length > 0)
+                {
+                    result = context.Users
+                        .AsQueryable()
+                        .Where(predicate)
+                        .OrderBy(x => x.Id)
+                        .Skip((page - 1) * usersOnPage)
+                        .Take(usersOnPage)
+                        .ToList();
+                    multipleCount = context.Users.AsQueryable().Where(predicate).Count();
+                }
+                else
+                {
+                    result = context.Users
+                        .AsQueryable()
+                        .OrderBy(x => x.Id)
+                        .Skip((page - 1) * usersOnPage)
+                        .Take(usersOnPage)
+                        .ToList();
+                    multipleCount = context.Users.AsQueryable().Count();
+                }
 
                 decimal del = ((decimal)multipleCount / (decimal)usersOnPage);
                 int resMultiple = Convert.ToInt32(Math.Ceiling(del));
@@ -137,6 +189,16 @@ namespace Slug.Helpers
 
             }
             return responce;
+        }
+
+        private string formatPredicate(string predicate, string additionCondition)
+        {
+            string formatedPredicate = string.Empty;
+            if (predicate.Length <= 0)
+                formatedPredicate = additionCondition;
+            else
+                formatedPredicate = predicate + "&&" + additionCondition;
+            return formatedPredicate;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿.help {
     width: auto;
+    min-width:600px;
     position: relative;
 }
 

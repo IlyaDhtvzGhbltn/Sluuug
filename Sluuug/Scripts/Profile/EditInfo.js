@@ -2,13 +2,13 @@
     $('#' + checkboxId)[0].checked = false;
 }
 
-function CancelNewAlbum(checkboxId) {
-    $('#album-label-input')[0].value = null;
-    $('#album-cover-img-name')[0].innerHTML = null;
-    $('#album-title')[0].value = null;
-    $('#album-description')[0].value = null;
-    CancelNewEntry(checkboxId);
-}
+//function CancelNewAlbum(checkboxId) {
+//    $('#album-label-input')[0].value = null;
+//    $('#album-cover-img-name')[0].innerHTML = null;
+//    $('#album-title')[0].value = null;
+//    $('#album-description')[0].value = null;
+//    CancelNewEntry(checkboxId);
+//}
 
 function SelectFileAvatar()
 {
@@ -59,12 +59,18 @@ function AddProfileEntry(formName, tooltipContainerId, successfulController) {
             var emptyRequeredProperty = $('*[name="' + property + '"][id="' + tooltipContainerId+'"]');
             var inputContainer = $('*[name="'+formName+'"][property="' + property + '"]');
             var message = emptyRequeredProperty[0].getAttribute('tooltip_message');
+            if (inputContainer[0].type == 'date') {
+                inputContainer[0].type = 'number';
+            }
 
             emptyRequeredProperty[0].setAttribute('tooltip', message);
             inputContainer[0].style.border = "1px solid #ff5151";
             setTimeout(function () {
                 inputContainer[0].style.border = "1px solid #7f7f7f";
                 emptyRequeredProperty[0].removeAttribute('tooltip');
+                if (inputContainer[0].type == 'number') {
+                    inputContainer[0].type = 'date';
+                }
             }, 5000)
         });
     }

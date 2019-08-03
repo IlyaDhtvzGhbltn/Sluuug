@@ -79,9 +79,7 @@ border-radius:50%;
 }
 
 /* liquid input radio START */
-.private-content > * {
-    box-sizing: border-box;
-}
+
 
 input[type=radio][class!=fr], input[type=checkbox] {
     display: none;

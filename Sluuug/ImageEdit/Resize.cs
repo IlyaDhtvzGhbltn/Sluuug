@@ -18,12 +18,17 @@ namespace Slug.ImageEdit
         {
             int startIndex = originalUrl.IndexOf("upload/") + 7;
             double different = 1;
-            if (originalHeight > containerHeight)
-                different = (double)originalHeight / (double)containerHeight;
-            else if (originalWidth > containerWidth)
-                different = (double)originalWidth / (double)containerWidth;
-            else
-                different = 1;
+            if (originalHeight > containerHeight || originalWidth > containerWidth)
+            {
+                    var scaleByHeight = (double)originalHeight / (double)containerHeight;
+                    var scaleByWidth = (double)originalWidth / (double)containerWidth;
+                if (scaleByHeight > scaleByWidth)
+                    different = scaleByHeight;
+                else if (scaleByWidth > scaleByHeight)
+                    different = scaleByWidth;
+                else
+                    different = scaleByWidth;
+            }
             double newHeight = Math.Round( originalHeight / different);
             double newWidth = Math.Round( originalWidth / different);
             string newUri = originalUrl.Insert(startIndex, string.Format("{0},{1}{2},{3}{4}/", ModTypes.c_scale, "h_", newHeight, "w_", newWidth));

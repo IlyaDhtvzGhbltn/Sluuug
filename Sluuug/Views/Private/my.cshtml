@@ -10,7 +10,6 @@
 <link href="~/Styles/private/profile-info-style.css" rel="stylesheet" />
 <link href="~/Styles/private/album-review-style.css" rel="stylesheet" />
 <title>Мой Профиль</title>
-<div class="private-content">
     <div class="expand-foto">
         <div class="close-expand-album-button">
             <img onclick="CloseExpandedAlbum()" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1563052002/system/close-x.png">
@@ -139,15 +138,15 @@
                 <div class="left-new-album">
 
                     <div class="row-entry" id="tooltip-container-album">
-                        <span>Название альбома </span>
+                        <span>Название</span>
                         <input type="text" id="album-title" required>
                     </div>
                     <div class="row-entry">
-                        <span>Описание альбома </span>
+                        <span>Описание</span>
                         <input type="text" id="album-description">
                     </div>
                     <div class="row-entry">
-                        <span>Обложка альбома </span>
+                        <span>Обложка</span>
                         <div class="album-cover">
                             <input type="file" id="album-label-input" onchange="SelectFileAvatar()" accept=".jpg, .bmp, .png">
                             <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
@@ -156,14 +155,13 @@
                     </div>
                 </div>
                 <div class="command_form">
-                    <input type="button" value="Отмена" id="close_album_form" onclick="CancelNewAlbum('new-album-checkbox')" />
-                    <input type="button" value="Создать" onclick="CreateAlbum()" />
+                    <input type="button" value="Готово" onclick="CreateAlbum()" />
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="profile-full-info-item-wrapper">
+    @*<div class="profile-full-info-item-wrapper">
         <h2>События</h2>
         <input type="checkbox" class="expand-checkbox" />
         <div class="expand"></div>
@@ -193,14 +191,13 @@
                         </div>
                     </div>
                     <div class="command_form">
-                        <input type="button" value="Отмена" onclick="CancelNewEntry('new_event_checkbox')">
-                        <input type="button" onclick="AddProfileEntry('-event', 'tooltip-container-event', '/api/add_event')" value="Отправить">
+                        <input type="button" onclick="AddProfileEntry('-event', 'tooltip-container-event', '/api/add_event')" value="Готово">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </div>*@
+    
     <div class="profile-full-info-item-wrapper">
         <h2>Работа</h2>
         <input type="checkbox" class="expand-checkbox" />
@@ -221,7 +218,7 @@
                             <span>Компания</span>
                             <input type="text" name="-work" property="CompanyTitle" required>
                         </div>
-                        <div class="row-entry" id="tooltip-container-work" name="Position" tooltip_message="Должность в компании">
+                        <div class="row-entry" id="tooltip-container-work" name="Position" tooltip_message="Должность">
                             <span>Должность</span>
                             <input type="text" name="-work" property="Position" required>
                         </div>
@@ -243,13 +240,13 @@
                                         <div class="circle--inner circle--inner__5"></div>
                                         <div class="circle--outer"></div>
                                     </div>
-                                    <span>По настоящее время?</span>
+                                    <span>По сей день?</span>
                                 </div>
                             </div>
                         </div>
                         <div class="row-entry">
                             <span>Страна</span>
-                            <select id="user_search_country_w" name="-work" property="Country" onchange="getCities(user_search_country_w.id, user_search_city_w.id)">
+                            <select id="user_search_country_w" name="-work" property="Country" onchange="getCities(user_search_country_w.id, user_search_city_w.id, false)">
                                 <option value="7">Россия</option>
                                 <option value="1">USA</option>
                             </select>
@@ -266,8 +263,7 @@
                         </div>
                     </div>
                     <div class="command_form">
-                        <input type="button" value="Отмена" onclick="CancelNewEntry('new_work_checkbox')">
-                        <input type="button" onclick="AddProfileEntry('-work','tooltip-container-work','/api/add_works')" value="Отправить">
+                        <input type="button" onclick="AddProfileEntry('-work','tooltip-container-work','/api/add_works')" value="Готово">
                     </div>
                 </div>
             </div>
@@ -289,7 +285,7 @@
                 <div class="new-education-form">
                     <div class="left-education-form">
                         <div class="row-entry">
-                            <span>Уровень образования</span>
+                            <span>Уровень</span>
                             <select name="-education" property="EducationType" onchange="VisibleHightShoolParameterInNewEntry(this.value)">
                                 <option class="school" value="0">Школа</option>
                                 <option class="hight-school" value="1">Колледж</option>
@@ -303,7 +299,7 @@
 
                         <div class="row-entry">
                             <span>Страна</span>
-                            <select id="user_search_country" name="-education" property="Country" onchange="getCities(user_search_country.id, user_search_city.id)">
+                            <select id="user_search_country" name="-education" property="Country" onchange="getCities(user_search_country.id, user_search_city.id, false)">
                                 <option value="7">Россия</option>
                                 <option value="1">USA</option>
                             </select>
@@ -317,7 +313,7 @@
                         </div>
 
                         <div class="row-entry" id="tooltip-container-education" name="Title" tooltip_message="Введите название">
-                            <span>Учебное заведение</span>
+                            <span>Название</span>
                             <input type="text" name="-education" property="Title" required>
                         </div>
 
@@ -340,7 +336,7 @@
                                         <div class="circle--inner circle--inner__5"></div>
                                         <div class="circle--outer"></div>
                                     </div>
-                                    <span>По настоящее время?</span>
+                                    <span>По сей день?</span>
                                 </div>
                             </div>
                         </div>
@@ -351,7 +347,6 @@
                         </div>
                     </div>
                     <div class="command_form">
-                        <input type="button" value="Отмена" onclick="CancelNewEntry('new_educatio_checkbox')">
                         <input type="button" onclick="AddProfileEntry('-education','tooltip-container-education', '/api/add_education')" value="Отправить">
                     </div>
 
@@ -360,7 +355,6 @@
         </div>
     </div>
 
-    </div>
     <script src="~/Scripts/System/ParseFormArray.js"></script>
     <script src="~/Scripts/Common/CommonAlbums.js"></script>
     <script src="~/Scripts/Profile/EditInfo.js"></script>

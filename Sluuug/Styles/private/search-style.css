@@ -2,6 +2,7 @@
 
 .cut-search-form {
     border: 1px solid #7f7f7f;
+    min-width:475px;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
     background-color: white;
     padding: 10px;

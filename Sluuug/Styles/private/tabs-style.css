@@ -22,6 +22,7 @@
     padding: 15px;
     left: 0;
     width: 66%;
+    min-width:600px;
     display: none;
 }
 

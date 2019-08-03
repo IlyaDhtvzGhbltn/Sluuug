@@ -117,3 +117,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset.resources

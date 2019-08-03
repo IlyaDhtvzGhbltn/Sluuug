@@ -10,6 +10,7 @@
     height: auto;
     padding: 10px;
     background-color: white;
+    min-width:600px;
 }
 
 .conver_div img {

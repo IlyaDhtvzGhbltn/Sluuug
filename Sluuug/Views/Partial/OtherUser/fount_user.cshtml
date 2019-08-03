@@ -6,6 +6,7 @@
     var purpose = new Dictionary<DatingPurposeEnum, string>()
     {
         {DatingPurposeEnum.Communication, "общения"},
+        {DatingPurposeEnum.NoDating, "не знакомлюсь"},
         {DatingPurposeEnum.SeriousRelationship, "серьезных отношений"},
         {DatingPurposeEnum.Sex, "секса"}
     };
@@ -41,6 +42,13 @@
     <p>@Model.Country @Model.City</p>
     <p style="font-style:italic">«@Model.HelloMessage»</p>
     <p>
-        <span>Знакомлюсь для @purpose[Model.purpose] с @sex[Model.userSearchSex] @age[Model.userSearchAge]</span>
+        @if (Model.purpose != DatingPurposeEnum.NoDating)
+        {
+            <span>Знакомлюсь для @purpose[Model.purpose] с @sex[Model.userSearchSex] @age[Model.userSearchAge]</span>
+        }
+        else
+        {
+             <span>не знакомлюсь</span>
+        }
     </p>
 </div>
