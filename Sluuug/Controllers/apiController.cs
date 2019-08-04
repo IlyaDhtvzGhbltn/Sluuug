@@ -107,9 +107,10 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult add_event(MemorableEventsModel model)
+        public JsonResult add_event(MemorableEventsModel model, IEnumerable<HttpPostedFileBase> uploadPhotos)
         {
-            bool resultFlag = FullInfoHandler.AddMemEventEntry(model, Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value);
+            string session = Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
+            bool resultFlag = FullInfoHandler.AddMemEventEntry(model, session, uploadPhotos);
             return new JsonResult() { Data = resultFlag };
         }
 
@@ -166,7 +167,7 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult get_comments(string fotoId)
+        public JsonResult get_photo_expand(string fotoId)
         {
             Guid guid = Guid.Parse(fotoId);
             FotoCommentsResponse result = AlbumsHandler.GetCommentsToFoto(GetCookiesValue(Request), guid);

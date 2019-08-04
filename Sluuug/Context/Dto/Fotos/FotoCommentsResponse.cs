@@ -17,6 +17,10 @@ namespace Slug.Context.Dto.Fotos
 
         public string PhotoTitle { get; set; }
 
+        public Guid PhotoID { get; set; }
+
+        public string PhotoDownloadLink { get; set; }
+
         public string PhotoDescription { get; set; }
 
         public static class Errors

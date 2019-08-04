@@ -1,5 +1,7 @@
 ﻿using Context;
 using Slug.Context;
+using Slug.Context.Dto;
+using Slug.Context.Dto.Albums;
 using Slug.Context.Dto.UserFullInfo;
 using Slug.Context.Tables;
 using Slug.Model.Users;
@@ -28,7 +30,7 @@ namespace Slug.Helpers
                 {
                     return entryWorkPlaces.User;
                 }
-                var entryMemorableEvents = context.MemorableEvents
+                var entryMemorableEvents = context.ImportantEvents
                     .FirstOrDefault(x => x.Id == guid);
                 if (entryMemorableEvents != null)
                 {
@@ -56,11 +58,11 @@ namespace Slug.Helpers
                     context.WorkPlaces.Remove(entryWorkPlaces);
                 }
 
-                var entryMemorableEvents = context.MemorableEvents
+                var entryMemorableEvents = context.ImportantEvents
                     .FirstOrDefault(x => x.Id == guid);
                 if (entryMemorableEvents != null)
                 {
-                    context.MemorableEvents.Remove(entryMemorableEvents);
+                    context.ImportantEvents.Remove(entryMemorableEvents);
                 }
 
                 context.SaveChanges();
@@ -105,25 +107,37 @@ namespace Slug.Helpers
             }
         }
 
-        public bool AddMemEventEntry(MemorableEventsModel model, string session)
+        public bool AddMemEventEntry(MemorableEventsModel model, string session, IEnumerable<HttpPostedFileBase> uploadFiles)
         {
             var handler = new UsersHandler();
             int userId = handler.UserIdBySession(session);
-
-            using (var context = new DataBaseContext())
+            if (userId > 0)
             {
-                var newEducation = new Events();
-                newEducation.Id = Guid.NewGuid();
-                newEducation.EventTitle = model.EventTitle;
-                newEducation.DateEvent = model.DateEvent;
-                newEducation.EventComment = model.Comment;
-                newEducation.User = context.Users.First(x => x.Id == userId);
+                using (var context = new DataBaseContext())
+                {
+                    var albumHandler = new AlbumsHandler();
+                    CreateAlbumResponse resp = albumHandler.CreateEventsAlbum(model.EventTitle, userId);
 
-                User user = context.Users.First(x => x.Id == userId);
-                user.UserFullInfo.Events.Add(newEducation);
-                context.SaveChanges();
-                return true;
+                    if (uploadFiles.Count() > 0)
+                    {
+                        albumHandler.UploadToAlbum(session, resp.AlbumId, uploadFiles, "/users/events_albums/");
+                    }
+
+                    var newEvent = new ImportantEvent();
+                    newEvent.Id = Guid.NewGuid();
+                    newEvent.EventTitle = model.EventTitle;
+                    newEvent.DateEvent = model.DateEvent;
+                    newEvent.TextEventDescription = model.Text;
+                    newEvent.User = context.Users.First(x => x.Id == userId);
+                    newEvent.AlbumGuid = resp.AlbumId;
+
+                    User user = context.Users.First(x => x.Id == userId);
+                    user.UserFullInfo.Events.Add(newEvent);
+                    context.SaveChanges();
+                    return true;
+                }
             }
+            return false;
         }      
 
         public bool AddWorkPlacesEntry(WorkPlacesModel model, string session)

@@ -1,4 +1,5 @@
 ﻿using Context;
+using Slug.Context.Dto;
 using Slug.Context.Dto.Search;
 using Slug.Context.Dto.UserFullInfo;
 using System;
@@ -45,7 +46,7 @@ namespace Slug.Context.Tables
 
         public virtual List<Education> Educations { get; set; }
 
-        public virtual List<Events> Events { get; set; }
+        public virtual List<ImportantEvent> Events { get; set; }
 
         public virtual List<WorkPlaces> Works { get; set; }
     }

@@ -7,5 +7,11 @@
         <h3>@Model.EventTitle</h3>
         <span>@Model.DateEvent</span>
         <span class="user-comment">«@Model.Comment»</span>
+        <div class="event-album">
+            @foreach (var photo in Model.Photos)
+            {
+                <img src="@photo.SmallFotoUri" />
+            }
+        </div>
     </div>
 </div>

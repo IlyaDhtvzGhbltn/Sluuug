@@ -11,9 +11,11 @@ namespace Slug.Model.Albums
 
         public Guid ID { get; set; }
 
+        public string SmallFotoUri { get; set; }
+
         public string FullFotoUri { get; set; }
 
-        public string SmallFotoUri { get; set; }
+        public string DownloadFotoUri { get; set; }
 
         public DateTime UploadDate { get; set; }
 

@@ -274,11 +274,13 @@
     <Compile Include="Context\Dto\Settings\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Settings\SetSettingsRequest.cs" />
     <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\BaseLiveEpisode.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\Education.cs" />
+    <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
+    <Compile Include="Context\Tables\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\MemorableEvents.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\WorkPlaces.cs" />
+    <Compile Include="Context\Tables\PostComment.cs" />
+    <Compile Include="Context\Tables\Post.cs" />
+    <Compile Include="Context\Tables\MemorableEvents.cs" />
+    <Compile Include="Context\Tables\WorkPlaces.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
     <Compile Include="Context\Tables\Feedback.cs" />
@@ -303,10 +305,23 @@
     <Compile Include="Migrations\201908031202343_reset.Designer.cs">
       <DependentUpon>201908031202343_reset.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908040829215_posts tbo + events tbo.cs" />
+    <Compile Include="Migrations\201908040829215_posts tbo + events tbo.Designer.cs">
+      <DependentUpon>201908040829215_posts tbo + events tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908041009432_new posts.cs" />
+    <Compile Include="Migrations\201908041009432_new posts.Designer.cs">
+      <DependentUpon>201908041009432_new posts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908041527117_d.cs" />
+    <Compile Include="Migrations\201908041527117_d.Designer.cs">
+      <DependentUpon>201908041527117_d.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
     <Compile Include="Model\Albums\PostCommentToFoto.cs" />
+    <Compile Include="Model\FullInfo\PostModel.cs" />
     <Compile Include="Model\FullInfo\UserInfoItem.cs" />
     <Compile Include="Model\Notifications\UserNotivication.cs" />
     <Compile Include="Model\SimpleChat\CutConversation.cs" />
@@ -482,6 +497,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908031202343_reset.resx">
       <DependentUpon>201908031202343_reset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908040829215_posts tbo + events tbo.resx">
+      <DependentUpon>201908040829215_posts tbo + events tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908041009432_new posts.resx">
+      <DependentUpon>201908041009432_new posts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908041527117_d.resx">
+      <DependentUpon>201908041527117_d.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

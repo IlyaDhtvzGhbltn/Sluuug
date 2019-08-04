@@ -152,7 +152,32 @@ namespace Slug.Helpers
             }
         }
 
-        public UploadAlbumResponse UploadToAlbum(string session, Guid albumId, IEnumerable<HttpPostedFileBase> uploadFiles)
+        public CreateAlbumResponse CreateEventsAlbum(string eventTitle, int userCreator)
+        {
+            Guid albumGUID = Guid.NewGuid();
+            using (var context = new DataBaseContext())
+            {
+                var album = new Album()
+                {
+                    Id = albumGUID,
+                    AlbumLabelUrl = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1563899112/system/template.jpg",
+                    CreateUserID = userCreator,
+                    CreationDate = DateTime.Now,
+                    Title = eventTitle + "_event",
+                    User = context.Users.First(x => x.Id == userCreator),
+                };
+                context.Albums.Add(album);
+                context.SaveChanges();
+                return new CreateAlbumResponse()
+                {
+                    isSuccess = true,
+                    AlbumId = album.Id
+                };
+            }
+        }
+
+
+        public UploadAlbumResponse UploadToAlbum(string session, Guid albumId, IEnumerable<HttpPostedFileBase> uploadFiles, string uploadPath = "/users/albums/")
         {
             var result = new UploadAlbumResponse();
 
@@ -179,7 +204,7 @@ namespace Slug.Helpers
                         {
                             foreach (var file in uploadFiles)
                             {
-                                var uploadCloud = SlugController.UploadImg(file, "/users/albums/" + albumId.ToString());
+                                var uploadCloud = SlugController.UploadImg(file, uploadPath + albumId.ToString());
                                 var uplFoto = new Foto()
                                 {
                                     AlbumID = albumId,
@@ -247,10 +272,11 @@ namespace Slug.Helpers
                             .ForEach(foto =>
                         {
                             var fModel = new FotoModel()
-                            { 
+                            {
                                 Album = foto.AlbumID,
                                 SmallFotoUri = Resize.ResizedAvatarUri(foto.Url, ModTypes.c_scale, 60, 50),
-                                FullFotoUri = Resize.ResizedFullPhoto(foto.Url, foto.Height, foto.Width), 
+                                FullFotoUri = Resize.ResizedFullPhoto(foto.Url, foto.Height, foto.Width),
+                                DownloadFotoUri = foto.Url,
                                 PhotoDescription = foto.Description,
                                 Title = foto.Title,
                                 ID = foto.FotoGUID,
@@ -278,7 +304,7 @@ namespace Slug.Helpers
                                     UserName = commenter.UserFullInfo.Name,
                                     UserSurName = commenter.UserFullInfo.SurName,
                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(commenterAvatar, ModTypes.c_scale, 55, 55),
-                                    UserPostedID = comment.UserCommenter
+                                    UserPostedID = comment.UserCommenter,
                                 });
                             });
                         }
@@ -471,6 +497,9 @@ namespace Slug.Helpers
                         resp.isSuccess = true;
                         resp.PhotoDescription = photoInf.Description;
                         resp.PhotoTitle = photoInf.Title;
+                        resp.PhotoDownloadLink = photoInf.Url;
+                        resp.PhotoID = photoInf.FotoGUID;
+
                         var comments = context.FotoComments.Where(x => x.Foto.FotoGUID == photoInf.FotoGUID).OrderBy(x=>x.CommentWriteDate).ToList();
                         resp.FotoComments = new List<FotoCommentModel>();
                         comments.ForEach(comm => 
@@ -499,6 +528,14 @@ namespace Slug.Helpers
 
         public PostCommentsResponse PostNewComments(string session, PostCommentToFoto model)
         {
+            if (string.IsNullOrWhiteSpace(model.CommentText))
+            {
+                return new PostCommentsResponse()
+                {
+                    isSuccess = false,
+                    Comment = PostCommentsResponse.Errors.EMPTY_VALUE
+                };
+            }
             var response = new PostCommentsResponse();
             var handler = new UsersHandler();
 

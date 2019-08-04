@@ -75,6 +75,8 @@ function ExpandAlbum(albumId) {
                 $('.full-image-container')[0].id = resp.Photos[0].ID;
                 $('.full-image-container img')[0].src = resp.Photos[0].FullFotoUri;
                 $('.photo-manage')[0].id = resp.Photos[0].ID;
+                $('.download-photo-link')[0].href = resp.Photos[0].DownloadFotoUri;
+                $('.delete-photo-button')[0].id = resp.Photos[0].ID;
 
                 $('.album-images-browse').append('<div class="small-image" id="' + resp.Photos[0].ID + '" full_url="' + resp.Photos[0].FullFotoUri +'" onclick="ExpandPhoto(this)">' +
                     '<input type="radio" name="select-img" class="image-select-checkbox" checked>' +
@@ -114,11 +116,11 @@ function ExpandPhoto(targetPhoto) {
     $('.full-image-container')[0].id = photoId;
     $('.photo-manage')[0].id = photoId;
     $('.users-comments')[0].innerHTML = '';
-
+    $('.show-photo-manage-menu')[0].checked = false;
 
     $.ajax({
         type: "post",
-        url: "/api/get_comments",
+        url: "/api/get_photo_expand",
         data: { fotoId: photoId },
         success: function (resp) {
             console.log(resp);
@@ -126,6 +128,9 @@ function ExpandPhoto(targetPhoto) {
 
                 $('#photo-h3-titlte')[0].innerHTML = resp.PhotoTitle;
                 $('#photo-span-description')[0].innerHTML = resp.PhotoDescription;
+                $('.download-photo-link')[0].href = resp.PhotoDownloadLink;
+                $('.delete-photo-button')[0].id = resp.PhotoID;
+
 
                 [].forEach.call(resp.FotoComments, function (comment) {
                     $('.users-comments').append('<div class="image-user-comment" onclick="redirectToUser(' + comment.UserPostedID + ')">' +
@@ -148,39 +153,43 @@ function ExpandPhoto(targetPhoto) {
 function SendPhotoComment() {
     var photoId = $('.full-image-container')[0].id;
     var commentText = $('.area-to-comment').val();
-    $.ajax({
-        type: "post",
-        url: "/api/post_comments",
-        data: { FotoID: photoId, CommentText: commentText },
-        success: function (resp) {
-            console.log(resp);
-            if (resp.isSuccess) {
-                $('.users-comments').append("<div class='image-user-comment' onclick='redirectToMe()'>" +
-                    '<div class="comment-header">' +
-                    '<h4>Я</h4>' + 
-                    '<span>только что</span>' +
-                    '</div>' +
-                    '<div class="comment-body">' +
-                    '<img src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +
-                    '<span>' + commentText + '</span>' +
-                    '</div>' +
-                    '</div>'
-                );
-                $('.area-to-comment').val('');
+    console.log(commentText.length);
+    if (commentText.length > 0) {
+        $.ajax({
+            type: "post",
+            url: "/api/post_comments",
+            data: { FotoID: photoId, CommentText: commentText },
+            success: function (resp) {
+                console.log(resp);
+                if (resp.isSuccess) {
+                    $('.users-comments').append("<div class='image-user-comment' onclick='redirectToMe()'>" +
+                        '<div class="comment-header">' +
+                        '<h4>Я</h4>' +
+                        '<span>только что</span>' +
+                        '</div>' +
+                        '<div class="comment-body">' +
+                        '<img src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +
+                        '<span>' + commentText + '</span>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                    $('.area-to-comment').val('');
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 
 function ChangePhotoParameter(parameter, newValue) {
     var photoId = $('.full-image-container')[0].id;
+    $('.show-photo-manage-menu')[0].checked = false;
     $.ajax({
         type: "post",
         url: "/api/edit_photo",
         data: { PhotoGUID: photoId, NewValue: newValue, EditMode: parameter },
         success: function (resp) {
-            console.log(resp);
+
             if (resp.isSuccess) {
                 switch (parameter)
                 {
@@ -201,6 +210,7 @@ function ChangePhotoParameter(parameter, newValue) {
 
 function CloseExpandedAlbum() {
     $('.expand-foto').css('display', 'none');
+    $('.show-photo-manage-menu')[0].checked = false;
 }
 
 
@@ -230,12 +240,12 @@ function UploadFotosToAlbum(inputUploaded) {
 }
 
 
-function DeletePhoto(photoId) {
-    console.log(photoId);
+function DeletePhoto(Id) {
+    console.log(Id);
     $.ajax({
         type: "post",
         url: '/api/drop_foto',
-        data: { photoId },
+        data: { fotoId: Id},
         success: function (resp) {
             console.log(resp);
             if (resp.isSuccess) {

@@ -52,7 +52,8 @@ function VisibleHightShoolParameterInNewEntry(selectedValue) {
         $('#speciality-new-education-entry')[0].style.display = 'none';
 }
 
-function AddProfileEntry(formName, tooltipContainerId, successfulController) {
+var dropedFilesBySize = [];
+function AddProfileEntry(formName, tooltipContainerId, successfulController, inputUploaded) {
     let validateResult = ValidateProfileInfoItem(formName);
     if (!validateResult.successful) {
         [].forEach.call(validateResult.result, function (property) {
@@ -75,16 +76,65 @@ function AddProfileEntry(formName, tooltipContainerId, successfulController) {
         });
     }
     else {
-        $.ajax({
-            type: 'post',
-            url: successfulController,
-            data: { model: validateResult.result },
-            success: function (resp) {
-                if (resp) {
-                    window.location.reload();
+        if (inputUploaded == null) {
+            //$.ajax({
+            //    type: 'post',
+            //    url: successfulController,
+            //    data: { model: validateResult.result },
+            //    success: function (resp) {
+            //        if (resp) {
+            //            window.location.reload();
+            //        }
+            //    }
+            //});
+        }
+        else {
+            var form = new FormData();
+            console.log(dropedFilesBySize);
+            [].forEach.call(inputUploaded.files, function (file) {
+
+                if (!dropedFilesBySize.includes(file.size)) {
+                    form.append('uploadPhotos', file);
                 }
-            }
+            });
+            [].forEach.call(Object.getOwnPropertyNames(validateResult.result), function (item) {
+                form.append(item, validateResult.result[item]);
+            });
+
+            $.ajax({
+                type: 'post',
+                processData: false,
+                contentType: false,
+                url: successfulController,
+                data: form,
+                success: function (resp) {
+                    if (resp) {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    }
+}
+
+
+function WriteSelectedFiles(input) {
+    console.log(dropedFilesBySize);
+    if (input.files.length > 0) {
+        dropedFilesBySize = [];
+        $('.uploaded-files-to-event')[0].innerHTML = '';
+        [].forEach.call(input.files, function (file) {
+            $('.uploaded-files-to-event')[0].insertAdjacentHTML(
+                'beforeend',
+                '<div id="' + file.size + '"><p><span>' + file.name + '</span><span class="delete-file" onclick="DeleteUploadFile(\'' + file.size + '\')">❌</span></p></div>');
         });
+    }
+}
+
+function DeleteUploadFile(fileSize) {
+    $('#' + fileSize).remove();
+    if (!dropedFilesBySize.includes(fileSize)) {
+        dropedFilesBySize.push(parseInt(fileSize));
     }
 }
 

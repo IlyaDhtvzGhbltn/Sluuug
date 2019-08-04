@@ -180,13 +180,51 @@ namespace Slug.Helpers
                 Events.ForEach(x =>
                 {
                     string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.DateEvent).ToString("D");
-                    userModel.Events.Add(new MemorableEventsModel()
+                    var eventModel = new MemorableEventsModel()
                     {
-                        Comment = x.EventComment,
-                        StartDateFormat = endDate,
+                        Text = x.TextEventDescription,
+                        DateEventFormat = endDate,
                         EventTitle = x.EventTitle,
                         Id = x.Id,
-                    });
+                        Photos = new List<FotoModel>()
+                    };
+                    List<Foto> eventPhotos = context.Fotos.Where(y => y.AlbumID == x.AlbumGuid).ToList();
+                    if (eventPhotos != null && eventPhotos.Count > 0)
+                    {
+                        eventPhotos.ForEach(f =>
+                        {
+                            var commentsModel = new List<FotoCommentModel>();
+                            var comments = context.FotoComments.Where(c => c.Foto.FotoGUID == f.FotoGUID).ToList();
+                            comments.ForEach( fm => 
+                            {
+                                var userCommenter = context.Users.First(u => u.Id == fm.UserCommenter);
+                                Avatars ava = context.Avatars.First(a => a.Id == userCommenter.AvatarId);
+
+                                commentsModel.Add(new FotoCommentModel()
+                                {
+                                     UserName = userCommenter.UserFullInfo.Name,
+                                     UserSurName = userCommenter.UserFullInfo.SurName,
+                                     UserPostedID = userCommenter.Id,
+                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(ava.ImgPath, ModTypes.c_scale, 50, 50),
+                                     DateFormat = fm.CommentWriteDate.ToString("D"),
+                                     Text = fm.CommentText
+                                });
+                            });
+
+                            eventModel.Photos.Add(new FotoModel()
+                            {
+                                Album = x.AlbumGuid,
+                                ID = f.FotoGUID,
+                                UploadDate = f.UploadDate,
+                                SmallFotoUri = Resize.ResizedFullPhoto(f.Url, f.Height, f.Width, 80, 80),
+                                FullFotoUri = Resize.ResizedFullPhoto(f.Url, f.Height, f.Width),
+                                DownloadFotoUri = f.Url,
+                                FotoComments = commentsModel
+                            });
+                        });
+                    }
+
+                    userModel.Events.Add(eventModel);
                 });
 
                 var Works = user.UserFullInfo.Works;
@@ -215,7 +253,7 @@ namespace Slug.Helpers
                     });
                 });
 
-                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
+                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id && !x.Title.Contains("_event")).ToList();
                 userModel.Albums = new List<AlbumModel>();
                 foreach (var album in albums)
                 {
@@ -256,6 +294,23 @@ namespace Slug.Helpers
                 userModel.UserId = user.Id;
                 userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
 
+                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
+                userModel.Albums = new List<AlbumModel>();
+                foreach (var album in albums)
+                {
+                    AlbumModel albumModel = new AlbumModel
+                    {
+                        AlbumId = album.Id,
+                        AlbumLabelUrl = album.AlbumLabelUrl,
+                        AlbumDescription = album.Description,
+                        CreationTime = album.CreationDate,
+                        AlbumTitle = album.Title,
+                        FotosCount = album.Fotos.Count
+                    };
+                    userModel.Albums.Add(albumModel);
+                }
+
+
                 var Educations = user.UserFullInfo.Educations.OrderBy(x => x.Start).ToList();
 
                 userModel.Educations = new List<EducationModel>();
@@ -282,19 +337,8 @@ namespace Slug.Helpers
                     .First().Title
 
                 }));
-                var Events = user.UserFullInfo.Events.OrderBy(x => x.DateEvent).ToList();
-                userModel.Events = new List<MemorableEventsModel>();
-                Events.ForEach(x =>
-                userModel.Events.Add(new MemorableEventsModel()
-                {
-                    Comment = x.EventComment,
-                    DateEvent = x.DateEvent,
-                    EventTitle = x.EventTitle,
-                    Id = x.Id,
-
-                })
-                );
-
+               
+                
                 var Works = user.UserFullInfo.Works.OrderBy(x => x.Start).ToList();
                 userModel.Works = new List<WorkPlacesModel>();
                 Works.ForEach(x =>
@@ -319,21 +363,23 @@ namespace Slug.Helpers
                 })
                 );
 
-                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
-                userModel.Albums = new List<AlbumModel>();
-                foreach (var album in albums)
-                {
-                    AlbumModel albumModel = new AlbumModel
+                var Events = user.UserFullInfo.Events.OrderBy(x => x.DateEvent).ToList();
+                userModel.Events = new List<MemorableEventsModel>();
+                Events.ForEach(x => {
+                    string endDate = x.DateEvent.ToString("D");
+
+                    userModel.Events.Add(new MemorableEventsModel()
                     {
-                        AlbumId = album.Id,
-                        AlbumLabelUrl = album.AlbumLabelUrl,
-                        AlbumDescription = album.Description,
-                        CreationTime = album.CreationDate,
-                        AlbumTitle = album.Title,
-                        FotosCount = album.Fotos.Count
-                    };
-                    userModel.Albums.Add(albumModel);
+                        Text = x.TextEventDescription,
+                        DateEventFormat = endDate,
+                        EventTitle = x.EventTitle,
+                        Id = x.Id,
+
+                    });
                 }
+                );
+
+                
             }
 
             return userModel;

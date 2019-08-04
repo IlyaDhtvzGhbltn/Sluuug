@@ -36,8 +36,6 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> my()
         {
-            //NewUserInitial.Initialize(10);
-
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             MyProfileModel userInfoModel = UsersHandler.GetCurrentProfileInfo(cookies.Value);
 

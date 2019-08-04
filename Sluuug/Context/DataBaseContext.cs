@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using Slug.Context.Dto;
 using Slug.Context.Dto.UserFullInfo;
 using Slug.Context.Tables;
 using Slug.DbInitialisation;
@@ -40,7 +41,7 @@ namespace Context
         public virtual DbSet<Cities> Cities { get; set; }
 
         public virtual DbSet<WorkPlaces> WorkPlaces { get; set; }
-        public virtual DbSet<Events> MemorableEvents { get; set; }
+        public virtual DbSet<ImportantEvent> ImportantEvents { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
 
         public virtual DbSet<Album> Albums { get; set; }
@@ -50,5 +51,8 @@ namespace Context
         public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Notification> Notivications { get; set; }
+
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<PostComment> PostComments { get; set; }
     }
 }

@@ -150,37 +150,47 @@
 }
 
 
-.delete-button{
-	transition: all 0.5s ease;
-	height:60px;
-	position:relative;
-	top:22%;
+.delete-button {
+    transition: all 0.5s ease;
+    height: 60px;
+    position: relative;
+    top: 22%;
+    left: 100px;
+}
+
+.upload-event-photo-button {
+    transition: all 0.5s ease;
+    height: 60px;
+    position: relative;
+    top: -28%;
+    left: 0;
 }
 
 /* EDIT FULL-INFO ITEM END */
 
 
 /* ADD ITEM START*/
+.new_event_button,
 .new_educatio_button,
-.new_work_button{
-	height:60px;
-	margin-left:10px;
-	position:relative;
-	top:-60px;
+.new_work_button {
+    height: 60px;
+    margin-left: 10px;
+    position: relative;
+    top: -60px;
 }
 
-#add_education_entry, 
-#add_work_entry, 
-#create_new_album
-{
-	opacity:0;
-	display:flex;
-	margin:10px 10px 20px 10px;
-	flex-direction:row;
-	border:1px solid #7f7f7f;
-	padding:10px;
+#add_event_entry,
+#add_education_entry,
+#add_work_entry,
+#create_new_album {
+    opacity: 0;
+    display: flex;
+    margin: 10px 10px 20px 10px;
+    flex-direction: row;
+    border: 1px solid #7f7f7f;
+    padding: 10px;
     transition: all .5s ease-in;
-	max-height:0;
+    max-height: 0;
 }
 
 #add_education_entry:hover, 
@@ -191,12 +201,15 @@
 	-webkit-box-shadow: 10px 10px 5px -2px rgba(19, 35, 47, 0.3);
 }
 
+#new_event_checkbox,
 #new_educatio_checkbox,
-#new_work_checkbox{
-	position:relative;
-	opacity:0;
-	height:60px;
+#new_work_checkbox {
+    position: relative;
+    opacity: 0;
+    height: 60px;
 }
+
+#new_event_checkbox:checked ~ #add_event_entry,
 #new_educatio_checkbox:checked ~ #add_education_entry,
 #new_work_checkbox:checked ~ #add_work_entry,
 #new-album-checkbox:checked ~ #create_new_album{
@@ -204,6 +217,7 @@
 	opacity:1;
 }
 
+#new_event_checkbox:hover ~ .new_event_button,
 #new_educatio_checkbox:hover ~ .new_educatio_button,
 #new_work_checkbox:hover ~ .new_work_button,
 #new-album-checkbox:hover ~ .create_new_album_button{
@@ -211,12 +225,12 @@
 	color:#7f7f7f;
 	background:rgb(162, 236, 243);
 }
-
-.new-education-form, 
-.new-work-form{
-	display:flex;
-	flex-direction:row;
-	width:100%;
+.new-event-form,
+.new-education-form,
+.new-work-form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
 .command_form{
@@ -224,15 +238,16 @@
 }
 
 .new-education-form .command_form input[type='button'],
-.new-work-form .command_form input[type='button'] {
+.new-work-form .command_form input[type='button']
+{
     top: 150px;
     left: 43px;
 }
-.new-event-form .command_form input[type='button']{
-    top:90px;
+.new-event-form .command_form input[type='button'] {
+    left: 43px;
 }
 
-
+.left-event-form > .row-entry,
 .left-education-form > .row-entry span,
 .left-work-form > *,
 #create_new_album .left-new-album > * {
@@ -240,6 +255,7 @@
     margin: 10px;
 }
 
+.left-event-form,
 .left-education-form,
 .left-work-form {
     display: flex;
@@ -248,17 +264,9 @@
     width: 66%;
 }
 
-
-.right-education-form > *,
-.right-work-form > *,
-#create_new_album .right-new-album > *
-{
-	float:left;
-	margin:5px;
-}
-.row-entry span{
-    min-width:126px;
-    margin-right:5px;
+.row-entry span {
+    min-width: 126px;
+    margin-right: 5px;
 }
 
 .row-entry select {
@@ -348,10 +356,10 @@
 	margin-top:70px; 
 }
 
+#tooltip-container-event[tooltip]:before,
 #tooltip-container-album[tooltip]:before,
 #tooltip-container-education[tooltip]:before,
-#tooltip-container-work[tooltip]:before
-{
+#tooltip-container-work[tooltip]:before {
     content: attr(tooltip);
     position: absolute;
     opacity: 0;
@@ -417,14 +425,15 @@
 	height:45px;
     position:relative;
 }
-#album-label-input{
-	z-index:2;
-	cursor:pointer;
-	position:relative;
-	top:-5px;
-	opacity:0;
-	height:40px;
-	width:190px;
+#event-photos-input,
+#album-label-input {
+    z-index: 2;
+    cursor: pointer;
+    position: relative;
+    top: -5px;
+    opacity: 0;
+    height: 40px;
+    width: 190px;
 }
 
 #album-cover-img{
@@ -508,29 +517,49 @@ transition: all .3s ease-in;
 /* MANAGE ALBUM END */
 
 /* PHOTO MANAGE START */
-.full-image-container:hover + .photo-manage {
-    top: -504px;
+.menu-circle-container{
+    display:flex;
+    flex-direction:column;
+    width:20px;
+    cursor:pointer;
+    margin-left:14px;
+}
+
+.menu-circle {
+    border-radius: 50%;
+    background-color: #49B2DA;
+    height: 6px;
+    width: 6px;
+    margin: 2px;
+    border:1px solid white;
+}
+
+
+.show-photo-manage-menu:checked + .photo-manage-menu {
+    top: 4px;
     opacity: 1;
 }
 
 .photo-manage {
-width: 200px;
-position: relative;
-top: -1000px;
-opacity:0;
-top: -504px;
-left: 0;
-transition: all 0.2s ease .5s;
-}
-
-.photo-manage:hover {
+    width: 200px;
+    position: relative;
+    top: -504px;
     opacity: 1;
+    left: 0;
+    transition: all 0.2s ease .5s;
 }
 
+.photo-manage-menu {
+    position: relative;
+    opacity: 0;
+    top: -500px;
+    transition: all 0.2s ease;
+}
 .photo-manage input[type="checkbox"] {
     position: absolute;
+    top:-5px;
     display: block;
-    width: 185px;
+    width: 35px;
     height: 40px;
     opacity: 0;
     z-index: 10;
@@ -583,3 +612,33 @@ transition: all 0.2s ease .5s;
 }
 
 /* PHOTO MANAGE END*/
+
+.uploaded-files-to-event{
+    margin-left:145px;
+}
+
+.uploaded-files-to-event p{
+    display:block;
+}
+
+.delete-file {
+    float: right;
+    cursor: pointer;
+}
+
+.item-update .input-event-photo {
+    z-index: 5;
+    opacity: 0;
+    position: relative;
+    top: 26px;
+    height: 60px;
+    width: 130px;
+    cursor:pointer;
+}
+
+.input-event-photo:hover + .upload-event-photo-button {
+    background: rgb(162, 236, 243);
+    color: #7f7f7f;
+    cursor: pointer;
+    border: 1px solid #7f7f7f;
+}
