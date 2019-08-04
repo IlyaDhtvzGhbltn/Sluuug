@@ -29,10 +29,16 @@
     <br />
 </div>
 <div class="send_msg">
-    <textarea id="new_msg"></textarea>
-    <p>
-        <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
-    </p>
+    <div class="text-area-container">
+        <textarea id="new_msg"></textarea>
+        <p>
+            <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
+        </p>
+    </div>
+    <div class="emoji-charsets-container">
+        <span style="font-size:31px; cursor:pointer">&#128578;</span>
+        <div class="-emojis-"></div>
+    </div>
 </div>
 
 <script src="~/Scripts/chatp2pWS.js"></script>

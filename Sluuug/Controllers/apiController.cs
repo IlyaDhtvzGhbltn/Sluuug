@@ -187,5 +187,14 @@ namespace Slug.Controllers
             var resp = UsersHandler.ChangeParameter(GetCookiesValue(Request), paramNumer, newValue);
             return new JsonResult { Data = resp };
         }
+
+        [HttpPost]
+        public JsonResult emoji()
+        {
+            return new JsonResult()
+            {
+                Data = new string[] { "&#128313;", "&#128308;", "" }
+            };
+        }
     }
 }
