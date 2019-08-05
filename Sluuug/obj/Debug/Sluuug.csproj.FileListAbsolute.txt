@@ -116,8 +116,8 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.poststboeventstbo.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.newposts.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.d.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset_db.resources

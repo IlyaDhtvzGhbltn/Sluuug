@@ -406,32 +406,38 @@ namespace Slug.Helpers
             {
                 try
                 {
-                    var user = context.Users.First(x => x.Id == userId);
+                    var user = context.Users.FirstOrDefault(x => x.Id == userId);
+                    if (user != null)
+                    {
+                        Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+                        userModel.Name = user.UserFullInfo.Name;
+                        userModel.SurName = user.UserFullInfo.SurName;
+                        userModel.Country = context.Countries
+                            .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+                            .First()
+                            .Title;
 
-                    Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
-                    userModel.Name = user.UserFullInfo.Name;
-                    userModel.SurName = user.UserFullInfo.SurName;
-                    userModel.Country = context.Countries
-                        .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
-                        .First()
-                        .Title;
+                        userModel.City = context.Cities
+                            .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
+                            .First()
+                            .Title;
 
-                    userModel.City = context.Cities
-                        .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
-                        .First()
-                        .Title;
-
-                    userModel.AvatarResizeUri = avatar.ImgPath;
-                    userModel.UserId = user.Id;
-                    userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
-                    userModel.HelloMessage = user.UserFullInfo.HelloMessage;
-                    userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
-                    userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
-                    userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
+                        userModel.AvatarResizeUri = avatar.ImgPath;
+                        userModel.UserId = user.Id;
+                        userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+                        userModel.HelloMessage = user.UserFullInfo.HelloMessage;
+                        userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
+                        userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
+                        userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 catch (Exception)
                 {
-                   
+
                 }
             }
             return userModel;
@@ -707,6 +713,8 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var userInfo = GetUserInfo(userID);
+                if (userInfo == null)
+                    return null;
                 var secUserInfo = GetUserInfo(UserIdBySession(session));
                 model.AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 200, 200);
                 model.Name = userInfo.Name;

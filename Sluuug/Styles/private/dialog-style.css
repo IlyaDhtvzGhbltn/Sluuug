@@ -20,6 +20,7 @@
     overflow-x: hidden;
     height: 400px;
     width: 66%;
+    min-width:600px;
     background-color: white;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
 }
@@ -34,6 +35,7 @@
     margin-bottom: 120px;
     margin-left: 10%;
     width: 46%;
+    min-width:415px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -44,24 +46,53 @@
 }
 
 .emoji-charsets-container {
-    width: 9%;
-    border-radius:50%;
-    height:43px;
-    margin-left:10px;
-    background-color:white;
+    transition: all .4s ease;
+    width: 44px;
+    border-radius: 50%;
+    height: 43px;
+    margin-left: 10px;
+    background-color: white;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
 }
 
-.emoji-charsets-container > span:hover + .-emojis- {
-    height: 300px;
-    width: 207px;
-    border: 1px solid #7f7f7f;
-    margin-top: 10px;
-    background: white;
-    position: absolute;
-    top: 365px;
-    left: 335px;
+.-emojis- {
     transition: all .4s ease;
+    background: white;
+    display: none;
+    position: relative;
+    overflow-y: auto;
+}
+
+.emoji-container {
+    display: flex;
+    flex-flow: row wrap;
+    height: 20%;
+    transition: all .4s ease;
+}
+
+.height-helper{
+    height:100%;
+}
+
+.-emojis-:hover,
+.emoji-charsets-container > span:hover + .-emojis- {
+    height: 340px;
+    width: 207px;
+    margin-top: 10px;
+    top: -145px;
+    border: 1px solid #7f7f7f;
+    display: flex;
+    transition: all .4s ease;
+}
+
+.emoji-charsets-container:hover {
+    border: 1px solid #7f7f7f;
+    transition: all .4s ease;
+}
+
+.emoji-span-container {
+    cursor:pointer;
+    padding:5px;
 }
 
 .dialog-msg-wrapper-in,

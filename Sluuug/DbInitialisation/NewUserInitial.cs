@@ -27,6 +27,28 @@ namespace Slug.DbInitialisation
         {
             using (var context = new DataBaseContext())
             {
+                context.Countries.AddRange(new List<Countries>()
+                {
+                    new Countries { CountryCode = 7, Language = LanguageType.En, Title = "Russia" },
+                    new Countries { CountryCode = 7, Language = LanguageType.Ru, Title = "Россия" },
+                    new Countries { CountryCode = 1, Language = LanguageType.En, Title = "USA" },
+                    new Countries { CountryCode = 1, Language = LanguageType.Ru, Title = "США" },
+                });
+
+                context.Cities.AddRange(new List<Cities>()
+                {
+                    new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.En, Title = "Moscow" },
+                    new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.Ru, Title = "Москва" },
+                    new Cities { CitiesCode = 718, CountryCode = 1, Language = LanguageType.En, Title = "New-York" },
+                    new Cities { CitiesCode = 718, CountryCode = 1, Language = LanguageType.Ru, Title = "Нью-Йорк" }
+
+                });
+
+                //context.Avatars.AddRange(new List<Avatars>
+                //{
+                //    new Avatars{ ImgPath = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  }, 
+                //    new Avatars{ ImgPath = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  }, 
+                //});
                 var usersCollection = new List<User>();
 
                 for (int i = 0; i < item; i++)
@@ -44,14 +66,14 @@ namespace Slug.DbInitialisation
                     {
                         name = getRandomTitle(wnames);
                         surname = getRandomTitle(wsurNames);
-                        avatar = 1003;
+                        avatar = 5;
                         userSearchDatingSex = 1;
                     }
                     else
                     {
                         name = getRandomTitle(names);
                         surname = getRandomTitle(surNames);
-                        avatar = 1008;
+                        avatar = 6;
                         userSearchDatingSex = 0;
                     }
 

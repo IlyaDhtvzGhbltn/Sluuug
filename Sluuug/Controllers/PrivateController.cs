@@ -150,7 +150,10 @@ namespace Slug.Controllers
                 else
                 {
                     ForeignUserViewModel model = UsersHandler.GetForeignUserInfo(sessionId, id);
-                    return View(model);
+                    if(model == null)
+                        return RedirectToAction("my", "private");
+                    else
+                        return View(model);
                 }
             }
             else

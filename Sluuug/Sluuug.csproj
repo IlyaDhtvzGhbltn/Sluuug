@@ -151,6 +151,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Resources\emoji\emojis.json" />
     <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
     <Content Include="Resources\audio\new-notify-sound.wav" />
     <Content Include="Resources\images\abstract_footer_left.png" />
@@ -301,21 +302,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201908031202343_reset.cs" />
-    <Compile Include="Migrations\201908031202343_reset.Designer.cs">
-      <DependentUpon>201908031202343_reset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908040829215_posts tbo + events tbo.cs" />
-    <Compile Include="Migrations\201908040829215_posts tbo + events tbo.Designer.cs">
-      <DependentUpon>201908040829215_posts tbo + events tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908041009432_new posts.cs" />
-    <Compile Include="Migrations\201908041009432_new posts.Designer.cs">
-      <DependentUpon>201908041009432_new posts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908041527117_d.cs" />
-    <Compile Include="Migrations\201908041527117_d.Designer.cs">
-      <DependentUpon>201908041527117_d.cs</DependentUpon>
+    <Compile Include="Migrations\201908050800024_reset_db.cs" />
+    <Compile Include="Migrations\201908050800024_reset_db.Designer.cs">
+      <DependentUpon>201908050800024_reset_db.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -416,6 +405,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\emoji\EmojiModel.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -495,17 +485,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908031202343_reset.resx">
-      <DependentUpon>201908031202343_reset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908040829215_posts tbo + events tbo.resx">
-      <DependentUpon>201908040829215_posts tbo + events tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908041009432_new posts.resx">
-      <DependentUpon>201908041009432_new posts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908041527117_d.resx">
-      <DependentUpon>201908041527117_d.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908050800024_reset_db.resx">
+      <DependentUpon>201908050800024_reset_db.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

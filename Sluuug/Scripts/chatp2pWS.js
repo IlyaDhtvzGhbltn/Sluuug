@@ -43,3 +43,27 @@ HUB.on('MessageSendedResult', function (result) {
     var objDiv = $(".dialog")[0];
     objDiv.scrollTop = objDiv.scrollHeight;
 });
+
+function LoadEmoji() {
+    var conteiner = $('.emoji-container')[0];
+    if (conteiner.innerHTML.length == 0) {
+        $.ajax({
+            type: 'post',
+            url: '/api/emoji',
+            success: function (resp) {
+                [].forEach.call(resp, function (emoji) {
+                    conteiner.insertAdjacentHTML('afterbegin', '<span class="emoji-span-container" id="' + emoji+'" onclick="InsertEmojiTo(this)">' + emoji + '</span>');
+                });
+            }
+        });
+    }
+}
+
+function InsertEmojiTo(elem) {
+    var char = elem.innerHTML;
+    var cursorPos = $('#new_msg').prop('selectionStart');
+    var v = $('#new_msg').val();
+    var textBefore = v.substring(0, cursorPos);
+    var textAfter = v.substring(cursorPos, v.length);
+    $('#new_msg').val(textBefore + char + textAfter);
+}

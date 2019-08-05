@@ -9,8 +9,8 @@ namespace Context
 
     public enum LanguageType
     {
-        En,
-        Ru
+        En = 1,
+        Ru = 2
     }
 
     public enum FriendshipItemStatus

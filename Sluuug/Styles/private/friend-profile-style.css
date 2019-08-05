@@ -1,7 +1,6 @@
 .-user-profile {
     position: relative;
-    top: 10px;
-    left: -15px;
+    top: 30px;
     padding: 20px;
     border: 1px solid #7f7f7f;
     display: flex;
@@ -125,9 +124,8 @@
 }
 
 /* REWRITE */
-.profile-full-info-item-wrapper {
-    left:-15px;
-}
+
+
 /* REWRITE END */
 
 

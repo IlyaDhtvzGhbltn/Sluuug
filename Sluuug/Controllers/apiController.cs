@@ -1,25 +1,22 @@
 ﻿using Context;
-using Slug.Context;
+using System;
+using System.Web;
+using System.Web.Mvc;
+using System.Collections.Generic;
+using Slug.Helpers;
+using Slug.Model.Users;
+using Slug.Model.Albums;
+using Slug.Context.Dto;
+using Slug.Context.Dto.Fotos;
+using Slug.Context.Dto.Albums;
 using Slug.Context.Attributes;
 using Slug.Context.Dto.Search;
 using Slug.Context.Dto.Settings;
-using Slug.Context.Dto.VideoConference;
-using Slug.Helpers;
-using Slug.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
-using System.Web.Mvc;
 using Slug.Helpers.BaseController;
-using Slug.Model.Users;
-using Slug.Context.Dto.UserFullInfo;
-using Slug.Model.Albums;
-using Slug.Context.Dto.UserWorker;
-using Slug.Context.Dto.Albums;
-using Slug.Context.Dto.Fotos;
-using Slug.Context.Dto;
+using Slug.Context.Dto.VideoConference;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using Newtonsoft.Json;
+using Slug.Resources.emoji;
 
 namespace Slug.Controllers
 {
@@ -191,9 +188,11 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult emoji()
         {
+            string file = System.IO.File.ReadAllText(Server.MapPath("~/Resources/emoji/emojis.json"));
+            var model = JsonConvert.DeserializeObject<EmojiModel>(file);
             return new JsonResult()
             {
-                Data = new string[] { "&#128313;", "&#128308;", "" }
+                Data = model.faces
             };
         }
     }
