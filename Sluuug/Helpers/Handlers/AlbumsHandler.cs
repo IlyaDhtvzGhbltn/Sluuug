@@ -119,11 +119,15 @@ namespace Slug.Helpers
 
             string labelUri = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1563899112/system/template.jpg";
             string labePubID = null;
+            long originalHeight = 0;
+            long originalWidth = 0;
             if(albumLabel != null )
             {
                 CloudImageUploadResult upl = SlugController.UploadImg(albumLabel, "/users/albums/" + albumGUID.ToString());
                 labelUri = upl.SecureUrl.ToString();
                 labePubID = upl.PublicId;
+                originalHeight = upl.Height;
+                originalWidth = upl.Width;
             }
             string albumDescription = model.AlbumDescription == null ? model.AlbumDescription = "..." : model.AlbumDescription;
             try
@@ -139,7 +143,9 @@ namespace Slug.Helpers
                         CreationDate = DateTime.Now,
                         Title = model.AlbumTitle,
                         User = context.Users.First(x => x.Id == userUploader.UserId),
-                        AlbumLabesPublicID = labePubID
+                        AlbumLabesPublicID = labePubID,
+                        LabelOriginalHeight = originalHeight,
+                        LabelOriginalWidth = originalWidth
                     };
                     context.Albums.Add(album);
                     context.SaveChanges();

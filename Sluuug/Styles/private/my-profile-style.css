@@ -446,10 +446,15 @@
 	border-radius:0;
 }
 
+#album-description {
+    font-size: 16px;
+}
+
 #album-cover-img-name {
     position: relative;
-    top: -80px;
-    left: 60px;
+    top: -5px;
+    left: 1px;
+    font-size: 14px;
 }
 #create_new_album .command_form input[type='button'] {
     cursor: pointer;
@@ -527,11 +532,11 @@ transition: all .3s ease-in;
 
 .menu-circle {
     border-radius: 50%;
-    background-color: #49B2DA;
-    height: 6px;
-    width: 6px;
+    background-color: #747474;
+    height: 5px;
+    width: 5px;
     margin: 2px;
-    border:1px solid white;
+    border: 1px solid white;
 }
 
 

@@ -10,10 +10,12 @@
         <span>@Model.AlbumDescription</span>
     </div>
     <div class="album-view">
-        <img src="@Model.AlbumLabelUrl">
-        <span>@Model.CreationTime</span>
+        <div class="scaled-album-label">
+            <img src="@Model.AlbumLabelUrl">
+        </div>
+            <span>@Model.CreationTime</span>
+        </div>
     </div>
-</div>
 
 
 @*<div class="album">

@@ -206,6 +206,7 @@
     <Content Include="Scripts\vDialogRedirection.js" />
     <Content Include="Scripts\vDialogs.js" />
     <Content Include="Styles\common\await.css" />
+    <Content Include="Styles\common\navigation-arrows-style.css" />
     <Content Include="Styles\guest\index_form.css" />
     <Content Include="Styles\guest\index_style.css" />
     <Content Include="Styles\private\album-review-style.css" />
@@ -305,6 +306,10 @@
     <Compile Include="Migrations\201908050800024_reset_db.cs" />
     <Compile Include="Migrations\201908050800024_reset_db.Designer.cs">
       <DependentUpon>201908050800024_reset_db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908051348571_album_w_h.cs" />
+    <Compile Include="Migrations\201908051348571_album_w_h.Designer.cs">
+      <DependentUpon>201908051348571_album_w_h.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -487,6 +492,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908050800024_reset_db.resx">
       <DependentUpon>201908050800024_reset_db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908051348571_album_w_h.resx">
+      <DependentUpon>201908051348571_album_w_h.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

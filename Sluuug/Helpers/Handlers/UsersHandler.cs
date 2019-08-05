@@ -260,7 +260,7 @@ namespace Slug.Helpers
                     AlbumModel albumModel = new AlbumModel
                     {
                         AlbumId = album.Id,
-                        AlbumLabelUrl = album.AlbumLabelUrl,
+                        AlbumLabelUrl = Resize.ResizedFullPhoto(album.AlbumLabelUrl, album.LabelOriginalHeight, album.LabelOriginalWidth, 90, 90),
                         AlbumDescription = album.Description,
                         CreationTime = album.CreationDate,
                         AlbumTitle = album.Title,

@@ -29,6 +29,12 @@ namespace Slug.Context.Tables
         [Required]
         public string AlbumLabelUrl { get; set; }
 
+        [Required]
+        public long LabelOriginalHeight { get; set; }
+
+        [Required]
+        public long LabelOriginalWidth { get; set; }
+
         public string AlbumLabesPublicID { get; set; }
 
         public virtual List<Foto> Fotos { get; set; }

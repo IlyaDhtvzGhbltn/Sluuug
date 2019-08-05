@@ -58,20 +58,23 @@ COMMENTS
 }
 
 .album-view img{
-	position:relative;
 	left:33%;
 	top:10px;
-	height:90px;
-	width:90px;
+	/*height:90px;
+	width:90px;*/
 	border-radius:0;
 }
 
-.album-info h3{
-	margin:0;
-	font-family: 'Roboto Condensed', sans-serif;
-	font-size:22px;
-	text-align:center;
-	color:#7f7f7f;
+.scaled-album-label{
+
+}
+
+.album-info h3 {
+    margin: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 22px;
+    text-align: center;
+    color: #7f7f7f;
 }
 
 /* ALBUMS END */
@@ -158,11 +161,15 @@ COMMENTS
 	left:30px;
 }
 
-.full-image-container
-{
-	background-color:#7f7f7f;
-    width:678px;
-    height:510px;
+.full-image-container:hover > .navigate-album-arrow {
+    opacity:1;
+}
+
+
+.full-image-container {
+    background-color: #404040;
+    width: 678px;
+    height: 510px;
 }
 
 .full-image-container table{
