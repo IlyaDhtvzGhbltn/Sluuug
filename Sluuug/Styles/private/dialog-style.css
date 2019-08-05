@@ -95,6 +95,10 @@
     padding:5px;
 }
 
+.emoji-span-container:hover {
+    border: 1px solid #7f7f7f;
+}
+
 .dialog-msg-wrapper-in,
 .dialog-msg-wrapper-out {
     display: block;

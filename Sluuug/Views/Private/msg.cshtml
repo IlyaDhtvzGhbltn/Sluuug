@@ -8,7 +8,7 @@
 <link href="~/Styles/private/dialog-style.css" rel="stylesheet" />
 
 <title>На связи @Model.Interlocutor</title>
-<div class="result-pagination">
+<div class="result-pagination stylized-scrollbar">
     @for (int i = 1; i <= Model.PagesCount; i++)
     {
         <div class="search-link-container" id="pagination-link-@i">
@@ -16,7 +16,7 @@
         </div>
     }
 </div>
-<div class="dialog">
+<div class="dialog stylized-scrollbar">
     @foreach (var item in Model.Messages)
     {
         Html.RenderPartial("~/Views/Partial/Dialogs/dialog_message.cshtml", item, new ViewDataDictionary<Slug.Model.DialogMessage>(item));
@@ -38,7 +38,7 @@
 
     <div class="emoji-charsets-container">
         <span style="font-size:31px; cursor:pointer; margin-left:1px">&#128578;</span>
-        <div class="-emojis-" onmouseover="LoadEmoji()">
+        <div class="-emojis- stylized-scrollbar" onmouseover="LoadEmoji()">
             <div class="emoji-container"></div>
             <div class="height-helper"></div>
         </div>
