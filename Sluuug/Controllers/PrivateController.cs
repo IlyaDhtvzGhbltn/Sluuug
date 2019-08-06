@@ -21,6 +21,7 @@ using Slug.Context.Dto.Cloudinary;
 using Slug.Model.Users.Relations;
 using Slug.DbInitialisation;
 using System.Collections.Generic;
+using Slug.ImageEdit;
 
 namespace Slug.Controllers
 {
@@ -171,6 +172,8 @@ namespace Slug.Controllers
                 bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
+                    
+                    ViewBag.MyAvatar = Resize.ResizedAvatarUri(UsersHandler.BaseUser(sessionId).AvatarResizeUri, ModTypes.c_scale, 55, 55);
                     ProfileModel userInfo = UsersHandler.ProfileInfo(id);
                     return View(userInfo);
                 }

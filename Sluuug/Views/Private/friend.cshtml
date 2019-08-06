@@ -6,7 +6,10 @@
 <link href="~/Styles/private/album-review-style.css" rel="stylesheet" />
 <link href="~/Styles/private/friend-profile-style.css" rel="stylesheet" />
 <link href="~/Styles/private/profile-info-style.css" rel="stylesheet" />
+<link href="~/Styles/common/navigation-arrows-style.css" rel="stylesheet" />
+
 <title>@Model.Name @Model.SurName</title>
+@RenderPage("~/Views/Partial/Albums/ExpandFriendAlbum.cshtml")
 
 <div class="-user-profile">
     <div class="-info -left">
@@ -42,7 +45,7 @@
 
 <div class="profile-full-info-item-wrapper">
     <h2>Альбомы</h2>
-    <div id="user_albums">
+    <div id="albums-container">
         @if (Model.Albums.Count == 0)
         {
             <span>@Html.Translate("Text_User_Have_Not_Albums")</span>
@@ -59,23 +62,23 @@
 
 
 @*<div class="profile-full-info-item-wrapper">
-    <h2>События</h2>
-    <input type="checkbox" class="expand-checkbox">
-    <div class="expand"></div>
-    <div class="expanded-info">
-        @if (Model.Events.Count != 0)
-        {
-            foreach (var item in Model.Events)
+        <h2>События</h2>
+        <input type="checkbox" class="expand-checkbox">
+        <div class="expand"></div>
+        <div class="expanded-info">
+            @if (Model.Events.Count != 0)
             {
-                Html.RenderPartial("~/Views/Partial/FriendPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
+                foreach (var item in Model.Events)
+                {
+                    Html.RenderPartial("~/Views/Partial/FriendPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
+                }
             }
-        }
-        else
-        {
-            <span>@Html.Translate("Text_Not_Filled")</span>
-        }
-    </div>
-</div>*@
+            else
+            {
+                <span>@Html.Translate("Text_Not_Filled")</span>
+            }
+        </div>
+    </div>*@
 
 
 <div class="profile-full-info-item-wrapper">
@@ -116,7 +119,7 @@
         }
     </div>
 </div>
+<img id="img_avatar" src="@ViewBag.MyAvatar" style="display:none"/>
 
-<script src="~/Scripts/Common/CommonAlbums.js"></script>
 <script src="~/Scripts/newMessageFromPage.js"></script>
-<script src="~/Scripts/FriendAlbum.js"></script>
+<script src="~/Scripts/Albums.js"></script>

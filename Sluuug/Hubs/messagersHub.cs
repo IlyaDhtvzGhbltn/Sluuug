@@ -11,6 +11,7 @@ using Slug.Context.Dto.Messages;
 using Slug.Helpers;
 using Slug.Helpers.BaseController;
 using Slug.Hubs;
+using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Users;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
@@ -36,7 +37,7 @@ namespace Sluuug.Hubs
                 var userHandler = new UsersHandler();
                 var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-                BaseUser user = userHandler.ProfileInfo(cookies.Value, false);
+                BaseUser user = userHandler.BaseUser(cookies.Value);
                 if (user != null)
                 {
                     var dialogWorker = new UsersDialogHandler();
@@ -55,17 +56,16 @@ namespace Sluuug.Hubs
                     var connectionWorker = new UsersConnectionHandler();
                     UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
 
-                    var model = new DialogMessage()
+                    var messageModel = new DialogMessage()
                     {
-                        AvatarPath = user.AvatarResizeUri,
+                        AvatarPath = Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 60, 60),
                         UserName = user.Name,
-                        UserSurname = user.SurName,
-                        SendTime = DateTime.Now.ToString("yyyy-mm-dd"),
                         Text = clearMsg,
+                        SenderId = user.UserId
                     };
                     //string html = Slug.Helpers.HTMLGenerated.DialogMessage.GenerateHtml(model);
                     //Clients.Caller.sendAsync(html, convGuidID);
-                    //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(html, convGuidID);
+                    Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(messageModel, convGuidID);
                 }
                 var responce = new NotifyHubModel();
                 responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

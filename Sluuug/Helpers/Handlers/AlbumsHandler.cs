@@ -241,9 +241,9 @@ namespace Slug.Helpers
             }
         }
 
-        public AlbumPhotosResponse ExpandAlbum(string session, Guid albumID)
+        public ExpandedAlbumModel ExpandAlbum(string session, Guid albumID)
         {
-            var resp = new AlbumPhotosResponse();
+            var resp = new ExpandedAlbumModel();
             var usersHandler = new UsersHandler();
             int getUserId = usersHandler.UserIdBySession(session);
 
@@ -255,7 +255,7 @@ namespace Slug.Helpers
                     .FirstOrDefault();
                 if (album == null)
                 {
-                    resp.Comment = AlbumPhotosResponse.Errors.NOT_EXIST;
+                    resp.Comment = ExpandedAlbumModel.Errors.NOT_EXIST;
                     return resp;
                 }
                 else
@@ -265,7 +265,7 @@ namespace Slug.Helpers
 
                     if (!isFriendlyAlbum && album.CreateUserID != getUserId)
                     {
-                        resp.Comment = AlbumPhotosResponse.Errors.NOT_ACCESS;
+                        resp.Comment = ExpandedAlbumModel.Errors.NOT_ACCESS;
                         return resp;
                     }
                     else

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Slug.Context.Dto.Albums
 {
-    public class AlbumPhotosResponse
+    public class ExpandedAlbumModel
     {
         public bool Succes { get; set; }
 

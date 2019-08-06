@@ -38,11 +38,13 @@ function savePassword() {
 }
 
 function saveQuickMessage() {
-    var data = $("#changeQuickMessage").serializeArray();
-    var json = parceJSON(data);
-    if (json.QuickMessage == 'on') {
-        json.QuickMessage = true;
-    }
+    var data = new Object;
+    data.QuickMessage = false;
+    if ($('#fun')[0].checked == true)
+        data.QuickMessage = true;
+
+    var json = JSON.parse(JSON.stringify(data));
+    console.log(json);
     send(json);
 }
 

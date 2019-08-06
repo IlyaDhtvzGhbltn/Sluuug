@@ -81,7 +81,10 @@ function ExpandAlbum(albumId) {
                 $('.image-description span')[0].innerHTML = resp.Photos[0].PhotoDescription;
                 $('.full-image-container')[0].id = resp.Photos[0].ID;
                 $('.full-image-container img')[0].src = resp.Photos[0].FullFotoUri;
-                $('.photo-manage')[0].id = resp.Photos[0].ID;
+                try {
+                    $('.photo-manage')[0].id = resp.Photos[0].ID;
+                } catch{ }
+
                 $('.download-photo-link')[0].href = resp.Photos[0].DownloadFotoUri;
                 $('.delete-photo-button')[0].id = resp.Photos[0].ID;
 

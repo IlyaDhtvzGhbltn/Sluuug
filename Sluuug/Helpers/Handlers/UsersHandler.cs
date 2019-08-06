@@ -413,46 +413,62 @@ namespace Slug.Helpers
             }
         }
 
-        public BaseUser BaseUser(int userId)
+        public BaseUser BaseUser(string sessionID)
         {
-            var userModel = new BaseUser();
             using (var context = new DataBaseContext())
             {
-                try
+                Session session = context.Sessions.FirstOrDefault(x => x.Number == sessionID);
+                return baseUser(session.UserId, context);
+            }
+        }
+
+        public BaseUser BaseUser(int userId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                return baseUser(userId, context);
+            }
+        }
+
+
+
+        private BaseUser baseUser(int userId, DataBaseContext context)
+        {
+            var userModel = new BaseUser();
+            try
+            {
+                var user = context.Users.FirstOrDefault(x => x.Id == userId);
+                if (user != null)
                 {
-                    var user = context.Users.FirstOrDefault(x => x.Id == userId);
-                    if (user != null)
-                    {
-                        Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
-                        userModel.Name = user.UserFullInfo.Name;
-                        userModel.SurName = user.UserFullInfo.SurName;
-                        userModel.Country = context.Countries
-                            .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
-                            .First()
-                            .Title;
+                    Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+                    userModel.Name = user.UserFullInfo.Name;
+                    userModel.SurName = user.UserFullInfo.SurName;
+                    userModel.Country = context.Countries
+                        .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+                        .First()
+                        .Title;
 
-                        userModel.City = context.Cities
-                            .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
-                            .First()
-                            .Title;
+                    userModel.City = context.Cities
+                        .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
+                        .First()
+                        .Title;
 
-                        userModel.AvatarResizeUri = avatar.ImgPath;
-                        userModel.UserId = user.Id;
-                        userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
-                        userModel.HelloMessage = user.UserFullInfo.HelloMessage;
-                        userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
-                        userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
-                        userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    userModel.AvatarResizeUri = avatar.ImgPath;
+                    userModel.UserId = user.Id;
+                    userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+                    userModel.HelloMessage = user.UserFullInfo.HelloMessage;
+                    userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
+                    userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
+                    userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
                 }
-                catch (Exception)
+                else
                 {
-
+                    return null;
                 }
+            }
+            catch (Exception)
+            {
+
             }
             return userModel;
         }

@@ -2,22 +2,30 @@
 //var messagesChat = connection.createHubProxy('messagersHub');
 //connection.start();
 
-HUB.on('sendAsync', function (html, convId)
+HUB.on('sendAsync', function (object, convId)
 {
-    addMsgOrConversation(html, convId);
+    console.log(object);
+    UpdateDialog(object);
 });
 
-function addMsgOrConversation(html, convId) {
+function UpdateDialog(message) {
 
-    var dialogBlock = $('#' + convId);
-
-    if (dialogBlock.length > 0) {
-        dialogBlock.html(html);
-    }
-    else
-    {
-        var mylist = $('#conversations');
-        mylist[0].insertAdjacentHTML('beforeend', html);
-    }
+    var Dialog = $('.dialog')[0];
+    Dialog.insertAdjacentHTML('beforeend',
+        '<div class="dialog-msg-wrapper-in"><div class="in-content">'
+        + '<div class="message-header" onclick="redirectToUser(' + message.SenderId + ')">'
+        + '<h4>' + message.UserName + '</h4>'
+        +'<span>Только что</span>'
+        + '</div>'
+        + '<div class="message-body">'
+        + '<div><img src="' + message.AvatarPath + '"/></div>'
+        + '<span>' + message.Text + '</span>'
+        + '</div></div></div>');
+    setTimeout(function () {
+        $(document).ready(function () {
+            var objDiv = $(".dialog")[0];
+            objDiv.scrollTop = objDiv.scrollHeight;
+        });
+    }, 100)
 
 }

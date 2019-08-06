@@ -174,7 +174,6 @@
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="Scripts\addContact.js" />
     <Content Include="Scripts\Albums.js" />
-    <Content Include="Scripts\Common\CommonAlbums.js" />
     <Content Include="Scripts\Profile\EditInfo.js" />
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
@@ -185,7 +184,6 @@
     <Content Include="Scripts\System\BigInteger.min.js" />
     <Content Include="Scripts\crypto_chat.js" />
     <Content Include="Scripts\crypto_dialog.js" />
-    <Content Include="Scripts\FriendAlbum.js" />
     <Content Include="Scripts\Search.js" />
     <Content Include="Scripts\notificationHub.js" />
     <Content Include="Scripts\myContacts.js" />
@@ -457,15 +455,6 @@
     <Content Include="Views\Partial\CryptoDialogs\accept_needed_crypto_dialog.cshtml" />
     <Content Include="Views\Partial\CryptoDialogs\self_created_dialog.cshtml" />
     <Content Include="Views\Partial\CryptoDialogs\friends_can_invite_crypto_dialog.cshtml" />
-    <Content Include="Views\Partial\Albums\CreateNew.cshtml" />
-    <Content Include="Views\Partial\Albums\Expand.cshtml" />
-    <Content Include="Views\Partial\Albums\UploadFotoForm.cshtml" />
-    <Content Include="Views\Partial\Albums\AlbumReview.cshtml" />
-    <Content Include="Views\Partial\Albums\CommentEntry.cshtml" />
-    <Content Include="Views\Partial\Albums\EditFotoInfo.cshtml" />
-    <Content Include="Views\Partial\Albums\FriendExpand.cshtml" />
-    <Content Include="Views\Partial\OwnPage\AddInfo\mem_events_form.cshtml" />
-    <Content Include="Views\Partial\OwnPage\AddInfo\work_form.cshtml" />
     <Content Include="Views\Partial\OwnPage\AddInfo\places_form.cshtml" />
     <Content Include="Views\Partial\Register\login_already_taken.cshtml" />
     <Content Include="Views\Error\user_already_exist.cshtml" />
@@ -483,6 +472,8 @@
     <Content Include="Views\Partial\feed_backView.cshtml" />
     <Content Include="Views\Private\support.cshtml" />
     <Content Include="Views\Private\notification_history.cshtml" />
+    <Content Include="Views\Partial\Albums\ExpandAlbum.cshtml" />
+    <Content Include="Views\Partial\Albums\ExpandFriendAlbum.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

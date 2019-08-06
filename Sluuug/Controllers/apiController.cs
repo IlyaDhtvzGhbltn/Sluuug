@@ -136,7 +136,7 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult fotos(Guid album)
         {
-            AlbumPhotosResponse result = AlbumsHandler.ExpandAlbum(GetCookiesValue(Request), album);
+            ExpandedAlbumModel result = AlbumsHandler.ExpandAlbum(GetCookiesValue(Request), album);
             return new JsonResult { Data = result };
         }
 
