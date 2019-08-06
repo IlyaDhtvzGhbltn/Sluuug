@@ -28,7 +28,7 @@ namespace Slug.Controllers
         public JsonResult get_user_info()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            var UserInfo = UsersHandler.GetCurrentProfileInfo(sessionId);
+            var UserInfo = UsersHandler.ProfileInfo(sessionId);
             var result = new JsonResult();
             result.Data = UserInfo;
             return result;
@@ -37,7 +37,7 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult get_info_other_user(int id)
         {
-            var UserInfo = UsersHandler.GetUserInfo(id);
+            var UserInfo = UsersHandler.BaseUser(id);
             var result = new JsonResult();
             result.Data = UserInfo;
             return result;

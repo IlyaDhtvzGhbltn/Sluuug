@@ -46,11 +46,11 @@ namespace Slug.Helpers
                                 int InterlocutorID = context.ConversationGroup
                                     .Where(x => x.ConversationGuidId == dialogGUID &&
                                     x.UserId != userId).First().UserId;
-                                BaseUser friendInterlocutor = UsWork.GetUserInfo(InterlocutorID);
+                                BaseUser friendInterlocutor = UsWork.BaseUser(InterlocutorID);
 
                                 var lastMessage = message.ToList().Last();
                                 int lastMessageUserId = lastMessage.UserId;
-                                BaseUser lastSayUser = UsWork.GetUserInfo(lastMessageUserId);
+                                BaseUser lastSayUser = UsWork.BaseUser(lastMessageUserId);
                                 var c = new CutConversation();
 
                                 c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);

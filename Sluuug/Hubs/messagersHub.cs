@@ -36,7 +36,7 @@ namespace Sluuug.Hubs
                 var userHandler = new UsersHandler();
                 var clearMsg = System.Net.WebUtility.HtmlDecode(message);
 
-                BaseUser user = userHandler.GetCurrentProfileInfo(cookies.Value, false);
+                BaseUser user = userHandler.ProfileInfo(cookies.Value, false);
                 if (user != null)
                 {
                     var dialogWorker = new UsersDialogHandler();

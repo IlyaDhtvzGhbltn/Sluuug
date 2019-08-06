@@ -13,10 +13,13 @@
 
 .navigate-album-left {
     width:100%;
+    cursor:pointer;
+    margin-right:580px;
 }
 
 .navigate-album-right {
     float: right;
+    cursor: pointer;
 }
 
 .center-con {
@@ -35,7 +38,6 @@
 
 #cta {
     width: 100%;
-    cursor: pointer;
     position: absolute;
 }
 
@@ -134,7 +136,14 @@
     }
 }
 
+.round{
+    transition:all .3s ease;
+}
 
+.round:hover {
+    -webkit-box-shadow: 0px 0px 15px 12px rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.4);
+}
 
 .round:hover .-left,
 .round:hover .-right {
@@ -142,6 +151,7 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
+
 
 .round:hover .-right {
     animation-name: bounceAlphaRight;

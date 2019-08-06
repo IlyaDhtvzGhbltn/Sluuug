@@ -106,21 +106,22 @@
     margin-right: 10px;
 }
 
+#user_albums{
+    margin-bottom:15px;
+}
 
-.expand
-{
-	z-index:0;
-	opacity:1;
-	position:relative;
-	top:-25px;
-	left:48%;
+.expand {
+    z-index: 0;
+    opacity: 1;
+    position: relative;
+    top: -25px;
+    left: 48%;
     transition: all .5s ease-out;
-
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 20px 20px 0 20px;
-	border-color: #49b2da transparent transparent transparent;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 20px 0 20px;
+    border-color: #49b2da transparent transparent transparent;
 }
 
 /* REWRITE */

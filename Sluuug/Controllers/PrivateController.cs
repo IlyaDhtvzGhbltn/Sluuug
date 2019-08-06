@@ -37,7 +37,7 @@ namespace Slug.Controllers
         public async Task<ActionResult> my()
         {
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-            MyProfileModel userInfoModel = UsersHandler.GetCurrentProfileInfo(cookies.Value);
+            ProfileModel userInfoModel = UsersHandler.ProfileInfo(cookies.Value);
 
             string selectedDatingPurposeValue = ((int)userInfoModel.purpose).ToString();
             var datingPurposeList = new List<SelectListItem>()
@@ -113,7 +113,7 @@ namespace Slug.Controllers
         {
             
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            var user = UsersHandler.GetCurrentProfileInfo(sessionId);
+            var user = UsersHandler.ProfileInfo(sessionId);
             ConversationsModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
         }
@@ -171,7 +171,7 @@ namespace Slug.Controllers
                 bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
-                    FriendModel userInfo = UsersHandler.GetFullUserInfo(id);
+                    ProfileModel userInfo = UsersHandler.ProfileInfo(id);
                     return View(userInfo);
                 }
                 else

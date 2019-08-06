@@ -26,7 +26,7 @@ namespace Slug.Helpers
         public FotoModel GetFotoByGUID(string session, Guid foto)
         {
             var handler = new UsersHandler();
-            MyProfileModel userUploader = handler.GetCurrentProfileInfo(session);
+            ProfileModel userUploader = handler.ProfileInfo(session);
             using (var context = new DataBaseContext())
             {
                 Foto calledFoto = context.Fotos.Where(x => x.FotoGUID == foto).FirstOrDefault();
@@ -53,7 +53,7 @@ namespace Slug.Helpers
         public AlbumModel GetAlbumByGUID(string session, Guid album)
         {
             var handler = new UsersHandler();
-            MyProfileModel userUploader = handler.GetCurrentProfileInfo(session);
+            ProfileModel userUploader = handler.ProfileInfo(session);
             using (var context = new DataBaseContext())
             {
                 Album calledAlbum = context.Albums.FirstOrDefault(x => x.Id == album);
@@ -69,13 +69,13 @@ namespace Slug.Helpers
                             var comments = new List<FotoCommentModel>();
                             foto.UserComments.ForEach(comment => 
                             {
-                                FriendModel userCommenter = handler.GetFullUserInfo(comment.UserCommenter);
+                                BaseUser userCommenter = handler.BaseUser(comment.UserCommenter);
                                 var userComment = new FotoCommentModel()
                                 {
                                      Text = comment.CommentText,
                                      UserName = userCommenter.Name,
                                      UserSurName = userCommenter.SurName,
-                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri( userCommenter.AvatarResizeUri, ModTypes.c_scale, 40, 40),
+                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(userCommenter.AvatarResizeUri, ModTypes.c_scale, 40, 40),
                                      UserPostedID = userCommenter.UserId,
                                      DateFormat = comment.CommentWriteDate.ToLongDateString()
                                 };
@@ -115,7 +115,7 @@ namespace Slug.Helpers
         {
             Guid albumGUID = Guid.NewGuid();
             var handler = new UsersHandler();
-            var userUploader = handler.GetCurrentProfileInfo(session);
+            var userUploader = handler.ProfileInfo(session);
 
             string labelUri = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1563899112/system/template.jpg";
             string labePubID = null;
@@ -298,6 +298,7 @@ namespace Slug.Helpers
                             Guid firstPhotoId = resp.Photos.First().ID;
                             List<FotoComment> photoComments = context.Fotos.Where(x => x.FotoGUID == firstPhotoId).First().UserComments;
                             resp.Photos.First(x => x.ID == firstPhotoId).FotoComments = new List<FotoCommentModel>();
+                            
 
                             photoComments.ForEach(comment =>
                             {

@@ -64,8 +64,8 @@ namespace Slug.Helpers
                     msg.Text = message.Text;
                     msg.SendTime = message.SendingDate.ToString("hh:mm");
                     msg.ConversationId = message.ConvarsationGuidId;
-                    msg.AvatarPath = Resize.ResizedAvatarUri(UserWorker.GetUserInfo(message.UserId).AvatarResizeUri, ModTypes.c_scale, 60, 60);
-                    msg.UserName = UserWorker.GetUserInfo(message.UserId).Name;
+                    msg.AvatarPath = Resize.ResizedAvatarUri(UserWorker.BaseUser(message.UserId).AvatarResizeUri, ModTypes.c_scale, 60, 60);
+                    msg.UserName = UserWorker.BaseUser(message.UserId).Name;
                     msg.Text = message.Text;
                     msg.SenderId = message.UserId;
                     messangs.Add(msg);

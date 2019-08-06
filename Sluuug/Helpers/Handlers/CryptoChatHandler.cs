@@ -118,7 +118,7 @@ namespace Slug.Helpers
                         int interlocutorID = fullGroups.First(x => x.PartyGUID == secretChat.PartyGUID &&
                                                               x.UserId != userId)
                                                               .UserId;
-                        BaseUser interlocutor = userHandler.GetUserInfo(interlocutorID);
+                        BaseUser interlocutor = userHandler.BaseUser(interlocutorID);
                         chat.InterlocutorName = interlocutor.Name;
                         chat.InterlocutorSurName = interlocutor.SurName;
                         if (status == CryptoChatStatus.SelfCreated)
@@ -134,7 +134,7 @@ namespace Slug.Helpers
                             SecretMessages last = context.SecretMessage.ToList().Last();
                             chat.LastMessage = last.Text;
                             chat.LastMessageSendDate = last.SendingDate;
-                            string lastSenderAvatar = userHandler.GetFullUserInfo(last.UserSender).AvatarResizeUri;
+                            string lastSenderAvatar = userHandler.BaseUser(last.UserSender).AvatarResizeUri;
                             chat.UserLastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSenderAvatar, ModTypes.c_scale, 50, 50);
                         }
 
@@ -224,7 +224,7 @@ namespace Slug.Helpers
                 {
                     if (!userInfos.ContainsKey(item.UserSender))
                     {
-                        userInfos[item.UserSender] = usersHandler.GetUserInfo(item.UserSender);
+                        userInfos[item.UserSender] = usersHandler.BaseUser(item.UserSender);
                     }
                     bool incommingFlag = false;
                     if (userReaderID != item.UserSender)
@@ -282,7 +282,7 @@ namespace Slug.Helpers
             {
                 if (participator.UserId != userCaller.UserId)
                 {
-                    var userInfo = user.GetUserInfo(participator.UserId);
+                    var userInfo = user.BaseUser(participator.UserId);
                     chatUser.UserId = userInfo.UserId;
                     chatUser.AvatarResizeUri = userInfo.AvatarResizeUri;
                     chatUser.Name = userInfo.Name;

@@ -23,6 +23,7 @@ namespace Slug.Context.Tables
         [Required]
         public bool Expired { get; set; }
 
-        public int? UserId { get; set; }
+        [Required]
+        public int UserId { get; set; }
     }
 }

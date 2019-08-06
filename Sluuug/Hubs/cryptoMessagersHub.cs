@@ -36,7 +36,7 @@ namespace Slug.Hubs
                 var Cookie = base.Context.Request.Cookies;
                 var session_id = Cookie[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
                 var uW = new UsersHandler();
-                var UserInfo = uW.GetCurrentProfileInfo(session_id.Value);
+                var UserInfo = uW.ProfileInfo(session_id.Value);
 
                 var CryptoChatResponce = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(create_request);
                 int participantID = CryptoChatResponce.Participants[0].UserId;
@@ -71,7 +71,7 @@ namespace Slug.Hubs
         {
             Cookie Session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             UsersHandler worker = new UsersHandler();
-            BaseUser fromUser = worker.GetCurrentProfileInfo(Session.Value, false);
+            BaseUser fromUser = worker.ProfileInfo(Session.Value, false);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
 
@@ -101,7 +101,7 @@ namespace Slug.Hubs
             var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            BaseUser userAccepter = UsWorker.GetCurrentProfileInfo(cookies.Value, false);
+            BaseUser userAccepter = UsWorker.ProfileInfo(cookies.Value, false);
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
 
 
@@ -133,7 +133,7 @@ namespace Slug.Hubs
             var reg = new Regex("=.{36}");
             MatchCollection matches = reg.Matches(uri);
             string guidChatId = matches[0].ToString().Substring(1);
-            BaseUser fromUser = userHandler.GetUserInfo(fromUserID);
+            BaseUser fromUser = userHandler.BaseUser(fromUserID);
             int toUserID = cryptoChatWorker.GetInterlocutorID(Guid.Parse(guidChatId), fromUser.UserId);
             bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUserID, toUserID);
 

@@ -157,11 +157,11 @@ namespace Slug.Helpers
                             .Where(x => x.GuidId == item.GuidId && x.UserId != myId)
                             .Select(x => x.UserId)
                             .First();
-                        var info = usersHandler.GetUserInfo(participantID);
+                        var info = usersHandler.BaseUser(participantID);
 
                         incoming.InviterID = participantID;
-                        incoming.CallerName = usersHandler.GetUserInfo(participantID).Name;
-                        incoming.CallerSurName = usersHandler.GetUserInfo(participantID).SurName;
+                        incoming.CallerName = usersHandler.BaseUser(participantID).Name;
+                        incoming.CallerSurName = usersHandler.BaseUser(participantID).SurName;
                         incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 50, 50);
                         model.IncomingCalls.Add(incoming);
                     }

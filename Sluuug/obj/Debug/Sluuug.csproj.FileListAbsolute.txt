@@ -122,3 +122,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.newposts.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.d.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset_db.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.album_w_h.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.nullable_int_to_int.resources

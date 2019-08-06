@@ -10,7 +10,7 @@ namespace Slug.Context
     public class SessionsHandler
     {
 
-        public string OpenSession(SessionTypes type, int? userId)
+        public string OpenSession(SessionTypes type, int userId)
         {
             string sessionNumber = string.Empty;
             sessionNumber = Converting.ConvertStringtoMD5(DateTime.Now.Ticks.ToString());

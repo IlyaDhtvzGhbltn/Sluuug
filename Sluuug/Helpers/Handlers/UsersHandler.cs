@@ -104,230 +104,80 @@ namespace Slug.Helpers
             return 0;
         }
 
-        public MyProfileModel GetCurrentProfileInfo(string sessioID, bool resize = true)
+        public ProfileModel ProfileInfo(string sessioID, bool resize = true)
         {
-            var userModel = new MyProfileModel();
             using (var context = new DataBaseContext())
             {
                 Session session = context.Sessions.First(x => x.Number == sessioID);
-                User user = context.Users.First(x => x.Id == session.UserId);
-
-                Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
-                userModel.Name = user.UserFullInfo.Name;
-                userModel.SurName = user.UserFullInfo.SurName;
-                userModel.HelloMessage = user.UserFullInfo.HelloMessage;
-                userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
-                userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
-                userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
-
-                var userCountry = context.Countries
-                    .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
-                    .FirstOrDefault();
-
-                if (userCountry != null)
-                    userModel.Country = userCountry.Title;
-                else
-                    userModel.Country = "Не указана";
-
-                var City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
-                    .FirstOrDefault();
-
-                if (City != null)
-                    userModel.City = City.Title;
-                else
-                    userModel.City = "Не указанo";
-                if (resize)
-                    userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
-                else
-                    userModel.AvatarResizeUri = avatar.ImgPath;
-
-                userModel.UserId = user.Id;
-
-                userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
-
-                var Educations = user.UserFullInfo.Educations;
-                userModel.Educations = new List<EducationModel>();
-
-                Educations.ForEach(x =>
-                {
-                    string endDate = (x.End == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.End).ToString("D");
-                    userModel.Educations.Add(new EducationModel()
-                    {
-                        Comment = x.Comment,
-                        EducationType = x.EducationType,
-                        //Faculty = x.Faculty,
-                        StartDateFormat = x.Start.ToString("D", CultureInfo.CreateSpecificCulture("ru-RU")),
-                        EndDateFormat = endDate,
-
-                        Specialty = x.Specialty,
-                        UntilNow = x.UntilNow,
-                        Title = x.Title,
-                        Id = x.Id,
-
-                        Country = context.Countries
-                        .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                        .First().Title,
-
-                        City = context.Cities
-                        .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                        .First().Title
-
-                    });
-                });
-
-                var Events = user.UserFullInfo.Events;
-                userModel.Events = new List<MemorableEventsModel>();
-                Events.ForEach(x =>
-                {
-                    string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.DateEvent).ToString("D");
-                    var eventModel = new MemorableEventsModel()
-                    {
-                        Text = x.TextEventDescription,
-                        DateEventFormat = endDate,
-                        EventTitle = x.EventTitle,
-                        Id = x.Id,
-                        Photos = new List<FotoModel>()
-                    };
-                    List<Foto> eventPhotos = context.Fotos.Where(y => y.AlbumID == x.AlbumGuid).ToList();
-                    if (eventPhotos != null && eventPhotos.Count > 0)
-                    {
-                        eventPhotos.ForEach(f =>
-                        {
-                            var commentsModel = new List<FotoCommentModel>();
-                            var comments = context.FotoComments.Where(c => c.Foto.FotoGUID == f.FotoGUID).ToList();
-                            comments.ForEach( fm => 
-                            {
-                                var userCommenter = context.Users.First(u => u.Id == fm.UserCommenter);
-                                Avatars ava = context.Avatars.First(a => a.Id == userCommenter.AvatarId);
-
-                                commentsModel.Add(new FotoCommentModel()
-                                {
-                                     UserName = userCommenter.UserFullInfo.Name,
-                                     UserSurName = userCommenter.UserFullInfo.SurName,
-                                     UserPostedID = userCommenter.Id,
-                                     UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(ava.ImgPath, ModTypes.c_scale, 50, 50),
-                                     DateFormat = fm.CommentWriteDate.ToString("D"),
-                                     Text = fm.CommentText
-                                });
-                            });
-
-                            eventModel.Photos.Add(new FotoModel()
-                            {
-                                Album = x.AlbumGuid,
-                                ID = f.FotoGUID,
-                                UploadDate = f.UploadDate,
-                                SmallFotoUri = Resize.ResizedFullPhoto(f.Url, f.Height, f.Width, 80, 80),
-                                FullFotoUri = Resize.ResizedFullPhoto(f.Url, f.Height, f.Width),
-                                DownloadFotoUri = f.Url,
-                                FotoComments = commentsModel
-                            });
-                        });
-                    }
-
-                    userModel.Events.Add(eventModel);
-                });
-
-                var Works = user.UserFullInfo.Works;
-                userModel.Works = new List<WorkPlacesModel>();
-                Works.ForEach(x =>
-                {
-                    string endDate = (x.Start == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.Start).ToString("D");
-
-                    userModel.Works.Add(new WorkPlacesModel()
-                    {
-                        Comment = x.Comment,
-                        CompanyTitle = x.CompanyTitle,
-                        Position = x.Position,
-                        StartDateFormat = x.Start.ToString("D"),
-                        EndDateFormat = endDate,
-                        UntilNow = x.UntilNow,
-                        Id = x.Id,
-
-                        Country = context.Countries
-                        .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
-                        .First().Title,
-
-                        City = context.Cities
-                        .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
-                        .First().Title
-                    });
-                });
-
-                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id && !x.Title.Contains("_event")).ToList();
-                userModel.Albums = new List<AlbumModel>();
-                foreach (var album in albums)
-                {
-                    AlbumModel albumModel = new AlbumModel
-                    {
-                        AlbumId = album.Id,
-                        AlbumLabelUrl = Resize.ResizedFullPhoto(album.AlbumLabelUrl, album.LabelOriginalHeight, album.LabelOriginalWidth, 90, 90),
-                        AlbumDescription = album.Description,
-                        CreationTime = album.CreationDate,
-                        AlbumTitle = album.Title,
-                        FotosCount = album.Fotos.Count
-                    };
-                    userModel.Albums.Add(albumModel);
-                }
+                int userId = session.UserId;
+                return profileInfo(userId, context, resize);
             }
-            return userModel;
         }
 
-        public FriendModel GetFullUserInfo(int userId)
+        public ProfileModel ProfileInfo(int userId, bool resize = true)
         {
-            var userModel = new FriendModel();
-
+            var model = new ProfileModel();
             using (var context = new DataBaseContext())
             {
-                User user = context.Users.First(x => x.Id == userId);
-                Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
-                userModel.Name = user.UserFullInfo.Name;
-                userModel.SurName = user.UserFullInfo.SurName;
+                return profileInfo(userId, context, resize);
+            }
+        }
 
-                userModel.Country = context.Countries
-                    .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
-                    .First()
-                    .Title;
-                userModel.City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
-                    .First().Title;
+        private ProfileModel profileInfo(int userId, DataBaseContext context,  bool resize = true)
+        {
+            var userModel = new ProfileModel();
+            User user = context.Users.First(x => x.Id == userId);
+            Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+            userModel.Name = user.UserFullInfo.Name;
+            userModel.SurName = user.UserFullInfo.SurName;
+            userModel.HelloMessage = user.UserFullInfo.HelloMessage;
+            userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
+            userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
+            userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
 
-                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200);
-                userModel.UserId = user.Id;
-                userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+            var userCountry = context.Countries
+                .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+                .FirstOrDefault();
 
-                List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
-                userModel.Albums = new List<AlbumModel>();
-                foreach (var album in albums)
-                {
-                    AlbumModel albumModel = new AlbumModel
-                    {
-                        AlbumId = album.Id,
-                        AlbumLabelUrl = album.AlbumLabelUrl,
-                        AlbumDescription = album.Description,
-                        CreationTime = album.CreationDate,
-                        AlbumTitle = album.Title,
-                        FotosCount = album.Fotos.Count
-                    };
-                    userModel.Albums.Add(albumModel);
-                }
+            if (userCountry != null)
+                userModel.Country = userCountry.Title;
+            else
+                userModel.Country = "Не указана";
 
+            var City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
+                .FirstOrDefault();
 
-                var Educations = user.UserFullInfo.Educations.OrderBy(x => x.Start).ToList();
+            if (City != null)
+                userModel.City = City.Title;
+            else
+                userModel.City = "Не указанo";
+            if (resize)
+                userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200); //c_scale,h_200,c_thumb,g_face
+            else
+                userModel.AvatarResizeUri = avatar.ImgPath;
 
-                userModel.Educations = new List<EducationModel>();
-                Educations.ForEach(x =>
+            userModel.UserId = user.Id;
+
+            userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+
+            var Educations = user.UserFullInfo.Educations;
+            userModel.Educations = new List<EducationModel>();
+            Educations.ForEach(x =>
+            {
+                string endDate = (x.End == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.End).ToString("D");
                 userModel.Educations.Add(new EducationModel()
                 {
                     Comment = x.Comment,
                     EducationType = x.EducationType,
-                    End = x.End,
                     //Faculty = x.Faculty,
-                    Start = x.Start,
+                    StartDateFormat = x.Start.ToString("D", CultureInfo.CreateSpecificCulture("ru-RU")),
+                    EndDateFormat = endDate,
+
                     Specialty = x.Specialty,
                     UntilNow = x.UntilNow,
                     Title = x.Title,
                     Id = x.Id,
 
-
                     Country = context.Countries
                     .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
                     .First().Title,
@@ -336,19 +186,74 @@ namespace Slug.Helpers
                     .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
 
-                }));
-               
-                
-                var Works = user.UserFullInfo.Works.OrderBy(x => x.Start).ToList();
-                userModel.Works = new List<WorkPlacesModel>();
-                Works.ForEach(x =>
+                });
+            });
+
+            var Events = user.UserFullInfo.Events;
+            userModel.Events = new List<MemorableEventsModel>();
+            Events.ForEach(x =>
+            {
+                string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.DateEvent).ToString("D");
+                var eventModel = new MemorableEventsModel()
+                {
+                    Text = x.TextEventDescription,
+                    DateEventFormat = endDate,
+                    EventTitle = x.EventTitle,
+                    Id = x.Id,
+                    Photos = new List<FotoModel>()
+                };
+                List<Foto> eventPhotos = context.Fotos.Where(y => y.AlbumID == x.AlbumGuid).ToList();
+                if (eventPhotos != null && eventPhotos.Count > 0)
+                {
+                    eventPhotos.ForEach(f =>
+                    {
+                        var commentsModel = new List<FotoCommentModel>();
+                        var comments = context.FotoComments.Where(c => c.Foto.FotoGUID == f.FotoGUID).ToList();
+                        comments.ForEach(fm =>
+                        {
+                            var userCommenter = context.Users.First(u => u.Id == fm.UserCommenter);
+                            Avatars ava = context.Avatars.First(a => a.Id == userCommenter.AvatarId);
+
+                            commentsModel.Add(new FotoCommentModel()
+                            {
+                                UserName = userCommenter.UserFullInfo.Name,
+                                UserSurName = userCommenter.UserFullInfo.SurName,
+                                UserPostedID = userCommenter.Id,
+                                UserPostedAvatarResizeUri = Resize.ResizedAvatarUri(ava.ImgPath, ModTypes.c_scale, 50, 50),
+                                DateFormat = fm.CommentWriteDate.ToString("D"),
+                                Text = fm.CommentText
+                            });
+                        });
+
+                        eventModel.Photos.Add(new FotoModel()
+                        {
+                            Album = x.AlbumGuid,
+                            ID = f.FotoGUID,
+                            UploadDate = f.UploadDate,
+                            SmallFotoUri = Resize.ResizedFullPhoto(f.Url, f.Height, f.Width, 80, 80),
+                            FullFotoUri = Resize.ResizedFullPhoto(f.Url, f.Height, f.Width),
+                            DownloadFotoUri = f.Url,
+                            FotoComments = commentsModel
+                        });
+                    });
+                }
+
+                userModel.Events.Add(eventModel);
+            });
+
+            var Works = user.UserFullInfo.Works;
+            userModel.Works = new List<WorkPlacesModel>();
+            Works.ForEach(x =>
+            {
+                string endDate = (x.Start == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.Start).ToString("D");
+
                 userModel.Works.Add(new WorkPlacesModel()
                 {
                     Comment = x.Comment,
                     CompanyTitle = x.CompanyTitle,
                     Position = x.Position,
-                    Start = x.Start,
-                    End = x.End,
+                    StartDateFormat = x.Start.ToString("D"),
+                    EndDateFormat = endDate,
                     UntilNow = x.UntilNow,
                     Id = x.Id,
 
@@ -359,31 +264,140 @@ namespace Slug.Helpers
                     City = context.Cities
                     .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
                     .First().Title
+                });
+            });
 
-                })
-                );
-
-                var Events = user.UserFullInfo.Events.OrderBy(x => x.DateEvent).ToList();
-                userModel.Events = new List<MemorableEventsModel>();
-                Events.ForEach(x => {
-                    string endDate = x.DateEvent.ToString("D");
-
-                    userModel.Events.Add(new MemorableEventsModel()
-                    {
-                        Text = x.TextEventDescription,
-                        DateEventFormat = endDate,
-                        EventTitle = x.EventTitle,
-                        Id = x.Id,
-
-                    });
-                }
-                );
-
-                
+            List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id && !x.Title.Contains("_event")).ToList();
+            userModel.Albums = new List<AlbumModel>();
+            foreach (var album in albums)
+            {
+                AlbumModel albumModel = new AlbumModel
+                {
+                    AlbumId = album.Id,
+                    AlbumLabelUrl = Resize.ResizedFullPhoto(album.AlbumLabelUrl, album.LabelOriginalHeight, album.LabelOriginalWidth, 90, 90),
+                    AlbumDescription = album.Description,
+                    CreationTime = album.CreationDate,
+                    AlbumTitle = album.Title,
+                    FotosCount = album.Fotos.Count
+                };
+                userModel.Albums.Add(albumModel);
             }
-
-            return userModel;
+            
+        return userModel;
         }
+
+        //public FriendModel GetFullUserInfo(int userId)
+        //{
+        //    var userModel = new FriendModel();
+
+        //    using (var context = new DataBaseContext())
+        //    {
+        //        User user = context.Users.First(x => x.Id == userId);
+        //        Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+        //        userModel.Name = user.UserFullInfo.Name;
+        //        userModel.SurName = user.UserFullInfo.SurName;
+
+        //        userModel.Country = context.Countries
+        //            .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
+        //            .First()
+        //            .Title;
+        //        userModel.City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
+        //            .First().Title;
+
+        //        userModel.AvatarResizeUri = Resize.ResizedAvatarUri(avatar.ImgPath, ModTypes.c_scale, 200, 200);
+        //        userModel.UserId = user.Id;
+        //        userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+
+        //        List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id).ToList();
+        //        userModel.Albums = new List<AlbumModel>();
+        //        foreach (var album in albums)
+        //        {
+        //            AlbumModel albumModel = new AlbumModel
+        //            {
+        //                AlbumId = album.Id,
+        //                AlbumLabelUrl = album.AlbumLabelUrl,
+        //                AlbumDescription = album.Description,
+        //                CreationTime = album.CreationDate,
+        //                AlbumTitle = album.Title,
+        //                FotosCount = album.Fotos.Count
+        //            };
+        //            userModel.Albums.Add(albumModel);
+        //        }
+
+
+        //        var Educations = user.UserFullInfo.Educations.OrderBy(x => x.Start).ToList();
+
+        //        userModel.Educations = new List<EducationModel>();
+        //        Educations.ForEach(x =>
+        //        userModel.Educations.Add(new EducationModel()
+        //        {
+        //            Comment = x.Comment,
+        //            EducationType = x.EducationType,
+        //            End = x.End,
+        //            //Faculty = x.Faculty,
+        //            Start = x.Start,
+        //            Specialty = x.Specialty,
+        //            UntilNow = x.UntilNow,
+        //            Title = x.Title,
+        //            Id = x.Id,
+
+
+        //            Country = context.Countries
+        //            .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+        //            .First().Title,
+
+        //            City = context.Cities
+        //            .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
+        //            .First().Title
+
+        //        }));
+
+
+        //        var Works = user.UserFullInfo.Works.OrderBy(x => x.Start).ToList();
+        //        userModel.Works = new List<WorkPlacesModel>();
+        //        Works.ForEach(x =>
+        //        userModel.Works.Add(new WorkPlacesModel()
+        //        {
+        //            Comment = x.Comment,
+        //            CompanyTitle = x.CompanyTitle,
+        //            Position = x.Position,
+        //            Start = x.Start,
+        //            End = x.End,
+        //            UntilNow = x.UntilNow,
+        //            Id = x.Id,
+
+        //            Country = context.Countries
+        //            .Where(c => c.CountryCode == x.CountryCode && c.Language == LanguageType.Ru)
+        //            .First().Title,
+
+        //            City = context.Cities
+        //            .Where(c => c.CitiesCode == x.CityCode && c.Language == LanguageType.Ru)
+        //            .First().Title
+
+        //        })
+        //        );
+
+        //        var Events = user.UserFullInfo.Events.OrderBy(x => x.DateEvent).ToList();
+        //        userModel.Events = new List<MemorableEventsModel>();
+        //        Events.ForEach(x => {
+        //            string endDate = x.DateEvent.ToString("D");
+
+        //            userModel.Events.Add(new MemorableEventsModel()
+        //            {
+        //                Text = x.TextEventDescription,
+        //                DateEventFormat = endDate,
+        //                EventTitle = x.EventTitle,
+        //                Id = x.Id,
+
+        //            });
+        //        }
+        //        );
+
+
+        //    }
+
+        //    return userModel;
+        //}
 
         public UserSettings GetUserSettings(string sessionID)
         {
@@ -399,7 +413,7 @@ namespace Slug.Helpers
             }
         }
 
-        public BaseUser GetUserInfo(int userId)
+        public BaseUser BaseUser(int userId)
         {
             var userModel = new BaseUser();
             using (var context = new DataBaseContext())
@@ -447,7 +461,7 @@ namespace Slug.Helpers
         {
             var dW = new UsersDialogHandler();
             var ids = dW.GetConversatorsIds(conversationGuidId);
-            BaseUser user = GetCurrentProfileInfo(sessionId);
+            BaseUser user = ProfileInfo(sessionId);
             if (ids != null)
             {
                 if (ids.Count() != 0 && ids.Contains(user.UserId))
@@ -485,7 +499,7 @@ namespace Slug.Helpers
 
                     foreach (var friendId in friendsIds)
                     {
-                        BaseUser userInfo = GetUserInfo(friendId);
+                        BaseUser userInfo = BaseUser(friendId);
                         var friend = new BaseUser()
                         {
                             UserId = friendId,
@@ -538,7 +552,7 @@ namespace Slug.Helpers
 
                     for (int i = 0; i < FriendsConfirmIDs.Count(); i++)
                     {
-                        BaseUser friendUserInfo = GetUserInfo(FriendsConfirmIDs[i]);
+                        BaseUser friendUserInfo = BaseUser(FriendsConfirmIDs[i]);
                         //int friendAges = DateTime.Now.Year - friendUserInfo.DateBirth.Year;
 
                         var friend = new FriendModel()
@@ -560,7 +574,7 @@ namespace Slug.Helpers
 
                     for (int i = 0; i < inCommingFriendshipPending.Count(); i++)
                     {
-                        BaseUser friendUserInfo = GetUserInfo(inCommingFriendshipPending[i].UserOferFrienshipSender);
+                        BaseUser friendUserInfo = BaseUser(inCommingFriendshipPending[i].UserOferFrienshipSender);
                         var inInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
@@ -576,7 +590,7 @@ namespace Slug.Helpers
                 {
                     for (int i = 0; i < outCommingFriendshipPending.Count(); i++)
                     {
-                        BaseUser friendUserInfo = GetUserInfo(outCommingFriendshipPending[i].UserConfirmer);
+                        BaseUser friendUserInfo = BaseUser(outCommingFriendshipPending[i].UserConfirmer);
                         var outInvite = new FriendModel()
                         {
                             UserId = friendUserInfo.UserId,
@@ -662,7 +676,7 @@ namespace Slug.Helpers
         public UserSettingsModel GetSettings(string session)
         {
             var model = new UserSettingsModel();
-            BaseUser user = GetCurrentProfileInfo(session);
+            BaseUser user = ProfileInfo(session);
             using (var context = new DataBaseContext())
             {
                 User userSett = context.Users.Where(x => x.Id == user.UserId).First();
@@ -675,7 +689,7 @@ namespace Slug.Helpers
 
         public BaseUser AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
-            MyProfileModel userSenderRequest = GetCurrentProfileInfo(session, false);
+            ProfileModel userSenderRequest = ProfileInfo(session, false);
             using (var context = new DataBaseContext())
             {
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
@@ -712,10 +726,10 @@ namespace Slug.Helpers
             var model = new ForeignUserViewModel();
             using (var context = new DataBaseContext())
             {
-                var userInfo = GetUserInfo(userID);
+                var userInfo = BaseUser(userID);
                 if (userInfo == null)
                     return null;
-                var secUserInfo = GetUserInfo(UserIdBySession(session));
+                var secUserInfo = BaseUser(UserIdBySession(session));
                 model.AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 200, 200);
                 model.Name = userInfo.Name;
                 model.SurName = userInfo.SurName;
@@ -760,7 +774,7 @@ namespace Slug.Helpers
 
         public async Task<NotifyHubModel> AcceptInviteToContacts(string session, int userID)
         {
-            BaseUser accepterUser = GetCurrentProfileInfo(session, false);
+            BaseUser accepterUser = ProfileInfo(session, false);
             using (var context = new DataBaseContext())
             {
                 FriendsRelationship item = context.FriendsRelationship
@@ -797,7 +811,7 @@ namespace Slug.Helpers
             {
                 using (var context = new DataBaseContext())
                 {
-                    MyProfileModel user = GetCurrentProfileInfo(session);
+                    ProfileModel user = ProfileInfo(session);
 
                     if (user == null)
                     {

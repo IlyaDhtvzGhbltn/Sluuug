@@ -56,7 +56,7 @@ namespace Slug.Hubs
             int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
             int myId = userHandler.UserIdBySession(session);
             int participantID = IDs.First(x => x != myId);
-            var participantInfo = userHandler.GetUserInfo(participantID);
+            var participantInfo = userHandler.BaseUser(participantID);
             string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);
             Clients.Caller.SendName(participantName);
         }
@@ -113,7 +113,7 @@ namespace Slug.Hubs
                     if (participants.Length >= 2)
                     {
                         var UsWork = new UsersHandler();
-                        MyProfileModel fromUser = UsWork.GetCurrentProfileInfo(cookies.Value);
+                        ProfileModel fromUser = UsWork.ProfileInfo(cookies.Value);
 
                         if (participants.Contains(fromUser.UserId))
                         {

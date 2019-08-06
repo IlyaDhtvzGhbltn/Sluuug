@@ -46,9 +46,7 @@ function DeleteAlbum(albumID) {
     });
 }
 
-
 function ExpandAlbum(albumId) {
-    console.log(albumId);
     $('.expand-foto').css('display', 'block');
 
     $.ajax({
@@ -56,7 +54,6 @@ function ExpandAlbum(albumId) {
         url: "/api/fotos", 
         data: { album: albumId },
         success: function (resp) {
-            console.log(resp);
             $('.album-images-browse')[0].innerHTML = '';
             $('.users-comments')[0].innerHTML = '';
 
@@ -66,6 +63,16 @@ function ExpandAlbum(albumId) {
                 $('.empty-album').show();
             }
             else {
+                var json = JSON.parse(JSON.stringify(resp.Photos));
+
+                if (resp.PhotosCount >= 2) {
+                    $('.navigate-album-right')[0].onclick = function () { ExpandPhoto(1, resp.PhotosCount, json) };
+                }
+
+                $('.navigate-album-left')[0].style.opacity = 0;
+                $('.navigate-album-left')[0].style.cursor = 'default';
+                $('.navigate-album-left')[0].removeEventListener('click', ExpandPhoto); 
+
                 $('.image-comments').show();
                 $('.image-view').show();
                 $('.empty-album').hide();
@@ -78,16 +85,24 @@ function ExpandAlbum(albumId) {
                 $('.download-photo-link')[0].href = resp.Photos[0].DownloadFotoUri;
                 $('.delete-photo-button')[0].id = resp.Photos[0].ID;
 
-                $('.album-images-browse').append('<div class="small-image" id="' + resp.Photos[0].ID + '" full_url="' + resp.Photos[0].FullFotoUri +'" onclick="ExpandPhoto(this)">' +
-                    '<input type="radio" name="select-img" class="image-select-checkbox" checked>' +
+                $('.album-images-browse').append('<div class="small-image">' +
+                    '<input type="radio" name="select-img" class="image-select-checkbox" id="' + resp.Photos[0].ID + '" checked>' +
                     '<img src="' + resp.Photos[0].SmallFotoUri + '">' +
                     '</div>');
+                $('.small-image')[0].onclick = function () { ExpandPhoto(0, resp.PhotosCount, json) };
+
                 if (resp.PhotosCount > 1) {
+
                     for (var i = 1; i < resp.PhotosCount; i++) {
-                        $('.album-images-browse').append('<div class="small-image" id="' + resp.Photos[i].ID + '" full_url="' + resp.Photos[i].FullFotoUri +'" onclick="ExpandPhoto(this)">' +
-                            '<input type="radio" name="select-img" class="image-select-checkbox">' +
+                        $('.album-images-browse').append('<div class="small-image">' +
+                            '<input type="radio" name="select-img" class="image-select-checkbox" id="' + resp.Photos[i].ID +'">' +
                             '<img src="' + resp.Photos[i].SmallFotoUri + '">' +
                             '</div>');
+                        $('.small-image')[i].onclick = (function (i) {
+                            return function () {
+                                ExpandPhoto(i, resp.PhotosCount, json);
+                            }
+                        })(i);
                     }
                 }
 
@@ -108,29 +123,58 @@ function ExpandAlbum(albumId) {
     }); 
 }
 
+function ExpandPhoto(currentPhotoIndex, photosCount, allPhotos) {
+    console.log('current - ' + currentPhotoIndex);
+    console.log('count - ' + photosCount);
+    console.log(allPhotos);
+    
+    if (currentPhotoIndex + 1 == photosCount) {
+        $('.navigate-album-right')[0].style.opacity = 0;
+        $('.navigate-album-right')[0].style.cursor = 'default';
+        $('.navigate-album-right')[0].removeEventListener('click', ExpandPhoto); 
 
-function ExpandPhoto(targetPhoto) {
-    let fullSizeURL = targetPhoto.getAttribute('full_url');
-    let photoId = targetPhoto.getAttribute('id');
-    $('.full-image-container img')[0].src = fullSizeURL;
-    $('.full-image-container')[0].id = photoId;
-    $('.photo-manage')[0].id = photoId;
-    $('.users-comments')[0].innerHTML = '';
-    $('.show-photo-manage-menu')[0].checked = false;
+        $('.navigate-album-left')[0].style.opacity = 1;
+        $('.navigate-album-left')[0].style.cursor = 'pointer';
+        $('.navigate-album-left')[0].onclick = function () { ExpandPhoto(currentPhotoIndex - 1, photosCount, allPhotos) }; 
+    }
+    if (currentPhotoIndex == 0) {
+        $('.navigate-album-left')[0].style.opacity = 0;
+        $('.navigate-album-left')[0].style.cursor = 'default';
+        $('.navigate-album-left')[0].removeEventListener('click', ExpandPhoto); 
+
+        $('.navigate-album-right')[0].style.opacity = 1;
+        $('.navigate-album-right')[0].style.cursor = 'pointer';
+        $('.navigate-album-right')[0].onclick = function () { ExpandPhoto(currentPhotoIndex + 1, photosCount, allPhotos) }; 
+    }
+
+    if (currentPhotoIndex != 0 && currentPhotoIndex + 1 != photosCount)
+    {
+        $('.navigate-album-left')[0].style.opacity = 1;
+        $('.navigate-album-left')[0].style.cursor = 'pointer';
+        $('.navigate-album-left')[0].onclick = function () { ExpandPhoto(currentPhotoIndex - 1, photosCount, allPhotos) }; 
+
+        $('.navigate-album-right')[0].style.opacity = 1;
+        $('.navigate-album-right')[0].style.cursor = 'pointer';
+        $('.navigate-album-right')[0].onclick = function () { ExpandPhoto(currentPhotoIndex + 1, photosCount, allPhotos) }; 
+    }
 
     $.ajax({
         type: "post",
         url: "/api/get_photo_expand",
-        data: { fotoId: photoId },
+        data: { fotoId: allPhotos[currentPhotoIndex].ID },
         success: function (resp) {
-            console.log(resp);
             if (resp.isSuccess) {
+                $('.full-image-container img')[0].src = allPhotos[currentPhotoIndex].FullFotoUri;
+                $('.full-image-container')[0].id = allPhotos[currentPhotoIndex].ID;
+                $('.photo-manage')[0].id = allPhotos[currentPhotoIndex].ID;
+                $('.users-comments')[0].innerHTML = '';
+                $('.show-photo-manage-menu')[0].checked = false;
+                $('#' + allPhotos[currentPhotoIndex].ID + '.image-select-checkbox')[0].checked = true;
 
                 $('#photo-h3-titlte')[0].innerHTML = resp.PhotoTitle;
                 $('#photo-span-description')[0].innerHTML = resp.PhotoDescription;
                 $('.download-photo-link')[0].href = resp.PhotoDownloadLink;
                 $('.delete-photo-button')[0].id = resp.PhotoID;
-
 
                 [].forEach.call(resp.FotoComments, function (comment) {
                     $('.users-comments').append('<div class="image-user-comment" onclick="redirectToUser(' + comment.UserPostedID + ')">' +

@@ -204,13 +204,16 @@ COMMENTS
 	width:50px;
 }
 
+
+.small-image .image-select-checkbox ~ img {
+    border: 5px solid white;
+}
 .small-image .image-select-checkbox:checked ~ img{
 	border:5px solid #a2ecf3;
 }
 
 .album-images-browse{
     z-index:10;
-	padding:20px;
 	padding-right:20px;
 	margin: 10px 200px;
 	height:100px;

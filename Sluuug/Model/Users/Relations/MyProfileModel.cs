@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Slug.Model.Users.Relations
 {
-    public class MyProfileModel : BaseUser
+    public class ProfileModel : BaseUser
     {
         public ICollection<AlbumModel> Albums { get; set; }
         public ICollection<EducationModel> Educations { get; set; }
