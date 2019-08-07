@@ -10,7 +10,6 @@ window.onunload = function () {
 };
 
 HUB.on('NotifyAbout', function (html, params, notifyCode) {
-    console.log(html);
     switch (notifyCode) {
         case 0:
             DecrementInto('.notify-decrement-message', 'notify-message');
@@ -39,20 +38,17 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
     {
         newInviteToCryptChatNotification(html, params);
     }
-    else
-    {
-        var note = $('.notify-alert');
-        note[0].innerHTML = html;
-        note.css({ opacity: 1, left: 200 });
-        var audio = new Audio('/resources/audio/new-notify-sound.wav');
-        audio.play();
-        setTimeout(clearNotificationDiv, 4000);
-    }
+
+    var note = $('.notify-alert');
+    note[0].innerHTML = html;
+    note.css({ opacity: 1, left: 200 });
+    var audio = new Audio('/resources/audio/new-notify-sound.wav');
+    audio.play();
+    setTimeout(clearNotificationDiv, 4000);
 });
 
 
 function DecrementInto(element, elementCounterClassName) {
-    console.log('index ' + elementCounterClassName);
     var decrementedElement = $(element)[0];
     if (decrementedElement.innerHTML.length === 0) {
         decrementedElement.innerHTML = '<svg><circle></circle><span class="new-notify ' + elementCounterClassName+'">1</span></svg >';
@@ -68,14 +64,24 @@ function newInviteToCryptChatNotification(html, publicData) {
     var note = $('.notify-alert');
     note[0].insertAdjacentHTML('beforeend', html);
 
-    var script = document.createElement('script');
-    script.src = "/Scripts/crypto_chat.js";
-    document.documentElement.appendChild(script);
-    script.onload = function () {
-        console.log('download new script');
-        invited.save_invitation(publicData);
-    };
 
+    var currentLocation = window.location.href;
+    var isScriptCryptoChatALreadyLoaded = currentLocation.includes('crypto_cnv');
+    if (isScriptCryptoChatALreadyLoaded == false) {
+        var script = document.createElement('script');
+        script.src = "/Scripts/crypto_chat.js";
+        document.documentElement.appendChild(script);
+
+        script.onload = function () {
+            console.log('script was added');
+            var invited = new Invited();
+            invited.save_invitation(publicData);
+        };
+    }
+    else {
+        var invited = new Invited();
+        invited.save_invitation(publicData);
+    }
     setTimeout(clearNotificationDiv, 4000);
 }
 

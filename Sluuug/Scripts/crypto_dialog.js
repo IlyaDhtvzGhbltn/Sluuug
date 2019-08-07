@@ -15,13 +15,14 @@ function crypt_send() {
     let skey = JSON.parse(localStorage.getItem('__' + id));
     console.log(skey);
     var hash = CryptoJS.AES.encrypt(text, skey.K.toString());
+    console.log(hash);
     var cryptStr = hash.toString();
     HUB.invoke('SendMessage', cryptStr);
 }
 
 function get_new(message, avatar, name, date) {
     let decrypted = decryption(message);
-    var mylist = $('#c_msgs');
+    var mylist = $('.dialog');
     mylist[0].insertAdjacentHTML('beforeend',
         '<div class="c_msg"><img width="30" height="30" src="' + avatar + '" /><span>' + name + '</span>' +
         '<p>' + date + '</p><span>' + decrypted + '</span></div > ');
@@ -41,12 +42,12 @@ function decryption(message) {
 }
 
 function onLoad() {
-    var messages = $('.c_msg');
-    for (let i = 1; i <= messages.length; i++){
-        let span_msg = getElementByXpath('//*[@id="c_msgs"]/div[' + i + ']/span[2]');
-        let cryptText = span_msg.textContent;
+    var messages = $('.crypt-message');
+
+    for (let i = 0; i < messages.length; i++){
+        let cryptText = messages[i].innerHTML;
         let decryptText = decryption(cryptText);
-        span_msg.textContent = decryptText;
+        messages[i].innerHTML = decryptText;
     }
 }
 

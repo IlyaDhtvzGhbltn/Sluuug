@@ -11,7 +11,7 @@ namespace Slug.Model
         public List<CryptoChat> CurrentChats { get; set; }
         public List<CryptoChat> SelfCreatedChats { get; set; }
         public List<CryptoChat> AcceptNeeded { get; set; }
-        public List<FriendModel> FriendsICanInvite { get; set; }
+        public List<BaseUser> FriendsICanInvite { get; set; }
     }
 
     public class CryptoChat

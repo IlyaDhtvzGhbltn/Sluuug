@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/private_template.cshtml";
 }
 @using Slug.Extensions
+<link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 <link href="~/Styles/private/secret-dialog-style.css" rel="stylesheet" />
 
 <title>Зашифрованный диалог</title>
@@ -15,14 +16,16 @@
         </span>
     </p>
 </div>
-<div class="dialog_pages">
+<div class="result-pagination stylized-scrollbar">
     @for (int i = 1; i <= Model.PagesCount; i++)
     {
-        <a href="@Url.Action("c_msg","private", new { id=Model.GuidId, page=i })">@i</a>
+        <div class="search-link-container">
+            <a href="@Url.Action("c_msg","private", new { id=Model.GuidId, page=i })">@i</a>
+        </div>
     }
 </div>
 
-<div class="dialog">
+<div class="dialog stylized-scrollbar">
     @foreach (var msg in Model.Messages)
     {
         if (msg.IsIncomming)
@@ -33,7 +36,7 @@
                     <img src="@msg.AvatatURI" />
                     <a>@msg.Name</a>
                     <span>@msg.SendDate.ToString("hh:mm")</span>
-                    <p>@msg.Text</p>
+                    <span class="crypt-message">@msg.Text</span>
                     <div class="triangle_wrapper_in"><div class="triangle_container"><div class="triangle"></div></div></div>
                 </div>
             </div>
@@ -46,7 +49,7 @@
                     <img src="@msg.AvatatURI" />
                     <a>@msg.Name</a>
                     <span>@msg.SendDate.ToString("hh:mm")</span>
-                    <p>@msg.Text</p>
+                    <span class="crypt-message">@msg.Text</span>
                     <div class="triangle_wrapper_out"><div class="triangle_container"><div class="triangle"></div></div></div>
                 </div>
             </div>
@@ -57,12 +60,18 @@
 
 <div class="send_msg" style="margin-top:33px">
     <textarea id="new_text"></textarea>
-    <p>
         <button id="sendButton" onclick="crypt_send()">@Html.Translate("Button_Send_Message")</button>
-    </p>
 </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 <script src="~/Scripts/crypto_dialog.js"></script>
 <script src="~/Scripts/Private/ExperationTimer.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var objDiv = $(".dialog")[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
+    });
+
+</script>

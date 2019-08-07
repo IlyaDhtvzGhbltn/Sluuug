@@ -222,12 +222,19 @@ namespace Slug.Controllers
         public async Task<ActionResult> c_msg(string id, int page = 1)
         {
             string session = GetCookiesValue(this.Request);
-            CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, id, page);
-            if (model != null)
+            try
             {
-                return View(model);
+                CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, id, page);
+                if (model != null)
+                {
+                    return View(model);
+                }
+                else return RedirectToAction("my", "private");
             }
-            else return RedirectToAction("my","private");
+            catch (Exception )
+            {
+                return RedirectToAction("crypto_cnv", "private");
+            }
         }
 
         [HttpGet]

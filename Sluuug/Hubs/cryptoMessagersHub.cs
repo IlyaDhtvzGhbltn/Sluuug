@@ -83,8 +83,7 @@ namespace Slug.Hubs
             int toUser = cryptoChatWorker.GetInterlocutorID(userInvited, fromUser.UserId);
             UserConnectionIdModel UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUser);
 
-            //string html = InviteToSecretConversation.GenerateHtml(cryptoConversation, UserRecipientsConnectionIds.CultureCode[0]);
-            //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation, html);
+            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).ObtainNewInvitation(cryptoConversation);
 
             var responce = new NotifyHubModel();
             responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

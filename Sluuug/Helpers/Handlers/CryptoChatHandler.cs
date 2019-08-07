@@ -2,6 +2,7 @@
 using Slug.Context;
 using Slug.Context.Dto.CryptoConversation;
 using Slug.Context.Tables;
+using Slug.Helpers.BaseController;
 using Slug.Hubs;
 using Slug.ImageEdit;
 using Slug.Model;
@@ -11,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using SlugAppSettings = System.Web.Configuration.WebConfigurationManager;
+
+
 
 namespace Slug.Helpers
 {
@@ -26,7 +30,8 @@ namespace Slug.Helpers
                 { CryptoChatType.Year, new TimeSpan().Add(new TimeSpan(365,0,0,0,0)) },
 
             };
-        private readonly int multiple = 5;
+        private readonly int multiple = int.Parse(SlugAppSettings.AppSettings[AppSettingsEnum.messagesOnPage.ToString()]);
+
 
         public CreateNewCryptoChatResponse CreateNewCryptoChat(CryptoChatType type, List<Participant> UserIds, int Inviter)
         {
@@ -71,12 +76,12 @@ namespace Slug.Helpers
             model.AcceptNeeded = new List<CryptoChat>();
             model.SelfCreatedChats = new List<CryptoChat>();
 
-            model.FriendsICanInvite = new List<FriendModel>();
+            model.FriendsICanInvite = new List<BaseUser>();
 
-            MyFriendsModel friends = userHandler.GetContactsBySession(sessionId, 50);
-            int userId = userHandler.UserIdBySession(sessionId);
+            List<BaseUser> friends = userHandler.GetFriendsOnlyBySession(sessionId, 50);
+            int cryptoChatUserId = userHandler.UserIdBySession(sessionId);
 
-            foreach (var item in friends.Friends)
+            foreach (var item in friends)
             {
                 model.FriendsICanInvite.Add(item);
             }
@@ -84,28 +89,30 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 List<SecretChatGroup> fullGroups = context.SecretChatGroups
-                    .Where(x => x.UserId == userId)
+                    .Where(x => x.UserId == cryptoChatUserId)
                     .ToList();
 
-                List<SecretChatGroup> chatGroups = context.SecretChatGroups
-                    .Where(x => x.UserId == userId)
+                List<SecretChatGroup> allCryptoChats = context.SecretChatGroups
+                    .Where(x => x.UserId == cryptoChatUserId)
                     .ToList();
 
-                chatGroups.ForEach(x => {
+                allCryptoChats.ForEach(x => {
                     fullGroups.Add( 
                         context.SecretChatGroups
-                        .Where(item => item.PartyGUID == x.PartyGUID && item.UserId != userId)
+                        .Where(item => item.PartyGUID == x.PartyGUID && item.UserId != cryptoChatUserId)
                         .First() 
                         );
                 });
 
 
-                foreach (SecretChatGroup chatGroup in chatGroups)
+                foreach (SecretChatGroup chatGroup in allCryptoChats)
                 {
+                    int cryptoChatCreatorUserId = context.SecretChat.First(x => x.PartyGUID == chatGroup.PartyGUID).CreatorUserId;
+
                     SecretChat secretChat = context.SecretChat.FirstOrDefault(x => x.PartyGUID == chatGroup.PartyGUID);
                     if (secretChat != null)
                     {
-                        CryptoChatStatus status = ChatStatus(context, chatGroup.UserId, secretChat.PartyGUID);
+                        CryptoChatStatus status = ChatStatus(context, chatGroup.UserId, cryptoChatCreatorUserId, secretChat.PartyGUID);
 
                         var chat = new CryptoChat();
                         chat.GuidId = secretChat.PartyGUID;
@@ -116,7 +123,7 @@ namespace Slug.Helpers
                         chat.GuidId = secretChat.PartyGUID;
 
                         int interlocutorID = fullGroups.First(x => x.PartyGUID == secretChat.PartyGUID &&
-                                                              x.UserId != userId)
+                                                              x.UserId != cryptoChatUserId)
                                                               .UserId;
                         BaseUser interlocutor = userHandler.BaseUser(interlocutorID);
                         chat.InterlocutorName = interlocutor.Name;
@@ -261,18 +268,27 @@ namespace Slug.Helpers
             return ids;
         }
 
-        private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, Guid chatId)
+        private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, int creatorUserId, Guid chatId)
         {
-                SecretChat secretChat = context.SecretChat.Where(x=> x.PartyGUID == chatId).First();
-                if (secretChat.CreatorUserId == userId)
-                    return CryptoChatStatus.SelfCreated;
-
-                SecretChatGroup chatGroup = context.SecretChatGroups.Where(x => x.UserId == userId && x.PartyGUID == chatId).First();
-                if (chatGroup.Accepted == true)
+            if (userId == creatorUserId)
+            {
+                SecretChatGroup chatGroup = context.SecretChatGroups.Where(x => x.UserId != userId && x.PartyGUID == chatId).First();
+                if (chatGroup.Accepted)
                     return CryptoChatStatus.Accepted;
-
-                return CryptoChatStatus.PendingAccepted;
+                else
+                    return CryptoChatStatus.SelfCreated;
+            }
+            else
+            {
+                SecretChatGroup chatGroup = context.SecretChatGroups.Where(x => x.UserId == userId && x.PartyGUID == chatId).First();
+                if (chatGroup.Accepted)
+                    return CryptoChatStatus.Accepted;
+                else
+                    return CryptoChatStatus.PendingAccepted;
+            }
         }
+
+
         private FriendModel getChatUser(DataBaseContext context, Guid PartyGUID, ref UsersHandler user, BaseUser userCaller)
         {
             var chatUser = new FriendModel();

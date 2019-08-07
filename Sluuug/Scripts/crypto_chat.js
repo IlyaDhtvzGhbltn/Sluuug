@@ -1,30 +1,4 @@
-﻿//var connection = $.hubConnection();
-//var cryptoChat = connection.createHubProxy('cryptoMessagersHub');
-//connection.start();
-
-class public_data_crypto_conversation {
-    convGuidId;
-    p;
-    g;
-    creationDate;
-    expireDate;
-    participants;
-    type;
-    creatorUserId;
-    creatorAvatar;
-    creatorName;
-}
-class private_data_crypto_conversation {
-    a;
-    K;
-}
-class Participant {
-    UserId;
-    PublicKey;
-}
-
-class Crypto {
-
+﻿class CryptoHandler {
     generate_public_key(gValue, aValue, pValue) {
         console.log('public key');
         console.log('g = ' + gValue);
@@ -76,7 +50,7 @@ class Crypto {
     generate_p() {
         console.log('generate primires');
         var p = null;
-        var max = getRandomInt(100000, 10000000);
+        var max = getRandomInt(100000, 1000000);
         var sieve = [], i, j, primes = [];
         for (i = 2; i <= max; ++i) {
             if (!sieve[i]) {
@@ -100,21 +74,19 @@ class Crypto {
         return a;
     }
 }
+
 class Invited {
 
     save_invitation(crypto_conversation) {
         localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
     }
 
-    got_invitation(crypto_conversation, html) {
-        console.log(html);
+    got_invitation(crypto_conversation) {
         localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
-
-        var urlPath = document.location.pathname;
-
-        if (urlPath.includes('crypto_cnv')) {
-            document.querySelector('#currentSC .tab-content').insertAdjacentHTML('beforeend', html);
-        }
+        //var urlPath = document.location.pathname;
+        //if (urlPath.includes('crypto_cnv')) {
+        //    document.querySelector('#currentSC .tab-content').insertAdjacentHTML('beforeend', html);
+        //}
     }
 
     accept_invitation(event_handler) {
@@ -126,11 +98,11 @@ class Invited {
                 return resp.json();
             })
             .then(function (json) {
-                var crypto = new Crypto();
                 console.log(event_handler.id);
                 var localPublicJSON = JSON.parse(localStorage.getItem(event_handler.id));
 
                 var userId = json.UserId;
+                let crypto = new CryptoHandler();
                 let a = crypto.generate_a();
                 console.log(localPublicJSON);
                 let p = localPublicJSON.p;
@@ -146,7 +118,7 @@ class Invited {
                 let privateKey = crypto.generate_secret_key(foreignABKey, a, localPublicJSON.p);
                 console.log(privateKey);
 
-                let privateData = new private_data_crypto_conversation();
+                let privateData = new Object();
                 privateData.a = a;
                 privateData.K = privateKey;
                 let chatSecretName = '__' + event_handler.id;
@@ -155,7 +127,7 @@ class Invited {
                 localStorage.setItem(chatSecretName, JSON.stringify(privateData));
 
                 for (var j = 0; j < localPublicJSON.participants.length; j++) {
-                    if (localPublicJSON.participants[j].UserId === userId) {
+                    if (localPublicJSON.participants[j].UserId == userId) {
                         localPublicJSON.participants[j].PublicKey = publicKey;
                     }
                 }
@@ -174,6 +146,7 @@ class Invited {
 
     }
 }
+var invited = new Invited();
 class Inviter {
 
     create_new_crypto_conversation() {
@@ -185,19 +158,19 @@ class Inviter {
                 invitersIds.push(friends[i].value);
             }
         }
-        if (invitersIds.length === 0) {
+        if (invitersIds.length == 0) {
             alert('no one friend selected');
         }
         else {
             hide();
             console.log(invitersIds);
-            let crypto_cnv = new public_data_crypto_conversation();
+            let crypto_cnv = new Object();
 
             crypto_cnv.type = 0;
             crypto_cnv.participants = [];
 
             for (var j = 0; j < invitersIds.length; j++) {
-                let participant = new Participant();
+                let participant = new Object();
                 participant.UserId = invitersIds[j];
                 crypto_cnv.participants.push(participant);
             }
@@ -206,7 +179,7 @@ class Inviter {
         }
     }
 
-    send_notivication_to_participants(crypto_cnv) {
+    send_notivication_to_participants(cryptoCnv) {
 
         fetch('/api/get_user_info',
             {
@@ -217,28 +190,28 @@ class Inviter {
                 return resp.json();
             })
             .then(function (json) {
-                var crypto = new Crypto();
                 var userId = json.UserId;
-
+                let crypto = new CryptoHandler();
                 let public_pre_values = crypto.generate_pre_value();
                 let a = crypto.generate_a();
                 let public_key = crypto.generate_public_key(public_pre_values['g'], a, public_pre_values['p']);
-                let privateData = new private_data_crypto_conversation();
+
+                let privateData = new Object();
                 privateData.a = a;
-                let chatSecretName = '__' + crypto_cnv.convGuidId;
+                let chatSecretName = '__' + cryptoCnv.convGuidId;
                 localStorage.setItem(chatSecretName, JSON.stringify(privateData));
 
-                crypto_cnv.p = public_pre_values['p'];
-                crypto_cnv.g = public_pre_values['g'];
+                cryptoCnv.p = public_pre_values['p'];
+                cryptoCnv.g = public_pre_values['g'];
 
-                let participants = crypto_cnv.participants;
+                let participants = cryptoCnv.participants;
                 for (let i = 0; i < participants.length; i++) {
-                    if (participants[i].UserId === userId) {
+                    if (participants[i].UserId == userId) {
                         participants[i].PublicKey = public_key;
                     }
                 }
-                HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(crypto_cnv), crypto_cnv.convGuidId);
-                localStorage.setItem(crypto_cnv.convGuidId, JSON.stringify(crypto_cnv));
+                HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(cryptoCnv), cryptoCnv.convGuidId);
+                localStorage.setItem(cryptoCnv.convGuidId, JSON.stringify(cryptoCnv));
                 window.location.reload();
             });
     }
@@ -253,7 +226,6 @@ class Inviter {
                 return resp.json();
             })
             .then(function (json) {
-                var crypto = new Crypto();
                 var userId = json.UserId;
 
                 var jsonPublicData = JSON.parse(crypto_cnv);
@@ -271,7 +243,7 @@ class Inviter {
 
                 let localePrivateJson = JSON.parse(localStorage.getItem(chatSecretName));
                 console.log(localePrivateJson);
-
+                var crypto = new CryptoHandler();
                 let privateKey = crypto.generate_secret_key(foreignABKey, localePrivateJson.a, jsonPublicData.p);
 
                 localePrivateJson.K = privateKey;
@@ -283,9 +255,7 @@ class Inviter {
     }
 
 }
-
 var inviter = new Inviter();
-var invited = new Invited();
 
 function invite() {
     inviter.create_new_crypto_conversation();
@@ -311,13 +281,14 @@ function show() {
     }, 500);
 }
 
-HUB.on('NewCryptoConversationCreated', function (crypto_cnv) {
-    inviter.send_notivication_to_participants(crypto_cnv);
+HUB.on('NewCryptoConversationCreated', function (cryptoCnvResp) {
+    console.log(cryptoCnvResp);
+    inviter.send_notivication_to_participants(cryptoCnvResp);
     $('#generate_successfull').fadeIn();
 });
 
-HUB.on('ObtainNewInvitation', function (crypto_cnv, html) {
-    invited.got_invitation(crypto_cnv, html);
+HUB.on('ObtainNewInvitation', function (crypto_cnv) {
+    invited.got_invitation(crypto_cnv);
 });
 
 HUB.on('AcceptInvitation', function (crypto_cnv) {
@@ -339,18 +310,22 @@ HUB.on('FailCreateNewCryptoConversation', function (errorCode) {
 });
 
 function ready() {
-    var elements = document.getElementsByClassName('cryptp-chat-active');
-    [].forEach.call(elements, function (elem) {
-        elem.addEventListener('click', function () {
-            window.location.href = "/private/c_msg?id=" + elem.id;
-        });
-        let span_msg = getElementByXpath('//*[@id="' + elem.id + '"]/span[2]');
-        let cryptText = span_msg.textContent;
-        let decryptText = decryption(cryptText, elem.id);
-        span_msg.textContent = decryptText;
-    });
+
+    var lastCryptoMessage = $('.last_msg_crypto');
+    if (lastCryptoMessage.length > 0) {
+        var elements = $('.cryptp-chat-active');
+
+        for (var i = 0; i < lastCryptoMessage.length; i++) {
+            elements[i].onclick = (function (i) {
+                return function () { window.location.href = "/private/c_msg?id=" + elements[i].id; }
+            })(i);
+
+            let cryptText = lastCryptoMessage[i].innerHTML;
+            let decryptText = decryption(cryptText, elements[i].id);
+            lastCryptoMessage[i].innerHTML = decryptText;
+       }
+    }
 }
-document.addEventListener('onload', ready());
 
 function getElementByXpath(path) {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -387,3 +362,5 @@ function getPartialView(url_addres) {
         type: "post"
     });
 }
+
+document.addEventListener('onload', ready());
