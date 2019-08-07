@@ -5,15 +5,22 @@
 }
 
 function saveEmail() {
-    var data = $("#changeEmailSubmit").serializeArray();
-    var json = parceJSON(data);
-
-    let index = json.NewEmail.indexOf("@");
-    if (index == -1) {
-        console.log("invalid email address");
+    var data = new Object;
+    try {
+        let newMail = $("#new-email").val();
+        let index = newMail.indexOf("@");
+        console.log(index);
+        if (index == -1) {
+            console.log("invalid email address");
+        }
+        else {
+            data.NewEmail = $("#new-email").val();
+            var json = JSON.parse(JSON.stringify(data));
+            send(json);
+        }
     }
-    else {
-        send(json);
+    catch{
+        console.log("invalid email address");
     }
 }
 
@@ -40,6 +47,7 @@ function savePassword() {
 function saveQuickMessage() {
     var data = new Object;
     data.QuickMessage = false;
+    data.QuickMessageNeedChange = true;
     if ($('#fun')[0].checked == true)
         data.QuickMessage = true;
 

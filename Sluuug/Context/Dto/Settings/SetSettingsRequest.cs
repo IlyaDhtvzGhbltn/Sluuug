@@ -18,5 +18,6 @@ namespace Slug.Context.Dto.Settings
         public string NewPassw { get; set; }
 
         public bool QuickMessage { get; set; }
+        public bool QuickMessageNeedChange { get; set; }
     } 
 }

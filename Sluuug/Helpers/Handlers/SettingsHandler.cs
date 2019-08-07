@@ -2,6 +2,7 @@
 using Slug.Context;
 using Slug.Context.Dto.Settings;
 using Slug.Context.Tables;
+using Slug.Crypto;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,10 +20,10 @@ namespace Slug.Helpers
             var handler = new UsersHandler();
             string settingsChangeResult = string.Empty;
 
-            UserSettings currentUserSett = handler.GetUserSettings(session);
+            UserSettings oldUserSett = handler.GetUserSettings(session);
             int userId = handler.UserIdBySession(session);
 
-            if (currentUserSett.Email != newSettings.NewEmail)
+            if (oldUserSett.Email != newSettings.NewEmail)
             {
                 if (newSettings.NewEmail != null)
                 {
@@ -37,33 +38,35 @@ namespace Slug.Helpers
                     }
                 }
             }
-            if ((int)currentUserSett.NotificationType != newSettings.NotifyType)
+
+            if (oldUserSett.PasswordHash != newSettings.NewPassw)
             {
-                ChangeNotify(userId, (NotificationTypes)newSettings.NotifyType);
-                settingsChangeResult += Environment.NewLine +  "Notification Type successfully changed.";
-            }
-            if (currentUserSett.PasswordHash != newSettings.NewPassw)
-            {
-                if (newSettings.NewPassw != null && newSettings.OldPassw != null && newSettings.OldPasswRep != null)
+                if (newSettings.OldPasswRep != null && newSettings.NewPassw != null && newSettings.OldPassw != null)
                 {
-                    string oldPass = currentUserSett.PasswordHash;
-                    if (newSettings.OldPassw != newSettings.OldPasswRep)
+                    string oldPasswordHash = oldUserSett.PasswordHash;
+                    string requesteOldPasswordHash = Converting.ConvertStringToSHA512(newSettings.OldPassw);
+
+                    if (newSettings.OldPassw == newSettings.OldPasswRep && requesteOldPasswordHash == oldPasswordHash)
                     {
-                        settingsChangeResult += Environment.NewLine + "Fields with old passwords do not match.";
+                        string requestedPasswordHash = Converting.ConvertStringToSHA512(newSettings.NewPassw);
+                        ChangePassword(userId, requestedPasswordHash);
+                        settingsChangeResult += settingsChangeResult + "Password successfully changed.";
                     }
-                    else if (newSettings.OldPassw == newSettings.OldPasswRep && newSettings.OldPassw != oldPass)
+                    else if (newSettings.OldPassw != newSettings.OldPasswRep)
                     {
-                        settingsChangeResult += Environment.NewLine + "Old Password invalid.";
+                        settingsChangeResult += settingsChangeResult + "Fields with old passwords do not match.";
                     }
-                    else if (newSettings.OldPassw == newSettings.OldPasswRep && newSettings.OldPassw == oldPass)
+                    else if (newSettings.OldPassw != oldPasswordHash)
                     {
-                        ChangePassword(userId, newSettings.NewPassw);
-                        settingsChangeResult += Environment.NewLine + "Password successfully changed.";
+                        settingsChangeResult += settingsChangeResult + "Old Password invalid.";
                     }
+
                 }
             }
-            ChangeQuickMessage(userId, newSettings.QuickMessage);
-
+            if (newSettings.QuickMessageNeedChange)
+            {
+                ChangeQuickMessage(userId, newSettings.QuickMessage);
+            }
             return settingsChangeResult;
         }
 

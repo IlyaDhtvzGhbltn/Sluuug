@@ -46,7 +46,7 @@
 <div class="settings email">
     <span><b>Адрес почты</b></span><br>
     <div id="email">
-        <input type="email" name="NewEmail" placeholder="@Model.Email">
+        <input type="email" id="new-email" name="NewEmail" placeholder="@Model.Email">
         <button onclick="saveEmail()">Сохранить</button>
     </div>
 </div>
@@ -55,9 +55,11 @@
     <div class="password-container">
         <form id="changePasswSubmit" action="http://localhost:32035/private/settings" method="post">
             <div id="change_pass">
-                <input type="password" name="OldPassw" placeholder="Старый пароль">
-                <input type="password" name="OldPasswRep" placeholder="Старый пароль еще раз">
-                <input type="password" name="NewPassw" placeholder="Новый пароль">
+                <form id="changePasswSubmit">
+                    <input type="password" name="OldPassw" placeholder="Старый пароль">
+                    <input type="password" name="OldPasswRep" placeholder="Старый пароль еще раз">
+                    <input type="password" name="NewPassw" placeholder="Новый пароль">
+                </form>
             </div>
         </form>
         <button onclick="savePassword()">Сохранить</button>

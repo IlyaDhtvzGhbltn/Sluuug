@@ -91,3 +91,18 @@ textarea {
     font-family: 'Roboto Condensed', sans-serif;
     color: #7f7f7f;
 }
+
+.help-issue-container {
+    max-width: 600px;
+    width: 600px;
+    background-color: white;
+    border: 1px solid #7f7f7f;
+    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
+    padding:10px;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.help-issue-container p{
+    text-align:justify;
+}
