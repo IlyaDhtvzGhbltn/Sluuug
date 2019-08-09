@@ -145,6 +145,10 @@ class Invited {
             });
 
     }
+
+    refuse_invite(id) {
+        HUB.invoke('RefuseCryptoChatInvitation', id);
+    }
 }
 var invited = new Invited();
 class Inviter {
@@ -265,6 +269,11 @@ function accept_invite(object) {
     invited.accept_invitation(object);
 }
 
+function RefuseInvite(elem) {
+    var invited = new Invited();
+    invited.refuse_invite(elem.id);
+}
+
 async function hide() {
     $('#new_crypto_chat')[0].style.opacity = 0;
     $('.generation-key-container').fadeIn();
@@ -309,20 +318,30 @@ HUB.on('FailCreateNewCryptoConversation', function (errorCode) {
     }, 3000);
 });
 
+function relocateToCryptoChat(id) {
+    window.location.href = "/private/c_msg?id=" + id;
+}
+
 function ready() {
 
     var lastCryptoMessage = $('.last_msg_crypto');
     if (lastCryptoMessage.length > 0) {
-        var elements = $('.cryptp-chat-active');
+        var elements = $('.chat-wrapper');
 
         for (var i = 0; i < lastCryptoMessage.length; i++) {
-            elements[i].onclick = (function (i) {
-                return function () { window.location.href = "/private/c_msg?id=" + elements[i].id; }
-            })(i);
-
-            let cryptText = lastCryptoMessage[i].innerHTML;
-            let decryptText = decryption(cryptText, elements[i].id);
-            lastCryptoMessage[i].innerHTML = decryptText;
+            try {
+                var cryptText = lastCryptoMessage[i].innerHTML;
+                var decryptText = decryption(cryptText, elements[i].id);
+                if (decryptText.length < 30) {
+                    lastCryptoMessage[i].innerHTML = decryptText;
+                }
+                else {
+                    lastCryptoMessage[i].innerHTML = decryptText.substring(0, 27) + '...';
+                }
+            }
+            catch{
+                console.log('decription error');
+            }
        }
     }
 }

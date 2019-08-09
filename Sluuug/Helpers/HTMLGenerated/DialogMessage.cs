@@ -9,7 +9,7 @@ namespace Slug.Helpers.HTMLGenerated
 {
     public static class DialogMessage
     {
-        public static string GenerateHtml(Model.DialogMessage model)
+        public static string GenerateHtml(Model.Messager.SimpleChat.MessageModel model)
         {
             var sb = new StringBuilder();
             sb.Append(string.Format("<img src = '{0}'/>", Resize.ResizedAvatarUri(model.AvatarPath, ModTypes.c_scale, 100, 100)));

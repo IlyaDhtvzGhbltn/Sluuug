@@ -79,7 +79,7 @@ COMMENTS
 .expand-album{
 	text-align:center;
 	display:none;
-	z-index:999;
+	z-index:990;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -123,7 +123,7 @@ COMMENTS
 .expand-foto{
 	text-align:center;
 	display:none;
-	z-index:999;
+	z-index:990;
 	position: fixed;
 	top: 0;
 	left: 0;

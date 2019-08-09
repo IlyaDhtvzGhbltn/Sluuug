@@ -19,7 +19,7 @@
 <div class="dialog stylized-scrollbar">
     @foreach (var item in Model.Messages)
     {
-        Html.RenderPartial("~/Views/Partial/Dialogs/dialog_message.cshtml", item, new ViewDataDictionary<Slug.Model.DialogMessage>(item));
+        Html.RenderPartial("~/Views/Partial/Dialogs/dialog_message.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.SimpleChat.MessageModel>(item));
     }
 </div>
 

@@ -35,5 +35,7 @@ namespace Slug.Model.Users
         public AgeEnum userSearchAge { get; set; }
 
         public DatingPurposeEnum purpose { get; set; }
+
+        public bool IsOnline { get; set; }
     }
 }

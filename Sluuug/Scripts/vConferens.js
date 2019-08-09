@@ -1,7 +1,4 @@
-﻿//var connection = $.hubConnection();
-//var videoChat = connection.createHubProxy('videoChatInviteHub');
-//connection.start();
-var audioContext = null;
+﻿var audioContext = null;
 window.addEventListener("load", onLoad());
 const peerConnCfg =
     {

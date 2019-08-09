@@ -3,7 +3,7 @@
     position: absolute;
     left:3px;
     width:100%;
-    z-index:999;
+    z-index:990;
     top:270px;
     display:flex;
     flex-direction:row;

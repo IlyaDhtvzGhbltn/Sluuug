@@ -10,7 +10,7 @@ using Slug.Helpers.BaseController;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.ImageEdit;
 using Slug.Model;
-
+using Slug.Model.Messager.SimpleChat;
 
 namespace Slug.Helpers
 {
@@ -27,7 +27,7 @@ namespace Slug.Helpers
                 page = 1;
 
             var dModel = new DialogModel();
-            var messangs = new List<DialogMessage>();
+            var messangs = new List<MessageModel>();
 
             using (var context = new DataBaseContext())
             {
@@ -56,7 +56,7 @@ namespace Slug.Helpers
 
                 msgs.ForEach(message => 
                 {
-                    var msg = new DialogMessage();
+                    var msg = new MessageModel();
                     if(message.UserId != userID)
                     {
                         msg.IsIncomming = true;

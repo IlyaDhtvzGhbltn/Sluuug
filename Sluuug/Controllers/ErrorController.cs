@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slug.Context.ServerError;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,17 @@ namespace Sluuug.Controllers
         public ActionResult ooops()
         {
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult custom(int error)
+        {
+            Response.Headers.Add("Error", "1");
+            return new JsonResult()
+            {
+                Data = ServerErrorCodesMessagesDictionary.Error[error],
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            }; 
         }
 
         [HttpGet]

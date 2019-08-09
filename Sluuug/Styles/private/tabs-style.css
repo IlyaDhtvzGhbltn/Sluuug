@@ -16,9 +16,8 @@
 }
 
 .tab-content {
-    background-color:#fff;
     position: absolute;
-    border: 1px solid #7f7f7f;
+    border: 2px solid #ddd;
     padding: 15px;
     left: 0;
     width: 66%;

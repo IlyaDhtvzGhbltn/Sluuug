@@ -61,16 +61,28 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
-                var userConnect = context.UserConnections
-                    .Where(x => x.UserId == userID && x.IsActive == true)
-                    .ToList();
+                return getConnectionById(context, userID);
+            }
+        }
 
+        public UserConnectionIdModel GetConnectionById(DataBaseContext context, int userID)
+        {
+            return getConnectionById(context, userID);
+        }
+
+        private UserConnectionIdModel getConnectionById(DataBaseContext context, int userID)
+        {
+            var userConnect = context.UserConnections
+                .Where(x => x.UserId == userID && x.IsActive == true)
+                .ToList();
+            if (userConnect.Count != 0)
+            {
                 UserConnectionIdModel connections = new UserConnectionIdModel()
                 {
                     ConnectionId = new List<string>(),
                     CultureCode = new List<string>()
                 };
-                userConnect.ForEach(x => 
+                userConnect.ForEach(x =>
                 {
                     connections.ConnectionId.Add(x.ConnectionId.ToString());
                     connections.CultureCode.Add(x.CultureCode);
@@ -78,6 +90,7 @@ namespace Slug.Helpers
 
                 return connections;
             }
+            else return null;
         }
 
         public UserConnectionIdModel GetConnectionsByIds(int[] userID)

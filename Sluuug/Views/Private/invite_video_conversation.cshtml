@@ -10,7 +10,7 @@
 <link href="~/Styles/private/video-conversation-main.css" rel="stylesheet" />
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/common/await.css" rel="stylesheet" />
-<link href="~/Styles/private/alert-notify-style.css" rel="stylesheet" />
+<link href="~/Styles/private/incomming-call-notification-style.css" rel="stylesheet" />
 <title>Видео Связь</title>
 
 
@@ -20,7 +20,7 @@
         <div id="friends">
             <input type="radio" id="tab1" name="tab-group" checked="">
             <label class="tab-title" for="tab1">Доступны для звонка</label>
-            <div class="tab-content">
+            <div class="tab-content stylized-scrollbar">
                 @foreach (var friend in Model.Friends)
                 {
                     Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.BaseUser>(friend));
@@ -44,7 +44,7 @@
                 }
                 Входящие звонки
             </label>
-            <div class="tab-content">
+            <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.IncomingCalls)
                 {
                     Html.RenderPartial("~/Views/Partial/VideoConference/incomming_call.cshtml", item, new ViewDataDictionary<Slug.Model.VideoConference.IncomingInviteModel>(item));
@@ -52,34 +52,6 @@
             </div>
         </div>
     </div>
-
-    @*<div class="tab">
-            <div id="calls_history">
-                <input type="radio" id="tab3" name="tab-group">
-                <label class="tab-title" for="tab3">История видео переговоров</label>
-                <div class="tab-content">
-                    <div class="history-wrapper">
-                        <div class="history- filter">
-                            <span>Показать : </span>
-                            <div>
-                                <select>
-                                    <option>Все</option>
-                                    <option>Входящие</option>
-                                    <option>Исходящие</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="header"><span>Последние звонки</span></div>
-                        <div class="history- calls">
-                            @foreach (var friend in Model.CallsHistory)
-                            {
-                                Html.RenderPartial("~/Views/Partial/VideoConference/conference_history_item.cshtml", friend, new ViewDataDictionary<Slug.Model.VideoConference.CallModel>(friend));
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
 </div>
 <script src="~/Scripts/vDialogs.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>

@@ -13,6 +13,7 @@ namespace Slug.Context.Dto.Notification
         NewMessageSecret,
         AcceptYourInviteSecretChat,
         NewInviteFriendship,
-        AcceptFriendship
+        AcceptFriendship,
+        CryptoInviteRefuse
     }
 }

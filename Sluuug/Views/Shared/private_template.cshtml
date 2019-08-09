@@ -8,9 +8,10 @@
     <link rel="shortcut icon" href="~/Resources/images/favicon.ico" type="image/png">
     <link rel="stylesheet" href="~/Styles/private/private_style.css">
     <link rel="stylesheet" href="~/Styles/private/controlls_style.css">
+    <link href="~/Styles/common/alert-message-style.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="~/Scripts/Private/menu_template.js"></script>
-
+    <script src="~/Scripts/System/Alert.js"></script>
     <script src="~/Scripts/System/AsyncRequest.js"></script>
     <script src="~/Scripts/System/BigInteger.js"></script>
     <script src="~/Scripts/System/jquery.signalR-2.4.0.js"></script>
@@ -20,6 +21,12 @@
     <script src="~/Scripts/Search.js"></script>
 </head>
 <body>
+    <div class="alert hide">
+        <div class="container">
+            <span class="alert-text">❌Размер загружаемых файлов превышает 100 Мб</span>
+            <button class="close-alert-button" onclick="CloseAlert()">Ok</button>
+        </div>
+    </div>
     <nav role="navigation">
         <ul id="menu">
             <li id="menu-toggle">
@@ -81,7 +88,7 @@
             <a href="/private/cnv">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/mess_ico.png" />
-                    <span>Сообщения</span>                    
+                    <span>Сообщения</span>
                     <div class="new notify-decrement-message"></div>
                 </li>
             </a>
@@ -138,8 +145,7 @@
             </a>
         </ul>
     </div>
-    <div class="notify-alert">
-    </div>
+    <div class="incomming-notify"></div>
     <div class="private-content">
         @RenderBody()
     </div>

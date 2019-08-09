@@ -25,18 +25,20 @@ namespace Slug.Helpers.HTMLGenerated
                 { NotificationType.AcceptYourInviteSecretChat, "Notify_Accept_Your_Invite_Secret" },
                 { NotificationType.NewInviteFriendship, "Notify_Friendship_Invite" },
                 { NotificationType.AcceptFriendship, "Notify_Accept_Your_Friendship" },
+                { NotificationType.CryptoInviteRefuse, "Notify_Crypto_Invitation_Refused" }
             };
 
         private static readonly IReadOnlyDictionary<NotificationType, string> typeToLink =
             new Dictionary<NotificationType, string>()
             {
-                        { NotificationType.NewMessage, "/private/cnv" },
-                        { NotificationType.NewInviteVideoConference, "/private/invite_video_conversation" },
-                        { NotificationType.NewInviteSecretChat, "/private/crypto_cnv" },
-                        { NotificationType.NewMessageSecret, "/private/crypto_cnv" },
-                        { NotificationType.AcceptYourInviteSecretChat, "/private/crypto_cnv" },
-                        { NotificationType.NewInviteFriendship, "/private/contacts" },
-                        { NotificationType.AcceptFriendship, "/private/contacts" },
+                    { NotificationType.NewMessage, "/private/cnv" },
+                    { NotificationType.NewInviteVideoConference, "/private/invite_video_conversation" },
+                    { NotificationType.NewInviteSecretChat, "/private/crypto_cnv" },
+                    { NotificationType.NewMessageSecret, "/private/crypto_cnv" },
+                    { NotificationType.AcceptYourInviteSecretChat, "/private/crypto_cnv" },
+                    { NotificationType.NewInviteFriendship, "/private/contacts" },
+                    { NotificationType.AcceptFriendship, "/private/contacts" },
+                    { NotificationType.CryptoInviteRefuse, "/private/crypto_cnv" }
             };
 
         public static string GenerateHtml(NotificationType type, BaseUser model, string culture)

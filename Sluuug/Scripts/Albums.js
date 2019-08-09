@@ -269,20 +269,26 @@ function UploadFotosToAlbum(inputUploaded) {
         });
         console.log(inputUploaded.id);
         form.append('albumId', inputUploaded.id);
+        try {
+            $.ajax({
+                type: "post",
+                url: "/api/upload_foto",
+                processData: false,
+                contentType: false,
+                data: form,
+                success: function (data, textStatus, xhr) {
+                    inputUploaded.value = "";
 
-        $.ajax({
-            type: "post",
-            url: "/api/upload_foto",
-            processData: false,
-            contentType: false,
-            data: form,
-            success: function (resp) {
-                if (resp) {
-                    console.log(resp);
-                    window.location.reload();
+                    var isError = xhr.getResponseHeader("Error");
+                    if (isError) {
+                        _Alert(data);
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch (ex) {
+            console.log(ex);
+        }
     }
 }
 

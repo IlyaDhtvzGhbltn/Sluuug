@@ -18,6 +18,8 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
 using Slug.Model.Users;
 using Slug.Helpers.HTMLGenerated;
+using Slug.Context.Tables;
+using System.Data.Entity;
 
 namespace Slug.Hubs
 {
@@ -151,6 +153,39 @@ namespace Slug.Hubs
                 return response;
             }
             else return null;
+        }
+
+        public async Task<NotifyHubModel> RefuseInvitation(Guid cryptoConversationGuidID)
+        {
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
+            var userHandler = new UsersHandler();
+            BaseUser userRefuser = userHandler.BaseUser(session);
+            using (var context = new DataBaseContext())
+            {
+                SecretChatGroup creatordUser = await context.SecretChatGroups
+                    .FirstOrDefaultAsync(x => 
+                    x.PartyGUID == cryptoConversationGuidID &&
+                    x.UserId != userRefuser.UserId);
+                if (creatordUser != null)
+                {
+                    var connectionHandler = new UsersConnectionHandler();
+                    UserConnectionIdModel connection = connectionHandler.GetConnectionById(context, creatordUser.UserId);
+
+                    SecretChat chatEntry = await context.SecretChat.FirstOrDefaultAsync(x => x.PartyGUID == cryptoConversationGuidID);
+                    List<SecretChatGroup> chatUsersEntrys = await context.SecretChatGroups.Where(x => x.PartyGUID == cryptoConversationGuidID).ToListAsync();
+
+                    context.SecretChat.Remove(chatEntry);
+                    context.SecretChatGroups.RemoveRange(chatUsersEntrys);
+                    await context.SaveChangesAsync();
+
+                    var response = new NotifyHubModel();
+                    response.ConnectionIds = connection.ConnectionId;
+                    response.Culture = connection.CultureCode[0];
+                    response.FromUser = userRefuser;
+                    return response;
+                }
+            }
+            return null;
         }
     }
 }

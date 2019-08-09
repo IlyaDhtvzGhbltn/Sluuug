@@ -555,4 +555,7 @@
   <data name="Site_Title_Public" xml:space="preserve">
     <value>Comet Connection | Public Part</value>
   </data>
+  <data name="Notify_Crypto_Invitation_Refused" xml:space="preserve">
+    <value>Your Invitation was refused</value>
+  </data>
 </root>

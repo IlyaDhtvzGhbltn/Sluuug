@@ -1,9 +1,28 @@
 ﻿@model Slug.Model.Users.BaseUser
 @using Slug.Extensions
 
-<div class="ready_to_invite_div">
-    <label onclick="generationKeyUserToggle()">
-        <input type="radio" class="fr" name="friend" value="@Model.UserId" />
+@{
+    var activeSpan = new Dictionary<bool, string>()
+        {
+            { true, "online - пользователь доступен для приглашения в чат"},
+            { false, "offline - нельзя создавать секретный чат"}
+        };
+
+    var activeClass = new Dictionary<bool, string>()
+        {
+            { true, "on"},
+            { false, "off"}
+        };
+
+    var activeDisable = new Dictionary<bool, string>()
+        {
+            { true, ""},
+            { false, "disabled='disabled'"}
+        };
+}
+<div class="chat-wrapper-overflow">
+    <label>
+        <input type="radio" class="fr" name="friend" value="@Model.UserId" @activeDisable[Model.IsActive] onclick="generationKeyUserToggle()" />
         <div class="circle">
             <div class="circle--inner circle--inner__1"></div>
             <div class="circle--inner circle--inner__2"></div>
@@ -12,14 +31,21 @@
             <div class="circle--inner circle--inner__5"></div>
             <div class="circle--outer"></div>
         </div>
-        <div class="chat-head" id="138">
-            <div class="image-can-invite-container">
-                <span class="helper"></span>
+        <div class="selected-overflow"></div>
+        <div class="chat-wrapper">
+            <div class="interlocutor-avatar-container">
                 <img src="@Model.AvatarResizeUri" />
             </div>
-            <h2>@Model.Name @Model.SurName</h2>
+            <div class="conversation-body-container">
+                <div class="interlocutor-name-container">
+                    <h2>@Model.Name @Model.SurName</h2>
+                </div>
+                <div class="last-message-container">
+                    <span class="wire-status @activeClass[Model.IsOnline]">@activeSpan[Model.IsOnline]</span>
+                </div>
+            </div>
+            <div class="expiration-period-container">
+            </div>
         </div>
-        <div class="selected-overflow"></div>
     </label>
-
 </div>

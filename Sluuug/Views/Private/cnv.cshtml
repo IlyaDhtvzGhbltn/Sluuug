@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/private_template.cshtml";
 }
-@model  Slug.Model.ConversationsModel
+@model  Slug.Model.ConversationGroupModel
 @using Slug.Extensions
 <link href="~/Styles/private/conversations-style.css" rel="stylesheet" />
 <title>Мои Сообщения</title>
@@ -13,7 +13,7 @@
     {
         foreach (var item in Model.Cnv)
         {
-            Html.RenderPartial("~/Views/Partial/Dialogs/dialog_preview.cshtml", item, new ViewDataDictionary<Slug.Model.SimpleChat.CutConversation>(item));
+            Html.RenderPartial("~/Views/Partial/Dialogs/dialog_preview.cshtml", item, new ViewDataDictionary<Slug.Model.SimpleChat.ConversationModel>(item));
         }
     }
     else

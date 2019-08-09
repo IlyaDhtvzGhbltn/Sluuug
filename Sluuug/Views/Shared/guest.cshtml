@@ -24,51 +24,51 @@
 
 @if (ViewBag.IsIndex)
 {
-<div class="head_navigation" hidden>
-	<div class="head_fix_menu">
-		<button class="header-button" onclick="scrolling('main', +80)">Главная</button>
-		<button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
-		<button class="header-button" onclick="scrolling('help', -100)">Справка (FAQ)</button>
-		<button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
-		<button class="header-button" onclick="scrolling('reg_log', -100), show_register()">Зарегистрироваться</button>
-		<button class="header-button" onclick="scrolling('reg_log', -100), show_login()">Войти</button>
-	</div>
-</div>
-<div class="right_navigation" id="right_navigation" hidden>
-    <nav>
-        <ul>
-            <li>
-                <a href="#main">
-                    <div id="help_nav"></div>
-                    <svg class="circle_nav">
-                        <circle id="main_circle" cx="12" cy="12" r="5"></circle>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="#reg_log">
-                    <svg class="circle_nav">
-                        <circle id="function_circle" cx="12" cy="12" r="5"></circle>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="#functions">
-                    <svg class="circle_nav">
-                        <circle id="reg_log_circle" cx="12" cy="12" r="5"></circle>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="#help">
-                    <svg class="circle_nav">
-                        <circle id="help_circle" cx="12" cy="12" r="5"></circle>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+    <div class="head_navigation" hidden>
+        <div class="head_fix_menu">
+            <button class="header-button" onclick="scrolling('main', +80)">Главная</button>
+            <button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
+            <button class="header-button" onclick="scrolling('help', -100)">Справка (FAQ)</button>
+            <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
+            <button class="header-button" onclick="scrolling('reg_log', -100), show_register()">Зарегистрироваться</button>
+            <button class="header-button" onclick="scrolling('reg_log', -100), show_login()">Войти</button>
+        </div>
+    </div>
+    <div class="right_navigation" id="right_navigation" hidden>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#main">
+                        <div id="help_nav"></div>
+                        <svg class="circle_nav">
+                            <circle id="main_circle" cx="12" cy="12" r="5"></circle>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#reg_log">
+                        <svg class="circle_nav">
+                            <circle id="function_circle" cx="12" cy="12" r="5"></circle>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#functions">
+                        <svg class="circle_nav">
+                            <circle id="reg_log_circle" cx="12" cy="12" r="5"></circle>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#help">
+                        <svg class="circle_nav">
+                            <circle id="help_circle" cx="12" cy="12" r="5"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 }
 <div class="navigation">
     @if (ViewBag.IsIndex)
@@ -88,8 +88,9 @@
 <div class="fullscreen-bg">
     <div class="overlay">
         <img id="connection_vectors" src="/Resources/images/comet.png" />
-        <h1>Comet Connection<h1>
-        <h2>Будь всегда на связи</h2>
+        <h1>
+            Comet Connection<h1>
+                <h2>Будь всегда на связи</h2>
     </div>
     <video loop muted autoplay poster="/Resources/images/space_main_background.png" class="fullscreen-bg__video">
         <source src="/Resources/video/space_main_background.mp4" type="video/mp4">

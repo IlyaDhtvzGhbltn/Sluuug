@@ -18,10 +18,12 @@ using NLog;
 using Slug.Helpers.HTMLGenerated;
 using Slug.Context.Dto.Notification;
 using Slug.Model.Users.Relations;
+using Slug.Context.Attributes;
 
 namespace Slug.Hubs
 {
     [HubName("notificationHub")]
+    [AuthSlug]
     public class NotificationHub : Hub
     {
         public void OpenConnect()
@@ -47,28 +49,10 @@ namespace Slug.Hubs
             await connectionHandler.CloseConnection(session, closedConnection);
         }
 
-        public void GetVideoParticipantName(Guid ID)
-        {
-            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
-            var conferenceHandler = new VideoConferenceHandler();
-            var userHandler = new UsersHandler();
-
-            int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
-            int myId = userHandler.UserIdBySession(session);
-            int participantID = IDs.First(x => x != myId);
-            var participantInfo = userHandler.BaseUser(participantID);
-            string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);
-            Clients.Caller.SendName(participantName);
-        }
 
 
-        /// <summary>
-        /// Send none crypt message
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="convId"></param>
-        /// <param name="toUserId"></param>
-        /// <returns></returns>
+
+
         public async Task SendMessage(string message, string convId, int toUserId)
         {
             Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
@@ -139,12 +123,13 @@ namespace Slug.Hubs
 
 
 
+
+
         public async Task CreateNewCryptoConversation(string create_request)
         {
             var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
             cryptoHub.CreateNewCryptoConversation(create_request);
         }
-
 
         public async Task InviteUsersToCryptoChat(string offerToCriptoChat, Guid cryptoConversationGuidID)
         {
@@ -173,6 +158,16 @@ namespace Slug.Hubs
             }
         }
 
+        public async Task RefuseCryptoChatInvitation(Guid cryptoConversationGuidID)
+        {
+            var cryptoHub = new CryptoMessagersHub(base.Context, base.Clients);
+            NotifyHubModel response = await cryptoHub.RefuseInvitation(cryptoConversationGuidID);
+            if (response != null)
+            {
+                string html = Notifications.GenerateHtml(NotificationType.CryptoInviteRefuse, response.FromUser, "ru-RU");
+                Clients.Clients(response.ConnectionIds).NotifyAbout(html, null, NotificationType.CryptoInviteRefuse);
+            }
+        }
 
 
 
@@ -206,11 +201,27 @@ namespace Slug.Hubs
             videoHub.ExchangeICandidates(iceCandidate, guidID);
         }
 
+        public void GetVideoParticipantName(Guid ID)
+        {
+            string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
+            var conferenceHandler = new VideoConferenceHandler();
+            var userHandler = new UsersHandler();
+
+            int[] IDs = conferenceHandler.GetVideoConferenceParticipantsIDs(ID);
+            int myId = userHandler.UserIdBySession(session);
+            int participantID = IDs.First(x => x != myId);
+            var participantInfo = userHandler.BaseUser(participantID);
+            string participantName = string.Format("{0} {1}", participantInfo.Name, participantInfo.SurName);
+            Clients.Caller.SendName(participantName);
+        }
+
         public async Task CloseVideoConverence(Guid guidID)
         {
             var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
             videoHub.CloseVideoConverence(guidID);
         }
+
+
 
 
         public async Task AddFriend(int userID)

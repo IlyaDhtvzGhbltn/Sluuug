@@ -14,7 +14,7 @@
         <div id="in_invitations">
             <input type="radio" id="tab1" name="tab-group" checked>
             <label class="tab-title" for="tab1">@Html.Translate("Text_Incomm_To_Friend")</label>
-            <div class="tab-content">
+            <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.IncommingInvitations)
                 {
                     Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
@@ -31,7 +31,7 @@
         <div id="out_invitations">
             <input type="radio" id="tab2" name="tab-group">
             <label class="tab-title" for="tab2">@Html.Translate("Text_Outcomm_Investigation")</label>
-            <div class="tab-content">
+            <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.OutCommingInvitations)
                 {
                     Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
@@ -46,7 +46,7 @@
         <div id="accepted_friends">
             <input type="radio" id="tab3" name="tab-group">
             <label class="tab-title" for="tab3">@Html.Translate("Text_Current_Contacts")</label>
-            <div class="tab-content">
+            <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.Friends)
                 {
                     Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));

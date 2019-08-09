@@ -9,6 +9,7 @@ using NLog;
 using System.Threading;
 using System.Collections.Generic;
 using Slug.Helpers;
+using Slug.Context.ServerError;
 
 namespace Sluuug
 {
@@ -24,26 +25,21 @@ namespace Sluuug
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception lastErrorInfo = Server.GetLastError();
-            Exception errorInfo = null;
+            Exception errorInfo = lastErrorInfo.GetBaseException();
+            HttpException error = errorInfo as HttpException;
 
             bool isNotFound = false;
-            bool internalServerError = false;
             if (lastErrorInfo != null)
             {
                 Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
                 loggerInternal.Error(lastErrorInfo);
 
-                errorInfo = lastErrorInfo.GetBaseException();
-                var error = errorInfo as HttpException;
+
                 if (error != null)
                 {
                     Logger logger = LogManager.GetLogger("http_exception_logger");
                     logger.Trace(error);
                     isNotFound = error.GetHttpCode() == (int)HttpStatusCode.NotFound;
-                }
-                if (errorInfo.Message.Contains("contains a null entry for parameter"))
-                {
-                    internalServerError = true;
                 }
             }
             if (isNotFound)
@@ -51,13 +47,14 @@ namespace Sluuug
                 Server.ClearError();
                 Response.Redirect("~/error/notfound");
             }
-            else if (internalServerError)
+            else if (error != null)
             {
                 Server.ClearError();
-                Response.Redirect("~/guest/index");
+                Response.Redirect("~/error/custom?error=" + error.WebEventCode);
             }
             else
             {
+                Server.ClearError();
                 Response.Redirect("~/error/ooops");
             }
         }

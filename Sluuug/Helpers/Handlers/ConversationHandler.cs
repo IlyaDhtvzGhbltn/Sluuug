@@ -14,10 +14,10 @@ namespace Slug.Helpers
 {
     public class ConversationHandler
     {
-        public ConversationsModel GetPreConversations(int userId)
+        public ConversationGroupModel GetPreConversations(int userId)
         {
-            var convs = new ConversationsModel();
-            convs.Cnv = new List<CutConversation>();
+            var convs = new ConversationGroupModel();
+            convs.Cnv = new List<ConversationModel>();
 
             using (var context = new DataBaseContext())
             {
@@ -51,13 +51,12 @@ namespace Slug.Helpers
                                 var lastMessage = message.ToList().Last();
                                 int lastMessageUserId = lastMessage.UserId;
                                 BaseUser lastSayUser = UsWork.BaseUser(lastMessageUserId);
-                                var c = new CutConversation();
+                                var c = new ConversationModel();
 
                                 c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);
                                 c.InterlocutorName = friendInterlocutor.Name;
                                 c.InterlocutorSurName = friendInterlocutor.SurName;
 
-                                c.LastMessageSenderAvatar = Resize.ResizedAvatarUri(lastSayUser.AvatarResizeUri, ModTypes.c_scale, 100, 100);
                                 c.LastMessageSenderName = lastSayUser.Name;
                                 c.LastMessageSenderSurName = lastSayUser.SurName;
                                 if (lastMessage.Text.Length > 50)

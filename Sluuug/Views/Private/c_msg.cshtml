@@ -3,6 +3,7 @@
     ViewBag.Title = "c_msg";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
+@model  Slug.Model.CryptoDialogModel
 @using Slug.Extensions
 <link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 <link href="~/Styles/private/secret-dialog-style.css" rel="stylesheet" />
@@ -58,11 +59,13 @@
     }
 </div>
 
-<div class="send_msg" style="margin-top:33px">
+@if (!Model.Expired)
+{
+<div class="send_msg">
     <textarea id="new_text"></textarea>
-        <button id="sendButton" onclick="crypt_send()">@Html.Translate("Button_Send_Message")</button>
+    <button id="sendButton" onclick="crypt_send()">@Html.Translate("Button_Send_Message")</button>
 </div>
-
+}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 <script src="~/Scripts/crypto_dialog.js"></script>

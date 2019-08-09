@@ -9,27 +9,22 @@ window.onunload = function () {
     HUB.invoke('CloseConnect');
 };
 
+HUB.on('CatchException', function (message) {
+    _Alert(message);
+});
+
 HUB.on('NotifyAbout', function (html, params, notifyCode) {
     switch (notifyCode) {
         case 0:
             DecrementInto('.notify-decrement-message', 'notify-message');
             break;
-        case 2:
-            DecrementInto('.notify-decrement-secret', 'notify-secret');
-            break;
-        case 3:
-            DecrementInto('.notify-decrement-secret', 'notify-secret');
-            break;
-        case 4:
+        case 2: case 3: case 4:
             DecrementInto('.notify-decrement-secret', 'notify-secret');
             break;
         case 1:
             DecrementInto('.notify-decrement-video', 'notify-video');
             break;
-        case 5:
-            DecrementInto('.notify-decrement-contact', 'notify-contacts');
-            break;
-        case 6:
+        case 5: case 6:
             DecrementInto('.notify-decrement-contact', 'notify-contacts');
             break;
     }
@@ -39,7 +34,7 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
         newInviteToCryptChatNotification(html, params);
     }
 
-    var note = $('.notify-alert');
+    var note = $('.incomming-notify');
     note[0].innerHTML = html;
     note.css({ opacity: 1, left: 200 });
     var audio = new Audio('/resources/audio/new-notify-sound.wav');
@@ -61,7 +56,7 @@ function DecrementInto(element, elementCounterClassName) {
 }
 
 function newInviteToCryptChatNotification(html, publicData) {
-    var note = $('.notify-alert');
+    var note = $('.incomming-notify');
     note[0].insertAdjacentHTML('beforeend', html);
 
 
@@ -87,7 +82,7 @@ function newInviteToCryptChatNotification(html, publicData) {
 
 
 function clearNotificationDiv() {
-    var note = $('.notify-alert');
+    var note = $('.incomming-notify');
     note.css({ opacity: 0, left: -400 });
     note[0].innerHTML = '';
 }

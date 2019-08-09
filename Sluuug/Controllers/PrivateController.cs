@@ -115,7 +115,7 @@ namespace Slug.Controllers
             
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var user = UsersHandler.ProfileInfo(sessionId);
-            ConversationsModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
+            ConversationGroupModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
             return View(Conversations);
         }
 
@@ -214,7 +214,7 @@ namespace Slug.Controllers
         public async Task<ActionResult> crypto_cnv()
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            CryptoChatModel model = CryptoChatHandler.GetCryptoChat(sessionId);
+            CryptoConversationGroupModel model = CryptoChatHandler.GetCryptoChat(sessionId);
             return View(model);
         }
 

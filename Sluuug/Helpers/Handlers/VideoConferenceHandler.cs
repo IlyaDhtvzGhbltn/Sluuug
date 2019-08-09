@@ -102,7 +102,7 @@ namespace Slug.Helpers
             var usersHandler = new UsersHandler();
             int myId = usersHandler.UserIdBySession(sessionID);
 
-            var fMod = usersHandler.GetFriendsOnlyBySession(sessionID, 80);
+            var fMod = usersHandler.GetFriendsOnlyBySession(sessionID, 100);
             foreach (var item in fMod)
             {
                 model.Friends.Add(item);

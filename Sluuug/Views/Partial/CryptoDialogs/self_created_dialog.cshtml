@@ -1,28 +1,50 @@
-﻿@model Slug.Model.CryptoChat
+﻿@model Slug.Model.Messager.CryptoChat.CryptoConversationModel
 @using Slug.Extensions
 
 <div class="chat-wrapper">
-    <div class="cryptp-chat-self-created" id="@Model.GuidId">
-        <div class="active-chat-period">
-            <p>
-                <span>Приглашение отправлено @Model.OpenDate.ToString("D") @Model.OpenDate.ToString("hh:mm")</span>
-            </p>
-            <p>
-                <span>Чат будет закрыт @Model.CloseDate.ToString("D") @Model.CloseDate.ToString("hh:mm")</span>
-            </p>
-            <p>
-                <span>
-                    Осталось <span class="experation-mins">@Model.RemainingMins </span> мин
-                    <span class="experation-sec">@Model.RemainingSecs </span> сек
-                </span>
-            </p>
-        </div>
-
-        <div class="chat-head">
-            <img src="@Model.InterlocutorAvatar" />
-            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
-            <span>приглашение еще не принято.</span>
-        </div>
-
+    <div class="interlocutor-avatar-container">
+        <img src="@Model.InterlocutorAvatar" />
     </div>
+    <div class="conversation-body-container">
+        <div class="interlocutor-name-container">
+            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+        </div>
+        <div class="last-message-container">
+            <span>Приглашение еще не принято.</span>
+        </div>
+    </div>
+    <div class="expiration-period-container">
+        @if (!Model.Expired)
+        {
+            <span>Приглашение было отправлено : </span> 
+            <span>@Model.OpenDate.ToString("D") @Model.OpenDate.ToString("hh:mm")</span>
+            <span>
+                Осталось <span class="experation-mins">@Model.RemainingMins </span> мин
+                <span class="experation-sec">@Model.RemainingSecs </span> сек
+            </span>
+        }
+        else
+        {
+            <span style="color:red">Закрыт @Model.CloseDate.ToString("D")</span>
+        }
+    </div>
+
+    @*<div class="cryptp-chat-self-created" id="@Model.GuidId">
+            <div class="active-chat-period">
+                    <span>Приглашение отправлено @Model.OpenDate.ToString("D") @Model.OpenDate.ToString("hh:mm")</span>
+                    <span>Чат будет закрыт @Model.CloseDate.ToString("D") @Model.CloseDate.ToString("hh:mm")</span>
+                    <span>
+                        Осталось <span class="experation-mins">@Model.RemainingMins </span> мин
+                        <span class="experation-sec">@Model.RemainingSecs </span> сек
+                    </span>
+
+            </div>
+
+            <div class="chat-head">
+                <img src="@Model.InterlocutorAvatar" />
+                <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+                <span>приглашение еще не принято.</span>
+            </div>
+
+        </div>*@
 </div>

@@ -555,4 +555,7 @@
   <data name="Site_Title_Public" xml:space="preserve">
     <value>Comet Connection | Гость</value>
   </data>
+  <data name="Notify_Crypto_Invitation_Refused" xml:space="preserve">
+    <value>Ваше приглашение в секретный чат отклонено пользователем</value>
+  </data>
 </root>

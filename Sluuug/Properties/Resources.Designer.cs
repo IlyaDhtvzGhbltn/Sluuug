@@ -529,6 +529,15 @@ namespace Slug.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Invitation was refused.
+        /// </summary>
+        internal static string Notify_Crypto_Invitation_Refused {
+            get {
+                return ResourceManager.GetString("Notify_Crypto_Invitation_Refused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You got Invite to friendship.
         /// </summary>
         internal static string Notify_Friendship_Invite {

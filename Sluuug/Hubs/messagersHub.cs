@@ -13,6 +13,7 @@ using Slug.Helpers.BaseController;
 using Slug.Hubs;
 using Slug.ImageEdit;
 using Slug.Model;
+using Slug.Model.Messager.SimpleChat;
 using Slug.Model.Users;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 
@@ -56,16 +57,15 @@ namespace Sluuug.Hubs
                     var connectionWorker = new UsersConnectionHandler();
                     UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
 
-                    var messageModel = new DialogMessage()
+                    var messageModel = new MessageModel()
                     {
                         AvatarPath = Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 60, 60),
                         UserName = user.Name,
                         Text = clearMsg,
                         SenderId = user.UserId
                     };
-                    //string html = Slug.Helpers.HTMLGenerated.DialogMessage.GenerateHtml(model);
-                    //Clients.Caller.sendAsync(html, convGuidID);
-                    Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(messageModel, convGuidID);
+                    if (UserRecipientsConnectionIds != null) 
+                        Clients.Clients(UserRecipientsConnectionIds.ConnectionId).sendAsync(messageModel, convGuidID);
                 }
                 var responce = new NotifyHubModel();
                 responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

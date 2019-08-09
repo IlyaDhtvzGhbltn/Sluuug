@@ -7,6 +7,7 @@
 }
 
 .friend_div label {
+    background-color:white;
     margin: 0px 15px;
     border: 1px solid #7f7f7f;
     transition: all 0.5s ease;
@@ -14,13 +15,14 @@
     cursor: pointer;
     position: relative;
     width: 100%;
-    height: inherit;
+    height: 120px;
     top: -10px;
     left: -10px;
 }
 
 .friend_div label:hover {
     -webkit-box-shadow: 10px 10px 5px -2px rgba(19, 35, 47, 0.3);
+    background-color: #95DFE4;
 }
 
 .fr{
@@ -34,14 +36,18 @@
 
 .selected-overflow {
     transition: all 0.5s ease;
-    height: 98px;
+    height: 119px;
     position: relative;
     top: -51px;
 }
 
-.circle{
-    left:0;
-    top:12px;
+
+
+.circle {
+    left: 0;
+    top: 12px;
+    position: relative;
+    margin-left: 90%;
 }
 
 .circle--outer {
@@ -66,7 +72,7 @@ h2 {
 .fr-head {
     transition: all 0.5s ease;
     position: relative;
-    left: 88px;
+    left: 10px;
     height: auto;
 }
 
@@ -75,7 +81,7 @@ h2 {
 }
 
 .fr-head img {
-    left: 3%;
+    left: 1%;
 }
 
 .tab-content .fr-head h2, .tab-content .fr-head span {
