@@ -13,22 +13,22 @@
 <link href="~/Styles/private/incomming-call-notification-style.css" rel="stylesheet" />
 <title>Видео Связь</title>
 
-
-<h1>@Html.Translate("Text_Video_Connect")</h1>
 <div class="tabs">
     <div class="tab">
         <div id="friends">
             <input type="radio" id="tab1" name="tab-group" checked="">
             <label class="tab-title" for="tab1">Доступны для звонка</label>
-            <div class="tab-content stylized-scrollbar">
-                @foreach (var friend in Model.Friends)
-                {
-                    Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.BaseUser>(friend));
-                }
+            <div class="tab-content">
                 <div class="call-manage">
                     <span id="not_selected" style="color:red">Никто не выбран</span>
                     <br>
                     <button id="new_converence" onclick="createConference()">Вызвать выбранных</button>
+                </div>
+                <div class="friends-container stylized-scrollbar">
+                    @foreach (var friend in Model.Friends)
+                    {
+                        Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.BaseUser>(friend));
+                    }
                 </div>
             </div>
         </div>
@@ -55,3 +55,22 @@
 </div>
 <script src="~/Scripts/vDialogs.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>
+<script>
+    function HideNoneSelectSpan() {
+        var elem = $('.fr');
+        [].forEach.call(elem, function (item) {
+            if (item.checked == true) {
+                $('#not_selected').fadeOut();
+            }
+        });
+    }
+    var url = new URL(window.location.href);
+    var type = url.searchParams.get("type");
+    if (type.length > 0) {
+        switch (type) {
+            case "in":
+                $('#tab2').attr("checked", "checked");
+                break;
+        }
+    }
+</script>

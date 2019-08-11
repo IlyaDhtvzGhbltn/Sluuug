@@ -2,7 +2,7 @@
 @using Slug.Extensions
 
     <div class="friend_div" id="@Model.UserId">
-        <label>
+        <label onclick="HideNoneSelectSpan()">
             @{
                 var activeSpan = new Dictionary<bool, string>()
                 {

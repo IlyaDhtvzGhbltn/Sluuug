@@ -47,12 +47,15 @@
     .profile-info-change-status button {
         height: 38px;
     }
-/* AVATAR & AVATAR CHANGE START */
-#img_avatar{
-	cursor:pointer;
-	border:1px solid #7f7f7f;
-	border-radius:50%;
-}
+    .profile-info-change-status button:hover{
+        border:none;
+    }
+    /* AVATAR & AVATAR CHANGE START */
+    #img_avatar {
+        cursor: pointer;
+        border: 1px solid #7f7f7f;
+        border-radius: 50%;
+    }
 
 #img_avatar:hover ~ .change-avatar{
 	left:100px;

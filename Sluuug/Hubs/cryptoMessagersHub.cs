@@ -20,6 +20,8 @@ using Slug.Model.Users;
 using Slug.Helpers.HTMLGenerated;
 using Slug.Context.Tables;
 using System.Data.Entity;
+using Slug.ImageEdit;
+using Slug.Helpers.Handlers.HandlersInterface;
 
 namespace Slug.Hubs
 {
@@ -133,18 +135,19 @@ namespace Slug.Hubs
             string uri = base.Context.QueryString["URL"];
             var reg = new Regex("=.{36}");
             MatchCollection matches = reg.Matches(uri);
-            string guidChatId = matches[0].ToString().Substring(1);
+            Guid guidChatId = Guid.Parse( matches[0].ToString().Substring(1) );
             BaseUser fromUser = userHandler.BaseUser(fromUserID);
-            int toUserID = cryptoChatWorker.GetInterlocutorID(Guid.Parse(guidChatId), fromUser.UserId);
+            int toUserID = cryptoChatWorker.GetInterlocutorID(guidChatId, fromUser.UserId);
             bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(fromUserID, toUserID);
 
             if (isFriends)
             {
-                await cryptoChatWorker.SaveSecretMessageHashAsync(guidChatId, fromUserID, message);
-                UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
+                var dialogDisableHandler = new DisableConversationHandler();
 
-                Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, fromUser.AvatarResizeUri, fromUser.Name, DateTime.Now, guidChatId);
-                Clients.Caller.NewMessage(message, fromUser.AvatarResizeUri, fromUser.Name, DateTime.Now, guidChatId);
+                await cryptoChatWorker.SaveSecretMessageHashAsync(guidChatId, fromUserID, message);
+                await dialogDisableHandler.EnableDialog(guidChatId);
+                UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
+                Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 60, 60), fromUser.Name, DateTime.Now, guidChatId);
 
                 var response = new NotifyHubModel();
                 response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;

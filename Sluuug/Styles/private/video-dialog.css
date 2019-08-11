@@ -1,5 +1,6 @@
 ﻿body {
     width: 100%;
+    background-color: #f2f9fc
 }
 
 .video-remote-group-wrapper {
@@ -22,15 +23,20 @@
     border: 1px solid #7f7f7f;
     min-height: 425px;
     min-width: 480px;
+    background-color: white;
+    box-shadow: inset 0px 0px 20px 20px rgba(127, 127, 127, 0.5);
 }
 
-.container-manage:hover {
+.video-stream:hover ~ .container-manage {
     opacity: 1;
-    /* background: linear-gradient(to bottom, rgba(231,56,39,0) 0%, rgba(149,223,228,0.89) 100%); */
+}
+
+.container-manage:hover{
+    opacity:1;
 }
 
 .container-manage {
-    opacity: 1;
+    opacity: 0;
     cursor: pointer;
     z-index: 999;
     position: absolute;
@@ -42,42 +48,47 @@
     transition: all 0.5s ease;
 }
 
-    .container-manage button {
-        position: absolute;
-        left: auto;
-        right: 20px;
-        top: auto;
-        bottom: 20px;
-    }
+.container-manage button {
+    position: absolute;
+    left: auto;
+    right: 20px;
+    top: auto;
+    bottom: 20px;
+    border:1px solid white;
+}
 
-    .container-manage .sound {
-        position: absolute;
-        left: auto;
-        right: 90px;
-        top: auto;
-        bottom: 25px;
-    }
+.container-manage button:hover{
+    border:1px solid #7f7f7f;
 
-    .container-manage .sound-ico {
-        position: absolute;
-        left: auto;
-        right: 235px;
-        top: auto;
-        bottom: 30px;
-    }
+}
+
+.container-manage .sound {
+    position: absolute;
+    left: auto;
+    right: 90px;
+    top: auto;
+    bottom: 25px;
+}
+
+.container-manage .sound-ico {
+    position: absolute;
+    left: auto;
+    right: 85px;
+    top: auto;
+    bottom: 30px;
+}
 
 .video-ico img:first-child {
     border-radius: 0;
     position: absolute;
     left: auto;
-    right: 275px;
+    right: 130px;
     top: auto;
-    bottom: 33px;
+    bottom: 29px;
 }
 
 .container-manage button img {
     position: relative;
-    top: 2px;
 }
 
 .partisipant-name {
@@ -124,10 +135,11 @@
     flex-wrap: nowrap;
 }
 
-    .self video {
-        width: 200px;
-        height: 200px;
-    }
+.self video {
+    width: 200px;
+    height: 200px;
+    box-shadow: inset 0px 0px 20px 20px rgba(127, 127, 127, 0.5);
+}
 
 .conference-manage {
     display: flex;
@@ -139,17 +151,23 @@
     transition: all 0.5s ease;
 }
 
-    .conference-manage button {
-        margin: 10px;
-        height: 40px;
-        text-align: left;
-    }
+.conference-manage button {
+    margin: 10px;
+    height: 40px;
+    text-align: left;
+    border:1px solid white;
+}
 
-    .conference-manage img {
-        float: left;
-        border-radius: 0;
-        margin-right: 10px;
-    }
+.conference-manage button:hover{
+    border:1px solid #7f7f7f;
+
+}
+
+.conference-manage img {
+    float: left;
+    border-radius: 0;
+    margin-right: 10px;
+}
 
 /* #panel-ico-sound{ */
 /* position:relative; */

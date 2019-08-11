@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Slug.Model.Users;
+using Slug.Helpers.Handlers.HandlersInterface;
+using System.Threading.Tasks;
 
 namespace Slug.Helpers
 {
@@ -22,25 +24,29 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var ConversationGroup = context.ConversationGroup
-                    .Where(x => x.UserId == userId).ToList();
+                    .Where(x => x.UserId == userId
+                    ).ToList();
                 var UsWork = new UsersHandler();
 
                 foreach (ConversationGroup dialog in ConversationGroup)
                 {
-                    List<Conversation> conversations =
-                        context.Conversations
-                        .Where(x => x.ConversationGuidId == dialog.ConversationGuidId)
-                        .OrderBy(x => x.Id)
+                    var conversations = context.Conversations
+                        .Where(x => x.ConversationGuidId == dialog.ConversationGuidId &&
+                            context.DisableDialogs.FirstOrDefault(d=>
+                            d.ConversationId == dialog.ConversationGuidId &&
+                            d.UserDisablerId == userId) == null)
                         .ToList();
+
                     if (conversations.Count >= 1)
                     {
                         foreach (var conv in conversations)
                         {
-                            IQueryable<Message> messages = context.Messangers
-                                .Where(x => x.ConvarsationGuidId == conv.ConversationGuidId);
+                            Message lastMessage = context.Messangers
+                                .Where(x => x.ConvarsationGuidId == conv.ConversationGuidId)
+                                .OrderByDescending(x=>x.Id)
+                                .FirstOrDefault();
 
-                            var message = messages.OrderBy(x => x.Id);
-                            if (message.Count() >= 1)
+                            if (lastMessage != null)
                             {
                                 Guid dialogGUID = dialog.ConversationGuidId;
                                 int InterlocutorID = context.ConversationGroup
@@ -48,19 +54,19 @@ namespace Slug.Helpers
                                     x.UserId != userId).First().UserId;
                                 BaseUser friendInterlocutor = UsWork.BaseUser(InterlocutorID);
 
-                                var lastMessage = message.ToList().Last();
                                 int lastMessageUserId = lastMessage.UserId;
                                 BaseUser lastSayUser = UsWork.BaseUser(lastMessageUserId);
                                 var c = new ConversationModel();
 
+                                c.LastMessageSendDate = lastMessage.SendingDate;
                                 c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);
                                 c.InterlocutorName = friendInterlocutor.Name;
                                 c.InterlocutorSurName = friendInterlocutor.SurName;
 
                                 c.LastMessageSenderName = lastSayUser.Name;
                                 c.LastMessageSenderSurName = lastSayUser.SurName;
-                                if (lastMessage.Text.Length > 50)
-                                    c.LastMessage = lastMessage.Text.Substring(0, 49) + "...";
+                                if (lastMessage.Text.Length > 30)
+                                    c.LastMessage = lastMessage.Text.Substring(0, 27) + "...";
                                 else
                                     c.LastMessage = lastMessage.Text;
                                 c.GuidId = conv.ConversationGuidId;
@@ -69,6 +75,7 @@ namespace Slug.Helpers
                         }
                     }
                 }
+                convs.Cnv = convs.Cnv.OrderByDescending(x => x.LastMessageSendDate).ToList();
             }
             return convs;
         }

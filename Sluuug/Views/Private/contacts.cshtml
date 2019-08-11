@@ -6,7 +6,6 @@
 @using Slug.Extensions
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/private/contacts-style.css" rel="stylesheet" />
-
 <title>Мои Контакты</title>
 <h1>@Html.Translate("Text_My_Contacts")</h1>
 <div class="tabs">
@@ -22,11 +21,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
     <div class="tab">
         <div id="out_invitations">
             <input type="radio" id="tab2" name="tab-group">
@@ -39,9 +33,6 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="tab">
         <div id="accepted_friends">
             <input type="radio" id="tab3" name="tab-group">
@@ -54,11 +45,23 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 </div>
 <script src="~/Scripts/myContacts.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>
+<script>
+    var url = new URL(window.location.href);
+    var type = url.searchParams.get("type");
+    if (type.length > 0) {
+         switch (type) {
+            case "accept":
+                $('#tab3').attr("checked", "checked");
+                break;
+            case "out":
+                $('#tab2').attr("checked", "checked");
+                break;
+            case "in":
+                $('#tab1').attr("checked", "checked");
+                break;
+        }
+    }
+</script>

@@ -8,14 +8,7 @@
 <link href="~/Styles/private/dialog-style.css" rel="stylesheet" />
 
 <title>На связи @Model.Interlocutor</title>
-<div class="result-pagination stylized-scrollbar">
-    @for (int i = 1; i <= Model.PagesCount; i++)
-    {
-        <div class="search-link-container" id="pagination-link-@i">
-            <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
-        </div>
-    }
-</div>
+
 <div class="dialog stylized-scrollbar">
     @foreach (var item in Model.Messages)
     {
@@ -30,10 +23,8 @@
 </div>
 <div class="send_msg">
     <div class="text-area-container">
-        <textarea id="new_msg"></textarea>
-        <p>
+        <textarea id="new_msg" class="stylized-scrollbar"></textarea>
             <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
-        </p>
     </div>
 
     <div class="emoji-charsets-container">
@@ -44,11 +35,18 @@
         </div>
     </div>
 </div>
+<div class="result-pagination stylized-scrollbar">
+    @for (int i = 1; i <= Model.PagesCount; i++)
+    {
+        <div class="search-link-container" id="pagination-link-@i">
+            <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
+        </div>
+    }
+</div>
 
 <script src="~/Scripts/chatp2pWS.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>
 <script src="~/Scripts/Profile/SelectPaginationActivePage.js"></script>
-<script src="~/Scripts/newMsgInConv.js"></script>
 <script>
     $(document).ready(function () {
         var objDiv = $(".dialog")[0];

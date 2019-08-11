@@ -32,12 +32,12 @@ namespace Slug.Helpers.HTMLGenerated
             new Dictionary<NotificationType, string>()
             {
                     { NotificationType.NewMessage, "/private/cnv" },
-                    { NotificationType.NewInviteVideoConference, "/private/invite_video_conversation" },
-                    { NotificationType.NewInviteSecretChat, "/private/crypto_cnv" },
-                    { NotificationType.NewMessageSecret, "/private/crypto_cnv" },
-                    { NotificationType.AcceptYourInviteSecretChat, "/private/crypto_cnv" },
-                    { NotificationType.NewInviteFriendship, "/private/contacts" },
-                    { NotificationType.AcceptFriendship, "/private/contacts" },
+                    { NotificationType.NewInviteVideoConference, "/private/invite_video_conversation?type=in" },
+                    { NotificationType.NewInviteSecretChat, "/private/crypto_cnv?type=in" },
+                    { NotificationType.NewMessageSecret, "/private/crypto_cnv?type=accept" },
+                    { NotificationType.AcceptYourInviteSecretChat, "/private/crypto_cnv?type=accept" },
+                    { NotificationType.NewInviteFriendship, "/private/contacts?type=in" },
+                    { NotificationType.AcceptFriendship, "/private/contacts?type=accept" },
                     { NotificationType.CryptoInviteRefuse, "/private/crypto_cnv" }
             };
 

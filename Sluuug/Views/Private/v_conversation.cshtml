@@ -15,7 +15,6 @@
 
     <script src="~/Scripts/System/AsyncRequest.js"></script>
     <script src="~/Scripts/System/BigInteger.js"></script>
-    <script src="~/Scripts/vConferens.js"></script>
 </head>
 <body>
     <div class="conferece">
@@ -44,11 +43,8 @@
                     <button id="screen_button_stream_1" onclick="resizeDocument(stream_1, this)">
                         <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562426165/Full-Screen-icon.png" />
                     </button>
-                    <div class="sound">
-                        <input min="0" max="100" type="range" id="stream_1_volume" onchange="onChangeVolume(this, 'stream_1_volume_img')" />
-                    </div>
                     <div class="sound-ico">
-                        <img id="stream_1_volume_img" onclick="togleRemoteVolume(this, 'remoteAudio_1', 'stream_1_volume')"
+                        <img id="stream_1_volume_img"
                              src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-middle.png" />
                     </div>
                     <div class="video-ico">
@@ -84,149 +80,8 @@
             </div>
         </div>
 
-    </div>    
-            
-<script>
-    function resizeDocument(element, button) {
-        if (document.fullscreenElement) {
-            closeFullScreen(element, button);
-        }
-        else {
-            fullScreen(element, button);
-        }
-    }
+    </div>
 
-    function fullScreen(element, button) {
-        button.innerHTML = "<img src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562427121/Close-Full-Screen-icon.png'/>";
-
-        if (element.requestFullScreen) {
-            element.requestFullScreen();
-        }
-        else if (element.webkitRequestFullScreen) {
-            element.webkitRequestFullScreen();
-        }
-        else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        }
-    }
-    function closeFullScreen(element, button) {
-        button.innerHTML = "<img src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562426165/Full-Screen-icon.png'/>";
-
-        if (element.requestFullScreen) {
-            document.cancelFullScreen();
-        }
-        else if (element.webkitRequestFullScreen) {
-            document.webkitCancelFullScreen();
-        }
-        else if (element.mozRequestFullScreen) {
-            document.mozCancelFullScreen();
-        }
-    }
-    function closeOrOpenPanel() {
-        var panel = $('.conference-manage');
-        var opacity = panel.css("opacity");
-
-        if (opacity == 1) {
-            panel.addClass("hide-panel");
-            panel.removeClass("visibility-panel");
-
-            $('.triangle-panel-close').css('display', 'none');
-            $('.triangle-panel-open').css('display', 'block');
-        }
-        else {
-            panel.removeClass("hide-panel");
-            panel.addClass("visibility-panel");
-            $('.triangle-panel-open').css('display', 'none');
-            $('.triangle-panel-close').css('display', 'block');
-
-        }
-    }
-
-    function onChangeVolume(element, imgId) {
-        var id = element.id;
-        var value = element.value;
-        var imgElem = $('#' + imgId)[0];
-
-        if (value >= 70) {
-            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-full.png";
-        }
-        else if (value < 70 && value >= 40) {
-            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-middle.png";
-        }
-        else if (value < 40 && value > 0) {
-            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562504921/system/sound-low.png";
-        }
-        else {
-            imgElem.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503968/system/sound-off.png";
-        }
-    }
-
-    function togleRemoteVolume(imgElem, audioStreamIdElem, inputElemId) {
-        var input = $('#' + inputElemId)[0];
-        var img = $('#' + imgElem.id)[0];
-        if (input.value > 0) {
-            input.value = 0;
-            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503968/system/sound-off.png";
-        }
-        else {
-            input.value = 50;
-            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562503967/system/sound-middle.png";
-        }
-    }
-    function togleRemoteVideo(imgElem, videoStreamIdElem) {
-        var img = $('#' + imgElem.id)[0];
-
-        if (img.src == "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562506866/system/video-on.png") {
-            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509299/system/video-off.png";
-        }
-        else {
-            img.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562506866/system/video-on.png";
-        }
-    }
-
-    function togleMyVolume() {
-        var img = $('#panel-ico-sound')[0];
-        var button = $('#my-Volume-Togle')[0];
-
-        if (img.src == 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png') {
-            button.innerHTML = '<img id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro-off.png"/>Транслировать мой звук';
-        }
-        else {
-            button.innerHTML = '<img id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png"/>Выключить мой звук';
-        }
-    }
-    function togleMyVideo() {
-        var img = $('#panel-ico-video')[0];
-        var button = $('#my-Video-Togle')[0];
-        if (img.src == 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png') {
-            button.innerHTML = '<img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509299/system/video-off.png"/>Транслировать моё видео';
-        }
-        else {
-            button.innerHTML = '<img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png"/>Выключить моё видео';
-        }
-    }
-
-    function closeCall() {
-        closeCallImmediately();
-    }
-</script>
-    
-    @*<div id="video_streaming">
-                <div id="friend_video_container" class="vid_container">
-                    <span id="participant_name"></span>
-                    <video autoplay id="remoteVideo"></video>
-                </div>
-
-                <div id="me_video_container" class="vid_container">
-                    <span>@Html.Translate("Text_Me_In_Video")</span>
-                    <video autoplay height="200" width="200" id="localVideo"></video>
-                </div>
-                <audio autoplay id="remoteAudio" />
-            </div>
-            <div id="call_close" onclick="closeCallImmediately()" style="cursor:pointer">
-                <p>
-                    <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1555664002/close_call.png" height="30" width="30" />
-                </p>
-            </div>*@
+    <script src="~/Scripts/vConferens.js"></script>
 </body>
 </html>

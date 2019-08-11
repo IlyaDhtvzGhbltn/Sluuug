@@ -1,30 +1,19 @@
 ﻿class CryptoHandler {
     generate_public_key(gValue, aValue, pValue) {
-        console.log('public key');
-        console.log('g = ' + gValue);
-        console.log('a = ' + aValue);
-        console.log('p = ' + pValue);
-
         var key = bigInt(gValue).pow(aValue);
-        console.log('g(' + gValue + ') ** a(' + aValue + ') = ' + key);
         key = key.mod(pValue);
-        console.log('g ** a mod p(' + pValue + ') = ' + key);
-        console.log('------');
         show();
         return key;
     }
 
     check_mod(g, p) {
         var mod = bigInt(g).pow(p - 1).mod(p);
-        console.log('mod = ' + mod);
         return mod;
     }
 
     generate_secret_key(AB, a, p) {
         var K = bigInt(AB).pow(a);
-        console.log('publicKey(' + AB + ') ** secret a(' + a + ') = ' + K);
         K = K.mod(p);
-        console.log('publicKey ** secret a mod p(' + p + ') = ' + K);
         return K;
     }
 
@@ -35,7 +24,6 @@
             for (let i = primes_mass.length; i > 1; i--) {
                 var g = getRandomInt(4, 8);
                 var p = primes_mass[getRandomInt(0, primes_mass.length - 1)];
-                console.log('p = ' + p + ' g = ' + g);
                 mod = this.check_mod(g, p);
                 if (mod == 1) {
                     return { 'p': p, 'g': g };
@@ -139,11 +127,9 @@ class Invited {
                     .then(function () {
                         let accept_btm = document.getElementById(event_handler.id);
                         accept_btm.parentNode.removeChild(accept_btm);
-
                     });
-                location.reload();
+                location.replace('/private/crypto_cnv?type=accept');
             });
-
     }
 
     refuse_invite(id) {
@@ -332,11 +318,11 @@ function ready() {
             try {
                 var cryptText = lastCryptoMessage[i].innerHTML;
                 var decryptText = decryption(cryptText, elements[i].id);
-                if (decryptText.length < 30) {
+                if (decryptText.length < 15) {
                     lastCryptoMessage[i].innerHTML = decryptText;
                 }
                 else {
-                    lastCryptoMessage[i].innerHTML = decryptText.substring(0, 27) + '...';
+                    lastCryptoMessage[i].innerHTML = decryptText.substring(0, 12) + '...';
                 }
             }
             catch{

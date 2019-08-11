@@ -2,8 +2,15 @@
 @using Slug.Extensions
 
 
-<div class="conver_div" id="@Model.GuidId">
+<div class="conver_div" id="@Model.GuidId" onclick="redirectToDialog('@Model.GuidId')">
     <img src="@Model.InterlocutorAvatar" />
-    <h2>@Model.InterlocutorName  @Model.InterlocutorSurName</h2>
-    <p>@Model.LastMessage</p>
+    <div class="dialog-preview-header">
+        <h2>@Model.InterlocutorName  @Model.InterlocutorSurName</h2>
+        <span class="delete-dialog" onclick="deleteDialog('@Model.GuidId'); event.stopPropagation();">x</span>
+    </div>
+    <div class="confersation-body">
+        <h4>@Model.LastMessageSenderName @Model.LastMessageSenderSurName</h4>
+        <span>@Model.LastMessage</span>
+        <span>@Model.LastMessageSendDate.ToString("D")</span>
+    </div>
 </div>

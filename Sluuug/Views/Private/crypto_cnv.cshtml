@@ -90,11 +90,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 <script src="~/Scripts/crypto_chat.js"></script>
 <script src="~/Scripts/Private/ExperationTimer.js"></script>
+<script src="~/Scripts/Private/DeleteDialog.js"></script>
 <script>
     function generationKeyUserToggle() {
         $('#not_selected').fadeOut(600);
         setTimeout(function () {
             $('#new_crypto_chat')[0].style.opacity = 1;
         }, 600);
+    }
+
+    var url = new URL(window.location.href);
+    var type = url.searchParams.get("type");
+    if (type.length > 0) {
+        switch (type) {
+            case "accept":
+                $('#tab1').attr("checked", "checked");
+                break;
+            case "in":
+                $('#tab2').attr("checked", "checked");
+                break;
+            case "out":
+                $('#tab3').attr("checked", "checked");
+                break;
+        }
     }
 </script>

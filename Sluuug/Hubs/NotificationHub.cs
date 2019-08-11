@@ -75,7 +75,7 @@ namespace Slug.Hubs
                         string html = Notifications.GenerateHtml(NotificationType.NewMessage, hubResp.FromUser, hubResp.Culture);
                         await Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessage);
                     }
-                    await Clients.Caller.MessageSendedResult(true);
+                    //await Clients.Caller.MessageSendedResult(true);
                 }
             }
             else
@@ -155,6 +155,10 @@ namespace Slug.Hubs
             {
                 string html = Notifications.GenerateHtml(NotificationType.NewMessageSecret, response.FromUser, response.Culture);
                 Clients.Clients(response.ConnectionIds).NotifyAbout( html, null, NotificationType.NewMessageSecret);
+            }
+            else
+            {
+               await Clients.Caller.MessageSendedResult(false);
             }
         }
 

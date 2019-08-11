@@ -1,29 +1,17 @@
-﻿//var connection = $.hubConnection();
-//var messagesChat = connection.createHubProxy('messagersHub');
-function SendMessageFromChat(conversationId) {
-    connection.start().done(function () {
-        text = $('#new_msg').val();
-        HUB.invoke('SendMessage', text, conversationId, 0);
-    });
-}
-
-
-$('#new_msg')[0].addEventListener('input', function () {
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var id = url.searchParams.get("id");
-    HUB.invoke('SendCutMessage', this.value, id);
-});
-
-
-HUB.on('getCutMessage', function (text) {
+﻿HUB.on('getCutMessage', function (text) {
     $('#remote_cut_msg')[0].innerHTML = text;
 });
 
-HUB.on('MessageSendedResult', function (result) {
-    var text = $('#new_msg')[0].value;
-    $('#new_msg')[0].value = '';
+HUB.on('GetMessage', function (object, convId) {
+    console.log(object);
+    var currentUri = new URL(window.location.href);
+    var currentConversation = currentUri.searchParams.get('id');
+    if (currentConversation == convId) {
+        UpdateDialogInCnv(object);
+    }
+});
 
+HUB.on('MessageSendedResult', function (result) {
     if (!result) {
         $('.dialog')[0].insertAdjacentHTML(
             'beforeend',
@@ -31,7 +19,16 @@ HUB.on('MessageSendedResult', function (result) {
             '<div class="out-content" style="border:1px solid red; background-color:white; padding:10px">' +
             '<span style="color:red; font-size:16px">Вы не можете отправить сообщение пользователю</span></div></div>');
     }
-    else {
+    var objDiv = $(".dialog")[0];
+    objDiv.scrollTop = objDiv.scrollHeight;
+});
+
+function SendMessageFromChat(conversationId) {
+    connection.start().done(function () {
+        text = $('#new_msg').val();
+        HUB.invoke('SendMessage', text, conversationId, 0);
+        $('#new_msg').val('')
+
         var ownAvatar = $('.own-avatar')[0].src;
         $('.dialog')[0].insertAdjacentHTML(
             'beforeend',
@@ -39,9 +36,35 @@ HUB.on('MessageSendedResult', function (result) {
             '<div class="out-content">' +
             '<div class="message-header"><h4>Я</h4><span>только что</span></div>' +
             '<div class="message-body"><div><img src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
-    }
-    var objDiv = $(".dialog")[0];
-    objDiv.scrollTop = objDiv.scrollHeight;
+
+        var objDiv = $(".dialog")[0];
+        objDiv.scrollTop = objDiv.scrollHeight + 100;
+
+    });
+}
+
+function UpdateDialogInCnv(message) {
+    var Dialog = $('.dialog')[0];
+    Dialog.insertAdjacentHTML('beforeend',
+        '<div class="dialog-msg-wrapper-in"><div class="in-content">'
+        + '<div class="message-header" onclick="redirectToUser(' + message.SenderId + ')">'
+        + '<h4>' + message.UserName + '</h4>'
+        +'<span>Только что</span>'
+        + '</div>'
+        + '<div class="message-body">'
+        + '<div><img src="' + message.AvatarPath + '"/></div>'
+        + '<span>' + message.Text + '</span>'
+        + '</div></div></div>');
+
+        var objDiv = $(".dialog")[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
+} 
+
+$('#new_msg')[0].addEventListener('input', function () {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
+    HUB.invoke('SendCutMessage', this.value, id);
 });
 
 function LoadEmoji() {

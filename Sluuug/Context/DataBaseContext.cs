@@ -54,5 +54,7 @@ namespace Context
 
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<PostComment> PostComments { get; set; }
+
+        public virtual DbSet<DisableDialog> DisableDialogs { get; set; }
     }
 }

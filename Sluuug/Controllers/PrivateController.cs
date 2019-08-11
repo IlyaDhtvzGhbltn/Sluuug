@@ -185,7 +185,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> contacts()
+        public async Task<ActionResult> contacts(string type)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             MyFriendsModel model = base.UsersHandler.GetContactsBySession(sessionId);
@@ -193,7 +193,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> invite_video_conversation()
+        public async Task<ActionResult> invite_video_conversation(string type)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             VideoConferenceModel model = base.VideoConferenceHandler.VideoConferenceModel(sessionId);
@@ -211,7 +211,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> crypto_cnv()
+        public async Task<ActionResult> crypto_cnv(string type)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             CryptoConversationGroupModel model = CryptoChatHandler.GetCryptoChat(sessionId);
@@ -227,6 +227,9 @@ namespace Slug.Controllers
                 CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, id, page);
                 if (model != null)
                 {
+                    string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+                    BaseUser user = UsersHandler.BaseUser(sessionId);
+                    ViewBag.MyAvatar = Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 60, 60);
                     return View(model);
                 }
                 else return RedirectToAction("my", "private");

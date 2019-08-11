@@ -1,6 +1,23 @@
 ﻿#conversations{
     width:66%;
 }
+.dialog-preview-header{
+    display:flex;
+    flex-direction:row;
+}
+.dialog-preview-header h2{
+    margin-left:20%;
+}
+
+.dialog-preview-header span{
+    margin-top:auto;
+    margin-bottom:auto;
+    margin-left:auto;
+    margin-right: 10px;
+}
+
+
+
 .conver_div {
     transition: all 0.5s ease;
     cursor: pointer;
@@ -11,6 +28,21 @@
     background-color: white;
     min-width: 600px;
     max-height: 105px;
+    min-height: 95px;
+}
+
+.confersation-body{
+    display:flex;
+    flex-direction:row;
+    margin-left:18%;
+}
+
+.confersation-body h4{
+    margin:0;
+}   
+
+.confersation-body > span{
+    margin-left:10px;
 }
 
 .conver_div img {

@@ -17,6 +17,8 @@ using Slug.Context.Dto.VideoConference;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Newtonsoft.Json;
 using Slug.Resources.emoji;
+using Slug.Helpers.Handlers.HandlersInterface;
+using System.Threading.Tasks;
 
 namespace Slug.Controllers
 {
@@ -194,6 +196,36 @@ namespace Slug.Controllers
             {
                 Data = model.faces
             };
+        }
+
+        [HttpPost]
+        public async Task<bool> delete_dialog(string ConversationId)
+        {
+            Guid guid = Guid.Parse(ConversationId);
+            string session = GetCookiesValue(Request);
+            var disableHandler = new DisableConversationHandler();
+            try
+            {
+                BaseUser user = UsersHandler.BaseUser(session);
+                if (user != null)
+                {
+                    using (var context = new DataBaseContext())
+                    {
+                        bool dialogBelongUserFlag = await DialogsHandler.IsDialogBelongUser(context, guid, user.UserId);
+                        if (dialogBelongUserFlag)
+                        {
+                            await disableHandler.DisableDialog(context, guid, user.UserId);
+                            return true;
+                        }
+                        else return false;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

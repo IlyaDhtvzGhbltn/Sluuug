@@ -3,6 +3,7 @@ using Slug.Context;
 using Slug.Context.Dto.CryptoConversation;
 using Slug.Context.Tables;
 using Slug.Helpers.BaseController;
+using Slug.Helpers.Handlers.HandlersInterface;
 using Slug.Hubs;
 using Slug.ImageEdit;
 using Slug.Model;
@@ -92,7 +93,11 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 List<SecretChatGroup> allCryptoChatsGroupsContainsUser = context.SecretChatGroups
-                    .Where(x => x.UserId == cryptoChatUserId)
+                    .Where(x => x.UserId == cryptoChatUserId &&
+                    context.DisableDialogs.FirstOrDefault(d =>
+                            d.ConversationId == x.PartyGUID &&
+                            d.UserDisablerId == cryptoChatUserId) == null)
+                    .OrderByDescending(x => x.Id)
                     .ToList();
 
                 foreach (SecretChatGroup chatGroup in allCryptoChatsGroupsContainsUser)
@@ -167,13 +172,13 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task SaveSecretMessageHashAsync(string ChatId, int UserSenderId, string msgHash)
+        public async Task SaveSecretMessageHashAsync(Guid ChatId, int UserSenderId, string msgHash)
         {
             using (var context = new DataBaseContext())
             {
                 var message = new SecretMessages()
                 {
-                    PartyId = ChatId,
+                    PartyId = ChatId.ToString(),
                     SendingDate = DateTime.UtcNow,
                     UserSender = UserSenderId,
                     Text = msgHash
@@ -192,6 +197,7 @@ namespace Slug.Helpers
 
         public CryptoDialogModel GetCryptoDialogs(string session, string GuidId, int page)
         {
+            Guid guidId = Guid.Parse(GuidId);
             if (page <= 0)
                 page = 1;
 
@@ -205,7 +211,14 @@ namespace Slug.Helpers
             model.Messages = new List<CryptoMessageModel>();
             using (var context = new DataBaseContext())
             {
-                model.Expired = CryptoChatExpired(context, Guid.Parse(GuidId));
+                model.isExpired = IsCryptoChatExpired(context, guidId);
+                if (!model.isExpired)
+                {
+                    var leftTime = CryptoChatTimesLeft(context, guidId);
+                    model.MinsLeft = leftTime.MinsLeft;
+                    model.SecLeft = leftTime.SecLeft;
+                }
+
                 int multipleCount = context.SecretMessage
                     .Where(x => x.PartyId == GuidId)
                     .Count();
@@ -214,7 +227,6 @@ namespace Slug.Helpers
                 if (page > resMultiple)
                     page = resMultiple;
                 model.PagesCount = resMultiple;
-
 
                 List<SecretMessages> cryptoMessageCollection = context.SecretMessage
                     .Where(x => x.PartyId == GuidId)
@@ -236,7 +248,7 @@ namespace Slug.Helpers
                     var CrMessage = new CryptoMessageModel()
                     {
                         SendDate = item.SendingDate,
-                        AvatatURI = Resize.ResizedAvatarUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 50, 50),
+                        AvatatURI = Resize.ResizedAvatarUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 60, 60),
                         Text = item.Text,
                         Name = userInfos[item.UserSender].Name,
                         SurName = userInfos[item.UserSender].SurName,
@@ -263,7 +275,6 @@ namespace Slug.Helpers
             }
             return ids;
         }
-
 
         private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, int creatorUserId, Guid chatId)
         {
@@ -302,13 +313,34 @@ namespace Slug.Helpers
             }
             return chatUser;
         }
-        private bool CryptoChatExpired(DataBaseContext context, Guid GuidId)
+        private bool IsCryptoChatExpired(DataBaseContext context, Guid GuidId)
         {
-            SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGUID == GuidId).First();
-            if (CryptoChat.Destroy > DateTime.Now)
-                return false;
-            else
-                return true;
+            SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGUID == GuidId).FirstOrDefault();
+            if (CryptoChat != null)
+            {
+                if (CryptoChat.Destroy < DateTime.Now)
+                    return true;
+                else
+                    return false;
+            }
+            else return true;
+        }
+        private CryptoDialogTimeLeft CryptoChatTimesLeft(DataBaseContext context, Guid GuidId)
+        {
+            SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGUID == GuidId).FirstOrDefault();
+            var timeLeft = new CryptoDialogTimeLeft();
+            if (CryptoChat != null)
+            {
+                bool expired = this.IsCryptoChatExpired(context, GuidId);
+                if (!expired)
+                {
+                    DateTime closedDate = CryptoChat.Destroy;
+                    var value = closedDate.Subtract(DateTime.Now);
+                    timeLeft.MinsLeft = value.Minutes;
+                    timeLeft.SecLeft = value.Seconds;
+                }
+            }
+            return timeLeft;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿window.onload = function () {
+﻿window.onload = StartTimer();
+
+
+function StartTimer () {
     var experation_chats = $('.experation-mins');
     var periods = [];
     for (var i = 0; i < experation_chats.length; i++) {

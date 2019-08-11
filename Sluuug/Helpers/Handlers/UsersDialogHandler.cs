@@ -11,6 +11,7 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Messager.SimpleChat;
+using System.Data.Entity;
 
 namespace Slug.Helpers
 {
@@ -18,9 +19,7 @@ namespace Slug.Helpers
     {
         private UsersHandler UserWorker = new UsersHandler();
         private readonly int multiple = int.Parse(WebAppSettings.AppSettings[AppSettingsEnum.messagesOnPage.ToString()]);
-                        
-
-
+                      
         public DialogModel GetMessanges(Guid convId, int userID, int page)
         {
             if (page <= 0)
@@ -105,6 +104,19 @@ namespace Slug.Helpers
                 context.Messangers.Add(msg);
                 await context.SaveChangesAsync();
             }
+        }
+
+        public async Task<bool> IsDialogBelongUser(DataBaseContext context, Guid convId, int userId)
+        {
+            var simpleChatEntry = await context.ConversationGroup.FirstOrDefaultAsync(x => 
+                x.ConversationGuidId == convId &&
+                x.UserId == userId);
+            var cryptoChatEntry = await context.SecretChatGroups.FirstOrDefaultAsync(x =>
+                x.PartyGUID == convId &&
+                x.UserId == userId);
+            if (simpleChatEntry != null || cryptoChatEntry != null)
+                return true;
+            else return false;
         }
 
     }

@@ -22,7 +22,6 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-top: 10px;
-    background-color: white;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
     margin-bottom: 50px;
     padding-bottom: 20px;
@@ -32,10 +31,9 @@
     margin:4px;
     height:25px;
     transition:all .3s ease;
-    border:1px solid 0;
+    border:1px solid #7f7f7f;
     min-width:30px;
     min-height:20px;
-    border-radius:50%;
     text-align:center;
 }
 
@@ -43,11 +41,12 @@
 
 .result-pagination .search-link-container:hover > a{
     color:white;
+    background-color: #49B2DA;
 }
 
 .selected-page-container,
 .result-pagination .search-link-container:hover {
-    background-color: #7db7af;
+    background-color: #49B2DA;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
 }
 

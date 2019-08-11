@@ -441,8 +441,23 @@ input[type=range] {
     }
 /* Range input END */
 
+/* DELETE DIALOG SPAN */
+.delete-dialog {
+    background-color: #49B2DA;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    color: white;
+    border: 2px solid #ddd;
+    transition: all .5s ease;
+}
 
-
+.delete-dialog:hover {
+    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
+    border: 2px solid red;
+    color: red;
+}
+/* DELETE DIALOG SPAN */
 
 
 

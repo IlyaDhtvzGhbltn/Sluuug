@@ -173,6 +173,7 @@
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="Scripts\Albums.js" />
+    <Content Include="Scripts\Private\DeleteDialog.js" />
     <Content Include="Scripts\Profile\EditInfo.js" />
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
@@ -194,7 +195,7 @@
     <Content Include="Scripts\System\jquery.signalR-2.4.0.min.js" />
     <Content Include="Scripts\chatp2pWS.js" />
     <Content Include="Scripts\newMessageFromPage.js" />
-    <Content Include="Scripts\newMsgInConv.js" />
+    <Content Include="Scripts\cnvGroupsDialogs.js" />
     <Content Include="Scripts\System\ParseFormArray.js" />
     <Content Include="Scripts\System\SHA-512.js" />
     <Content Include="Scripts\Settings.js" />
@@ -252,6 +253,7 @@
     <Compile Include="Context\Dto\Cloudinary\CloudDeleteImage.cs" />
     <Compile Include="Context\Dto\Comments\PostCommentsResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
+    <Compile Include="Context\Dto\CryptoConversation\CryptoDialogTimeLeft.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\EnumParameters.cs" />
@@ -276,6 +278,7 @@
     <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
     <Compile Include="Context\ServerError\ServerErrorCodesMessagesDictionary.cs" />
     <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
+    <Compile Include="Context\Tables\DisableDialog.cs" />
     <Compile Include="Context\Tables\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
     <Compile Include="Context\Tables\PostComment.cs" />
@@ -292,6 +295,7 @@
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
     <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
+    <Compile Include="Helpers\Handlers\DisableConversationHandler.cs" />
     <Compile Include="Helpers\Handlers\NotificationHandler.cs" />
     <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
@@ -301,17 +305,13 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201908050800024_reset_db.cs" />
-    <Compile Include="Migrations\201908050800024_reset_db.Designer.cs">
-      <DependentUpon>201908050800024_reset_db.cs</DependentUpon>
+    <Compile Include="Migrations\201908100958463_reset.cs" />
+    <Compile Include="Migrations\201908100958463_reset.Designer.cs">
+      <DependentUpon>201908100958463_reset.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908051348571_album_w_h.cs" />
-    <Compile Include="Migrations\201908051348571_album_w_h.Designer.cs">
-      <DependentUpon>201908051348571_album_w_h.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908061422524_nullable_int_to_int.cs" />
-    <Compile Include="Migrations\201908061422524_nullable_int_to_int.Designer.cs">
-      <DependentUpon>201908061422524_nullable_int_to_int.cs</DependentUpon>
+    <Compile Include="Migrations\201908111418111_disableDialog.cs" />
+    <Compile Include="Migrations\201908111418111_disableDialog.Designer.cs">
+      <DependentUpon>201908111418111_disableDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -488,14 +488,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908050800024_reset_db.resx">
-      <DependentUpon>201908050800024_reset_db.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908100958463_reset.resx">
+      <DependentUpon>201908100958463_reset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908051348571_album_w_h.resx">
-      <DependentUpon>201908051348571_album_w_h.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908061422524_nullable_int_to_int.resx">
-      <DependentUpon>201908061422524_nullable_int_to_int.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908111418111_disableDialog.resx">
+      <DependentUpon>201908111418111_disableDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

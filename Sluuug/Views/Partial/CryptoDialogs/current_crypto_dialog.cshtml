@@ -31,5 +31,7 @@
         {
             <span style="color:red">Закрыт @Model.CloseDate.ToString("D") @Model.CloseDate.ToString("hh:mm")</span>
         }
+        <span class="delete-dialog" onclick="deleteDialog('@Model.GuidId'); event.stopPropagation()">x</span>
+
     </div>
 </div>
