@@ -211,7 +211,7 @@ namespace Slug.Controllers
                 {
                     using (var context = new DataBaseContext())
                     {
-                        bool dialogBelongUserFlag = await DialogsHandler.IsDialogBelongUser(context, guid, user.UserId);
+                        bool dialogBelongUserFlag = await disableHandler.IsDialogBelongUser(context, guid, user.UserId);
                         if (dialogBelongUserFlag)
                         {
                             await disableHandler.DisableDialog(context, guid, user.UserId);

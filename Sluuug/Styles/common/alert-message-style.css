@@ -45,3 +45,21 @@
 .show{
     display:block;
 }
+
+@-webkit-keyframes AlertGotMessage {
+    0% {
+        background-color: white;
+    }
+    25% {
+        background-color: rgba(162, 236, 243, 0.5);
+    }
+    50% {
+        background-color: rgba(162, 236, 243, 1);
+    }
+    75% {
+        background-color: rgba(162, 236, 243, 0.5);
+    }
+    100% {
+        background-color: white;
+    }
+}

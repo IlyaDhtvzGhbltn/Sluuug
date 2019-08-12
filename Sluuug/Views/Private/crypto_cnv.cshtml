@@ -15,7 +15,7 @@
         <div id="currentSC">
             <input type="radio" id="tab1" name="tab-group" checked>
             <label class="tab-title" for="tab1">Текущие</label>
-            <div class="tab-content stylized-scrollbar">
+            <div id="current-crypto-dialogs-list" class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.CurrentActiveChats)
                 {
                     Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));

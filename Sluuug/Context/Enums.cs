@@ -18,7 +18,8 @@ namespace Context
         None,
         Pending,
         Accept,
-        Close
+        Close,
+        Enemies
     }
 
     public enum CallState

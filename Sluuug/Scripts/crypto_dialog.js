@@ -1,7 +1,7 @@
 ﻿connection.qs = 'URL=' + window.location.href;
 
-HUB.on('NewMessage', function (message, avatar, name, date, guidChatId) {
-    get_new(message, avatar, name, date);
+HUB.on('GetCryptoMessage', function (model, avatar, minLeft, secLeft) {
+    gotNewInDialog(model);
 });
 
 HUB.on('MessageSendedResult', function (result) {
@@ -33,9 +33,9 @@ function crypt_send() {
     scrollDialog();
 }
 
-function get_new(message, avatar, name, date) {
-    let decrypted = decryption(message);
-    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, avatar, name);
+function gotNewInDialog(model) {
+    let decrypted = decryption(model.Text);
+    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, model.AvatatURI, model.Name);
     scrollDialog();
 }
 
@@ -68,45 +68,46 @@ function getElementByXpath(path) {
 
 function updateDialog(wrapperType, conteinerClass, message, avatar, name) {
 
-        var dialogMsgWrapper = document.createElement("div");
-        dialogMsgWrapper.className = wrapperType;
-        var contentSecretClass = document.createElement("div");
-        contentSecretClass.className = conteinerClass + " container-in-out";
-        var messageHeader = document.createElement("div");
-        messageHeader.className = "crypto-message-header";
+    var dialogMsgWrapper = document.createElement("div");
+    dialogMsgWrapper.className = wrapperType;
+    var contentSecretClass = document.createElement("div");
+    contentSecretClass.className = conteinerClass + " container-in-out";
+    var messageHeader = document.createElement("div");
+    messageHeader.className = "crypto-message-header";
 
-        var nameNode = document.createElement("h4");
-        nameNode.appendChild(document.createTextNode(name));
+    var nameNode = document.createElement("h4");
+    nameNode.appendChild(document.createTextNode(name));
 
-        var dataNode = document.createElement("span");
-        dataNode.appendChild(document.createTextNode("только что"));
+    var dataNode = document.createElement("span");
+    dataNode.appendChild(document.createTextNode("только что"));
 
-        var lockImgNode = document.createElement("img");
-        lockImgNode.className = "lock-msg-img";
-        lockImgNode.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png";
-        messageHeader.appendChild(nameNode);
-        messageHeader.appendChild(dataNode);
-        messageHeader.appendChild(lockImgNode);
+    var lockImgNode = document.createElement("img");
+    lockImgNode.className = "lock-msg-img";
+    lockImgNode.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png";
+    messageHeader.appendChild(nameNode);
+    messageHeader.appendChild(dataNode);
+    messageHeader.appendChild(lockImgNode);
 
-        var messageBody = document.createElement("div");
-        messageBody.className = "crypto-message-body";
+    var messageBody = document.createElement("div");
+    messageBody.className = "crypto-message-body";
 
-        var avatarWrapper = document.createElement("div");
-        var avatarI = document.createElement("img");
-        avatarI.src = avatar;
+    var avatarWrapper = document.createElement("div");
+    var avatarI = document.createElement("img");
+    avatarI.src = avatar;
 
-        avatarWrapper.appendChild(avatarI);
-        var messageTextNode = document.createElement("span");
-        messageTextNode.className = "crypt-message";
-        messageTextNode.appendChild(document.createTextNode(message));
+    avatarWrapper.appendChild(avatarI);
+    var messageTextNode = document.createElement("span");
+    messageTextNode.className = "crypt-message";
+    messageTextNode.appendChild(document.createTextNode(message));
 
-        messageBody.appendChild(avatarWrapper);
-        messageBody.appendChild(messageTextNode);
+    messageBody.appendChild(avatarWrapper);
+    messageBody.appendChild(messageTextNode);
 
-        contentSecretClass.appendChild(messageHeader);
-        contentSecretClass.appendChild(messageBody);
-        dialogMsgWrapper.appendChild(contentSecretClass);
-        $('.dialog')[0].appendChild(dialogMsgWrapper);
+    contentSecretClass.appendChild(messageHeader);
+    contentSecretClass.appendChild(messageBody);
+    dialogMsgWrapper.appendChild(contentSecretClass);
+
+    $('.dialog')[0].appendChild(dialogMsgWrapper);
 }
 
 function scrollDialog() {

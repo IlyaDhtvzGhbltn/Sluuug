@@ -15,5 +15,7 @@ namespace Slug.Model
         public int PagesCount { get; set; }
 
         public List<MessageModel> Messages { get; set; }
+
+        public string OwnResizeAvatar { get; set; }
     }
 }

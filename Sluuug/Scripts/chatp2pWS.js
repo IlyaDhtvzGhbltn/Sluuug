@@ -2,11 +2,11 @@
     $('#remote_cut_msg')[0].innerHTML = text;
 });
 
-HUB.on('GetMessage', function (object, convId) {
+HUB.on('GetMessage', function (object, bigAvatarUrl) {
     console.log(object);
     var currentUri = new URL(window.location.href);
     var currentConversation = currentUri.searchParams.get('id');
-    if (currentConversation == convId) {
+    if (currentConversation == object.ConversationId) {
         UpdateDialogInCnv(object);
     }
 });
@@ -29,7 +29,7 @@ function SendMessageFromChat(conversationId) {
         HUB.invoke('SendMessage', text, conversationId, 0);
         $('#new_msg').val('')
 
-        var ownAvatar = $('.own-avatar')[0].src;
+        var ownAvatar = $('.own-avatar-span')[0].innerHTML;
         $('.dialog')[0].insertAdjacentHTML(
             'beforeend',
             '<div class="dialog-msg-wrapper-out">' +

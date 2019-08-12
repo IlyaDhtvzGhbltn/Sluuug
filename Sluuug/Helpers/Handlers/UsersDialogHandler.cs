@@ -11,7 +11,6 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Messager.SimpleChat;
-using System.Data.Entity;
 
 namespace Slug.Helpers
 {
@@ -43,8 +42,11 @@ namespace Slug.Helpers
                 int interlocutorID = context.ConversationGroup
                     .First(x => x.ConversationGuidId == convId && x.UserId != userID).UserId;
                 var interlocutorUser = context.Users.First(x => x.Id == interlocutorID).UserFullInfo;
+                var userHandler = new UsersHandler();
+                dModel.OwnResizeAvatar = Resize.ResizedAvatarUri(userHandler.BaseUser(userID).AvatarResizeUri, ModTypes.c_scale, 60, 60);
 
-                dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocutorUser.SurName);
+
+dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocutorUser.SurName);
 
                 List<Message> msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
@@ -73,7 +75,6 @@ namespace Slug.Helpers
             }
             return dModel;
         }
-
         public int[] GetConversatorsIds(Guid convId)
         {
             using (var context = new DataBaseContext())
@@ -91,7 +92,6 @@ namespace Slug.Helpers
             }
             return null;
         }
-
         public async Task SaveMsg(Guid convId, int userId, string text)
         {
             using (var context = new DataBaseContext())
@@ -105,19 +105,5 @@ namespace Slug.Helpers
                 await context.SaveChangesAsync();
             }
         }
-
-        public async Task<bool> IsDialogBelongUser(DataBaseContext context, Guid convId, int userId)
-        {
-            var simpleChatEntry = await context.ConversationGroup.FirstOrDefaultAsync(x => 
-                x.ConversationGuidId == convId &&
-                x.UserId == userId);
-            var cryptoChatEntry = await context.SecretChatGroups.FirstOrDefaultAsync(x =>
-                x.PartyGUID == convId &&
-                x.UserId == userId);
-            if (simpleChatEntry != null || cryptoChatEntry != null)
-                return true;
-            else return false;
-        }
-
     }
 }

@@ -71,12 +71,15 @@ namespace Sluuug.Hubs
                         {
                             AvatarPath = Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 60, 60),
                             UserName = user.Name,
+                            UserSurname = user.SurName,
                             Text = clearMsg,
-                            SenderId = user.UserId
+                            SenderId = user.UserId,
+                            ConversationId  = convGuidID
                         };
                         if (UserRecipientsConnectionIds != null)
                         {
-                            Clients.Clients(UserRecipientsConnectionIds.ConnectionId).GetMessage(messageModel, convGuidID);
+                            Clients.Clients(UserRecipientsConnectionIds.ConnectionId)
+                                .GetMessage(messageModel, Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 100, 100));
                             var responce = new NotifyHubModel();
                             responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                             responce.FromUser = user;

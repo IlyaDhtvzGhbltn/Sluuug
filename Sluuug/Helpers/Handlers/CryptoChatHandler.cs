@@ -67,7 +67,6 @@ namespace Slug.Helpers
                 return response;
             }
         }
-
         public CryptoConversationGroupModel GetCryptoChat(string sessionId)
         {
             var userHandler = new UsersHandler();
@@ -136,7 +135,7 @@ namespace Slug.Helpers
                         chat.InterlocutorSurName = interlocutor.SurName;
                         chat.InterlocutorAvatar = Resize.ResizedAvatarUri(interlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);
 
-                        var GuidId = chatGroup.PartyGUID.ToString();
+                        var GuidId = chatGroup.PartyGUID;
                         var count = context.SecretMessage.Count(x=>x.PartyId == GuidId);
                         if (count > 0)
                         {
@@ -178,7 +177,7 @@ namespace Slug.Helpers
             {
                 var message = new SecretMessages()
                 {
-                    PartyId = ChatId.ToString(),
+                    PartyId = ChatId,
                     SendingDate = DateTime.UtcNow,
                     UserSender = UserSenderId,
                     Text = msgHash
@@ -195,9 +194,8 @@ namespace Slug.Helpers
             }
         }
 
-        public CryptoDialogModel GetCryptoDialogs(string session, string GuidId, int page)
+        public CryptoDialogModel GetCryptoDialogs(string session, Guid GuidId, int page)
         {
-            Guid guidId = Guid.Parse(GuidId);
             if (page <= 0)
                 page = 1;
 
@@ -207,14 +205,14 @@ namespace Slug.Helpers
 
             var userInfos = new Dictionary<int, BaseUser>();
 
-            model.GuidId = Guid.Parse(GuidId);
+            model.GuidId = GuidId;
             model.Messages = new List<CryptoMessageModel>();
             using (var context = new DataBaseContext())
             {
-                model.isExpired = IsCryptoChatExpired(context, guidId);
+                model.isExpired = IsCryptoChatExpired(context, GuidId);
                 if (!model.isExpired)
                 {
-                    var leftTime = CryptoChatTimesLeft(context, guidId);
+                    var leftTime = CryptoChatTimesLeft(context, GuidId);
                     model.MinsLeft = leftTime.MinsLeft;
                     model.SecLeft = leftTime.SecLeft;
                 }
@@ -274,6 +272,21 @@ namespace Slug.Helpers
                 ids = IDs;
             }
             return ids;
+        }
+
+        public CryptoConversationModel GetCryptoDialogModel(Guid dialogId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var dialog = context.SecretChat.FirstOrDefault(x => x.PartyGUID == dialogId);
+                return new CryptoConversationModel()
+                {
+                    OpenDate = dialog.Create,
+                    CloseDate = dialog.Destroy,
+                    RemainingMins = CryptoChatTimesLeft(context, dialogId).MinsLeft,
+                    RemainingSecs = CryptoChatTimesLeft(context, dialogId).SecLeft
+                };
+            }
         }
 
         private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, int creatorUserId, Guid chatId)

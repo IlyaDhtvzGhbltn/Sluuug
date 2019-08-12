@@ -70,6 +70,7 @@ class Invited {
     }
 
     got_invitation(crypto_conversation) {
+        $('#tab2')[0].checked = true;
         localStorage.setItem(crypto_conversation.convGuidId, JSON.stringify(crypto_conversation));
         //var urlPath = document.location.pathname;
         //if (urlPath.includes('crypto_cnv')) {
@@ -290,8 +291,8 @@ HUB.on('AcceptInvitation', function (crypto_cnv) {
     inviter.got_invited_answer(crypto_cnv);
 });
 
-HUB.on('NewMessage', function (crypto_msg, avatar, name, date, guidChatId) {
-    got_message(crypto_msg, guidChatId);
+HUB.on('GetCryptoMessage', function (model, avatar, minLeft, secLeft, expiredDate) {
+    gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate);
 });
 
 HUB.on('FailCreateNewCryptoConversation', function (errorCode) {
@@ -346,12 +347,96 @@ function decryption(message, id) {
     else return '...';
 }
 
-function got_message(crypto_msg, guidChatId) {
+function gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate) {
+    console.log(expiredDate);
+    var decryptText = decryption(model.Text, model.DialogId);
+    var cutDecryptMsg = '';
+    if (decryptText.length < 27) {
+        cutDecryptMsg = decryptText;
+    }
+    else {
+        cutDecryptMsg = decryptText.substring(0,27) + '...';
+    }
+    var crptDialogEntry = $('#' + model.DialogId + ' > .conversation-body-container .last-message-container .last_msg_crypto')[0];
+    if (crptDialogEntry != undefined) {
+        crptDialogEntry.innerHTML = cutDecryptMsg;
+        $('.last-msg-date')[0].innerHTML = 'сейчас';
+        $('#' + model.DialogId).css({ 'animation': 'AlertGotMessage', 'animation-iteration-count': 'infinite', 'animation-duration': '1s' });
+    }
+    else {
+        var dialogMsgWrapper = document.createElement("div");
+        dialogMsgWrapper.className = 'chat-wrapper';
+        dialogMsgWrapper.id = model.DialogId;
+        dialogMsgWrapper.addEventListener('click', function ()
+        {
+            relocateToCryptoChat(model.DialogId);
+            event.stopPropagation();
+        });
 
-    let span_msg = getElementByXpath('//*[@id="' + guidChatId + '"]/span[2]');
-    let cryptText = span_msg.textContent;
-    let decryptText = decryption(crypto_msg, guidChatId);
-    span_msg.textContent = decryptText;
+        var avatarContainerNode = document.createElement("div");
+        var avatarImgNode = document.createElement("img");
+        avatarImgNode.className = "interlocutor-avatar-container";
+        avatarImgNode.src = avatar;
+        avatarContainerNode.appendChild(avatarImgNode);
+
+        var bodyNode = document.createElement("div");
+        bodyNode.className = 'conversation-body-container';
+
+        var interlocutorNameNode = document.createElement("div");
+        interlocutorNameNode.className = 'interlocutor-name-container';
+        var nam = document.createElement("H2");
+        nam.appendChild(document.createTextNode(model.Name + ' ' + model.SurName));
+        interlocutorNameNode.appendChild(nam);
+        var lastMessageNode = document.createElement("div");
+        lastMessageNode.className = 'last-message-container';
+        var na = document.createElement("H4");
+        na.appendChild(document.createTextNode(model.Name + ' ' + model.SurName));
+        lastMessageNode.appendChild(na);
+        var spanNode = document.createElement("span");
+        spanNode.className = 'last_msg_crypto';
+        spanNode.appendChild(document.createTextNode(cutDecryptMsg));
+        lastMessageNode.appendChild(spanNode);
+        var now = document.createElement('span');
+        now.appendChild(document.createTextNode('сейчас'));
+        lastMessageNode.appendChild(now);
+        bodyNode.appendChild(interlocutorNameNode);
+        bodyNode.appendChild(lastMessageNode);
+
+
+        var expirationPeriodNode = document.createElement("div");
+        expirationPeriodNode.className = 'expiration-period-container';
+        var sp = document.createElement("span");
+        sp.appendChild(document.createTextNode('Закроется ' + expiredDate));
+        expirationPeriodNode.appendChild(sp);
+        var spanExpirationNode = document.createElement("span");
+        var greenSpanNode = document.createElement("span");
+        greenSpanNode.style.color = 'green';
+        greenSpanNode.appendChild(document.createTextNode('Осталось : '));
+        spanExpirationNode.appendChild(greenSpanNode);
+        var sp = document.createElement("span");
+        sp.setAttribute('class', 'experation-mins');
+        spanExpirationNode.appendChild(sp.appendChild(document.createTextNode(minLeft + ' мин ')));
+        var sp = document.createElement("span");
+        sp.setAttribute('class', 'experation-mins');
+        spanExpirationNode.appendChild(sp.appendChild(document.createTextNode(secLeft + ' сек')));
+        expirationPeriodNode.appendChild(spanExpirationNode);
+        var deleteNode = document.createElement("span");
+        deleteNode.className = "delete-dialog";
+        deleteNode.appendChild(document.createTextNode('x'));
+        deleteNode.addEventListener('click', function () {
+            deleteDialog(model.DialogId);
+            event.stopPropagation();
+        });
+        expirationPeriodNode.appendChild(deleteNode);
+
+        dialogMsgWrapper.appendChild(avatarContainerNode);
+        dialogMsgWrapper.appendChild(bodyNode);
+        dialogMsgWrapper.appendChild(expirationPeriodNode);
+
+        var cryptoDialogList = $('#current-crypto-dialogs-list')[0];
+        cryptoDialogList.insertBefore(dialogMsgWrapper, cryptoDialogList.firstChild);
+        $('#' + model.DialogId).css({ 'animation': 'AlertGotMessage', 'animation-iteration-count': 'infinite', 'animation-duration': '1s' });
+    }
 }
 
 function getRandomInt(min, max) {

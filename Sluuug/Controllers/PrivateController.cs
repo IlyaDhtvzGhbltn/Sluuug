@@ -129,6 +129,7 @@ namespace Slug.Controllers
                 int userId = UsersHandler.UserIdBySession(sessionId);
                 DialogModel dialog = DialogsHandler.GetMessanges(id, userId, page);
                 dialog.DialogId = id;
+                ViewBag.OwnAvatar = dialog.OwnResizeAvatar;
                 return View(dialog);
             }
             else
@@ -224,7 +225,7 @@ namespace Slug.Controllers
             string session = GetCookiesValue(this.Request);
             try
             {
-                CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, id, page);
+                CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, Guid.Parse(id), page);
                 if (model != null)
                 {
                     string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;

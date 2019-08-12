@@ -22,6 +22,7 @@ using Slug.Context.Tables;
 using System.Data.Entity;
 using Slug.ImageEdit;
 using Slug.Helpers.Handlers.HandlersInterface;
+using Slug.Model.Messager.CryptoChat;
 
 namespace Slug.Hubs
 {
@@ -146,8 +147,26 @@ namespace Slug.Hubs
 
                 await cryptoChatWorker.SaveSecretMessageHashAsync(guidChatId, fromUserID, message);
                 await dialogDisableHandler.EnableDialog(guidChatId);
+                var cryptoDialogModel = cryptoChatWorker.GetCryptoDialogModel(guidChatId);
+
                 UserRecipientsConnectionIds = connectionWorker.GetConnectionById(toUserID);
-                Clients.Clients(UserRecipientsConnectionIds.ConnectionId).NewMessage(message, Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 60, 60), fromUser.Name, DateTime.Now, guidChatId);
+                var messageModel = new CryptoMessageModel()
+                {
+                     Name = fromUser.Name,
+                     SurName = fromUser.SurName,
+                     AvatatURI = Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 60, 60),
+                     Text = message,
+                     DialogId = guidChatId,
+                     
+                };
+
+                Clients.Clients(UserRecipientsConnectionIds.ConnectionId)
+                    .GetCryptoMessage(messageModel,
+                    Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 100, 100),
+                    cryptoDialogModel.RemainingMins,
+                    cryptoDialogModel.RemainingSecs,
+                    cryptoDialogModel.CloseDate.ToString("D")
+                    );
 
                 var response = new NotifyHubModel();
                 response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
