@@ -30,17 +30,22 @@ function untill_now_date(dateInputId, checkboxId) {
     }
 }
 
-function SaveEditedProfileInfo(parameter, value) {
-    console.log(parameter);
-    console.log(value);
+function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = false, isReload = false) {
+    console.log('alert - ' + isAlert);
+    console.log('reload - ' + isReload);
     $.ajax({
         url: "/api/edit_profile",
-        data: { paramNumer: parameter, newValue: value },
+        data: { paramNumer: parameter, newValue: value, additionParameter: optionalData },
         type: "post"
     })
         .done(function (resp) {
             if (resp.IsSuccess) {
-                document.location.reload();
+                if (isAlert) {
+                    _Alert("Данные успешно изменены", '#439d44');
+                }
+                if (isReload) {
+                    window.location.reload();
+                }
             }
         });
 }

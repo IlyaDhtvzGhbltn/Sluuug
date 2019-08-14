@@ -18,7 +18,7 @@
     float: left;
     cursor: pointer;
     position: relative;
-    width: 100%;
+    width: 98%;
     height: 120px;
     top: -10px;
     left: -10px;
@@ -104,18 +104,6 @@ h2 {
     margin-top: 10px;
 }
 
-.wire-status {
-    font-size: 18px;
-}
-
-.off {
-    color: red;
-}
-
-.on {
-    color: green;
-}
-
 .call-manage {
     text-align: center;
 }
@@ -132,118 +120,70 @@ h2 {
     transition: all 0.5s ease;
     border: 1px solid #7f7f7f;
     margin-bottom: 20px;
-    height: 100px;
+    height: 120px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    background-color:white;
 }
 
 .call-wrap:hover {
     background-color: #a2ecf3;
-    padding: 20px;
-    height: 120px;
+    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3)
 }
 
-.call-wrap:hover > .answer .run-div {
-    visibility: visible;
-    /* left:50%; */
-    opacity: 1;
-    height: 120px;
-    width: 70%;
-    margin: -20px;
-    opacity: 1;
-}
 
 .answer {
-    height: 100px;
-    width: 100%;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    margin-right: 1px;
+    margin-left: auto;
 }
 
-    .answer span {
-        color: #fff;
-        font-size: 28px;
-        height: 30px;
-        width: 100%;
-        position: relative;
-        top: 40px;
-    }
+.answer span {
+    color: #fff;
+    font-size: 28px;
+    height: 30px;
+    width: 100%;
+    position: relative;
+    top: 40px;
+    color:#7f7f7f;
+}
 
-    .answer .run-div {
-        height: 100%;
-        width: 100%;
-        float: right;
-        opacity: 0;
-        transition: all .5s ease;
-        visibility: collapse;
-        text-align: center;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-    }
-
-.accept, .refused {
-    margin: 0 10px;
+.accept,
+.refused {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     cursor: pointer;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border:1px solid #7f7f7f;
 }
 
-    .accept:hover, .refused:hover {
-        box-shadow: 0 0 12px 5px rgba(15, 15, 15, 0.3);
-        border: 1px solid #7f7f7f;
-    }
-
-
-.answer .run-div .accept {
-    background-color: #49b2da;
-    width: 50%;
-}
-
-.accept img, .refused img {
-    position: relative;
-    top: 40px;
-    margin: 0px 10px;
-    height: 35px;
-    width: 35px;
-}
-
-.answer .run-div .refused {
-    background-color: #d01b1b;
-    width: 50%;
-}
-
-
-
-.call-wrap:hover > .user-avatar img {
-    top: 0;
+.refused {
+    background-color: red;
 }
 
 .user-avatar {
-    z-index: 1;
-    margin: 0px 3px 10px 40px;
+    margin-top: 7px;
+    border: 1px solid #7f7f7f;
 }
-
-    .user-avatar img {
-        transition: all 0.5s ease;
-        position: relative;
-        top: 10px;
-        /* float:left; */
-        /* left:50px; */
-        /* position:relative; */
-    }
 
 .user-info {
     position: relative;
-    width: 45%;
-    height: auto;
-    left: 20px;
+    margin-left: 20px;
 }
 
 
 /* Incomming call phone START */
+.puls-container{
+    width:100px;
+}
+
 .pulse {
     z-index: 999;
     position: relative;
@@ -252,7 +192,7 @@ h2 {
     transform: translate(-50%, -50%);
     background: red;
     border-radius: 50%;
-    width: 80px;
+    width: 50px;
     height: 50px;
     color: #fff;
     text-align: center;
@@ -260,26 +200,26 @@ h2 {
     font-size: 60px;
 }
 
-    .pulse:before,
-    .pulse:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        border: 50%;
-        border: 1px solid red;
-        left: -20px;
-        right: -20px;
-        top: -20px;
-        bottom: -20px;
-        border-radius: 50%;
-        animation: animate 1.5s linear infinite;
-        opacity: 0;
-        backface-visibility: hidden;
-    }
+.pulse:before,
+.pulse:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    border: 50%;
+    border: 1px solid red;
+    left: -20px;
+    right: -20px;
+    top: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    animation: animate 1.5s linear infinite;
+    opacity: 0;
+    backface-visibility: hidden;
+}
 
-    .pulse:after {
-        animation-delay: .5s;
-    }
+.pulse:after {
+    animation-delay: .5s;
+}
 
 @keyframes animate {
     0% {
@@ -301,7 +241,7 @@ h2 {
 .calls {
     max-height: 600px;
     overflow-y: auto;
-    overflow-x: hide;
+    overflow-x: hidden;
     border: 1px solid #7f7f7f;
     border-radius: 10px;
 }
@@ -313,22 +253,22 @@ h2 {
     flex-wrap: nowrap;
 }
 
-    .filter span {
-        position: relative;
-        top: -7px;
-        font-size: 20px;
-        margin: 10px;
-    }
+.filter span {
+    position: relative;
+    top: -7px;
+    font-size: 20px;
+    margin: 10px;
+}
 
-    .filter select {
-        cursor: pointer;
-        font-size: 18px;
-        height: 36px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        padding: 8px;
-    }
+.filter select {
+    cursor: pointer;
+    font-size: 18px;
+    height: 36px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px;
+}
 
 .header {
     text-align: center;
@@ -414,6 +354,20 @@ h2 {
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 465px;
+    min-height: 465px;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+}
+
+.wire-container {
+    margin-left:130px;
+}
+
+.wire-status{
+    margin-top:0px;
+}
+
+.wire-status-circle {
+    margin-top: 15px;
+    margin-right: 6px;
 }

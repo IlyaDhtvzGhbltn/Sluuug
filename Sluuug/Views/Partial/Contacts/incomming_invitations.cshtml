@@ -1,10 +1,32 @@
 ﻿
-@model Slug.Model.Users.FriendModel
+@model Slug.Model.Users.BaseUser
 @using Slug.Extensions
 
+@{
+    var activeCircleClass = new Dictionary<bool, string>()
+    {
+        { true, "on-wire-circle"},
+        { false, "off-wire-circle"}
+    };
+}
 
-<div class="invitation_user" onclick="redirectToUser(@Model.UserId)">
-        <img src="@Model.AvatarResizeUri" />
-        <h2>@Model.Name  @Model.SurName</h2>
-        <button id="add_contact_button" onclick="acceptFriendshipInvitation(@Model.UserId)">@Html.Translate("Button_Accept_Contact")</button>
+<div class="contact-wrapper">
+    <div class="entry-container">
+        <div class="head">
+            <img src="@Model.AvatarResizeUri" />
+        </div>
+        <div class="body">
+            <div onclick="redirectToUser(@Model.UserId)">
+                <h2>@Model.Name @Model.SurName</h2>
+            </div>
+            <div class="info">
+                <div class="wire-status-circle @activeCircleClass[Model.IsActive]"></div>
+                <span>@Model.Age лет @Model.Country @Model.City</span>
+            </div>
+            <span>@Model.HelloMessage</span>
+        </div>
+        <div class="manage">
+            <button id="add_contact_button" onclick="acceptFriendshipInvitation(@Model.UserId)">@Html.Translate("Button_Accept_Contact")</button>
+        </div>
+    </div>
 </div>

@@ -18,7 +18,6 @@ var friend_divs = $('.invitation');
 });
 
 function acceptFriendshipInvitation(userID) {
-    console.log('accept...' + userID);
     HUB.invoke('AcceptContact', userID)
         .done(function () {
             window.location.reload();
@@ -26,9 +25,43 @@ function acceptFriendshipInvitation(userID) {
 }
 
 function dropFromContacts(userID) {
-    console.log('drop...' + userID);
     HUB.invoke('DropContact', userID).done(function () {
-        $(".accepted_user_#" + userID)[0].remove();
+        try {
+            $(".accepted_user_#" + userID)[0].remove();
+        }
+        catch{ }
     });
+}
 
+function blockUser(id, message) {
+    $.ajax({
+        type: 'post',
+        url: '/api/block_user',
+        data: { BlockedUserId: id, HateMessage: message },
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+function UnblockUser(Id) {
+    $.ajax({
+        type: 'post',
+        url: '/api/unblockuser',
+        data: { UserNeedUnblockId: Id },
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+function addToContacts() {
+    HUB.invoke('AddFriend', getID());
+    window.location.reload();
+}
+
+function getID() {
+    var url = window.location;
+    var params = /[0-9]*$/g.exec(url);
+    return params[0];
 }

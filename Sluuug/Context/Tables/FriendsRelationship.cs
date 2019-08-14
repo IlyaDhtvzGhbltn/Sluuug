@@ -1,5 +1,6 @@
 ﻿using Context;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +24,7 @@ namespace Slug.Context.Tables
 
         [Required]
         public FriendshipItemStatus Status { get; set; }
+
+        public Guid BlockEntrie { get; set; }
     }
 }

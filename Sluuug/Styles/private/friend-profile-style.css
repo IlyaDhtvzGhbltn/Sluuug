@@ -64,18 +64,23 @@
     z-index: 1;
 }
 
-.message-form #new-message-checkbox
-{
-	z-index:5;
-	display:block;
-	opacity:0;
-	position:relative;
-	top:0px;
-	left:0px;
-	height:50px;
-	width:94px;
-	cursor:pointer;
+#delete-friend{
+    position: absolute;
+    bottom: 24px;
+    height: 50px;
+    margin-left: 10px;
+}
 
+.message-form #new-message-checkbox {
+    z-index: 5;
+    display: block;
+    opacity: 0;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    width: 94px;
+    cursor: pointer;
 }
 
 .send-new-message-form button

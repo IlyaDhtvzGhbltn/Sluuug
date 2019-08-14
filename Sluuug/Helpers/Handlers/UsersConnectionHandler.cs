@@ -36,24 +36,33 @@ namespace Slug.Helpers
 
         public async Task CloseConnection(string session, string closedConnection)
         {
-            UsersHandler userHandler = new UsersHandler();
-            int userID = userHandler.UserIdBySession(session);
+            var userHandler = new UsersHandler();
+            var videoConferenceHandler = new VideoConferenceHandler();
+            int userId = userHandler.UserIdBySession(session);
             var connectionId = Guid.Parse(closedConnection);
             using (var context = new DataBaseContext())
             {
-                UserConnections connectionItems =  await
+                UserConnections connectionItem =  await
                     context.UserConnections.Where(
                     x =>
-                    x.UserId == userID &&
+                    x.UserId == userId &&
                     x.IsActive == true &&
                     x.ConnectionId == connectionId
                     ).FirstOrDefaultAsync();
+                int connectionsCount = context.UserConnections.Where(
+                    x =>
+                    x.UserId == userId &&
+                    x.IsActive == true
+                    ).Count();
 
-                if (connectionItems != null)
+                if (connectionItem != null)
                 {
-                    connectionItems.IsActive = false;
+                    connectionItem.IsActive = false;
                     await context.SaveChangesAsync();
                 }
+
+                if (connectionsCount == 1)
+                    await videoConferenceHandler.CloseAllConferencesUserExit(context, userId);
             }
         }
 

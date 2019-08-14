@@ -31,6 +31,8 @@
         <div class="message-form">
             <input type="checkbox" id="new-message-checkbox" />
             <button id="open-new-message-button">Сообщение</button>
+            <button id="delete-friend" onclick="dropFromContacts(@Model.UserId)">Удалить из друзей</button>
+
             <div id="new_message_to_user">
                 <div>
                     <textarea id="message-to-user-area"></textarea>
@@ -120,6 +122,6 @@
     </div>
 </div>
 <img id="img_avatar" src="@ViewBag.MyAvatar" style="display:none"/>
-
+<script src="~/Scripts/myContacts.js"></script>
 <script src="~/Scripts/newMessageFromPage.js"></script>
 <script src="~/Scripts/Albums.js"></script>

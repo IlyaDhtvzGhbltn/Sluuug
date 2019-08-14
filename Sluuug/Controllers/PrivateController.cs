@@ -51,9 +51,8 @@ namespace Slug.Controllers
             datingPurposeList.ForEach(
                 x => {
                     if (x.Value == selectedDatingPurposeValue)
-                    {
                         x.Selected = true;
-                    }});
+                    });
             ViewBag.DatingPurposeList = datingPurposeList;
 
             string selectedDatingSexValue = ((int)userInfoModel.userSearchSex).ToString();
@@ -66,9 +65,7 @@ namespace Slug.Controllers
                 x => 
                 {
                     if (x.Value == selectedDatingSexValue)
-                    {
                         x.Selected = true;
-                    }
                 });
             ViewBag.DatingSexList = datingSexList;
 
@@ -88,12 +85,38 @@ namespace Slug.Controllers
                 x => 
             {
                 if (x.Value == selectedDatingAgeValue)
-                {
                     x.Selected = true;
-                }
             });
             ViewBag.DatingAgesList = datingAgesList;
 
+            var CountriesList = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Text = "Россия", Value = "7" },
+                new SelectListItem(){ Text = "USA", Value = "1" }
+            };
+            CountriesList.ForEach(x => 
+            {
+                if (x.Value == userInfoModel.CountryCode.ToString())
+                    x.Selected = true;
+            });
+            ViewBag.Countries = CountriesList;
+
+
+            var handler = new SearchHandler();
+            var CitiesList = new List<SelectListItem>();
+            List<SearchCityItem> cities = handler.CitiesByCountryID(userInfoModel.CountryCode);
+            cities.ForEach(x => 
+            {
+                var listItem = new SelectListItem()
+                {
+                    Text = x.Title,
+                    Value = x.CityCode.ToString()
+                };
+                if(listItem.Value == userInfoModel.CityCode.ToString())
+                    listItem.Selected = true;
+                CitiesList.Add(listItem);
+            });
+            ViewBag.Cities = CitiesList;
             return View(userInfoModel);
         }
 
@@ -112,7 +135,6 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> cnv()
         {
-            
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var user = UsersHandler.ProfileInfo(sessionId);
             ConversationGroupModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
@@ -151,7 +173,7 @@ namespace Slug.Controllers
                 }
                 else
                 {
-                    ForeignUserViewModel model = UsersHandler.GetForeignUserInfo(sessionId, id);
+                    BaseUser model = UsersHandler.GetForeignUserInfo(sessionId, id);
                     if(model == null)
                         return RedirectToAction("my", "private");
                     else
@@ -179,7 +201,7 @@ namespace Slug.Controllers
                     return View(userInfo);
                 }
                 else
-                    return RedirectToAction("my", "private");
+                    return RedirectToAction("user", "private", new { id = id});
             }
             else
                 return RedirectToAction("my", "private");
@@ -189,7 +211,7 @@ namespace Slug.Controllers
         public async Task<ActionResult> contacts(string type)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            MyFriendsModel model = base.UsersHandler.GetContactsBySession(sessionId);
+            ContactsModel model = base.UsersHandler.GetContactsBySession(sessionId);
             return View(model);
         }
 

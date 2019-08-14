@@ -41,7 +41,7 @@
 	margin-bottom:10px;
 }
 
-.add-contact {
+.manage-user-contact {
     position: relative;
     top: 45px;
     width: 66.6%;
@@ -53,15 +53,88 @@
     padding:20px;
 }
 
-.add-contact button
-{
-	height:50px;
+.hate-mess-checkbox {
+    height: 55px;
+    width: 176px;
+    position: absolute;
+    cursor:pointer;
+    left: 15px;
+    top: 75px;
+    opacity: 0;
+}
+.hate-mess-checkbox:hover + button{
+    background: rgb(162, 236, 243);
+    color: #7f7f7f;
+    border: 1px solid #7f7f7f;
 }
 
-.user-comment{
-	font-style:italic;
- }
+.hate-message-container textarea {
+    resize: none;
+    font-size:18px;
+    color: #7f7f7f;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.block-contact button,
+.add-contact button {
+    height: 50px;
+    width: 177px;
+}
+
+.block-contact button {
+    margin-top: 10px;
+}
+.manage-contact{
+    display:flex;
+    flex-direction:row;
+    padding:10px;
+}
+
+.last-message{
+    font-weight: bold;
+}
+
+.hate-message-container {
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 0px;
+    border: 1px solid #7f7f7f;
+    padding: 10px;
+    transition: all 0.4s ease;
+    background-color: white;
+    position: absolute;
+    top: 155px;
+}
+
+.block-message-tooltip {
+    text-align: justify;
+    margin-bottom: 15px;
+}
+
+.hate-mess-checkbox:checked ~ .hate-message-container {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+}
+
+.user-comment {
+    font-style: italic;
+}
 
 .help-message{
     position:relative;
+}
+
+.user-profile-status{
+    display:flex;
+    flex-direction:column;
+}
+
+.user-profile-status button{
+    margin-top:10px;
+    height: 40px;
+    width: 140px;
 }

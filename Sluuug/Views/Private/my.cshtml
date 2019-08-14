@@ -24,19 +24,19 @@
             </div>
 
             <div class="profile-info-location">
-                <span class="parameter" id="2" onclick="edit_private_info(this.id)">@Model.Country</span>
-                <span class="parameter" id="3" onclick="edit_private_info(this.id)">@Model.City</span>
+                @Html.DropDownList("Countries", null, new { @id="myCountry", @onchange = "getCities('myCountry','myCity', false); SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
+                @Html.DropDownList("Cities", null, new { @id="myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
                 <span>@Model.Age</span>
             </div>
 
             <div class="profile-status-container">
-                @Html.DropDownList("DatingPurposeList", null, new { @onchange = "SaveEditedProfileInfo(5, this.value)" })
+                @Html.DropDownList("DatingPurposeList", null, new { @onchange = "SaveEditedProfileInfo(5, this.value, null, false, true)" })
                 @if (Model.purpose != DatingPurposeEnum.NoDating)
                 {
 
                     <span>с</span>
-                    @Html.DropDownList("DatingSexList", null, new { @onchange = "SaveEditedProfileInfo(6, this.value)" })
-                    @Html.DropDownList("DatingAgesList", null, new { @onchange = "SaveEditedProfileInfo(7, this.value)" })
+                    @Html.DropDownList("DatingSexList", null, new { @onchange = "SaveEditedProfileInfo(6, this.value, null, false, true)" })
+                    @Html.DropDownList("DatingAgesList", null, new { @onchange = "SaveEditedProfileInfo(7, this.value, null, false, true)" })
                     <span>лет</span>
                 }
             </div>

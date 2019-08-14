@@ -16,10 +16,12 @@ namespace Context
     public enum FriendshipItemStatus
     {
         None,
-        Pending,
         Accept,
-        Close,
-        Enemies
+        Pending,
+        IblockUser,
+        UserBlockMe,
+        IInviteUserToContact,
+        UserInviteMeToContact
     }
 
     public enum CallState

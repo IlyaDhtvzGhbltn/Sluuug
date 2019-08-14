@@ -1,4 +1,5 @@
-﻿using Slug.Context.Dto.Search;
+﻿using Context;
+using Slug.Context.Dto.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +38,7 @@ namespace Slug.Model.Users
         public DatingPurposeEnum purpose { get; set; }
 
         public bool IsOnline { get; set; }
+
+        public FriendshipItemStatus Status { get; set; }
     }
 }

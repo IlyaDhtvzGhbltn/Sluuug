@@ -50,7 +50,7 @@ namespace Slug.Helpers
                 }
             };
 
-        public ICollection<SearchCityItem> CitiesByCountryID(int code)
+        public List<SearchCityItem> CitiesByCountryID(int code)
         {
             using (var context = new DataBaseContext())
             {

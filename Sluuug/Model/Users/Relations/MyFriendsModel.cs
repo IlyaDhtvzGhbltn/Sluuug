@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slug.Model.Users.Relations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,12 +7,14 @@ using System.Web;
 namespace Slug.Model.Users
 {
 
-    public class MyFriendsModel
+    public class ContactsModel
     {
-        public ICollection<FriendModel> Friends { get; set; }
+        public ICollection<BaseUser> Friends { get; set; }
 
-        public ICollection<FriendModel> IncommingInvitations { get; set; }
+        public ICollection<BaseUser> IncommingInvitations { get; set; }
 
-        public ICollection<FriendModel> OutCommingInvitations { get; set; }
+        public ICollection<BaseUser> OutCommingInvitations { get; set; }
+
+        public ICollection<BlockedUser> BlockedUser { get; set; }
     }
 }

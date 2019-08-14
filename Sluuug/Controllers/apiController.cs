@@ -19,6 +19,8 @@ using Newtonsoft.Json;
 using Slug.Resources.emoji;
 using Slug.Helpers.Handlers.HandlersInterface;
 using System.Threading.Tasks;
+using Slug.Context.Dto.UserWorker_refactor;
+using Slug.Context.Tables;
 
 namespace Slug.Controllers
 {
@@ -181,9 +183,9 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult edit_profile(UserParams paramNumer, string newValue)
+        public JsonResult edit_profile(UserParams paramNumer, string newValue, string additionParameter = null)
         {
-            var resp = UsersHandler.ChangeParameter(GetCookiesValue(Request), paramNumer, newValue);
+            var resp = UsersHandler.ChangeParameter(GetCookiesValue(Request), paramNumer, newValue, additionParameter);
             return new JsonResult { Data = resp };
         }
 
@@ -225,6 +227,29 @@ namespace Slug.Controllers
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        [HttpPost]
+        public async Task block_user(BlockContactRequest request)
+        {
+            string session = GetCookiesValue(Request);
+            var user = UsersHandler.BaseUser(session);
+            if (user != null)
+            {
+               UsersHandler.DropFrienship(session, request.BlockedUserId);
+               await UsersHandler.BlockUser(user.UserId, request);
+            }
+        }
+
+        [HttpPost]
+        public async Task unblockuser(UnblockContactRequest request)
+        {
+            string session = GetCookiesValue(Request);
+            var user = UsersHandler.BaseUser(session);
+            if (user != null)
+            {
+                await UsersHandler.UnblockUser(user.UserId, request);
             }
         }
     }

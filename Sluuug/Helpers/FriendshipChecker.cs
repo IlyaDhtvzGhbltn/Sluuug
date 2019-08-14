@@ -1,5 +1,6 @@
 ﻿using Context;
 using Slug.Context;
+using Slug.Context.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,25 @@ namespace Slug.Helpers
                 else
                     return false;
             }
+        }
+
+        public static FriendsRelationship GetRelation(DataBaseContext context, int userFirst, int userSecond)
+        {
+
+            FriendsRelationship relation = context.FriendsRelationship
+                .FirstOrDefault(x =>
+                x.UserOferFrienshipSender == userFirst && x.UserConfirmer == userSecond ||
+                x.UserConfirmer == userFirst && x.UserOferFrienshipSender == userSecond);
+            return relation;
+        }
+
+        public static BlockedUsersEntries GetBlockRelation(DataBaseContext context, int userFirst, int userSecond)
+        {
+            BlockedUsersEntries relation = context.BlackList
+                .FirstOrDefault(x => 
+                x.UserBlocked == userFirst && x.UserBlocker == userSecond ||
+                x.UserBlocked == userSecond && x.UserBlocker == userFirst);
+            return relation;
         }
     }
 }

@@ -3,25 +3,21 @@
 
 
 <div class="call-wrap" id="called__@Model.InviterID">
-    <div class="call- pulse"></div>
-    <div class="call- user-avatar">
-        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_80,w_80,c_thumb,g_face/v1559727225/users/avatars/z9xena9ehiw3re5isjrb.jpg">
+    <div class="puls-container">
+        <div class="call- pulse"></div>
+    </div>
+    <div>
+        <img class="user-avatar" src="@Model.AvatarResizeUri">
     </div>
     <div class="call- user-info">
-        <h2>@Model.CallerName @Model.CallerSurName</h2>
+        <div onclick="redirectToFriend(@Model.InviterID);event.stopProponation()">
+            <h2>@Model.CallerName @Model.CallerSurName</h2>
+        </div>
         <span>25 лет Россия Москва</span>
     </div>
     <div class="call- answer">
-        <div class="run-div">
-            <div class="accept" onclick="acceptInvite('@Model.InviterID', '@Model.ConferenceID')">
-                <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_35/v1562252734/users/avatars/call-phone.png" />
-                <span>Ответить</span>
-            </div>
-            <div class="refused" onclick="closeCallImmediately('called__@Model.InviterID', '@Model.ConferenceID')">
-                <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_35/v1562433516/system/close.png" />
-                <span>Отклонить</span>
-            </div>
-        </div>
+        <button class="accept"  onclick="acceptInvite('@Model.InviterID', '@Model.ConferenceID')">Ответить</button>
+        <button class="refused" onclick="closeCallImmediately('called__@Model.InviterID', '@Model.ConferenceID')">Отклонить</button>
     </div>
 </div>
 

@@ -276,8 +276,11 @@
     <Compile Include="Context\Dto\Settings\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Settings\SetSettingsRequest.cs" />
     <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\UnblockContactRequest.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\BlockContactRequest.cs" />
     <Compile Include="Context\ServerError\ServerErrorCodesMessagesDictionary.cs" />
     <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
+    <Compile Include="Context\Tables\BlackList.cs" />
     <Compile Include="Context\Tables\DisableDialog.cs" />
     <Compile Include="Context\Tables\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
@@ -317,6 +320,14 @@
     <Compile Include="Migrations\201908120920555_guid_secretmsg.Designer.cs">
       <DependentUpon>201908120920555_guid_secretmsg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908131219029_black_list.cs" />
+    <Compile Include="Migrations\201908131219029_black_list.Designer.cs">
+      <DependentUpon>201908131219029_black_list.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908131347551_black_list2.cs" />
+    <Compile Include="Migrations\201908131347551_black_list2.Designer.cs">
+      <DependentUpon>201908131347551_black_list2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -331,6 +342,7 @@
     <Compile Include="Model\Messager\SimpleChat\ConversationModel.cs" />
     <Compile Include="Model\Users\Relations\BaseUser.cs" />
     <Compile Include="Model\Users\Login\LoginingUserModel.cs" />
+    <Compile Include="Model\Users\Relations\BlockedUser.cs" />
     <Compile Include="Model\Users\Relations\MyProfileModel.cs" />
     <Compile Include="Model\Users\Systems\UserConnectionIdModel.cs" />
     <Compile Include="Model\Users\Systems\UserEnums.cs" />
@@ -398,7 +410,7 @@
     <Compile Include="Model\Messager\CryptoChat\CryptoDialogModel.cs" />
     <Compile Include="Model\Messager\SimpleChat\DialogModel.cs" />
     <Compile Include="Model\FullInfo\EducationModel.cs" />
-    <Compile Include="Model\Users\Relations\ForeignUserViewModel.cs" />
+    <Compile Include="Model\Users\Relations\ForeignUserModel.cs" />
     <Compile Include="Model\Users\Relations\FriendModel.cs" />
     <Compile Include="Model\FullInfo\MemorableEventsModel.cs" />
     <Compile Include="Model\Users\Registration\RegisteringUserModel.cs" />
@@ -481,6 +493,7 @@
     <Content Include="Views\Private\notification_history.cshtml" />
     <Content Include="Views\Partial\Albums\ExpandAlbum.cshtml" />
     <Content Include="Views\Partial\Albums\ExpandFriendAlbum.cshtml" />
+    <Content Include="Views\Partial\Contacts\black_list_entry.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -500,6 +513,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908120920555_guid_secretmsg.resx">
       <DependentUpon>201908120920555_guid_secretmsg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908131219029_black_list.resx">
+      <DependentUpon>201908131219029_black_list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908131347551_black_list2.resx">
+      <DependentUpon>201908131347551_black_list2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

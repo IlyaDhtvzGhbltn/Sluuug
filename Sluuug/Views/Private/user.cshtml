@@ -6,9 +6,11 @@
 @{
     var purpose = new Dictionary<DatingPurposeEnum, string>()
 {
-{DatingPurposeEnum.Communication, "общения"},
-{DatingPurposeEnum.SeriousRelationship, "серьезных отношений"},
-{DatingPurposeEnum.Sex, "секса"}
+    {DatingPurposeEnum.Communication, "общения"},
+    {DatingPurposeEnum.SeriousRelationship, "серьезных отношений"},
+    {DatingPurposeEnum.Sex, "секса"},
+    {DatingPurposeEnum.NoDating, "не знакомлюсь"},
+
 };
 
     var sex = new Dictionary<SexEnum, string>()
@@ -47,42 +49,75 @@
     <div class="-info -right">
         <h2>@Model.Name @Model.SurName</h2>
         <span>Возраст : @Model.Age</span>
-        <span>@Model.Country @Model.City</span>
-        <span id="hello-status" class="user-comment">@Model.HelloMessage</span>
-        <div class="user-search-data">
-            <span>Познакомлюсь с </span>
-            <span>@sex[Model.userSearchSex]</span>
-            <span>@age[Model.userSearchAge]</span>
-            <span>для @purpose[Model.purpose]</span>
+        @if (Model.Status != FriendshipItemStatus.IblockUser && Model.Status != FriendshipItemStatus.UserBlockMe)
+        {
+            <span>@Model.Country @Model.City</span>
+            <span id="hello-status" class="user-comment">@Model.HelloMessage</span>
+            <div class="user-search-data">
+                @if (Model.purpose != DatingPurposeEnum.NoDating)
+                {
+                    <span>Познакомлюсь с </span>
+                    <span>@sex[Model.userSearchSex]</span>
+                    <span>@age[Model.userSearchAge]</span>
+                    <span>для @purpose[Model.purpose]</span>
+                }
+                else
+                {
+                    <span>не знакомлюсь</span>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.Status == FriendshipItemStatus.None)
+{
+    <div class="manage-user-contact">
+        <div class="add-contact">
+            <button onclick="addToContacts()">Добавить в контакты</button>
+            <span class="help-message">Что бы начать общение, добавьте пользователя в контакты</span>
+        </div>
+        <div class="block-contact">
+            <input type="checkbox" class="hate-mess-checkbox" />
+            <button>Заблокировать</button>
+            <div class="hate-message-container">
+                <span class="block-message-tooltip">Оставьте сообщение, которое @Model.Name будет видеть при посещении вашей страницы.</span>
+                <textarea class="hate-message-textarea stylized-scrollbar"></textarea>
+                <div class="manage-contact">
+                    <button onclick="blockUser('@Model.UserId', $('.hate-message-textarea').val())">Готово</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-@if (Model.Status == FriendshipItemStatus.Close || Model.Status == FriendshipItemStatus.None)
-{
-<div class="add-contact">
-    <button onclick="addToContacts()">Добавить в контакты</button>
-    <span class="help-message">Что бы начать общение, добавьте пользователя в контакты</span>
-</div>
-
 }
-else if (Model.Status == FriendshipItemStatus.Pending)
+else if (Model.Status == FriendshipItemStatus.IInviteUserToContact)
 {
     <div class="user-profile-status">
-        <span>@Html.Translate("Text_Contact_Not_Accepted")</span>
+        <span>Ваша заявка ожидает подтверждения ...</span>
     </div>
 }
-<script>function addToContacts() {
-        HUB.invoke('AddFriend', getID());
-    }
 
-    HUB.on('AddUserResponce', function (responce_html) {
-        $("#add_contact").html(responce_html);
+else if (Model.Status == FriendshipItemStatus.UserInviteMeToContact)
+{
+    <div class="user-profile-status">
+        <span>@Model.Name предлагает вам дружбу</span>
+        <button onclick="acceptFriendshipInvitation(@Model.UserId)">Принять</button>
+    </div>
+}
+else if (Model.Status == FriendshipItemStatus.UserBlockMe)
+{
+    <div class="user-profile-status">
+        <span>Пользователь заблокировал вас со словами : </span>
+        <br />
+        <span class="last-message">@Model.HateMessage</span>
+    </div>
+}
+else if (Model.Status == FriendshipItemStatus.IblockUser)
+{
+    <div class="user-profile-status">
+        <span>Пользователь заблокирован @Model.BlockDate.ToString("D")</span>
+        <button onclick="UnblockUser('@Model.UserId')">Разблокировать</button>
+    </div>
+}
+<script src="~/Scripts/myContacts.js"></script>
 
-    });
-
-    function getID() {
-        var url = window.location;
-        var params = /[0-9]*$/g.exec(url);
-        return params[0];
-    }</script>

@@ -2,21 +2,22 @@
     ViewBag.Title = "contacts";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
-@model Slug.Model.Users.MyFriendsModel
+@model Slug.Model.Users.ContactsModel
 @using Slug.Extensions
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/private/contacts-style.css" rel="stylesheet" />
 <title>Мои Контакты</title>
+
 <h1>@Html.Translate("Text_My_Contacts")</h1>
 <div class="tabs">
     <div class="tab">
         <div id="in_invitations">
             <input type="radio" id="tab1" name="tab-group" checked>
-            <label class="tab-title" for="tab1">@Html.Translate("Text_Incomm_To_Friend")</label>
+            <label class="tab-title" for="tab1">Входящие</label>
             <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.IncommingInvitations)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
+                    Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
                 }
             </div>
         </div>
@@ -24,11 +25,11 @@
     <div class="tab">
         <div id="out_invitations">
             <input type="radio" id="tab2" name="tab-group">
-            <label class="tab-title" for="tab2">@Html.Translate("Text_Outcomm_Investigation")</label>
+            <label class="tab-title" for="tab2">Исходящие</label>
             <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.OutCommingInvitations)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
+                    Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
                 }
             </div>
         </div>
@@ -40,11 +41,24 @@
             <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.Friends)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.FriendModel>(item));
+                    Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
                 }
             </div>
         </div>
     </div>
+    <div class="tab">
+        <div id="black-list">
+            <input type="radio" id="tab4" name="tab-group">
+            <label class="tab-title" for="tab4">Черный список</label>
+            <div class="tab-content stylized-scrollbar">
+                @foreach (var item in Model.BlockedUser)
+                {
+                    Html.RenderPartial("~/Views/Partial/Contacts/black_list_entry.cshtml", item, new ViewDataDictionary<Slug.Model.Users.Relations.BlockedUser>(item));
+                }
+            </div>
+        </div>
+    </div>
+
 </div>
 <script src="~/Scripts/myContacts.js"></script>
 <script src="~/Scripts/RelocationToUser.js"></script>
@@ -61,7 +75,10 @@
                 break;
             case "in":
                 $('#tab1').attr("checked", "checked");
-                break;
+                 break;
+             case "bl":
+                 $('#tab4').attr("checked", "checked");
+                 break;
         }
     }
 </script>

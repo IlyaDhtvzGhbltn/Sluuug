@@ -8,6 +8,14 @@
     margin-top:2px;
     margin-bottom:2px;
 }
+h2 {
+    cursor: pointer;
+    transition:all .5s ease;
+}
+
+h2:hover {
+    color: #a9a9a9;
+}
 
 .stylized-scrollbar::-webkit-scrollbar {
     width: 12px;
@@ -459,7 +467,31 @@ input[type=range] {
 }
 /* DELETE DIALOG SPAN */
 
+.wire-status-circle {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+}
 
+.off {
+    color: red;
+}
 
+.off-wire-circle {
+    background-color: #ee6060;
+    -webkit-box-shadow: 0px 0px 5px 3px #ee6060;
+}
 
+.on-wire-circle {
+    background-color: green;
+    -webkit-box-shadow: 0px 0px 5px 3px green;
+}
 
+.on {
+    color: green;
+}
+
+.wire-container {
+    display: flex;
+    flex-direction: row;
+}

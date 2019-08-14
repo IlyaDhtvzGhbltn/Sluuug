@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "conference";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
@@ -7,12 +6,11 @@
 @model Slug.Model.VideoConference.VideoConferenceModel
 @using Slug.Extensions
 
-<link href="~/Styles/private/video-conversation-main.css" rel="stylesheet" />
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/common/await.css" rel="stylesheet" />
 <link href="~/Styles/private/incomming-call-notification-style.css" rel="stylesheet" />
+<link href="~/Styles/private/video-conversation-main.css" rel="stylesheet" />
 <title>Видео Связь</title>
-
 <div class="tabs">
     <div class="tab">
         <div id="friends">
@@ -42,7 +40,7 @@
                 {
                     <div class="notify"></div>
                 }
-                Входящие звонки
+                Активные звонки
             </label>
             <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.IncomingCalls)

@@ -21,6 +21,7 @@ using Slug.ImageEdit;
 using Slug.Model.Users.Relations;
 using Slug.Context.Dto.Search;
 using System.Globalization;
+using Slug.Context.Dto.UserWorker_refactor;
 
 namespace Slug.Helpers
 {
@@ -138,6 +139,7 @@ namespace Slug.Helpers
             var userCountry = context.Countries
                 .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
                 .FirstOrDefault();
+            userModel.CountryCode = user.UserFullInfo.NowCountryCode;
 
             if (userCountry != null)
                 userModel.Country = userCountry.Title;
@@ -146,6 +148,7 @@ namespace Slug.Helpers
 
             var City = context.Cities.Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
                 .FirstOrDefault();
+            userModel.CityCode = user.UserFullInfo.NowCityCode;
 
             if (City != null)
                 userModel.City = City.Title;
@@ -513,7 +516,7 @@ namespace Slug.Helpers
                 if (friendsIds.Count > 0)
                 {
 
-                    foreach (var friendId in friendsIds)
+                    foreach (int friendId in friendsIds)
                     {
                         BaseUser userInfo = BaseUser(friendId);
                         var friend = new BaseUser()
@@ -526,8 +529,7 @@ namespace Slug.Helpers
                             City = userInfo.City,
                             Age = userInfo.Age
                         };
-                        bool isOnline = context.UserConnections.Any(x => x.IsActive == true && x.UserId == friendId);
-                        friend.IsActive = isOnline;
+                        friend.IsActive = IsOnline(context, friendId);
                         model.Add(friend);
                     }
                 }
@@ -535,12 +537,13 @@ namespace Slug.Helpers
             return model;
         }
 
-        public MyFriendsModel GetContactsBySession(string sessionId, int avatarResize = 100)
+        public ContactsModel GetContactsBySession(string sessionId, int avatarResize = 100)
         {
-            var model = new MyFriendsModel();
-            model.Friends = new List<FriendModel>();
-            model.IncommingInvitations = new List<FriendModel>();
-            model.OutCommingInvitations = new List<FriendModel>();
+            var model = new ContactsModel();
+            model.Friends = new List<BaseUser>();
+            model.IncommingInvitations = new List<BaseUser>();
+            model.OutCommingInvitations = new List<BaseUser>();
+            model.BlockedUser = new List<BlockedUser>();
 
             using (var context = new DataBaseContext())
             {
@@ -549,21 +552,11 @@ namespace Slug.Helpers
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
-                FriendsRelationship[] inCommingFriendshipPending = context.FriendsRelationship
-                    .Where(x => x.UserConfirmer == userId)
-                    .Where(x => x.Status == FriendshipItemStatus.Pending)
-                    .ToArray();
-
-                FriendsRelationship[] outCommingFriendshipPending = context.FriendsRelationship
-                .Where(x => x.UserOferFrienshipSender == userId)
-                .Where(x => x.Status == FriendshipItemStatus.Pending)
-                .ToArray();
 
                 if (friendshipAccepted.Count() >= 1)
                 {
                     var confirmerIds = friendshipAccepted.Where(x => x.UserConfirmer != userId).Select(x => x.UserConfirmer);
                     var acceptedIds = friendshipAccepted.Where(x => x.UserOferFrienshipSender != userId).Select(x => x.UserOferFrienshipSender);
-
                     var FriendsConfirmIDs = confirmerIds.Concat(acceptedIds).ToArray();
 
                     for (int i = 0; i < FriendsConfirmIDs.Count(); i++)
@@ -571,7 +564,7 @@ namespace Slug.Helpers
                         BaseUser friendUserInfo = BaseUser(FriendsConfirmIDs[i]);
                         //int friendAges = DateTime.Now.Year - friendUserInfo.DateBirth.Year;
 
-                        var friend = new FriendModel()
+                        var friend = new BaseUser()
                         {
                             UserId = friendUserInfo.UserId,
                             AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, avatarResize, avatarResize),
@@ -579,11 +572,18 @@ namespace Slug.Helpers
                             SurName = friendUserInfo.SurName,
                             Country = friendUserInfo.Country,
                             City = friendUserInfo.City,
-                            Age = friendUserInfo.Age
+                            Age = friendUserInfo.Age,
+                            HelloMessage = friendUserInfo.HelloMessage
                         };
+
+                        friend.IsActive = IsOnline(context, friendUserInfo.UserId);
                         model.Friends.Add(friend);
                     }
                 }
+                FriendsRelationship[] inCommingFriendshipPending = context.FriendsRelationship
+                    .Where(x => x.UserConfirmer == userId)
+                    .Where(x => x.Status == FriendshipItemStatus.Pending)
+                    .ToArray();
 
                 if (inCommingFriendshipPending.Count() >= 1)
                 {
@@ -591,30 +591,65 @@ namespace Slug.Helpers
                     for (int i = 0; i < inCommingFriendshipPending.Count(); i++)
                     {
                         BaseUser friendUserInfo = BaseUser(inCommingFriendshipPending[i].UserOferFrienshipSender);
-                        var inInvite = new FriendModel()
+                        var inInvite = new BaseUser()
                         {
                             UserId = friendUserInfo.UserId,
                             AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, avatarResize, avatarResize),
                             Name = friendUserInfo.Name,
-                            SurName = friendUserInfo.SurName
+                            SurName = friendUserInfo.SurName,
+                            HelloMessage = friendUserInfo.HelloMessage,
+                            Country = friendUserInfo.Country,
+                            City = friendUserInfo.City,
+                            Age = friendUserInfo.Age,
                         };
+
+                        inInvite.IsActive = IsOnline(context, friendUserInfo.UserId);
                         model.IncommingInvitations.Add(inInvite);
                     }
                 }
+
+                FriendsRelationship[] outCommingFriendshipPending = context.FriendsRelationship
+                    .Where(x => x.UserOferFrienshipSender == userId)
+                    .Where(x => x.Status == FriendshipItemStatus.Pending)
+                    .ToArray();
 
                 if (outCommingFriendshipPending.Count() >= 1)
                 {
                     for (int i = 0; i < outCommingFriendshipPending.Count(); i++)
                     {
                         BaseUser friendUserInfo = BaseUser(outCommingFriendshipPending[i].UserConfirmer);
-                        var outInvite = new FriendModel()
+                        var outInvite = new BaseUser()
                         {
                             UserId = friendUserInfo.UserId,
                             AvatarResizeUri = Resize.ResizedAvatarUri(friendUserInfo.AvatarResizeUri, ModTypes.c_scale, avatarResize, avatarResize),
                             Name = friendUserInfo.Name,
-                            SurName = friendUserInfo.SurName
+                            SurName = friendUserInfo.SurName,
+                            Country = friendUserInfo.Country,
+                            City = friendUserInfo.City,
+                            Age = friendUserInfo.Age,
+                            HelloMessage = friendUserInfo.HelloMessage
                         };
+
+                        outInvite.IsActive = IsOnline(context, outInvite.UserId);
                         model.OutCommingInvitations.Add(outInvite);
+                    }
+                }
+
+                List<BlockedUsersEntries> blockedUsers = context.BlackList.Where(x => x.UserBlocker == userId).ToList();
+                if (blockedUsers != null)
+                {
+                    foreach (var item in blockedUsers)
+                    {
+                        BaseUser blockUser = BaseUser(item.UserBlocked);
+                        model.BlockedUser.Add(new BlockedUser()
+                        {
+                            UserId = item.UserBlocked,
+                            HateMessage = item.HateMessage,
+                            AvatarResizeUri = Resize.ResizedAvatarUri(blockUser.AvatarResizeUri, ModTypes.c_scale, 100, 100),
+                            Name = blockUser.Name,
+                            SurName = blockUser.SurName,
+                            BlockDate = item.BlockDate
+                        });
                     }
                 }
             }
@@ -665,7 +700,6 @@ namespace Slug.Helpers
                     return intersectGuids[0];
                 }
             }
-            return Guid.Empty;
         }
 
         public void ChangeAvatarResizeUri(string session, Uri newUri)
@@ -705,17 +739,15 @@ namespace Slug.Helpers
 
         public BaseUser AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
-            ProfileModel userSenderRequest = ProfileInfo(session, false);
+            BaseUser userSenderRequest = BaseUser(session);
             using (var context = new DataBaseContext())
             {
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
                 if (invitedUser != null)
                 {
-                    FriendsRelationship invitationAlreadySand = context.FriendsRelationship
-                        .FirstOrDefault(x => x.UserOferFrienshipSender == userSenderRequest.UserId && x.UserConfirmer == invitedUser.Id ||
-                        x.UserConfirmer == userSenderRequest.UserId && x.UserOferFrienshipSender == invitedUser.Id);
-
-                    if (invitationAlreadySand == null)
+                    FriendsRelationship invitationAlreadySand = 
+                        FriendshipChecker.GetRelation(context, userSenderRequest.UserId, userIDToFriendsInvite);
+                    if (invitationAlreadySand == null || invitationAlreadySand.Status == FriendshipItemStatus.None)
                     {
                         var relation = new FriendsRelationship();
                         relation.OfferSendedDate = DateTime.UtcNow;
@@ -726,45 +758,64 @@ namespace Slug.Helpers
                         context.SaveChanges();
                         return userSenderRequest;
                     }
-                    else if (invitationAlreadySand.Status == FriendshipItemStatus.Close)
-                    {
-                        invitationAlreadySand.Status = FriendshipItemStatus.Pending;
-                        context.SaveChanges();
-                        return userSenderRequest;
-                    }
                 }
             }
             return null;
         }
 
-        public ForeignUserViewModel GetForeignUserInfo(string session, int userID)
+        public BaseUser GetForeignUserInfo(string session, int userObjectRequestId)
         {
-            var model = new ForeignUserViewModel();
+            var model = new BaseUser();
             using (var context = new DataBaseContext())
             {
-                var userInfo = BaseUser(userID);
-                if (userInfo == null)
-                    return null;
-                var secUserInfo = BaseUser(UserIdBySession(session));
-                model.AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 200, 200);
-                model.Name = userInfo.Name;
-                model.SurName = userInfo.SurName;
-                model.Age = userInfo.Age;
-                model.HelloMessage = userInfo.HelloMessage;
-                model.userSearchAge = userInfo.userSearchAge;
-                model.userSearchSex = userInfo.userSearchSex;
-                model.purpose = userInfo.purpose;
+                BaseUser someUser = BaseUser(userObjectRequestId);
+                BaseUser Iam = BaseUser(session);
 
-                model.Status = FriendshipItemStatus.None;
-                FriendsRelationship relationItem = context.FriendsRelationship
-                    .Where(
-                    x => 
-                    x.UserConfirmer == secUserInfo.UserId && x.UserOferFrienshipSender == userInfo.UserId ||
-                    x.UserOferFrienshipSender == secUserInfo.UserId && x.UserConfirmer == userInfo.UserId
-                    ).FirstOrDefault();
+                if (someUser == null || Iam == null)
+                {
+                    return null;
+                }
+                model.AvatarResizeUri = Resize.ResizedAvatarUri(someUser.AvatarResizeUri, ModTypes.c_scale, 200, 200);
+                model.Name = someUser.Name;
+                model.SurName = someUser.SurName;
+                model.Age = someUser.Age;
+                model.HelloMessage = someUser.HelloMessage;
+                model.userSearchAge = someUser.userSearchAge;
+                model.userSearchSex = someUser.userSearchSex;
+                model.purpose = someUser.purpose;
+                model.UserId = someUser.UserId;
+                model.City = someUser.City;
+                model.Country = someUser.Country;
+
+                FriendsRelationship relationItem = FriendshipChecker.GetRelation(context, Iam.UserId, userObjectRequestId);
+                BlockedUsersEntries blockItem = FriendshipChecker.GetBlockRelation(context, Iam.UserId, userObjectRequestId);
+
                 if (relationItem != null)
                 {
-                    model.Status = relationItem.Status;
+                if (relationItem.UserOferFrienshipSender == Iam.UserId)
+                    model.Status = FriendshipItemStatus.IInviteUserToContact;
+                if (relationItem.UserConfirmer == Iam.UserId)
+                    model.Status = FriendshipItemStatus.UserInviteMeToContact;
+                }
+                if (blockItem != null)
+                {
+                    var blockUser = new BlockedUser();
+                    blockUser.BlockDate = blockItem.BlockDate;
+                    blockUser.AvatarResizeUri = Resize.ResizedAvatarUri(someUser.AvatarResizeUri, ModTypes.c_scale, 200, 200);
+                    blockUser.Name = someUser.Name;
+                    blockUser.SurName = someUser.SurName;
+                    blockUser.Age = someUser.Age;
+                    blockUser.UserId = someUser.UserId;
+                    if (blockItem.UserBlocker == Iam.UserId)
+                    {
+                        blockUser.Status = FriendshipItemStatus.IblockUser;
+                    }
+                    if (blockItem.UserBlocked == Iam.UserId)
+                    {
+                        blockUser.HateMessage = blockItem.HateMessage;
+                        blockUser.Status = FriendshipItemStatus.UserBlockMe;
+                    }
+                    return blockUser;
                 }
             }
             return model;
@@ -782,9 +833,43 @@ namespace Slug.Helpers
                         .Where(x => x.UserOferFrienshipSender == myId && x.UserConfirmer == userID ||
                         x.UserConfirmer == myId && x.UserOferFrienshipSender == userID)
                         .First();
-                    entryFrienship.Status = FriendshipItemStatus.Close;
+                    context.FriendsRelationship.Remove(entryFrienship);
                     context.SaveChanges();
                 }
+            }
+        }
+
+        public async Task BlockUser(int userBlocker, BlockContactRequest request)
+        {
+            using (var context = new DataBaseContext())
+            {
+
+                Guid blockId = Guid.NewGuid();
+                var block = new BlockedUsersEntries()
+                {
+                    BlockEntryId = blockId,
+                    BlockDate = DateTime.Now,
+                    HateMessage = request.HateMessage,
+                    UserBlocker = userBlocker,
+                    UserBlocked = request.BlockedUserId
+                };
+
+                context.BlackList.Add(block);
+                var relations = FriendshipChecker.GetRelation(context, userBlocker, request.BlockedUserId);
+                if(relations != null)
+                    relations.BlockEntrie = blockId;
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UnblockUser(int userBlocker, UnblockContactRequest request)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var blockEntrie = FriendshipChecker.GetBlockRelation(context, userBlocker, request.UserNeedUnblockId);
+                context.BlackList.Remove(blockEntrie);
+                await context.SaveChangesAsync();
             }
         }
 
@@ -812,7 +897,7 @@ namespace Slug.Helpers
             }
         }
 
-        public ChangeParameterResponce ChangeParameter(string session, UserParams parameter, string newValue)
+        public ChangeParameterResponce ChangeParameter(string session, UserParams parameter, string newValue, string additionParameter)
         {
             MatchCollection matches = SlugController.ValidateSymbols.Matches(newValue);
             if (matches.Count > 0)
@@ -848,11 +933,12 @@ namespace Slug.Helpers
                             case UserParams.UserSurname:
                                 s_user.UserFullInfo.SurName = newValue;
                                 break;
-                            case UserParams.Country:
-                                s_user.UserFullInfo.NowCountryCode = Int32.Parse(newValue);
-                                break;
+                            //case UserParams.Country:
+                            //    s_user.UserFullInfo.NowCountryCode = Int32.Parse(newValue);
+                            //    break;
                             case UserParams.City:
                                 s_user.UserFullInfo.NowCityCode = Int32.Parse(newValue);
+                                s_user.UserFullInfo.NowCountryCode = Int32.Parse(additionParameter);
                                 break;
                             case UserParams.HelloStatus:
                                 s_user.UserFullInfo.HelloMessage = newValue;
@@ -905,6 +991,12 @@ namespace Slug.Helpers
                 Session sess = context.Sessions.First(x => x.Number == session);
                 return (int)sess.UserId;
             }
+        }
+
+        public bool IsOnline(DataBaseContext context, int userId)
+        {
+            bool flag = context.UserConnections.Any(x => x.IsActive == true && x.UserId == userId);
+            return flag;
         }
     }
 }

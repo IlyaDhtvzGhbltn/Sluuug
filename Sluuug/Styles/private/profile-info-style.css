@@ -32,7 +32,7 @@
 	margin-bottom:0;
 }
 
-.profile-status-container select{
+select{
 	cursor:pointer;
 	font-size:18px;
 }

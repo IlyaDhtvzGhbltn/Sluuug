@@ -16,6 +16,12 @@
                     { false, "off"}
                 };
 
+                var activeCircleClass = new Dictionary<bool, string>()
+                {
+                    { true, "on-wire-circle"},
+                    { false, "off-wire-circle"}
+                };
+
                 var activeDisable = new Dictionary<bool, string>()
                 {
                     { true, ""},
@@ -39,7 +45,10 @@
             <br>
             <span>@Model.Age лет @Model.Country @Model.City</span>
             <br>
-            <span class="wire-status @activeClass[Model.IsActive]">@activeSpan[Model.IsActive]</span>
+            <div class="wire-container">
+                <div class="wire-status-circle @activeCircleClass[Model.IsActive]"></div>
+                <span class="wire-status @activeClass[Model.IsActive]">@activeSpan[Model.IsActive]</span>
+            </div>
         </div>
     </div>
 

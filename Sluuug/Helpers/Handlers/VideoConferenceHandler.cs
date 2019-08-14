@@ -92,6 +92,21 @@ namespace Slug.Helpers
             }
         }
 
+        public List<VideoConference> ActiveVideoConverence(DataBaseContext context, int userId)
+        {
+            List<Guid> allUserConferences = context.VideoConferenceGroups
+                .Where(x => x.UserId == userId)
+                .Select(x => x.GuidId)
+                .ToList();
+
+            List<VideoConference> activeConference = context.VideoConferences
+                .Where(x => allUserConferences.Contains(x.GuidId))
+                .Where(x => x.IsActive == true)
+                .ToList();
+
+            return activeConference;
+        }
+
         public VideoConferenceModel VideoConferenceModel (string sessionID)
         {
             var model = new VideoConferenceModel();
@@ -110,46 +125,11 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                //Guid[] conferenceHistoryIDs = context.VideoConferenceGroups
-                //    .OrderByDescending(x => x.Id)
-                //    .Where(x=>x.UserId == myId)
-                //    .Select(x => x.GuidId)
-                //    .Take(100)
-                //    .ToArray();
-                //foreach (var item in conferenceHistoryIDs)
-                //{
-                //    var call = new CallModel();
-                //    VideoConference conference = context.VideoConferences
-                //        .Where(x=>x.GuidId == item && x.IsActive == false)
-                //        .FirstOrDefault();
-                //    if (conference != null)
-                //    {
-                //        call.CallerUserId = conference.ConferenceCreatorUserId;
-                //        call.Date = conference.CreationDate;
-                //        if (call.CallerUserId == myId)
-                //            call.State = CallState.Out;
-                //        else
-                //            call.State = CallState.In;
-
-                //        int calleId = context.VideoConferenceGroups
-                //            .Where(x => x.GuidId == item && x.UserId != myId)
-                //            .First().UserId;
-                //        call.CalleUserId = calleId;
-                //        model.CallsHistory.Add(call);
-                //    }
-                //}
-
-                List<VideoConferenceGroups> userConverense = context.VideoConferenceGroups
-                    .Where(x => x.UserId == myId)
-                    .ToList();
-
-                List<VideoConference> incomingCalls = context.VideoConferences
-                    .Where(x => x.IsActive == true)
-                    .ToList();
-                if (incomingCalls.Count > 0)
+                List<VideoConference> activeConference = ActiveVideoConverence(context, myId);
+                if (activeConference.Count > 0)
                 {
                     model.IsIncommingExist = true;
-                    foreach (var item in incomingCalls)
+                    foreach (var item in activeConference)
                     {
                         var incoming = new IncomingInviteModel();
                         incoming.ConferenceID = item.GuidId;
@@ -162,12 +142,11 @@ namespace Slug.Helpers
                         incoming.InviterID = participantID;
                         incoming.CallerName = usersHandler.BaseUser(participantID).Name;
                         incoming.CallerSurName = usersHandler.BaseUser(participantID).SurName;
-                        incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 50, 50);
+                        incoming.AvatarResizeUri = Resize.ResizedAvatarUri(info.AvatarResizeUri, ModTypes.c_scale, 100, 100);
                         model.IncomingCalls.Add(incoming);
                     }
                 }
             }
-
             return model;
         }
 
@@ -213,6 +192,31 @@ namespace Slug.Helpers
                     .Where(x => x.GuidId == videoConferenceID && x.UserId != insteadUserID)
                     .Select(x => x.UserId)
                     .First();
+            }
+        }
+
+        public async Task CloseAllConferencesUserExit(DataBaseContext context, int userExit)
+        {
+            List<VideoConference> allVideoConferences = ActiveVideoConverence(context, userExit);
+            var usersInVideoConferences = new List<int>();
+            allVideoConferences.ForEach(x => 
+            {
+                int otherUserInConference = context.VideoConferenceGroups
+                    .First(c => c.GuidId == x.GuidId).UserId;
+                usersInVideoConferences.Add(otherUserInConference);
+            });
+
+            var userHandler = new UsersHandler();
+            bool someOneOnlineFlag = false;
+            usersInVideoConferences.ForEach(user =>
+            {
+                bool isOnline = userHandler.IsOnline(context, user);
+                if (isOnline)
+                    someOneOnlineFlag = true;
+            });
+            if (usersInVideoConferences.Count != 0 && !someOneOnlineFlag)
+            {
+                allVideoConferences.ForEach(c => CloseConverence(c.GuidId));
             }
         }
     }
