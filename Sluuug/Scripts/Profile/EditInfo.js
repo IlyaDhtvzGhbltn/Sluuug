@@ -31,14 +31,16 @@ function untill_now_date(dateInputId, checkboxId) {
 }
 
 function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = false, isReload = false) {
-    console.log('alert - ' + isAlert);
-    console.log('reload - ' + isReload);
+    _Alert('Идет сохранение, пожалуйста подождите...', '#7f7f7f');
+    console.log(isAlert);
+    console.log(isReload);
+    console.log(value);
     $.ajax({
         url: "/api/edit_profile",
         data: { paramNumer: parameter, newValue: value, additionParameter: optionalData },
-        type: "post"
-    })
-        .done(function (resp) {
+        type: "post",
+        success: function (resp) {
+            CloseAlert();
             if (resp.IsSuccess) {
                 if (isAlert) {
                     _Alert("Данные успешно изменены", '#439d44');
@@ -47,7 +49,11 @@ function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = 
                     window.location.reload();
                 }
             }
-        });
+            else {
+                _Alert('Ошибка сохранения.', 'red');
+            }
+        }
+    });
 }
 
 function VisibleHightShoolParameterInNewEntry(selectedValue) {

@@ -11,3 +11,7 @@ function _Alert(message, alertTextColor = null) {
     $('.alert').addClass('show');
     $('.alert-text')[0].innerHTML = message;
 }
+
+function _ALertCallBack(message, okCallback, noneCallback) {
+
+}
