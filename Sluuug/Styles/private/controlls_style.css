@@ -477,9 +477,18 @@ input[type=range] {
     color: red;
 }
 
+.pending {
+    color: #ffb700;
+}
+
 .off-wire-circle {
     background-color: #ee6060;
     -webkit-box-shadow: 0px 0px 5px 3px #ee6060;
+}
+
+.pen-wire-circle {
+    background-color: #ffb700;
+    -webkit-box-shadow: 0px 0px 5px 3px #ffb700;
 }
 
 .on-wire-circle {

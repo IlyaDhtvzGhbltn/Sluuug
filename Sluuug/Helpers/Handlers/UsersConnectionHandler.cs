@@ -34,7 +34,7 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task CloseConnection(string session, string closedConnection)
+        public void CloseConnection(string session, string closedConnection)
         {
             var userHandler = new UsersHandler();
             var videoConferenceHandler = new VideoConferenceHandler();
@@ -42,13 +42,12 @@ namespace Slug.Helpers
             var connectionId = Guid.Parse(closedConnection);
             using (var context = new DataBaseContext())
             {
-                UserConnections connectionItem =  await
-                    context.UserConnections.Where(
+                UserConnections connectionItem = context.UserConnections.Where(
                     x =>
                     x.UserId == userId &&
                     x.IsActive == true &&
                     x.ConnectionId == connectionId
-                    ).FirstOrDefaultAsync();
+                    ).FirstOrDefault();
                 int connectionsCount = context.UserConnections.Where(
                     x =>
                     x.UserId == userId &&
@@ -58,11 +57,11 @@ namespace Slug.Helpers
                 if (connectionItem != null)
                 {
                     connectionItem.IsActive = false;
-                    await context.SaveChangesAsync();
+                    context.SaveChanges();
                 }
 
                 if (connectionsCount == 1)
-                    await videoConferenceHandler.CloseAllConferencesUserExit(context, userId);
+                    videoConferenceHandler.CloseAllConferencesUserExit(context, userId);
             }
         }
 

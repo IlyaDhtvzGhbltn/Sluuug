@@ -1,10 +1,22 @@
 ﻿@model Slug.Model.Users.WorkPlacesModel
 @using Slug.Extensions
 
-<div class="item-info">
-    <h3>@Model.CompanyTitle</h3>
-    <span>@Model.Position</span>
-    <span>@Model.Country @Model.City</span>
-    <span>@Model.Start - @Model.End</span>
-    <span class="user-comment">«@Model.Comment»</span>
+
+<div class="info-item work">
+    <div class="item-info">
+        <h3>@Model.CompanyTitle</h3>
+        <span>@Model.Position @Model.Country @Model.City</span>
+        @if (Model.UntilNow)
+        {
+            <span>с @Model.StartDateFormat по настоящее время</span>
+        }
+        else
+        {
+            <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Comment))
+        {
+            <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        }
+    </div>
 </div>

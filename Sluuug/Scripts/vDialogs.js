@@ -47,7 +47,7 @@ function calleInviteToRedirect(modeljson) {
 }
 
 function callerToRedirect(guid) {
-    window.open('/private/v_conversation?id=' + guid, '_blank');
+    window.open('/private/v_conversation?id=' + guid);
 }
 
 function closeCallImmediately(blockID, guid) {
@@ -60,7 +60,7 @@ function closeCallImmediately(blockID, guid) {
 
 function acceptInvite(inviterId, guidID) {
     document.getElementById('called__' + inviterId).remove();
-    window.open('/private/v_conversation?id=' + guidID, '_blank');
+    window.open('/private/v_conversation?id=' + guidID);
 }
 
 async function getInfoById(id, parameter) {

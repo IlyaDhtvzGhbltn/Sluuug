@@ -17,11 +17,14 @@
 	border:1px solid #7f7f7f;
 }
 
-.-right
-{
-	display:flex;
-	flex-direction:column;
-	margin-left:20px;
+.event-album{
+    top:15px;
+}
+
+.-right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
 }
 
 .-right span
@@ -130,8 +133,21 @@
 }
 
 /* REWRITE */
+.album:hover > .album-manage {
+    visibility: visible;
+    bottom: 130px;
+    opacity: 1;
+    z-index: 999;
+}
 
 
+.arrow.-right.segunda.next {
+    left: -8px;
+}
+
+.navigate-album-right > .center-con > .round > #cta {
+    left: -7px;
+}
 /* REWRITE END */
 
 

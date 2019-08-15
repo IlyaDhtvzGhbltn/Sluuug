@@ -55,9 +55,11 @@ select{
     transition: all 0.5s ease;
 }
 
-.profile-full-info-item-wrapper h2{
- 	text-align:center;
-	margin:0;
+.profile-full-info-item-wrapper h2 {
+    text-align: center;
+    margin: 0;
+    position: relative;
+    bottom: 10px;
 }
 
 .profile-full-info-item-wrapper input[type="checkbox"] {

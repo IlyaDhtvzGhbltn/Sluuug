@@ -81,17 +81,18 @@ function AddProfileEntry(formName, tooltipContainerId, successfulController, inp
         });
     }
     else {
+        _Alert('Добавляем данные, пожалуйста подождите...', '#7f7f7f');
         if (inputUploaded == null) {
-            //$.ajax({
-            //    type: 'post',
-            //    url: successfulController,
-            //    data: { model: validateResult.result },
-            //    success: function (resp) {
-            //        if (resp) {
-            //            window.location.reload();
-            //        }
-            //    }
-            //});
+            $.ajax({
+                type: 'post',
+                url: successfulController,
+                data: { model: validateResult.result },
+                success: function (resp) {
+                    if (resp) {
+                        window.location.reload();
+                    }
+                }
+            });
         }
         else {
             var form = new FormData();
@@ -144,6 +145,7 @@ function DeleteUploadFile(fileSize) {
 }
 
 function DeleteProfileEntry(guid) {
+    _Alert('Удаляем, пожалуйста подождите...');
     $.ajax({
         type: 'post',
         url: '/api/drop_entry',

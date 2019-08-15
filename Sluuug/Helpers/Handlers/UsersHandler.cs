@@ -196,14 +196,15 @@ namespace Slug.Helpers
             userModel.Events = new List<MemorableEventsModel>();
             Events.ForEach(x =>
             {
-                string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.DateEvent).ToString("D");
+                string endDate = (x.DateEvent == null) ? endDate = "настоящее время" : endDate = (x.DateEvent).ToString("D");
                 var eventModel = new MemorableEventsModel()
                 {
                     Text = x.TextEventDescription,
                     DateEventFormat = endDate,
                     EventTitle = x.EventTitle,
                     Id = x.Id,
-                    Photos = new List<FotoModel>()
+                    Photos = new List<FotoModel>(),
+                    BindedAlbumId = x.AlbumGuid
                 };
                 List<Foto> eventPhotos = context.Fotos.Where(y => y.AlbumID == x.AlbumGuid).ToList();
                 if (eventPhotos != null && eventPhotos.Count > 0)
@@ -248,7 +249,7 @@ namespace Slug.Helpers
             userModel.Works = new List<WorkPlacesModel>();
             Works.ForEach(x =>
             {
-                string endDate = (x.Start == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.Start).ToString("D");
+                string endDate = (x.End == null) ? endDate = "настоящее время" : endDate = ((DateTime)x.End).ToString("D");
 
                 userModel.Works.Add(new WorkPlacesModel()
                 {
@@ -515,7 +516,7 @@ namespace Slug.Helpers
 
                 if (friendsIds.Count > 0)
                 {
-
+                    var videoHandler = new VideoConferenceHandler();
                     foreach (int friendId in friendsIds)
                     {
                         BaseUser userInfo = BaseUser(friendId);
@@ -529,8 +530,15 @@ namespace Slug.Helpers
                             City = userInfo.City,
                             Age = userInfo.Age
                         };
-                        friend.IsActive = IsOnline(context, friendId);
-                        model.Add(friend);
+                        bool alreadyStart = videoHandler.AlreadyStart(context, friendId, friendId);
+                        friend.IsOnline = IsOnline(context, friendId);
+                        if (!friend.IsOnline)
+                            friend.AcceptToInfite = VideoConverenceAcceptToCall.offline;
+                        if (friend.IsOnline && !alreadyStart)
+                            friend.AcceptToInfite = VideoConverenceAcceptToCall.online;
+                        if (friend.IsOnline && alreadyStart)
+                            friend.AcceptToInfite = VideoConverenceAcceptToCall.pending;
+                            model.Add(friend);
                     }
                 }
             }
@@ -576,7 +584,7 @@ namespace Slug.Helpers
                             HelloMessage = friendUserInfo.HelloMessage
                         };
 
-                        friend.IsActive = IsOnline(context, friendUserInfo.UserId);
+                        friend.IsOnline = IsOnline(context, friendUserInfo.UserId);
                         model.Friends.Add(friend);
                     }
                 }
@@ -603,7 +611,7 @@ namespace Slug.Helpers
                             Age = friendUserInfo.Age,
                         };
 
-                        inInvite.IsActive = IsOnline(context, friendUserInfo.UserId);
+                        inInvite.IsOnline = IsOnline(context, friendUserInfo.UserId);
                         model.IncommingInvitations.Add(inInvite);
                     }
                 }
@@ -630,7 +638,7 @@ namespace Slug.Helpers
                             HelloMessage = friendUserInfo.HelloMessage
                         };
 
-                        outInvite.IsActive = IsOnline(context, outInvite.UserId);
+                        outInvite.IsOnline = IsOnline(context, outInvite.UserId);
                         model.OutCommingInvitations.Add(outInvite);
                     }
                 }

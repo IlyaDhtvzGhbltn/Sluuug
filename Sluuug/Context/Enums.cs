@@ -36,6 +36,13 @@ namespace Context
         Calle
     }
 
+    public enum VideoConverenceAcceptToCall
+    {
+        online,
+        offline,
+        pending
+    }
+
     public enum CryptoChatStatus
     {
         SelfCreated,

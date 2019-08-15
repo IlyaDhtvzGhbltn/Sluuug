@@ -4,9 +4,19 @@
 <div class="info-item work">
     <div class="item-info">
         <h3>@Model.CompanyTitle</h3>
-        <span>@Model.Country @Model.City</span>
-        <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
-        <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        <span>@Model.Position @Model.Country @Model.City</span>
+        @if (Model.UntilNow)
+        {
+            <span>с @Model.StartDateFormat по настоящее время</span>
+        }
+        else
+        {
+            <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Comment))
+        {
+            <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        }
     </div>
     <div class="item-delete">
         <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>

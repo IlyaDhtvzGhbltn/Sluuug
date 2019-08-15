@@ -30,32 +30,37 @@ namespace Slug.Helpers
                 throw new Exception("Users Are Not Friends");
         }
 
-        public Guid Create(int creatorId, int conversationParticipant)
+        public string Create(int creatorId, int conversationParticipant)
         {
             var guidID = Guid.NewGuid();
             using (var context = new DataBaseContext())
             {
-                var conference = new VideoConference();
-                conference.IsActive = true;
-                conference.GuidId = guidID;
-                conference.CreationDate = DateTime.UtcNow;
-                conference.ConferenceCreatorUserId = creatorId;
-                context.VideoConferences.Add(conference);
+                bool alreadyStart = AlreadyStart(context, creatorId, conversationParticipant);
+                if (!alreadyStart)
+                {
+                    var conference = new VideoConference();
+                    conference.IsActive = true;
+                    conference.GuidId = guidID;
+                    conference.CreationDate = DateTime.UtcNow;
+                    conference.ConferenceCreatorUserId = creatorId;
+                    context.VideoConferences.Add(conference);
 
-                var conferenceGroup = new VideoConferenceGroups();
+                    var conferenceGroup = new VideoConferenceGroups();
 
-                conferenceGroup.GuidId = guidID;
-                conferenceGroup.UserId = conversationParticipant;
-                context.VideoConferenceGroups.Add(conferenceGroup);
+                    conferenceGroup.GuidId = guidID;
+                    conferenceGroup.UserId = conversationParticipant;
+                    context.VideoConferenceGroups.Add(conferenceGroup);
 
-                conferenceGroup = new VideoConferenceGroups();
-                conferenceGroup.GuidId = guidID;
-                conferenceGroup.UserId = creatorId;
-                context.VideoConferenceGroups.Add(conferenceGroup);
+                    conferenceGroup = new VideoConferenceGroups();
+                    conferenceGroup.GuidId = guidID;
+                    conferenceGroup.UserId = creatorId;
+                    context.VideoConferenceGroups.Add(conferenceGroup);
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                    return guidID.ToString();
+                }
             }
-            return guidID;
+            return null;
         }
 
         public void UpdateConferenceOffer(string offer, int creatorId, Guid guidID)
@@ -195,14 +200,15 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task CloseAllConferencesUserExit(DataBaseContext context, int userExit)
+        public void CloseAllConferencesUserExit(DataBaseContext context, int userExit)
         {
             List<VideoConference> allVideoConferences = ActiveVideoConverence(context, userExit);
             var usersInVideoConferences = new List<int>();
             allVideoConferences.ForEach(x => 
             {
                 int otherUserInConference = context.VideoConferenceGroups
-                    .First(c => c.GuidId == x.GuidId).UserId;
+                    .First(c => 
+                    c.GuidId == x.GuidId && c.UserId != userExit).UserId;
                 usersInVideoConferences.Add(otherUserInConference);
             });
 
@@ -218,6 +224,17 @@ namespace Slug.Helpers
             {
                 allVideoConferences.ForEach(c => CloseConverence(c.GuidId));
             }
+        }
+
+
+        public bool AlreadyStart(DataBaseContext context, int firstUser, int secondUser)
+        {
+            List<VideoConference> activeConferenceFirst = ActiveVideoConverence(context, firstUser);
+            List<VideoConference> activeConferenceSecond = ActiveVideoConverence(context, secondUser);
+            if (activeConferenceFirst.Any(x => activeConferenceSecond.Contains(x)))
+                return true;
+            else 
+                return false;
         }
     }
 }

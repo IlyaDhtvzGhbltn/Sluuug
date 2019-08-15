@@ -16,8 +16,8 @@
                 <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>
             </div>            
             <div class="item-update">
-                <input type="file" id="@Model.Photos[0].Album" class="input-event-photo" onchange="UploadFotosToAlbum(this)" />
-                <button id="@Model.Id" class="upload-event-photo-button">Добавить Фото</button>
+                <input type="file" id="@Model.BindedAlbumId" class="input-event-photo" onchange="UploadFotosToAlbum(this)" />
+                <button id="@Model.BindedAlbumId" class="upload-event-photo-button">Добавить Фото</button>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
             foreach (var photo in Model.Photos)
             {
                 <div class="event-photo-container">
-                    <img src="@photo.SmallFotoUri"  onclick="ExpandAlbum('@Model.Photos[0].Album')"/>
+                    <img src="@photo.SmallFotoUri" onclick="ExpandAlbum('@Model.Photos[0].Album')" />
                 </div>
             }
         }
@@ -36,10 +36,10 @@
             for (int i = 0; i <= 4; i++)
             {
                 <div class="event-photo-container">
-                    <img src="@Model.Photos[i].SmallFotoUri" onclick="ExpandAlbum('@Model.Photos[0].Album')" />
+                    <img src="@Model.Photos[i].SmallFotoUri" onclick="ExpandAlbum('@Model.BindedAlbumId')" />
                 </div>
             }
-            <div class="more-container"><span class="more-text" onclick="ExpandAlbum('@Model.Photos[0].Album')">Еще...</span></div>
+            <div class="more-container"><span class="more-text" onclick="ExpandAlbum('@Model.BindedAlbumId')">Еще...</span></div>
         }
     </div>
 </div> 

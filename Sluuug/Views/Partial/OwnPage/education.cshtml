@@ -10,7 +10,10 @@
         }
         <span>@Model.Country @Model.City</span>
         <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
-        <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        @if (!string.IsNullOrWhiteSpace(Model.Comment))
+        {
+            <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        }
     </div>
     <div class="item-delete">
         <button id="@Model.Id" class="delete-button" onclick="DeleteProfileEntry(this.id)">Удалить</button>

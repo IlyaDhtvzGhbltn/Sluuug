@@ -16,7 +16,7 @@
 
 <div id="profile-cut-info">
     <div class="info-container">
-        <img id="img_avatar" src="@Model.AvatarResizeUri">
+        <img id="img_avatar" src="@Model.AvatarResizeUri" onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})" onmouseover="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
         <div class="profile-info">
             <div class="profile-info-name">
                 <h2 class="parameter" id="0" onclick="edit_private_info(this.id)">@Model.Name</h2>
@@ -42,17 +42,17 @@
             </div>
 
             <div class="profile-about">
-                <span id="hello-status">@Model.HelloMessage</span>
-                <div class="profile-info-change-status">
+                <span id="hello-status" onmouseover="MoveTo($('.profile-info-change-status'), {'left':'0'})">@Model.HelloMessage</span>
+                <div class="profile-info-change-status" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-1000px' })">
                     <span>Изменить..</span>
                     <input type="text" id="new-greeting" />
                     <button onclick="SaveEditedProfileInfo(4, $('#new-greeting')[0].value)">Готово</button>
                 </div>
             </div>
         </div>
-        <div class="change-avatar">
+        <div class="change-avatar" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-700px' })">
             <form action="http://localhost:32035/private/upload" enctype="multipart/form-data" method="post">
-                <div class="input-overflow">
+                <div class="input-overflow" >
                     <span>Сменить аватар</span>
                     <img id="avatar-change-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png" />
                 </div>
@@ -65,7 +65,7 @@
 
 <div class="profile-full-info-item-wrapper">
     <div id="albums">
-        <h2>Мои альбомы</h2>
+        <h2>Мои альбомы(@Model.Albums.Count)</h2>
         <div id="albums-container">
             @foreach (var item in Model.Albums)
             {
@@ -103,9 +103,55 @@
         </div>
     </div>
 </div>
-
 <div class="profile-full-info-item-wrapper">
-    <h2>Работа</h2>
+    <h2>Важные события(@Model.Events.Count)</h2>
+    <input type="checkbox" class="expand-checkbox" />
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @foreach (var item in Model.Events)
+        {
+            Html.RenderPartial("~/Views/Partial/OwnPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
+        }
+
+        <input type="checkbox" id="new_event_checkbox" />
+        <button class="new_event_button">Добавить</button>
+        <div id="add_event_entry">
+            <div class="new-event-form">
+                <div class="left-event-form">
+
+                    <div class="row-entry" id="tooltip-container-event" name="EventTitle" tooltip_message="Назовите событие">
+                        <span>Событие</span>
+                        <input type="text" name="-event" property="EventTitle" required>
+                    </div>
+                    <div class="row-entry" id="tooltip-container-event" name="DateEvent" tooltip_message="Дата события">
+                        <span>Дата события</span>
+                        <input type="date" name="-event" property="DateEvent" required>
+                    </div>
+                    <div class="row-entry">
+                        <span>Ваш комментарий</span>
+                        <input type="text" name="-event" property="Text" class="user-comment">
+                    </div>
+                    <div class="row-entry">
+                        <span>Фотографии</span>
+                        <div class="album-cover">
+                            <input type="file" id="event-photos-input" multiple onchange="WriteSelectedFiles(this)" accept=".jpg, .bmp, .png">
+                            <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
+                            <span id="album-cover-img-name"></span>
+                        </div>
+                    </div>
+                    <div class="uploaded-files-to-event">
+
+                    </div>
+                </div>
+                <div class="command_form">
+                    <input type="button" onclick="AddProfileEntry('-event', 'tooltip-container-event', '/api/add_event', $('#event-photos-input')[0])" value="Готово">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-full-info-item-wrapper">
+    <h2>Работа(@Model.Works.Count)</h2>
     <input type="checkbox" class="expand-checkbox" />
     <div class="expand"></div>
     <div class="expanded-info">
@@ -175,9 +221,8 @@
         </div>
     </div>
 </div>
-
 <div class="profile-full-info-item-wrapper">
-    <h2>Образование</h2>
+    <h2>Образование(@Model.Educations.Count)</h2>
     <input type="checkbox" class="expand-checkbox" />
     <div class="expand"></div>
     <div class="expanded-info">
@@ -261,65 +306,18 @@
     </div>
 </div>
 
-<div class="profile-full-info-item-wrapper">
-    <h2>Важные события</h2>
-    <input type="checkbox" class="expand-checkbox" />
-    <div class="expand"></div>
-    <div class="expanded-info">
-        @foreach (var item in Model.Events)
-        {
-            Html.RenderPartial("~/Views/Partial/OwnPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
-        }
 
-        <input type="checkbox" id="new_event_checkbox" />
-        <button class="new_event_button">Добавить</button>
-        <div id="add_event_entry">
-            <div class="new-event-form">
-                <div class="left-event-form">
-
-                    <div class="row-entry" id="tooltip-container-event" name="EventTitle" tooltip_message="Назовите событие">
-                        <span>Событие</span>
-                        <input type="text" name="-event" property="EventTitle" required>
-                    </div>
-                    <div class="row-entry" id="tooltip-container-event" name="DateEvent" tooltip_message="Дата события">
-                        <span>Дата события</span>
-                        <input type="date" name="-event" property="DateEvent" required>
-                    </div>
-                    <div class="row-entry">
-                        <span>Ваш комментарий</span>
-                        <input type="text" name="-event" property="Text" class="user-comment">
-                    </div>
-                    <div class="row-entry">
-                        <span>Фотографии</span>
-                        <div class="album-cover">
-                            <input type="file" id="event-photos-input" multiple onchange="WriteSelectedFiles(this)" accept=".jpg, .bmp, .png">
-                            <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
-                            <span id="album-cover-img-name"></span>
-                        </div>
-                    </div>
-                    <div class="uploaded-files-to-event">
-
-                    </div>
-                </div>
-                <div class="command_form">
-                    <input type="button" onclick="AddProfileEntry('-event', 'tooltip-container-event', '/api/add_event', $('#event-photos-input')[0])" value="Готово">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="profile-full-info-item-wrapper">
-    <h2>Стена</h2>
+@*<div class="profile-full-info-item-wrapper">
+    <h2>Стена(-0)</h2>
     <input type="checkbox" class="expand-checkbox" />
     <div class="expand"></div>
     <div class="expanded-info">
         <div class="new-post-form">
-            @*<textarea></textarea>
-                <button>Опубликовать</button>*@
+            <textarea></textarea>
+                <button>Опубликовать</button>
         </div>
     </div>
-</div>
+</div>*@
 
 <script src="~/Scripts/System/ParseFormArray.js"></script>
 <script src="~/Scripts/Profile/EditInfo.js"></script>
@@ -330,4 +328,16 @@
     function newAvatarSelect() {
         $('#file-uploader').css({ 'opacity': '1', 'z-index': '999' });
     }
+
+    function StopMove(element) {
+        var elementPosition = $(element).offset();
+        $(element).offset({ 'left': elementPosition.left });
+        $(element).css({'opacity':'1', 'z-index':'999'});
+    }
+
+    function MoveTo(element, position, delay) {
+        $(element).css({ 'left': position.left, 'top': position.top });
+    }
+
+    
 </script>

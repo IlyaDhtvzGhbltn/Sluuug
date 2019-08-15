@@ -11,7 +11,7 @@ namespace Slug.Model.Users
     {
         public int UserId { get; set; }
 
-        public bool IsActive { get; set; }
+        //public bool IsActive { get; set; }
 
         public string Name { get; set; }
 
@@ -40,5 +40,7 @@ namespace Slug.Model.Users
         public bool IsOnline { get; set; }
 
         public FriendshipItemStatus Status { get; set; }
+
+        public VideoConverenceAcceptToCall AcceptToInfite { get; set; }
     }
 }

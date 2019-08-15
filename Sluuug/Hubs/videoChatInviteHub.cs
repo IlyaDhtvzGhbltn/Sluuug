@@ -42,31 +42,36 @@ namespace Slug.Hubs
             var info = CultureInfo.CurrentCulture;
             Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             BaseUser userInfo = this.userInfoHandler.ProfileInfo(cookies.Value, false);
-            Guid guid = this.videoConferenceHandler.Create(userInfo.UserId, calleUserId);
-            var UserRecipientsConnectionIds = new UserConnectionIdModel();
-            UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
-
-            var model = new IncomingInviteModel()
+            string guid = videoConferenceHandler.Create(userInfo.UserId, calleUserId);
+            if (!string.IsNullOrWhiteSpace(guid))
             {
-                CallerName = userInfo.Name,
-                CallerSurName = userInfo.SurName,
-                InviterID = userInfo.UserId,
-                ConferenceID = guid,
-                AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 50, 50)
-            };
-            Clients.Caller.CallerGuidToRedirect(guid);
+                Guid guidPars = Guid.Parse(guid);
+                var UserRecipientsConnectionIds = new UserConnectionIdModel();
+                UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
 
-            //var culture = CultureInfo.CurrentCulture;
-            //string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
-            //model.Html = html;
-            //string json = JsonConvert.SerializeObject(model);
-            //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
+                var model = new IncomingInviteModel()
+                {
+                    CallerName = userInfo.Name,
+                    CallerSurName = userInfo.SurName,
+                    InviterID = userInfo.UserId,
+                    ConferenceID = guidPars,
+                    AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 50, 50)
+                };
+                Clients.Caller.CallerGuidToRedirect(guidPars);
 
-            var response = new NotifyHubModel();
-            response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
-            response.FromUser = userInfo;
-            response.Culture = UserRecipientsConnectionIds.CultureCode.Count > 0 ? UserRecipientsConnectionIds.CultureCode[0] : null;
-            return response;
+                //var culture = CultureInfo.CurrentCulture;
+                //string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
+                //model.Html = html;
+                //string json = JsonConvert.SerializeObject(model);
+                //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
+
+                var response = new NotifyHubModel();
+                response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
+                response.FromUser = userInfo;
+                response.Culture = UserRecipientsConnectionIds.CultureCode.Count > 0 ? UserRecipientsConnectionIds.CultureCode[0] : null;
+                return response;
+            }
+            return null;
         }
 
         public void Invite(string callOffer, Guid videoConverenceGuidID)

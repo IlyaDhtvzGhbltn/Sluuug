@@ -22,7 +22,7 @@
 }
 <div class="chat-wrapper-overflow">
     <label>
-        <input type="radio" class="fr" name="friend" value="@Model.UserId" @activeDisable[Model.IsActive] onclick="generationKeyUserToggle()" />
+        <input type="radio" class="fr" name="friend" value="@Model.UserId" @activeDisable[Model.IsOnline] onclick="generationKeyUserToggle()" />
         <div class="circle">
             <div class="circle--inner circle--inner__1"></div>
             <div class="circle--inner circle--inner__2"></div>

@@ -269,6 +269,7 @@ function UploadFotosToAlbum(inputUploaded) {
         });
         console.log(inputUploaded.id);
         form.append('albumId', inputUploaded.id);
+        _Alert('Подождите, идет загрузка...', '#7f7f7f');
         try {
             $.ajax({
                 type: "post",
@@ -282,6 +283,9 @@ function UploadFotosToAlbum(inputUploaded) {
                     var isError = xhr.getResponseHeader("Error");
                     if (isError) {
                         _Alert(data);
+                    }
+                    else {
+                        window.location.reload();
                     }
                 }
             });

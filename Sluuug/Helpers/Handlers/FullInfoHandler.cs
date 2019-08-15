@@ -118,7 +118,7 @@ namespace Slug.Helpers
                     var albumHandler = new AlbumsHandler();
                     CreateAlbumResponse resp = albumHandler.CreateEventsAlbum(model.EventTitle, userId);
 
-                    if (uploadFiles.Count() > 0)
+                    if (uploadFiles != null && uploadFiles.Count() > 0)
                     {
                         albumHandler.UploadToAlbum(session, resp.AlbumId, uploadFiles, "/users/events_albums/");
                     }

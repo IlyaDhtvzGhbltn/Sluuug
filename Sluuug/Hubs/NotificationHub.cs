@@ -46,7 +46,7 @@ namespace Slug.Hubs
             var connectionHandler = new UsersConnectionHandler();
             string session = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
             string closedConnection = Context.ConnectionId;
-            await connectionHandler.CloseConnection(session, closedConnection);
+            connectionHandler.CloseConnection(session, closedConnection);
         }
 
 
@@ -180,7 +180,7 @@ namespace Slug.Hubs
         {
             var videoHub = new VideoChatInviteHub(base.Context, base.Clients);
             NotifyHubModel responce = await videoHub.CreateAndInvite(calleUserId);
-            if (responce.ConnectionIds.Count > 0)
+            if (responce != null && responce.ConnectionIds.Count > 0)
             {
                 string html = Notifications.GenerateHtml(NotificationType.NewInviteVideoConference, responce.FromUser, responce.Culture);
                 Clients.Clients(responce.ConnectionIds).NotifyAbout(html, null, NotificationType.NewInviteVideoConference);
