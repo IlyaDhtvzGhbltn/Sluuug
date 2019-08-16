@@ -37,7 +37,7 @@
 }
 
 .rating-label-fun {
-	left: 14px;	
+	left: 100px;	
 	text-align: right;
 }
 
@@ -51,7 +51,7 @@
 	width: 50px;
 	height: 50px;
 	background-color: var(--faceColor);
-	left: 90px;
+	left: 70px;
 	border-radius: 500px;
 	transition: all 500ms;
 	z-index: 4;
@@ -60,36 +60,40 @@
 
 /* Toggle Changes */
 
-#meh:checked~.rating-label-meh {
-	color: var(--disableToggle);
-}
-#fun:checked~.rating-label-fun {
-	color: var(--activeToggle);
-}
-#fun:checked~.mouth {
-	border: 4px solid var(--activeToggle);
-	border-bottom-color: rgba(1,1,1,0);
-	border-right-color: rgba(1,1,1,0);
-	border-left-color: rgba(1,1,1,0);
-	top: 0px;
-	left: 128px;
-	transform: rotateX(180deg);
-	border-radius: 100%;
-}
-#fun:checked~.smile-rating-toggle {
-	left: 200px;
+
+#fun:checked ~ .smile-rating-toggle > .eyes > *,
+#fun-sound:checked ~ .smile-rating-toggle > .eyes > *,
+#fun-alert:checked ~ .smile-rating-toggle > .eyes > * {
+    background-color: var(--activeToggle);
 }
 
-#fun:checked~.rating-eye-left {
-	background-color:var(--activeToggle);
-	left: 149px;
+#fun:checked ~ .smile-rating-toggle > .mouth,
+#fun-sound:checked ~ .smile-rating-toggle > .mouth,
+#fun-alert:checked ~ .smile-rating-toggle > .mouth {
+    border: 4px solid var(--activeToggle);
+    border-bottom-color: rgba(1,1,1,0);
+    border-right-color: rgba(1,1,1,0);
+    border-left-color: rgba(1,1,1,0);
+    left: 8px;
+    top: 10px;
+    transform: rotateX(180deg);
+    border-radius: 100%;
 }
-#fun:checked~.rating-eye-right {
-	background-color:var(--activeToggle);
-	left: 160px;
+
+#fun:checked ~ .smile-rating-toggle,
+#fun-sound:checked ~ .smile-rating-toggle,
+#fun-alert:checked ~ .smile-rating-toggle {
+    left: 148px;
 }
-#fun:checked~.toggle-rating-pill{
-	background-color:var(--activeToggle);
+
+
+
+
+
+#fun:checked ~ .toggle-rating-pill,
+#fun-sound:checked ~ .toggle-rating-pill,
+#fun-alert:checked ~ .toggle-rating-pill {
+    background-color: var(--activeToggle);
 }
 
 .smile-rating-container {
@@ -117,18 +121,14 @@
 }
 
 .rating-label-meh {
-	left: 30px;	
 	text-align: left;
 	color: #7f7f7f;
 }
-.smile-rating-container input {
-	display: none;
-}
-
 
 .toggle-rating-pill {
 	border:1px solid var(--disableToggle);
 	position: relative;
+    left:-75px;
 	height: 36px;
 	width: 120px;
 	background: var(--disableToggle);
@@ -137,9 +137,9 @@
 }
 
 .rating-eye {
-    position: relative;
-    top: -5px;
-    height: 12px;
+    position: absolute;
+    top: 10px;
+    margin-left:-25px;
     width: 8px;
     background: var(--disableToggle);
     border-radius: 500px;
@@ -151,7 +151,7 @@
 	left: 38px;
 }
 .rating-eye-right {
-	left: 49px;
+	left: 55px;
 }
 .mouth {
 	position: relative;
@@ -163,8 +163,8 @@
 	border-bottom-color: rgba(1,1,1,0);
 	border-right-color: rgba(1,1,1,0);
 	border-left-color: rgba(1,1,1,0);
-	top: 22px;
-	left: 19px;
+	top: 30px;
+	left: 9px;
 	transition: all 500ms;
 }
 

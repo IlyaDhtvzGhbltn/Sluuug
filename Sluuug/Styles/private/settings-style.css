@@ -1,10 +1,5 @@
-.settings span {
-    font-size: 16px;
-    text-align:justify;
-}
-
-.settings b{
-	font-size:24px;
+b{
+	font-size:20px;
 	margin-bottom:10px;
 }
 
@@ -12,12 +7,12 @@
 	background-color:transparent;
 }
 
-.settings button{
-	height:42px;
-	width:100px;
+button{
+height:42px;
+width:100px;
 }
 
-.settings {
+.settings-wrapper {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -62,12 +57,17 @@
 .password-container button{
 	position:relative;
 	top:54px;
+    left:50px;
 }
 
 #changePasswSubmit{
 	margin-left:52px;
 }
 
+.smile-sound{
+    margin-top:30px;
+    margin-bottom:10px;
+}
 
 
 

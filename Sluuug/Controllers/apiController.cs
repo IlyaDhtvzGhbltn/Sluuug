@@ -67,13 +67,7 @@ namespace Slug.Controllers
             var settingsHandler = new SettingsHandler();
 
             var result = settingsHandler.Change(Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value, newSettings);
-            return new JsonResult()
-            {
-                Data = new SetSettingsResponse()
-                {
-                    Comment = result
-                }
-            };            
+            return new JsonResult() { Data = result };
         }
 
         [HttpPost]

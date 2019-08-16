@@ -34,12 +34,22 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
         newInviteToCryptChatNotification(html, params);
     }
 
-    var note = $('.incomming-notify');
-    note[0].innerHTML = html;
-    note.css({ opacity: 1, left: 200 });
-    var audio = new Audio('/resources/audio/new-notify-sound.wav');
-    audio.play();
-    setTimeout(clearNotificationDiv, 4000);
+
+    let notifyAlertAllow = boolSetting('notifyalert');
+    if (notifyAlertAllow) {
+        var note = $('.incomming-notify');
+        note[0].innerHTML = html;
+        note.css({ opacity: 1, left: 200 });
+        setTimeout(clearNotificationDiv, 4000);
+    }
+
+
+
+    let soundAllow = boolSetting('notifysound');
+    if (soundAllow) {
+        var audio = new Audio('/resources/audio/new-notify-sound.wav');
+        audio.play();
+    }
 });
 
 

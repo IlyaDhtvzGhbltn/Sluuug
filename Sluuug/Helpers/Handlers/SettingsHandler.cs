@@ -15,7 +15,7 @@ namespace Slug.Helpers
     {
 
 
-        public string Change(string session, SetSettingsRequest newSettings)
+        public bool Change(string session, SetSettingsRequest newSettings)
         {
             var handler = new UsersHandler();
             string settingsChangeResult = string.Empty;
@@ -67,7 +67,9 @@ namespace Slug.Helpers
             {
                 ChangeQuickMessage(userId, newSettings.QuickMessage);
             }
-            return settingsChangeResult;
+            if (string.IsNullOrWhiteSpace(settingsChangeResult))
+                return true;
+            else return false;
         }
 
         private void ChangePassword(int userID, string newpassword)

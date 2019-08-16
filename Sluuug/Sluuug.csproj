@@ -174,6 +174,7 @@
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="Scripts\Albums.js" />
     <Content Include="Scripts\Private\DeleteDialog.js" />
+    <Content Include="Scripts\Private\LocalSettings.js" />
     <Content Include="Scripts\Profile\EditInfo.js" />
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
@@ -198,7 +199,7 @@
     <Content Include="Scripts\cnvGroupsDialogs.js" />
     <Content Include="Scripts\System\ParseFormArray.js" />
     <Content Include="Scripts\System\SHA-512.js" />
-    <Content Include="Scripts\Settings.js" />
+    <Content Include="Scripts\ChangeSettings.js" />
     <Content Include="Scripts\System\sha512.js" />
     <Content Include="Scripts\System\Validation.js" />
     <Content Include="Scripts\vConferens.js" />
@@ -516,6 +517,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908131219029_black_list.resx">
       <DependentUpon>201908131219029_black_list.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908131347551_black_list2.resx">
       <DependentUpon>201908131347551_black_list2.cs</DependentUpon>
