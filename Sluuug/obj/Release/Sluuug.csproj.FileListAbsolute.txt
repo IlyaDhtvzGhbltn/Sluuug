@@ -47,8 +47,6 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Webpages.Deployment.xml
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Web.Mvc.xml
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.ip_address_add_UserConnections.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.add_culture_code_UserConnections.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.ru.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.GenerateResource.Cache
@@ -56,3 +54,11 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CoreCompileInputs.cac
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\ru\Slug.resources.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.pdb
+D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.reset.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.disableDialog.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.guid_secretmsg.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.black_list.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.black_list2.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete

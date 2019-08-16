@@ -1,0 +1,18 @@
+﻿@model Slug.Model.Users.EducationModel
+@using Slug.Extensions
+
+<div class="info-item education">
+    <div class="item-info">
+        <h3>@Model.Title</h3>
+        @if (Model.Specialty != null)
+        {
+            <span>@Model.Specialty</span>
+        }
+        <span>@Model.Country @Model.City</span>
+        <span>с @Model.StartDateFormat по @Model.EndDateFormat</span>
+        @if (!string.IsNullOrWhiteSpace(Model.Comment))
+        {
+            <span class="user-comment">&laquo;@Model.Comment&raquo;</span>
+        }
+    </div>
+</div>

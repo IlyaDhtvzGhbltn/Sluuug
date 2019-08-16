@@ -1,0 +1,18 @@
+﻿@model Slug.Model.Albums.AlbumModel
+@using Slug.Extensions
+
+<div class="album" id="@Model.AlbumId" onclick="expandAlbum(this.id)">
+    <div class="album-info">
+        <h3>@Model.AlbumTitle (@Model.FotosCount)</h3>
+        <span>@Model.AlbumDescription</span>
+    </div>
+    <div class="album-view">
+        <div class="scaled-album-label">
+            <img src="@Model.AlbumLabelUrl">
+        </div>
+        <span>@Model.CreationTime</span>
+    </div>
+    <div class="album-manage">
+        <button onclick="ExpandAlbum('@Model.AlbumId')">Открыть альбом</button>
+    </div>
+</div>

@@ -1,143 +1,343 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/private_view.cshtml";
-    @model Slug.Model.Users.FullUserInfoModel
+    Layout = "~/Views/Shared/private_template.cshtml";
+    @model Slug.Model.Users.Relations.ProfileModel
 }
-@using Slug.Extensions;
+@using Slug.Extensions
+@using Slug.Context.Dto.Search;
 
-<div id="cut_info">
-    <p>
-        <img src=@Model.AvatarUri id="img_avatar" width="100" height="100" />
-        @using (Html.BeginForm("upload", "private", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="upload" /><br>
-            <input type="submit" value="@Html.Translate("Button_Change_Avatar")" />
-        }
-    </p>
-    <p>
-        <span class="parameter" id="0" style="cursor:pointer" onclick="edit_private_info(this.id)">@Model.Name </span>
-        <div id="param_0"></div>
-    </p>
-    <p>
-        <span class="parameter" id="1" style="cursor:pointer" onclick="edit_private_info(this.id)">@Model.SurName </span>
-        <div id="param_1"></div>
+<link href="~/Styles/private/my-profile-style.css" rel="stylesheet" />
+<link href="~/Styles/private/profile-info-style.css" rel="stylesheet" />
+<link href="~/Styles/private/album-review-style.css" rel="stylesheet" />
+<link href="~/Styles/common/navigation-arrows-style.css" rel="stylesheet" />
+<title>Мой Профиль</title>
 
-    </p>
-    <p>
-        <span class="parameter" id="2" style="cursor:pointer" >@Model.Country</span>
-        <div id="param_2"></div>
-    </p>
-        <span class="parameter" id="3" style="cursor:pointer" >@Model.Sity </span>
-        <div id="param_3"></div>
-    <p>
-        <span>@Model.FullAges</span>
-    </p>
-</div>
-<hr />
-<div id="albums">
-    <span>@Html.Translate("Text_My_Fotos")</span>
-    <div id="my_albums">
-        @foreach (var item in Model.Albums)
-        {
-            Html.RenderPartial("~/Views/Partial/OwnPage/my_album.cshtml", item, new ViewDataDictionary<Slug.Model.Albums.AlbumModel>(item));
-        }
+@RenderPage("~/Views/Partial/Albums/ExpandAlbum.cshtml")
+
+<div id="profile-cut-info">
+    <div class="info-container">
+        <img id="img_avatar" src="@Model.AvatarResizeUri" onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})" onmouseover="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
+        <div class="profile-info">
+            <div class="profile-info-name">
+                <h2 class="parameter" id="0" onclick="edit_private_info(this.id)">@Model.Name</h2>
+                <h2 class="parameter" id="1" onclick="edit_private_info(this.id)">@Model.SurName</h2>
+            </div>
+
+            <div class="profile-info-location">
+                @Html.DropDownList("Countries", null, new { @id="myCountry", @onchange = "getCities('myCountry','myCity', false); SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
+                @Html.DropDownList("Cities", null, new { @id="myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
+                <span>@Model.Age</span>
+            </div>
+
+            <div class="profile-status-container">
+                @Html.DropDownList("DatingPurposeList", null, new { @onchange = "SaveEditedProfileInfo(5, this.value, null, false, true)" })
+                @if (Model.purpose != DatingPurposeEnum.NoDating)
+                {
+
+                    <span>с</span>
+                    @Html.DropDownList("DatingSexList", null, new { @onchange = "SaveEditedProfileInfo(6, this.value, null, false, true)" })
+                    @Html.DropDownList("DatingAgesList", null, new { @onchange = "SaveEditedProfileInfo(7, this.value, null, false, true)" })
+                    <span>лет</span>
+                }
+            </div>
+
+            <div class="profile-about">
+                <span id="hello-status" onmouseover="MoveTo($('.profile-info-change-status'), {'left':'0'})">@Model.HelloMessage</span>
+                <div class="profile-info-change-status" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-1000px' })">
+                    <span>Изменить..</span>
+                    <input type="text" id="new-greeting" />
+                    <button onclick="SaveEditedProfileInfo(4, $('#new-greeting')[0].value, null, true, true)">Готово</button>
+                </div>
+            </div>
+        </div>
+        <div class="change-avatar" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-700px' })">
+            <form action="http://localhost:32035/private/upload" enctype="multipart/form-data" method="post">
+                <div class="input-overflow" >
+                    <span>Сменить аватар</span>
+                    <img id="avatar-change-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png" />
+                </div>
+                <input type="file" accept=".jpg, .bmp, .png" name="upload" id="file-selector" onchange="newAvatarSelect()">
+                <input type="submit" id="file-uploader" value="Готово">
+            </form>
+        </div>
     </div>
-    <div id="create_new_album">
-        <p>
-            <button onclick="ShowAlbumCreateForm()" id="create_new_album_button">@Html.Translate("Button_Create_Album")</button>
-            <div id="create_album_form"></div>
-        </p>
+</div>
+
+<div class="profile-full-info-item-wrapper">
+    <div id="albums">
+        <h2>Мои альбомы(@Model.Albums.Count)</h2>
+        <div id="albums-container">
+            @foreach (var item in Model.Albums)
+            {
+                Html.RenderPartial("~/Views/Partial/OwnPage/my_album_minimized.cshtml", item, new ViewDataDictionary<Slug.Model.Albums.AlbumModel>(item));
+            }
+        </div>
+    </div>
+    <div class="new-album-form">
+        <input type="checkbox" id="new-album-checkbox" />
+        <button class="create_new_album_button">Создать альбом</button>
+        <div id="create_new_album">
+
+            <div class="left-new-album">
+
+                <div class="row-entry" id="tooltip-container-album">
+                    <span>Название</span>
+                    <input type="text" id="album-title" required>
+                </div>
+                <div class="row-entry">
+                    <span>Описание</span>
+                    <input type="text" id="album-description">
+                </div>
+                <div class="row-entry">
+                    <span>Обложка</span>
+                    <div class="album-cover">
+                        <input type="file" id="album-label-input" onchange="SelectFileAvatar()" accept=".jpg, .bmp, .png">
+                        <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
+                        <span id="album-cover-img-name"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="command_form">
+                <input type="button" value="Готово" onclick="CreateAlbum()" />
+            </div>
+        </div>
     </div>
 </div>
-<hr />
-<div id="education">
-    <span>@Html.Translate("Text_Education")</span>
-    @foreach (var item in Model.Educations)
-    {
-        Html.RenderPartial("~/Views/Partial/OwnPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
-    }
-    <button onclick="newEducation()" class="new_educatio_button">@Html.Translate("Button_Add")</button>
-    <div id="new_education"></div>
+<div class="profile-full-info-item-wrapper">
+    <h2>Важные события(@Model.Events.Count)</h2>
+    <input type="checkbox" class="expand-checkbox" />
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @foreach (var item in Model.Events)
+        {
+            Html.RenderPartial("~/Views/Partial/OwnPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
+        }
+
+        <input type="checkbox" id="new_event_checkbox" />
+        <button class="new_event_button">Добавить</button>
+        <div id="add_event_entry">
+            <div class="new-event-form">
+                <div class="left-event-form">
+
+                    <div class="row-entry" id="tooltip-container-event" name="EventTitle" tooltip_message="Назовите событие">
+                        <span>Событие</span>
+                        <input type="text" name="-event" property="EventTitle" required>
+                    </div>
+                    <div class="row-entry" id="tooltip-container-event" name="DateEvent" tooltip_message="Дата события">
+                        <span>Дата события</span>
+                        <input type="date" name="-event" property="DateEvent" required>
+                    </div>
+                    <div class="row-entry">
+                        <span>Ваш комментарий</span>
+                        <input type="text" name="-event" property="Text" class="user-comment">
+                    </div>
+                    <div class="row-entry">
+                        <span>Фотографии</span>
+                        <div class="album-cover">
+                            <input type="file" id="event-photos-input" multiple onchange="WriteSelectedFiles(this)" accept=".jpg, .bmp, .png">
+                            <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
+                            <span id="album-cover-img-name"></span>
+                        </div>
+                    </div>
+                    <div class="uploaded-files-to-event">
+
+                    </div>
+                </div>
+                <div class="command_form">
+                    <input type="button" onclick="AddProfileEntry('-event', 'tooltip-container-event', '/api/add_event', $('#event-photos-input')[0])" value="Готово">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-full-info-item-wrapper">
+    <h2>Работа(@Model.Works.Count)</h2>
+    <input type="checkbox" class="expand-checkbox" />
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @foreach (var item in Model.Works)
+        {
+            Html.RenderPartial("~/Views/Partial/OwnPage/work.cshtml", item, new ViewDataDictionary<Slug.Model.Users.WorkPlacesModel>(item));
+        }
+
+        <input type="checkbox" id="new_work_checkbox" />
+        <button class="new_work_button">Добавить</button>
+        <div id="add_work_entry">
+            <div action="" class="new-work-form">
+                <div class="left-work-form">
+
+                    <div class="row-entry" id="tooltip-container-work" name="CompanyTitle" tooltip_message="Название компании">
+                        <span>Компания</span>
+                        <input type="text" name="-work" property="CompanyTitle" required>
+                    </div>
+                    <div class="row-entry" id="tooltip-container-work" name="Position" tooltip_message="Должность">
+                        <span>Должность</span>
+                        <input type="text" name="-work" property="Position" required>
+                    </div>
+                    <div class="row-entry" id="tooltip-container-work" name="Start" tooltip_message="Начало работы">
+                        <span>Дата начала</span>
+                        <input type="date" name="-work" property="Start" required>
+                    </div>
+                    <div class="row-entry">
+                        <span>Дата окончания</span>
+                        <div class="new-form-end-date">
+                            <input type="date" name="-work" property="End" id="end_work">
+                            <div class="real-time">
+                                <input type="checkbox" id="work_till_now" name="-work" property="UntilNow" onclick="untill_now_date(end_work.id, this.id)">
+                                <div class="circle">
+                                    <div class="circle--inner circle--inner__1"></div>
+                                    <div class="circle--inner circle--inner__2"></div>
+                                    <div class="circle--inner circle--inner__3"></div>
+                                    <div class="circle--inner circle--inner__4"></div>
+                                    <div class="circle--inner circle--inner__5"></div>
+                                    <div class="circle--outer"></div>
+                                </div>
+                                <span>По сей день?</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-entry">
+                        <span>Страна</span>
+                        <select id="user_search_country_w" name="-work" property="Country" onchange="getCities(user_search_country_w.id, user_search_city_w.id, false)">
+                            <option value="7">Россия</option>
+                            <option value="1">USA</option>
+                        </select>
+                    </div>
+                    <div class="row-entry">
+                        <span>Город</span>
+                        <select id="user_search_city_w" name="-work" property="City">
+                            <option value="495">Москва</option>
+                        </select>
+                    </div>
+                    <div class="row-entry">
+                        <span>Ваш комментарий</span>
+                        <input type="text" name="-work" property="Comment" class="user-comment">
+                    </div>
+                </div>
+                <div class="command_form">
+                    <input type="button" onclick="AddProfileEntry('-work','tooltip-container-work','/api/add_works', null)" value="Готово">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-full-info-item-wrapper">
+    <h2>Образование(@Model.Educations.Count)</h2>
+    <input type="checkbox" class="expand-checkbox" />
+    <div class="expand"></div>
+    <div class="expanded-info">
+        @foreach (var item in Model.Educations)
+        {
+            Html.RenderPartial("~/Views/Partial/OwnPage/education.cshtml", item, new ViewDataDictionary<Slug.Model.Users.EducationModel>(item));
+        }
+        <input type="checkbox" id="new_educatio_checkbox" />
+        <button class="new_educatio_button">Добавить</button>
+        <div id="add_education_entry">
+            <div class="new-education-form">
+                <div class="left-education-form">
+                    <div class="row-entry">
+                        <span>Уровень</span>
+                        <select name="-education" property="EducationType" onchange="VisibleHightShoolParameterInNewEntry(this.value)">
+                            <option class="school" value="0">Школа</option>
+                            <option class="hight-school" value="1">Колледж</option>
+                            <option class="hight-school" value="2">Университет</option>
+                        </select>
+                    </div>
+                    <div class="row-entry" id="speciality-new-education-entry">
+                        <span>Специальность</span>
+                        <input type="text" name="-education" property="Specialty" />
+                    </div>
+
+                    <div class="row-entry">
+                        <span>Страна</span>
+                        <select id="user_search_country" name="-education" property="Country" onchange="getCities(user_search_country.id, user_search_city.id, false)">
+                            <option value="7">Россия</option>
+                            <option value="1">USA</option>
+                        </select>
+                    </div>
+
+                    <div class="row-entry">
+                        <span>Город</span>
+                        <select id="user_search_city" name="-education" property="City">
+                            <option value="495">Москва</option>
+                        </select>
+                    </div>
+
+                    <div class="row-entry" id="tooltip-container-education" name="Title" tooltip_message="Введите название">
+                        <span>Название</span>
+                        <input type="text" name="-education" property="Title" required>
+                    </div>
+
+                    <div class="row-entry" id="tooltip-container-education" name="Start" tooltip_message="Введите дату начала">
+                        <span>Дата начала</span>
+                        <input type="date" name="-education" property="Start" required>
+                    </div>
+
+                    <div class="row-entry">
+                        <span>Дата окончания</span>
+                        <div class="new-form-end-date" name="End">
+                            <input type="date" name="-education" property="End" id="end_education">
+                            <div class="real-time">
+                                <input type="checkbox" id="education_till_now" name="-education" property="UntilNow" onclick="untill_now_date(end_education.id, this.id)">
+                                <div class="circle">
+                                    <div class="circle--inner circle--inner__1"></div>
+                                    <div class="circle--inner circle--inner__2"></div>
+                                    <div class="circle--inner circle--inner__3"></div>
+                                    <div class="circle--inner circle--inner__4"></div>
+                                    <div class="circle--inner circle--inner__5"></div>
+                                    <div class="circle--outer"></div>
+                                </div>
+                                <span>По сей день?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-entry">
+                        <span>Ваш комментарий</span>
+                        <input type="text" name="-education" property="Comment" class="user-comment">
+                    </div>
+                </div>
+                <div class="command_form">
+                    <input type="button" onclick="AddProfileEntry('-education','tooltip-container-education', '/api/add_education', null)" value="Готово">
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
-<hr />
-<div id="events">
-    <span>@Html.Translate("Text_Events")</span>
-    @foreach (var item in Model.Events)
-    {
-        Html.RenderPartial("~/Views/Partial/OwnPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
-    }
-    <button onclick="newEvent()" class="new_event_button">@Html.Translate("Button_Add")</button>
-</div>
-<hr />
 
-<div id="works">
-    <span>@Html.Translate("Text_Jobs")</span>
-    @foreach (var item in Model.Works)
-    {
-        Html.RenderPartial("~/Views/Partial/OwnPage/work.cshtml", item, new ViewDataDictionary<Slug.Model.Users.WorkPlacesModel>(item));
-    }
-    <button onclick="newWork()" class="new_work_button">@Html.Translate("Button_Add")</button>
-</div>
-<hr />
+@*<div class="profile-full-info-item-wrapper">
+    <h2>Стена(-0)</h2>
+    <input type="checkbox" class="expand-checkbox" />
+    <div class="expand"></div>
+    <div class="expanded-info">
+        <div class="new-post-form">
+            <textarea></textarea>
+                <button>Опубликовать</button>
+        </div>
+    </div>
+</div>*@
 
-<div id="live_places">
-    <span>@Html.Translate("Text_Live_Plaves")</span>
-    @foreach (var item in Model.Places)
-    {
-        Html.RenderPartial("~/Views/Partial/OwnPage/place.cshtml", item, new ViewDataDictionary<Slug.Model.Users.LifePlacesModel>(item));
-    }
-    <button onclick="newLivePlace()" class="new_place_button">@Html.Translate("Button_Add")</button>
-</div>
 <script src="~/Scripts/System/ParseFormArray.js"></script>
-<script src="~/Scripts/Common/CommonAlbums.js"></script>
-<script src="~/Scripts/EditInfo.js"></script>
+<script src="~/Scripts/Profile/EditInfo.js"></script>
 <script src="~/Scripts/Albums.js"></script>
+<script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/System/Validation.js"></script>
 <script>
-    function edit_private_info(id) {
-        $.ajax({
-            url: "/partial/change_parameter",
-            data: { param: id },
-            type: "post"
-        })
-            .done(function (resp) {
-            $('#param_' + id)[0].innerHTML = resp;
-            });
+    function newAvatarSelect() {
+        $('#file-uploader').css({ 'opacity': '1', 'z-index': '999' });
     }
 
-    function save_edit_info(id) {
-        let new_val = $('#inp_param_' + id)[0].value;
-
-        $.ajax({
-            url: "/api/save_parameter",
-            data: { paramNumer: id, newValue: new_val},
-            type: "post"
-        })
-            .done(function (resp) {
-                if (resp.IsSuccess) {
-                    document.location.reload();
-                }
-                else {
-                    $.ajax({
-                        url: "/partial/internal_error",
-                        data: {},
-                        type: "post",
-                        success: function (resp) {
-                            gotError(resp, id);
-                        }
-                    })
-                }
-            })
+    function StopMove(element) {
+        var elementPosition = $(element).offset();
+        $(element).offset({ 'left': elementPosition.left });
+        $(element).css({'opacity':'1', 'z-index':'999'});
     }
 
-    function gotError(resp, id) {
-        let form_change = $("#param_" + id)[0];
-
-        form_change.innerHTML = resp;
-        setTimeout(function () {
-            let paramID = 'param_' + id;
-            console.log(paramID);
-            rollUpFoto(paramID)
-        }, 2000)
+    function MoveTo(element, position, delay) {
+        $(element).css({ 'left': position.left, 'top': position.top });
     }
+
+    
 </script>

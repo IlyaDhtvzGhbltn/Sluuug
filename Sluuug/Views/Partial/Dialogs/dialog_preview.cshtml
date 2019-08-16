@@ -5,7 +5,7 @@
 <div class="conver_div" id="@Model.GuidId" onclick="redirectToDialog('@Model.GuidId')">
     <img src="@Model.InterlocutorAvatar" />
     <div class="dialog-preview-header">
-        <h2>@Model.InterlocutorName  @Model.InterlocutorSurName</h2>
+        <h2>@Model.InterlocutorName  @Model.InterlocutorSurName (@Model.NotReadMessage)</h2>
         <span class="delete-dialog" onclick="deleteDialog('@Model.GuidId'); event.stopPropagation();">x</span>
     </div>
     <div class="confersation-body">

@@ -1,9 +1,16 @@
-﻿@model Slug.Model.SimpleChat.CutConversation
+﻿@model Slug.Model.SimpleChat.ConversationModel
 @using Slug.Extensions
 
 
-<div class="conver_div" id="@Model.GuidId" style="background-color:cadetblue; cursor:grabbing">
-    <img height="45" width="45" src="@Model.AvatarPath" />
-    <p>@Model.InterlocutorName  @Model.InterlocutorSurName</p>
-    <p>@Model.LastMessage</p>
+<div class="conver_div" id="@Model.GuidId" onclick="redirectToDialog('@Model.GuidId')">
+    <img src="@Model.InterlocutorAvatar" />
+    <div class="dialog-preview-header">
+        <h2>@Model.InterlocutorName  @Model.InterlocutorSurName</h2>
+        <span class="delete-dialog" onclick="deleteDialog('@Model.GuidId'); event.stopPropagation();">x</span>
+    </div>
+    <div class="confersation-body">
+        <h4>@Model.LastMessageSenderName @Model.LastMessageSenderSurName</h4>
+        <span>@Model.LastMessage</span>
+        <span>@Model.LastMessageSendDate.ToString("D")</span>
+    </div>
 </div>

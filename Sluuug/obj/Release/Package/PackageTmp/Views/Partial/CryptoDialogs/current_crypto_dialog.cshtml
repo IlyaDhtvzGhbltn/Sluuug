@@ -1,0 +1,37 @@
+﻿@model Slug.Model.Messager.CryptoChat.CryptoConversationModel
+
+
+<div id="@Model.GuidId" class="chat-wrapper" onclick="relocateToCryptoChat(this.id)">
+    <div class="interlocutor-avatar-container">
+        <img src="@Model.InterlocutorAvatar" />
+    </div>
+    <div class="conversation-body-container">
+        <div class="interlocutor-name-container">
+            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+        </div>
+        <div class="last-message-container">
+            @if (!string.IsNullOrWhiteSpace(Model.LastMessage))
+            {
+                <h4>@Model.LastMessageSenderName @Model.LastMessageSenderSurName</h4>
+                <span class="last_msg_crypto">@Model.LastMessage</span>
+                <span class="last-msg-date">@Model.LastMessageSendDate.ToString("hh:mm")</span>
+            }
+        </div>
+    </div>
+    <div class="expiration-period-container">
+        @if (!Model.Expired)
+        {
+            <span>Закроется @Model.CloseDate.ToString("D") @Model.CloseDate.ToString("hh:mm")</span>
+            <span>
+                <span style="color:green">Осталось</span> : <span class="experation-mins">@Model.RemainingMins</span> мин
+                <span class="experation-sec">@Model.RemainingSecs</span> сек
+            </span>
+        }
+        else
+        {
+            <span style="color:red">Закрыт @Model.CloseDate.ToString("D") @Model.CloseDate.ToString("hh:mm")</span>
+        }
+        <span class="delete-dialog" onclick="deleteDialog('@Model.GuidId'); event.stopPropagation()">x</span>
+
+    </div>
+</div>

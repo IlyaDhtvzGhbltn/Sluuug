@@ -39,8 +39,9 @@ namespace Slug.Helpers
 
                     if (conversations.Count >= 1)
                     {
-                        foreach (var conv in conversations)
+                        foreach (Conversation conv in conversations)
                         {
+
                             Message lastMessage = context.Messangers
                                 .Where(x => x.ConvarsationGuidId == conv.ConversationGuidId)
                                 .OrderByDescending(x=>x.Id)
@@ -57,6 +58,10 @@ namespace Slug.Helpers
                                 int lastMessageUserId = lastMessage.UserId;
                                 BaseUser lastSayUser = UsWork.BaseUser(lastMessageUserId);
                                 var c = new ConversationModel();
+                                c.NotReadMessage = context.Messangers
+                                    .Where(x => x.ConvarsationGuidId == dialogGUID &&
+                                    x.UserId == InterlocutorID &&
+                                    x.IsReaded == false).Count();
 
                                 c.LastMessageSendDate = lastMessage.SendingDate;
                                 c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);

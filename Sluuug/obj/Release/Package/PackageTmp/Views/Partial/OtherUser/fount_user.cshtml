@@ -1,0 +1,54 @@
+﻿@model Slug.Model.Users.BaseUser
+@using Slug.Extensions
+@using Slug.Context.Dto.Search;
+
+@{ 
+    var purpose = new Dictionary<DatingPurposeEnum, string>()
+    {
+        {DatingPurposeEnum.Communication, "общения"},
+        {DatingPurposeEnum.NoDating, "не знакомлюсь"},
+        {DatingPurposeEnum.SeriousRelationship, "серьезных отношений"},
+        {DatingPurposeEnum.Sex, "секса"}
+    };
+
+    var sex = new Dictionary<SexEnum, string>()
+    {
+        {SexEnum.man, "мужчиной"},
+        {SexEnum.woman, "женщиной"}
+    };
+
+    var age = new Dictionary<AgeEnum, string>()
+    {
+        {AgeEnum.from16to20, "16 - 20 лет"},
+        {AgeEnum.from21to26, "21 - 26 лет"},
+        {AgeEnum.from27to32, "27 - 32 лет"},
+        {AgeEnum.from33to40, "23 - 40 лет"},
+        {AgeEnum.from41to49, "41 - 49 лет"},
+        {AgeEnum.from50to59, "50 - 59 лет"},
+        {AgeEnum.from60to69, "60 - 69 лет"},
+        {AgeEnum.morethan70, "более 70"}
+    };
+
+}
+<div class="found_user" id="user_@Model.UserId">
+    <div class="fount-user-header" onclick="redirectToUser(@Model.UserId)">
+        <div class="fount-user-name">
+            <span>@Model.Name @Model.SurName @Model.Age</span>
+        </div>
+        <div class="fount-user-img-container">
+            <img src="@Model.AvatarResizeUri" />
+        </div>
+    </div>
+    <p>@Model.Country @Model.City</p>
+    <p style="font-style:italic">«@Model.HelloMessage»</p>
+    <p>
+        @if (Model.purpose != DatingPurposeEnum.NoDating)
+        {
+            <span>Знакомлюсь для @purpose[Model.purpose] с @sex[Model.userSearchSex] @age[Model.userSearchAge]</span>
+        }
+        else
+        {
+             <span>не знакомлюсь</span>
+        }
+    </p>
+</div>

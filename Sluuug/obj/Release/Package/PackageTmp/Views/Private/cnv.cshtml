@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = "~/Views/Shared/private_template.cshtml";
+}
+@model  Slug.Model.ConversationGroupModel
+@using Slug.Extensions
+<link href="~/Styles/private/conversations-style.css" rel="stylesheet" />
+<title>Мои Сообщения</title>
+
+<h1>@Html.Translate("Text_My_Message_Title")</h1>
+<div id="conversations">
+    @if (Model.Cnv != null && Model.Cnv.Count > 0)
+    {
+        foreach (var item in Model.Cnv)
+        {
+            Html.RenderPartial("~/Views/Partial/Dialogs/dialog_preview.cshtml", item, new ViewDataDictionary<Slug.Model.SimpleChat.ConversationModel>(item));
+        }
+    }
+    else
+    {
+        <span>У вас нет не одной беседы. Что бы начать общение воспользуйтесть <a style="color:#7f7f7f; font-weight:bold" href="/private/search">поиском</span>
+    }
+
+</div>
+<script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/cnvGroupsDialogs.js"></script>
+<script src="~/Scripts/Private/DeleteDialog.js"></script>

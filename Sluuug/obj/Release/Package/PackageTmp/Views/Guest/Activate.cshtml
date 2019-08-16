@@ -1,0 +1,20 @@
+﻿
+@{
+    Layout = "~/Views/Shared/guest.cshtml";
+}
+@using Slug.Extensions;
+
+<div class="content">
+    <h1>@Html.Translate("Activate")</h1>
+
+    <div id="incorrect" style="display: @ViewBag.incorrect_div_display">
+        <p>@Html.Translate("Activate_Incorrect") !</p>
+        <p>@Html.Translate("Activate_Incorrect_Check_Email")</p>
+    </div>
+
+    <div id="success" style="display: @ViewBag.success_div_display">
+        <p>@Html.Translate("Activate_Confirm")</p>
+        <p>@Html.Translate("Activate_Can_Login") <b><a href="./#reg_log">@Html.Translate("Here")</a></b></p>
+    </div>
+</div>
+

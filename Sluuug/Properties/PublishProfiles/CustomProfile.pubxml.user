@@ -6,8 +6,8 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAfOPP+TLAyk6JFvDG6Nv+HgAAAAACAAAAAAADZgAAwAAAABAAAAC+eX6xCwwNKCS+jKYIgfqzAAAAAASAAACgAAAAEAAAAI2+s93VxXT2Fbp+Ay/FbsIoAAAA43J13Eif0BvTB7lyFlNvyiCZybVGWtmNSfY5aExl75lgZS8WigNvEhQAAACc9JaUeZLmp54tNWDPS/W7hIvPUA==</EncryptedPassword>
-    <_PublishTargetUrl>ftp://www.smalcontact.somee.com/www.smalcontact.somee.com</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoqhtHw+ai0mWAMbNAZKbpwAAAAACAAAAAAADZgAAwAAAABAAAADh4L3XnH6T4ujU6A4yG+8BAAAAAASAAACgAAAAEAAAAFKb/phQOFYYEAp1HgHgb68oAAAAPxH1LowmFWAMfvUXVScPRNdT+a1zeYXhylNoMTwoPYy+mKLxa2iAgBQAAADUPg+W9/pc9TD/9BpILTyQ4Tbz4A==</EncryptedPassword>
+    <_PublishTargetUrl>ftp://www.we.somee.com/www.we.somee.com</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AngleSharp.dll">

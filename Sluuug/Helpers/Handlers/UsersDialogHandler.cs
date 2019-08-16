@@ -92,16 +92,27 @@ dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocut
             }
             return null;
         }
-        public async Task SaveMsg(Guid convId, int userId, string text)
+        public async Task SaveMsg(Guid convId, int userSenderId, string text)
         {
             using (var context = new DataBaseContext())
             {
                 var msg = new Message();
                 msg.ConvarsationGuidId = convId;
                 msg.Text = text;
-                msg.UserId = userId;
+                msg.UserId = userSenderId;
                 msg.SendingDate = DateTime.Now;
+                msg.IsReaded = false;
                 context.Messangers.Add(msg);
+
+                var notReadMessage = context.Messangers
+                    .Where(x =>
+                x.ConvarsationGuidId == convId &&
+                x.UserId != userSenderId)
+                .ToList();
+
+                notReadMessage.ForEach(x =>
+                x.IsReaded = true);
+
                 await context.SaveChangesAsync();
             }
         }

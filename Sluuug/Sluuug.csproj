@@ -152,6 +152,7 @@
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Resources\emoji\emojis.json" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
     <Content Include="Resources\audio\new-notify-sound.wav" />
     <Content Include="Resources\images\abstract_footer_left.png" />
@@ -457,10 +458,8 @@
     <Content Include="Views\Partial\OwnPage\education.cshtml" />
     <Content Include="Views\Partial\OwnPage\events.cshtml" />
     <Content Include="Views\Partial\OwnPage\work.cshtml" />
-    <Content Include="Views\Partial\OwnPage\place.cshtml" />
     <Content Include="Views\Partial\FriendPage\education.cshtml" />
     <Content Include="Views\Partial\FriendPage\events.cshtml" />
-    <Content Include="Views\Partial\FriendPage\place.cshtml" />
     <Content Include="Views\Partial\FriendPage\work.cshtml" />
     <Content Include="Views\Partial\Dialogs\dialog_preview.cshtml" />
     <Content Include="Views\Partial\Dialogs\dialog_message.cshtml" />
@@ -475,7 +474,6 @@
     <Content Include="Views\Partial\CryptoDialogs\accept_needed_crypto_dialog.cshtml" />
     <Content Include="Views\Partial\CryptoDialogs\self_created_dialog.cshtml" />
     <Content Include="Views\Partial\CryptoDialogs\friends_can_invite_crypto_dialog.cshtml" />
-    <Content Include="Views\Partial\OwnPage\AddInfo\places_form.cshtml" />
     <Content Include="Views\Partial\Register\login_already_taken.cshtml" />
     <Content Include="Views\Error\user_already_exist.cshtml" />
     <Content Include="Views\Partial\Register\email_already_taken.cshtml" />
@@ -504,6 +502,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908100958463_reset.resx">
