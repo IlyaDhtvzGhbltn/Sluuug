@@ -19,6 +19,7 @@
     <script src="~/Scripts/notificationHub.js"></script>
     <script src="~/Scripts/Private/LocalSettings.js"></script>
     <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/Private/News.js"></script>
 </head>
 <body>
     <div class="alert hide">
@@ -81,59 +82,59 @@
             <a href="/private/my">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/home_ico.png" />
-                    <span>Мой профиль</span>
+                    <span class="nav-entry">Мой профиль</span>
                 </li>
             </a>
 
             <a href="/private/cnv">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/mess_ico.png" />
-                    <span>Сообщения</span>
-                    <div class="new notify-decrement-message"></div>
+                    <span class="nav-entry">Сообщения</span>
+                    <div class="notify-container-increment-message"></div>
                 </li>
             </a>
 
             <a href="/private/crypto_cnv">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/lock_ico.png" />
-                    <span>Секретный чат</span>
-                    <div class="new notify-decrement-secret"></div>
+                    <span class="nav-entry">Секретный чат</span>
+                    <div class="notify-container-increment-crypto"></div>
                 </li>
             </a>
             <a href="/private/invite_video_conversation">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/video_connect_ico.png" />
-                    <span>Видео-связь</span>
-                    <div class="new notify-decrement-video"></div>
+                    <span class="nav-entry">Видео-связь</span>
+                    <div class="notify-container-increment-video"></div>
                 </li>
             </a>
 
             <a href="/private/search">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/search_ico.png" />
-                    <span>Поиск</span>
+                    <span class="nav-entry">Поиск</span>
                 </li>
             </a>
 
             <a href="/private/contacts">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/contacts_ico.png" />
-                    <span>Контакты</span>
-                    <div class="new notify-decrement-contact"></div>
+                    <span class="nav-entry">Контакты</span>
+                    <div class="notify-container-increment-contact"></div>
                 </li>
             </a>
 
             <a href="/private/settings">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/settings_ico.png" />
-                    <span>Настройки</span>
+                    <span class="nav-entry">Настройки</span>
                 </li>
             </a>
 
             <a href="/private/support">
                 <li>
                     <img height="30" width="30" src="~/Resources/images/support_ico.png" />
-                    <span>Техподдержка</span>
+                    <span class="nav-entry">Техподдержка</span>
                 </li>
             </a>
 
@@ -149,4 +150,7 @@
     <div class="private-content">
         @RenderBody()
     </div>
+    <script>
+        window.onloadend = getNotReadedMessages();
+    </script>
 </body>

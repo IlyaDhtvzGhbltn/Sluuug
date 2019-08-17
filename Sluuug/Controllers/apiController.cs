@@ -246,5 +246,21 @@ namespace Slug.Controllers
                 await UsersHandler.UnblockUser(user.UserId, request);
             }
         }
+
+        [HttpPost]
+        public async Task<JsonResult> not_readed()
+        {
+            string session = GetCookiesValue(Request);
+            int userId = UsersHandler.BaseUser(session).UserId;
+            var resp = ConversationHandler.News(userId);
+            if (resp != null)
+            {
+                return new JsonResult()
+                {
+                    Data = resp
+                };
+            }
+            else return null;
+        }
     }
 }

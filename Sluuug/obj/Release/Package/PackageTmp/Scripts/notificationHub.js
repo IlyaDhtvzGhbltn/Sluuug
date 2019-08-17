@@ -16,16 +16,16 @@ HUB.on('CatchException', function (message) {
 HUB.on('NotifyAbout', function (html, params, notifyCode) {
     switch (notifyCode) {
         case 0:
-            DecrementInto('.notify-decrement-message', 'notify-message');
+            IncrementInto('.notify-container-increment-message', 'not-show-message-counter');
             break;
         case 2: case 3: case 4:
-            DecrementInto('.notify-decrement-secret', 'notify-secret');
+            IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
             break;
         case 1:
-            DecrementInto('.notify-decrement-video', 'notify-video');
+            IncrementInto('.notify-container-increment-video', 'not-show-video-counter');
             break;
         case 5: case 6:
-            DecrementInto('.notify-decrement-contact', 'notify-contacts');
+            IncrementInto('.notify-container-increment-contact', 'not-show-contact-counter');
             break;
     }
 
@@ -36,6 +36,7 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
 
 
     let notifyAlertAllow = boolSetting('notifyalert');
+    console.log(notifyAlertAllow);
     if (notifyAlertAllow) {
         var note = $('.incomming-notify');
         note[0].innerHTML = html;
@@ -53,15 +54,22 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
 });
 
 
-function DecrementInto(element, elementCounterClassName) {
-    var decrementedElement = $(element)[0];
-    if (decrementedElement.innerHTML.length === 0) {
-        decrementedElement.innerHTML = '<svg><circle></circle><span class="new-notify ' + elementCounterClassName+'">1</span></svg >';
+function IncrementInto(elementContainer, counterSelector, forceSetValue = null) {
+    console.log(counterSelector);
+    if (forceSetValue == null) {
+        var decrementedElement = $(elementContainer)[0];
+        if (decrementedElement.innerHTML.length === 0) {
+            decrementedElement.innerHTML = '<div class="new"><span id="' + counterSelector + '">1</span></div>';
+        }
+        else {
+            var notivicationsCount = parseInt($('#' + counterSelector)[0].innerHTML);
+            notivicationsCount = notivicationsCount + 1;
+            $('#'+counterSelector)[0].innerHTML = notivicationsCount;
+        }
     }
     else {
-        var notivicationsCount = parseInt($('.new-notify.' + elementCounterClassName+'')[0].innerHTML);
-        notivicationsCount = notivicationsCount + 1;
-        $('.new-notify.' + elementCounterClassName + '')[0].innerHTML = notivicationsCount;
+        var decrementedElement = $(elementContainer)[0];
+        decrementedElement.innerHTML = '<div class="new"><span id="' + counterSelector + '">' + forceSetValue + '</span></div>';
     }
 }
 

@@ -194,7 +194,7 @@ namespace Slug.Helpers
             }
         }
 
-        public CryptoDialogModel GetCryptoDialogs(string session, Guid GuidId, int page)
+        public async Task<CryptoDialogModel> GetCryptoDialogs(string session, Guid GuidId, int page)
         {
             if (page <= 0)
                 page = 1;
@@ -209,6 +209,17 @@ namespace Slug.Helpers
             model.Messages = new List<CryptoMessageModel>();
             using (var context = new DataBaseContext())
             {
+                var notReadMessage = context.SecretMessage
+                    .Where(x =>
+                    x.PartyId == GuidId &&
+                    x.UserSender != userReaderID)
+                    .ToList();
+
+                notReadMessage.ForEach(x =>
+                x.IsReaded = true);
+                await context.SaveChangesAsync();
+
+
                 model.isExpired = IsCryptoChatExpired(context, GuidId);
                 if (!model.isExpired)
                 {
@@ -216,6 +227,7 @@ namespace Slug.Helpers
                     model.MinsLeft = leftTime.MinsLeft;
                     model.SecLeft = leftTime.SecLeft;
                 }
+
 
                 int multipleCount = context.SecretMessage
                     .Where(x => x.PartyId == GuidId)

@@ -20,7 +20,12 @@ var friend_divs = $('.invitation');
 function acceptFriendshipInvitation(userID) {
     HUB.invoke('AcceptContact', userID)
         .done(function () {
-            window.location.reload();
+            _Alert('Пользователь добавлен в ваши контакты!', '#7f7f7f');
+            setTimeout(
+                function () {
+                    window.location.replace('/private/contacts?type=accept');
+                }, 2000
+            );
     });
 }
 
@@ -30,7 +35,15 @@ function dropFromContacts(userID) {
             $(".accepted_user_#" + userID)[0].remove();
         }
         catch{ }
-    });
+        _Alert('Пользователь удалён из ваших контактов!', 'red');
+        setTimeout(
+            function () {
+                window.location.reload();
+            }, 2000
+        );
+    }
+
+    );
 }
 
 function blockUser(id, message) {
@@ -57,6 +70,7 @@ function UnblockUser(Id) {
 
 function addToContacts() {
     HUB.invoke('AddFriend', getID());
+    _Alert('Ваше приглашение отправлено', '#7f7f7f');
     window.location.reload();
 }
 

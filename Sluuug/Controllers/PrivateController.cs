@@ -247,7 +247,7 @@ namespace Slug.Controllers
             string session = GetCookiesValue(this.Request);
             try
             {
-                CryptoDialogModel model = CryptoChatHandler.GetCryptoDialogs(session, Guid.Parse(id), page);
+                CryptoDialogModel model = await CryptoChatHandler.GetCryptoDialogs(session, Guid.Parse(id), page);
                 if (model != null)
                 {
                     string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;

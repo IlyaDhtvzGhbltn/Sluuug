@@ -44,9 +44,7 @@ namespace Slug.Helpers
                 var interlocutorUser = context.Users.First(x => x.Id == interlocutorID).UserFullInfo;
                 var userHandler = new UsersHandler();
                 dModel.OwnResizeAvatar = Resize.ResizedAvatarUri(userHandler.BaseUser(userID).AvatarResizeUri, ModTypes.c_scale, 60, 60);
-
-
-dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocutorUser.SurName);
+                dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocutorUser.SurName);
 
                 List<Message> msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
@@ -72,6 +70,17 @@ dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocut
                     messangs.Add(msg);
                 });
                 dModel.Messages = messangs;
+
+                var notReadMessage = context.Messangers
+                    .Where(x =>
+                x.ConvarsationGuidId == convId &&
+                x.UserId == interlocutorID)
+                .ToList();
+
+                notReadMessage.ForEach(x =>
+                x.IsReaded = true);
+
+                context.SaveChanges();
             }
             return dModel;
         }
@@ -104,14 +113,14 @@ dModel.Interlocutor = string.Format("{0} {1}", interlocutorUser.Name, interlocut
                 msg.IsReaded = false;
                 context.Messangers.Add(msg);
 
-                var notReadMessage = context.Messangers
-                    .Where(x =>
-                x.ConvarsationGuidId == convId &&
-                x.UserId != userSenderId)
-                .ToList();
+                //var notReadMessage = context.Messangers
+                //    .Where(x =>
+                //x.ConvarsationGuidId == convId &&
+                //x.UserId != userSenderId)
+                //.ToList();
 
-                notReadMessage.ForEach(x =>
-                x.IsReaded = true);
+                //notReadMessage.ForEach(x =>
+                //x.IsReaded = true);
 
                 await context.SaveChangesAsync();
             }

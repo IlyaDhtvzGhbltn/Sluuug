@@ -11,6 +11,7 @@ using System.Web;
 using Slug.Model.Users;
 using Slug.Helpers.Handlers.HandlersInterface;
 using System.Threading.Tasks;
+using Slug.Context.Dto.News;
 
 namespace Slug.Helpers
 {
@@ -83,6 +84,51 @@ namespace Slug.Helpers
                 convs.Cnv = convs.Cnv.OrderByDescending(x => x.LastMessageSendDate).ToList();
             }
             return convs;
+        }
+
+        public NotShowedMessages News(int userId)
+        {
+            var responce = new NotShowedMessages();
+            using (var context = new DataBaseContext())
+            {
+                List<Guid> userDisableDialogs = context.DisableDialogs
+                    .Where(x=>x.UserDisablerId == userId)
+                    .Select(x=>x.ConversationId)
+                    .ToList();
+
+                List<Guid> simpleDialogsGuids = context.ConversationGroup
+                    .Where(x => x.UserId == userId)
+                    .Select(x=>x.ConversationGuidId)
+                    .ToList();
+
+                List<Guid> cryptoDialogsGuids = context.SecretChatGroups
+                    .Where(x => x.UserId == userId)
+                    .Select(x => x.PartyGUID)
+                    .ToList();
+
+                if (simpleDialogsGuids.Count > 0)
+                {
+                    var notReaded = context.Messangers
+                        .Where(x => x.UserId != userId)
+                        .Where(x => x.IsReaded == false)
+                        .Where(x => simpleDialogsGuids.Contains(x.ConvarsationGuidId))
+                        .Where(x => !userDisableDialogs.Contains(x.ConvarsationGuidId))
+                        .ToArray();
+
+                    responce.NotReadedConversations = notReaded.Count();
+                }
+                if (cryptoDialogsGuids.Count > 0)
+                {
+                    var notReadedCrypto = context.SecretMessage
+                        .Where(x => x.UserSender != userId)
+                        .Where(x => x.IsReaded == false)
+                        .Where(x => cryptoDialogsGuids.Contains(x.PartyId))
+                        .Where(x => !userDisableDialogs.Contains(x.PartyId))
+                        .ToArray();
+                    responce.NotReadedCryptoConversations = notReadedCrypto.Count();
+                }
+                return responce;
+            }
         }
     }
 }

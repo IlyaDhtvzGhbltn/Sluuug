@@ -16,6 +16,7 @@ function UpdateDialog(model, bigAvatarUrl) {
             var message = model.Text.substring(0, 27) + '...';
             messageContainer.innerHTML = message;
         }
+            IncrementInto('.not-read-msg-in-pre-dialog-container', 'not_read_counter_' + model.ConversationId);
     }
     else {
         var dialogMsgWrapper = document.createElement("div");

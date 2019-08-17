@@ -182,3 +182,9 @@
     border-right: 1px solid #7f7f7f;
     border-bottom: 1px solid #7f7f7f;
 }
+
+#remote_cut_msg {
+    max-width: 66%;
+    word-wrap: break-word;
+    display: block;
+}

@@ -64,35 +64,32 @@ select{
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
-.new {
-    position: relative;
-    top: 15px;
-    right: 2px;
-    float: right;
-    width: 20px;
-    height: 20px;
-    display:table;
+.notify-container-increment-message,
+.notify-container-increment-crypto,
+.notify-container-increment-contact,
+.notify-container-increment-video {
+    position: absolute;
+    right: 5px;
+    margin-top: -22px;
 }
 
-.new svg{
-	width:inherit;
-	height:inherit;
+.new {
+    position: relative;
+    float: right;
+    width: auto;
+    height: 20px;
+    background-color: #7db7af;
+    border-radius: 50%;
+    padding: 2px;
+    min-width: 20px;
+    border: 1px solid #7f7f7f;
+    text-align:center;
 }
-.new circle{
-	cx:10;
-	cy:10;
-	r:10; 
-	fill:#7db7af; 
+
+.new span {
+    color: #fff;
+    vertical-align: middle;
 }
-    .new span {
-        font-family: 'Roboto Condensed', sans-serif;
-        font-size: 16px;
-        color: #fff;
-        display: table-cell;
-        position: inherit;
-        left: -14px;
-        top: -5px;
-    }
 
 
 label {

@@ -165,9 +165,8 @@ ul li:hover > span{
         background-color: #49B2DA;
     }
 
-#left-navigation ul li span:not(.new-notify){
-	display:inline-block;
-	margin-left:11px;
+.nav-entry {
+    margin-left: 11px;
 }
 
 #search-form{

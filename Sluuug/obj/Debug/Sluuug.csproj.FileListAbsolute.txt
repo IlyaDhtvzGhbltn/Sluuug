@@ -115,11 +115,11 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.disableDialog.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.reset.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.disableDialog.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.guid_secretmsg.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.black_list.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.black_list2.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.res.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.isreaded_cryptoMsg.resources

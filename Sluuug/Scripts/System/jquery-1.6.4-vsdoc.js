@@ -2417,7 +2417,7 @@ jQuery.ready = function( wait ) {
 			// Remember that the DOM is ready
 			jQuery.isReady = true;
 
-			// If a normal DOM Ready event fired, decrement, and wait if need be
+			// If a normal DOM Ready event fired, increment, and wait if need be
 			if ( wait !== true && --jQuery.readyWait > 0 ) {
 				return;
 			}

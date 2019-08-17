@@ -176,6 +176,7 @@
     <Content Include="Scripts\Albums.js" />
     <Content Include="Scripts\Private\DeleteDialog.js" />
     <Content Include="Scripts\Private\LocalSettings.js" />
+    <Content Include="Scripts\Private\News.js" />
     <Content Include="Scripts\Profile\EditInfo.js" />
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
@@ -258,6 +259,7 @@
     <Compile Include="Context\Dto\CryptoConversation\CryptoDialogTimeLeft.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
+    <Compile Include="Context\Dto\News\NotShowedMessages.cs" />
     <Compile Include="Context\Dto\EnumParameters.cs" />
     <Compile Include="Context\Dto\FeedBack\FeedBackRequest.cs" />
     <Compile Include="Context\Dto\FeedBack\FeedBackResponce.cs" />
@@ -310,25 +312,13 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201908100958463_reset.cs" />
-    <Compile Include="Migrations\201908100958463_reset.Designer.cs">
-      <DependentUpon>201908100958463_reset.cs</DependentUpon>
+    <Compile Include="Migrations\201908170930538_res.cs" />
+    <Compile Include="Migrations\201908170930538_res.Designer.cs">
+      <DependentUpon>201908170930538_res.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908111418111_disableDialog.cs" />
-    <Compile Include="Migrations\201908111418111_disableDialog.Designer.cs">
-      <DependentUpon>201908111418111_disableDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908120920555_guid_secretmsg.cs" />
-    <Compile Include="Migrations\201908120920555_guid_secretmsg.Designer.cs">
-      <DependentUpon>201908120920555_guid_secretmsg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908131219029_black_list.cs" />
-    <Compile Include="Migrations\201908131219029_black_list.Designer.cs">
-      <DependentUpon>201908131219029_black_list.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908131347551_black_list2.cs" />
-    <Compile Include="Migrations\201908131347551_black_list2.Designer.cs">
-      <DependentUpon>201908131347551_black_list2.cs</DependentUpon>
+    <Compile Include="Migrations\201908171045566_isreaded_cryptoMsg.cs" />
+    <Compile Include="Migrations\201908171045566_isreaded_cryptoMsg.Designer.cs">
+      <DependentUpon>201908171045566_isreaded_cryptoMsg.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -505,21 +495,11 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908100958463_reset.resx">
-      <DependentUpon>201908100958463_reset.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908170930538_res.resx">
+      <DependentUpon>201908170930538_res.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908111418111_disableDialog.resx">
-      <DependentUpon>201908111418111_disableDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908120920555_guid_secretmsg.resx">
-      <DependentUpon>201908120920555_guid_secretmsg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908131219029_black_list.resx">
-      <DependentUpon>201908131219029_black_list.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908131347551_black_list2.resx">
-      <DependentUpon>201908131347551_black_list2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908171045566_isreaded_cryptoMsg.resx">
+      <DependentUpon>201908171045566_isreaded_cryptoMsg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -26,5 +26,8 @@ namespace Slug.Context.Tables
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime SendingDate { get; set; }
+
+        [Required]
+        public bool IsReaded { get; set; }
     }
 }
