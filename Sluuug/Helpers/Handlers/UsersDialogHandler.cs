@@ -113,15 +113,6 @@ namespace Slug.Helpers
                 msg.IsReaded = false;
                 context.Messangers.Add(msg);
 
-                //var notReadMessage = context.Messangers
-                //    .Where(x =>
-                //x.ConvarsationGuidId == convId &&
-                //x.UserId != userSenderId)
-                //.ToList();
-
-                //notReadMessage.ForEach(x =>
-                //x.IsReaded = true);
-
                 await context.SaveChangesAsync();
             }
         }

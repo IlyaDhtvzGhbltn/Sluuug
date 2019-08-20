@@ -5,10 +5,12 @@ using System.Web;
 
 namespace Slug.Context.Dto.News
 {
-    public class NotShowedMessages
+    public class NotShowedNews
     {
-        public int NotReadedConversations { get; set; }
+        public Dictionary<string, int> NotReadedConversations { get; set; }
 
-        public int NotReadedCryptoConversations { get; set; }
+        public Dictionary<string, int> NotReadedCryptoConversations { get; set; }
+
+        public int NewInviteToContacts { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Slug.Context.Dto.Messages
 {
-    public class NotifyHubModel
+    public class NotificationModel
     {
         public BaseUser FromUser { get; set; }
 

@@ -21,6 +21,7 @@ using Slug.Helpers.Handlers.HandlersInterface;
 using System.Threading.Tasks;
 using Slug.Context.Dto.UserWorker_refactor;
 using Slug.Context.Tables;
+using Slug.Context.Dto.News;
 
 namespace Slug.Controllers
 {
@@ -248,11 +249,11 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> not_readed()
+        public JsonResult not_readed()
         {
             string session = GetCookiesValue(Request);
             int userId = UsersHandler.BaseUser(session).UserId;
-            var resp = ConversationHandler.News(userId);
+            NotShowedNews resp = ConversationHandler.News(userId);
             if (resp != null)
             {
                 return new JsonResult()

@@ -88,9 +88,10 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-<script src="~/Scripts/crypto_chat.js"></script>
-<script src="~/Scripts/Private/ExperationTimer.js"></script>
-<script src="~/Scripts/Private/DeleteDialog.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/CryptoDialogInitialization.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/ExperationTimer.js"></script>
+<script src="~/Scripts/Private/Dialogs/Common/DeleteDialog.js"></script>
 <script>
     function generationKeyUserToggle() {
         $('#not_selected').fadeOut(600);
@@ -101,7 +102,7 @@
 
     var url = new URL(window.location.href);
     var type = url.searchParams.get("type");
-    if (type.length > 0) {
+    if (type != null && type.length > 0) {
         switch (type) {
             case "accept":
                 $('#tab1').attr("checked", "checked");

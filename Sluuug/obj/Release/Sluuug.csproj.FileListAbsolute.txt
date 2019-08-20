@@ -56,11 +56,6 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.pdb
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.reset.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.disableDialog.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.guid_secretmsg.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.black_list.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.black_list2.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\bin\NLog.config
 D:\SLUG\Sluuug\Sluuug\bin\Slug.dll.config
@@ -123,3 +118,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Release\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.pdb
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.res.resources

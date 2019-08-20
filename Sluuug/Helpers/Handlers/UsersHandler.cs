@@ -881,7 +881,7 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task<NotifyHubModel> AcceptInviteToContacts(string session, int userID)
+        public async Task<NotificationModel> AcceptInviteToContacts(string session, int userID)
         {
             BaseUser accepterUser = ProfileInfo(session, false);
             using (var context = new DataBaseContext())
@@ -897,7 +897,7 @@ namespace Slug.Helpers
 
                 var connectionHandler = new UsersConnectionHandler();
                 var connections = connectionHandler.GetConnectionById(userID);
-                var responce = new NotifyHubModel();
+                var responce = new NotificationModel();
                 responce.ConnectionIds = connections.ConnectionId;
                 responce.FromUser = accepterUser;
                 responce.Culture = connections.CultureCode[0];

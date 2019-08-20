@@ -59,10 +59,6 @@ namespace Slug.Helpers
                                 int lastMessageUserId = lastMessage.UserId;
                                 BaseUser lastSayUser = UsWork.BaseUser(lastMessageUserId);
                                 var c = new ConversationModel();
-                                c.NotReadMessage = context.Messangers
-                                    .Where(x => x.ConvarsationGuidId == dialogGUID &&
-                                    x.UserId == InterlocutorID &&
-                                    x.IsReaded == false).Count();
 
                                 c.LastMessageSendDate = lastMessage.SendingDate;
                                 c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);
@@ -86,9 +82,12 @@ namespace Slug.Helpers
             return convs;
         }
 
-        public NotShowedMessages News(int userId)
+        public NotShowedNews News(int userId)
         {
-            var responce = new NotShowedMessages();
+            var responce = new NotShowedNews();
+            responce.NotReadedConversations = new Dictionary<string, int>();
+            responce.NotReadedCryptoConversations = new Dictionary<string, int>();
+
             using (var context = new DataBaseContext())
             {
                 List<Guid> userDisableDialogs = context.DisableDialogs
@@ -108,24 +107,33 @@ namespace Slug.Helpers
 
                 if (simpleDialogsGuids.Count > 0)
                 {
-                    var notReaded = context.Messangers
-                        .Where(x => x.UserId != userId)
-                        .Where(x => x.IsReaded == false)
-                        .Where(x => simpleDialogsGuids.Contains(x.ConvarsationGuidId))
-                        .Where(x => !userDisableDialogs.Contains(x.ConvarsationGuidId))
-                        .ToArray();
-
-                    responce.NotReadedConversations = notReaded.Count();
+                    foreach (Guid dialog in simpleDialogsGuids)
+                    {
+                        Message[] notReaded = context.Messangers
+                            .Where(x => x.UserId != userId)
+                            .Where(x => x.IsReaded == false)
+                            .Where(x => x.ConvarsationGuidId == dialog)
+                            .Where(x => !userDisableDialogs.Contains(x.ConvarsationGuidId))
+                            .ToArray();
+                        if(notReaded.Length > 0)
+                            responce.NotReadedConversations.Add(dialog.ToString(), notReaded.Length);
+                    }
                 }
                 if (cryptoDialogsGuids.Count > 0)
                 {
-                    var notReadedCrypto = context.SecretMessage
-                        .Where(x => x.UserSender != userId)
-                        .Where(x => x.IsReaded == false)
-                        .Where(x => cryptoDialogsGuids.Contains(x.PartyId))
-                        .Where(x => !userDisableDialogs.Contains(x.PartyId))
-                        .ToArray();
-                    responce.NotReadedCryptoConversations = notReadedCrypto.Count();
+                    foreach(Guid cryptoDialog in cryptoDialogsGuids)
+                    {
+                        SecretMessages[] notReadedCrypto = context.SecretMessage
+                            .Where(x => x.UserSender != userId)
+                            .Where(x => x.IsReaded == false)
+                            .Where(x => x.PartyId == cryptoDialog)
+                            .Where(x => !userDisableDialogs.Contains(x.PartyId))
+                            .ToArray();
+                        if (notReadedCrypto.Length > 0)
+                            responce.NotReadedCryptoConversations.Add(cryptoDialog.ToString(), notReadedCrypto.Length);
+                    }
+
+
                 }
                 return responce;
             }

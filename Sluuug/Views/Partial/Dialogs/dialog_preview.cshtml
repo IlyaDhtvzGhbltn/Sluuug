@@ -2,18 +2,12 @@
 @using Slug.Extensions
 
 
-<div class="conver_div" id="@Model.GuidId" onclick="redirectToDialog('@Model.GuidId')">
+<div class="simple-dialog-wrapper dialog-@Model.GuidId" onclick="redirectToDialog('@Model.GuidId')">
     <img src="@Model.InterlocutorAvatar" />
     <div class="dialog-preview-header">
-        @if (@Model.NotReadMessage > 0)
-        {
-            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2><div class="not-read-msg-in-pre-dialog-container"><div class="new"><span id="not_read_counter_@Model.GuidId" class="new-notify new-mess-in-pre-dialog">@Model.NotReadMessage</span></div></div>
-        }
-        else
-        {
-            <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
-        }
-        <span class="delete-dialog" onclick="deleteDialog('@Model.GuidId'); event.stopPropagation();">x</span>
+        <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
+        <div class="dialog-not-read-msg-@Model.GuidId"></div>
+        <span class="delete-dialog" onclick="deleteDialog('.dialog-@Model.GuidId', '@Model.GuidId'); event.stopPropagation();">x</span>
     </div>
     <div class="confersation-body">
         <h4>@Model.LastMessageSenderName @Model.LastMessageSenderSurName</h4>

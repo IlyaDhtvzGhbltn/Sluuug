@@ -24,8 +24,8 @@
             </div>
 
             <div class="profile-info-location">
-                @Html.DropDownList("Countries", null, new { @id="myCountry", @onchange = "getCities('myCountry','myCity', false); SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
-                @Html.DropDownList("Cities", null, new { @id="myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
+                @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "getCities('myCountry','myCity', false); SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
+                @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
                 <span>@Model.Age</span>
             </div>
 
@@ -52,7 +52,7 @@
         </div>
         <div class="change-avatar" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-700px' })">
             <form action="http://localhost:32035/private/upload" enctype="multipart/form-data" method="post">
-                <div class="input-overflow" >
+                <div class="input-overflow">
                     <span>Сменить аватар</span>
                     <img id="avatar-change-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png" />
                 </div>
@@ -308,21 +308,20 @@
 
 
 @*<div class="profile-full-info-item-wrapper">
-    <h2>Стена(-0)</h2>
-    <input type="checkbox" class="expand-checkbox" />
-    <div class="expand"></div>
-    <div class="expanded-info">
-        <div class="new-post-form">
-            <textarea></textarea>
-                <button>Опубликовать</button>
+        <h2>Стена(-0)</h2>
+        <input type="checkbox" class="expand-checkbox" />
+        <div class="expand"></div>
+        <div class="expanded-info">
+            <div class="new-post-form">
+                <textarea></textarea>
+                    <button>Опубликовать</button>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 <script src="~/Scripts/System/ParseFormArray.js"></script>
-<script src="~/Scripts/Profile/EditInfo.js"></script>
-<script src="~/Scripts/Albums.js"></script>
-<script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/Private/Profile/Albums.js"></script>
+<script src="~/Scripts/Private/Profile/EditProfileInfo.js"></script>
 <script src="~/Scripts/System/Validation.js"></script>
 <script>
     function newAvatarSelect() {
@@ -332,12 +331,12 @@
     function StopMove(element) {
         var elementPosition = $(element).offset();
         $(element).offset({ 'left': elementPosition.left });
-        $(element).css({'opacity':'1', 'z-index':'999'});
+        $(element).css({ 'opacity': '1', 'z-index': '999' });
     }
 
     function MoveTo(element, position, delay) {
         $(element).css({ 'left': position.left, 'top': position.top });
     }
 
-    
+
 </script>

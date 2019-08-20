@@ -60,13 +60,12 @@
     </div>
 
 </div>
-<script src="~/Scripts/myContacts.js"></script>
-<script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/Private/Contacts/ContactsManage.js"></script>
 <script>
     var url = new URL(window.location.href);
     var type = url.searchParams.get("type");
-    if (type.length > 0) {
-         switch (type) {
+    if (type != null && type.length > 0) {
+        switch (type) {
             case "accept":
                 $('#tab3').attr("checked", "checked");
                 break;
@@ -75,10 +74,10 @@
                 break;
             case "in":
                 $('#tab1').attr("checked", "checked");
-                 break;
-             case "bl":
-                 $('#tab4').attr("checked", "checked");
-                 break;
+                break;
+            case "bl":
+                $('#tab4').attr("checked", "checked");
+                break;
         }
     }
 </script>

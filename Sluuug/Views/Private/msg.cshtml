@@ -24,7 +24,7 @@
 <div class="send_msg">
     <div class="text-area-container">
         <textarea id="new_msg" class="stylized-scrollbar"></textarea>
-            <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
+        <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
     </div>
 
     <div class="emoji-charsets-container">
@@ -45,9 +45,8 @@
 </div>
 <span class="own-avatar-span" style="display:none">@ViewBag.OwnAvatar</span>
 
-<script src="~/Scripts/chatp2pWS.js"></script>
-<script src="~/Scripts/RelocationToUser.js"></script>
-<script src="~/Scripts/Profile/SelectPaginationActivePage.js"></script>
+<script src="~/Scripts/Private/Dialogs/SimpleDialog/Сommunication.js"></script>
+<script src="~/Scripts/Private/Profile/SelectPaginationActivePage.js"></script>
 <script>
     $(document).ready(function () {
         var objDiv = $(".dialog")[0];

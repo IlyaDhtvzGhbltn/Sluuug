@@ -173,40 +173,42 @@
     <Content Include="Resources\images\video_connect_ico.png" />
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
-    <Content Include="Scripts\Albums.js" />
-    <Content Include="Scripts\Private\DeleteDialog.js" />
-    <Content Include="Scripts\Private\LocalSettings.js" />
-    <Content Include="Scripts\Private\News.js" />
-    <Content Include="Scripts\Profile\EditInfo.js" />
+    <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
+    <Content Include="Scripts\Private\Profile\Albums.js" />
+    <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
+    <Content Include="Scripts\Private\Profile\SelectPaginationActivePage.js" />
+    <Content Include="Scripts\Private\Settings\LocalSettings.js" />
+    <Content Include="Scripts\Private\Common\News.js" />
+    <Content Include="Scripts\Private\Profile\EditProfileInfo.js" />
     <Content Include="Scripts\Guest\index_form.js" />
     <Content Include="Scripts\Guest\validationGuest.js" />
-    <Content Include="Scripts\Private\ExperationTimer.js" />
-    <Content Include="Scripts\Private\menu_template.js" />
+    <Content Include="Scripts\Private\Dialogs\CryptoDialog\ExperationTimer.js" />
+    <Content Include="Scripts\Private\Common\LeftNavMenuDisable.js" />
     <Content Include="Scripts\System\Alert.js" />
     <Content Include="Scripts\System\AsyncRequest.js" />
     <Content Include="Scripts\System\BigInteger.js" />
     <Content Include="Scripts\System\BigInteger.min.js" />
-    <Content Include="Scripts\crypto_chat.js" />
-    <Content Include="Scripts\crypto_dialog.js" />
-    <Content Include="Scripts\Search.js" />
-    <Content Include="Scripts\notificationHub.js" />
-    <Content Include="Scripts\myContacts.js" />
-    <Content Include="Scripts\RelocationToUser.js" />
+    <Content Include="Scripts\Private\Dialogs\CryptoDialog\CryptoDialogInitialization.js" />
+    <Content Include="Scripts\Private\Dialogs\CryptoDialog\Сommunication.js" />
+    <Content Include="Scripts\Private\Search\Search.js" />
+    <Content Include="Scripts\Private\Common\MainGlobalHub.js" />
+    <Content Include="Scripts\Private\Contacts\ContactsManage.js" />
+    <Content Include="Scripts\Private\Common\RelocationToUser.js" />
     <Content Include="Scripts\System\jquery-1.6.4.js" />
     <Content Include="Scripts\System\jquery-1.6.4.min.js" />
     <Content Include="Scripts\System\jquery.signalR-2.4.0.js" />
     <Content Include="Scripts\System\jquery.signalR-2.4.0.min.js" />
-    <Content Include="Scripts\chatp2pWS.js" />
-    <Content Include="Scripts\newMessageFromPage.js" />
-    <Content Include="Scripts\cnvGroupsDialogs.js" />
+    <Content Include="Scripts\Private\Dialogs\SimpleDialog\Сommunication.js" />
+    <Content Include="Scripts\Private\Dialogs\SimpleDialog\StartDialogFromUserPage.js" />
+    <Content Include="Scripts\Private\Dialogs\Preview\SimpleDialogsList.js" />
     <Content Include="Scripts\System\ParseFormArray.js" />
     <Content Include="Scripts\System\SHA-512.js" />
-    <Content Include="Scripts\ChangeSettings.js" />
+    <Content Include="Scripts\Private\Settings\ChangeSettings.js" />
     <Content Include="Scripts\System\sha512.js" />
     <Content Include="Scripts\System\Validation.js" />
-    <Content Include="Scripts\vConferens.js" />
-    <Content Include="Scripts\vDialogRedirection.js" />
-    <Content Include="Scripts\vDialogs.js" />
+    <Content Include="Scripts\Private\VideoConference\vConferens.js" />
+    <Content Include="Scripts\Private\VideoConference\vDialogRedirection.js" />
+    <Content Include="Scripts\Private\VideoConference\vDialogs.js" />
     <Content Include="Styles\common\await.css" />
     <Content Include="Styles\common\navigation-arrows-style.css" />
     <Content Include="Styles\guest\index_form.css" />
@@ -312,13 +314,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201908170930538_res.cs" />
-    <Compile Include="Migrations\201908170930538_res.Designer.cs">
-      <DependentUpon>201908170930538_res.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908171045566_isreaded_cryptoMsg.cs" />
-    <Compile Include="Migrations\201908171045566_isreaded_cryptoMsg.Designer.cs">
-      <DependentUpon>201908171045566_isreaded_cryptoMsg.cs</DependentUpon>
+    <Compile Include="Migrations\201908201353172_res.cs" />
+    <Compile Include="Migrations\201908201353172_res.Designer.cs">
+      <DependentUpon>201908201353172_res.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -389,10 +387,10 @@
     </Compile>
     <Compile Include="Helpers\BaseController\SlugController.cs" />
     <Compile Include="Helpers\Handlers\VideoConferenceHandler.cs" />
-    <Compile Include="Hubs\CryptoMessagersHub.cs" />
-    <Compile Include="Hubs\NotificationHub.cs" />
-    <Compile Include="Hubs\MessagersHub.cs" />
-    <Compile Include="Hubs\VideoChatInviteHub.cs" />
+    <Compile Include="Hubs\UserBehaviors\CryptoDialog.cs" />
+    <Compile Include="Hubs\GlobalHub.cs" />
+    <Compile Include="Hubs\UserBehaviors\SimpleDialog.cs" />
+    <Compile Include="Hubs\UserBehaviors\VideoConference.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\AlbumModel.cs" />
     <Compile Include="Model\Albums\FotoCommentModel.cs" />
@@ -495,11 +493,8 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908170930538_res.resx">
-      <DependentUpon>201908170930538_res.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908171045566_isreaded_cryptoMsg.resx">
-      <DependentUpon>201908171045566_isreaded_cryptoMsg.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908201353172_res.resx">
+      <DependentUpon>201908201353172_res.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
