@@ -16,7 +16,7 @@ namespace Slug.Helpers
             var userInfo = userHandler.ProfileInfo(sessionID);
             using (var context = new DataBaseContext())
             {
-                var friendShip = context.FriendsRelationship
+                var friendShip = context.UserRelations
                     .Where(x => x.UserOferFrienshipSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
@@ -48,7 +48,7 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
-                var relation = context.FriendsRelationship
+                var relation = context.UserRelations
                     .FirstOrDefault(x => x.UserOferFrienshipSender == userFirst && x.UserConfirmer == userSecond ||
                     x.UserOferFrienshipSender == userSecond && x.UserConfirmer == userFirst);
                 if (relation == null)
@@ -60,10 +60,10 @@ namespace Slug.Helpers
             }
         }
 
-        public static FriendsRelationship GetRelation(DataBaseContext context, int userFirst, int userSecond)
+        public static UsersRelation GetRelation(DataBaseContext context, int userFirst, int userSecond)
         {
 
-            FriendsRelationship relation = context.FriendsRelationship
+            UsersRelation relation = context.UserRelations
                 .FirstOrDefault(x =>
                 x.UserOferFrienshipSender == userFirst && x.UserConfirmer == userSecond ||
                 x.UserConfirmer == userFirst && x.UserOferFrienshipSender == userSecond);

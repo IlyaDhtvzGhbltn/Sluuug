@@ -211,7 +211,7 @@ namespace Slug.Controllers
         public async Task<ActionResult> contacts(string type)
         {
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            ContactsModel model = base.UsersHandler.GetContactsBySession(sessionId);
+            ContactsModel model = await UsersHandler.GetContactsBySession(sessionId);
             return View(model);
         }
 

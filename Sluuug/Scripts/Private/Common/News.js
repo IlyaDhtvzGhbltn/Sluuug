@@ -25,6 +25,11 @@
                     })
                 }
             }
+            var newContacts = resp.NewInviteToContacts;
+            if (newContacts > 0)
+            {
+                IncrementInto('.notify-container-increment-contact', 'not-show-contact-counter', newContacts);
+            }
         }
     });
 }

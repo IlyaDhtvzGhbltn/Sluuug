@@ -499,7 +499,7 @@ namespace Slug.Helpers
 
             using (var context = new DataBaseContext())
             {
-                FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
+                UsersRelation[] friendshipAccepted = context.UserRelations
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
@@ -545,7 +545,7 @@ namespace Slug.Helpers
             return model;
         }
 
-        public ContactsModel GetContactsBySession(string sessionId, int avatarResize = 100)
+        public async Task<ContactsModel> GetContactsBySession(string sessionId, int avatarResize = 100)
         {
             var model = new ContactsModel();
             model.Friends = new List<BaseUser>();
@@ -556,7 +556,9 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 int userId = UserIdBySession(sessionId);
-                FriendsRelationship[] friendshipAccepted = context.FriendsRelationship
+                await InvitationSeen(context, userId);
+
+                UsersRelation[] friendshipAccepted = context.UserRelations
                     .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
@@ -588,7 +590,7 @@ namespace Slug.Helpers
                         model.Friends.Add(friend);
                     }
                 }
-                FriendsRelationship[] inCommingFriendshipPending = context.FriendsRelationship
+                UsersRelation[] inCommingFriendshipPending = context.UserRelations
                     .Where(x => x.UserConfirmer == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Pending)
                     .ToArray();
@@ -616,7 +618,7 @@ namespace Slug.Helpers
                     }
                 }
 
-                FriendsRelationship[] outCommingFriendshipPending = context.FriendsRelationship
+                UsersRelation[] outCommingFriendshipPending = context.UserRelations
                     .Where(x => x.UserOferFrienshipSender == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Pending)
                     .ToArray();
@@ -753,16 +755,23 @@ namespace Slug.Helpers
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
                 if (invitedUser != null)
                 {
-                    FriendsRelationship invitationAlreadySand = 
+                    UsersRelation invitationAlreadySand = 
                         FriendshipChecker.GetRelation(context, userSenderRequest.UserId, userIDToFriendsInvite);
                     if (invitationAlreadySand == null || invitationAlreadySand.Status == FriendshipItemStatus.None)
                     {
-                        var relation = new FriendsRelationship();
+                        var relation = new UsersRelation();
                         relation.OfferSendedDate = DateTime.UtcNow;
                         relation.UserOferFrienshipSender = userSenderRequest.UserId;
                         relation.UserConfirmer = invitedUser.Id;
                         relation.Status = FriendshipItemStatus.Pending;
-                        context.FriendsRelationship.Add(relation);
+                        relation.IsInvitationSeen = false;
+                        context.UserRelations.Add(relation);
+                        context.SaveChanges();
+                        return userSenderRequest;
+                    }
+                    else
+                    {
+                        invitationAlreadySand.IsInvitationSeen = false;
                         context.SaveChanges();
                         return userSenderRequest;
                     }
@@ -795,7 +804,7 @@ namespace Slug.Helpers
                 model.City = someUser.City;
                 model.Country = someUser.Country;
 
-                FriendsRelationship relationItem = FriendshipChecker.GetRelation(context, Iam.UserId, userObjectRequestId);
+                UsersRelation relationItem = FriendshipChecker.GetRelation(context, Iam.UserId, userObjectRequestId);
                 BlockedUsersEntries blockItem = FriendshipChecker.GetBlockRelation(context, Iam.UserId, userObjectRequestId);
 
                 if (relationItem != null)
@@ -837,11 +846,11 @@ namespace Slug.Helpers
             {
                 using (var context = new DataBaseContext())
                 {
-                    FriendsRelationship entryFrienship = context.FriendsRelationship
+                    UsersRelation entryFrienship = context.UserRelations
                         .Where(x => x.UserOferFrienshipSender == myId && x.UserConfirmer == userID ||
                         x.UserConfirmer == myId && x.UserOferFrienshipSender == userID)
                         .First();
-                    context.FriendsRelationship.Remove(entryFrienship);
+                    context.UserRelations.Remove(entryFrienship);
                     context.SaveChanges();
                 }
             }
@@ -886,7 +895,7 @@ namespace Slug.Helpers
             BaseUser accepterUser = ProfileInfo(session, false);
             using (var context = new DataBaseContext())
             {
-                FriendsRelationship item = context.FriendsRelationship
+                UsersRelation item = context.UserRelations
                     .Where(x => x.Status == FriendshipItemStatus.Pending &&
                     x.UserOferFrienshipSender == userID &&
                     x.UserConfirmer == accepterUser.UserId)
@@ -1005,6 +1014,23 @@ namespace Slug.Helpers
         {
             bool flag = context.UserConnections.Any(x => x.IsActive == true && x.UserId == userId);
             return flag;
+        }
+
+        private async Task InvitationSeen(DataBaseContext context, int userId)
+        {
+            var relation = context.UserRelations.Where(x =>
+                x.IsInvitationSeen == false &&
+                x.UserConfirmer == userId)
+                .ToList();
+
+            if(relation.Count > 0)
+            {
+                relation.ForEach(r =>
+                {
+                    r.IsInvitationSeen = true;
+                });
+            }
+            await context.SaveChangesAsync();
         }
     }
 }

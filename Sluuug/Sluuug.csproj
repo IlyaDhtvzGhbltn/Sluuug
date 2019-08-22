@@ -318,6 +318,10 @@
     <Compile Include="Migrations\201908201353172_res.Designer.cs">
       <DependentUpon>201908201353172_res.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908221118076_relations-is-seen.cs" />
+    <Compile Include="Migrations\201908221118076_relations-is-seen.Designer.cs">
+      <DependentUpon>201908221118076_relations-is-seen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -348,7 +352,7 @@
     <Compile Include="Context\Tables\VideoConference.cs" />
     <Compile Include="Context\Tables\VideoConferenceGroups.cs" />
     <Compile Include="Context\Tables\ConversationGroup.cs" />
-    <Compile Include="Context\Tables\FriendsRelationship.cs" />
+    <Compile Include="Context\Tables\UsersRelation.cs" />
     <Compile Include="Context\Tables\SecretChat.cs" />
     <Compile Include="Context\Tables\SecretMessages.cs" />
     <Compile Include="Context\Tables\SecretChatGroup.cs" />
@@ -495,6 +499,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908201353172_res.resx">
       <DependentUpon>201908201353172_res.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908221118076_relations-is-seen.resx">
+      <DependentUpon>201908221118076_relations-is-seen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

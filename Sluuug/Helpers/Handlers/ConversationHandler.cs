@@ -121,7 +121,7 @@ namespace Slug.Helpers
                 }
                 if (cryptoDialogsGuids.Count > 0)
                 {
-                    foreach(Guid cryptoDialog in cryptoDialogsGuids)
+                    foreach (Guid cryptoDialog in cryptoDialogsGuids)
                     {
                         SecretMessages[] notReadedCrypto = context.SecretMessage
                             .Where(x => x.UserSender != userId)
@@ -132,9 +132,15 @@ namespace Slug.Helpers
                         if (notReadedCrypto.Length > 0)
                             responce.NotReadedCryptoConversations.Add(cryptoDialog.ToString(), notReadedCrypto.Length);
                     }
-
-
                 }
+
+                var incommingInvitations = context.UserRelations.Where(x =>
+                    x.IsInvitationSeen == false &&
+                    x.UserConfirmer == userId
+                ).ToList();
+
+                responce.NewInviteToContacts = incommingInvitations.Count;
+
                 return responce;
             }
         }
