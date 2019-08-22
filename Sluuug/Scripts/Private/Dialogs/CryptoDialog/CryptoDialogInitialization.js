@@ -308,12 +308,10 @@ function ready() {
 
     var lastCryptoMessage = $('.last_msg_crypto');
     if (lastCryptoMessage.length > 0) {
-        var elements = $('.chat-wrapper');
-
         for (var i = 0; i < lastCryptoMessage.length; i++) {
             try {
                 var cryptText = lastCryptoMessage[i].innerHTML;
-                var decryptText = decryption(cryptText, elements[i].id);
+                var decryptText = decryption(cryptText, lastCryptoMessage[i].id);
                 if (decryptText.length < 15) {
                     lastCryptoMessage[i].innerHTML = decryptText;
                 }
@@ -351,11 +349,11 @@ function gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate) {
     else {
         cutDecryptMsg = decryptText.substring(0,27) + '...';
     }
-    var crptDialogEntry = $('#' + model.DialogId + ' > .conversation-body-container .last-message-container .last_msg_crypto')[0];
+
+    var crptDialogEntry = $('.dialog-' + model.DialogId + ' > .conversation-body-container .last-message-container .last_msg_crypto')[0];
     if (crptDialogEntry != undefined) {
         crptDialogEntry.innerHTML = cutDecryptMsg;
         $('.last-msg-date')[0].innerHTML = 'сейчас';
-        $('#' + model.DialogId).css({ 'animation': 'AlertGotMessage', 'animation-iteration-count': 'infinite', 'animation-duration': '1s' });
     }
     else {
 
@@ -363,8 +361,9 @@ function gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate) {
         console.log(node);
         var cryptoDialogList = $('#current-crypto-dialogs-list')[0];
         cryptoDialogList.insertBefore(node, cryptoDialogList.firstChild);
-        $('#' + model.DialogId).css({ 'animation': 'AlertGotMessage', 'animation-iteration-count': 'infinite', 'animation-duration': '1s' });
     }
+    $('.dialog-' + model.DialogId).css({ 'animation': 'AlertGotMessage', 'animation-iteration-count': 'infinite', 'animation-duration': '1s' });
+    IncrementInto('.crypto-dialog-not-read-msg-' + model.DialogId, model.DialogId);
 }
 
 function getRandomInt(min, max) {

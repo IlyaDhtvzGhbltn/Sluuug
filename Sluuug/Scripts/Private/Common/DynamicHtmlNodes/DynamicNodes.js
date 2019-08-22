@@ -2,8 +2,7 @@
 
     static ItemToDialogsList(model, avatar, minLeft, secLeft, expiredDate, cutDecryptMsg ) {
         var dialogMsgWrapper = document.createElement("div");
-        dialogMsgWrapper.className = 'chat-wrapper';
-        dialogMsgWrapper.id = model.DialogId;
+        dialogMsgWrapper.className = 'chat-wrapper dialog-' + model.DialogId;
         dialogMsgWrapper.addEventListener('click', function () {
             relocateToCryptoChat(model.DialogId);
             event.stopPropagation();
@@ -23,6 +22,10 @@
         var nam = document.createElement("H2");
         nam.appendChild(document.createTextNode(model.Name + ' ' + model.SurName));
         interlocutorNameNode.appendChild(nam);
+        var msgCounterContainer = document.createElement('div');
+        msgCounterContainer.className = 'counter-container crypto-dialog-not-read-msg-' + model.DialogId;
+        interlocutorNameNode.appendChild(msgCounterContainer);
+
         var lastMessageNode = document.createElement("div");
         lastMessageNode.className = 'last-message-container';
         var na = document.createElement("H4");
@@ -30,9 +33,11 @@
         lastMessageNode.appendChild(na);
         var spanNode = document.createElement("span");
         spanNode.className = 'last_msg_crypto';
+        spanNode.id = model.DialogId;
         spanNode.appendChild(document.createTextNode(cutDecryptMsg));
         lastMessageNode.appendChild(spanNode);
         var now = document.createElement('span');
+        now.className = 'last-msg-date';
         now.appendChild(document.createTextNode('сейчас'));
         lastMessageNode.appendChild(now);
         bodyNode.appendChild(interlocutorNameNode);

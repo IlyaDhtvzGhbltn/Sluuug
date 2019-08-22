@@ -34,7 +34,6 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
         newInviteToCryptChatNotification(html, params);
     }
 
-
     let notifyAlertAllow = boolSetting('notifyalert');
     console.log(notifyAlertAllow);
     if (notifyAlertAllow) {
@@ -43,8 +42,6 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
         note.css({ opacity: 1, left: 200 });
         setTimeout(clearNotificationDiv, 4000);
     }
-
-
 
     let soundAllow = boolSetting('notifysound');
     if (soundAllow) {

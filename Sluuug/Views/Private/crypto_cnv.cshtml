@@ -12,8 +12,21 @@
 <div class="tabs">
 
     <div class="tab">
+        <div id="currentSC">
+            <input type="radio" id="tab1" name="tab-group" checked>
+            <label class="tab-title" for="tab1">Текущие</label>
+            <div id="current-crypto-dialogs-list" class="tab-content stylized-scrollbar">
+                @foreach (var item in Model.CurrentActiveChats)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
         <div id="accept_need">
-            <input type="radio" id="tab2" name="tab-group" checked>
+            <input type="radio" id="tab2" name="tab-group" >
             <label class="tab-title" for="tab2">Входящие заявки</label>
             <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.IncommingInviters)
@@ -24,18 +37,6 @@
         </div>
     </div>
 
-    <div class="tab">
-        <div id="currentSC">
-            <input type="radio" id="tab1" name="tab-group">
-            <label class="tab-title" for="tab1">Текущие</label>
-            <div id="current-crypto-dialogs-list" class="tab-content stylized-scrollbar">
-                @foreach (var item in Model.CurrentActiveChats)
-                {
-                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
-                }
-            </div>
-        </div>
-    </div>
 
     <div class="tab">
         <div id="self_created">

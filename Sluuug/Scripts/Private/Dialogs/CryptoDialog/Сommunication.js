@@ -47,7 +47,6 @@ function decryption(message) {
         id = url.toString().match(regex)[0];
     }
     let skey = JSON.parse(localStorage.getItem('__' + id));
-    console.log(skey);
     var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
     return decrypted.toString(CryptoJS.enc.Utf8);
 }

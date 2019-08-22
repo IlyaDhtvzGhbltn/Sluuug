@@ -18,7 +18,6 @@
             }
             var cryptoMessCount = Object.keys(resp.NotReadedCryptoConversations).length;
             if (cryptoMessCount > 0) {
-                console.log('cccccc' + cryptoMessCount);
                 IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter', cryptoMessCount);
                 if (window.location.href.includes('/crypto_cnv')){
                     [].forEach.call(Object.keys(resp.NotReadedCryptoConversations), function (key) {

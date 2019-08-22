@@ -14,7 +14,7 @@
             @if (!string.IsNullOrWhiteSpace(Model.LastMessage))
             {
                 <h4>@Model.LastMessageSenderName @Model.LastMessageSenderSurName</h4>
-                <span class="last_msg_crypto">@Model.LastMessage</span>
+                <span class="last_msg_crypto" id="@Model.GuidId">@Model.LastMessage</span>
                 <span class="last-msg-date">@Model.LastMessageSendDate.ToString("hh:mm")</span>
             }
         </div>
