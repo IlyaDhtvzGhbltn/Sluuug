@@ -61,10 +61,6 @@ function onLoad() {
     }
 }
 
-//function getElementByXpath(path) {
-//    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-//}
-
 function updateDialog(wrapperType, conteinerClass, message, avatar, name) {
     let messageNode = CryptoDialogNode.ItemMessage(wrapperType, conteinerClass, message, avatar, name);
     $('.dialog')[0].appendChild(messageNode);

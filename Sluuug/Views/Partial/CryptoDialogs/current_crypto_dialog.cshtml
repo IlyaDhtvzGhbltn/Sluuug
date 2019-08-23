@@ -17,7 +17,13 @@
                 <span class="last_msg_crypto" id="@Model.GuidId">@Model.LastMessage</span>
                 <span class="last-msg-date">@Model.LastMessageSendDate.ToString("hh:mm")</span>
             }
-        </div>
+            else
+            {
+                <h4></h4>
+                <span class="last_msg_crypto" id="@Model.GuidId"></span>
+                <span class="last-msg-date"></span>
+            }
+            </div>
     </div>
     <div class="expiration-period-container">
         @if (!Model.Expired)

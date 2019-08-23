@@ -326,18 +326,15 @@ function ready() {
     }
 }
 
-//function getElementByXpath(path) {
-//    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-//}
 
 function decryption(message, id) {
     console.log(id);
     var skey = JSON.parse(localStorage.getItem('__' + id));
-    if (skey.K !== undefined) {
+    if (skey!= null && skey.K != undefined) {
         var decrypted = CryptoJS.AES.decrypt(message, skey.K.toString());
         return decrypted.toString(CryptoJS.enc.Utf8);
     }
-    else return '...';
+    else return 'ключ потерян';
 }
 
 function gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate) {
@@ -350,9 +347,10 @@ function gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate) {
         cutDecryptMsg = decryptText.substring(0,27) + '...';
     }
 
-    var crptDialogEntry = $('.dialog-' + model.DialogId + ' > .conversation-body-container .last-message-container .last_msg_crypto')[0];
+    var crptDialogEntry = $('.dialog-' + model.DialogId);
     if (crptDialogEntry != undefined) {
-        crptDialogEntry.innerHTML = cutDecryptMsg;
+        var crptDialogLastMsg = $('.dialog-' + model.DialogId + ' > .conversation-body-container .last-message-container .last_msg_crypto')[0];
+        crptDialogLastMsg.innerHTML = cutDecryptMsg;
         $('.last-msg-date')[0].innerHTML = 'сейчас';
     }
     else {
