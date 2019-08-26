@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+    <link href="../../Styles/private/mail-style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="ico-content">
+                <img class="ico-img" src="http://we.somee.com/Resources/images/comet.png" />
+            </div>
+            <div class="header-content">
+                <h1>Подтверждение регистрации</h1>
+            </div>
+            <div class="message-box">
+                <div class="message main-content">
+                    <span>Здравствуйте!</span>
+                    <br />
+                    <span>Вы зарегестрировались на проекте </span><b>We.com</b>
+                    <br />
+                    <span>Для продолжения активируйте вашу учетную запись :</span>
+                    <br />
+                    <button onclick="activate()">Активировать</button>
+                </div>
+                <div class="message alternative-content">
+                    <span>Если ссылка не работает, скопируйте её в браузер</span>
+                    <br />
+                    <div class="link-container">
+                        <div class="arrow-container">
+                            <div class="arrow"></div>
+                        </div>
+                        <a href="##" class="activate-param">a_url_here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function activate() { var url = "url_here"; window.open(url, '_blank'); }
+    </script>
+</body>
+</html>

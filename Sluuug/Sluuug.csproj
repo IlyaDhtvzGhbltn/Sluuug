@@ -155,6 +155,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
     <Content Include="Resources\audio\new-notify-sound.wav" />
+    <Content Include="Resources\html_templates\activatioMail.html" />
     <Content Include="Resources\images\abstract_footer_left.png" />
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\comet.png" />
@@ -218,6 +219,7 @@
     <Content Include="Styles\private\incomming-call-notification-style.css" />
     <Content Include="Styles\private\foreign-user-style.css" />
     <Content Include="Styles\private\friend-profile-style.css" />
+    <Content Include="Styles\private\mail-style.css" />
     <Content Include="Styles\private\my-profile-style.css" />
     <Content Include="Styles\private\contacts-style.css" />
     <Content Include="Styles\private\controlls_style.css" />

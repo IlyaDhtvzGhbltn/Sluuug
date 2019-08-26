@@ -10,6 +10,7 @@ using System.Threading;
 using System.Collections.Generic;
 using Slug.Helpers;
 using Slug.Context.ServerError;
+using Slug.Context;
 
 namespace Sluuug
 {
@@ -67,6 +68,8 @@ namespace Sluuug
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            MailNotifyHandler h = new MailNotifyHandler("alter.22.04@gmail.com", "1111");
+            h.SendActivationMail();
 
             //Don't rewrite requests for content (.png, .css) or scripts (.js)
             if (Request.Url.ToString().Contains("Content") ||

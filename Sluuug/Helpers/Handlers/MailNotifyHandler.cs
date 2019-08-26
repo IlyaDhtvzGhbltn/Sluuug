@@ -1,7 +1,6 @@
 ﻿using Slug.Helpers.BaseController;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
@@ -41,9 +40,11 @@ namespace Slug.Context
             MailAddress from = new MailAddress(email, displayName);
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);
+            
             m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubjectConfirmRegister.ToString()];
-            m.Body = "<h2>Confirm registration</h2>" +
-                "<a  href="+ domain+ "/guest/activate?id=" + this.activate_param + "#menu" + "> clic here</a>";
+
+            string body = this.modifidedHtml(string.Format("{0}/guest/activate?id={1}#menu", domain, this.activate_param));
+            m.Body = body;
             m.IsBodyHtml = true;
 
             SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
@@ -68,5 +69,19 @@ namespace Slug.Context
             smtp.Send(m);
         }
 
+        private string modifidedHtml(string url)
+        {
+
+            string template = File.ReadAllText(HttpContext.Current.Request.MapPath(("~/Resources/html_templates/activatioMail.html")));
+            int indexHref = template.IndexOf("##");
+            template = template.Insert(indexHref, url);
+            int indexABlock = template.IndexOf("a_url_here");
+            template = template.Insert(indexABlock, url);
+            int indexJS = template.IndexOf("url_here");
+            template = template.Insert(indexJS, url);
+
+
+            return template;
+        }
     }
 }
