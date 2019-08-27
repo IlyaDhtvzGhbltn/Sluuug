@@ -71,15 +71,10 @@ namespace Slug.Context
 
         private string modifidedHtml(string url)
         {
-
             string template = File.ReadAllText(HttpContext.Current.Request.MapPath(("~/Resources/html_templates/activatioMail.html")));
-            int indexHref = template.IndexOf("##");
-            template = template.Insert(indexHref, url);
-            int indexABlock = template.IndexOf("a_url_here");
-            template = template.Insert(indexABlock, url);
-            int indexJS = template.IndexOf("url_here");
-            template = template.Insert(indexJS, url);
-
+            template = template.Replace("##", url);
+            template = template.Replace("a_url_here", url);
+            template = template.Replace("url_here", url);
 
             return template;
         }
