@@ -40,10 +40,8 @@ namespace Slug.Context
             MailAddress from = new MailAddress(email, displayName);
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);
-            
             m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubjectConfirmRegister.ToString()];
-
-            string body = this.modifidedHtml(string.Format("{0}/guest/activate?id={1}#menu", domain, this.activate_param));
+            string body = this.modifidedActivationHtml(string.Format("{0}/guest/activate?id={1}#menu", domain, this.activate_param));
             m.Body = body;
             m.IsBodyHtml = true;
 
@@ -59,8 +57,8 @@ namespace Slug.Context
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);
             m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubjectResetPassword.ToString()];
-            m.Body = "<h2>Reset Your Password</h2>" +
-                "<a  href=" + domain + "/guest/reset?reset_param=" + this.activate_param + "> clic here</a>";
+
+            m.Body = this.modifidedResetPasswordHtml(string.Format("{0}/guest/reset?reset_param={1}", domain, this.activate_param));
             m.IsBodyHtml = true;
 
             SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
@@ -69,13 +67,21 @@ namespace Slug.Context
             smtp.Send(m);
         }
 
-        private string modifidedHtml(string url)
+        private string modifidedActivationHtml(string url)
         {
             string template = File.ReadAllText(HttpContext.Current.Request.MapPath(("~/Resources/html_templates/activatioMail.html")));
-            template = template.Replace("##", url);
-            template = template.Replace("a_url_here", url);
-            template = template.Replace("url_here", url);
+            template = template.Replace("#url_to_activation#", url);
+            template = template.Replace("#display_url_to_activation#", url);
+            template = template.Replace("#button_url_to_activation#", url);
+            return template;
+        }
 
+        private string modifidedResetPasswordHtml(string url)
+        {
+            string template = File.ReadAllText(HttpContext.Current.Request.MapPath(("~/Resources/html_templates/resetPasswordMail.html")));
+            template = template.Replace("#button_reset_password_url#", url);
+            template = template.Replace("#reset_password_url#", url);
+            template = template.Replace("#display_reset_password_url#", url);
             return template;
         }
     }

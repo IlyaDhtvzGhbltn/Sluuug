@@ -53,10 +53,9 @@ namespace Slug.Controllers
                     string parameter = resetHandler.CreateRequest(email, isEmailValid);
                     MailNotifyHandler mailHandler = new MailNotifyHandler(email, parameter);
                     mailHandler.SendResetPasswordMail();
-                    return true;
                 }
             }
-            return false;
+            return true;
         }
 
         [HttpPost]
