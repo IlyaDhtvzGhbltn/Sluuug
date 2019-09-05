@@ -1,6 +1,5 @@
 ﻿
 @{
-    ViewBag.Title = "c_msg";
     Layout = "~/Views/Shared/private_template.cshtml";
     string expiredHeight;
     string dialogMsgWrapperClass;
@@ -10,8 +9,6 @@
 @using Slug.Extensions
 <link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 <link href="~/Styles/private/secret-dialog-style.css" rel="stylesheet" />
-
-<title>Зашифрованный диалог</title>
 <div class="active-chat-period">
     @if (!Model.isExpired)
     {

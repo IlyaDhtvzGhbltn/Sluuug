@@ -37,6 +37,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> my()
         {
+            ViewBag.Title = "Мой Профиль";
+            ViewBag.Description = "Мой Профиль";
             var cookies = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             ProfileModel userInfoModel = UsersHandler.ProfileInfo(cookies.Value);
 
@@ -135,6 +137,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> cnv()
         {
+            ViewBag.Title = "Мои Сообщения";
+            ViewBag.Description = "Мои Сообщения";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             var user = UsersHandler.ProfileInfo(sessionId);
             ConversationGroupModel Conversations = base.ConversationHandler.GetPreConversations(user.UserId);
@@ -152,6 +156,8 @@ namespace Slug.Controllers
                 DialogModel dialog = DialogsHandler.GetMessanges(id, userId, page);
                 dialog.DialogId = id;
                 ViewBag.OwnAvatar = dialog.OwnResizeAvatar;
+                ViewBag.Title = "На связи " + dialog.Interlocutor;
+                ViewBag.Description = "На связи " + dialog.Interlocutor;
                 return View(dialog);
             }
             else
@@ -174,10 +180,14 @@ namespace Slug.Controllers
                 else
                 {
                     BaseUser model = UsersHandler.GetForeignUserInfo(sessionId, id);
-                    if(model == null)
+                    if (model == null)
                         return RedirectToAction("my", "private");
                     else
+                    {
+                        ViewBag.Title = model.Name + " " + model.SurName;
+                        ViewBag.Description = model.Name + " " + model.SurName;
                         return View(model);
+                    }
                 }
             }
             else
@@ -195,9 +205,10 @@ namespace Slug.Controllers
                 bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
-                    
                     ViewBag.MyAvatar = Resize.ResizedAvatarUri(UsersHandler.BaseUser(sessionId).AvatarResizeUri, ModTypes.c_scale, 55, 55);
                     ProfileModel userInfo = UsersHandler.ProfileInfo(id);
+                    ViewBag.Title = userInfo.Name + " " + userInfo.SurName;
+                    ViewBag.Description = userInfo.Name + " " + userInfo.SurName;
                     return View(userInfo);
                 }
                 else
@@ -210,6 +221,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> contacts(string type)
         {
+            ViewBag.Title = "Мои Контакты";
+            ViewBag.Description = "Мои Контакты";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             ContactsModel model = await UsersHandler.GetContactsBySession(sessionId);
             return View(model);
@@ -218,6 +231,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> invite_video_conversation(string type)
         {
+            ViewBag.Title = "Видео Связь";
+            ViewBag.Description = "Видео Связь";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             VideoConferenceModel model = base.VideoConferenceHandler.VideoConferenceModel(sessionId);
             return View(model);
@@ -236,6 +251,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> crypto_cnv(string type)
         {
+            ViewBag.Title = "Зашифрованные сообщения";
+            ViewBag.Description = "Зашифрованные сообщения";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             CryptoConversationGroupModel model = CryptoChatHandler.GetCryptoChat(sessionId);
             return View(model);
@@ -244,6 +261,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> c_msg(string id, int page = 1)
         {
+            ViewBag.Title = "Зашифрованный диалог";
+            ViewBag.Description = "Зашифрованный диалог";
             string session = GetCookiesValue(this.Request);
             try
             {
@@ -278,6 +297,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> settings()
         {
+            ViewBag.Title = "Мои Настройки";
+            ViewBag.Description = "Мои Настройки";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
             UserSettingsModel model = UsersHandler.GetSettings(sessionId);
             return View(model);
@@ -286,6 +307,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> search()
         {
+            ViewBag.Title = "Расширенный Поиск";
+            ViewBag.Description = "Расширенный Поиск";
             return View();
         }
 
@@ -312,6 +335,8 @@ namespace Slug.Controllers
                 userSearchAge = user_search_age,
                 userSearchSex = user_search_sex
             };
+            ViewBag.Title = "Результаты поиска";
+            ViewBag.Description = "Результаты поиска";
             SearchUsersResponse response = SearchHandler.SearchUsers(parseRequest, page);
             return View(response);
         }
@@ -319,6 +344,8 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> support()
         {
+            ViewBag.Title = "Справка и Поддержка";
+            ViewBag.Description = "Справка и Поддержка";
             return View();
         }
 

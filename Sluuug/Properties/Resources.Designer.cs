@@ -754,7 +754,7 @@ namespace Slug.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comet Connection | Public Part.
+        ///   Looks up a localized string similar to FriendNote | Public Part.
         /// </summary>
         internal static string Site_Title_Public {
             get {

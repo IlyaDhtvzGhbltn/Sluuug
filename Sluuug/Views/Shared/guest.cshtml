@@ -1,25 +1,23 @@
 ﻿@using Slug.Extensions;
-
-<title>@Html.Translate("Site_Title_Public")</title>
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="~/Resources/images/favicon.ico" />
-    @*<script src="~/Scripts/System/jquery-1.6.4.js"></script>
-        <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>*@
+    <meta content="text/html; charset=UTF-8">
+    <meta name="description" content="@ViewBag.Description">
+    <meta property="og:description" content="@ViewBag.Description">
+    <title>@ViewBag.Title</title>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    @if (ViewBag.IsIndex)
-    {
-        <script src="~/Scripts/Guest/index_form.js"></script>
-    }
+    <link rel="icon" href="~/Resources/images/favicon.ico" type="image/x-icon">
+    <link href="~/Styles/guest/index_form.css" rel="stylesheet" />
+    <link href="~/Styles/guest/index_style.css" rel="stylesheet" />
+    <link href="~/Styles/common/await.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Guest/index_form.js"></script>
     <script src="~/Scripts/System/AsyncRequest.js"></script>
     <script src="~/Scripts/Guest/validationGuest.js"></script>
     <script src="~/Scripts/System/ParseFormArray.js"></script>
     <script src="~/Scripts/System/sha512.js"></script>
     <script src="~/Scripts/System/SHA-512.js"></script>
     <script src="~/Scripts/System/Validation.js"></script>
-    <link href="~/Styles/guest/index_form.css" rel="stylesheet" />
-    <link href="~/Styles/guest/index_style.css" rel="stylesheet" />
-    <link href="~/Styles/common/await.css" rel="stylesheet" />
 </head>
 
 @if (ViewBag.IsIndex)
@@ -83,14 +81,13 @@
 <div class="feed_back">
 </div>
 <div class="title_image">
-    <img src="/Resources/images/social_media_img.png" />
+
 </div>
 <div class="fullscreen-bg">
     <div class="overlay">
         <img id="connection_vectors" src="/Resources/images/comet.png" />
-        <h1>
-            Comet Connection<h1>
-                <h2>Будь всегда на связи</h2>
+        <h1>FriendNote</h1>
+        <h2>Будь всегда на связи</h2>
     </div>
     <video loop muted autoplay poster="/Resources/images/space_main_background.png" class="fullscreen-bg__video">
         <source src="/Resources/video/space_main_background.mp4" type="video/mp4">
@@ -112,10 +109,10 @@
         {
             @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
         }
-        <p>Copyright © 2019, Comet Connection, All rights reserved.</p>
+        <p>Copyright © 2019, FriendNote, All rights reserved.</p>
         <div class="about">
-            <h3>О сервисе Comet Connection</h3>
-            <p>Comet Connection - бесплатный сервис созданный для того что бы ваша связь с друзьями и близкими никогда не прерывалась.<p>
+            <h3>О сервисе FriendNote</h3>
+            <p>FriendNote - бесплатный сервис созданный для того что бы ваша связь с друзьями и близкими никогда не прерывалась.<p>
         </div>
     </div>
 </div>

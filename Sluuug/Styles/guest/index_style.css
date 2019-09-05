@@ -7,6 +7,10 @@ body {
     color: #7f7f7f;
 }
 
+p {
+    text-align:justify;
+}
+
 input::-webkit-input-placeholder {
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -111,10 +115,10 @@ input::-webkit-input-placeholder {
     background-color: #49D1DA;
 }
 
-    .feed_back_form b:hover {
-        color: #fff;
-        background: #49B2DA;
-    }
+.feed_back_form b:hover {
+    color: #fff;
+    background: #49B2DA;
+}
 
 .overlay {
     text-align: left;

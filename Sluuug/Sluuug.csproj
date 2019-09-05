@@ -484,7 +484,6 @@
     <Content Include="Views\Shared\private_template.cshtml" />
     <Content Include="Views\Partial\feed_backView.cshtml" />
     <Content Include="Views\Private\support.cshtml" />
-    <Content Include="Views\Private\notification_history.cshtml" />
     <Content Include="Views\Partial\Albums\ExpandAlbum.cshtml" />
     <Content Include="Views\Partial\Albums\ExpandFriendAlbum.cshtml" />
     <Content Include="Views\Partial\Contacts\black_list_entry.cshtml" />
