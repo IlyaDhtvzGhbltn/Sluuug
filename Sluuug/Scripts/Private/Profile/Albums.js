@@ -90,7 +90,7 @@ function ExpandAlbum(albumId) {
 
                 $('.album-images-browse').append('<div class="small-image">' +
                     '<input type="radio" name="select-img" class="image-select-checkbox" id="' + resp.Photos[0].ID + '" checked>' +
-                    '<img src="' + resp.Photos[0].SmallFotoUri + '">' +
+                    '<img alt="smal photo ico" src="' + resp.Photos[0].SmallFotoUri + '">' +
                     '</div>');
                 $('.small-image')[0].onclick = function () { ExpandPhoto(0, resp.PhotosCount, json) };
 
@@ -99,7 +99,7 @@ function ExpandAlbum(albumId) {
                     for (var i = 1; i < resp.PhotosCount; i++) {
                         $('.album-images-browse').append('<div class="small-image">' +
                             '<input type="radio" name="select-img" class="image-select-checkbox" id="' + resp.Photos[i].ID +'">' +
-                            '<img src="' + resp.Photos[i].SmallFotoUri + '">' +
+                            '<img alt="small photo ico" src="' + resp.Photos[i].SmallFotoUri + '">' +
                             '</div>');
                         $('.small-image')[i].onclick = (function (i) {
                             return function () {
@@ -116,7 +116,7 @@ function ExpandAlbum(albumId) {
                             '<span>' + comment.DateFormat + '</span>' +
                         '</div>' +
                         '<div class="comment-body">' +
-                            '<img src="' + comment.UserPostedAvatarResizeUri + '"/>' +
+                            '<img alt="user posted avatar" src="' + comment.UserPostedAvatarResizeUri + '"/>' +
                             '<span>' + comment.Text + '</span>' +
                         '</div>' +
                         '</div > ');
@@ -186,7 +186,7 @@ function ExpandPhoto(currentPhotoIndex, photosCount, allPhotos) {
                         '<span>' + comment.DateFormat + '</span>' +
                         '</div>' +
                         '<div class="comment-body">' +
-                        '<img src="' + comment.UserPostedAvatarResizeUri + '"/>' +
+                        '<img alt="user posted avatar" src="' + comment.UserPostedAvatarResizeUri + '"/>' +
                         '<span>' + comment.Text + '</span>' +
                         '</div>' +
                         '</div >');
@@ -215,7 +215,7 @@ function SendPhotoComment() {
                         '<span>только что</span>' +
                         '</div>' +
                         '<div class="comment-body">' +
-                        '<img src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +
+                        '<img alt="my own avatar" src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +
                         '<span>' + commentText + '</span>' +
                         '</div>' +
                         '</div>'

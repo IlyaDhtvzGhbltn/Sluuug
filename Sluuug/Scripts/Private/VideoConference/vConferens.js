@@ -187,7 +187,7 @@ function resizeDocument(element, button) {
 }
 
 function fullScreen(element, button) {
-    button.innerHTML = "<img src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562427121/Close-Full-Screen-icon.png'/>";
+    button.innerHTML = "<img alt='close full screen' src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562427121/Close-Full-Screen-icon.png'/>";
 
     if (element.requestFullScreen) {
         element.requestFullScreen();
@@ -200,7 +200,7 @@ function fullScreen(element, button) {
     }
 }
 function closeFullScreen(element, button) {
-    button.innerHTML = "<img src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562426165/Full-Screen-icon.png'/>";
+    button.innerHTML = "<img alt='full screen ico' src='https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1562426165/Full-Screen-icon.png'/>";
 
     if (element.requestFullScreen) {
         document.cancelFullScreen();
@@ -250,11 +250,11 @@ function togleMyVolume() {
     var button = $('#my-Volume-Togle')[0];
 
     if (img.src == 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png') {
-        button.innerHTML = '<img id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro-off.png"/>Транслировать мой звук';
+        button.innerHTML = '<img alt="sound panel" id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro-off.png"/>Транслировать мой звук';
         stopMyAudio();
     }
     else {
-        button.innerHTML = '<img id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png"/>Выключить мой звук';
+        button.innerHTML = '<img alt="sound panel" id="panel-ico-sound" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_22/v1562433516/system/micro.png"/>Выключить мой звук';
         startMyAudio();
     }
 }
@@ -262,11 +262,11 @@ function togleMyVideo() {
     var img = $('#panel-ico-video')[0];
     var button = $('#my-Video-Togle')[0];
     if (img.src == 'https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png') {
-        button.innerHTML = '<img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509299/system/video-off.png"/>Транслировать моё видео';
+        button.innerHTML = '<img alt="sound panel" id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509299/system/video-off.png"/>Транслировать моё видео';
         stopMyVideo();
     }
     else {
-        button.innerHTML = '<img id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png"/>Выключить моё видео';
+        button.innerHTML = '<img alt="sound panel" id="panel-ico-video" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25/v1562509801/system/video-white.png"/>Выключить моё видео';
         startMyVideo();
     }
 }

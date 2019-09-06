@@ -22,7 +22,7 @@ namespace Slug.Helpers.HTMLGenerated
             sb.AppendFormat("<span>{0} {1}</span>", textStatus, status);
             string textInviter = Properties.Resources.ResourceManager.GetString("Text_Inviter", cul);
             sb.AppendFormat("<p><span>{0} {1}</span></p>", textInviter, model.CreatorName);
-            sb.AppendFormat("<img src='{0}'>", Resize.ResizedAvatarUri(model.CreatorAvatar, ModTypes.c_scale, 60, 60));
+            sb.AppendFormat("<img alt='avatar' src='{0}'>", Resize.ResizedAvatarUri(model.CreatorAvatar, ModTypes.c_scale, 60, 60));
             string accept = Properties.Resources.ResourceManager.GetString("Button_Accept_Invite", cul);
             sb.AppendFormat("<button onclick='accept_invite(this)' id='{0}' />{1}</button>", model.ConvGuidId, accept);
             return sb.ToString();

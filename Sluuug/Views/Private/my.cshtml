@@ -15,7 +15,7 @@
 
 <div id="profile-cut-info">
     <div class="info-container">
-        <img id="img_avatar" src="@Model.AvatarResizeUri" onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})" onmouseover="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
+        <img alt="avatar" id="img_avatar" src="@Model.AvatarResizeUri" onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})" onmouseover="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
         <div class="profile-info">
             <div class="profile-info-name">
                 <h2 class="parameter" id="0" onclick="edit_private_info(this.id)">@Model.Name</h2>
@@ -53,7 +53,7 @@
             <form action="http://localhost:32035/private/upload" enctype="multipart/form-data" method="post">
                 <div class="input-overflow">
                     <span>Сменить аватар</span>
-                    <img id="avatar-change-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png" />
+                    <img alt="change avatar" id="avatar-change-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png" />
                 </div>
                 <input type="file" accept=".jpg, .bmp, .png" name="upload" id="file-selector" onchange="newAvatarSelect()">
                 <input type="submit" id="file-uploader" value="Готово">
@@ -91,7 +91,7 @@
                     <span>Обложка</span>
                     <div class="album-cover">
                         <input type="file" id="album-label-input" onchange="SelectFileAvatar()" accept=".jpg, .bmp, .png">
-                        <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
+                        <img alt="album cover" id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
                         <span id="album-cover-img-name"></span>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                         <span>Фотографии</span>
                         <div class="album-cover">
                             <input type="file" id="event-photos-input" multiple onchange="WriteSelectedFiles(this)" accept=".jpg, .bmp, .png">
-                            <img id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
+                            <img alt="album cover" id="album-cover-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/h_50/v1562752983/212328-200.png">
                             <span id="album-cover-img-name"></span>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 
 <div class="chat-wrapper">
     <div class="interlocutor-avatar-container">
-        <img src="@Model.InterlocutorAvatar" />
+        <img alt="interlocutor avatar" src="@Model.InterlocutorAvatar" />
     </div>
     <div class="conversation-body-container">
         <div class="interlocutor-name-container">
@@ -28,23 +28,4 @@
             <span style="color:red">Закрыт @Model.CloseDate.ToString("D")</span>
         }
     </div>
-
-    @*<div class="cryptp-chat-self-created" id="@Model.GuidId">
-            <div class="active-chat-period">
-                    <span>Приглашение отправлено @Model.OpenDate.ToString("D") @Model.OpenDate.ToString("hh:mm")</span>
-                    <span>Чат будет закрыт @Model.CloseDate.ToString("D") @Model.CloseDate.ToString("hh:mm")</span>
-                    <span>
-                        Осталось <span class="experation-mins">@Model.RemainingMins </span> мин
-                        <span class="experation-sec">@Model.RemainingSecs </span> сек
-                    </span>
-
-            </div>
-
-            <div class="chat-head">
-                <img src="@Model.InterlocutorAvatar" />
-                <h2>@Model.InterlocutorName @Model.InterlocutorSurName</h2>
-                <span>приглашение еще не принято.</span>
-            </div>
-
-        </div>*@
 </div>
