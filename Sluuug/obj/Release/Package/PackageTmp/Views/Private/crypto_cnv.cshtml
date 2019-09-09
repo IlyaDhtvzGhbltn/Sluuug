@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "crypto_cnv";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model Slug.Model.CryptoConversationGroupModel
@@ -8,12 +7,23 @@
 <link href="~/Styles/common/await.css" rel="stylesheet" />
 <link href="~/Styles/private/secret-conversations-style.css" rel="stylesheet" />
 
-<title>Зашифрованные Сообщения</title>
 <div class="tabs">
+    <div class="tab">
+        <div id="currentSC">
+            <input type="radio" id="tab1" name="tab-group" checked>
+            <label class="tab-title" for="tab1">Текущие</label>
+            <div id="current-crypto-dialogs-list" class="tab-content stylized-scrollbar">
+                @foreach (var item in Model.CurrentActiveChats)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
+                }
+            </div>
+        </div>
+    </div>
 
     <div class="tab">
         <div id="accept_need">
-            <input type="radio" id="tab2" name="tab-group" checked>
+            <input type="radio" id="tab2" name="tab-group" >
             <label class="tab-title" for="tab2">Входящие заявки</label>
             <div class="tab-content stylized-scrollbar">
                 @foreach (var item in Model.IncommingInviters)
@@ -24,18 +34,6 @@
         </div>
     </div>
 
-    <div class="tab">
-        <div id="currentSC">
-            <input type="radio" id="tab1" name="tab-group">
-            <label class="tab-title" for="tab1">Текущие</label>
-            <div id="current-crypto-dialogs-list" class="tab-content stylized-scrollbar">
-                @foreach (var item in Model.CurrentActiveChats)
-                {
-                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
-                }
-            </div>
-        </div>
-    </div>
 
     <div class="tab">
         <div id="self_created">
@@ -88,9 +86,10 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-<script src="~/Scripts/crypto_chat.js"></script>
-<script src="~/Scripts/Private/ExperationTimer.js"></script>
-<script src="~/Scripts/Private/DeleteDialog.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/CryptoDialogInitialization.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/ExperationTimer.js"></script>
+<script src="~/Scripts/Private/Dialogs/Common/DeleteDialog.js"></script>
 <script>
     function generationKeyUserToggle() {
         $('#not_selected').fadeOut(600);
@@ -101,7 +100,7 @@
 
     var url = new URL(window.location.href);
     var type = url.searchParams.get("type");
-    if (type.length > 0) {
+    if (type != null && type.length > 0) {
         switch (type) {
             case "accept":
                 $('#tab1').attr("checked", "checked");

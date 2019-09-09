@@ -3,23 +3,27 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="~/Resources/images/favicon.ico" type="image/png">
+    <meta content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description">
+    <meta property="og:description" content="@ViewBag.Description">
+    <link rel="icon" href="~/Resources/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="~/Styles/private/private_style.css">
     <link rel="stylesheet" href="~/Styles/private/controlls_style.css">
     <link href="~/Styles/common/alert-message-style.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="~/Scripts/Private/menu_template.js"></script>
+    <script src="~/Scripts/Private/Common/LeftNavMenuDisable.js"></script>
     <script src="~/Scripts/System/Alert.js"></script>
+    <script src="~/Scripts/Private/Settings/LocalSettings.js"></script>
     <script src="~/Scripts/System/AsyncRequest.js"></script>
     <script src="~/Scripts/System/BigInteger.js"></script>
     <script src="~/Scripts/System/jquery.signalR-2.4.0.js"></script>
     <script src="~/Scripts/System/jquery.signalR-2.4.0.min.js"></script>
-    <script src="~/Scripts/notificationHub.js"></script>
-    <script src="~/Scripts/Private/LocalSettings.js"></script>
-    <script src="~/Scripts/Search.js"></script>
-    <script src="~/Scripts/Private/News.js"></script>
+    <script src="~/Scripts/Private/Search/Search.js"></script>
+    <script src="~/Scripts/Private/Common/News.js"></script>
+    <script src="~/Scripts/Private/Common/RelocationToUser.js"></script>
+    <script src="~/Scripts/Private/Common/MainGlobalHub.js"></script>
+
 </head>
 <body>
     <div class="alert hide">
@@ -81,14 +85,14 @@
         <ul id="ul-left-navigation">
             <a href="/private/my">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/home_ico.png" />
+                    <img alt="profile" height="30" width="30" src="~/Resources/images/home_ico.png" />
                     <span class="nav-entry">Мой профиль</span>
                 </li>
             </a>
 
             <a href="/private/cnv">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/mess_ico.png" />
+                    <img alt="messages" height="30" width="30" src="~/Resources/images/mess_ico.png" />
                     <span class="nav-entry">Сообщения</span>
                     <div class="notify-container-increment-message"></div>
                 </li>
@@ -96,14 +100,14 @@
 
             <a href="/private/crypto_cnv">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/lock_ico.png" />
+                    <img alt="encripted messages" height="30" width="30" src="~/Resources/images/lock_ico.png" />
                     <span class="nav-entry">Секретный чат</span>
                     <div class="notify-container-increment-crypto"></div>
                 </li>
             </a>
             <a href="/private/invite_video_conversation">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/video_connect_ico.png" />
+                    <img alt="video dialog" height="30" width="30" src="~/Resources/images/video_connect_ico.png" />
                     <span class="nav-entry">Видео-связь</span>
                     <div class="notify-container-increment-video"></div>
                 </li>
@@ -111,14 +115,14 @@
 
             <a href="/private/search">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/search_ico.png" />
+                    <img alt="search" height="30" width="30" src="~/Resources/images/search_ico.png" />
                     <span class="nav-entry">Поиск</span>
                 </li>
             </a>
 
             <a href="/private/contacts">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/contacts_ico.png" />
+                    <img alt="contacts" height="30" width="30" src="~/Resources/images/contacts_ico.png" />
                     <span class="nav-entry">Контакты</span>
                     <div class="notify-container-increment-contact"></div>
                 </li>
@@ -126,21 +130,21 @@
 
             <a href="/private/settings">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/settings_ico.png" />
+                    <img alt="settings" height="30" width="30" src="~/Resources/images/settings_ico.png" />
                     <span class="nav-entry">Настройки</span>
                 </li>
             </a>
 
             <a href="/private/support">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/support_ico.png" />
+                    <img alt="support" height="30" width="30" src="~/Resources/images/support_ico.png" />
                     <span class="nav-entry">Техподдержка</span>
                 </li>
             </a>
 
             <a href="/private/logout">
                 <li>
-                    <img height="30" width="30" src="~/Resources/images/logout-ico.png" />
+                    <img alt="logout" height="30" width="30" src="~/Resources/images/logout-ico.png" />
                     <span>Запасной выход</span>
                 </li>
             </a>
@@ -151,6 +155,7 @@
         @RenderBody()
     </div>
     <script>
-        window.onloadend = getNotReadedMessages();
+        window.onloadend = getNotSeenNotify();
     </script>
 </body>
+</html>

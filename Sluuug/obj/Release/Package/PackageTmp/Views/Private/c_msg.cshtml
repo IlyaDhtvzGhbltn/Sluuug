@@ -1,6 +1,5 @@
 ﻿
 @{
-    ViewBag.Title = "c_msg";
     Layout = "~/Views/Shared/private_template.cshtml";
     string expiredHeight;
     string dialogMsgWrapperClass;
@@ -10,8 +9,6 @@
 @using Slug.Extensions
 <link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 <link href="~/Styles/private/secret-dialog-style.css" rel="stylesheet" />
-
-<title>Зашифрованный диалог</title>
 <div class="active-chat-period">
     @if (!Model.isExpired)
     {
@@ -34,7 +31,7 @@
 }
 
 <div class="dialog stylized-scrollbar" style="@expiredHeight">
-    
+
     @foreach (var msg in Model.Messages)
     {
         if (msg.IsIncomming)
@@ -47,21 +44,21 @@
             dialogMsgWrapperClass = "dialog-msg-wrapper-out";
             contentSecretClass = "out-content-secret";
         }
-            <div class="@dialogMsgWrapperClass">
-                <div class="@contentSecretClass container-in-out">
-                    <div class="crypto-message-header">
-                        <h4>@msg.Name</h4>
-                        <span>@msg.SendDate.ToString("hh:mm")</span>
-                        <img class="lock-msg-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png">
+        <div class="@dialogMsgWrapperClass">
+            <div class="@contentSecretClass container-in-out">
+                <div class="crypto-message-header">
+                    <h4>@msg.Name</h4>
+                    <span>@msg.SendDate.ToString("hh:mm")</span>
+                    <img alt="lock image" class="lock-msg-img" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png">
+                </div>
+                <div class="crypto-message-body">
+                    <div>
+                        <img alt="avatar" src="@msg.AvatatURI" />
                     </div>
-                    <div class="crypto-message-body">
-                        <div>
-                            <img src="@msg.AvatatURI" />
-                        </div>
-                        <span class="crypt-message">@msg.Text</span>
-                    </div>
+                    <span class="crypt-message">@msg.Text</span>
                 </div>
             </div>
+        </div>
     }
 </div>
 
@@ -86,9 +83,10 @@
 <span id="myAvatar" style="display:none">@ViewBag.MyAvatar</span>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-<script src="~/Scripts/crypto_dialog.js"></script>
-<script src="~/Scripts/Private/ExperationTimer.js"></script>
-<script src="~/Scripts/Profile/SelectPaginationActivePage.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/Сommunication.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/ExperationTimer.js"></script>
+<script src="~/Scripts/Private/Profile/SelectPaginationActivePage.js"></script>
 <script>
 
     $(document).ready(function () {

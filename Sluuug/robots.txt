@@ -1,0 +1,6 @@
+User-agent:*
+Disallow: /private/
+Disallow: /api/
+Disallow: /partial/
+Disallow: /error/
+Sitemap: http://www.we.somee.com/sitemap.xml

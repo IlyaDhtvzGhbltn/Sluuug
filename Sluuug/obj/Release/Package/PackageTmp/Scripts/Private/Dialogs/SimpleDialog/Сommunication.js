@@ -35,7 +35,7 @@ function SendMessageFromChat(conversationId) {
             '<div class="dialog-msg-wrapper-out">' +
             '<div class="out-content">' +
             '<div class="message-header"><h4>Я</h4><span>только что</span></div>' +
-            '<div class="message-body"><div><img src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
+            '<div class="message-body"><div><img alt="avatar" src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
 
         var objDiv = $(".dialog")[0];
         objDiv.scrollTop = objDiv.scrollHeight + 100;
@@ -52,7 +52,7 @@ function UpdateDialogInCnv(message) {
         +'<span>Только что</span>'
         + '</div>'
         + '<div class="message-body">'
-        + '<div><img src="' + message.AvatarPath + '"/></div>'
+        + '<div><img alt="avatar" src="' + message.AvatarPath + '"/></div>'
         + '<span>' + message.Text + '</span>'
         + '</div></div></div>');
 

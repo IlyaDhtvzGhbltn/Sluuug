@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="google8dca4ca678f50409.html" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -175,6 +176,7 @@
     <Content Include="Resources\images\video_connect_ico.png" />
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
     <Content Include="Scripts\Private\Profile\Albums.js" />
     <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
@@ -211,6 +213,7 @@
     <Content Include="Scripts\Private\VideoConference\vConferens.js" />
     <Content Include="Scripts\Private\VideoConference\vDialogRedirection.js" />
     <Content Include="Scripts\Private\VideoConference\vDialogs.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Styles\common\await.css" />
     <Content Include="Styles\common\navigation-arrows-style.css" />
     <Content Include="Styles\guest\index_form.css" />
@@ -530,7 +533,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>32033</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:32035/</IISUrl>
+          <IISUrl>http://localhost:32036/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

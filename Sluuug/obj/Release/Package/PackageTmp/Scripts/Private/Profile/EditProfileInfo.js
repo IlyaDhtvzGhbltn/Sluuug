@@ -2,14 +2,6 @@
     $('#' + checkboxId)[0].checked = false;
 }
 
-//function CancelNewAlbum(checkboxId) {
-//    $('#album-label-input')[0].value = null;
-//    $('#album-cover-img-name')[0].innerHTML = null;
-//    $('#album-title')[0].value = null;
-//    $('#album-description')[0].value = null;
-//    CancelNewEntry(checkboxId);
-//}
-
 function SelectFileAvatar()
 {
     var fileName = $('#album-label-input')[0].value;

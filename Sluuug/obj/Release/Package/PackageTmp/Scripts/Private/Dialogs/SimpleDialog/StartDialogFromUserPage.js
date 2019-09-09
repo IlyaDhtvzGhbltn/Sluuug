@@ -1,8 +1,6 @@
-﻿//var connection = $.hubConnection();
-//var messagesChat = connection.createHubProxy('messagersHub');
-connection.qs = 'URL=' + window.location.href;
+﻿//connection.qs = 'URL=' + window.location.href;
 
-connection.start();
+//connection.start();
 
 function SendMessage(to_id, value) {
     if (value.length > 0) {

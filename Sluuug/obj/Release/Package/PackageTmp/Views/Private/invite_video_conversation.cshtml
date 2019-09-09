@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "conference";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
 
@@ -10,7 +9,6 @@
 <link href="~/Styles/common/await.css" rel="stylesheet" />
 <link href="~/Styles/private/incomming-call-notification-style.css" rel="stylesheet" />
 <link href="~/Styles/private/video-conversation-main.css" rel="stylesheet" />
-<title>Видео Связь</title>
 <div class="tabs">
     <div class="tab">
         <div id="friends">
@@ -51,8 +49,7 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/vDialogs.js"></script>
-<script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/Private/VideoConference/vDialogs.js"></script>
 <script>
     function HideNoneSelectSpan() {
         var elem = $('.fr');
@@ -64,7 +61,7 @@
     }
     var url = new URL(window.location.href);
     var type = url.searchParams.get("type");
-    if (type.length > 0) {
+    if (type!= null && type.length > 0) {
         switch (type) {
             case "in":
                 $('#tab2').attr("checked", "checked");

@@ -5,7 +5,6 @@
 
 <link href="~/Styles/private/toggle-style.css" rel="stylesheet" />
 <link href="~/Styles/private/settings-style.css" rel="stylesheet" />
-<title>Мои Настройки</title>
 <h1>Настройки</h1>
 
 
@@ -111,7 +110,7 @@
                         <label for="meh-alert" class="rating-label rating-label-meh">Off</label>
                         <label for="fun-alert" class="rating-label rating-label-fun">On</label>
 
-                        <input id="meh-alert" name="Alert" type="radio"  />
+                        <input id="meh-alert" name="Alert" type="radio" />
                         <input id="fun-alert" name="Alert" type="radio" />
 
                         <div class="smile-rating-toggle">
@@ -134,8 +133,8 @@
 <script src="~/Scripts/System/ParseFormArray.js"></script>
 <script src="~/Scripts/System/sha512.js"></script>
 <script src="~/Scripts/System/SHA-512.js"></script>
-<script src="~/Scripts/ChangeSettings.js"></script>
-<script src="~/Scripts/Private/LocalSettings.js"></script>
+<script src="~/Scripts/Private/Settings/ChangeSettings.js"></script>
+<script src="~/Scripts/Private/Settings/LocalSettings.js"></script>
 <script>
     window.onload = function () {
         var sound = boolSetting('notifysound');

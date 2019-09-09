@@ -1,12 +1,10 @@
 ﻿@{
-    ViewBag.Title = "contacts";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
 @model Slug.Model.Users.ContactsModel
 @using Slug.Extensions
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/private/contacts-style.css" rel="stylesheet" />
-<title>Мои Контакты</title>
 
 <h1>@Html.Translate("Text_My_Contacts")</h1>
 <div class="tabs">
@@ -60,13 +58,12 @@
     </div>
 
 </div>
-<script src="~/Scripts/myContacts.js"></script>
-<script src="~/Scripts/RelocationToUser.js"></script>
+<script src="~/Scripts/Private/Contacts/ContactsManage.js"></script>
 <script>
     var url = new URL(window.location.href);
     var type = url.searchParams.get("type");
-    if (type.length > 0) {
-         switch (type) {
+    if (type != null && type.length > 0) {
+        switch (type) {
             case "accept":
                 $('#tab3').attr("checked", "checked");
                 break;
@@ -75,10 +72,10 @@
                 break;
             case "in":
                 $('#tab1').attr("checked", "checked");
-                 break;
-             case "bl":
-                 $('#tab4').attr("checked", "checked");
-                 break;
+                break;
+            case "bl":
+                $('#tab4').attr("checked", "checked");
+                break;
         }
     }
 </script>

@@ -1,5 +1,5 @@
 ﻿var connection = $.hubConnection();
-var HUB = connection.createHubProxy('notificationHub');
+var HUB = connection.createHubProxy('MainGlobalHub');
 
 connection.start().done(function () {
     HUB.invoke('OpenConnect');
@@ -34,7 +34,6 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
         newInviteToCryptChatNotification(html, params);
     }
 
-
     let notifyAlertAllow = boolSetting('notifyalert');
     console.log(notifyAlertAllow);
     if (notifyAlertAllow) {
@@ -43,8 +42,6 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
         note.css({ opacity: 1, left: 200 });
         setTimeout(clearNotificationDiv, 4000);
     }
-
-
 
     let soundAllow = boolSetting('notifysound');
     if (soundAllow) {
@@ -55,7 +52,6 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
 
 
 function IncrementInto(elementContainer, counterSelector, forceSetValue = null) {
-    console.log(counterSelector);
     if (forceSetValue == null) {
         var decrementedElement = $(elementContainer)[0];
         if (decrementedElement.innerHTML.length === 0) {
@@ -82,7 +78,7 @@ function newInviteToCryptChatNotification(html, publicData) {
     var isScriptCryptoChatALreadyLoaded = currentLocation.includes('crypto_cnv');
     if (isScriptCryptoChatALreadyLoaded == false) {
         var script = document.createElement('script');
-        script.src = "/Scripts/crypto_chat.js";
+        script.src = "/Scripts/Private/Dialogs/CryptoDialog/CryptoDialogInitialization.js";
         document.documentElement.appendChild(script);
 
         script.onload = function () {

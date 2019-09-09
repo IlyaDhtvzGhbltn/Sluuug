@@ -5,12 +5,11 @@
 @model  Slug.Model.ConversationGroupModel
 @using Slug.Extensions
 <link href="~/Styles/private/conversations-style.css" rel="stylesheet" />
-<title>Мои Сообщения</title>
 
 <h1>@Html.Translate("Text_My_Message_Title")</h1>
 <div id="conversations">
     @if (Model.Cnv != null && Model.Cnv.Count > 0)
-    {
+    { 
         foreach (var item in Model.Cnv)
         {
             Html.RenderPartial("~/Views/Partial/Dialogs/dialog_preview.cshtml", item, new ViewDataDictionary<Slug.Model.SimpleChat.ConversationModel>(item));
@@ -22,6 +21,6 @@
     }
 
 </div>
-<script src="~/Scripts/RelocationToUser.js"></script>
-<script src="~/Scripts/cnvGroupsDialogs.js"></script>
-<script src="~/Scripts/Private/DeleteDialog.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
+<script src="~/Scripts/Private/Dialogs/Preview/SimpleDialogsList.js"></script>
+<script src="~/Scripts/Private/Dialogs/Common/DeleteDialog.js"></script>

@@ -1,10 +1,10 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/guest.cshtml";
 }
 <div class="content">
     @if (ViewBag.IsActive)
     {
+        
         @RenderPage("~/Views/Shared/reset_active.cshtml")
     }
     else

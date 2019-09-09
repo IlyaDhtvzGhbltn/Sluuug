@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "users";
     Layout = "~/Views/Shared/private_template.cshtml";
 }
 @using Slug.Context.Dto.Search;
@@ -37,12 +36,10 @@
 
 @using Context;
 @using Slug.Extensions;
-<title>@Model.Name @Model.SurName</title>
-
 
 <div class="user-profile">
     <div class="-info -left">
-        <img src="@Model.AvatarResizeUri">
+        <img alt="avatar" src="@Model.AvatarResizeUri">
     </div>
     <div class="-info -right">
         <h2>@Model.Name @Model.SurName</h2>
@@ -117,5 +114,4 @@ else if (Model.Status == FriendshipItemStatus.IblockUser)
         <button onclick="UnblockUser('@Model.UserId')">Разблокировать</button>
     </div>
 }
-<script src="~/Scripts/myContacts.js"></script>
-
+<script src="~/Scripts/Private/Contacts/ContactsManage.js"></script>

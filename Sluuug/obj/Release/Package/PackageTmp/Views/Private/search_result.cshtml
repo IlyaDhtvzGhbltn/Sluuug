@@ -4,81 +4,82 @@
 }
 @model Slug.Context.Dto.Search.SearchUsersResponse
 @using Slug.Extensions;
-<title>Результаты поиска</title>
 <link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 
 <h1>Результаты поиска</h1>
 @if (Model.Users.Count > 0)
 {
-<div id="result_out">
-    <table>
-    @{ 
-        int rows = (Model.Users.Count / 4);
-        var cut = Model.Users.Count % 4;
-        if (cut != 0)
-        {
-            rows++;
-        }
-        for (int i = 0; i < rows; i++)
-        {
-        <tr>
+    <div id="result_out">
+        <table>
             @{
-                int jlimit = 4;
-                if ((Model.Users.Count - (i+1) * 4) < 0)
+                int rows = (Model.Users.Count / 4);
+                var cut = Model.Users.Count % 4;
+                if (cut != 0)
                 {
-                    jlimit = Model.Users.Count - ((i) * 4);
+                    rows++;
                 }
-                for (int j = 0; j < jlimit; j++)
+                for (int i = 0; i < rows; i++)
                 {
-                <td>
-                    @{
-                        var user = Model.Users[(i * 4) + j];
-                        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.Users.BaseUser>(user));
-                    }
-                </td>
+                    <tr>
+                        @{
+                            int jlimit = 4;
+                            if ((Model.Users.Count - (i + 1) * 4) < 0)
+                            {
+                                jlimit = Model.Users.Count - ((i) * 4);
+                            }
+                            for (int j = 0; j < jlimit; j++)
+                            {
+                                <td>
+                                    @{
+                                        var user = Model.Users[(i * 4) + j];
+                                        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.Users.BaseUser>(user));
+                                    }
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
             }
-        }
-        </tr>
-        }
-    }
-</table>
+        </table>
 
-    <div class="result-pagination stylized-scrollbar">
-        @for (int i = 1; i <= Model.PagesCount; i++)
-        {
-            var param = Url.RequestContext.HttpContext.Request.Params;
-            var params_string = "/private/search_result?user_sex="
-                + param["user_sex"] +
-                "&user_country=" + param["user_country"] + 
-                "&user_city=" + param["user_city"] + 
-                "&user_age=" + param["user_age"] + 
-                "&user_purpose=" + param["user_purpose"] +
-                "&page=" + i;
+        <div class="result-pagination stylized-scrollbar">
+            @for (int i = 1; i <= Model.PagesCount; i++)
+            {
+                var param = Url.RequestContext.HttpContext.Request.Params;
+                var params_string = "/private/search_result?user_sex="
+                    + param["user_sex"] +
+                    "&user_country=" + param["user_country"] +
+                    "&user_city=" + param["user_city"] +
+                    "&user_age=" + param["user_age"] +
+                    "&user_purpose=" + param["user_purpose"] +
+                    "&page=" + i;
 
-            if (!string.IsNullOrWhiteSpace(param["user_name"])) {
-                params_string  = params_string + "&user_name=" + param["user_name"];
+                if (!string.IsNullOrWhiteSpace(param["user_name"]))
+                {
+                    params_string = params_string + "&user_name=" + param["user_name"];
+                }
+
+                if (!string.IsNullOrWhiteSpace(param["user_search_age"]))
+                {
+                    params_string = params_string + "&user_search_age=" + param["user_search_age"];
+                }
+
+                if (!string.IsNullOrWhiteSpace(param["user_search_sex"]))
+                {
+                    params_string = params_string + "&user_search_sex=" + param["user_search_sex"];
+                }
+
+                <div class="search-link-container" id="pagination-link-@i">
+                    <a href=@params_string>@i</a>
+                </div>      //user_sex=1&user_country=7&user_city=495&user_age=0&user_purpose=1&page=1
             }
 
-            if (!string.IsNullOrWhiteSpace(param["user_search_age"])) {
-                params_string = params_string + "&user_search_age=" + param["user_search_age"];
-            }
-
-            if (!string.IsNullOrWhiteSpace(param["user_search_sex"])) {
-                params_string = params_string + "&user_search_sex=" + param["user_search_sex"];
-            }
-
-            <div class="search-link-container" id="pagination-link-@i">
-                <a href=@params_string>@i</a>
-        </div>  //user_sex=1&user_country=7&user_city=495&user_age=0&user_purpose=1&page=1
-        }
+        </div>
 
     </div>
-
-</div>
 }
 else
 {
     <span>Пользователей с указанными параметрами не найденно. Попробуйте повторить поиск позднее или начните новый с другими параметрами.</span>
 }
-<script src="~/Scripts/RelocationToUser.js"></script>
-<script src="~/Scripts/Profile/SelectPaginationActivePage.js"></script>
+<script src="~/Scripts/Private/Profile/SelectPaginationActivePage.js"></script>
