@@ -50,12 +50,12 @@ input::-webkit-input-placeholder {
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
 
-    .feed_back_form h1 {
-        width: 300px;
-        font-size: 36px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.feed_back_form h1 {
+    width: 300px;
+    font-size: 36px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 #feed_back_text {
     height: 210px;
@@ -133,6 +133,27 @@ input::-webkit-input-placeholder {
 .feed_back_form b:hover {
     color: #fff;
     background: #49B2DA;
+}
+
+.function-demo-container{
+    display:flex;
+    flex-direction:row;
+}
+
+.function-demo-container > img{
+    height:150px;
+    width:150px;
+}
+
+.function-demo-container > h1 {
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#select_date {
+    font-size: 22px;
 }
 
 .overlay {
@@ -226,7 +247,7 @@ input::-webkit-input-placeholder {
 .navigation {
     z-index: 101;
     position: absolute;
-    top: 7%;
+    top: 3%;
     cursor: pointer;
     width: 100%;
 }

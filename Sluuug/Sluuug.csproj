@@ -162,7 +162,9 @@
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\brand.png" />
     <Content Include="Resources\images\contacts_ico.png" />
+    <Content Include="Resources\images\encryption.png" />
     <Content Include="Resources\images\favicon.ico" />
+    <Content Include="Resources\images\heart.png" />
     <Content Include="Resources\images\home_ico.png" />
     <Content Include="Resources\images\lock-msg.png" />
     <Content Include="Resources\images\lock_ico.png" />
@@ -172,7 +174,9 @@
     <Content Include="Resources\images\settings_ico.png" />
     <Content Include="Resources\images\social_media_img.png" />
     <Content Include="Resources\images\space_main_background.png" />
+    <Content Include="Resources\images\spam.png" />
     <Content Include="Resources\images\support_ico.png" />
+    <Content Include="Resources\images\video-call.png" />
     <Content Include="Resources\images\video_connect_ico.png" />
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />

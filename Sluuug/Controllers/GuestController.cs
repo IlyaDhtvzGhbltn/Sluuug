@@ -21,7 +21,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult index()
         {
-            ViewBag.Title = "FriendNote | Социальная сеть с видео-звонками и end-to-end";
+            ViewBag.Title = "FriendNote - бесплатная социальная сеть с видео-связью и end-to-end";
             ViewBag.Description = "FriendNote - это современный бесплатный сервис для поиска знакомств, сочетающий в себе видео-связь и end-to-end шифрование сообщений.";
             ViewBag.MinRegistrationDate = new DateTime(1900, 1, 1).ToString("yyyy-MM-dd");
             ViewBag.MaxRegistrationDate = DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd");
