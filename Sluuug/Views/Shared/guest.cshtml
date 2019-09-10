@@ -5,13 +5,12 @@
     <meta content="text/html; charset=UTF-8">
     <meta name="description" content="@ViewBag.Description">
     <meta property="og:description" content="@ViewBag.Description">
-    <meta itemprop="inLanguage" content="ru" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:title" content="@ViewBag.Title" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="FriendNote" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="http://we.somee.com/Resources/images/comet.png" />
+    <meta property="og:image" content="http://we.somee.com/Resources/images/brand.png" />
     <meta property="og:url" content="@Context.Request.Url.Host@Context.Request.Path" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -35,7 +34,7 @@
         <div class="head_fix_menu">
             <button class="header-button" onclick="scrolling('main', +80)">Главная</button>
             <button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
-            <button class="header-button" onclick="scrolling('help', -100)">Справка (FAQ)</button>
+            <button class="header-button" onclick="scrolling('help', -100)">Справка</button>
             <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
             <button class="header-button" onclick="scrolling('reg_log', -100), show_register()">Зарегистрироваться</button>
             <button class="header-button" onclick="scrolling('reg_log', -100), show_login()">Войти</button>
@@ -92,11 +91,23 @@
 <div class="title_image">
 
 </div>
-<div class="fullscreen-bg">
+<div class="fullscreen-bg" itemscope itemtype="http://schema.org/Article">
+    <div class="tagline-container">
+        <h1 itemprop="description">Будь всегда на связи</h1>
+    </div>
+    <div class="text-anumations">
+        <div class="message-wrapper">
+            <span class="main-message first-message">Без спама</span>
+        </div>
+        <div class="message-wrapper">
+            <span class="main-message second-message">Без ботов</span>
+        </div>
+        <div class="message-wrapper">
+            <span class="main-message thirth-message">Без рекламы</span>
+        </div>
+    </div>
     <div class="overlay">
-        <img itemprop="logo" alt="site ico" id="connection_vectors" src="/Resources/images/comet.png" />
-        <h1 itemprop="description">FriendNote - бесплатная социальная сеть с видео-связью и end-to-end</h1>
-        <h2>Будь всегда на связи</h2>
+        <img itemprop="image" alt="site ico" id="connection_vectors" src="/Resources/images/brand.png" />
     </div>
     <video loop muted autoplay poster="/Resources/images/space_main_background.png" class="fullscreen-bg__video">
         <source src="/Resources/video/space_main_background.mp4" type="video/mp4">
@@ -108,20 +119,24 @@
 }
 
 <div class="footer">
-    <img alt="left footer image" src="/Resources/images/abstract_footer_left.png" />
     <div class="gradient_footer">
-        @if (ViewBag.IsIndex)
-        {
-            @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
-        }
-        else
-        {
-            @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
-        }
-        <p>Copyright © 2019, FriendNote, All rights reserved.</p>
+        <div class="footer-nav-container">
+            @if (ViewBag.IsIndex)
+            {
+                @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
+            }
+            else
+            {
+                @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
+            }
+        </div>
         <div class="about">
-            <h3>О сервисе FriendNote</h3>
-            <p>FriendNote - бесплатный сервис созданный для того что бы ваша связь с друзьями и близкими никогда не прерывалась.<p>
+            <div class="footer-about-container">
+                <p>FriendNote - социальная сеть, созданная для того, что бы ваша связь с друзьями и близкими никогда не прерывалась.</p>
+            </div>
+            <div class="footer-copirate-container">
+                <p>Copyright © 2019, FriendNote, All rights reserved.</p>
+            </div>
         </div>
     </div>
 </div>

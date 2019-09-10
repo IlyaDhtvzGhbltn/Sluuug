@@ -118,5 +118,4 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.res.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.isreaded_cryptoMsg.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.res.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations.relationsisseen.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Sluuug.Migrations._new.resources

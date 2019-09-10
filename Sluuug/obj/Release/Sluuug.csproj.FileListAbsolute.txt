@@ -118,5 +118,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Release\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.pdb
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.res.resources
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.relationsisseen.resources
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations._new.resources

@@ -20,7 +20,7 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //NewUserInitial.Initialize(10000);
+            //NewUserInitial.Initialize(100);
         }
 
         protected void Application_Error(object sender, EventArgs e)

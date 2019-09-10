@@ -5,7 +5,7 @@
 <div class="content" itemscope itemtype="http://schema.org/WebPage" >
     <div class="result_empty"></div>
     <div class="main" id="main">
-        <h2 itemprop="name" >FriendNote</h2>
+        <h2 itemprop="name">FriendNote - бесплатная социальная сеть с видео-связью и end-to-end</h2>
         <p itemprop="description">это современный бесплатный сервис для поиска знакомств и контактов, сочетающий в себе множество полезных функций, включая видео и аудио связь.</p>
         <p itemprop="description">
             Наш сервис позволяет отправлять мгновенные сообщения, создавать собственные профили, обмениваться сообщениями с помощью <b>end-to-end</b> шифрования и находить других пользователей по всему миру совершенно бесплатно.
@@ -25,18 +25,18 @@
                     <h4>Регистрация</h4>
                     <div class="top-row">
                         <div class="field-wrap" itemprop="name">
-                            <input type="text" name="Name" placeholder="Имя *" required autocomplete="off" />
+                            <input name="Name" placeholder="Имя *" required autocomplete="off" />
                         </div>
                         <div class="field-wrap" itemprop="name">
-                            <input type="text" name="SurName" placeholder="Фамилия *" required autocomplete="off" />
+                            <input name="SurName" placeholder="Фамилия *" required autocomplete="off" />
                         </div>
                     </div>
-                    <div class="field-wrap"  itemprop="email">
-                        <input itemprop="email" type="email" name="Email" placeholder="Email Адрес *" required autocomplete="off" oninput="verify_email(this)" />
+                    <div class="field-wrap"  itemprop="agent">
+                        <input type="email" name="Email" placeholder="Email Адрес *" required autocomplete="off" oninput="verify_email(this)" />
                         <div id="email_space"></div>
                     </div>
                     <div class="field-wrap">
-                        <input type="text" name="Login" placeholder="Придумайте логин *" required autocomplete="off" oninput="verify_login(this)" />
+                        <input name="Login" placeholder="Придумайте логин *" required autocomplete="off" oninput="verify_login(this)" />
                         <div id="login_space"></div>
                     </div>
                     <div class="field-wrap">
@@ -50,10 +50,10 @@
                     </div>
                     <div class="field-wrap">
                         <label>Выберите дату рождения :</label>
-                        <input id="select_date" itemprop="birthDate" name="DateBirth" min="@ViewBag.MinRegistrationDate" max="@ViewBag.MaxRegistrationDate" type="date" required autocomplete="off" />
+                        <input id="select_date" name="DateBirth" min="@ViewBag.MinRegistrationDate" max="@ViewBag.MaxRegistrationDate" type="date" required autocomplete="off" />
                     </div>
                     <div class="field-wrap">
-                        <input type="password"  itemprop="accessCode" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
+                        <input type="password" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
                     </div>
                     <input type="button" class="button button-block" id="reg_subm" onclick="register()" value="Зарегестрироваться" />
                 </form>
@@ -65,7 +65,7 @@
                         <input type="text" placeholder="Логин при регистрации *" name="login" required autocomplete="off" />
                     </div>
                     <div class="field-wrap">
-                        <input type="password" itemprop="accessCode" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
+                        <input type="password" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
                     </div>
                     <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
                     <input type="button" class="button button-block" id="log_subm" onclick="logIn()" value="Вход" />
@@ -75,8 +75,8 @@
                 <form id="reset_password_form">
                     <h4>Обновить пароль</h4>
                     <p>Введите адрес электронной почты, использованный при регистрации.</p>
-                    <div itemprop="email" class="field-wrap">
-                        <input itemprop="email" placeholder="Email Адрес *" type="email" name="email" id="oldEmailToReset" required autocomplete="off" />
+                    <div itemprop="text" class="field-wrap">
+                        <input itemprop="text" placeholder="Email Адрес *" type="email" name="email" id="oldEmailToReset" required autocomplete="off" />
                     </div>
                     <input type="button" class="button button-block" id="reset_subm" onclick="resetPassword()" value="Выслать пароль" />
                 </form>
@@ -122,7 +122,7 @@
             Высокое качество видео и низкая задержка блягодаря <b>perr-to-peer</b> соединению позволит вам легко связатся с друзьями и коллегами где бы они ни были.
         </p>
     </div>
-    <div class="help" id="help" itemscope itemtype="http://schema.org/FAQPage">
+    <div class="help" id="help" itemscope itemtype="http://schema.org/WebPage">
         <h2>Справка (FAQ)</h2>
 
         <div class="question" itemscope itemtype="http://schema.org/Question">

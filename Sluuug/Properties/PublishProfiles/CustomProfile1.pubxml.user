@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>09/09/2019 18:36:53</publishTime>
+      <publishTime>09/10/2019 12:36:07</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>09/09/2019 18:36:53</publishTime>
+      <publishTime>09/10/2019 12:36:07</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>09/09/2019 18:36:53</publishTime>
+      <publishTime>09/10/2019 12:36:07</publishTime>
     </File>
     <File Include="bin/System.Linq.Dynamic.dll">
       <publishTime>07/29/2019 10:55:57</publishTime>
@@ -320,7 +320,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2019 12:12:53</publishTime>
     </File>
     <File Include="robots.txt">
-      <publishTime>09/09/2019 14:19:32</publishTime>
+      <publishTime>09/10/2019 11:20:52</publishTime>
     </File>
     <File Include="Scripts/Albums.js">
       <publishTime>08/15/2019 14:10:06</publishTime>
@@ -593,7 +593,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 14:26:06</publishTime>
     </File>
     <File Include="Views/Guest/Index.cshtml">
-      <publishTime>09/09/2019 17:00:04</publishTime>
+      <publishTime>09/10/2019 12:19:00</publishTime>
     </File>
     <File Include="Views/Guest/reset.cshtml">
       <publishTime>09/05/2019 14:23:09</publishTime>
@@ -734,16 +734,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2019 11:06:37</publishTime>
     </File>
     <File Include="Views/Shared/guest.cshtml">
-      <publishTime>09/09/2019 17:15:50</publishTime>
+      <publishTime>09/10/2019 12:35:42</publishTime>
     </File>
     <File Include="Views/Shared/private_template.cshtml">
       <publishTime>09/06/2019 11:14:13</publishTime>
     </File>
     <File Include="Views/Shared/public_index_navigation.cshtml">
-      <publishTime>09/09/2019 15:28:28</publishTime>
+      <publishTime>09/10/2019 12:29:38</publishTime>
     </File>
     <File Include="Views/Shared/public_other_navigation.cshtml">
-      <publishTime>09/09/2019 15:28:39</publishTime>
+      <publishTime>09/10/2019 12:29:34</publishTime>
     </File>
     <File Include="Views/Shared/reset_active.cshtml">
       <publishTime>07/30/2019 12:40:21</publishTime>
@@ -755,7 +755,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/13/2019 12:05:09</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/09/2019 12:43:01</publishTime>
+      <publishTime>09/10/2019 12:02:07</publishTime>
     </File>
   </ItemGroup>
 </Project>
