@@ -94,25 +94,25 @@ window.onscroll = function () {
         let offset = window.pageYOffset;
 
         let mainOffset = $('#main').offset().top;
-        let reg_logOffset = $('#reg_log').offset().top - 200;
         let functionOffset = $('#functions').offset().top - 100;
-        let helpOffset = $('#help').offset().top - 200;
+        let reg_logOffset = $('#reg_log').offset().top - 500;
+        let helpOffset = $('#help').offset().top - 500;
 
-        if (offset >= mainOffset && offset <= reg_logOffset) {
+        if (offset >= mainOffset && offset <= functionOffset) {
             main_circle.style.fill = 'rgba(162, 236, 243, 1)';
         }
         else {
             main_circle.style.fill = 'transparent';
         }
 
-        if (offset >= reg_logOffset && offset <= functionOffset) {
+        if (offset >= functionOffset && offset <= reg_logOffset) {
             function_circle.style.fill = 'rgba(162, 236, 243, 1)';
         }
         else {
             function_circle.style.fill = 'transparent';
         }
 
-        if (offset >= functionOffset && offset <= helpOffset) {
+        if (offset >= reg_logOffset && offset <= helpOffset) {
             reg_log_circle.style.fill = 'rgba(162, 236, 243, 1)';
         }
         else {

@@ -175,6 +175,7 @@
     <Content Include="Resources\images\social_media_img.png" />
     <Content Include="Resources\images\space_main_background.png" />
     <Content Include="Resources\images\spam.png" />
+    <Content Include="Resources\images\stop.png" />
     <Content Include="Resources\images\support_ico.png" />
     <Content Include="Resources\images\video-call.png" />
     <Content Include="Resources\images\video_connect_ico.png" />
