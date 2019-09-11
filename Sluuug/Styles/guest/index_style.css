@@ -140,6 +140,10 @@ input::-webkit-input-placeholder {
     flex-direction:row;
 }
 
+.function-demo-container:not(:first-child){
+    margin-top:100px;
+}
+
 .function-demo-container > img{
     height:150px;
     width:150px;
