@@ -82,10 +82,10 @@ $(document).ready(function () {
 
 window.onscroll = function () {
     if (window.pageYOffset > 530) {
-        $('.head_navigation').fadeIn();
+        $('.head_navigation')[0].style.opacity = 1;
     }
     else {
-        $('.head_navigation').fadeOut();
+        $('.head_navigation')[0].style.opacity = 0;
     }
 
 
@@ -94,25 +94,25 @@ window.onscroll = function () {
         let offset = window.pageYOffset;
 
         let mainOffset = $('#main').offset().top;
-        let functionOffset = $('#functions').offset().top - 100;
-        let reg_logOffset = $('#reg_log').offset().top - 500;
-        let helpOffset = $('#help').offset().top - 500;
+        let reg_logOffset = $('#reg_log').offset().top - 200;
+        let functionOffset = $('#functions').offset().top - 500;
+        let helpOffset = $('#help').offset().top - 400;
 
-        if (offset >= mainOffset && offset <= functionOffset) {
+        if (offset >= mainOffset && offset <= reg_logOffset) {
             main_circle.style.fill = 'rgba(162, 236, 243, 1)';
         }
         else {
             main_circle.style.fill = 'transparent';
         }
 
-        if (offset >= functionOffset && offset <= reg_logOffset) {
+        if (offset >= reg_logOffset && offset <= functionOffset) {
             function_circle.style.fill = 'rgba(162, 236, 243, 1)';
         }
         else {
             function_circle.style.fill = 'transparent';
         }
 
-        if (offset >= reg_logOffset && offset <= helpOffset) {
+        if (offset >= functionOffset && offset <= helpOffset) {
             reg_log_circle.style.fill = 'rgba(162, 236, 243, 1)';
         }
         else {

@@ -159,6 +159,7 @@
     <Content Include="Resources\html_templates\resetPasswordMail.html" />
     <Content Include="Resources\html_templates\activatioMail.html" />
     <Content Include="Resources\images\abstract_footer_left.png" />
+    <Content Include="Resources\images\allow.png" />
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\brand.png" />
     <Content Include="Resources\images\contacts_ico.png" />

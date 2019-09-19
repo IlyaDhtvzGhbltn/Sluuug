@@ -31,12 +31,19 @@
 @if (ViewBag.IsIndex)
 {
     <div class="head_navigation" hidden>
+        <div class="head-main-logo">
+            <div class="head-main-logo-container" onclick="scrolling('main', +80)">
+                <img src="~/Resources/images/brand.png" height="50" />
+            </div>
+            @*<button class="header-button" onclick="scrolling('main', +80)">Главная</button>*@
+        </div>
         <div class="head_fix_menu">
-            <button class="header-button" onclick="scrolling('main', +80)">Главная</button>
             <button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
             <button class="header-button" onclick="scrolling('help', -100)">Справка</button>
             <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
             <button class="header-button" onclick="scrolling('reg_log', -100), show_register()">Зарегистрироваться</button>
+        </div>
+        <div class="head-login">
             <button class="header-button" onclick="scrolling('reg_log', -100), show_login()">Войти</button>
         </div>
     </div>
@@ -52,14 +59,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#functions">
+                    <a href="#reg_log">
                         <svg class="circle_nav">
                             <circle id="function_circle" cx="12" cy="12" r="5"></circle>
                         </svg>
                     </a>
                 </li>
                 <li>
-                    <a href="#reg_log">
+                    <a href="#functions">
                         <svg class="circle_nav">
                             <circle id="reg_log_circle" cx="12" cy="12" r="5"></circle>
                         </svg>
@@ -96,14 +103,53 @@
         <h1 itemprop="description">Будь всегда на связи</h1>
     </div>
     <div class="text-anumations">
-        <div class="message-wrapper">
-            <span class="main-message first-message">Без спама</span>
-        </div>
-        <div class="message-wrapper">
-            <span class="main-message second-message">Без ботов</span>
-        </div>
-        <div class="message-wrapper">
-            <span class="main-message thirth-message">Без рекламы</span>
+        <div class="message-container">
+            <div class="include-functions">
+                <div class="message-wrapper first-message">
+                    <div class="stop-img-container">
+                        <img src="~/Resources/images/allow.png" />
+                    </div>
+                    <span class="main-message">Видео звонки</span>
+                </div>
+                <div class="message-wrapper second-message">
+                    <div class="stop-img-container">
+                        <img src="~/Resources/images/allow.png" />
+                    </div>
+                    <span class="main-message">Реальные знакомства</span>
+                </div>
+                <div class="message-wrapper thirth-message">
+                    <div class="stop-img-container">
+                        <img src="~/Resources/images/allow.png" />
+                    </div>
+                    <span class="main-message">End-to-End шифрование</span>
+                </div>
+            </div>
+
+            <div class="exclude-functions">
+                <div class="exclude-without-container">
+                    <span class="without">Без</span>
+                </div>
+                <div class="exclude-container">
+                    <div class="message-wrapper first-message">
+                        <div class="stop-img-container">
+                            <img src="~/Resources/images/stop.png" />
+                        </div>
+                        <span class="main-message">ботов</span>
+                    </div>
+                    <div class="message-wrapper second-message">
+                        <div class="stop-img-container">
+                            <img src="~/Resources/images/stop.png" />
+                        </div>
+                        <span class="main-message">спама</span>
+                    </div>
+                    <div class="message-wrapper thirth-message">
+                        <div class="stop-img-container">
+                            <img src="~/Resources/images/stop.png" />
+                        </div>
+                        <span class="main-message">рекламы</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="overlay">

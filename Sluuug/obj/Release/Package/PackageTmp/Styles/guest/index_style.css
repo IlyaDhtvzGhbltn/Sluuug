@@ -140,6 +140,10 @@ input::-webkit-input-placeholder {
     flex-direction:row;
 }
 
+.function-demo-container:not(:first-child){
+    margin-top:100px;
+}
+
 .function-demo-container > img{
     height:150px;
     width:150px;
@@ -170,29 +174,60 @@ input::-webkit-input-placeholder {
 }
 
 .text-anumations {
+
     z-index: 999;
     position: absolute;
     top:45%;
     width:100%;
 }
 
-.message-wrapper {
+.exclude-functions{
+    display:flex;
+    flex-direction:row;
+}
+
+.exclude-without-container {
+    margin-top: 20%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.without {
+    color: white;
+    font-size: 50px;
+    font-weight:800;
+}
+
+.message-container {
+    display: flex;
+    flex-direction: row;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
-    width: 200px;
+    width: 705px;
+}
+
+.message-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    min-width: 245px;
     text-align: center;
 }
 
 .main-message {
-    color:white;
-    font-size:32px;
-    font-weight:800;
+    margin-left: 10px;
+    color: white;
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .first-message {
     opacity: 0;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-name: hover;
     -webkit-animation-name: hover;
     animation-fill-mode: forwards;
@@ -202,7 +237,7 @@ input::-webkit-input-placeholder {
 .second-message {
     opacity: 0;
     animation-delay: 2s;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-name: hover;
     -webkit-animation-name: hover;
     animation-fill-mode: forwards;
@@ -211,8 +246,8 @@ input::-webkit-input-placeholder {
 
 .thirth-message {
     opacity: 0;
-    animation-delay: 4s;
-    animation-duration: 3s;
+    animation-delay: 3s;
+    animation-duration: 2s;
     animation-name: hover;
     -webkit-animation-name: hover;
     animation-fill-mode: forwards;
@@ -291,16 +326,21 @@ input::-webkit-input-placeholder {
 }
 
 #connection_vectors {
-    top: -100px;
+    top: -160px;
+    left: -30px;
     position: absolute;
+}
+
+.include-functions {
+    margin-left: 10px;
 }
 
 .tagline-container {
     position: absolute;
     top: 27%;
-    z-index:999;
-    color:white;
-    width:100%;
+    z-index: 999;
+    color: white;
+    width: 100%;
 }
 
 .tagline-container > h1 {
@@ -351,7 +391,7 @@ input::-webkit-input-placeholder {
 }
 #menu {
     margin: auto;
-    width:800px;
+    width:825px;
 }
 
 .gradient_footer nav a {
@@ -430,6 +470,10 @@ input::-webkit-input-placeholder {
 
 
 .head_navigation {
+    transition:all .5s ease;
+    display:flex;
+    flex-direction:row;
+    opacity:0;
     z-index: 101;
     position: fixed;
     background: linear-gradient(to right, #448fa0 50%, #7db7af 100%);
@@ -438,10 +482,21 @@ input::-webkit-input-placeholder {
     box-shadow: 10px 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
 
+.head-main-logo {
+    display:flex;
+    flex-direction:row;
+    margin-left:20px;
+    cursor:pointer;
+}
+
+.head-login {
+    margin-right: 20px;
+}
+
 .head_fix_menu {
     position: relative;
-    margin:auto;
-    width:680px;
+    margin: auto;
+    /*width: 680px;*/
 }
 
 .header-button {

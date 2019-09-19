@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>09/10/2019 19:40:50</publishTime>
+      <publishTime>09/19/2019 13:42:17</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>09/10/2019 19:40:50</publishTime>
+      <publishTime>09/19/2019 13:42:17</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>09/10/2019 19:40:50</publishTime>
+      <publishTime>09/19/2019 13:42:17</publishTime>
     </File>
     <File Include="bin/System.Linq.Dynamic.dll">
       <publishTime>07/29/2019 10:55:57</publishTime>
@@ -268,6 +268,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Resources/images/abstract_footer_left.png">
       <publishTime>06/13/2019 12:12:53</publishTime>
     </File>
+    <File Include="Resources/images/allow.png">
+      <publishTime>09/11/2019 18:22:35</publishTime>
+    </File>
     <File Include="Resources/images/brand.png">
       <publishTime>06/13/2019 12:12:53</publishTime>
     </File>
@@ -319,6 +322,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Resources/images/spam.png">
       <publishTime>09/10/2019 19:25:31</publishTime>
     </File>
+    <File Include="Resources/images/stop.png">
+      <publishTime>09/11/2019 12:14:47</publishTime>
+    </File>
     <File Include="Resources/images/support_ico.png">
       <publishTime>06/18/2019 16:10:47</publishTime>
     </File>
@@ -356,7 +362,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/12/2019 18:16:14</publishTime>
     </File>
     <File Include="Scripts/Guest/index_form.js">
-      <publishTime>09/10/2019 18:43:12</publishTime>
+      <publishTime>09/19/2019 17:24:03</publishTime>
     </File>
     <File Include="Scripts/Guest/validationGuest.js">
       <publishTime>06/20/2019 14:57:18</publishTime>
@@ -518,7 +524,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2019 18:26:07</publishTime>
     </File>
     <File Include="Styles/guest/index_style.css">
-      <publishTime>09/10/2019 19:38:42</publishTime>
+      <publishTime>09/19/2019 17:32:08</publishTime>
     </File>
     <File Include="Styles/private/album-review-style.css">
       <publishTime>08/15/2019 15:45:20</publishTime>
@@ -608,7 +614,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 14:26:06</publishTime>
     </File>
     <File Include="Views/Guest/Index.cshtml">
-      <publishTime>09/10/2019 19:37:39</publishTime>
+      <publishTime>09/19/2019 17:13:32</publishTime>
     </File>
     <File Include="Views/Guest/reset.cshtml">
       <publishTime>09/05/2019 14:23:09</publishTime>
@@ -725,7 +731,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 15:54:57</publishTime>
     </File>
     <File Include="Views/Private/my.cshtml">
-      <publishTime>09/06/2019 11:03:28</publishTime>
+      <publishTime>09/19/2019 13:41:27</publishTime>
     </File>
     <File Include="Views/Private/notification_history.cshtml">
       <publishTime>07/09/2019 14:50:46</publishTime>
@@ -749,7 +755,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2019 11:06:37</publishTime>
     </File>
     <File Include="Views/Shared/guest.cshtml">
-      <publishTime>09/10/2019 16:54:37</publishTime>
+      <publishTime>09/19/2019 17:30:20</publishTime>
     </File>
     <File Include="Views/Shared/private_template.cshtml">
       <publishTime>09/06/2019 11:14:13</publishTime>
