@@ -19,6 +19,7 @@ peerConn.ontrack = function (event) {
 };
 peerConn.onicecandidate = function (event) {
     if (event.candidate) {
+        
         HUB.invoke('ExchangeICandidates', event.candidate, getGuidID());
         console.log('sending candidates start ...');
     }
@@ -45,7 +46,7 @@ HUB.on('SendName', function (name) {
 });
 
 
-function initiate_call() {
+function initiate_call() { 
     navigator.mediaDevices.getUserMedia({ audio: true, video: true })
         .then(function (stream) {
             $("#localVideo")[0].srcObject = stream;

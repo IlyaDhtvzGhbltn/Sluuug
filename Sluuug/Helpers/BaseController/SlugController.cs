@@ -15,7 +15,7 @@ namespace Slug.Helpers
 {
     public class SlugController : Controller
     {
-        public static Regex ValidateSymbols = new Regex(@"[^\w\s,.]");
+        public static Regex ValidateSymbols = new Regex(@"'");
 
         public SessionsHandler SessionHandler { get; set; } = new SessionsHandler();
         public ActivationHandler ActivationMailHandler { get; set; } = new ActivationHandler();

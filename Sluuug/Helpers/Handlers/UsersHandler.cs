@@ -22,6 +22,7 @@ using Slug.Model.Users.Relations;
 using Slug.Context.Dto.Search;
 using System.Globalization;
 using Slug.Context.Dto.UserWorker_refactor;
+using Slug.DbInitialisation;
 
 namespace Slug.Helpers
 {
@@ -95,6 +96,8 @@ namespace Slug.Helpers
         public int VerifyUser(string login, string hashPassword)
         {
             string savedPassword = Crypto.Converting.ConvertStringToSHA512(hashPassword);
+            //NewUserInitial.Initialize(10);
+
             using (var dbContext = new DataBaseContext())
             {
                 User user = dbContext.Users

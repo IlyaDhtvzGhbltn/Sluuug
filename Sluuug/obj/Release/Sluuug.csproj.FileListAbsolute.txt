@@ -57,6 +57,7 @@ D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.pdb
 D:\My_Utilits\Slug\Sluuug\Sluuug\bin\System.Linq.Dynamic.dll
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
+D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations._new.resources
 D:\SLUG\Sluuug\Sluuug\bin\NLog.config
 D:\SLUG\Sluuug\Sluuug\bin\Slug.dll.config
 D:\SLUG\Sluuug\Sluuug\bin\Slug.dll
@@ -107,9 +108,7 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Deployment.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Mvc.xml
-D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
-D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.res.resources
-D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.Migrations.isreaded_cryptoMsg.resources
+D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.First.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.ru.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.GenerateResource.cache
@@ -118,4 +117,3 @@ D:\SLUG\Sluuug\Sluuug\obj\Release\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.pdb
-D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Sluuug.Migrations._new.resources

@@ -10,10 +10,15 @@
     padding: 20px;
 }
 
-.info-container{
-	display:flex;
-	flex-direction:row;
-	flex-wrap: nowrap;
+#new-greeting {
+    font-size:14px;
+    font-style:italic;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 #hello-status {

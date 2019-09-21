@@ -1,4 +1,4 @@
-namespace Sluuug.Migrations
+namespace Slug.Migrations
 {
     using global::Context;
     using System;

@@ -326,10 +326,11 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201909100815339_new.cs" />
-    <Compile Include="Migrations\201909100815339_new.Designer.cs">
-      <DependentUpon>201909100815339_new.cs</DependentUpon>
+    <Compile Include="Migrations\201909211120010_First.cs" />
+    <Compile Include="Migrations\201909211120010_First.Designer.cs">
+      <DependentUpon>201909211120010_First.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -403,7 +404,6 @@
     <Compile Include="Hubs\GlobalHub.cs" />
     <Compile Include="Hubs\UserBehaviors\SimpleDialog.cs" />
     <Compile Include="Hubs\UserBehaviors\VideoConference.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\AlbumModel.cs" />
     <Compile Include="Model\Albums\FotoCommentModel.cs" />
     <Compile Include="Model\Albums\FotoModel.cs" />
@@ -503,8 +503,8 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909100815339_new.resx">
-      <DependentUpon>201909100815339_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201909211120010_First.resx">
+      <DependentUpon>201909211120010_First.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
