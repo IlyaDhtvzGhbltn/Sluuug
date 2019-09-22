@@ -14,7 +14,6 @@
                         IncrementInto('.dialog-not-read-msg-' + key, key, resp.NotReadedConversations[key]);
                     });
                 }
-
             }
             var cryptoMessCount = Object.keys(resp.NotReadedCryptoConversations).length;
             if (cryptoMessCount > 0) {

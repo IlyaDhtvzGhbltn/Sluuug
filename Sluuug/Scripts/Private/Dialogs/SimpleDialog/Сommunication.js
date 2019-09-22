@@ -98,11 +98,11 @@ window.addEventListener("keydown", function (event) {
     if (event.key == 'Enter') {
         text = $('#new_msg').val();
         if (text.length > 0) {
+            var url = new URL(this.window.location);
+            var id = url.searchParams.get("id");
             SendMessageFromChat(id);
             $('#new_msg').val('');
             event.preventDefault();
-            var url = new URL(this.window.location);
-            var id = url.searchParams.get("id");
         }
     }
 });
