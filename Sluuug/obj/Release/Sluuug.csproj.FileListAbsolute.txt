@@ -117,3 +117,4 @@ D:\SLUG\Sluuug\Sluuug\obj\Release\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.pdb
+D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache

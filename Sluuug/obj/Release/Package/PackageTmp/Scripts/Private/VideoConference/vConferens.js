@@ -61,9 +61,13 @@ function initiate_call() {
         .then(
         function (offer) {
             var off = new RTCSessionDescription(offer);
-            HUB.invoke('Invite', JSON.stringify(offer), getGuidID() );
-            console.log('send invite');
-            return peerConn.setLocalDescription(off);
+            var connection = $.hubConnection();
+            var HUB = connection.createHubProxy('MainGlobalHub');
+            connection.start().done(function () {
+                HUB.invoke('Invite', JSON.stringify(offer), getGuidID());
+                console.log('send invite');
+                return peerConn.setLocalDescription(off);
+            });
         });
 }
 

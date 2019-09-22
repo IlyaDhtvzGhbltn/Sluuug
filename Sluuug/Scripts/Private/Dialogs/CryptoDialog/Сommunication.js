@@ -72,3 +72,14 @@ function scrollDialog() {
 }
 
 window.ready = onLoad();
+
+window.addEventListener("keydown", function (event) {
+    if (event.key == 'Enter') {
+        text = $('#new_text').val();
+        if (text.length > 0) {
+            crypt_send();
+            $('#new_text').val('');
+            event.preventDefault();
+        }
+    }
+});

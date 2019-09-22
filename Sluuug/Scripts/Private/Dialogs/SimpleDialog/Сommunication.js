@@ -26,20 +26,22 @@ HUB.on('MessageSendedResult', function (result) {
 function SendMessageFromChat(conversationId) {
     connection.start().done(function () {
         text = $('#new_msg').val();
-        HUB.invoke('SendMessage', text, conversationId, 0);
-        $('#new_msg').val('')
+        if (text.length > 0) {
+            HUB.invoke('SendMessage', text, conversationId, 0);
+            $('#new_msg').val('')
 
-        var ownAvatar = $('.own-avatar-span')[0].innerHTML;
-        $('.dialog')[0].insertAdjacentHTML(
-            'beforeend',
-            '<div class="dialog-msg-wrapper-out">' +
-            '<div class="out-content">' +
-            '<div class="message-header"><h4>Я</h4><span>только что</span></div>' +
-            '<div class="message-body"><div><img alt="avatar" src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
+            var ownAvatar = $('.own-avatar-span')[0].innerHTML;
+            $('.dialog')[0].insertAdjacentHTML(
+                'beforeend',
+                '<div class="dialog-msg-wrapper-out">' +
+                '<div class="out-content">' +
+                '<div class="message-header"><h4>Я</h4><span>только что</span></div>' +
+                '<div class="message-body"><div><img alt="avatar" src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
 
-        var objDiv = $(".dialog")[0];
-        objDiv.scrollTop = objDiv.scrollHeight + 100;
+            var objDiv = $(".dialog")[0];
+            objDiv.scrollTop = objDiv.scrollHeight + 100;
 
+        }
     });
 }
 
@@ -90,3 +92,17 @@ function InsertEmojiTo(elem) {
     var textAfter = v.substring(cursorPos, v.length);
     $('#new_msg').val(textBefore + char + textAfter);
 }
+
+
+window.addEventListener("keydown", function (event) {
+    if (event.key == 'Enter') {
+        text = $('#new_msg').val();
+        if (text.length > 0) {
+            SendMessageFromChat(id);
+            $('#new_msg').val('');
+            event.preventDefault();
+            var url = new URL(this.window.location);
+            var id = url.searchParams.get("id");
+        }
+    }
+});

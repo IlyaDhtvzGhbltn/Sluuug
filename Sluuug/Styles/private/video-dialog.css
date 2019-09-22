@@ -24,7 +24,6 @@
     min-height: 425px;
     min-width: 480px;
     background-color: white;
-    box-shadow: inset 0px 0px 20px 20px rgba(127, 127, 127, 0.5);
 }
 
 .video-stream:hover ~ .container-manage {
@@ -138,7 +137,6 @@
 .self video {
     width: 200px;
     height: 200px;
-    box-shadow: inset 0px 0px 20px 20px rgba(127, 127, 127, 0.5);
 }
 
 .conference-manage {
