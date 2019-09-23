@@ -262,7 +262,8 @@ namespace Slug.Helpers
                         Text = item.Text,
                         Name = userInfos[item.UserSender].Name,
                         SurName = userInfos[item.UserSender].SurName,
-                        IsIncomming = incommingFlag
+                        IsIncomming = incommingFlag,
+                        UserSenderId = item.UserSender
                     };
                     model.Messages.Add(CrMessage);
                 }

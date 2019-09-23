@@ -157,7 +157,7 @@ namespace Slug.Hubs
                      AvatatURI = Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 60, 60),
                      Text = message,
                      DialogId = guidChatId,
-                     
+                     UserSenderId = fromUserID
                 };
 
                 Clients.Clients(UserRecipientsConnectionIds.ConnectionId)

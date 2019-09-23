@@ -58,7 +58,7 @@ function UpdateDialogInCnv(message) {
         +'<span>Только что</span>'
         + '</div>'
         + '<div class="message-body">'
-        + '<div><img alt="avatar" src="' + message.AvatarPath + '"/></div>'
+        + '<div><img alt="avatar" onclick="redirectToUser(' + message.SenderId + ')" src="' + message.AvatarPath + '"/></div>'
         + '<span>' + message.Text + '</span>'
         + '</div></div></div>');
 

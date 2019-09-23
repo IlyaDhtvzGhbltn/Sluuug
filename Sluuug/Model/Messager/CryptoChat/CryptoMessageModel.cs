@@ -8,6 +8,7 @@ namespace Slug.Model.Messager.CryptoChat
     public class CryptoMessageModel
     {
         public Guid DialogId { get; set; }
+        public int UserSenderId { get; set; }
         public bool IsIncomming { get; set; }
 
         public string AvatatURI { get; set; }

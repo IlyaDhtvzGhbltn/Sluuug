@@ -76,7 +76,7 @@
         return dialogMsgWrapper;
     }
 
-    static ItemMessage(wrapperType, conteinerClass, message, avatar, name) {
+    static ItemMessage(wrapperType, conteinerClass, message, avatar, name, senderId) {
         var dialogMsgWrapper = document.createElement("div");
         dialogMsgWrapper.className = wrapperType;
         var contentSecretClass = document.createElement("div");
@@ -86,6 +86,10 @@
 
         var nameNode = document.createElement("h4");
         nameNode.appendChild(document.createTextNode(name));
+        nameNode.addEventListener('click', function () {
+            redirectToUser(senderId);
+        });
+        nameNode.style.cursor = 'pointer';
 
         var dataNode = document.createElement("span");
         dataNode.appendChild(document.createTextNode("только что"));
@@ -103,7 +107,10 @@
         var avatarWrapper = document.createElement("div");
         var avatarI = document.createElement("img");
         avatarI.src = avatar;
-
+        avatarI.style.cursor = 'pointer';
+        avatarI.addEventListener('click', function () {
+            redirectToUser(senderId);
+        });
         avatarWrapper.appendChild(avatarI);
         var messageTextNode = document.createElement("span");
         messageTextNode.className = "crypt-message";

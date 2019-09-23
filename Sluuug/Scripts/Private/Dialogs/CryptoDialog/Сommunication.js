@@ -37,13 +37,13 @@ function crypt_send() {
     HUB.invoke('SendMessage', cryptStr);
     $('#new_text').val('');
 
-    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я' );
+    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я', model.UserSenderId );
     scrollDialog();
 }
 
 function gotNewInDialog(model) {
     let decrypted = decryption(model.Text);
-    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, model.AvatatURI, model.Name);
+    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, model.AvatatURI, model.Name, model.UserSenderId);
     scrollDialog();
 }
 
@@ -69,8 +69,8 @@ function onLoad() {
     }
 }
 
-function updateDialog(wrapperType, conteinerClass, message, avatar, name) {
-    let messageNode = CryptoDialogNode.ItemMessage(wrapperType, conteinerClass, message, avatar, name);
+function updateDialog(wrapperType, conteinerClass, message, avatar, name, senderId) {
+    let messageNode = CryptoDialogNode.ItemMessage(wrapperType, conteinerClass, message, avatar, name, senderId);
     $('.dialog')[0].appendChild(messageNode);
 }
 
