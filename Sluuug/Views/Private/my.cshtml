@@ -23,7 +23,7 @@
             </div>
 
             <div class="profile-info-location">
-                @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "getCities('myCountry','myCity', false); SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true, false)" })
+                @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "changeCountry()" })  @**@
                 @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true, false)" })
                 <span>@Model.Age</span>
             </div>
@@ -337,5 +337,23 @@
         $(element).css({ 'left': position.left, 'top': position.top });
     }
 
+    function changeCountry() {
+        let countryCode = $("#myCountry").val();
+        console.log(countryCode);
+        $.ajax({
+            type: "post",
+            url: "/api/cities",
+            data: { countryCode },
+            success: function (response) {
+                console.log(response);
 
+                let countryList = $("#myCity");
+                countryList.empty();
+                for (let i = 0; i < response.Cities.length; i++) {
+                    countryList.append(new Option(response.Cities[i].Title, response.Cities[i].CityCode));
+                }
+                SaveEditedProfileInfo(3, $('#myCity').val(), $('#myCountry').val(), true, false);
+            }
+        });
+    }
 </script>
