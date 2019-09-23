@@ -3,9 +3,13 @@
 });
 
 HUB.on('GetMessage', function (object, bigAvatarUrl) {
-    console.log(object);
+    console.log(object.ConversationId);
+
     var currentUri = new URL(window.location.href);
     var currentConversation = currentUri.searchParams.get('id');
+    if (currentConversation != object.ConversationId) {
+        IncrementInto('.notify-container-increment-message', 'not-show-message-counter');
+    }
     if (currentConversation == object.ConversationId) {
         UpdateDialogInCnv(object);
     }

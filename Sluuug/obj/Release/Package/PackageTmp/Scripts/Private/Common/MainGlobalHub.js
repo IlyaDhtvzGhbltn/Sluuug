@@ -1,14 +1,11 @@
 ﻿var connection = $.hubConnection();
 var HUB = connection.createHubProxy('MainGlobalHub');
-
 connection.start().done(function () {
     HUB.invoke('OpenConnect');
 });
-
 window.onunload = function () {
     HUB.invoke('CloseConnect');
 };
-
 HUB.on('CatchException', function (message) {
     _Alert(message);
 });
@@ -50,7 +47,6 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
     }
 });
 
-
 function IncrementInto(elementContainer, counterSelector, forceSetValue = null) {
     if (forceSetValue == null) {
         var decrementedElement = $(elementContainer)[0];
@@ -68,7 +64,6 @@ function IncrementInto(elementContainer, counterSelector, forceSetValue = null) 
         decrementedElement.innerHTML = '<div class="new"><span id="' + counterSelector + '">' + forceSetValue + '</span></div>';
     }
 }
-
 function newInviteToCryptChatNotification(html, publicData) {
     var note = $('.incomming-notify');
     note[0].insertAdjacentHTML('beforeend', html);
@@ -93,8 +88,6 @@ function newInviteToCryptChatNotification(html, publicData) {
     }
     setTimeout(clearNotificationDiv, 4000);
 }
-
-
 function clearNotificationDiv() {
     var note = $('.incomming-notify');
     note.css({ opacity: 0, left: -400 });
