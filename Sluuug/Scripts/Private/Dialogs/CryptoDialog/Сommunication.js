@@ -1,7 +1,15 @@
 ﻿connection.qs = 'URL=' + window.location.href;
 
 HUB.on('GetCryptoMessage', function (model, avatar, minLeft, secLeft) {
-    gotNewInDialog(model);
+    console.log(model);
+    var url = new URL(window.location);
+    var id = url.searchParams.get("id");
+    if (id == model.DialogId) {
+        gotNewInDialog(model);
+    }
+    else {
+        IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
+    }
 });
 
 HUB.on('MessageSendedResult', function (result) {
