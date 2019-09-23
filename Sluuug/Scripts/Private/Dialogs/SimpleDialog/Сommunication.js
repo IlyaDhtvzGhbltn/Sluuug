@@ -28,18 +28,21 @@ HUB.on('MessageSendedResult', function (result) {
 });
 
 function SendMessageFromChat(conversationId) {
+    console.log('TODO change implementation to DynamicNodes.js');
+
     connection.start().done(function () {
         text = $('#new_msg').val();
         if (text.length > 0) {
             HUB.invoke('SendMessage', text, conversationId, 0);
-            $('#new_msg').val('')
-
+            $('#new_msg').val('');
+            var date = new Date();
+            var stringDate = date.getHours() + ':' + date.getMinutes();
             var ownAvatar = $('.own-avatar-span')[0].innerHTML;
             $('.dialog')[0].insertAdjacentHTML(
                 'beforeend',
                 '<div class="dialog-msg-wrapper-out">' +
                 '<div class="out-content">' +
-                '<div class="message-header"><h4>Я</h4><span>только что</span></div>' +
+                '<div class="message-header"><h4>Я</h4><span>'+stringDate+'</span></div>' +
                 '<div class="message-body"><div><img alt="avatar" src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
 
             var objDiv = $(".dialog")[0];
@@ -50,12 +53,15 @@ function SendMessageFromChat(conversationId) {
 }
 
 function UpdateDialogInCnv(message) {
+    console.log('TODO change implementation to DynamicNodes.js');
     var Dialog = $('.dialog')[0];
+    var date = new Date();
+    var stringDate = date.getHours() + ':' + date.getMinutes();
     Dialog.insertAdjacentHTML('beforeend',
         '<div class="dialog-msg-wrapper-in"><div class="in-content">'
         + '<div class="message-header" onclick="redirectToUser(' + message.SenderId + ')">'
         + '<h4>' + message.UserName + '</h4>'
-        +'<span>Только что</span>'
+        +'<span>'+stringDate+'</span>'
         + '</div>'
         + '<div class="message-body">'
         + '<div><img alt="avatar" onclick="redirectToUser(' + message.SenderId + ')" src="' + message.AvatarPath + '"/></div>'

@@ -37,7 +37,7 @@ function crypt_send() {
     HUB.invoke('SendMessage', cryptStr);
     $('#new_text').val('');
 
-    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я', model.UserSenderId );
+    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я', -1 );
     scrollDialog();
 }
 

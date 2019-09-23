@@ -209,10 +209,12 @@ function SendPhotoComment() {
             success: function (resp) {
                 console.log(resp);
                 if (resp.isSuccess) {
+                    var date = new Date();
+                    var stringDate = date.getHours() + ':' + date.getMinutes();
                     $('.users-comments').append("<div class='image-user-comment' onclick='redirectToMe()'>" +
                         '<div class="comment-header">' +
                         '<h4>Я</h4>' +
-                        '<span>только что</span>' +
+                        '<span>' + stringDate + '</span>' +
                         '</div>' +
                         '<div class="comment-body">' +
                         '<img alt="my own avatar" src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +

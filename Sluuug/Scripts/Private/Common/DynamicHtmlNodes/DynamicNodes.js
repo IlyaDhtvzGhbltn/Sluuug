@@ -92,7 +92,9 @@
         nameNode.style.cursor = 'pointer';
 
         var dataNode = document.createElement("span");
-        dataNode.appendChild(document.createTextNode("только что"));
+        var date = new Date;
+        var dateString = date.getHours() + ':' + date.getMinutes();
+        dataNode.appendChild(document.createTextNode(dateString));
 
         var lockImgNode = document.createElement("img");
         lockImgNode.className = "lock-msg-img";
@@ -168,16 +170,17 @@ class SimpleDialogNode {
         var messageNode = document.createElement("span");
         messageNode.appendChild(document.createTextNode(model.Text));
         var dateNode = document.createElement("span");
-        dateNode.appendChild(document.createTextNode('только что'));
+        var date = new Date;
+        var dateString = date.getHours() + ':' + date.getMinutes();
+        dateNode.appendChild(document.createTextNode(dateString));
 
         dialogBodyNode.appendChild(nameHeadNode);
         dialogBodyNode.appendChild(messageNode);
         dialogBodyNode.appendChild(dateNode);
 
-        dialogMsgWrapper.appendChild(avatarImgNode)
-        dialogMsgWrapper.appendChild(dialogHeaderNode)
-        dialogMsgWrapper.appendChild(dialogBodyNode)
+        dialogMsgWrapper.appendChild(avatarImgNode);
+        dialogMsgWrapper.appendChild(dialogHeaderNode);
+        dialogMsgWrapper.appendChild(dialogBodyNode);
         return dialogMsgWrapper;
-
     }
 }
