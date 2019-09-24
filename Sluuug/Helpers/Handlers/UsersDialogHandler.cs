@@ -11,6 +11,7 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Messager.SimpleChat;
+using System.Globalization;
 
 namespace Slug.Helpers
 {
@@ -61,7 +62,7 @@ namespace Slug.Helpers
                         msg.IsIncomming = true;
                     }
                     msg.Text = message.Text;
-                    msg.SendTime = message.SendingDate.ToString("hh:mm");
+                    msg.SendTime = message.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
                     msg.ConversationId = message.ConvarsationGuidId;
                     msg.AvatarPath = Resize.ResizedAvatarUri(UserWorker.BaseUser(message.UserId).AvatarResizeUri, ModTypes.c_scale, 60, 60);
                     msg.UserName = UserWorker.BaseUser(message.UserId).Name;

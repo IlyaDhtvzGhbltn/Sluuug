@@ -7,7 +7,10 @@ function UpdateDialog(model, bigAvatarUrl) {
     var dateContainer = $('.dialog-' + model.ConversationId).children('.confersation-body').children('span')[1];
 
     if (dateContainer != undefined) {
-        dateContainer.innerHTML = 'Только что';
+        console.log('TODO change implementation to DynamicNodes.js');
+        var date = new Date();
+        var stringDate = date.getHours() + ':' + date.getMinutes();
+        dateContainer.innerHTML = stringDate;
         var messageContainer = $('.dialog-' + model.ConversationId).children('.confersation-body').children('span')[0];
         if (model.Text < 30) {
             messageContainer.innerHTML = model.Text;

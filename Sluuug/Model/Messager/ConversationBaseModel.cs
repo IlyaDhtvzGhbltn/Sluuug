@@ -14,6 +14,6 @@ namespace Slug.Model.Messager
         public string LastMessage { get; set; }
         public string LastMessageSenderName { get; set; }
         public string LastMessageSenderSurName { get; set; }
-        public DateTime LastMessageSendDate { get; set; }
+        public string LastMessageSendDate { get; set; }
     }
 }

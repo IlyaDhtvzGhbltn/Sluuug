@@ -21,7 +21,7 @@
         </div>
         <div class="message-body">
             <div>
-                <img alt="myself avatar" src="@Model.AvatarPath" class="@ownAvatarImgClass"/>
+                <img alt="myself avatar"  onclick="redirectToUser(@Model.SenderId)" src="@Model.AvatarPath" class="@ownAvatarImgClass"/>
             </div>
             <span>@Model.Text</span>
         </div>

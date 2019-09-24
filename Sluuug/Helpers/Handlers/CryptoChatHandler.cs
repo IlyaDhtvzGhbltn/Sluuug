@@ -11,6 +11,7 @@ using Slug.Model.Messager.CryptoChat;
 using Slug.Model.Users;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -143,7 +144,7 @@ namespace Slug.Helpers
                             BaseUser lastMessageSenderInfo = userHandler.BaseUser(last.UserSender);
 
                             chat.LastMessage = last.Text;
-                            chat.LastMessageSendDate = last.SendingDate;
+                            chat.LastMessageSendDate = last.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
                             chat.LastMessageSenderName = lastMessageSenderInfo.Name;
                             chat.LastMessageSenderSurName = lastMessageSenderInfo.SurName;
                         }
@@ -257,7 +258,7 @@ namespace Slug.Helpers
 
                     var CrMessage = new CryptoMessageModel()
                     {
-                        SendDate = item.SendingDate,
+                        SendingDate = item.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU")),
                         AvatatURI = Resize.ResizedAvatarUri(userInfos[item.UserSender].AvatarResizeUri, ModTypes.c_scale, 60, 60),
                         Text = item.Text,
                         Name = userInfos[item.UserSender].Name,

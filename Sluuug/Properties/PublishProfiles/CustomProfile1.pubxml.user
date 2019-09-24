@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>09/23/2019 13:19:46</publishTime>
+      <publishTime>09/23/2019 21:02:39</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>09/23/2019 13:19:46</publishTime>
+      <publishTime>09/23/2019 21:02:39</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>09/23/2019 13:19:46</publishTime>
+      <publishTime>09/23/2019 21:02:39</publishTime>
     </File>
     <File Include="bin/System.Linq.Dynamic.dll">
       <publishTime>07/29/2019 10:55:57</publishTime>
@@ -377,13 +377,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/16/2019 14:00:16</publishTime>
     </File>
     <File Include="Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js">
-      <publishTime>08/22/2019 12:41:56</publishTime>
+      <publishTime>09/23/2019 18:39:02</publishTime>
     </File>
     <File Include="Scripts/Private/Common/LeftNavMenuDisable.js">
       <publishTime>08/16/2019 16:49:01</publishTime>
     </File>
     <File Include="Scripts/Private/Common/MainGlobalHub.js">
-      <publishTime>09/23/2019 12:38:55</publishTime>
+      <publishTime>09/23/2019 16:37:10</publishTime>
     </File>
     <File Include="Scripts/Private/Common/News.js">
       <publishTime>09/23/2019 12:38:55</publishTime>
@@ -407,16 +407,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/12/2019 10:44:52</publishTime>
     </File>
     <File Include="Scripts/Private/Dialogs/CryptoDialog/Сommunication.js">
-      <publishTime>09/23/2019 12:38:55</publishTime>
+      <publishTime>09/23/2019 18:30:11</publishTime>
     </File>
     <File Include="Scripts/Private/Dialogs/Preview/SimpleDialogsList.js">
-      <publishTime>08/20/2019 18:50:19</publishTime>
+      <publishTime>09/23/2019 18:26:35</publishTime>
     </File>
     <File Include="Scripts/Private/Dialogs/SimpleDialog/StartDialogFromUserPage.js">
       <publishTime>08/20/2019 16:24:37</publishTime>
     </File>
     <File Include="Scripts/Private/Dialogs/SimpleDialog/Сommunication.js">
-      <publishTime>09/23/2019 12:38:55</publishTime>
+      <publishTime>09/23/2019 18:28:03</publishTime>
     </File>
     <File Include="Scripts/Private/ExperationTimer.js">
       <publishTime>08/12/2019 10:44:52</publishTime>
@@ -428,16 +428,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/16/2019 16:49:01</publishTime>
     </File>
     <File Include="Scripts/Private/Profile/Albums.js">
-      <publishTime>09/06/2019 11:18:27</publishTime>
+      <publishTime>09/23/2019 18:25:50</publishTime>
     </File>
     <File Include="Scripts/Private/Profile/EditProfileInfo.js">
-      <publishTime>08/20/2019 12:42:43</publishTime>
+      <publishTime>09/23/2019 17:36:45</publishTime>
     </File>
     <File Include="Scripts/Private/Profile/SelectPaginationActivePage.js">
       <publishTime>08/20/2019 18:24:52</publishTime>
     </File>
     <File Include="Scripts/Private/Search/Search.js">
-      <publishTime>08/14/2019 16:40:27</publishTime>
+      <publishTime>09/23/2019 19:26:35</publishTime>
     </File>
     <File Include="Scripts/Private/Settings/ChangeSettings.js">
       <publishTime>08/16/2019 13:54:54</publishTime>
@@ -650,7 +650,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2019 11:26:31</publishTime>
     </File>
     <File Include="Views/Partial/Dialogs/dialog_message.cshtml">
-      <publishTime>09/06/2019 10:52:27</publishTime>
+      <publishTime>09/23/2019 16:55:16</publishTime>
     </File>
     <File Include="Views/Partial/Dialogs/dialog_preview.cshtml">
       <publishTime>09/06/2019 10:52:42</publishTime>
@@ -719,7 +719,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 16:26:38</publishTime>
     </File>
     <File Include="Views/Private/c_msg.cshtml">
-      <publishTime>09/06/2019 11:01:36</publishTime>
+      <publishTime>09/23/2019 17:05:16</publishTime>
     </File>
     <File Include="Views/Private/friend.cshtml">
       <publishTime>09/06/2019 11:02:11</publishTime>
@@ -728,10 +728,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 16:27:23</publishTime>
     </File>
     <File Include="Views/Private/msg.cshtml">
-      <publishTime>09/05/2019 15:54:57</publishTime>
+      <publishTime>09/23/2019 18:08:36</publishTime>
     </File>
     <File Include="Views/Private/my.cshtml">
-      <publishTime>09/23/2019 12:38:55</publishTime>
+      <publishTime>09/23/2019 19:35:56</publishTime>
     </File>
     <File Include="Views/Private/notification_history.cshtml">
       <publishTime>07/09/2019 14:50:46</publishTime>

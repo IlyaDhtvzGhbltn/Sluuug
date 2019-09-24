@@ -12,6 +12,7 @@ using Slug.Model.Users;
 using Slug.Helpers.Handlers.HandlersInterface;
 using System.Threading.Tasks;
 using Slug.Context.Dto.News;
+using System.Globalization;
 
 namespace Slug.Helpers
 {
@@ -60,7 +61,7 @@ namespace Slug.Helpers
                                 BaseUser lastSayUser = UsWork.BaseUser(lastMessageUserId);
                                 var c = new ConversationModel();
 
-                                c.LastMessageSendDate = lastMessage.SendingDate;
+                                c.LastMessageSendDate = lastMessage.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
                                 c.InterlocutorAvatar = Resize.ResizedAvatarUri(friendInterlocutor.AvatarResizeUri, ModTypes.c_scale, 100, 100);
                                 c.InterlocutorName = friendInterlocutor.Name;
                                 c.InterlocutorSurName = friendInterlocutor.SurName;

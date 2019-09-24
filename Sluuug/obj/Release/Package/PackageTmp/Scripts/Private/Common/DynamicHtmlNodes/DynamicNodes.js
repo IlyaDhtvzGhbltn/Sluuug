@@ -76,7 +76,7 @@
         return dialogMsgWrapper;
     }
 
-    static ItemMessage(wrapperType, conteinerClass, message, avatar, name) {
+    static ItemMessage(wrapperType, conteinerClass, message, avatar, name, senderId) {
         var dialogMsgWrapper = document.createElement("div");
         dialogMsgWrapper.className = wrapperType;
         var contentSecretClass = document.createElement("div");
@@ -86,9 +86,15 @@
 
         var nameNode = document.createElement("h4");
         nameNode.appendChild(document.createTextNode(name));
+        nameNode.addEventListener('click', function () {
+            redirectToUser(senderId);
+        });
+        nameNode.style.cursor = 'pointer';
 
         var dataNode = document.createElement("span");
-        dataNode.appendChild(document.createTextNode("только что"));
+        var date = new Date;
+        var dateString = date.getHours() + ':' + date.getMinutes();
+        dataNode.appendChild(document.createTextNode(dateString));
 
         var lockImgNode = document.createElement("img");
         lockImgNode.className = "lock-msg-img";
@@ -103,7 +109,10 @@
         var avatarWrapper = document.createElement("div");
         var avatarI = document.createElement("img");
         avatarI.src = avatar;
-
+        avatarI.style.cursor = 'pointer';
+        avatarI.addEventListener('click', function () {
+            redirectToUser(senderId);
+        });
         avatarWrapper.appendChild(avatarI);
         var messageTextNode = document.createElement("span");
         messageTextNode.className = "crypt-message";
@@ -161,16 +170,17 @@ class SimpleDialogNode {
         var messageNode = document.createElement("span");
         messageNode.appendChild(document.createTextNode(model.Text));
         var dateNode = document.createElement("span");
-        dateNode.appendChild(document.createTextNode('только что'));
+        var date = new Date;
+        var dateString = date.getHours() + ':' + date.getMinutes();
+        dateNode.appendChild(document.createTextNode(dateString));
 
         dialogBodyNode.appendChild(nameHeadNode);
         dialogBodyNode.appendChild(messageNode);
         dialogBodyNode.appendChild(dateNode);
 
-        dialogMsgWrapper.appendChild(avatarImgNode)
-        dialogMsgWrapper.appendChild(dialogHeaderNode)
-        dialogMsgWrapper.appendChild(dialogBodyNode)
+        dialogMsgWrapper.appendChild(avatarImgNode);
+        dialogMsgWrapper.appendChild(dialogHeaderNode);
+        dialogMsgWrapper.appendChild(dialogBodyNode);
         return dialogMsgWrapper;
-
     }
 }

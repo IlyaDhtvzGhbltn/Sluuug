@@ -12,10 +12,10 @@ HUB.on('CatchException', function (message) {
 
 HUB.on('NotifyAbout', function (html, params, notifyCode) {
     switch (notifyCode) {
-        case 0:
-            IncrementInto('.notify-container-increment-message', 'not-show-message-counter');
-            break;
-        case 2: case 3: case 4:
+        //case 0:
+        //    IncrementInto('.notify-container-increment-message', 'not-show-message-counter');
+        //    break;
+        case 2: case 4:
             IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
             break;
         case 1:

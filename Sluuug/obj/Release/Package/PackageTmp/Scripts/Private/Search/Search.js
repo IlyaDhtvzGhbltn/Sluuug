@@ -15,7 +15,7 @@
             if (emptyValue) {
                 countryList.append(new Option('Не важно', -1));
             }
-        },
+        }
     });
 }
  

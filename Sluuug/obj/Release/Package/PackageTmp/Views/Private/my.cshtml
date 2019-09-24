@@ -23,19 +23,19 @@
             </div>
 
             <div class="profile-info-location">
-                @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "getCities('myCountry','myCity', false); SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
-                @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true)" })
+                @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "changeCountry()" })  @**@
+                @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true, false)" })
                 <span>@Model.Age</span>
             </div>
 
             <div class="profile-status-container">
-                @Html.DropDownList("DatingPurposeList", null, new { @onchange = "SaveEditedProfileInfo(5, this.value, null, false, true)" })
+                @Html.DropDownList("DatingPurposeList", null, new { @onchange = "SaveEditedProfileInfo(5, this.value, null, true, false)" })
                 @if (Model.purpose != DatingPurposeEnum.NoDating)
                 {
 
                     <span>с</span>
-                    @Html.DropDownList("DatingSexList", null, new { @onchange = "SaveEditedProfileInfo(6, this.value, null, false, true)" })
-                    @Html.DropDownList("DatingAgesList", null, new { @onchange = "SaveEditedProfileInfo(7, this.value, null, false, true)" })
+                    @Html.DropDownList("DatingSexList", null, new { @onchange = "SaveEditedProfileInfo(6, this.value, null, true, false)" })
+                    @Html.DropDownList("DatingAgesList", null, new { @onchange = "SaveEditedProfileInfo(7, this.value, null, true, false)" })
                     <span>лет</span>
                 }
             </div>
@@ -45,7 +45,7 @@
                 <div class="profile-info-change-status" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-1000px' })">
                     <span>Изменить..</span>
                     <input type="text" id="new-greeting" value="Привет!" />
-                    <button onclick="SaveEditedProfileInfo(4, $('#new-greeting')[0].value, null, true, true)">Готово</button>
+                    <button onclick="ChangeHelloMess(4, $('#new-greeting')[0].value, null, true, false)">Готово</button>
                 </div>
             </div>
         </div>
@@ -337,5 +337,23 @@
         $(element).css({ 'left': position.left, 'top': position.top });
     }
 
+    function changeCountry() {
+        let countryCode = $("#myCountry").val();
+        console.log(countryCode);
+        $.ajax({
+            type: "post",
+            url: "/api/cities",
+            data: { countryCode },
+            success: function (response) {
+                console.log(response);
 
+                let countryList = $("#myCity");
+                countryList.empty();
+                for (let i = 0; i < response.Cities.length; i++) {
+                    countryList.append(new Option(response.Cities[i].Title, response.Cities[i].CityCode));
+                }
+                SaveEditedProfileInfo(3, $('#myCity').val(), $('#myCountry').val(), true, false);
+            }
+        });
+    }
 </script>

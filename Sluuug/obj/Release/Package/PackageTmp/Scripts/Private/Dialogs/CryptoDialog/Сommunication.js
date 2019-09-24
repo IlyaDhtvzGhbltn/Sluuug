@@ -1,7 +1,15 @@
 ﻿connection.qs = 'URL=' + window.location.href;
 
 HUB.on('GetCryptoMessage', function (model, avatar, minLeft, secLeft) {
-    gotNewInDialog(model);
+    console.log(model);
+    var url = new URL(window.location);
+    var id = url.searchParams.get("id");
+    if (id == model.DialogId) {
+        gotNewInDialog(model);
+    }
+    else {
+        IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
+    }
 });
 
 HUB.on('MessageSendedResult', function (result) {
@@ -29,13 +37,13 @@ function crypt_send() {
     HUB.invoke('SendMessage', cryptStr);
     $('#new_text').val('');
 
-    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я' );
+    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я', -1 );
     scrollDialog();
 }
 
 function gotNewInDialog(model) {
     let decrypted = decryption(model.Text);
-    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, model.AvatatURI, model.Name);
+    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, model.AvatatURI, model.Name, model.UserSenderId);
     scrollDialog();
 }
 
@@ -61,8 +69,8 @@ function onLoad() {
     }
 }
 
-function updateDialog(wrapperType, conteinerClass, message, avatar, name) {
-    let messageNode = CryptoDialogNode.ItemMessage(wrapperType, conteinerClass, message, avatar, name);
+function updateDialog(wrapperType, conteinerClass, message, avatar, name, senderId) {
+    let messageNode = CryptoDialogNode.ItemMessage(wrapperType, conteinerClass, message, avatar, name, senderId);
     $('.dialog')[0].appendChild(messageNode);
 }
 

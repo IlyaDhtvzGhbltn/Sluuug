@@ -19,6 +19,6 @@ namespace Slug.Model.Messager.CryptoChat
 
         public string Text { get; set; }
 
-        public DateTime SendDate { get; set; }
+        public string SendingDate { get; set; }
     }
 }

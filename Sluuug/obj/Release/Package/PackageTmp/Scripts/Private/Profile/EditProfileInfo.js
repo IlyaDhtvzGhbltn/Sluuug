@@ -22,6 +22,12 @@ function untill_now_date(dateInputId, checkboxId) {
     }
 }
 
+function ChangeHelloMess(parameter, value, optionalData = null, isAlert = false, isReload = false) {
+    $('#hello-status')[0].innerText = value;
+    $('#new-greeting').val('Привет!');
+    SaveEditedProfileInfo(parameter, value, optionalData, isAlert, isReload);
+}
+
 function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = false, isReload = false) {
     _Alert('Идет сохранение, пожалуйста подождите...', '#7f7f7f');
     console.log(isAlert);
