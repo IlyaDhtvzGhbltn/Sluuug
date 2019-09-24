@@ -276,12 +276,17 @@ namespace Slug.Helpers
 
             List<Album> albums = context.Albums.Where(x => x.CreateUserID == user.Id && !x.Title.Contains("_event")).ToList();
             userModel.Albums = new List<AlbumModel>();
+            string albumURI = string.Empty;
             foreach (var album in albums)
             {
+                if (album.AlbumLabelUrl.Contains("system/template.jpg"))
+                    albumURI = album.AlbumLabelUrl;
+                else
+                    albumURI = Resize.ResizedFullPhoto(album.AlbumLabelUrl, album.LabelOriginalHeight, album.LabelOriginalWidth, 90, 90);
                 AlbumModel albumModel = new AlbumModel
                 {
                     AlbumId = album.Id,
-                    AlbumLabelUrl = Resize.ResizedFullPhoto(album.AlbumLabelUrl, album.LabelOriginalHeight, album.LabelOriginalWidth, 90, 90),
+                    AlbumLabelUrl = albumURI,
                     AlbumDescription = album.Description,
                     CreationTime = album.CreationDate,
                     AlbumTitle = album.Title,
