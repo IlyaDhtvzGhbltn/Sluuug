@@ -163,8 +163,7 @@ namespace Slug.Helpers
                 userModel.AvatarResizeUri = avatar.ImgPath;
 
             userModel.UserId = user.Id;
-
-            userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+            userModel.Age = DateTime.Now.Year - user.UserFullInfo.DateOfBirth.Year;
 
             var Educations = user.UserFullInfo.Educations;
             userModel.Educations = new List<EducationModel>();
@@ -467,7 +466,7 @@ namespace Slug.Helpers
 
                     userModel.AvatarResizeUri = avatar.ImgPath;
                     userModel.UserId = user.Id;
-                    userModel.Age = new DateTime(DateTime.Now.Subtract(user.UserFullInfo.DateOfBirth).Ticks).Year;
+                    userModel.Age = DateTime.Now.Year - user.UserFullInfo.DateOfBirth.Year;
                     userModel.HelloMessage = user.UserFullInfo.HelloMessage;
                     userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
                     userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
