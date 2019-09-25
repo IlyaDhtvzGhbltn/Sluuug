@@ -164,7 +164,7 @@ class Inviter {
                 data: { userId: crypto_cnv.participants[0].UserId },
                 type: "post",
                 success: function (resp) {
-                    if (resp != 'False') {
+                    if (resp == 'True') {
                         HUB.invoke('CreateNewCryptoConversation', JSON.stringify(crypto_cnv));
                         show();
                     }
