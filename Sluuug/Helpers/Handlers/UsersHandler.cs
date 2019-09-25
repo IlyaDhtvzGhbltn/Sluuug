@@ -1023,6 +1023,21 @@ namespace Slug.Helpers
             return flag;
         }
 
+        public bool IsOnline(int userId)
+        {
+            return isOnline(userId);
+        }
+
+        private bool isOnline(int userId)
+        {
+            using (DataBaseContext context = new DataBaseContext())
+            {
+                bool flag = context.UserConnections.Any(x => x.IsActive == true && x.UserId == userId);
+                return flag;
+            }
+        }
+        
+
         private async Task InvitationSeen(DataBaseContext context, int userId)
         {
             var relation = context.UserRelations.Where(x =>

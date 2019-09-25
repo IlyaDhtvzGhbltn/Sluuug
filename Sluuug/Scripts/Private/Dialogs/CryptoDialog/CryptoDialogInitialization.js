@@ -133,7 +133,6 @@ class Invited {
     }
 }
 class Inviter {
-
     create_new_crypto_conversation() {
         var invitersIds = [];
         var friends = $(".fr");
@@ -144,12 +143,12 @@ class Inviter {
             }
         }
         if (invitersIds.length == 0) {
-            alert('no one friend selected');
+            alert('Выберите хотя бы одного собеседника');
         }
         else {
             hide();
             console.log(invitersIds);
-            let crypto_cnv = new Object();
+            var crypto_cnv = new Object();
 
             crypto_cnv.type = 0;
             crypto_cnv.participants = [];
@@ -159,8 +158,23 @@ class Inviter {
                 participant.UserId = invitersIds[j];
                 crypto_cnv.participants.push(participant);
             }
-            HUB.invoke('CreateNewCryptoConversation', JSON.stringify(crypto_cnv));
-            show();
+            console.log(crypto_cnv.participants[0]);
+            $.ajax({
+                url: "/api/is_online",
+                data: { userId: crypto_cnv.participants[0].UserId },
+                type: "post",
+                success: function (resp) {
+                    if (resp != 'False') {
+                        HUB.invoke('CreateNewCryptoConversation', JSON.stringify(crypto_cnv));
+                        show();
+                    }
+                    else {
+                        _Alert("Не удалось создать чат - пользователь вышел из сети.", "#ff0000");
+                        $('.generation-key-container')[0].style.display = 'none';
+                    }
+                }
+            });
+
         }
     }
 
@@ -197,7 +211,7 @@ class Inviter {
                 }
                 HUB.invoke('InviteUsersToCryptoChat', JSON.stringify(cryptoCnv), cryptoCnv.convGuidId);
                 localStorage.setItem(cryptoCnv.convGuidId, JSON.stringify(cryptoCnv));
-                window.location.reload();
+                window.location.replace('/private/crypto_cnv?type=out');
             });
     }
 

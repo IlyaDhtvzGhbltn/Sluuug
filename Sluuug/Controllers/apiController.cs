@@ -263,5 +263,15 @@ namespace Slug.Controllers
             }
             else return null;
         }
+
+        [HttpPost]
+        public bool is_online(string userId)
+        {
+            if (!string.IsNullOrWhiteSpace(userId))
+            {
+                return UsersHandler.IsOnline(int.Parse(userId));
+            }
+            else return false;
+        }
     }
 }
