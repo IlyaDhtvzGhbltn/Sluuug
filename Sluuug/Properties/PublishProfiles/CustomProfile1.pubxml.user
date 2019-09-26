@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>09/25/2019 17:36:14</publishTime>
+      <publishTime>09/25/2019 18:47:56</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>09/25/2019 17:36:14</publishTime>
+      <publishTime>09/25/2019 18:47:54</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>09/25/2019 17:36:14</publishTime>
+      <publishTime>09/25/2019 18:47:54</publishTime>
     </File>
     <File Include="bin/System.Linq.Dynamic.dll">
       <publishTime>07/29/2019 10:55:57</publishTime>
@@ -614,7 +614,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 14:26:06</publishTime>
     </File>
     <File Include="Views/Guest/Index.cshtml">
-      <publishTime>09/19/2019 17:13:32</publishTime>
+      <publishTime>09/25/2019 18:41:03</publishTime>
     </File>
     <File Include="Views/Guest/reset.cshtml">
       <publishTime>05/09/2019 14:23:09</publishTime>
@@ -746,7 +746,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2019 15:59:20</publishTime>
     </File>
     <File Include="Views/Private/support.cshtml">
-      <publishTime>09/05/2019 16:30:46</publishTime>
+      <publishTime>09/25/2019 18:42:01</publishTime>
     </File>
     <File Include="Views/Private/user.cshtml">
       <publishTime>09/06/2019 11:03:49</publishTime>
@@ -761,10 +761,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2019 11:14:13</publishTime>
     </File>
     <File Include="Views/Shared/public_index_navigation.cshtml">
-      <publishTime>09/10/2019 13:28:33</publishTime>
+      <publishTime>09/25/2019 18:37:48</publishTime>
     </File>
     <File Include="Views/Shared/public_other_navigation.cshtml">
-      <publishTime>09/10/2019 13:28:26</publishTime>
+      <publishTime>09/25/2019 18:38:01</publishTime>
     </File>
     <File Include="Views/Shared/reset_active.cshtml">
       <publishTime>07/30/2019 12:40:21</publishTime>

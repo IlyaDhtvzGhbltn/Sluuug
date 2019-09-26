@@ -12,6 +12,8 @@ using Slug.Helpers.BaseController;
 using System;
 using Slug.Helpers.Handlers;
 using Slug.DbInitialisation;
+using NLog;
+using System.Threading.Tasks;
 
 namespace Slug.Controllers
 {
@@ -19,8 +21,10 @@ namespace Slug.Controllers
     public class guestController : SlugController
     {
         [HttpGet]
-        public ActionResult index()
+        public async Task<ActionResult> index()
         {
+            await saveClientIpAsync(this.Request);
+
             ViewBag.Title = "FriendNote - социальная сеть с видео-связью и end-to-end шифрованием сообщений";
             ViewBag.Description = "FriendNote - это современный бесплатный сервис для поиска знакомств, сочетающий в себе видео-связь и end-to-end шифрование сообщений.";
             ViewBag.MinRegistrationDate = new DateTime(1900, 1, 1).ToString("yyyy-MM-dd");
@@ -123,6 +127,32 @@ namespace Slug.Controllers
                 return true;
             }
             return false;
+        }
+
+        private async Task saveClientIpAsync (HttpRequestBase request)
+        {
+            await Task.Run(()=> 
+            {
+                try
+                {
+                    Logger logger = LogManager.GetLogger("info_logger");
+                    string info = string.Empty;
+                    info = string.Format("{1}UserHostName: {0}{1}", request.UserHostName, Environment.NewLine);
+                    info += string.Format("UserHostAddress: {0}{1}", request.UserHostAddress, Environment.NewLine);
+
+                    string languages = string.Empty;
+                    foreach (var lang in request.UserLanguages)
+                    {
+                        languages = string.Format("{0}", lang);
+                    }
+                    info += string.Format("UserLanguages: {0}{1}", languages, Environment.NewLine);
+
+                    info += string.Format("UrlReferrer: {0}{1}", request.UrlReferrer, Environment.NewLine);
+                    info += string.Format("UserAgent: {0}{1}{1}", request.UserAgent, Environment.NewLine);
+                    logger.Info(info);
+                }
+                catch (Exception) { }
+            });
         }
     }
 }
