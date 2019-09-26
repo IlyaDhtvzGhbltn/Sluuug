@@ -53,7 +53,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:00</publishTime>
     </File>
     <File Include="bin/NLog.config">
-      <publishTime>06/05/2019 18:26:38</publishTime>
+      <publishTime>09/26/2019 12:36:12</publishTime>
     </File>
     <File Include="bin/NLog.dll">
       <publishTime>05/20/2019 10:52:39</publishTime>
@@ -206,13 +206,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2019 17:45:01</publishTime>
     </File>
     <File Include="bin/ru/Slug.resources.dll">
-      <publishTime>09/25/2019 18:47:56</publishTime>
+      <publishTime>09/26/2019 13:48:55</publishTime>
     </File>
     <File Include="bin/Slug.dll">
-      <publishTime>09/25/2019 18:47:54</publishTime>
+      <publishTime>09/26/2019 13:48:55</publishTime>
     </File>
     <File Include="bin/Slug.pdb">
-      <publishTime>09/25/2019 18:47:54</publishTime>
+      <publishTime>09/26/2019 13:48:55</publishTime>
     </File>
     <File Include="bin/System.Linq.Dynamic.dll">
       <publishTime>07/29/2019 10:55:57</publishTime>
@@ -251,7 +251,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/09/2019 14:22:24</publishTime>
     </File>
     <File Include="NLog.config">
-      <publishTime>06/05/2019 18:26:38</publishTime>
+      <publishTime>09/26/2019 12:36:12</publishTime>
     </File>
     <File Include="Resources/audio/new-notify-sound.wav">
       <publishTime>07/30/2019 13:41:18</publishTime>
@@ -755,10 +755,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2019 12:38:55</publishTime>
     </File>
     <File Include="Views/Shared/guest.cshtml">
-      <publishTime>09/25/2019 17:20:56</publishTime>
+      <publishTime>09/26/2019 13:48:42</publishTime>
     </File>
     <File Include="Views/Shared/private_template.cshtml">
-      <publishTime>09/06/2019 11:14:13</publishTime>
+      <publishTime>09/26/2019 13:33:41</publishTime>
     </File>
     <File Include="Views/Shared/public_index_navigation.cshtml">
       <publishTime>09/25/2019 18:37:48</publishTime>
