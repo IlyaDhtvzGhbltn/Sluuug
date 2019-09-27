@@ -170,6 +170,7 @@
     <Content Include="Resources\images\lock-msg.png" />
     <Content Include="Resources\images\lock_ico.png" />
     <Content Include="Resources\images\mess_ico.png" />
+    <Content Include="Resources\images\night_city_background.png" />
     <Content Include="Resources\images\notify_ico.png" />
     <Content Include="Resources\images\rotating_earth_background.png" />
     <Content Include="Resources\images\settings_ico.png" />
@@ -180,6 +181,7 @@
     <Content Include="Resources\images\support_ico.png" />
     <Content Include="Resources\images\video-call.png" />
     <Content Include="Resources\images\video_connect_ico.png" />
+    <Content Include="Resources\video\cutnightcity.mp4" />
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="robots.txt" />

@@ -23,6 +23,7 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> index()
         {
+            //NewUserInitial.Initialize(10);
             await saveClientIpAsync(this.Request);
 
             ViewBag.Title = "FriendNote - социальная сеть с видео-связью и end-to-end шифрованием сообщений";

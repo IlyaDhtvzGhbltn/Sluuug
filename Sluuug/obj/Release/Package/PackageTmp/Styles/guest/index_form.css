@@ -5,11 +5,12 @@
     transition: .5s ease;
 }
 
+
 .form {
     padding: 30px;
     max-width: 600px;
     margin: 200px auto;
-    border:1px solid #7f7f7f;
+    border: 1px solid #7f7f7f;
     min-height: 790px;
     height: auto;
 }
@@ -26,7 +27,7 @@ label {
     padding: 5px;
     font-size: 22px;
     display: block;
-    width: 100%;
+    width: 102%;
     height: 45px;
     position: relative;
     margin-left: auto;
@@ -92,7 +93,7 @@ h4 {
 input, textarea {
     font-size: 22px;
     display: block;
-    width: 100%;
+    width: 102%;
     text-indent: 10px;
     background: none;
     background-image: none;
@@ -116,6 +117,9 @@ textarea {
     position: relative;
     margin-bottom: 40px;
 }
+.top-row{
+    width:101%;
+}
 
 .top-row:after {
     content: "";
@@ -129,9 +133,9 @@ textarea {
     margin-right: 4%;
 }
 
-    .top-row > div:last-child {
-        margin: 0;
-    }
+.top-row > div:last-child {
+    margin: 0;
+}
 
 .content .form .button {
     border: 0;

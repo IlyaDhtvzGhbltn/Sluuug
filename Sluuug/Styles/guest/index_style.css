@@ -24,6 +24,7 @@ body {
 
 p {
     text-align:justify;
+    width
 }
 
 input::-webkit-input-placeholder {
@@ -44,10 +45,11 @@ input::-webkit-input-placeholder {
     z-index: 102;
     position: fixed;
     width: 500px;
-    height: 600px;
+    height: 495px;
     background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    border: 1px solid #7f7f7f;
+    /*border-radius: 4px;*/
+    /*box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);*/
 }
 
 .feed_back_form h1 {
@@ -58,9 +60,10 @@ input::-webkit-input-placeholder {
 }
 
 #feed_back_text {
-    height: 210px;
+    height: 100px;
     resize: none;
     font-family: 'Roboto Condensed', sans-serif;
+    width:376px;
 }
 
 .feed_back_form .feed_back_property {
@@ -193,7 +196,10 @@ input::-webkit-input-placeholder {
 .without {
     color: white;
     font-size: 50px;
-    font-weight:800;
+    font-weight: 800;
+    border: 2px solid;
+    background: #47aed5;
+    padding: 5px;
 }
 
 .message-container {
@@ -201,7 +207,7 @@ input::-webkit-input-placeholder {
     flex-direction: row;
     margin-left: auto;
     margin-right: auto;
-    width: 705px;
+    width: 725px;
 }
 
 .message-wrapper {
@@ -221,6 +227,17 @@ input::-webkit-input-placeholder {
     font-weight: 800;
     margin-top: auto;
     margin-bottom: auto;
+    text-shadow: #7f7f7f -1px -1px 0, #333 1px 1px 0;
+    border: 2px solid;
+    padding: 5px;
+}
+
+.include {
+    background: #4b9543;
+}
+
+.exclude {
+    background: #b71d18;
 }
 
 .first-message {
@@ -338,7 +355,7 @@ input::-webkit-input-placeholder {
 
 .tagline-container {
     position: absolute;
-    top: 25%;
+    top: 20%;
     z-index: 999;
     color: white;
     width: 100%;
