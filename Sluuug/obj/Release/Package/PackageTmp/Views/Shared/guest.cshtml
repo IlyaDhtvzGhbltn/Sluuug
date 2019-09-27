@@ -44,7 +44,7 @@
                     <button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
                     <button class="header-button" onclick="scrolling('help', -100)">Справка</button>
                     <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
-                    <button class="header-button" onclick="scrolling('reg_log', -100), show_register()">Зарегистрироваться</button>
+                    <button class="header-button" onclick="scrolling('reg_log', +440), show_register()">Зарегистрироваться</button>
                 </div>
                 <div class="head-login">
                     <button class="header-button" onclick="scrolling('reg_log', -100), show_login()">Войти</button>
@@ -86,25 +86,22 @@
                 </nav>
             </div>
         }
-        <div class="navigation">
-            @if (ViewBag.IsIndex)
-            {
-                @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
-            }
-            else
-            {
-                @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
-            }
-        </div>
         <div class="feed_back"></div>
-        <div class="title_image">
-
-        </div>
         <div class="fullscreen-bg" itemscope itemtype="http://schema.org/Article">
+            <div class="navigation">
+                @if (ViewBag.IsIndex)
+                {
+                    @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
+                }
+                else
+                {
+                    @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
+                }
+            </div>
             <div class="tagline-container">
                 <div class="overlay">
                     <img itemprop="image" alt="site ico" id="connection_vectors" src="/Resources/images/brand.png" />
-                    <h1 itemprop="description">Будь всегда на связи</h1>
+                    <h1 itemprop="description">БУДЬ ВСЕГДА НА СВЯЗИ</h1>
                 </div>
             </div>
             <div class="text-anumations">
@@ -114,44 +111,44 @@
                             <div class="stop-img-container">
                                 <img src="~/Resources/images/allow.png" alt="ok" />
                             </div>
-                            <span class="main-message include">Видео звонки</span>
+                            <span class="main-message include">ВИДЕО ЗВОНКИ</span>
                         </div>
                         <div class="message-wrapper second-message">
                             <div class="stop-img-container">
                                 <img src="~/Resources/images/allow.png" alt="ok" />
                             </div>
-                            <span class="main-message include">End-to-End чаты</span>
+                            <span class="main-message include">End-to-End ЧАТЫ</span>
                         </div>
                         <div class="message-wrapper thirth-message">
                             <div class="stop-img-container">
                                 <img src="~/Resources/images/allow.png" alt="ok" />
                             </div>
-                            <span class="main-message include">Реальные знакомства</span>
+                            <span class="main-message include">ЗНАКОМСТВА</span>
                         </div>
                     </div>
 
                     <div class="exclude-functions">
                         <div class="exclude-without-container">
-                            <span class="without">Без</span>
+                            <span class="without">БЕЗ</span>
                         </div>
                         <div class="exclude-container">
                             <div class="message-wrapper first-message">
                                 <div class="stop-img-container">
                                     <img src="~/Resources/images/stop.png" alt="not" />
                                 </div>
-                                <span class="main-message exclude">ботов</span>
+                                <span class="main-message exclude">БОТОВ</span>
                             </div>
                             <div class="message-wrapper second-message">
                                 <div class="stop-img-container">
                                     <img src="~/Resources/images/stop.png" alt="not" />
                                 </div>
-                                <span class="main-message exclude">спама</span>
+                                <span class="main-message exclude">СПАМА</span>
                             </div>
                             <div class="message-wrapper thirth-message">
                                 <div class="stop-img-container">
                                     <img src="~/Resources/images/stop.png" alt="not" />
                                 </div>
-                                <span class="main-message exclude">рекламы</span>
+                                <span class="main-message exclude">РЕКЛАМЫ</span>
                             </div>
                         </div>
                     </div>
