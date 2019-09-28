@@ -320,8 +320,8 @@ input::-webkit-input-placeholder {
     padding:4px;
 }
 
-.navigation a:hover{
-    color:#7f7f7f;
+.navigation a:hover {
+    color: #95DFE4;
 }
 
 #success a {
@@ -374,7 +374,7 @@ input::-webkit-input-placeholder {
 .tagline-container {
     /* position: absolute; */
     top: 20%;
-    z-index: 999;
+    z-index: 998;
     color: white;
     width: 100%;
 }
@@ -428,7 +428,7 @@ input::-webkit-input-placeholder {
 }
 #menu {
     margin: auto;
-    width: 825px;
+    width: 830px;
     display: flex;
     flex-direction: row;
 }
