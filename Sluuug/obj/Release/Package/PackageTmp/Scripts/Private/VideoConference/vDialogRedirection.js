@@ -12,6 +12,6 @@ function checkWebrtcAndLoad() {
         })
     }
     else {
-        alert("Sorry, your browser does not support WebRTC!");
+        _Alert("Нет разрешения для камеры и микрофона. ");
     }
 }
