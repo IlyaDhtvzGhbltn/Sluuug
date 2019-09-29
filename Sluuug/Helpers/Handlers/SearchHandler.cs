@@ -54,8 +54,9 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
-                List<Context.Tables.Cities> citiesCollection = context.Cities
+                List<Cities> citiesCollection = context.Cities
                     .Where(x => x.CountryCode == code && x.Language == LanguageType.Ru)
+                    .OrderBy(x => x.Title)
                     .ToList();
                 List<SearchCityItem> itemCollection = citiesCollection
                     .Select(x => new SearchCityItem
