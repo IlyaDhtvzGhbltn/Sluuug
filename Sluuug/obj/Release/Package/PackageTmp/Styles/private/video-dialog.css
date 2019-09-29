@@ -154,6 +154,7 @@
     height: 40px;
     text-align: left;
     border:1px solid white;
+    min-width:230px;
 }
 
 .conference-manage button:hover{

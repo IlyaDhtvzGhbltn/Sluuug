@@ -170,10 +170,12 @@ ul li:hover > span{
 
 #left-navigation ul li{
 	width:180px;
-	padding: 20px 0px 20px  10px;
+	padding: 10px 0px 10px  10px;
 	margin:0px;
-	display:table;
-	height:70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height:70%;
 	cursor:pointer;
 	border-bottom:1px solid #ddd;
 }
@@ -188,6 +190,7 @@ ul li:hover > span{
 
 .nav-entry {
     margin-left: 11px;
+    margin-top: 8px;
 }
 
 #search-form{

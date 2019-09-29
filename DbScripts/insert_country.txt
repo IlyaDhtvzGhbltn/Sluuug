@@ -1,0 +1,8 @@
+insert into [slugDtB].[dbo].[Countries](CountryCode, Language, Title)
+values
+(7, 1, 'Russia'),
+(7, 2, N'Россия'),
+(375, 1, 'Belarus'),
+(375, 2, N'Белорусь'),
+(380, 1, 'Ukraine'),
+(380, 2 , N'Украина')

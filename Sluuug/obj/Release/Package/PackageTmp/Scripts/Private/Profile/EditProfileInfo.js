@@ -46,6 +46,18 @@ function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = 
                 if (isReload) {
                     window.location.reload();
                 }
+                if (parameter == 5 && value == 3) {
+                    $('#with-title').fadeOut();
+                    $('#age-title').fadeOut();
+                    $('#DatingSexList').fadeOut();
+                    $('#DatingAgesList').fadeOut();
+                }
+                else {
+                    $('#with-title').fadeIn();
+                    $('#age-title').fadeIn();
+                    $('#DatingSexList').fadeIn();
+                    $('#DatingAgesList').fadeIn();
+                }
             }
             else {
                 _Alert('Ошибка сохранения.', 'red');

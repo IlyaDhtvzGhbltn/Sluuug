@@ -31,16 +31,12 @@ namespace Slug.DbInitialisation
                 {
                     new Countries { CountryCode = 7, Language = LanguageType.En, Title = "Russia" },
                     new Countries { CountryCode = 7, Language = LanguageType.Ru, Title = "Россия" },
-                    new Countries { CountryCode = 1, Language = LanguageType.En, Title = "USA" },
-                    new Countries { CountryCode = 1, Language = LanguageType.Ru, Title = "США" },
                 });
 
                 context.Cities.AddRange(new List<Cities>()
                 {
                     new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.En, Title = "Moscow" },
                     new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.Ru, Title = "Москва" },
-                    new Cities { CitiesCode = 718, CountryCode = 1, Language = LanguageType.En, Title = "New-York" },
-                    new Cities { CitiesCode = 718, CountryCode = 1, Language = LanguageType.Ru, Title = "Нью-Йорк" }
 
                 });
 

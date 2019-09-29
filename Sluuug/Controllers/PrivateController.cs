@@ -94,7 +94,9 @@ namespace Slug.Controllers
             var CountriesList = new List<SelectListItem>()
             {
                 new SelectListItem(){ Text = "Россия", Value = "7" },
-                new SelectListItem(){ Text = "USA", Value = "1" }
+                new SelectListItem(){ Text = "Белорусь", Value = "375" },
+                new SelectListItem(){ Text = "Украина", Value = "380" }
+
             };
             CountriesList.ForEach(x => 
             {
