@@ -117,7 +117,7 @@ function ExpandAlbum(albumId) {
                         '</div>' +
                         '<div class="comment-body">' +
                             '<img alt="user posted avatar" src="' + comment.UserPostedAvatarResizeUri + '"/>' +
-                            '<span>' + comment.Text + '</span>' +
+                            '<span class="comment-span">' + comment.Text + '</span>' +
                         '</div>' +
                         '</div > ');
                 });
@@ -187,7 +187,7 @@ function ExpandPhoto(currentPhotoIndex, photosCount, allPhotos) {
                         '</div>' +
                         '<div class="comment-body">' +
                         '<img alt="user posted avatar" src="' + comment.UserPostedAvatarResizeUri + '"/>' +
-                        '<span>' + comment.Text + '</span>' +
+                        '<span class="comment-span">' + comment.Text + '</span>' +
                         '</div>' +
                         '</div >');
                 });
@@ -218,7 +218,7 @@ function SendPhotoComment() {
                         '</div>' +
                         '<div class="comment-body">' +
                         '<img alt="my own avatar" src="' + $('#img_avatar')[0].src + '" style="height:55px"/>' +
-                        '<span>' + commentText + '</span>' +
+                        '<span class="comment-span">' + commentText + '</span>' +
                         '</div>' +
                         '</div>'
                     );

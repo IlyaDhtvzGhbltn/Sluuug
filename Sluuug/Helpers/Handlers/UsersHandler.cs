@@ -53,6 +53,8 @@ namespace Slug.Helpers
                     newUser.Settings.Email = user.Email;
                     newUser.UserFullInfo.Name = user.Name;
                     newUser.UserFullInfo.SurName = user.SurName;
+                    newUser.UserFullInfo.Sex = user.Sex;
+                    newUser.UserFullInfo.HelloMessage = "Всем привет, я на связи!";
                     newUser.Login = user.Login;
                     newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
                     newUser.AvatarId = context.Avatars.First(x => x.CountryCode == user.CountryCode).Id;

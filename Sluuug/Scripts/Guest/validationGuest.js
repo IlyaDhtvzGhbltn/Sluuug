@@ -20,11 +20,7 @@ function register() {
             success: function (resp) {
                 $('#reg_subm').attr("disabled", false);
                 $('#circular3dG').fadeOut();
-                let registerResultForm = $('.content').offset().top;
-                window.scrollTo({
-                    top: registerResultForm,
-                    behavior: 'smooth'});
-
+                console.log(resp);
                 if (resp) {
                     showResultForm('/partial/success_register');
                 }
@@ -190,6 +186,7 @@ async function showResultForm(addres) {
             $('.result_empty')[0].innerHTML = resp;
             $('.result_empty').addClass('result');
             $('.result').fadeIn();
+            $(window).scrollTop($('.register-result').offset().top);
         }
     });
 }

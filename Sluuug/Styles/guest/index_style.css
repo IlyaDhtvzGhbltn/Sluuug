@@ -389,9 +389,16 @@ input::-webkit-input-placeholder {
 .content {
     width: 100%;
     max-width: 800px;
-    margin: -70px auto 0px auto;
+    margin: 0px auto 0px auto;
     position: relative;
 }
+
+.activate-res {
+    border: 1px solid;
+    padding: 5px;
+    background-color: rgba(1,1,1,0.7);
+}
+
 
 .footer {
     position: absolute;
@@ -488,7 +495,7 @@ input::-webkit-input-placeholder {
 }
 
 .result {
-    margin-top: 120px;
+    margin-top: 620px;
     padding-bottom: 300px;
 }
 
