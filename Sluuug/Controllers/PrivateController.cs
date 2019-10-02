@@ -236,7 +236,7 @@ namespace Slug.Controllers
             ViewBag.Title = "Видео Связь";
             ViewBag.Description = "Видео Связь";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            VideoConferenceModel model = base.VideoConferenceHandler.VideoConferenceModel(sessionId);
+            VideoConferenceModel model = await base.VideoConferenceHandler.VideoConferenceModel(sessionId);
             return View(model);
         }
 
@@ -350,11 +350,5 @@ namespace Slug.Controllers
             ViewBag.Description = "Справка и Поддержка";
             return View();
         }
-
-        //[HttpGet]
-        //public async Task<ActionResult> notification_history()
-        //{
-        //    return View();
-        //}
     }
 }

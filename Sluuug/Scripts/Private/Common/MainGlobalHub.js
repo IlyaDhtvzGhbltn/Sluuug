@@ -93,3 +93,12 @@ function clearNotificationDiv() {
     note.css({ opacity: 0, left: -400 });
     note[0].innerHTML = '';
 }
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    console.log('update connection status');
+    setInterval(function ()
+    {
+        HUB.invoke('UpdateConnection');
+        console.log('+');
+    }, 30000);
+});

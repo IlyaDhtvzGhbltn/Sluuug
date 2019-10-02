@@ -501,7 +501,7 @@ namespace Slug.Helpers
             return false;
         }
 
-        public List<BaseUser> GetFriendsOnlyBySession(string sessionId, int friendAvatarResize = 80)
+        public async Task<List<BaseUser>> GetFriendsOnlyBySession(string sessionId, int friendAvatarResize = 80)
         {
             int userId = UserIdBySession(sessionId);
             var model = new List<BaseUser>();
@@ -540,7 +540,7 @@ namespace Slug.Helpers
                             Age = userInfo.Age
                         };
                         bool alreadyStart = videoHandler.AlreadyStart(context, friendId, friendId);
-                        friend.IsOnline = IsOnline(context, friendId);
+                        friend.IsOnline = IsOnline(context, friendId).GetAwaiter().GetResult();
                         if (!friend.IsOnline)
                             friend.AcceptToInfite = VideoConverenceAcceptToCall.offline;
                         if (friend.IsOnline && !alreadyStart)
@@ -595,7 +595,7 @@ namespace Slug.Helpers
                             HelloMessage = friendUserInfo.HelloMessage
                         };
 
-                        friend.IsOnline = IsOnline(context, friendUserInfo.UserId);
+                        friend.IsOnline = IsOnline(context, friendUserInfo.UserId).GetAwaiter().GetResult();
                         model.Friends.Add(friend);
                     }
                 }
@@ -622,7 +622,7 @@ namespace Slug.Helpers
                             Age = friendUserInfo.Age,
                         };
 
-                        inInvite.IsOnline = IsOnline(context, friendUserInfo.UserId);
+                        inInvite.IsOnline = IsOnline(context, friendUserInfo.UserId).GetAwaiter().GetResult();
                         model.IncommingInvitations.Add(inInvite);
                     }
                 }
@@ -649,7 +649,7 @@ namespace Slug.Helpers
                             HelloMessage = friendUserInfo.HelloMessage
                         };
 
-                        outInvite.IsOnline = IsOnline(context, outInvite.UserId);
+                        outInvite.IsOnline = IsOnline(context, outInvite.UserId).GetAwaiter().GetResult();
                         model.OutCommingInvitations.Add(outInvite);
                     }
                 }
@@ -1015,14 +1015,28 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 Session sess = context.Sessions.First(x => x.Number == session);
-                return (int)sess.UserId;
+                return sess.UserId;
             }
         }
 
-        public bool IsOnline(DataBaseContext context, int userId)
+        public async Task<bool> IsOnline(DataBaseContext context, int userId)
         {
-            bool flag = context.UserConnections.Any(x => x.IsActive == true && x.UserId == userId);
-            return flag;
+            bool flagOnline = false;
+            UserConnections entry = context.UserConnections.FirstOrDefault(x => x.IsActive == true && x.UserId == userId);
+            if (entry != null)
+            {
+                TimeSpan updateInterval = DateTime.Now.Subtract(entry.UpdateTime);
+                if (updateInterval.TotalSeconds > 30)
+                {
+                    entry.UpdateTime = DateTime.Now;
+                    entry.IsActive = false;
+                    context.SaveChanges();
+
+                }
+                else
+                    flagOnline = true;
+            }
+            return flagOnline;
         }
 
         public bool IsOnline(int userId)

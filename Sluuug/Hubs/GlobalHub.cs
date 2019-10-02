@@ -26,6 +26,26 @@ namespace Slug.Hubs
     [AuthSlug]
     public class GlobalHub : Hub
     {
+
+        public async Task UpdateConnection()
+        {
+            await Task.Run(() => 
+            {
+                string connectionId = Context.ConnectionId;
+                Guid connectionGuid = Guid.Parse(connectionId);
+                using (var context = new DataBaseContext())
+                {
+                    var connectionEntry = context.UserConnections.FirstOrDefault(x => x.ConnectionId == connectionGuid);
+                    if (connectionEntry != null)
+                    {
+                        connectionEntry.UpdateTime = DateTime.Now;
+                        connectionEntry.IsActive = true;
+                        context.SaveChanges();
+                    }
+                }
+            });
+        }
+
         public async Task OpenConnect()
         {
             var connectionHandler = new UsersConnectionHandler();

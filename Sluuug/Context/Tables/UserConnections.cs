@@ -28,7 +28,7 @@ namespace Slug.Context.Tables
         public bool IsActive { get; set; }
 
         [Required]
-        public DateTime OpenTime { get; set; }
+        public DateTime UpdateTime { get; set; }
 
         public DateTime? ConnectionOff { get; set; }
     }

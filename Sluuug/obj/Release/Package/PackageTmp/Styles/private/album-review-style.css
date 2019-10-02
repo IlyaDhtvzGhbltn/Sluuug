@@ -356,11 +356,12 @@ COMMENTS
 	margin-right: 25px;
 	margin-bottom:10px;
 }
-.comment-body span
-{
-	text-align:justify;
-	word-spacing:6px;
-	margin-bottom:5px;
+.comment-body span {
+    text-align: justify;
+    word-spacing: 6px;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+    width: 250px;
 }
 
 .my-comment-form textarea

@@ -79,7 +79,7 @@ namespace Slug.Helpers
             model.FriendsICanInvite = new List<BaseUser>();
 
 
-            model.FriendsICanInvite = userHandler.GetFriendsOnlyBySession(sessionId, 100);
+            model.FriendsICanInvite = userHandler.GetFriendsOnlyBySession(sessionId, 100).GetAwaiter().GetResult();
             var connectionsHandler = new UsersConnectionHandler();
             model.FriendsICanInvite.ForEach(friend => 
             {

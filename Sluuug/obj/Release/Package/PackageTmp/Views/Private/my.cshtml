@@ -24,7 +24,7 @@
 
             <div class="profile-info-location">
                 @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "changeCountry()" })
-                @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true, false)" })
+                @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true, false)", @class= "stylized-scrollbar" })
                 <span>@Model.Age</span>
             </div>
 
@@ -43,7 +43,7 @@
                 <span id="hello-status" onmouseover="MoveTo($('.profile-info-change-status'), {'left':'0'})">@Model.HelloMessage</span>
                 <div class="profile-info-change-status" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-1000px' })">
                     <span>Изменить..</span>
-                    <input type="text" id="new-greeting" value="Привет!" />
+                    <input type="text" maxlength="40"  id="new-greeting" value="Привет!" />
                     <button onclick="ChangeHelloMess(4, $('#new-greeting')[0].value, null, true, false)">Готово</button>
                 </div>
             </div>

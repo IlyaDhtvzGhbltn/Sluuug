@@ -32,13 +32,18 @@
                     </div>
                     <div class="field-wrap">
                         <label>Выберите страну :</label>
-                        <p>
-                            <select name="CountryCode" id="country_list">
-                                <option class="option"  value="7">Россия</option>
-                                <option class="option"  value="380">Украина</option>
-                                <option class="option"  value="375">Белорусь</option>
-                            </select>
-                        </p>
+                        <select name="CountryCode" id="country_list">
+                            <option class="option"  value="7">Россия</option>
+                            <option class="option"  value="380">Украина</option>
+                            <option class="option"  value="375">Белорусь</option>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Пол</label>
+                        <select name="Sex" id="country_list">
+                            <option class="option" value="0">Жен</option>
+                            <option class="option" value="1">Муж</option>
+                        </select>
                     </div>
                     <div class="field-wrap">
                         <label>Выберите дату рождения :</label>
@@ -47,7 +52,7 @@
                     <div class="field-wrap">
                         <input type="password" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
                     </div>
-                    <input type="button" class="button button-block" id="reg_subm" onclick="register()" value="Зарегистрироваться" />
+                    <button class="button button-block" id="reg_subm" onclick="register()">Зарегистрироваться</button>
                 </form>
             </div>
             <div id="login_form" itemscope itemtype="http://schema.org/JoinAction">
@@ -60,7 +65,7 @@
                         <input type="password" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
                     </div>
                     <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
-                    <input type="button" class="button button-block" id="log_subm" onclick="logIn()" value="Вход" />
+                    <button class="button button-block" id="log_subm" onclick="logIn()">Вход</button>
                 </form>
             </div>
             <div id="repassword_form" itemscope itemtype="http://schema.org/WebPage">

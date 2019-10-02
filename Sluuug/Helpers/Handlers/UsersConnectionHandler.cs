@@ -23,7 +23,7 @@ namespace Slug.Helpers
 
                 var connectionItem = new UserConnections();
                 connectionItem.ConnectionId = Guid.Parse( connectionID );
-                connectionItem.OpenTime = DateTime.UtcNow;
+                connectionItem.UpdateTime = DateTime.UtcNow;
                 connectionItem.IsActive = true;
                 connectionItem.UserId = usersHandler.UserIdBySession(session);
                 connectionItem.IpAddress = ipAddress;

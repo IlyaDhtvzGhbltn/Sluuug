@@ -178,3 +178,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.OpenTimetoUpdTime.resources

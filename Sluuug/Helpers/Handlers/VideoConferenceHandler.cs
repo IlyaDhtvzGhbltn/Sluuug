@@ -112,7 +112,7 @@ namespace Slug.Helpers
             return activeConference;
         }
 
-        public VideoConferenceModel VideoConferenceModel (string sessionID)
+        public async Task<VideoConferenceModel> VideoConferenceModel (string sessionID)
         {
             var model = new VideoConferenceModel();
             model.Friends = new List<BaseUser>();
@@ -122,7 +122,7 @@ namespace Slug.Helpers
             var usersHandler = new UsersHandler();
             int myId = usersHandler.UserIdBySession(sessionID);
 
-            var fMod = usersHandler.GetFriendsOnlyBySession(sessionID, 100);
+            var fMod = await usersHandler.GetFriendsOnlyBySession(sessionID, 100);
             foreach (var item in fMod)
             {
                 model.Friends.Add(item);
@@ -216,7 +216,7 @@ namespace Slug.Helpers
             bool someOneOnlineFlag = false;
             usersInVideoConferences.ForEach(user =>
             {
-                bool isOnline = userHandler.IsOnline(context, user);
+                bool isOnline = userHandler.IsOnline(context, user).GetAwaiter().GetResult();
                 if (isOnline)
                     someOneOnlineFlag = true;
             });
