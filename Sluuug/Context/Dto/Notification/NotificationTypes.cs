@@ -8,12 +8,12 @@ namespace Slug.Context.Dto.Notification
     public enum NotificationType
     {
         NewMessage = 0,
-        NewInviteVideoConference,
-        NewInviteSecretChat,
-        NewMessageSecret,
-        AcceptYourInviteSecretChat,
-        NewInviteFriendship,
-        AcceptFriendship,
-        CryptoInviteRefuse
+        NewInviteVideoConference = 1,
+        NewInviteSecretChat = 2,
+        NewMessageSecret = 3,
+        AcceptYourInviteSecretChat = 4,
+        NewInviteFriendship = 5,
+        AcceptFriendship = 6,
+        CryptoInviteRefuse = 7
     }
 }

@@ -172,6 +172,7 @@ namespace Slug.Hubs
                 response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                 response.FromUser = fromUser;
                 response.Culture = UserRecipientsConnectionIds.CultureCode[0];
+                response.DialogId = guidChatId;
                 return response;
             }
             else return null;

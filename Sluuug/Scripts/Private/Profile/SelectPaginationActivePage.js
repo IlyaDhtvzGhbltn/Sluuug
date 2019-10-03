@@ -1,5 +1,4 @@
-﻿window.onloadend = function () {
-    alert(1);
+﻿window.onload = function () {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var pageNum = url.searchParams.get("page");

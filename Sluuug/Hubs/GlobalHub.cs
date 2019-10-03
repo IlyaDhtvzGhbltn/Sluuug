@@ -91,7 +91,7 @@ namespace Slug.Hubs
                     if (hubResp.ConnectionIds.Count > 0)
                     {
                         string html = Notifications.GenerateHtml(NotificationType.NewMessage, hubResp.FromUser, hubResp.Culture);
-                        await Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessage);
+                        await Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessage, convId);
                     }
                     //await Clients.Caller.MessageSendedResult(true);
                 }
@@ -172,7 +172,7 @@ namespace Slug.Hubs
             if (response != null)
             {
                 string html = Notifications.GenerateHtml(NotificationType.NewMessageSecret, response.FromUser, response.Culture);
-                Clients.Clients(response.ConnectionIds).NotifyAbout( html, null, NotificationType.NewMessageSecret);
+                Clients.Clients(response.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessageSecret, response.DialogId);
             }
             else
             {

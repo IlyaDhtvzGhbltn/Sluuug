@@ -17,5 +17,7 @@ namespace Slug.Context.Dto.Messages
         public string Culture { get; set; }
 
         public dynamic PublicDataToExcange { get; set; }
+
+        public Guid DialogId { get; set; }
     }
 }

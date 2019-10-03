@@ -7,4 +7,4 @@
         var elem = $(query);
         elem.addClass('selected-page-container');
     }
-}
+};

@@ -10,13 +10,28 @@ HUB.on('CatchException', function (message) {
     _Alert(message);
 });
 
-HUB.on('NotifyAbout', function (html, params, notifyCode) {
+HUB.on('NotifyAbout', function (html, cryptoParams, notifyCode, conversationId) {
+    var url = window.location.href;
+
     switch (notifyCode) {
-        //case 0:
-        //    IncrementInto('.notify-container-increment-message', 'not-show-message-counter');
-        //    break;
-        case 2: case 4:
+        case 0: {
+            var simpleDialogsListFlaf = url.includes("private/cnv");
+            var simpleDialogFlaf = url.includes("private/msg?id=" + conversationId);
+            if (!simpleDialogsListFlaf && !simpleDialogFlaf) {
+                IncrementInto('.notify-container-increment-message', 'not-show-message-counter');
+            }
+        }
+            break;
+        case 2: /*case 3: */case 4: 
             IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
+            break;
+        case 3: {
+            var cryptoDialogsListFlaf = url.includes("private/crypto_cnv");
+            var cryptoDialogFlaf = url.includes("private/c_msg?id=" + conversationId);
+            if (!cryptoDialogsListFlaf && !cryptoDialogFlaf) {
+                IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
+            }
+        }
             break;
         case 1:
             IncrementInto('.notify-container-increment-video', 'not-show-video-counter');
@@ -26,9 +41,9 @@ HUB.on('NotifyAbout', function (html, params, notifyCode) {
             break;
     }
 
-    if (params !== null)
+    if (cryptoParams !== null)
     {
-        newInviteToCryptChatNotification(html, params);
+        newInviteToCryptChatNotification(html, cryptoParams);
     }
 
     let notifyAlertAllow = boolSetting('notifyalert');
@@ -100,5 +115,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
     {
         HUB.invoke('UpdateConnection');
         console.log('+');
-    }, 30000);
+    }, 5000);
 });
