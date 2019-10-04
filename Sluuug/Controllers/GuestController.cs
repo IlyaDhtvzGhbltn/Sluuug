@@ -117,6 +117,13 @@ namespace Slug.Controllers
             return new JsonResult() { Data = false };
         }
 
+        [HttpGet]
+        public void testmailquality(string mail)
+        {
+            MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
+            handler.SendActivationMail();
+        }
+
         private bool isUserEmpty(RegisteringUserModel user)
         {
             if

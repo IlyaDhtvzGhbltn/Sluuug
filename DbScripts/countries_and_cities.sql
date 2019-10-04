@@ -1,8 +1,8 @@
-use slugDtB;
+use u0823102_slugDtb;
 truncate table Cities;
 truncate table Countries;
 
-insert into [slugDtB].[dbo].[Countries](CountryCode, Language, Title)
+insert into [Countries](CountryCode, Language, Title)
 values
 (7, 1, 'Russia'),
 (7, 2, N'Россия'),
@@ -11,7 +11,7 @@ values
 (380, 1, 'Ukraine'),
 (380, 2 , N'Украина')
 
-insert into [slugDtB].[dbo].[Cities](Title, CitiesCode, CountryCode, Language)
+insert into [Cities](Title, CitiesCode, CountryCode, Language)
 values
 (N'БАРАНОВИЧИ',163, 375, 2),
 (N'Белыничи',2232, 375, 2),
@@ -136,7 +136,7 @@ values
 (N'Шумилино',2130, 375, 2),
 (N'Щучин',1514, 375, 2)
 
-insert into [slugDtB].[dbo].[Cities](Title, CitiesCode, CountryCode, Language)
+insert into [Cities](Title, CitiesCode, CountryCode, Language)
 values
 (N'АБАКАН',39022, 7, 2),
 (N'Белый Яр',39041, 7, 2),
@@ -915,7 +915,7 @@ values
 (N'Окуловка',81657, 7, 2),
 (N'Парфино',81650, 7, 2)
 
-insert into [slugDtB].[dbo].[Cities](Title, CitiesCode, CountryCode, Language)
+insert into [Cities](Title, CitiesCode, CountryCode, Language)
 values
 (N'Пестово',81669, 7, 2),
 (N'Поддорье',81658, 7, 2),
@@ -1528,7 +1528,7 @@ values
 (N'ХАБАРОВСК',4212, 7, 2),
 (N'Вяземский',42153, 7, 2)
 
-insert into [slugDtB].[dbo].[Cities](Title, CitiesCode, CountryCode, Language)
+insert into [Cities](Title, CitiesCode, CountryCode, Language)
 values
 (N'Советская Гавань',42138, 7, 2),
 (N'Солнечный',42146, 7, 2),
@@ -1641,7 +1641,7 @@ values
 (N'Углич',08532, 7, 2)
 
 
-insert into [slugDtB].[dbo].[Cities](Title, CitiesCode, CountryCode, Language)
+insert into [Cities](Title, CitiesCode, CountryCode, Language)
 values(N'Азовское',6564212,380,2),
 (N'Акимовка',6131,380,2),
 (N'Александрия',5235,380,2),
