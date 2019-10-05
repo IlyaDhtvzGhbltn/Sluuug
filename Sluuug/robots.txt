@@ -3,4 +3,4 @@ Disallow: /error/*
 Disallow: /partial/*
 Disallow: /private/*
 Disallow: /api/*
-Sitemap: http://www.we.somee.com/sitemap.xml
+Sitemap: https://friendlynet.ru/sitemap.xml
