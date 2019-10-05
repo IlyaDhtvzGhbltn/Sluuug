@@ -11,7 +11,7 @@ function saveEmail() {
         let index = newMail.indexOf("@");
         console.log(index);
         if (index == -1) {
-            console.log("invalid email address");
+            _Alert("Пустой адрес или неверный формат электронной почты", 'red');
         }
         else {
             data.NewEmail = $("#new-email").val();
@@ -20,7 +20,7 @@ function saveEmail() {
         }
     }
     catch{
-        console.log("invalid email address");
+        _Alert("Произошла ошибка", "red");
     }
 }
 

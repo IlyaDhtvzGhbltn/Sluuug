@@ -116,7 +116,6 @@ D:\SLUG\Sluuug\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.pdb
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.First.resources
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Debug\Slug.Migrations.First.resources
 D:\MyUtilits\friendlynet\Sluuug\bin\NLog.config
 D:\MyUtilits\friendlynet\Sluuug\bin\Slug.dll.config
@@ -179,3 +178,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.OpenTimetoUpdTime.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.tt.resources

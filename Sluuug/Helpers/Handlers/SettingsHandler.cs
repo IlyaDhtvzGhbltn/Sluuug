@@ -34,7 +34,6 @@ namespace Slug.Helpers
                     else
                     {
                         ChangeEmail(userId, newSettings.NewEmail);
-                        settingsChangeResult += "Email adress successfully changed.";
                     }
                 }
             }
@@ -50,7 +49,6 @@ namespace Slug.Helpers
                     {
                         string requestedPasswordHash = Converting.ConvertStringToSHA512(newSettings.NewPassw);
                         ChangePassword(userId, requestedPasswordHash);
-                        settingsChangeResult += settingsChangeResult + "Password successfully changed.";
                     }
                     else if (newSettings.OldPassw != newSettings.OldPasswRep)
                     {

@@ -152,6 +152,7 @@ textarea {
     color: #7f7f7f;
     transition: all 0.5s ease;
     -webkit-appearance: none;
+    height:70px;
 }
 
     .content .form .button:hover, .button:focus {

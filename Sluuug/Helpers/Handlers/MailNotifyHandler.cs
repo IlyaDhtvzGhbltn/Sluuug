@@ -1,9 +1,11 @@
-﻿using NLog;
+﻿using AngleSharp.Network;
+using NLog;
 using Slug.Helpers.BaseController;
 using System;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Web;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
@@ -44,11 +46,19 @@ namespace Slug.Context
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);
             m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubjectConfirmRegister.ToString()];
-            string body = this.modifidedActivationHtml(string.Format("{0}/guest/activate?id={1}#menu", domain, this.activate_param));
-            m.Body = body;
-            AlternateView txtView = new AlternateView(modifidedActivationText(this.activate_param), "text/html");
-            m.AlternateViews.Add(txtView);
             m.IsBodyHtml = true;
+
+            string textContent = modifidedActivationText(this.activate_param);
+            var mimeTypeText = new ContentType("text/plain");
+            AlternateView txtView = AlternateView.CreateAlternateViewFromString(textContent, mimeTypeText);
+
+            string htmlContent = this.modifidedActivationHtml(string.Format("{0}/guest/activate?id={1}#menu", domain, this.activate_param));
+            var mimeTypeHtml = new ContentType("text/html");
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlContent, mimeTypeHtml);
+
+            m.AlternateViews.Add(txtView);
+            m.AlternateViews.Add(htmlView);
+
             SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
             smtp.Credentials = new NetworkCredential(email, pass);
             smtp.EnableSsl = true;
@@ -71,9 +81,19 @@ namespace Slug.Context
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);
             m.Subject = WebAppSettings.AppSettings[AppSettingsEnum.smtpSubjectResetPassword.ToString()];
-            m.Body = this.modifidedResetPasswordHtml(string.Format("{0}/guest/reset?reset_param={1}", domain, this.activate_param));
-            AlternateView txtView = new AlternateView(modifidedResetPasswordText(this.activate_param), "text/html");
             m.IsBodyHtml = true;
+
+            ContentType mimeTypeText = new ContentType("text/plain");
+            string textContent = modifidedResetPasswordText(this.activate_param);
+            AlternateView txtView = AlternateView.CreateAlternateViewFromString(textContent, mimeTypeText);
+
+            string htmlContent = this.modifidedResetPasswordHtml(string.Format("{0}/guest/reset?reset_param={1}", domain, this.activate_param));
+            ContentType mimeTypeHtml = new ContentType("text/html");
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlContent, mimeTypeHtml);
+
+            m.AlternateViews.Add(txtView);
+            m.AlternateViews.Add(htmlView);
+
             SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
             smtp.Credentials = new NetworkCredential(email, pass);
             smtp.EnableSsl = true;

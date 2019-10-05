@@ -107,7 +107,6 @@ D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Deployment.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Helpers.xml
 D:\SLUG\Sluuug\Sluuug\bin\System.Web.Mvc.xml
-D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.First.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Properties.Resources.ru.resources
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csproj.GenerateResource.cache
@@ -179,3 +178,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.pdb
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Migrations.OpenTimetoUpdTime.resources
+D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.tt.resources

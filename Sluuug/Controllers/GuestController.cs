@@ -124,6 +124,13 @@ namespace Slug.Controllers
             handler.SendActivationMail();
         }
 
+        [HttpGet]
+        public void testmailqualityreset(string mail)
+        {
+            MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
+            handler.SendResetPasswordMail();
+        }
+
         private bool isUserEmpty(RegisteringUserModel user)
         {
             if

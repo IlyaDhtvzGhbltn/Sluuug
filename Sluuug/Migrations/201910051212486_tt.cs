@@ -3,7 +3,7 @@ namespace Slug.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class OpenTimetoUpdTime : DbMigration
+    public partial class tt : DbMigration
     {
         public override void Up()
         {

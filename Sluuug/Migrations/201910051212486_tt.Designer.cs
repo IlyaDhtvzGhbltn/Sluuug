@@ -7,13 +7,13 @@ namespace Slug.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class First : IMigrationMetadata
+    public sealed partial class tt : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(First));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(tt));
         
         string IMigrationMetadata.Id
         {
-            get { return "201909211120010_First"; }
+            get { return "201910051212486_tt"; }
         }
         
         string IMigrationMetadata.Source

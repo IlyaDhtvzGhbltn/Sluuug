@@ -18,8 +18,6 @@ function register() {
             data:  json , 
             method: 'post',
             success: function (resp) {
-                $('#reg_subm').attr("disabled", false);
-                $('#circular3dG').fadeOut();
                 console.log(resp);
                 if (resp) {
                     showResultForm('/partial/success_register');
@@ -27,6 +25,8 @@ function register() {
                 else {
                     showResultForm('/partial/fail_register');
                 }
+                $('#reg_subm').attr("disabled", false);
+                $('#circular3dG').fadeOut();
             }
         });
 

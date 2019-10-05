@@ -184,6 +184,8 @@
     <Content Include="Resources\images\support_ico.png" />
     <Content Include="Resources\images\video-call.png" />
     <Content Include="Resources\images\video_connect_ico.png" />
+    <Content Include="Resources\text_templates\activationMail.txt" />
+    <Content Include="Resources\text_templates\resetPasswordMail.txt" />
     <Content Include="Resources\video\cutnightcity.mp4" />
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
@@ -331,13 +333,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201909211120010_First.cs" />
-    <Compile Include="Migrations\201909211120010_First.Designer.cs">
-      <DependentUpon>201909211120010_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910021550548_OpenTime-to-UpdTime.cs" />
-    <Compile Include="Migrations\201910021550548_OpenTime-to-UpdTime.Designer.cs">
-      <DependentUpon>201910021550548_OpenTime-to-UpdTime.cs</DependentUpon>
+    <Compile Include="Migrations\201910051212486_tt.cs" />
+    <Compile Include="Migrations\201910051212486_tt.Designer.cs">
+      <DependentUpon>201910051212486_tt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -512,11 +510,8 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909211120010_First.resx">
-      <DependentUpon>201909211120010_First.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910021550548_OpenTime-to-UpdTime.resx">
-      <DependentUpon>201910021550548_OpenTime-to-UpdTime.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910051212486_tt.resx">
+      <DependentUpon>201910051212486_tt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

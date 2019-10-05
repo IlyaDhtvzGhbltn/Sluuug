@@ -75,7 +75,6 @@ nav {
 }
 
 #searchSubmit {
-    margin-top: 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
