@@ -160,6 +160,7 @@
     <Content Include="Resources\html_templates\activatioMail.html" />
     <Content Include="Resources\images\abstract_footer_left.png" />
     <Content Include="Resources\images\allow.png" />
+    <Content Include="Resources\images\brand_150.jpg" />
     <Content Include="Resources\images\close.png" />
     <Content Include="Resources\images\brand.png" />
     <Content Include="Resources\images\contacts_ico.png" />
@@ -430,6 +431,7 @@
     <Compile Include="Model\VideoConference\CallModel.cs" />
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
     <Compile Include="Model\VideoConference\IncomingInviteModel.cs" />
+    <Compile Include="Model\VkModels\OauthParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

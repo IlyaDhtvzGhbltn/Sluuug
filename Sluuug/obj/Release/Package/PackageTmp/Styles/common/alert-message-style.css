@@ -1,0 +1,65 @@
+﻿.alert {
+    background-color: rgba(127, 127, 127, 0.8);
+    transition: all .4s ease;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    margin-top: -30px;
+    margin-left: -10px;
+}
+
+.container {
+    border: 2px solid #49b2da;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    top: 41%;
+    position: relative;
+    max-width: 400px;
+    min-width: 400px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.alert-text {
+    color: red;
+    text-align: center;
+}
+
+.close-alert-button {
+    width: 100px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.hide{
+    display:none;
+}
+
+.show{
+    display:block;
+}
+
+@-webkit-keyframes AlertGotMessage {
+    0% {
+        background-color: white;
+    }
+    25% {
+        background-color: rgba(162, 236, 243, 0.5);
+    }
+    50% {
+        background-color: rgba(162, 236, 243, 1);
+    }
+    75% {
+        background-color: rgba(162, 236, 243, 0.5);
+    }
+    100% {
+        background-color: white;
+    }
+}

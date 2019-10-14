@@ -87,6 +87,7 @@ label {
 
 #oauth_form {
     margin-TOP:10px;
+    display:none;
 }
 
 .oauth-options-list{
@@ -123,6 +124,11 @@ label {
     background-color: #E1EEEF;
 }
 
+
+.vk_auth {
+    margin: auto;
+    margin-top: 40px;
+}
 
 .text-center {
     margin-bottom: auto;

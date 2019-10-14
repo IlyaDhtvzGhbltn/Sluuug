@@ -168,7 +168,6 @@ D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Helpers.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Mvc.xml
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.First.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Properties.Resources.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Properties.Resources.ru.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
@@ -177,5 +176,5 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.OpenTimetoUpdTime.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.tt.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.tt.resources

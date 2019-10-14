@@ -14,6 +14,7 @@ using Slug.Helpers.Handlers;
 using Slug.DbInitialisation;
 using NLog;
 using System.Threading.Tasks;
+using Slug.Model.VkModels;
 
 namespace Slug.Controllers
 {
@@ -117,19 +118,27 @@ namespace Slug.Controllers
             return new JsonResult() { Data = false };
         }
 
-        [HttpGet]
-        public void testmailquality(string mail)
-        {
-            MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
-            handler.SendActivationMail();
-        }
+        //[HttpGet]
+        //public void testmailquality(string mail)
+        //{
+        //    MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
+        //    handler.SendActivationMail();
+        //}
+
+        //[HttpGet]
+        //public void testmailqualityreset(string mail)
+        //{
+        //    MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
+        //    handler.SendResetPasswordMail();
+        //}
 
         [HttpGet]
-        public void testmailqualityreset(string mail)
+        public void vk_oauth([System.Web.Http.FromUri] OauthParams vkOauth)
         {
-            MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
-            handler.SendResetPasswordMail();
+            Logger loggerInternal = LogManager.GetLogger("info_logger");
+            loggerInternal.Info(string.Format("{0}\r\n {1}\r\n {2}\r\n {3}\r\n {4}\r\n {5}\r\n", vkOauth.uid, vkOauth.first_name, vkOauth.last_name, vkOauth.photo, vkOauth.photo_rec, vkOauth.hash));
         }
+
 
         private bool isUserEmpty(RegisteringUserModel user)
         {

@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = "~/Views/Shared/private_template.cshtml";
+}
+@model  Slug.Model.DialogModel
+@using Slug.Extensions;
+<link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
+<link href="~/Styles/private/dialog-style.css" rel="stylesheet" />
+
+<div class="dialog stylized-scrollbar">
+    @foreach (var item in Model.Messages)
+    {
+        Html.RenderPartial("~/Views/Partial/Dialogs/dialog_message.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.SimpleChat.MessageModel>(item));
+    }
+</div>
+
+<div id="user_cut_msg">
+    <br />
+    <span id="remote_cut_msg"></span>
+    <br />
+</div>
+<div class="send_msg">
+    <div class="text-area-container">
+        <textarea id="new_msg" class="stylized-scrollbar"></textarea>
+        <button id="sendButton" onclick="SendMessageFromChat('@Model.DialogId')">@Html.Translate("Button_Send_Message")</button>
+    </div>
+
+    <div class="emoji-charsets-container">
+        <span style="font-size:31px; cursor:pointer; margin-left:1px">&#128578;</span>
+        <div class="-emojis- stylized-scrollbar" onmouseover="LoadEmoji()">
+            <div class="emoji-container"></div>
+            <div class="height-helper"></div>
+        </div>
+    </div>
+</div>
+<div class="result-pagination stylized-scrollbar">
+    @for (int i = 1; i <= Model.PagesCount; i++)
+    {
+        <div class="search-link-container" id="pagination-link-@i">
+            <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
+        </div>
+    }
+</div>
+<span class="own-avatar-span" style="display:none">@ViewBag.OwnAvatar</span>
+
+<script src="~/Scripts/Private/Dialogs/SimpleDialog/Сommunication.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
+<script src="~/Scripts/Private/Profile/SelectPaginationActivePage.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var objDiv = $(".dialog")[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
+    });
+</script>

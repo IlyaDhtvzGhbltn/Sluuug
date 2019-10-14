@@ -81,7 +81,7 @@ namespace Sluuug
                 return;
 
             // If uppercase chars exist, redirect to a lowercase version
-            var url = Request.Url.ToString();
+            var url = Request.Url.AbsolutePath;
             if (Regex.IsMatch(url, @"[A-Z]"))
             {
                 Response.Redirect(url, false);

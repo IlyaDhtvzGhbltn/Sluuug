@@ -1,0 +1,238 @@
+﻿body {
+    width: 100%;
+    background-color: #f2f9fc
+}
+
+.video-remote-group-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0px 20px 30px 20px;
+    width: auto;
+}
+
+.video-conteiner-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    margin: 10px 20px;
+    border: 1px solid #7f7f7f;
+    min-height: 425px;
+    min-width: 480px;
+    background-color: white;
+}
+
+.video-stream:hover ~ .container-manage {
+    opacity: 1;
+}
+
+.container-manage:hover{
+    opacity:1;
+}
+
+.container-manage {
+    opacity: 0;
+    cursor: pointer;
+    z-index: 999;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 30%;
+    transition: all 0.5s ease;
+}
+
+.container-manage button {
+    position: absolute;
+    left: auto;
+    right: 20px;
+    top: auto;
+    bottom: 20px;
+    border:1px solid white;
+}
+
+.container-manage button:hover{
+    border:1px solid #7f7f7f;
+
+}
+
+.container-manage .sound {
+    position: absolute;
+    left: auto;
+    right: 90px;
+    top: auto;
+    bottom: 25px;
+}
+
+.container-manage .sound-ico {
+    position: absolute;
+    left: auto;
+    right: 85px;
+    top: auto;
+    bottom: 30px;
+}
+
+.video-ico img:first-child {
+    border-radius: 0;
+    position: absolute;
+    left: auto;
+    right: 130px;
+    top: auto;
+    bottom: 29px;
+}
+
+.container-manage button img {
+    position: relative;
+}
+
+.partisipant-name {
+    margin: 0px;
+    text-align: center;
+}
+
+.video-stream {
+    position: absolute;
+    top: 40px;
+}
+
+.notuser {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    text-align: center;
+}
+
+    .notuser img {
+        margin-top: 10%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+.userconnected {
+    height: 100%;
+    width: 100%;
+    left:0;
+    bottom:0;
+}
+
+    .userconnected video {
+        height: 100%;
+        width: 100%;
+    }
+
+
+.self {
+    margin: 10px 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.self video {
+    width: 200px;
+    height: 200px;
+}
+
+.conference-manage {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-left: 20px;
+    padding-top: 10px;
+    border: 1px solid #7f7f7f;
+    transition: all 0.5s ease;
+}
+
+.conference-manage button {
+    margin: 10px;
+    height: 40px;
+    text-align: left;
+    border:1px solid white;
+    min-width:230px;
+}
+
+.conference-manage button:hover{
+    border:1px solid #7f7f7f;
+
+}
+
+.conference-manage img {
+    float: left;
+    border-radius: 0;
+    margin-right: 10px;
+}
+
+/* #panel-ico-sound{ */
+/* position:relative; */
+/* left:-8px; */
+/* top:3px; */
+/* } */
+
+/* #panel-ico-video{ */
+/* position:relative; */
+/* left:4px; */
+/* top:3px; */
+/* margin-right:5px; */
+/* } */
+
+/* #panel-ico-exit{ */
+/* position:relative; */
+/* left:-13px; */
+/* top:3px; */
+/* } */
+
+.manage-panel-visibility {
+    transition: all 0.5s ease;
+    cursor: pointer;
+    width: 20px;
+    border: 1px solid #7f7f7f;
+    margin-left: 10px;
+    background-color: #49B2DA;
+}
+
+    .manage-panel-visibility:hover {
+        background-color: rgba(149,223,228,0.89);
+        box-shadow: 0 0 12px 5px rgba(15, 15, 15, 0.3);
+    }
+
+        .manage-panel-visibility:hover > .triangle-panel-close {
+            border-right: 20px solid #7f7f7f;
+        }
+
+        .manage-panel-visibility:hover > .triangle-panel-open {
+            border-left: 20px solid #7f7f7f;
+        }
+
+.triangle-panel-open {
+    position: relative;
+    top: 40%;
+    transition: all 0.5s ease;
+    border-top: 20px solid #eee0;
+    border-bottom: 20px solid #eee0;
+    border-left: 20px solid #fff;
+}
+
+.triangle-panel-close {
+    position: relative;
+    top: 40%;
+    transition: all 0.5s ease;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid #fff;
+}
+
+.hide-panel {
+    opacity: 0;
+    margin-left: -230px;
+}
+
+.visibility-panel {
+    opacity: 1;
+    margin-left: 20px;
+}

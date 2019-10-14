@@ -1,0 +1,43 @@
+﻿.tab, .tab-title {
+    display: inline-block;
+}
+
+    .tab input[name="tab-group"] {
+        display: none;
+    }
+
+
+.tab-title {
+    background: #49B2DA;
+    padding: 5px 10px;
+    border: 1px solid #7f7f7f;
+    border-bottom: none;
+    cursor: pointer;
+}
+
+.tab-content {
+    position: absolute;
+    border: 2px solid #ddd;
+    padding: 15px;
+    left: 0;
+    width: 66%;
+    min-width:600px;
+    display: none;
+    height:580px;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+
+
+.tab :checked + .tab-title {
+    position: relative;
+    background: #a2ecf3;
+    color: #525252;
+    top: 2px;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.tab :checked ~ .tab-content {
+    display: block;
+}
