@@ -1,0 +1,573 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A9717A73-8AF7-4389-ADEE-8E621ECCA8B5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Slug</RootNamespace>
+    <AssemblyName>Slug</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.11\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CloudinaryDotNet, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.7.0\lib\net40\CloudinaryDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.7.0\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.3\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Resources\emoji\emojis.json" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
+    <None Include="Scripts\System\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Resources\audio\new-notify-sound.wav" />
+    <Content Include="Resources\html_templates\resetPasswordMail.html" />
+    <Content Include="Resources\html_templates\activatioMail.html" />
+    <Content Include="Resources\images\abstract_footer_left.png" />
+    <Content Include="Resources\images\allow.png" />
+    <Content Include="Resources\images\close.png" />
+    <Content Include="Resources\images\brand.png" />
+    <Content Include="Resources\images\contacts_ico.png" />
+    <Content Include="Resources\images\encryption.png" />
+    <Content Include="Resources\images\favicon.ico" />
+    <Content Include="Resources\images\heart.png" />
+    <Content Include="Resources\images\home_ico.png" />
+    <Content Include="Resources\images\lock-msg.png" />
+    <Content Include="Resources\images\lock_ico.png" />
+    <Content Include="Resources\images\mess_ico.png" />
+    <Content Include="Resources\images\night_city_background.png" />
+    <Content Include="Resources\images\no-avatar-bel.jpg" />
+    <Content Include="Resources\images\no-avatar-ru.jpg" />
+    <Content Include="Resources\images\no-avatar-ua.jpg" />
+    <Content Include="Resources\images\notify_ico.png" />
+    <Content Include="Resources\images\rotating_earth_background.png" />
+    <Content Include="Resources\images\settings_ico.png" />
+    <Content Include="Resources\images\social_media_img.png" />
+    <Content Include="Resources\images\space_main_background.png" />
+    <Content Include="Resources\images\spam.png" />
+    <Content Include="Resources\images\stop.png" />
+    <Content Include="Resources\images\support_ico.png" />
+    <Content Include="Resources\images\video-call.png" />
+    <Content Include="Resources\images\video_connect_ico.png" />
+    <Content Include="Resources\text_templates\activationMail.txt" />
+    <Content Include="Resources\text_templates\resetPasswordMail.txt" />
+    <Content Include="Resources\video\cutnightcity.mp4" />
+    <Content Include="Resources\video\earth_rotating.mp4" />
+    <Content Include="Resources\video\space_main_background.mp4" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
+    <Content Include="Scripts\Private\Profile\Albums.js" />
+    <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
+    <Content Include="Scripts\Private\Profile\SelectPaginationActivePage.js" />
+    <Content Include="Scripts\Private\Settings\LocalSettings.js" />
+    <Content Include="Scripts\Private\Common\News.js" />
+    <Content Include="Scripts\Private\Profile\EditProfileInfo.js" />
+    <Content Include="Scripts\Guest\index_form.js" />
+    <Content Include="Scripts\Guest\validationGuest.js" />
+    <Content Include="Scripts\Private\Dialogs\CryptoDialog\ExperationTimer.js" />
+    <Content Include="Scripts\Private\Common\LeftNavMenuDisable.js" />
+    <Content Include="Scripts\System\Alert.js" />
+    <Content Include="Scripts\System\AsyncRequest.js" />
+    <Content Include="Scripts\System\BigInteger.js" />
+    <Content Include="Scripts\System\BigInteger.min.js" />
+    <Content Include="Scripts\Private\Dialogs\CryptoDialog\CryptoDialogInitialization.js" />
+    <Content Include="Scripts\Private\Dialogs\CryptoDialog\Сommunication.js" />
+    <Content Include="Scripts\Private\Search\Search.js" />
+    <Content Include="Scripts\Private\Common\MainGlobalHub.js" />
+    <Content Include="Scripts\Private\Contacts\ContactsManage.js" />
+    <Content Include="Scripts\Private\Common\RelocationToUser.js" />
+    <Content Include="Scripts\System\jquery-1.6.4.js" />
+    <Content Include="Scripts\System\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\System\jquery.signalR-2.4.0.js" />
+    <Content Include="Scripts\System\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\Private\Dialogs\SimpleDialog\Сommunication.js" />
+    <Content Include="Scripts\Private\Dialogs\SimpleDialog\StartDialogFromUserPage.js" />
+    <Content Include="Scripts\Private\Dialogs\Preview\SimpleDialogsList.js" />
+    <Content Include="Scripts\System\ParseFormArray.js" />
+    <Content Include="Scripts\System\SHA-512.js" />
+    <Content Include="Scripts\Private\Settings\ChangeSettings.js" />
+    <Content Include="Scripts\System\sha512.js" />
+    <Content Include="Scripts\System\Validation.js" />
+    <Content Include="Scripts\Private\VideoConference\vConferens.js" />
+    <Content Include="Scripts\Private\VideoConference\vDialogRedirection.js" />
+    <Content Include="Scripts\Private\VideoConference\vDialogs.js" />
+    <Content Include="sitemap.xml" />
+    <Content Include="Styles\common\await.css" />
+    <Content Include="Styles\common\navigation-arrows-style.css" />
+    <Content Include="Styles\guest\index_form.css" />
+    <Content Include="Styles\guest\index_style.css" />
+    <Content Include="Styles\private\album-review-style.css" />
+    <Content Include="Styles\common\alert-message-style.css" />
+    <Content Include="Styles\private\incomming-call-notification-style.css" />
+    <Content Include="Styles\private\foreign-user-style.css" />
+    <Content Include="Styles\private\friend-profile-style.css" />
+    <Content Include="Styles\private\mail-style.css" />
+    <Content Include="Styles\private\my-profile-style.css" />
+    <Content Include="Styles\private\contacts-style.css" />
+    <Content Include="Styles\private\controlls_style.css" />
+    <Content Include="Styles\private\conversations-style.css" />
+    <Content Include="Styles\private\dialog-style.css" />
+    <Content Include="Styles\private\feedBackStyle.css" />
+    <Content Include="Styles\private\private_style.css" />
+    <Content Include="Styles\private\profile-info-style.css" />
+    <Content Include="Styles\private\search-result-style.css" />
+    <Content Include="Styles\private\search-style.css" />
+    <Content Include="Styles\private\secret-conversations-style.css" />
+    <Content Include="Styles\private\secret-dialog-style.css" />
+    <Content Include="Styles\private\settings-style.css" />
+    <Content Include="Styles\private\tabs-style.css" />
+    <Content Include="Styles\private\toggle-style.css" />
+    <Content Include="Styles\private\video-await.css" />
+    <Content Include="Styles\private\video-conversation-main.css" />
+    <Content Include="Styles\private\video-dialog.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Private\cnv.cshtml" />
+    <Content Include="Views\Error\notfound.cshtml" />
+    <Content Include="Views\Guest\Activate.cshtml" />
+    <Content Include="Views\Guest\Index.cshtml" />
+    <Content Include="Views\Private\my.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Context\Attributes\AuthAttribute.cs" />
+    <Compile Include="Context\Attributes\SessionCheckAttribute.cs" />
+    <Compile Include="Context\Dto\Albums\AlbumPhotosResponse.cs" />
+    <Compile Include="Context\Dto\Albums\CreateAlbumResponse.cs" />
+    <Compile Include="Context\Dto\Albums\DropAlbumResponse.cs" />
+    <Compile Include="Context\Dto\Albums\UploadAlbumResponse.cs" />
+    <Compile Include="Context\Dto\ChangeParameterResponce.cs" />
+    <Compile Include="Context\Dto\Cloudinary\CloudDeleteImage.cs" />
+    <Compile Include="Context\Dto\Comments\PostCommentsResponse.cs" />
+    <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
+    <Compile Include="Context\Dto\CryptoConversation\CryptoDialogTimeLeft.cs" />
+    <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
+    <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
+    <Compile Include="Context\Dto\News\NotShowedMessages.cs" />
+    <Compile Include="Context\Dto\EnumParameters.cs" />
+    <Compile Include="Context\Dto\FeedBack\FeedBackRequest.cs" />
+    <Compile Include="Context\Dto\FeedBack\FeedBackResponce.cs" />
+    <Compile Include="Context\Dto\FeedBack\SubjectEnums.cs" />
+    <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
+    <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
+    <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
+    <Compile Include="Context\Dto\Notification\NotificationTypes.cs" />
+    <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
+    <Compile Include="Context\Dto\Search\AgeEnum.cs" />
+    <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
+    <Compile Include="Context\Dto\Search\DatingPurposeEnum.cs" />
+    <Compile Include="Context\Dto\Search\SearchCitiesModel.cs" />
+    <Compile Include="Context\Dto\Search\SearchCityItem.cs" />
+    <Compile Include="Context\Dto\Search\SearchUsersRequest.cs" />
+    <Compile Include="Context\Dto\Search\SearchUsersResponse.cs" />
+    <Compile Include="Context\Dto\Search\SexEnum.cs" />
+    <Compile Include="Context\Dto\Settings\NotificationTypes.cs" />
+    <Compile Include="Context\Dto\Settings\SetSettingsRequest.cs" />
+    <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\UnblockContactRequest.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\BlockContactRequest.cs" />
+    <Compile Include="Context\ServerError\ServerErrorCodesMessagesDictionary.cs" />
+    <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
+    <Compile Include="Context\Tables\BlackList.cs" />
+    <Compile Include="Context\Tables\DisableDialog.cs" />
+    <Compile Include="Context\Tables\Education.cs" />
+    <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
+    <Compile Include="Context\Tables\PostComment.cs" />
+    <Compile Include="Context\Tables\Post.cs" />
+    <Compile Include="Context\Tables\MemorableEvents.cs" />
+    <Compile Include="Context\Tables\WorkPlaces.cs" />
+    <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
+    <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
+    <Compile Include="Context\Tables\Feedback.cs" />
+    <Compile Include="Context\Tables\Notification.cs" />
+    <Compile Include="Context\Tables\ResetPassword.cs" />
+    <Compile Include="Controllers\partialController.cs" />
+    <Compile Include="Controllers\public_apiController.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Helpers\CultureByIpChecker.cs" />
+    <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
+    <Compile Include="Helpers\Handlers\DisableConversationHandler.cs" />
+    <Compile Include="Helpers\Handlers\NotificationHandler.cs" />
+    <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
+    <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
+    <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
+    <Compile Include="Helpers\HTMLGenerated\UserFriendshipResponce.cs" />
+    <Compile Include="Helpers\HTMLGenerated\VideoConferenceInviteToRedirect.cs" />
+    <Compile Include="ImageEdit\Cropping.cs" />
+    <Compile Include="ImageEdit\ModTypes.cs" />
+    <Compile Include="ImageEdit\Resize.cs" />
+    <Compile Include="Migrations\201909211120010_First.cs" />
+    <Compile Include="Migrations\201909211120010_First.Designer.cs">
+      <DependentUpon>201909211120010_First.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910021550548_OpenTime-to-UpdTime.cs" />
+    <Compile Include="Migrations\201910021550548_OpenTime-to-UpdTime.Designer.cs">
+      <DependentUpon>201910021550548_OpenTime-to-UpdTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
+    <Compile Include="Model\Albums\EditMode.cs" />
+    <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
+    <Compile Include="Model\Albums\PostCommentToFoto.cs" />
+    <Compile Include="Model\FullInfo\PostModel.cs" />
+    <Compile Include="Model\FullInfo\UserInfoItem.cs" />
+    <Compile Include="Model\Messager\ConversationBaseModel.cs" />
+    <Compile Include="Model\Messager\CryptoChat\CryptoConversationModel.cs" />
+    <Compile Include="Model\Messager\CryptoChat\CryptoMessageModel.cs" />
+    <Compile Include="Model\Messager\SimpleChat\MessageModel.cs" />
+    <Compile Include="Model\Notifications\UserNotivication.cs" />
+    <Compile Include="Model\Messager\SimpleChat\ConversationModel.cs" />
+    <Compile Include="Model\Users\Relations\BaseUser.cs" />
+    <Compile Include="Model\Users\Login\LoginingUserModel.cs" />
+    <Compile Include="Model\Users\Relations\BlockedUser.cs" />
+    <Compile Include="Model\Users\Relations\MyProfileModel.cs" />
+    <Compile Include="Model\Users\Systems\UserConnectionIdModel.cs" />
+    <Compile Include="Model\Users\Systems\UserEnums.cs" />
+    <Compile Include="Model\VideoConference\Role.cs" />
+    <Compile Include="Context\Tables\Album.cs" />
+    <Compile Include="Context\Tables\Cities.cs" />
+    <Compile Include="Context\Tables\FotoComment.cs" />
+    <Compile Include="Context\Tables\Countries.cs" />
+    <Compile Include="Context\Tables\Foto.cs" />
+    <Compile Include="Context\Tables\UserConnections.cs" />
+    <Compile Include="Context\Tables\UserInfo.cs" />
+    <Compile Include="Context\Tables\UserSettings.cs" />
+    <Compile Include="Context\Tables\VideoConference.cs" />
+    <Compile Include="Context\Tables\VideoConferenceGroups.cs" />
+    <Compile Include="Context\Tables\ConversationGroup.cs" />
+    <Compile Include="Context\Tables\UsersRelation.cs" />
+    <Compile Include="Context\Tables\SecretChat.cs" />
+    <Compile Include="Context\Tables\SecretMessages.cs" />
+    <Compile Include="Context\Tables\SecretChatGroup.cs" />
+    <Compile Include="Controllers\apiController.cs" />
+    <Compile Include="Crypto\Converting.cs" />
+    <Compile Include="DbInitialisation\NewUserInitial.cs" />
+    <Compile Include="Helpers\Handlers\ActivationHandler.cs" />
+    <Compile Include="Helpers\Handlers\AlbumsHandler.cs" />
+    <Compile Include="Helpers\BaseController\AppSettingsEnum.cs" />
+    <Compile Include="Helpers\Handlers\ConversationHandler.cs" />
+    <Compile Include="Helpers\Handlers\CryptoChatHandler.cs" />
+    <Compile Include="Context\DataBaseContext.cs" />
+    <Compile Include="Context\Enums.cs" />
+    <Compile Include="Helpers\FriendshipChecker.cs" />
+    <Compile Include="Helpers\Handlers\FullInfoHandler.cs" />
+    <Compile Include="Helpers\Handlers\SearchHandler.cs" />
+    <Compile Include="Helpers\Handlers\SettingsHandler.cs" />
+    <Compile Include="Helpers\Handlers\UsersDialogHandler.cs" />
+    <Compile Include="Helpers\Handlers\MailNotifyHandler.cs" />
+    <Compile Include="Helpers\Handlers\SessionsHandler.cs" />
+    <Compile Include="Context\Tables\ActivationMails.cs" />
+    <Compile Include="Context\Tables\Avatars.cs" />
+    <Compile Include="Context\Tables\Conversation.cs" />
+    <Compile Include="Context\Tables\Message.cs" />
+    <Compile Include="Context\Tables\Sessions.cs" />
+    <Compile Include="Context\Tables\SessionTypes.cs" />
+    <Compile Include="Context\Tables\Users.cs" />
+    <Compile Include="Context\Tables\UserStatuses.cs" />
+    <Compile Include="Helpers\Handlers\UsersConnectionHandler.cs" />
+    <Compile Include="Helpers\Handlers\UsersHandler.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
+    <Compile Include="Controllers\PrivateController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\BaseController\SlugController.cs" />
+    <Compile Include="Helpers\Handlers\VideoConferenceHandler.cs" />
+    <Compile Include="Hubs\UserBehaviors\CryptoDialog.cs" />
+    <Compile Include="Hubs\GlobalHub.cs" />
+    <Compile Include="Hubs\UserBehaviors\SimpleDialog.cs" />
+    <Compile Include="Hubs\UserBehaviors\VideoConference.cs" />
+    <Compile Include="Model\Albums\AlbumModel.cs" />
+    <Compile Include="Model\Albums\FotoCommentModel.cs" />
+    <Compile Include="Model\Albums\FotoModel.cs" />
+    <Compile Include="Model\Messager\SimpleChat\ConversationGroupModel.cs" />
+    <Compile Include="Model\Messager\CryptoChat\CryptoChatModel.cs" />
+    <Compile Include="Model\Messager\CryptoChat\CryptoDialogModel.cs" />
+    <Compile Include="Model\Messager\SimpleChat\DialogModel.cs" />
+    <Compile Include="Model\FullInfo\EducationModel.cs" />
+    <Compile Include="Model\Users\Relations\ForeignUserModel.cs" />
+    <Compile Include="Model\Users\Relations\FriendModel.cs" />
+    <Compile Include="Model\FullInfo\MemorableEventsModel.cs" />
+    <Compile Include="Model\Users\Registration\RegisteringUserModel.cs" />
+    <Compile Include="Model\Users\Relations\MyFriendsModel.cs" />
+    <Compile Include="Context\Dto\Settings\UserSettingsModel.cs" />
+    <Compile Include="Model\FullInfo\WorkPlacesModel.cs" />
+    <Compile Include="Model\VideoConference\CallModel.cs" />
+    <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
+    <Compile Include="Model\VideoConference\IncomingInviteModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\emoji\EmojiModel.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\guest.cshtml" />
+    <Content Include="Views\Private\msg.cshtml" />
+    <Content Include="Views\Error\unauthorized.cshtml" />
+    <Content Include="Views\Private\user.cshtml" />
+    <Content Include="Views\Private\friend.cshtml" />
+    <Content Include="Views\Private\contacts.cshtml" />
+    <Content Include="Views\Private\invite_video_conversation.cshtml" />
+    <Content Include="Views\Private\crypto_cnv.cshtml" />
+    <Content Include="Views\Private\c_msg.cshtml" />
+    <Content Include="Views\Private\v_conversation.cshtml" />
+    <Content Include="Views\Private\settings.cshtml" />
+    <Content Include="Views\Private\search.cshtml" />
+    <Content Include="Views\Private\search_result.cshtml" />
+    <Content Include="Views\Error\ooops.cshtml" />
+    <Content Include="Views\Partial\OwnPage\my_album_minimized.cshtml" />
+    <Content Include="Views\Partial\FriendPage\friend_album.cshtml" />
+    <Content Include="Views\Partial\OwnPage\education.cshtml" />
+    <Content Include="Views\Partial\OwnPage\events.cshtml" />
+    <Content Include="Views\Partial\OwnPage\work.cshtml" />
+    <Content Include="Views\Partial\FriendPage\education.cshtml" />
+    <Content Include="Views\Partial\FriendPage\events.cshtml" />
+    <Content Include="Views\Partial\FriendPage\work.cshtml" />
+    <Content Include="Views\Partial\Dialogs\dialog_preview.cshtml" />
+    <Content Include="Views\Partial\Dialogs\dialog_message.cshtml" />
+    <Content Include="Views\Partial\OtherUser\fount_user.cshtml" />
+    <Content Include="Views\Partial\VideoConference\friend_to_call.cshtml" />
+    <Content Include="Views\Partial\VideoConference\incomming_call.cshtml" />
+    <Content Include="Views\Partial\Contacts\incomming_invitations.cshtml" />
+    <Content Include="Views\Partial\Contacts\outcomming_invitations.cshtml" />
+    <Content Include="Views\Partial\Contacts\accept_friend.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\current_crypto_dialog.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\accept_needed_crypto_dialog.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\self_created_dialog.cshtml" />
+    <Content Include="Views\Partial\CryptoDialogs\friends_can_invite_crypto_dialog.cshtml" />
+    <Content Include="Views\Partial\Register\login_already_taken.cshtml" />
+    <Content Include="Views\Error\user_already_exist.cshtml" />
+    <Content Include="Views\Partial\Register\email_already_taken.cshtml" />
+    <Content Include="Views\Partial\OwnPage\change_private_info.cshtml" />
+    <Content Include="Views\Error\internal_part_error.cshtml" />
+    <Content Include="Views\Partial\Register\success_register.cshtml" />
+    <Content Include="Views\Partial\Register\fail_register.cshtml" />
+    <Content Include="Views\Shared\public_index_navigation.cshtml" />
+    <Content Include="Views\Shared\public_other_navigation.cshtml" />
+    <Content Include="Views\Guest\reset.cshtml" />
+    <Content Include="Views\Shared\reset_active.cshtml" />
+    <Content Include="Views\Shared\reset_invalid.cshtml" />
+    <Content Include="Views\Shared\private_template.cshtml" />
+    <Content Include="Views\Partial\feed_backView.cshtml" />
+    <Content Include="Views\Private\support.cshtml" />
+    <Content Include="Views\Partial\Albums\ExpandAlbum.cshtml" />
+    <Content Include="Views\Partial\Albums\ExpandFriendAlbum.cshtml" />
+    <Content Include="Views\Partial\Contacts\black_list_entry.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Partial\OwnPage\AddInfo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909211120010_First.resx">
+      <DependentUpon>201909211120010_First.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910021550548_OpenTime-to-UpdTime.resx">
+      <DependentUpon>201910021550548_OpenTime-to-UpdTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>32033</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:32036/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

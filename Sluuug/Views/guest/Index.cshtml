@@ -33,9 +33,9 @@
                     <div class="field-wrap">
                         <label>Выберите страну :</label>
                         <select name="CountryCode" id="country_list">
-                            <option class="option"  value="7">Россия</option>
-                            <option class="option"  value="380">Украина</option>
-                            <option class="option"  value="375">Белорусь</option>
+                            <option class="option" value="7">Россия</option>
+                            <option class="option" value="380">Украина</option>
+                            <option class="option" value="375">Белорусь</option>
                         </select>
                     </div>
                     <div class="field-wrap">
@@ -77,6 +77,21 @@
                     </div>
                     <input type="button" class="button button-block" id="reset_subm" onclick="resetPassword()" value="Выслать пароль" />
                 </form>
+            </div>
+            <div id="oauth_form">
+                <span>Или войдите через </span>
+                <div class="oauth-options-list">
+                    <div class="oauth-item-wrapper oauth-vk-wrapper" onclick="oauth_login_vk()">
+                        <div class="oauth-item-ico-wrapper">
+                            <img src="~/Resources/images/vk_ico.png" />
+                        </div>
+                        <div class="item-text-wrapper oauth-vk">
+                            <div class="text-center">
+                                <span class="oauth-item-log-text">Войти через контакт VK.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div><!-- tab-content -->
         <div class="error-message-form" style="color:red" id="not_filled"><p>Пожалуйста, заполните верно все поля *</p></div>

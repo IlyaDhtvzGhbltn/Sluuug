@@ -1,6 +1,7 @@
 function show_login(){
 	$('#signup_form')[0].style.display = 'none';
-	$('#repassword_form')[0].style.display = 'none';
+    $('#repassword_form')[0].style.display = 'none';
+    $('#oauth_form').fadeIn();
 	$('#login_form').fadeIn();
 	
 	$('#login_toggle').addClass('active');
@@ -13,7 +14,8 @@ function show_login(){
 }
 function show_register(){
 	$('#login_form')[0].style.display = 'none';
-	$('#repassword_form')[0].style.display = 'none';
+    $('#repassword_form')[0].style.display = 'none';
+    $('#oauth_form')[0].style.display = 'none';
 	$('#signup_form').fadeIn();
 	
 	$('#reg_toggle').addClass('active');
@@ -67,6 +69,11 @@ function scrolling(elementID, offset) {
         scrollTop: Y
     }, 1000);
 }
+
+function oauth_login_vk() {
+
+}
+
 
 $(document).ready(function () {
     $('a[href^="#"]').on('click', function (event) {
@@ -129,4 +136,5 @@ window.onscroll = function () {
     else {
         $('#right_navigation')[0].style.display = "none";
     }
-}
+};
+

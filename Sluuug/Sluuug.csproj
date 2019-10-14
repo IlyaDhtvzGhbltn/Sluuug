@@ -184,6 +184,7 @@
     <Content Include="Resources\images\support_ico.png" />
     <Content Include="Resources\images\video-call.png" />
     <Content Include="Resources\images\video_connect_ico.png" />
+    <Content Include="Resources\images\vk_ico.png" />
     <Content Include="Resources\text_templates\activationMail.txt" />
     <Content Include="Resources\text_templates\resetPasswordMail.txt" />
     <Content Include="Resources\video\cutnightcity.mp4" />
