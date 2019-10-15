@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="DBConnection-Web.config Connection String" description="DBConnection Connection String used in web.config by the application to access the database." defaultValue="Server=localhost;Database=slugDtB;Trusted_Connection=True;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\MyUtilits\\friendlynet\\Sluuug\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DBConnection']/@connectionString" />
-  </parameter>
-</parameters>

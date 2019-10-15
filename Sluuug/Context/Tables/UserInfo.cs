@@ -43,6 +43,8 @@ namespace Slug.Context.Tables
 
         public int userDatingAge { get; set; }
 
+        public long VkUserId { get; set; }
+
 
         public virtual List<Education> Educations { get; set; }
 

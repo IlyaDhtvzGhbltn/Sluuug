@@ -12,8 +12,6 @@ namespace Slug.Model
     {
         public string Login { get; set; }
 
-        public int VkId { get; set; }
-
         public string Name { get; set; }
 
         public string SurName { get; set; }
@@ -22,10 +20,17 @@ namespace Slug.Model
 
         public int CountryCode { get; set; }
 
+        public int CityCode { get; set; }
+
         public string Email { get; set; }
 
         public DateTime DateBirth { get; set; }
 
         public string PasswordHash { get; set; }
+
+
+
+        public int VkId { get; set; }
+        public string VkAvatar { get; set; }
     }
 }

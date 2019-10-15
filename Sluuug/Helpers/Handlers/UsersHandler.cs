@@ -1039,6 +1039,19 @@ namespace Slug.Helpers
             return flagOnline;
         }
 
+        public int VkUserRegistredId(uint vkUserId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var user = context.Users.FirstOrDefault(x => x.UserFullInfo.VkUserId == vkUserId);
+                if (user == null)
+                    return -1;
+                else
+                    return user.Id;
+            }
+        }
+
+
         public bool IsOnline(int userId)
         {
             return isOnline(userId);

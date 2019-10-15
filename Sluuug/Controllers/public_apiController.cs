@@ -2,13 +2,16 @@
 using Slug.Context;
 using Slug.Context.Dto.FeedBack;
 using Slug.Helpers;
+using Slug.Helpers.BaseController;
 using Slug.Helpers.Handlers;
-using System;
+using Slug.Helpers.Handlers.OAuthHandlers;
+using Slug.Model.VkModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+
 
 namespace Slug.Controllers
 {
@@ -105,6 +108,27 @@ namespace Slug.Controllers
                     IsSuccess = true
                 }
             };
+        }
+
+        [HttpPost]
+        public JsonResult is_vkuser_registered(string code)
+        {
+            var vkHandler = new VkOAuthHandler();
+            AccessTokenModel model = vkHandler.GetVkAccessToken(code).GetAwaiter().GetResult();
+            if (model == null)
+            {
+                return new JsonResult() { Data = new VkOauthExistModel { status = vkOAuthStatusEnum.error }  };
+            }
+            int localUserId =  UsersHandler.VkUserRegistredId(model.UserId);
+            if (localUserId > 0)
+            {
+                string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserId);
+                var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
+                cookie.Value = session_id;
+                Response.Cookies.Set(cookie);
+                return new JsonResult() { Data = new VkOauthExistModel { status = vkOAuthStatusEnum.userExistLocaly } };
+            }
+            return new JsonResult() { Data = new VkOauthExistModel { status = vkOAuthStatusEnum.userNotExist, vkuid = model.UserId } };
         }
     }
 }

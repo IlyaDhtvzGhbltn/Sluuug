@@ -16,30 +16,10 @@ span {
     height: 64px;
 }
 
-.avatar-form{
-    margin-top:10px;
-}
-
-
 .await-form {
     width: 500px;
     margin: auto;
     padding: 15px;
-}
-
-.img-container{
-    margin:auto;
-    width:200px;
-}
-
-.avatar-img {
-    border-radius: 50%;
-    border: 1px solid #7f7f7f;
-}
-
-.name-surname-form {
-    text-align: center;
-    margin: 10px 0;
 }
 
 .message-form {

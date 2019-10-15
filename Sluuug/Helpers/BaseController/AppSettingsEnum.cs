@@ -20,6 +20,9 @@ namespace Slug.Helpers.BaseController
         smtpSubjectConfirmRegister,
         smtpSubjectResetPassword,
 
-        messagesOnPage
+        messagesOnPage,
+
+        oauthVkRedirectUri,
+        vkAppId
     }
 }

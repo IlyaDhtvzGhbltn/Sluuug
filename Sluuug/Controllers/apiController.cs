@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Slug.Context.Dto.UserWorker_refactor;
 using Slug.Context.Tables;
 using Slug.Context.Dto.News;
+using Slug.Helpers.Handlers.OAuthHandlers;
 
 namespace Slug.Controllers
 {

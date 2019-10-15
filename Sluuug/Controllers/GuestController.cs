@@ -14,7 +14,7 @@ using Slug.Helpers.Handlers;
 using Slug.DbInitialisation;
 using NLog;
 using System.Threading.Tasks;
-using Slug.Model.VkModels;
+using System.Threading;
 
 namespace Slug.Controllers
 {
@@ -118,28 +118,10 @@ namespace Slug.Controllers
             return new JsonResult() { Data = false };
         }
 
-        //[HttpGet]
-        //public void testmailquality(string mail)
-        //{
-        //    MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
-        //    handler.SendActivationMail();
-        //}
-
-        //[HttpGet]
-        //public void testmailqualityreset(string mail)
-        //{
-        //    MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
-        //    handler.SendResetPasswordMail();
-        //}
-
         [HttpGet]
-        public async Task<ActionResult> vk_oauth([System.Web.Http.FromUri] OauthParams vkOauth)
+        public ActionResult vk_oauth(string code)
         {
-            var awaitModel = new AwaitViewModel();
-            awaitModel.Avatar = "https://sun9-58.userapi.com/c845418/v845418795/1aa8cb/wrJs7N7HLIk.jpg";
-            awaitModel.Name = "Илья";
-            awaitModel.SurName = "Рязанов";
-            return View(awaitModel);
+            return View();
         }
 
 
@@ -181,5 +163,19 @@ namespace Slug.Controllers
                 catch (Exception) { }
             });
         }
+
+        //[HttpGet]
+        //public void testmailquality(string mail)
+        //{
+        //    MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
+        //    handler.SendActivationMail();
+        //}
+
+        //[HttpGet]
+        //public void testmailqualityreset(string mail)
+        //{
+        //    MailNotifyHandler handler = new MailNotifyHandler(mail, "123");
+        //    handler.SendResetPasswordMail();
+        //}
     }
 }

@@ -71,11 +71,7 @@ function scrolling(elementID, offset) {
 }
 
 function oauth_login_vk() {
-    VK.init({
-        apiId: "7170448"
-    });
-    VK.Widgets.Auth('vk_auth', { "authUrl": "https://friendlynet.ru/guest/vk_oauth"}); //
-    $('#vk_auth').css({ "margin": "auto", "margin-top":"20px"});
+    window.location.replace("https://oauth.vk.com/authorize?client_id=7170448&redirect_uri=" + window.location.origin + "/guest/vk_oauth");
 }
 
 

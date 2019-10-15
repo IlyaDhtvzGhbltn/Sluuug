@@ -192,6 +192,7 @@
     <Content Include="Resources\video\earth_rotating.mp4" />
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\Guest\oauthServices.js" />
     <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
     <Content Include="Scripts\Private\Profile\Albums.js" />
     <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
@@ -328,6 +329,7 @@
     <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\DisableConversationHandler.cs" />
     <Compile Include="Helpers\Handlers\NotificationHandler.cs" />
+    <Compile Include="Helpers\Handlers\OAuthHandlers\VkOAuthHandler.cs" />
     <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
     <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
@@ -336,9 +338,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201910051212486_tt.cs" />
-    <Compile Include="Migrations\201910051212486_tt.Designer.cs">
-      <DependentUpon>201910051212486_tt.cs</DependentUpon>
+    <Compile Include="Migrations\201910151622027_vk_login.cs" />
+    <Compile Include="Migrations\201910151622027_vk_login.Designer.cs">
+      <DependentUpon>201910151622027_vk_login.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -432,8 +434,9 @@
     <Compile Include="Model\VideoConference\CallModel.cs" />
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
     <Compile Include="Model\VideoConference\IncomingInviteModel.cs" />
-    <Compile Include="Model\VkModels\AwaitViewModel.cs" />
-    <Compile Include="Model\VkModels\OauthParams.cs" />
+    <Compile Include="Model\VkModels\AccessTokenModel.cs" />
+    <Compile Include="Model\VkModels\VkOauthExistModel.cs" />
+    <Compile Include="Model\VkModels\vkOAuthStatusEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -516,8 +519,8 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910051212486_tt.resx">
-      <DependentUpon>201910051212486_tt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910151622027_vk_login.resx">
+      <DependentUpon>201910151622027_vk_login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
