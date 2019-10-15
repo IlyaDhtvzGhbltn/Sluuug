@@ -133,10 +133,13 @@ namespace Slug.Controllers
         //}
 
         [HttpGet]
-        public void vk_oauth([System.Web.Http.FromUri] OauthParams vkOauth)
+        public async Task<ActionResult> vk_oauth([System.Web.Http.FromUri] OauthParams vkOauth)
         {
-            Logger loggerInternal = LogManager.GetLogger("info_logger");
-            loggerInternal.Info(string.Format("{0}\r\n {1}\r\n {2}\r\n {3}\r\n {4}\r\n {5}\r\n", vkOauth.uid, vkOauth.first_name, vkOauth.last_name, vkOauth.photo, vkOauth.photo_rec, vkOauth.hash));
+            var awaitModel = new AwaitViewModel();
+            awaitModel.Avatar = "https://sun9-58.userapi.com/c845418/v845418795/1aa8cb/wrJs7N7HLIk.jpg";
+            awaitModel.Name = "Илья";
+            awaitModel.SurName = "Рязанов";
+            return View(awaitModel);
         }
 
 

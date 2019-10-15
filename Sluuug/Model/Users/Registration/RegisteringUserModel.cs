@@ -12,6 +12,8 @@ namespace Slug.Model
     {
         public string Login { get; set; }
 
+        public int VkId { get; set; }
+
         public string Name { get; set; }
 
         public string SurName { get; set; }

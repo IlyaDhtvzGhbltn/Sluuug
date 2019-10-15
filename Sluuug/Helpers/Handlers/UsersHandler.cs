@@ -46,43 +46,43 @@ namespace Slug.Helpers
                     }
 
                     var newUser = new User();
-                    newUser.Settings = new UserSettings();
                     newUser.UserFullInfo = new UserInfo();
                     newUser.UserFullInfo.NowCountryCode = user.CountryCode;
                     newUser.UserFullInfo.DateOfBirth = user.DateBirth;
-                    newUser.Settings.Email = user.Email;
                     newUser.UserFullInfo.Name = user.Name;
                     newUser.UserFullInfo.SurName = user.SurName;
                     newUser.UserFullInfo.Sex = user.Sex;
                     newUser.UserFullInfo.HelloMessage = "Всем привет, я на связи!";
-                    newUser.Login = user.Login;
+
+                    newUser.Settings = new UserSettings();
+                    newUser.Settings.Email = user.Email;
                     newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
+
+                    newUser.Login = user.Login;
                     newUser.AvatarId = context.Avatars.First(x => x.CountryCode == user.CountryCode).Id;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
 
                     context.Users.Add(newUser);
                     var sesWk = new SessionsHandler();
                     activationSessionId = sesWk.OpenSession(SessionTypes.AwaitEmailConfirm, 0);
-                    try
-                    {
-                        context.SaveChanges();
-                        var linkMail = new ActivationHandler();
-                        List<User> User = context.Users
-                            .Where(x => x.Settings.Email == user.Email).ToList();
 
-                        activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
+                    context.SaveChanges();
+                    var linkMail = new ActivationHandler();
+                    List<User> User = context.Users
+                        .Where(x => x.Settings.Email == user.Email).ToList();
 
-                        context.SaveChanges();
-                        return new UserConfirmationDitails { ActivatioMailParam = activationMailParam, ActivationSessionId = activationSessionId };
+                    activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
 
-                    }
-                    catch (DbEntityValidationException e)
-                    {
-
-                    }
+                    context.SaveChanges();
+                    return new UserConfirmationDitails { ActivatioMailParam = activationMailParam, ActivationSessionId = activationSessionId };
                 }
             }
             return null;
+        }
+
+        public bool RegisterNewFromVK(RegisteringUserModel user)
+        {
+            return true;
         }
 
         public void ConfirmUser(int id)
