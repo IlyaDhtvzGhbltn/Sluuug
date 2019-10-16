@@ -27,10 +27,5 @@ namespace Slug.Model
         public DateTime DateBirth { get; set; }
 
         public string PasswordHash { get; set; }
-
-
-
-        public int VkId { get; set; }
-        public string VkAvatar { get; set; }
     }
 }

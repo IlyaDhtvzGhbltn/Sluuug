@@ -58,5 +58,7 @@ namespace Context
         public virtual DbSet<DisableDialog> DisableDialogs { get; set; }
 
         public virtual DbSet<BlockedUsersEntries> BlackList { get; set; }
+
+        public virtual DbSet<VkOAuthToken> VkOAuthTokens { get; set; }
     }
 }

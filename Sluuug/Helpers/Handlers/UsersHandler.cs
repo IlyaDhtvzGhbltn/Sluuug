@@ -80,9 +80,37 @@ namespace Slug.Helpers
             return null;
         }
 
-        public bool RegisterNewFromVK(RegisteringUserModel user)
+        public int RegisterNewFromVK(VkRegisteringUserModel user)
         {
-            return true;
+            using (var context = new DataBaseContext())
+            {
+                context.Avatars.Add(new Avatars()
+                {
+                    ImgPath = user.VkAvatar,
+                    IsStandart = false,
+                    UploadTime = DateTime.UtcNow
+                });
+                context.SaveChanges();
+                int vkUserAvatarId = context.Avatars.First(x => x.ImgPath == user.VkAvatar).Id;
+
+                var newUser = new User();
+                newUser.UserFullInfo = new UserInfo();
+                newUser.UserFullInfo.NowCountryCode = user.CountryCode;
+                newUser.UserFullInfo.DateOfBirth = user.DateBirth;
+                newUser.UserFullInfo.Name = user.Name;
+                newUser.UserFullInfo.SurName = user.SurName;
+                newUser.UserFullInfo.Sex = user.Sex;
+                newUser.UserFullInfo.HelloMessage = user.Status;
+
+                newUser.Login = string.Format("vk_{0}", user.VkId);
+                newUser.UserStatus = (int)UserStatuses.Active;
+                newUser.AvatarId = vkUserAvatarId;
+                context.Users.Add(newUser);
+
+                context.SaveChanges();
+                int localUserFromVk = context.Users.First(x => x.AvatarId == vkUserAvatarId).Id;
+                return localUserFromVk;
+            }
         }
 
         public void ConfirmUser(int id)

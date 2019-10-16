@@ -15,6 +15,6 @@ namespace Slug.Model.VkModels
         public long ExpiresIn { get; set; }
 
         [JsonProperty("user_id")]
-        public uint UserId { get; set; }
+        public uint VkUserId { get; set; }
     }
 }

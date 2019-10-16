@@ -7,6 +7,7 @@
             console.log(resp);
             if (resp.status == 0) {
                 $("#vk-status").text('Регестрируем нового пользователя...');
+                vkUserRegister(vkcode);
             }
             if (resp.status == 1) {
                 $("#vk-status").text('Открываем профиль...');
@@ -18,3 +19,14 @@
     });
 }
 
+function vkUserRegister(vkcode) {
+    console.log(vkcode);
+    $.ajax({
+        type: 'post',
+        url: '/public_api/register_new_vk',
+        data: { vkOneTimeCode: vkcode },
+        success: function (resp) {
+            console.log(resp);
+        }
+    });
+}

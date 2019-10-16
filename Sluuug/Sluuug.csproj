@@ -294,6 +294,8 @@
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
     <Compile Include="Context\Dto\Notification\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
+    <Compile Include="Context\Dto\OAuth\VkToken.cs" />
+    <Compile Include="Context\Dto\OAuth\VkUserInfo.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
     <Compile Include="Context\Dto\Search\DatingPurposeEnum.cs" />
@@ -310,6 +312,7 @@
     <Compile Include="Context\ServerError\ServerErrorCodesMessagesDictionary.cs" />
     <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
     <Compile Include="Context\Tables\BlackList.cs" />
+    <Compile Include="Context\Tables\VkOAuthToken.cs" />
     <Compile Include="Context\Tables\DisableDialog.cs" />
     <Compile Include="Context\Tables\Education.cs" />
     <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
@@ -329,6 +332,7 @@
     <Compile Include="Helpers\Handlers\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\DisableConversationHandler.cs" />
     <Compile Include="Helpers\Handlers\NotificationHandler.cs" />
+    <Compile Include="Helpers\Handlers\OauthHandler.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\VkOAuthHandler.cs" />
     <Compile Include="Helpers\Handlers\ResetPasswordHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\InviteToSecretConversation.cs" />
@@ -341,6 +345,22 @@
     <Compile Include="Migrations\201910151622027_vk_login.cs" />
     <Compile Include="Migrations\201910151622027_vk_login.Designer.cs">
       <DependentUpon>201910151622027_vk_login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910160943478_vk_tokens_tbo.cs" />
+    <Compile Include="Migrations\201910160943478_vk_tokens_tbo.Designer.cs">
+      <DependentUpon>201910160943478_vk_tokens_tbo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161013443_vk_tokens_tbo2.cs" />
+    <Compile Include="Migrations\201910161013443_vk_tokens_tbo2.Designer.cs">
+      <DependentUpon>201910161013443_vk_tokens_tbo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161015058_vk_tokens_tbo3.cs" />
+    <Compile Include="Migrations\201910161015058_vk_tokens_tbo3.Designer.cs">
+      <DependentUpon>201910161015058_vk_tokens_tbo3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161454569_vk_tokens_tbo4.cs" />
+    <Compile Include="Migrations\201910161454569_vk_tokens_tbo4.Designer.cs">
+      <DependentUpon>201910161454569_vk_tokens_tbo4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -435,8 +455,9 @@
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
     <Compile Include="Model\VideoConference\IncomingInviteModel.cs" />
     <Compile Include="Model\VkModels\AccessTokenModel.cs" />
-    <Compile Include="Model\VkModels\VkOauthExistModel.cs" />
-    <Compile Include="Model\VkModels\vkOAuthStatusEnum.cs" />
+    <Compile Include="Context\Dto\OAuth\VkOauthExistStatus.cs" />
+    <Compile Include="Context\Dto\OAuth\vkOAuthStatusEnum.cs" />
+    <Compile Include="Model\VkModels\VkRegisteringUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -521,6 +542,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910151622027_vk_login.resx">
       <DependentUpon>201910151622027_vk_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910160943478_vk_tokens_tbo.resx">
+      <DependentUpon>201910160943478_vk_tokens_tbo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161013443_vk_tokens_tbo2.resx">
+      <DependentUpon>201910161013443_vk_tokens_tbo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161015058_vk_tokens_tbo3.resx">
+      <DependentUpon>201910161015058_vk_tokens_tbo3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161454569_vk_tokens_tbo4.resx">
+      <DependentUpon>201910161454569_vk_tokens_tbo4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

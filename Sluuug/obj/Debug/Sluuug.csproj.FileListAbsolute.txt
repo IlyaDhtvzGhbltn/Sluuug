@@ -177,3 +177,8 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_login.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo2.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo3.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo4.resources
