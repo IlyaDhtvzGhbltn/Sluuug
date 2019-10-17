@@ -90,23 +90,27 @@ namespace Slug.Controllers
                     x.Selected = true;
             });
             ViewBag.DatingAgesList = datingAgesList;
+            var handler = new SearchHandler();
 
-            var CountriesList = new List<SelectListItem>()
-            {
-                new SelectListItem(){ Text = "Россия", Value = "7" },
-                new SelectListItem(){ Text = "Белорусь", Value = "375" },
-                new SelectListItem(){ Text = "Украина", Value = "380" }
-
-            };
+            var CountriesList = handler.Countries();
+            var countryList = new List<SelectListItem>();
+            bool isCountrySelect = false;
             CountriesList.ForEach(x => 
             {
-                if (x.Value == userInfoModel.CountryCode.ToString())
-                    x.Selected = true;
+                if (x.CountryCode == userInfoModel.CountryCode)
+                    isCountrySelect = true;
+                else
+                    isCountrySelect = false;
+                countryList.Add(new SelectListItem()
+                {
+                    Text = x.Title,
+                    Value = x.CountryCode.ToString(),
+                    Selected = isCountrySelect
+                });
             });
-            ViewBag.Countries = CountriesList;
+            ViewBag.Countries = countryList;
 
 
-            var handler = new SearchHandler();
             var CitiesList = new List<SelectListItem>();
             List<SearchCityItem> cities = handler.CitiesByCountryID(userInfoModel.CountryCode);
             cities.ForEach(x => 
@@ -207,7 +211,7 @@ namespace Slug.Controllers
                 bool friends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(sessionId, id);
                 if (friends)
                 {
-                    ViewBag.MyAvatar = Resize.ResizedAvatarUri(UsersHandler.BaseUser(sessionId).AvatarResizeUri, ModTypes.c_scale, 55, 55);
+                    ViewBag.MyAvatar = UsersHandler.BaseUser(sessionId).SmallAvatar;
                     ProfileModel userInfo = UsersHandler.ProfileInfo(id);
                     ViewBag.Title = userInfo.Name + " " + userInfo.SurName;
                     ViewBag.Description = userInfo.Name + " " + userInfo.SurName;
@@ -273,7 +277,7 @@ namespace Slug.Controllers
                 {
                     string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
                     BaseUser user = UsersHandler.BaseUser(sessionId);
-                    ViewBag.MyAvatar = Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 60, 60);
+                    ViewBag.MyAvatar = user.SmallAvatar;
                     return View(model);
                 }
                 else return RedirectToAction("my", "private");

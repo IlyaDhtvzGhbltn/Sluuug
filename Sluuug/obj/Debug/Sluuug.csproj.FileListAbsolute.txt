@@ -182,3 +182,5 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo.resource
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo2.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo3.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo4.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.regtype.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.lms_avatarsfromvk.resources

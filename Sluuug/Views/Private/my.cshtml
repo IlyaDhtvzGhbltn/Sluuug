@@ -15,7 +15,7 @@
 
 <div id="profile-cut-info">
     <div class="info-container">
-        <img alt="avatar" id="img_avatar" src="@Model.AvatarResizeUri" @*onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})"*@ onclick="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
+        <img alt="avatar" id="img_avatar" src="@Model.LargeAvatar" @*onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})"*@ onclick="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
         <div class="profile-info">
             <div class="profile-info-name">
                 <h2 class="parameter" id="0" onclick="edit_private_info(this.id)">@Model.Name</h2>

@@ -11,6 +11,7 @@
             }
             if (resp.status == 1) {
                 $("#vk-status").text('Открываем профиль...');
+                document.location.replace("/");
             }
             if (resp.status == 10) {
                 $("#vk-status").text('Возникла ошибка авторизации.Вернитесь на главную страницу и повторите попытку.');
@@ -26,7 +27,10 @@ function vkUserRegister(vkcode) {
         url: '/public_api/register_new_vk',
         data: { vkOneTimeCode: vkcode },
         success: function (resp) {
-            console.log(resp);
+            if (resp == "True") {
+                console.log(resp);
+                document.location.replace("/");
+            }
         }
     });
 }

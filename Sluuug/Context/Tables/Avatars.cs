@@ -20,6 +20,13 @@ namespace Slug.Context.Tables
         public int? CountryCode { get; set; }
 
         [Required]
-        public string ImgPath { get; set; }
+        public string LargeAvatar { get; set; }
+
+        public string MediumAvatar { get; set; }
+
+        public string SmallAvatar { get; set; }
+
+        [Required]
+        public AvatarTypesEnum AvatarType { get; set; }
     }
 }

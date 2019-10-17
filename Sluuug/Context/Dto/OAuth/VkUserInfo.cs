@@ -45,6 +45,12 @@ namespace Slug.Context.Dto.OAuth
         [JsonProperty("photo_200_orig")]
         public string Photo200_Orig { get; set; }
 
+        [JsonProperty("photo_100")]
+        public string Photo100 { get; set; }
+
+        [JsonProperty("photo_50")]
+        public string Photo50 { get; set; }
+
         [JsonProperty("status")]
         public string Status { get; set; }
     }

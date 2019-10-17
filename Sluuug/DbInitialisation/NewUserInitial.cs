@@ -42,8 +42,8 @@ namespace Slug.DbInitialisation
 
                 context.Avatars.AddRange(new List<Avatars>
                 {
-                    new Avatars{ ImgPath = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  },
-                    new Avatars{ ImgPath = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  },
+                    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  },
+                    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  },
                 });
                 var usersCollection = new List<User>();
 
@@ -95,9 +95,9 @@ namespace Slug.DbInitialisation
                             NowCountryCode = countryCode,
                             NowCityCode = cityCode,
                             Sex = userSex,
-                            DatingPurpose = userDatingPurpose,
-                            userDatingSex = userSearchDatingSex,
-                            userDatingAge = userDatingAge,
+                            DatingPurpose = (DatingPurposeEnum)userDatingPurpose,
+                            userDatingSex = (SexEnum)userSearchDatingSex,
+                            userDatingAge = (AgeEnum)userDatingAge,
                         }
                     };
                     usersCollection.Add(user);

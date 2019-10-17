@@ -17,6 +17,8 @@ namespace Slug.Context.Tables
 
         public int? AvatarId { get; set; }
 
+        public RegisterTypeEnum UserType { get; set; }
+
         public virtual UserInfo UserFullInfo { get; set; }
 
         public virtual UserSettings Settings { get; set; }

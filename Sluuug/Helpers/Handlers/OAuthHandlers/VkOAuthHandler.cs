@@ -20,7 +20,7 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
         private string appSecret { get; set; } = "OFuxinKsGFinAbvA73Xu";
         private string appId { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.vkAppId.ToString()];
         private string redirectUri { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.oauthVkRedirectUri.ToString()];
-        private string vkFields { get; set; } = "country,city,bdate,sex,photo_200_orig";
+        private string vkFields { get; set; } = "country,city,bdate,sex,photo_200_orig,status,photo_100,photo_50";
         private string vkApiVersion { get; set; } = "5.102";
 
         public async Task<AccessTokenModel> GetVkAccessToken(string code)
@@ -71,7 +71,9 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
                                 registerModel.VkId = vkUser.Id;
                                 registerModel.Name = vkUser.FirstName;
                                 registerModel.SurName = vkUser.LastName;
-                                registerModel.VkAvatar = vkUser.Photo200_Orig;
+                                registerModel.Vk200Avatar = vkUser.Photo200_Orig;
+                                registerModel.Vk100Avatar = vkUser.Photo100;
+                                registerModel.Vk50Avatar = vkUser.Photo50;
                                 registerModel.Status = vkUser.Status;
 
                                 registerModel.Sex = vkSexUserParse(vkUser.Sex);

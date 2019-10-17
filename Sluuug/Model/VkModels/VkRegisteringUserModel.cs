@@ -11,7 +11,9 @@ namespace Slug.Model
     public class VkRegisteringUserModel
     {
         public long VkId { get; set; }
-        public string VkAvatar { get; set; }
+        public string Vk200Avatar { get; set; }
+        public string Vk100Avatar { get; set; }
+        public string Vk50Avatar { get; set; }
         public string Name { get; set; }
         public string SurName { get; set; }
         public int Sex { get; set; }

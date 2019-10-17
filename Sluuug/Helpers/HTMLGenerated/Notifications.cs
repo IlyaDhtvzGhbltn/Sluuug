@@ -47,7 +47,7 @@ namespace Slug.Helpers.HTMLGenerated
             CultureInfo cul = CultureInfo.CreateSpecificCulture(culture);
 
             sb.Append("<div class='notify-avatar-container'>");
-                string uriAvatar = Resize.ResizedAvatarUri(model.AvatarResizeUri, ModTypes.c_scale, 50, 50);
+                string uriAvatar = model.SmallAvatar;
                 sb.AppendFormat("<img alt='avatar' onclick='redirectToUser('{0}')' src='{1}' />", model.UserId, uriAvatar);
             sb.Append("</div>");
             sb.Append("<div class='notify-message-container'>");

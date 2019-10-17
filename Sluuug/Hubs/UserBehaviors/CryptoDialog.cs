@@ -49,7 +49,7 @@ namespace Slug.Hubs
                 if (isFriend)
                 {
                     CryptoChatResponce.CreatorName = UserInfo.Name;
-                    CryptoChatResponce.CreatorAvatar = UserInfo.AvatarResizeUri;
+                    CryptoChatResponce.CreatorAvatar = UserInfo.LargeAvatar;
                     CryptoChatResponce.CreationDate = DateTime.Now;
 
                     var CryptWorker = new CryptoChatHandler();
@@ -76,11 +76,11 @@ namespace Slug.Hubs
         {
             Cookie Session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
             UsersHandler worker = new UsersHandler();
-            BaseUser fromUser = worker.ProfileInfo(Session.Value, false);
+            BaseUser fromUser = worker.ProfileInfo(Session.Value);
 
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(offer_to_cripto_chat);
 
-            cryptoConversation.CreatorAvatar = fromUser.AvatarResizeUri;
+            cryptoConversation.CreatorAvatar = fromUser.LargeAvatar;
             cryptoConversation.CreatorName = fromUser.Name;
 
             var connectionWorker = new UsersConnectionHandler();
@@ -105,7 +105,7 @@ namespace Slug.Hubs
             var UsWorker = new UsersHandler();
 
             var cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            BaseUser userAccepter = UsWorker.ProfileInfo(cookies.Value, false);
+            BaseUser userAccepter = UsWorker.ProfileInfo(cookies.Value);
             PublicDataCryptoConversation cryptoConversation = JsonConvert.DeserializeObject<PublicDataCryptoConversation>(ansver_to_cripto_chat);
 
 
@@ -154,7 +154,7 @@ namespace Slug.Hubs
                 {
                      Name = fromUser.Name,
                      SurName = fromUser.SurName,
-                     AvatatURI = Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 60, 60),
+                     AvatatURI = fromUser.SmallAvatar,
                      Text = message,
                      DialogId = guidChatId,
                      UserSenderId = fromUserID
@@ -162,7 +162,7 @@ namespace Slug.Hubs
 
                 Clients.Clients(UserRecipientsConnectionIds.ConnectionId)
                     .GetCryptoMessage(messageModel,
-                    Resize.ResizedAvatarUri(fromUser.AvatarResizeUri, ModTypes.c_scale, 100, 100),
+                    fromUser.MediumAvatar,
                     cryptoDialogModel.RemainingMins,
                     cryptoDialogModel.RemainingSecs,
                     cryptoDialogModel.CloseDate.ToString("D")

@@ -69,7 +69,7 @@ namespace Sluuug.Hubs
 
                         var messageModel = new MessageModel()
                         {
-                            AvatarPath = Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 60, 60),
+                            AvatarPath = user.SmallAvatar,
                             UserName = user.Name,
                             UserSurname = user.SurName,
                             Text = clearMsg,
@@ -79,7 +79,7 @@ namespace Sluuug.Hubs
                         if (UserRecipientsConnectionIds != null)
                         {
                             Clients.Clients(UserRecipientsConnectionIds.ConnectionId)
-                                .GetMessage(messageModel, Resize.ResizedAvatarUri(user.AvatarResizeUri, ModTypes.c_scale, 100, 100));
+                                .GetMessage(messageModel, user.MediumAvatar);
                             var responce = new NotificationModel();
                             responce.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                             responce.FromUser = user;

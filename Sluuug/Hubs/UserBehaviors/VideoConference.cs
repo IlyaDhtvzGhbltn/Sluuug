@@ -32,39 +32,26 @@ namespace Slug.Hubs
             this.Clients = clients;
         }
 
-        /// <summary>
-        /// use like notify about new video-conference invite
-        /// </summary>
-        /// <param name="calleUserId"></param>
-        /// <returns></returns>
         public async Task<NotificationModel> CreateAndInvite(int calleUserId)
         {
             var info = CultureInfo.CurrentCulture;
-            Cookie cookies = base.Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            BaseUser userInfo = this.userInfoHandler.ProfileInfo(cookies.Value, false);
+            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
+            BaseUser userInfo = userInfoHandler.ProfileInfo(cookies.Value);
             string guid = videoConferenceHandler.Create(userInfo.UserId, calleUserId);
             if (!string.IsNullOrWhiteSpace(guid))
             {
                 Guid guidPars = Guid.Parse(guid);
                 var UserRecipientsConnectionIds = new UserConnectionIdModel();
                 UserRecipientsConnectionIds = this.connectionsHandler.GetConnectionById(calleUserId);
-
                 var model = new IncomingInviteModel()
                 {
                     CallerName = userInfo.Name,
                     CallerSurName = userInfo.SurName,
                     InviterID = userInfo.UserId,
                     ConferenceID = guidPars,
-                    AvatarResizeUri = Resize.ResizedAvatarUri(userInfo.AvatarResizeUri, ModTypes.c_scale, 50, 50)
+                    AvatarResizeUri = userInfo.SmallAvatar
                 };
                 Clients.Caller.CallerGuidToRedirect(guidPars);
-
-                //var culture = CultureInfo.CurrentCulture;
-                //string html = Helpers.HTMLGenerated.VideoConferenceInviteToRedirect.GenerateHtml(model, UserRecipientsConnectionIds.CultureCode[0]);
-                //model.Html = html;
-                //string json = JsonConvert.SerializeObject(model);
-                //Clients.Clients(UserRecipientsConnectionIds.ConnectionId).CalleInviteToRedirect(json);
-
                 var response = new NotificationModel();
                 response.ConnectionIds = UserRecipientsConnectionIds.ConnectionId;
                 response.FromUser = userInfo;
