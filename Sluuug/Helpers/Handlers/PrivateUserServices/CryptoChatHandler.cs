@@ -132,30 +132,33 @@ namespace Slug.Helpers
                                             x.UserId != cryptoChatUserId).UserId;
 
                         BaseUser interlocutor = userHandler.BaseUser(interlocutorID);
-                        chat.InterlocutorName = interlocutor.Name;
-                        chat.InterlocutorSurName = interlocutor.SurName;
-                        chat.InterlocutorAvatar = interlocutor.MediumAvatar;
-
-                        var GuidId = chatGroup.PartyGUID;
-                        var count = context.SecretMessage.Count(x=>x.PartyId == GuidId);
-                        if (count > 0)
+                        if (interlocutor != null)
                         {
-                            SecretMessages last = context.SecretMessage.ToList().Last();
-                            BaseUser lastMessageSenderInfo = userHandler.BaseUser(last.UserSender);
+                            chat.InterlocutorName = interlocutor.Name;
+                            chat.InterlocutorSurName = interlocutor.SurName;
+                            chat.InterlocutorAvatar = interlocutor.MediumAvatar;
 
-                            chat.LastMessage = last.Text;
-                            chat.LastMessageSendDate = last.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
-                            chat.LastMessageSenderName = lastMessageSenderInfo.Name;
-                            chat.LastMessageSenderSurName = lastMessageSenderInfo.SurName;
+                            var GuidId = chatGroup.PartyGUID;
+                            var count = context.SecretMessage.Count(x => x.PartyId == GuidId);
+                            if (count > 0)
+                            {
+                                SecretMessages last = context.SecretMessage.ToList().Last();
+                                BaseUser lastMessageSenderInfo = userHandler.BaseUser(last.UserSender);
+
+                                chat.LastMessage = last.Text;
+                                chat.LastMessageSendDate = last.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
+                                chat.LastMessageSenderName = lastMessageSenderInfo.Name;
+                                chat.LastMessageSenderSurName = lastMessageSenderInfo.SurName;
+                            }
+
+
+                            if (status == CryptoChatStatus.SelfCreated)
+                                model.OutCommingInviters.Add(chat);
+                            else if (status == CryptoChatStatus.Accepted)
+                                model.CurrentActiveChats.Add(chat);
+                            else if (status == CryptoChatStatus.PendingAccepted)
+                                model.IncommingInviters.Add(chat);
                         }
-
-
-                        if (status == CryptoChatStatus.SelfCreated)
-                            model.OutCommingInviters.Add(chat);
-                        else if (status == CryptoChatStatus.Accepted)
-                            model.CurrentActiveChats.Add(chat);
-                        else if (status == CryptoChatStatus.PendingAccepted)
-                            model.IncommingInviters.Add(chat);
                     }
                 }
             }

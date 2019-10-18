@@ -3,7 +3,17 @@
    // Layout = "~/Views/Shared/Logo.cshtml";
 }
 @using Slug.Extensions;
+<head>
+    <link rel="icon" href="/Resources/images/favicon.ico" type="image/x-icon">
+    <link href="~/Styles/errors/error-template.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="unath-container">
 
-
-<h2>@Html.Translate("Error_Not_Fount_Title")</h2>
-<span>@Html.Translate("Error_Not_Fount_Message") <a href="~/guest/index">@Html.Translate("Here")</a></span>
+        <h1>@Html.Translate("Error_Not_Fount_Title")</h1>
+        <span>
+            @Html.Translate("Error_Not_Fount_Message")
+        </span>
+            <a class="reload-link" href="~/guest/index">@Html.Translate("Here")</a>
+    </div>
+</body>

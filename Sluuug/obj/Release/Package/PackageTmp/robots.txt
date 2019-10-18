@@ -1,0 +1,6 @@
+User-agent:*
+Disallow: /error/*
+Disallow: /partial/*
+Disallow: /private/*
+Disallow: /api/*
+Sitemap: https://friendlynet.ru/sitemap.xml

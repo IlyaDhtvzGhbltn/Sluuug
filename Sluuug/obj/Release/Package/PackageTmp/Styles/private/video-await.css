@@ -1,0 +1,79 @@
+#circular3dG {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    margin-top:40px;
+}
+
+.circular3dG {
+    position: absolute;
+    background-color: rgba(149,223,228,0.89);
+    width: 13px;
+    height: 13px;
+    border-radius: 11px;
+    animation-name: bounce_circular3dG;
+    animation-duration: 0.622s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+#circular3d_1G {
+    left: 51px;
+    top: 9px;
+    animation-delay: 0.2295s;
+}
+
+#circular3d_2G {
+    left: 79px;
+    top: 30px;
+    animation-delay: 0.316s;
+}
+
+#circular3d_3G {
+    left: 94px;
+    top: 57px;
+    animation-delay: 0.3925s;
+}
+
+#circular3d_4G {
+    left: 87px;
+    top: 85px;
+    animation-delay: 0.469s;
+}
+
+#circular3d_5G {
+    left: 53px;
+    top: 94px;
+    animation-delay: 0.5455s;
+}
+
+#circular3d_6G {
+    left: 11px;
+    top: 62px;
+    animation-delay: 0.622s;
+}
+
+#circular3d_7G {
+    left: 0px;
+    top: 17px;
+    animation-delay: 0.6985s;
+}
+
+#circular3d_8G {
+    left: 21px;
+    top: 0px;
+    animation-delay: 0.775s;
+}
+
+
+
+@keyframes bounce_circular3dG {
+    0% {
+        transform: scale(3)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}

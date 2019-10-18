@@ -233,6 +233,7 @@
     <Content Include="Styles\common\await.css" />
     <Content Include="Styles\common\navigation-arrows-style.css" />
     <Content Include="Styles\errors\oops-style.css" />
+    <Content Include="Styles\errors\error-template.css" />
     <Content Include="Styles\guest\index_form.css" />
     <Content Include="Styles\guest\index_style.css" />
     <Content Include="Styles\guest\vk-oauth-style.css" />

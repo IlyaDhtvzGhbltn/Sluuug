@@ -133,7 +133,6 @@ namespace Slug.Helpers
                 List<VideoConference> activeConference = ActiveVideoConverence(context, myId);
                 if (activeConference.Count > 0)
                 {
-                    model.IsIncommingExist = true;
                     foreach (var item in activeConference)
                     {
                         var incoming = new IncomingInviteModel();
@@ -143,12 +142,16 @@ namespace Slug.Helpers
                             .Select(x => x.UserId)
                             .First();
                         BaseUser info = usersHandler.BaseUser(participantID);
+                        if (info != null)
+                        {
+                            model.IsIncommingExist = true;
 
-                        incoming.InviterID = participantID;
-                        incoming.CallerName = usersHandler.BaseUser(participantID).Name;
-                        incoming.CallerSurName = usersHandler.BaseUser(participantID).SurName;
-                        incoming.AvatarResizeUri = info.MediumAvatar;
-                        model.IncomingCalls.Add(incoming);
+                            incoming.InviterID = participantID;
+                            incoming.CallerName = usersHandler.BaseUser(participantID).Name;
+                            incoming.CallerSurName = usersHandler.BaseUser(participantID).SurName;
+                            incoming.AvatarResizeUri = info.MediumAvatar;
+                            model.IncomingCalls.Add(incoming);
+                        }
                     }
                 }
             }

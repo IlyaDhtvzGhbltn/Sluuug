@@ -477,25 +477,28 @@ namespace Slug.Helpers
                     foreach (int friendId in friendsIds)
                     {
                         BaseUser userInfo = BaseUser(friendId);
-                        var friend = new BaseUser()
+                        if (userInfo != null)
                         {
-                            UserId = friendId,
-                            LargeAvatar = userInfo.MediumAvatar,
-                            Name = userInfo.Name,
-                            SurName = userInfo.SurName,
-                            Country = userInfo.Country,
-                            City = userInfo.City,
-                            Age = userInfo.Age
-                        };
-                        bool alreadyStart = videoHandler.AlreadyStart(context, friendId, friendId);
-                        friend.IsOnline = IsOnline(context, friendId).GetAwaiter().GetResult();
-                        if (!friend.IsOnline)
-                            friend.AcceptToInfite = VideoConverenceAcceptToCall.offline;
-                        if (friend.IsOnline && !alreadyStart)
-                            friend.AcceptToInfite = VideoConverenceAcceptToCall.online;
-                        if (friend.IsOnline && alreadyStart)
-                            friend.AcceptToInfite = VideoConverenceAcceptToCall.pending;
+                            var friend = new BaseUser()
+                            {
+                                UserId = friendId,
+                                LargeAvatar = userInfo.MediumAvatar,
+                                Name = userInfo.Name,
+                                SurName = userInfo.SurName,
+                                Country = userInfo.Country,
+                                City = userInfo.City,
+                                Age = userInfo.Age
+                            };
+                            bool alreadyStart = videoHandler.AlreadyStart(context, friendId, friendId);
+                            friend.IsOnline = IsOnline(context, friendId).GetAwaiter().GetResult();
+                            if (!friend.IsOnline)
+                                friend.AcceptToInfite = VideoConverenceAcceptToCall.offline;
+                            if (friend.IsOnline && !alreadyStart)
+                                friend.AcceptToInfite = VideoConverenceAcceptToCall.online;
+                            if (friend.IsOnline && alreadyStart)
+                                friend.AcceptToInfite = VideoConverenceAcceptToCall.pending;
                             model.Add(friend);
+                        }
                     }
                 }
             }

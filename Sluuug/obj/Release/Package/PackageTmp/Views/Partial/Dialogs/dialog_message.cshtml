@@ -1,0 +1,29 @@
+﻿@model Slug.Model.Messager.SimpleChat.MessageModel
+@using Slug.Extensions
+
+@{ 
+    string dialogWrapperClass = "dialog-msg-wrapper-out";
+    string dialogContentClass = "out-content";
+    string ownAvatarImgClass = "own-avatar";
+    if (Model.IsIncomming == true)
+    {
+        dialogWrapperClass = "dialog-msg-wrapper-in";
+        dialogContentClass = "in-content";
+        ownAvatarImgClass = "";
+    }
+}
+
+<div class="@dialogWrapperClass">
+    <div class="@dialogContentClass">
+        <div class="message-header" onclick="redirectToUser(@Model.SenderId)">
+            <h4>@Model.UserName @Model.UserSurname</h4>
+            <span>@Model.SendTime</span>
+        </div>
+        <div class="message-body">
+            <div>
+                <img alt="myself avatar"  onclick="redirectToUser(@Model.SenderId)" src="@Model.AvatarPath" class="@ownAvatarImgClass"/>
+            </div>
+            <span>@Model.Text</span>
+        </div>
+    </div>
+</div>

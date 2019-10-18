@@ -1,0 +1,38 @@
+﻿@model Slug.Model.Users.MemorableEventsModel
+@using Slug.Extensions
+
+
+
+<div class="info-item event-item">
+    <div class="event-item-info">
+        <div class="event-title-container">
+            <h3>@Model.EventTitle</h3>
+            <span>@Model.DateEventFormat</span>
+            @if (!string.IsNullOrWhiteSpace(Model.Text))
+            {
+                <span class="user-comment">&laquo;@Model.Text&raquo;</span>
+            }
+        </div>
+    </div>
+    <div class="event-album">
+        @if (Model.Photos.Count <= 5)
+        {
+            foreach (var photo in Model.Photos)
+            {
+                <div class="event-photo-container">
+                    <img alt="small photo" src="@photo.SmallFotoUri" onclick="ExpandAlbum('@Model.Photos[0].Album')" />
+                </div>
+            }
+        }
+        else
+        {
+            for (int i = 0; i <= 4; i++)
+            {
+                <div class="event-photo-container">
+                    <img alt="small photo" src="@Model.Photos[i].SmallFotoUri" onclick="ExpandAlbum('@Model.BindedAlbumId')" />
+                </div>
+            }
+            <div class="more-container"><span class="more-text" onclick="ExpandAlbum('@Model.BindedAlbumId')">Еще...</span></div>
+        }
+    </div>
+</div> 

@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/private_template.cshtml";
+}
+@using Slug.Context.Dto.Search;
+@{
+    var purpose = new Dictionary<DatingPurposeEnum, string>()
+    {
+        {DatingPurposeEnum.Communication, "общения"},
+        {DatingPurposeEnum.SeriousRelationship, "серьезных отношений"},
+        {DatingPurposeEnum.Sex, "секса"},
+        {DatingPurposeEnum.NoDating, "не знакомлюсь"},
+
+    };
+
+    var sex = new Dictionary<SexEnum, string>()
+    {
+        {SexEnum.man, "мужчиной"},
+        {SexEnum.woman, "женщиной"}
+    };
+
+    var age = new Dictionary<AgeEnum, string>()
+    {
+        {AgeEnum.from16to20, "16 - 20 лет"},
+        {AgeEnum.from21to26, "21 - 26 лет"},
+        {AgeEnum.from27to32, "27 - 32 лет"},
+        {AgeEnum.from33to40, "23 - 40 лет"},
+        {AgeEnum.from41to49, "41 - 49 лет"},
+        {AgeEnum.from50to59, "50 - 59 лет"},
+        {AgeEnum.from60to69, "60 - 69 лет"},
+        {AgeEnum.morethan70, "более 70"}
+    };
+}
+
+<link href="~/Styles/private/foreign-user-style.css" rel="stylesheet" />
+<link href="~/Styles/private/profile-info-style.css" rel="stylesheet" />
+
+@using Context;
+@using Slug.Extensions;
+
+<div class="user-profile">
+    <div class="-info -left">
+        <img alt="avatar" src="@Model.LargeAvatar">
+    </div>
+    <div class="-info -right">
+        <h2>@Model.Name @Model.SurName</h2>
+        <span>Возраст : @Model.Age</span>
+        @if (Model.Status != FriendshipItemStatus.IblockUser && Model.Status != FriendshipItemStatus.UserBlockMe)
+        {
+            <span>@Model.Country @Model.City</span>
+            <span id="hello-status" class="user-comment">@Model.HelloMessage</span>
+            <div class="user-search-data">
+                @if (Model.purpose != DatingPurposeEnum.NoDating)
+                {
+                    <span>Познакомлюсь с </span>
+                    <span>@sex[Model.userSearchSex]</span>
+                    <span>@age[Model.userSearchAge]</span>
+                    <span>для @purpose[Model.purpose]</span>
+                }
+                else
+                {
+                    <span>не знакомлюсь</span>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.Status == FriendshipItemStatus.None)
+{
+    <div class="manage-user-contact">
+        <div class="add-contact">
+            <button onclick="addToContacts()">Добавить в контакты</button>
+            <span class="help-message">Что бы начать общение, добавьте пользователя в контакты</span>
+        </div>
+        <div class="block-contact">
+            <input type="checkbox" class="hate-mess-checkbox" />
+            <button>Заблокировать</button>
+            <div class="hate-message-container">
+                <span class="block-message-tooltip">Оставьте сообщение, которое @Model.Name будет видеть при посещении вашей страницы.</span>
+                <textarea class="hate-message-textarea stylized-scrollbar"></textarea>
+                <div class="manage-contact">
+                    <button onclick="blockUser('@Model.UserId', $('.hate-message-textarea').val())">Готово</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Status == FriendshipItemStatus.IInviteUserToContact)
+{
+    <div class="user-profile-status">
+        <span>Ваша заявка ожидает подтверждения ...</span>
+    </div>
+}
+
+else if (Model.Status == FriendshipItemStatus.UserInviteMeToContact)
+{
+    <div class="user-profile-status">
+        <span>@Model.Name предлагает вам дружбу</span>
+        <button onclick="acceptFriendshipInvitation(@Model.UserId)">Принять</button>
+    </div>
+}
+else if (Model.Status == FriendshipItemStatus.UserBlockMe)
+{
+    <div class="user-profile-status">
+        <span>Пользователь заблокировал вас со словами : </span>
+        <br />
+        <span class="last-message">@Model.HateMessage</span>
+    </div>
+}
+else if (Model.Status == FriendshipItemStatus.IblockUser)
+{
+    <div class="user-profile-status">
+        <span>Пользователь заблокирован @Model.BlockDate.ToString("D")</span>
+        <button onclick="UnblockUser('@Model.UserId')">Разблокировать</button>
+    </div>
+}
+<script src="~/Scripts/Private/Contacts/ContactsManage.js"></script>

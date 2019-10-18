@@ -1,0 +1,28 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300&subset=latin,cyrillic);
+
+span,
+h1, a
+{
+    font-family: 'Roboto Condensed';
+    color: #7f7f7f;
+    text-align: center;
+    text-decoration:none;
+}
+
+.unath-container {
+    width: 550px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #7f7f7f;
+}
+
+.reload-link{
+    border:1px solid #7f7f7f;
+    padding:2px;
+    transition:all ease .5s;
+}
+
+.reload-link:hover {
+    background-color: #49B2DA;
+    color: white;
+}

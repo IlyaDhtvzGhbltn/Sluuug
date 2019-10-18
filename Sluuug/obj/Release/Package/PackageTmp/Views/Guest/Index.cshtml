@@ -1,0 +1,240 @@
+﻿@{
+    Layout = "~/Views/Shared/guest.cshtml";
+}
+@using Slug.Extensions;
+<div class="content" itemscope itemtype="http://schema.org/WebPage">
+    <div class="result_empty"></div>
+    <div class="form" id="reg_log">
+        <ul class="tab-group">
+            <li class="tab active" id="reg_toggle" onclick="show_register()"><a>Регистрация</a></li>
+            <li class="tab" id="login_toggle" onclick="show_login()"><a>Вход</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="signup_form" itemscope itemtype="http://schema.org/RegisterAction">
+                <form id="validate_register_form">
+                    <h4>Регистрация</h4>
+                    <div class="top-row">
+                        <div class="field-wrap" itemprop="name">
+                            <input name="Name" placeholder="Имя *" required autocomplete="off" />
+                        </div>
+                        <div class="field-wrap" itemprop="name">
+                            <input name="SurName" placeholder="Фамилия *" required autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="field-wrap" itemprop="agent">
+                        <input type="email" name="Email" placeholder="Email Адрес *" required autocomplete="off" oninput="verify_email(this)" />
+                        <div id="email_space"></div>
+                    </div>
+                    <div class="field-wrap">
+                        <input name="Login" placeholder="Придумайте логин *" required autocomplete="off" oninput="verify_login(this)" />
+                        <div id="login_space"></div>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Выберите страну :</label>
+                        <select name="CountryCode" id="country_list">
+                            <option class="option" value="7">Россия</option>
+                            <option class="option" value="380">Украина</option>
+                            <option class="option" value="375">Белорусь</option>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Пол</label>
+                        <select name="Sex" id="country_list">
+                            <option class="option" value="0">Жен</option>
+                            <option class="option" value="1">Муж</option>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Выберите дату рождения :</label>
+                        <input id="select_date" name="DateBirth" min="@ViewBag.MinRegistrationDate" max="@ViewBag.MaxRegistrationDate" type="date" required autocomplete="off" />
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
+                    </div>
+                    <button class="button button-block" id="reg_subm" onclick="register()">Зарегистрироваться</button>
+                </form>
+            </div>
+            <div id="login_form" itemscope itemtype="http://schema.org/JoinAction">
+                <form id="validate_login_form">
+                    <h4>Добро пожаловать снова!</h4>
+                    <div class="field-wrap" itemprop="name">
+                        <input type="text" placeholder="Логин при регистрации *" name="login" required autocomplete="off" />
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
+                    </div>
+                    <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
+                    <button class="button button-block" id="log_subm" onclick="logIn()">Вход</button>
+                </form>
+            </div>
+            <div id="repassword_form" itemscope itemtype="http://schema.org/WebPage">
+                <form id="reset_password_form">
+                    <h4>Обновить пароль</h4>
+                    <p>Введите адрес электронной почты, использованный при регистрации.</p>
+                    <div itemprop="text" class="field-wrap">
+                        <input itemprop="text" placeholder="Email Адрес *" type="email" name="email" id="oldEmailToReset" required autocomplete="off" />
+                    </div>
+                    <input type="button" class="button button-block" id="reset_subm" onclick="resetPassword()" value="Выслать пароль" />
+                </form>
+            </div>
+            <div id="oauth_form">
+                <span>Или войдите через </span>
+                <div class="oauth-options-list">
+                    <div class="oauth-item-wrapper oauth-vk-wrapper" onclick="oauth_login_vk()">
+                        <div class="oauth-item-ico-wrapper">
+                            <img src="~/Resources/images/vk_ico.png" />
+                        </div>
+                        <div class="item-text-wrapper oauth-vk">
+                            <div class="text-center">
+                                <span class="oauth-item-log-text">Войти через контакт VK.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="vk_auth"></div>
+            </div>
+        </div><!-- tab-content -->
+        <div class="error-message-form" style="color:red" id="not_filled"><p>Пожалуйста, заполните верно все поля *</p></div>
+        <div class="error-message-form" style="color:red" id="invalid_credentials"><p>Логин или пароль неверен или учетная запись не активированна</p></div>
+        <div class="error-message-form" style="color:red" id="invalid_emeil"><p>Неверный адрес электронной почты.</p></div>
+        <div class="error-message-form" style="color:green" id="reset_emeil"><p>Инструкция по восстановлению пароля выслана на указанный адрес.</p></div>
+
+        <div id="circular3dG" hidden>
+            <div id="circular3d_1G" class="circular3dG"></div>
+            <div id="circular3d_2G" class="circular3dG"></div>
+            <div id="circular3d_3G" class="circular3dG"></div>
+            <div id="circular3d_4G" class="circular3dG"></div>
+            <div id="circular3d_5G" class="circular3dG"></div>
+            <div id="circular3d_6G" class="circular3dG"></div>
+            <div id="circular3d_7G" class="circular3dG"></div>
+            <div id="circular3d_8G" class="circular3dG"></div>
+        </div>
+    </div>
+    <div class="main" id="main">
+        <h1 itemprop="name">FriendNote - социальная сеть с видеосвязью и end-to-end шифрованием сообщений</h1>
+        <p itemprop="description">Поиск друзей по всему миру, бесплатная, безлимитная видео связь, передача зашифрованных сообщений, чтение сообщений в момент набора.</p>
+        <p itemprop="description">FriendNote это современный сервис для поиска знакомств и общения, сочетающий в себе множество полезных функций, включая видео и аудио связь, шифрование сообщений, автоматическую систему бана ботов, флудеров и спамеров.</p>
+        <p itemprop="description">
+            FriendNote позволяет не только отправлять мгновенные сообщения, но и читать еще не отправленные сообщения. И даже если собеседник передумает и удалит набранный текст, он все равно будет виден в вашем чате до того как собеседник полностью сотрет его.
+        </p>
+        <p itemprop="description">
+            Стабильная видеосвязь позволит передать ваши эмоции на любые расстояния.
+        <p itemprop="description">
+            Хотите, чтобы ваш разговор с собеседником остался конфиденциальным - к вашим услугам секретный чат, доступ к которому имеете только вы с собеседником.
+        </p>
+        <p itemprop="description">Автоматический пожизненный бан за любой спам, хамство или активный флуд.</p>
+    </div>
+    <div class="functions" id="functions">
+        <div class="function-demo-container">
+            <img src="~/Resources/images/heart.png" />
+            <h1 itemprop="name">Знакомства</h1>
+        </div>
+        <p itemprop="description">
+            Ищете новых знакомств? Здесь вы можете найти друзей по всему миру или оставаться на связи со старыми. К вашим услугам гибкая система поиска, быстрые уведомления и только реальные люди.
+            А кроме стандартных возможностей, вы можете попробовать общение при котором вы и ваш собеседник видите даже набор сообщения со всеми правками.
+            Это может быть гораздо интереснее т.к. вы видите не только то что было отправлено но и то что вам так и не решились отправить.
+        </p>
+
+        <div class="function-demo-container">
+            <img src="~/Resources/images/encryption.png" />
+            <h1 itemprop="name">End-to-End шифрование</h1>
+        </div>
+        <p itemprop="description">
+            Для того что бы ваши переписки всегда оставались тайной, воспользуйтесь функцией <b>секретный чат</b>.
+            Его особенность в том, что каждое полученное и отправленное сообщение шифруется в вашем браузере и никто кроме вас и вашего собеседника не сможет их прочесть. Даже если злоумышленник сумеет залогинится от вашего имени - он не сможет прочитать переписку.
+            Т.к. сообщения привязаны к устройству на котором был создан чат.
+        </p>
+        <p itemprop="description">Будьте внимательны - в целях безопасности каждый секретный чат обладает таймаутом, по прошествию которого чат будет закрыт для отправки новых сообщений.</p>
+
+        <div class="function-demo-container">
+            <img src="~/Resources/images/video-call.png" />
+            <h1 itemprop="name">Видео звонок</h1>
+        </div>
+        <p itemprop="description">
+            Что бы ваше общение и знакомства оставляли только позитивные впечатления, используйте видео звонки.
+            Высокое качество видео и низкая задержка благодаря <b>perr-to-peer</b> соединению позволит вам легко связаться с друзьями и коллегами где бы они ни были.
+        </p>
+        <div class="function-demo-container">
+            <img src="~/Resources/images/notreading.png" />
+            <h1 itemprop="name">Просмотр набираемых сообщений</h1>
+        </div>
+        <p itemprop="description">
+            Вы можете наблюдать за набором сообщения вашим собеседником. Если сообщение не было отправлено то оно не сохранится и будет доступно только до перезагрузки страницы. Использовать эту опцию можно только когда <b>быстрые сообщения</b> включены в настройках обоих собеседников.
+        </p>
+        <div class="function-demo-container">
+            <img src="~/Resources/images/spam.png" />
+            <h1>Система против ботов</h1>
+        </div>
+        <p itemprop="description">На сайте действует строгий алгоритм бана для спамеров и флудеров. Избежать пожизненного бана очень просто - не оставляете однотипных комментариев и не отправляйте более 1 заявки в друзья в минуту.</p>
+    </div>
+    <div class="help" id="help" itemscope itemtype="http://schema.org/WebPage">
+        <h2>Справка</h2>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Что необходимо для регистрации ?</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">Регистрация и возможность пользоваться всеми функциями сервиса совершенно бесплатно. Достаточно только <b>email</b> адреса.</p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Пропали сообщения в секретном чате.</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">
+                    Каждый секретный чат имеет строго отведенное время жизни, по прошествию которого сообщения безвозвратно удаляются.
+                    Это сделано в целях безопасности, что бы никто не смог взломать вашу переписку.
+                </p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Сообщения в секретном чате отображаются некорректно.</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">
+                    Если при входе в секретный чат вы обнаружили, что переписка стала нечитаемой на то может быть несколько причин. Самая распространенная - вход с другого устройства или браузера.
+                    При создании чата генерируются секретные ключи которые сохраняются только в вашем браузере и следовательно переписка будет доступна только в нем.
+                    Если вы переустановили браузер или удалили профиль в браузере или очистили папку профиля браузера, который создавал чат - ключи будут утеряны вместе с перепиской.
+                </p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">У меня стоит настройка <b>быстрые сообщения</b> но я все равно вижу сообщения только после отправки мне.</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">Режим <b>быстрые сообщенияe</b> должен быть включен у обоих собеседников.</p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Как включить режим <b>быстрые сообщения</b>?</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">Для этого необходимо пройти в настройки и активировать переключатель <b>быстрые сообщения</b>.</p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Как отправлять сообщения другим пользователям?</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">Что бы отправить сообщение пользователю, нужно вначале добавить его в свои контакты и дождаться положительного ответа. Если пользователь не примет ваше приглашение то - отправка сообщений и видеосвязь будет недоступна.</p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Я переписывался с пользователем но теперь не могу с ним связаться.</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">Возможно пользователь случайно удалил вас из контактов. Если это так попробуйте отправить заявку еще раз.</p>
+            </div>
+        </div>
+
+        <div class="question" itemscope itemtype="http://schema.org/Question">
+            <h3 itemprop="name">Здесь нет нужного ответа.</h3>
+            <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+                <p itemprop="text">Если у вас остались вопросы, воспользуйтесь формой обратной связи. Мы постараемся ответить вам в ближайшее время.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () { show_login(); };
+</script>
