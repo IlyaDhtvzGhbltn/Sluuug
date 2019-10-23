@@ -90,12 +90,15 @@ function resetPassword() {
 function sendFeedback() {
     $('#success').fadeOut();
     $('#error').fadeOut();
-
-    let validation = validateFormById('feedBackForm');
-    var len = $('#feed_back_text')[0].textLength;
+    var len = $("#feed_back_text").val().length;
     console.log(len);
-    var json = parceJSON($('#feedBackForm').serializeArray());
-    if (validation && len >= 100) {
+    if (len >= 100) {
+        var json = {
+            "Subject": $("#Subject").val(),
+            "Email": $("#Email").val(),
+            "Message": $("#feed_back_text").val()
+        };
+
         $.ajax({
             url: '/public_api/feed_back',
             method: 'post',

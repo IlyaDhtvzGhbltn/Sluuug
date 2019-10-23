@@ -87,8 +87,16 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
 
                                 registerModel.Sex = vkSexUserParse(vkUser.Sex);
                                 registerModel.DateBirth = vkDateTimeParse(vkUser.Bdate);
-                                registerModel.CountryCode = vkCountryCodeParse(context, vkUser.Country.Id, vkUser.Country.Title);
-                                registerModel.CityCode = vkCityCodeParse(context, vkUser.City.Id, registerModel.CountryCode, vkUser.City.Title);
+                                if (vkUser.Country != null && vkUser.City != null)
+                                {
+                                    registerModel.CountryCode = vkCountryCodeParse(context, vkUser, true);
+                                    registerModel.CityCode = vkCityCodeParse(context, vkUser, registerModel.CountryCode, true);
+                                }
+                                else
+                                {
+                                    registerModel.CountryCode = vkCountryCodeParse(context, vkUser, false);
+                                    registerModel.CityCode = vkCityCodeParse(context, vkUser, registerModel.CountryCode, false);
+                                }
                                 context.VkOAuthTokens.First(x => x.Id == entry.Id).IsExpired = true;
                                 await context.SaveChangesAsync();
                                 return registerModel;
@@ -114,43 +122,63 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
                 return 0;
         }
 
-        private int vkCountryCodeParse(DataBaseContext context, int vkCountryCode, string vkCountryTitle)
+        private int vkCountryCodeParse(DataBaseContext context, VkUserInfo vkUser, bool fieldAvailable)
         {
-            Countries countryEntry = context.Countries.FirstOrDefault(x => x.Title == vkCountryTitle);
-            if (countryEntry != null)
-                return countryEntry.CountryCode;
+            if (fieldAvailable)
+            {
+                int vkCountryCode = vkUser.Country.Id;
+                string vkCountryTitle = vkUser.Country.Title;
+
+                Countries countryEntry = context.Countries.FirstOrDefault(x => x.Title == vkCountryTitle);
+                if (countryEntry != null)
+                    return countryEntry.CountryCode;
+                else
+                {
+                    context.Countries.Add(new Context.Tables.Countries()
+                    {
+                        CountryCode = vkCountryCode,
+                        Language = LanguageType.Ru,
+                        Title = vkCountryTitle
+                    });
+                    context.SaveChanges();
+                    return vkCountryCode;
+                }
+            }
             else
             {
-                context.Countries.Add(new Context.Tables.Countries()
-                {
-                     CountryCode = vkCountryCode,
-                     Language = LanguageType.Ru,
-                     Title = vkCountryTitle
-                });
-                context.SaveChanges();
-                return vkCountryCode;
+                return 7;
             }
         }
 
-        private int vkCityCodeParse(DataBaseContext context, int vkCityCode, int vkCountryCode, string vkCityTitle)
+        private int vkCityCodeParse(DataBaseContext context, VkUserInfo vkUser, int vkCountryCode, bool fieldAvailable)
         {
-            Cities cityCode = context.Cities.FirstOrDefault(x => x.Title == vkCityTitle);
-            if (cityCode != null)
-                return cityCode.CitiesCode;
-            Cities cityCodeUp = context.Cities.FirstOrDefault(x => x.Title == vkCityTitle.ToUpper());
-            if (cityCodeUp != null)
-                return cityCodeUp.CitiesCode;
+            if (fieldAvailable)
+            {
+                int vkCityCode = vkUser.City.Id;
+                string vkCityTitle = vkUser.City.Title;
+
+                Cities cityCode = context.Cities.FirstOrDefault(x => x.Title == vkCityTitle);
+                if (cityCode != null)
+                    return cityCode.CitiesCode;
+                Cities cityCodeUp = context.Cities.FirstOrDefault(x => x.Title == vkCityTitle.ToUpper());
+                if (cityCodeUp != null)
+                    return cityCodeUp.CitiesCode;
+                else
+                {
+                    context.Cities.Add(new Cities()
+                    {
+                        CitiesCode = vkCityCode,
+                        CountryCode = vkCountryCode,
+                        Title = vkCityTitle,
+                        Language = LanguageType.Ru
+                    });
+                    context.SaveChanges();
+                    return vkCityCode;
+                }
+            }
             else
             {
-                context.Cities.Add(new Cities()
-                {
-                     CitiesCode = vkCityCode,
-                     CountryCode = vkCountryCode,
-                     Title = vkCityTitle,
-                     Language = LanguageType.Ru
-                });
-                context.SaveChanges();
-                return vkCityCode;
+                return 495;
             }
         }
     }
