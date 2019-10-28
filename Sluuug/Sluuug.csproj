@@ -165,6 +165,7 @@
     <Content Include="Resources\images\brand.png" />
     <Content Include="Resources\images\contacts_ico.png" />
     <Content Include="Resources\images\encryption.png" />
+    <Content Include="Resources\images\facebook-ico.png" />
     <Content Include="Resources\images\favicon.ico" />
     <Content Include="Resources\images\heart.png" />
     <Content Include="Resources\images\home_ico.png" />
@@ -234,6 +235,7 @@
     <Content Include="Styles\common\navigation-arrows-style.css" />
     <Content Include="Styles\errors\oops-style.css" />
     <Content Include="Styles\errors\error-template.css" />
+    <Content Include="Styles\guest\fb-oauth-style.css" />
     <Content Include="Styles\guest\index_form.css" />
     <Content Include="Styles\guest\index_style.css" />
     <Content Include="Styles\guest\vk-oauth-style.css" />
@@ -297,8 +299,10 @@
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
     <Compile Include="Context\Dto\Notification\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
-    <Compile Include="Context\Dto\OAuth\VkToken.cs" />
-    <Compile Include="Context\Dto\OAuth\VkUserInfo.cs" />
+    <Compile Include="Context\Dto\OAuth\Fb\FbToken.cs" />
+    <Compile Include="Context\Dto\OAuth\Fb\FBUserInfo.cs" />
+    <Compile Include="Context\Dto\OAuth\Vk\VkToken.cs" />
+    <Compile Include="Context\Dto\OAuth\Vk\VkUserInfo.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
     <Compile Include="Context\Dto\Search\DatingPurposeEnum.cs" />
@@ -333,6 +337,7 @@
     <Compile Include="Controllers\public_apiController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
+    <Compile Include="Helpers\Handlers\OAuthHandlers\FbOAuthHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\DisableConversationHandler.cs" />
     <Compile Include="Helpers\Handlers\SystemHandlers\NotificationHandler.cs" />
@@ -343,33 +348,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201910151622027_vk_login.cs" />
-    <Compile Include="Migrations\201910151622027_vk_login.Designer.cs">
-      <DependentUpon>201910151622027_vk_login.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910160943478_vk_tokens_tbo.cs" />
-    <Compile Include="Migrations\201910160943478_vk_tokens_tbo.Designer.cs">
-      <DependentUpon>201910160943478_vk_tokens_tbo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910161013443_vk_tokens_tbo2.cs" />
-    <Compile Include="Migrations\201910161013443_vk_tokens_tbo2.Designer.cs">
-      <DependentUpon>201910161013443_vk_tokens_tbo2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910161015058_vk_tokens_tbo3.cs" />
-    <Compile Include="Migrations\201910161015058_vk_tokens_tbo3.Designer.cs">
-      <DependentUpon>201910161015058_vk_tokens_tbo3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910161454569_vk_tokens_tbo4.cs" />
-    <Compile Include="Migrations\201910161454569_vk_tokens_tbo4.Designer.cs">
-      <DependentUpon>201910161454569_vk_tokens_tbo4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910170832209_regtype.cs" />
-    <Compile Include="Migrations\201910170832209_regtype.Designer.cs">
-      <DependentUpon>201910170832209_regtype.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910171315587_lms_avatars from vk.cs" />
-    <Compile Include="Migrations\201910171315587_lms_avatars from vk.Designer.cs">
-      <DependentUpon>201910171315587_lms_avatars from vk.cs</DependentUpon>
+    <Compile Include="Migrations\201910251404422_init.cs" />
+    <Compile Include="Migrations\201910251404422_init.Designer.cs">
+      <DependentUpon>201910251404422_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -463,10 +444,10 @@
     <Compile Include="Model\VideoConference\CallModel.cs" />
     <Compile Include="Model\VideoConference\HistoryConferenceModel.cs" />
     <Compile Include="Model\VideoConference\IncomingInviteModel.cs" />
-    <Compile Include="Model\VkModels\AccessTokenModel.cs" />
-    <Compile Include="Context\Dto\OAuth\VkOauthExistStatus.cs" />
-    <Compile Include="Context\Dto\OAuth\vkOAuthStatusEnum.cs" />
-    <Compile Include="Model\VkModels\VkRegisteringUserModel.cs" />
+    <Compile Include="Model\OAuthModels\AccessTokenModel.cs" />
+    <Compile Include="Context\Dto\OAuth\OauthExistStatus.cs" />
+    <Compile Include="Context\Dto\OAuth\Vk\OAuthStatusEnum.cs" />
+    <Compile Include="Model\OAuthModels\OutRegisteringUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -537,6 +518,7 @@
     <Content Include="Views\Partial\Albums\ExpandFriendAlbum.cshtml" />
     <Content Include="Views\Partial\Contacts\black_list_entry.cshtml" />
     <Content Include="Views\Guest\vk_oauth.cshtml" />
+    <Content Include="Views\Guest\fb_oauth.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -549,26 +531,8 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910151622027_vk_login.resx">
-      <DependentUpon>201910151622027_vk_login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910160943478_vk_tokens_tbo.resx">
-      <DependentUpon>201910160943478_vk_tokens_tbo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910161013443_vk_tokens_tbo2.resx">
-      <DependentUpon>201910161013443_vk_tokens_tbo2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910161015058_vk_tokens_tbo3.resx">
-      <DependentUpon>201910161015058_vk_tokens_tbo3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910161454569_vk_tokens_tbo4.resx">
-      <DependentUpon>201910161454569_vk_tokens_tbo4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910170832209_regtype.resx">
-      <DependentUpon>201910170832209_regtype.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910171315587_lms_avatars from vk.resx">
-      <DependentUpon>201910171315587_lms_avatars from vk.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910251404422_init.resx">
+      <DependentUpon>201910251404422_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

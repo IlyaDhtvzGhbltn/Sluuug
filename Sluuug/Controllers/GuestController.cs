@@ -124,6 +124,12 @@ namespace Slug.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult fb_oauth(string state)
+        {
+            return View();
+        }
+
 
         private bool isUserEmpty(RegisteringUserModel user)
         {

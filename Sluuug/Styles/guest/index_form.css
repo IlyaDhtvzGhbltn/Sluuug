@@ -119,6 +119,7 @@ label {
     color:#7f7f7f;
 }
 
+.oauth-item-wrapper:hover > .oauth-fb,
 .oauth-item-wrapper:hover > .oauth-vk,
 .oauth-item-wrapper:hover {
     background-color: #E1EEEF;
@@ -146,8 +147,18 @@ label {
     transition:all ease .5s;
 }
 
+.oauth-fb {
+    background-color: #4a6ea9;
+    transition: all ease .5s;
+}
+
 .oauth-vk-wrapper {
     background-color: aliceblue;
+}
+
+.oauth-fb-wrapper {
+    background-color: #8ba2c8;
+    transition: all ease .5s;
 }
 
 .item-text-wrapper {
@@ -188,10 +199,10 @@ input, textarea {
     transition: border-color .25s ease, box-shadow .25s ease;
 }
 
-    input:focus, textarea:focus {
-        outline: 15;
-        border-color: #1A8BB1;
-    }
+input:focus, textarea:focus {
+    outline: 15;
+    border-color: #1A8BB1;
+}
 
 textarea {
     border: 2px solid #a0b3b0;

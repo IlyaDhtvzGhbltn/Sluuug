@@ -8,6 +8,6 @@ namespace Slug.Context
     public enum AvatarTypesEnum
     {
         SelfLoad = 0,
-        VkLoad = 1
+        OutNetLoad = 1
     }
 }

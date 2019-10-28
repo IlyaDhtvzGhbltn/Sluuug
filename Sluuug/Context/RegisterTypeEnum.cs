@@ -8,6 +8,7 @@ namespace Slug.Context
     public enum RegisterTypeEnum
     {
         SelfUser,
-        VkUser
+        VkUser,
+        FbUser
     }
 }

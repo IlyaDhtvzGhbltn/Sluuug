@@ -74,6 +74,10 @@ function oauth_login_vk() {
     window.location.replace("https://oauth.vk.com/authorize?client_id=7170448&redirect_uri=" + window.location.origin + "/guest/vk_oauth");
 }
 
+function oauth_login_fb() {
+    window.location.replace("https://graph.facebook.com/oauth/authorize?client_id=542648449895338&redirect_uri=" + window.location.origin + "/guest/fb_oauth&scope=public_profile");
+}
+
 
 $(document).ready(function () {
     $('a[href^="#"]').on('click', function (event) {

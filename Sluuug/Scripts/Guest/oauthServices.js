@@ -5,19 +5,13 @@
         data: { code : vkcode },
         success: function (resp) {
             console.log(resp);
+            verifyUserStatus(resp);
             if (resp.status == 0) {
-                $("#vk-status").text('Регестрируем нового пользователя...');
                 vkUserRegister(vkcode);
             }
             if (resp.status == 1) {
-                $("#vk-status").text('Открываем профиль...');
                 document.location.replace("/");
-            }
-            if (resp.status == 10) {
-                $("#vk-status").text('Возникла ошибка авторизации. Вернитесь на главную страницу и повторите попытку. Если ошибка повторяется попробуйте отключить прокси в браузере.');
-                $('.await-anim').fadeOut();
-                $('#vk-status').css({"color":"red"});
-            }
+              }
         }
     });
 }
@@ -35,4 +29,35 @@ function vkUserRegister(vkcode) {
             }
         }
     });
+}
+
+function checkFbUser(fbCode)
+{
+    console.log(fbCode);
+    $.ajax({
+        type: 'post',
+        url: '/public_api/verifyfbuser',
+        data: { code: fbCode },
+        success: function (resp) {
+            console.log(resp);
+            verifyUserStatus(resp);
+            if (resp.status == 0 || resp.status == 1) {
+                document.location.replace("/");
+            }
+        }
+    });
+}
+
+function verifyUserStatus(resp) {
+    if (resp.status == 0) {
+        $("#status").text('Регестрируем нового пользователя...');
+    }
+    if (resp.status == 1) {
+        $("#status").text('Открываем профиль...');
+    }
+    if (resp.status == 10) {
+        $("#status").text('Возникла ошибка авторизации. Вернитесь на главную страницу и повторите попытку. Если ошибка повторяется попробуйте отключить прокси в браузере.');
+        $('.await-anim').fadeOut();
+        $('#status').css({ "color": "red" });
+    }
 }

@@ -20,7 +20,8 @@ namespace Context
         public virtual DbSet<SessionType> SessionTypes { get; set; }
 
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserInfo> UsersInfos { get; set; }
+        public virtual DbSet<UserInfo> UsersInfo { get; set; }
+
         public virtual DbSet<UserSettings> UserSettings { get; set; }
 
         public virtual DbSet<UserStatus> UserStatuses { get; set; }

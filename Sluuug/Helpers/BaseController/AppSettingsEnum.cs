@@ -23,6 +23,9 @@ namespace Slug.Helpers.BaseController
         messagesOnPage,
 
         oauthVkRedirectUri,
-        vkAppId
+        vkAppId,
+
+        fbAppId,
+        oauthFbRedirectUri
     }
 }

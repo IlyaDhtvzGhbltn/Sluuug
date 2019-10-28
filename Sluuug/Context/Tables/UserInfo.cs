@@ -43,8 +43,8 @@ namespace Slug.Context.Tables
 
         public AgeEnum userDatingAge { get; set; }
 
-        public long VkUserId { get; set; }
-
+        public long IdVkUser { get; set; }
+        public long IdFBUser { get; set; }
 
         public virtual List<Education> Educations { get; set; }
 

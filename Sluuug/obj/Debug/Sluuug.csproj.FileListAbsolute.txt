@@ -168,6 +168,7 @@ D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Webpages.Deployment.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Helpers.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Mvc.xml
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Properties.Resources.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Properties.Resources.ru.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.GenerateResource.cache
@@ -176,11 +177,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\ru\Slug.resources.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_login.resources
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo.resources
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo2.resources
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo3.resources
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.vk_tokens_tbo4.resources
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.regtype.resources
-D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.lms_avatarsfromvk.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.init.resources

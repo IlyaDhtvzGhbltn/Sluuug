@@ -81,27 +81,27 @@ namespace Slug.Helpers
             return null;
         }
 
-        public int RegisterNewFromVK(VkRegisteringUserModel user)
+        public int RegisterNewFromOutNetwork(OutRegisteringUserModel user, string network, RegisterTypeEnum type)
         {
             using (var context = new DataBaseContext())
             {
                 context.Avatars.Add(new Avatars()
                 {
-                    LargeAvatar = user.Vk200Avatar,
-                    MediumAvatar = user.Vk100Avatar,
-                    SmallAvatar = user.Vk50Avatar,
+                    LargeAvatar = user.Avatar200,
+                    MediumAvatar = user.Avatar100,
+                    SmallAvatar = user.Avatar50,
                     IsStandart = false,
                     UploadTime = DateTime.UtcNow,
-                    AvatarType = AvatarTypesEnum.VkLoad
+                    AvatarType = AvatarTypesEnum.OutNetLoad
                 });
                 context.SaveChanges();
-                int vkUserAvatarId = context.Avatars.First(x => x.LargeAvatar == user.Vk200Avatar).Id;
+                int localUserAvatarId = context.Avatars.First(x => x.LargeAvatar == user.Avatar200).Id;
 
                 var newUser = new User();
-                newUser.Login = string.Format("vk_{0}", user.VkId);
+                newUser.Login = string.Format("{0}_{1}", network, user.OutId);
                 newUser.UserStatus = (int)UserStatuses.Active;
-                newUser.AvatarId = vkUserAvatarId;
-                newUser.UserType = RegisterTypeEnum.VkUser;
+                newUser.AvatarId = localUserAvatarId;
+                newUser.UserType = type;
 
                 newUser.UserFullInfo = new UserInfo();
                 newUser.UserFullInfo.NowCountryCode = user.CountryCode;
@@ -112,7 +112,10 @@ namespace Slug.Helpers
                 newUser.UserFullInfo.Sex = user.Sex;
                 newUser.UserFullInfo.HelloMessage = !string.IsNullOrWhiteSpace(user.Status) ? user.Status : "Всем привет, я на связи!";
                 newUser.UserFullInfo.DatingPurpose = DatingPurposeEnum.NoDating;
-                newUser.UserFullInfo.VkUserId = user.VkId;
+                if(type == RegisterTypeEnum.VkUser)
+                    newUser.UserFullInfo.IdVkUser = user.OutId;
+                if (type == RegisterTypeEnum.FbUser)
+                    newUser.UserFullInfo.IdFBUser = user.OutId;
 
                 newUser.Settings = new UserSettings();
                 newUser.Settings.Email = "admin@friendlynet.ru";
@@ -122,7 +125,7 @@ namespace Slug.Helpers
 
                 context.Users.Add(newUser);
                 context.SaveChanges();
-                int localUserFromVk = context.Users.First(x => x.AvatarId == vkUserAvatarId).Id;
+                int localUserFromVk = context.Users.First(x => x.AvatarId == localUserAvatarId).Id;
                 return localUserFromVk;
             }
         }
@@ -999,19 +1002,6 @@ namespace Slug.Helpers
             }
             return flagOnline;
         }
-
-        public int VkUserRegistredId(uint vkUserId)
-        {
-            using (var context = new DataBaseContext())
-            {
-                var user = context.Users.FirstOrDefault(x => x.UserFullInfo.VkUserId == vkUserId);
-                if (user == null)
-                    return -1;
-                else
-                    return user.Id;
-            }
-        }
-
 
         public bool IsOnline(int userId)
         {
