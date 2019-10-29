@@ -415,10 +415,15 @@ namespace Slug.Helpers
                     .First()
                     .Title;
 
-                userModel.City = context.Cities
-                    .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
-                    .First()
-                    .Title;
+                if (user.UserFullInfo.NowCityCode != 0)
+                {
+                    userModel.City = context.Cities
+                        .Where(x => x.CitiesCode == user.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
+                        .First()
+                        .Title;
+                }
+                else
+                    userModel.City = "не указан";
 
                 userModel.UserType = user.UserType;
                 //userModel.LargeAvatar = avatar.LargeAvatar;

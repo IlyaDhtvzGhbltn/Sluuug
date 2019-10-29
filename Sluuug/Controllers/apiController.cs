@@ -253,7 +253,7 @@ namespace Slug.Controllers
         public JsonResult not_readed()
         {
             string session = GetCookiesValue(Request);
-            int userId = UsersHandler.BaseUser(session).UserId;
+            int userId = UsersHandler.UserIdBySession(session);
             NotShowedNews resp = ConversationHandler.News(userId);
             if (resp != null)
             {

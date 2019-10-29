@@ -1,6 +1,7 @@
 ﻿using Context;
 using Slug.Context.Dto.Search;
 using Slug.Context.Tables;
+using Slug.ImageEdit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,83 +28,115 @@ namespace Slug.DbInitialisation
         {
             using (var context = new DataBaseContext())
             {
-                context.Countries.AddRange(new List<Countries>()
-                {
-                    new Countries { CountryCode = 7, Language = LanguageType.En, Title = "Russia" },
-                    new Countries { CountryCode = 7, Language = LanguageType.Ru, Title = "Россия" },
-                });
+                //context.Countries.AddRange(new List<Countries>()
+                //{
+                //    new Countries { CountryCode = 7, Language = LanguageType.En, Title = "Russia" },
+                //    new Countries { CountryCode = 7, Language = LanguageType.Ru, Title = "Россия" },
+                //});
 
-                context.Cities.AddRange(new List<Cities>()
-                {
-                    new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.En, Title = "Moscow" },
-                    new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.Ru, Title = "Москва" },
+                //context.Cities.AddRange(new List<Cities>()
+                //{
+                //    new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.En, Title = "Moscow" },
+                //    new Cities { CitiesCode = 495, CountryCode = 7, Language = LanguageType.Ru, Title = "Москва" },
 
-                });
+                //});
 
                 context.Avatars.AddRange(new List<Avatars>
                 {
-                    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  },
-                    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  },
+                    new Avatars
+                    {
+                        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg",
+                        AvatarType = Context.AvatarTypesEnum.SelfLoad,
+                        IsStandart = true,
+                        CountryCode = 375,
+                        UploadTime = DateTime.Now,
+                        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg", ModTypes.c_scale, 100, 100),
+                        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg", ModTypes.c_scale, 50, 50)
+                    },
+                    new Avatars
+                    {
+                        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg",
+                        AvatarType = Context.AvatarTypesEnum.SelfLoad,
+                        IsStandart = true,
+                        CountryCode = 7,
+                        UploadTime = DateTime.Now,
+                        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg", ModTypes.c_scale, 100, 100),
+                        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg", ModTypes.c_scale, 50, 50)
+                    },
+                    new Avatars
+                    {
+                        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg",
+                        AvatarType = Context.AvatarTypesEnum.SelfLoad,
+                        IsStandart = true,
+                        CountryCode = 380,
+                        UploadTime = DateTime.Now,
+                        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg", ModTypes.c_scale, 100, 100),
+                        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg", ModTypes.c_scale, 50, 50)
+                    },
+
+
+                //    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  },
+                //    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  },
                 });
-                var usersCollection = new List<User>();
+                //var usersCollection = new List<User>();
 
-                for (int i = 0; i < item; i++)
-                {
-                    var userSex = getRandomIndex(0, 1);
-                    var userSearchDatingSex = rnd.Next(0, 1); ;
-                    var userDatingPurpose = getRandomIndex(0, 2);
-                    var userDatingAge = getRandomIndex(0, 7);
-                    var countryCode = countryCodes[getRandomIndex(0, 1)];
-                    var cityCode = cityCodes[countryCode];
-                    var avatar = 1;
-                    string name = "";
-                    string surname = "";
-                    if (userSex == 0)
-                    {
-                        name = getRandomTitle(wnames);
-                        surname = getRandomTitle(wsurNames);
-                        avatar = 1;
-                        userSearchDatingSex = 1;
-                    }
-                    else
-                    {
-                        name = getRandomTitle(names);
-                        surname = getRandomTitle(surNames);
-                        avatar = 2;
-                        userSearchDatingSex = 0;
-                    }
+                //for (int i = 0; i < item; i++)
+                //{
+                //    var userSex = getRandomIndex(0, 1);
+                //    var userSearchDatingSex = rnd.Next(0, 1); ;
+                //    var userDatingPurpose = getRandomIndex(0, 2);
+                //    var userDatingAge = getRandomIndex(0, 7);
+                //    var countryCode = countryCodes[getRandomIndex(0, 1)];
+                //    var cityCode = cityCodes[countryCode];
+                //    var avatar = 1;
+                //    string name = "";
+                //    string surname = "";
+                //    if (userSex == 0)
+                //    {
+                //        name = getRandomTitle(wnames);
+                //        surname = getRandomTitle(wsurNames);
+                //        avatar = 1;
+                //        userSearchDatingSex = 1;
+                //    }
+                //    else
+                //    {
+                //        name = getRandomTitle(names);
+                //        surname = getRandomTitle(surNames);
+                //        avatar = 2;
+                //        userSearchDatingSex = 0;
+                //    }
 
-                    var user = new User()
-                    {
+                //    var user = new User()
+                //    {
 
-                        AvatarId = avatar,
-                        Login = string.Format("login0{0}", i),
-                        UserStatus = 1,
-                        Settings = new UserSettings()
-                        {
-                            Email = "alter.22.04@gmail.com",
-                            NotificationType = Context.Dto.Settings.NotificationTypes.Never,
-                            PasswordHash = "a1bd4e0efc7ce8bd1d63433a0baa87e3a486fbfe2729d73d1dbf7d2822d201ee8726c6d94da1f09f1a53554e440ad6041ecab545b2085dc28c6f6849f0fcea23",
-                        },
+                //        AvatarId = avatar,
+                //        Login = string.Format("login0{0}", i),
+                //        UserStatus = 1,
+                //        Settings = new UserSettings()
+                //        {
+                //            Email = "alter.22.04@gmail.com",
+                //            NotificationType = Context.Dto.Settings.NotificationTypes.Never,
+                //            PasswordHash = "a1bd4e0efc7ce8bd1d63433a0baa87e3a486fbfe2729d73d1dbf7d2822d201ee8726c6d94da1f09f1a53554e440ad6041ecab545b2085dc28c6f6849f0fcea23",
+                //        },
 
-                        UserFullInfo = new UserInfo
-                        {
-                            HelloMessage = "Всем привет, я на связи!",
-                            DateOfBirth = DateTime.Now.AddYears(-rnd.Next(17, 88)),
-                            Name = name,
-                            SurName = surname,
-                            NowCountryCode = countryCode,
-                            NowCityCode = cityCode,
-                            Sex = userSex,
-                            DatingPurpose = (DatingPurposeEnum)userDatingPurpose,
-                            userDatingSex = (SexEnum)userSearchDatingSex,
-                            userDatingAge = (AgeEnum)userDatingAge,
-                        }
-                    };
-                    usersCollection.Add(user);
-                }
+                //        UserFullInfo = new UserInfo
+                //        {
+                //            HelloMessage = "Всем привет, я на связи!",
+                //            DateOfBirth = DateTime.Now.AddYears(-rnd.Next(17, 88)),
+                //            Name = name,
+                //            SurName = surname,
+                //            NowCountryCode = countryCode,
+                //            NowCityCode = cityCode,
+                //            Sex = userSex,
+                //            DatingPurpose = (DatingPurposeEnum)userDatingPurpose,
+                //            userDatingSex = (SexEnum)userSearchDatingSex,
+                //            userDatingAge = (AgeEnum)userDatingAge,
+                //        }
+                //    };
+                //    usersCollection.Add(user);
+                //}
 
-                context.Users.AddRange(usersCollection);
+                //context.Users.AddRange(usersCollection);
                 context.SaveChanges();
             }
         }
