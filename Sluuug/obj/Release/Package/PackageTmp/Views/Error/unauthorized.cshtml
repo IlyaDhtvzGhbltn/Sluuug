@@ -1,0 +1,19 @@
+﻿@using Slug.Extensions;
+<head>
+    <link rel="icon" href="/Resources/images/favicon.ico" type="image/x-icon">
+    <link href="~/Styles/errors/error-template.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="unath-container">
+        <div class="title-container">
+            <h1>@Html.Translate("Error_Not_Authorized_Title")</h1>
+        </div>
+        <div class="message-container">
+            <p>
+                <span class="error-message">Запрашиваемая страница не доступна для неавторизованных пользователей.</span>
+            </p>
+                <span class="error-message">Что бы зарегестрироваться или войти нажмите </span>
+                <a class="reload-link" href="/guest/#reg_log">здесь</a>
+        </div>
+    </div>
+</body>

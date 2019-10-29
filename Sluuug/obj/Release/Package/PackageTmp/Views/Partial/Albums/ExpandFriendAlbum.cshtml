@@ -1,0 +1,74 @@
+﻿<div class="expand-foto">
+    <div class="close-expand-album-button">
+        <img alt="hide album" onclick="CloseExpandedAlbum()" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_45/v1563052002/system/close-x.png">
+    </div>
+    <div class="expand-album-view">
+        <div class="empty-album">
+            <span>В альбоме нет не одного фото</span>
+        </div>
+        <div class="image-view">
+            <div class="full-image">
+                <div class="image-title">
+                    <h3 id="photo-h3-titlte"></h3>
+                </div>
+                <div class="image-description">
+                    <span id="photo-span-description"></span>
+                </div>
+                <div class="full-image-container" id="">
+                    <div class="navigate-album-arrow">
+                        <div class="navigate-album-left">
+                            <div class="center-con left-nav">
+                                <div class="round">
+                                    <div id="cta">
+                                        <span class="arrow -left primera preview "></span>
+                                        <span class="arrow -left segunda preview "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="navigate-album-right">
+                            <div class="center-con right-nav">
+                                <div class="round">
+                                    <div id="cta">
+                                        <span class="arrow -right primera next"></span>
+                                        <span class="arrow -right segunda next "></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <img alt="expand album" id="album-full-img" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="photo-manage" id="">
+                    <div class="menu-circle-container">
+                        <div class="menu-circle"></div>
+                        <div class="menu-circle"></div>
+                        <div class="menu-circle"></div>
+                    </div>
+                    <input class="show-photo-manage-menu" type="checkbox" />
+                    <div class="photo-manage-menu">
+                        <div class="photo-edit -delete">
+                            <a class="download-photo-link" href="" target="_blank"><button class="delete-photo-button">Скачать фото</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="image-comments">
+            <div class="users-comments"></div>
+            <div class="my-comment-form">
+                <textarea class="area-to-comment"></textarea>
+                <button onclick="SendPhotoComment()">Отправить</button>
+            </div>
+        </div>
+    </div>
+    <div class="album-images-browse">
+    </div>
+</div>
+

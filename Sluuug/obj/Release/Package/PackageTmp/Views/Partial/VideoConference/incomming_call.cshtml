@@ -1,0 +1,23 @@
+﻿@model Slug.Model.VideoConference.IncomingInviteModel
+@using Slug.Extensions
+
+
+<div class="call-wrap" id="called__@Model.InviterID">
+    <div class="puls-container">
+        <div class="call- pulse"></div>
+    </div>
+    <div>
+        <img class="user avatar" src="@Model.AvatarResizeUri">
+    </div>
+    <div class="call- user-info">
+        <div onclick="redirectToFriend(@Model.InviterID);event.stopProponation()">
+            <h2>@Model.CallerName @Model.CallerSurName</h2>
+        </div>
+        <span>25 лет Россия Москва</span>
+    </div>
+    <div class="call- answer">
+        <button class="accept"  onclick="acceptInvite('@Model.InviterID', '@Model.ConferenceID')">Ответить</button>
+        <button class="refused" onclick="closeCallImmediately('called__@Model.InviterID', '@Model.ConferenceID')">Отклонить</button>
+    </div>
+</div>
+

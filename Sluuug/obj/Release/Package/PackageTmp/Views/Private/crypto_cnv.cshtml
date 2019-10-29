@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/private_template.cshtml";
+}
+@model Slug.Model.CryptoConversationGroupModel
+@using Slug.Extensions
+<link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
+<link href="~/Styles/common/await.css" rel="stylesheet" />
+<link href="~/Styles/private/secret-conversations-style.css" rel="stylesheet" />
+
+<div class="tabs">
+    <div class="tab">
+        <div id="currentSC">
+            <input type="radio" id="tab1" name="tab-group" checked>
+            <label class="tab-title" for="tab1">Текущие</label>
+            <div id="current-crypto-dialogs-list" class="tab-content stylized-scrollbar">
+                @foreach (var item in Model.CurrentActiveChats)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/current_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div id="accept_need">
+            <input type="radio" id="tab2" name="tab-group" >
+            <label class="tab-title" for="tab2">Входящие заявки</label>
+            <div class="tab-content stylized-scrollbar">
+                @foreach (var item in Model.IncommingInviters)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/accept_needed_crypto_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab">
+        <div id="self_created">
+            <input type="radio" id="tab3" name="tab-group">
+            <label class="tab-title" for="tab3">Исходящие заявки</label>
+            <div class="tab-content stylized-scrollbar">
+
+                @foreach (var item in Model.OutCommingInviters)
+                {
+                    Html.RenderPartial("~/Views/Partial/CryptoDialogs/self_created_dialog.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.CryptoChat.CryptoConversationModel>(item));
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div id="create_new">
+            <input type="radio" id="tab4" name="tab-group">
+            <label class="tab-title" for="tab4">+ Создать</label>
+            <div class="tab-content stylized-scrollbar">
+                <div id="friends_list">
+                    @foreach (var friend in Model.FriendsICanInvite)
+                    {
+                        Html.RenderPartial("~/Views/Partial/CryptoDialogs/friends_can_invite_crypto_dialog.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.BaseUser>(friend));
+                    }
+                </div>
+
+                <div class="await">
+                    <p id="generate_failed" style="color:red; opacity:0; display:none">Ошибка генерации, попробуйте позже или обратитесь в техпотдержку</p>
+                    <p id="generate_successfull" style="color:green; opacity:0">Генерация окончена</p>
+                    <span id="not_selected" style="color:red">Никто не выбран</span>
+                    <button id="new_crypto_chat" onclick="invite()">Создать</button>
+                    <div class="generation-key-container">
+                        <span>Идет генерация ключей, пожалуйста подождите...</span>
+                        <div id="circular3dG">
+                            <div id="circular3d_1G" class="circular3dG"></div>
+                            <div id="circular3d_2G" class="circular3dG"></div>
+                            <div id="circular3d_3G" class="circular3dG"></div>
+                            <div id="circular3d_4G" class="circular3dG"></div>
+                            <div id="circular3d_5G" class="circular3dG"></div>
+                            <div id="circular3d_6G" class="circular3dG"></div>
+                            <div id="circular3d_7G" class="circular3dG"></div>
+                            <div id="circular3d_8G" class="circular3dG"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/CryptoDialogInitialization.js"></script>
+<script src="~/Scripts/Private/Dialogs/CryptoDialog/ExperationTimer.js"></script>
+<script src="~/Scripts/Private/Dialogs/Common/DeleteDialog.js"></script>
+<script>
+    function generationKeyUserToggle() {
+        $('#not_selected').fadeOut(600);
+        setTimeout(function () {
+            $('#new_crypto_chat')[0].style.opacity = 1;
+        }, 600);
+    }
+
+    var url = new URL(window.location.href);
+    var type = url.searchParams.get("type");
+    if (type != null && type.length > 0) {
+        switch (type) {
+            case "accept":
+                $('#tab1').attr("checked", "checked");
+                break;
+            case "in":
+                $('#tab2').attr("checked", "checked");
+                break;
+            case "out":
+                $('#tab3').attr("checked", "checked");
+                break;
+        }
+    }
+</script>
