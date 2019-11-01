@@ -23,7 +23,7 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
         private string AppId { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.fbAppId.ToString()];
         private string RedirectUri { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.oauthFbRedirectUri.ToString()];
         private string AppSecret { get; set; } = "f416805e86e40affdd69864095e09432";
-        private string FbFields { get; set; } = "id,first_name,last_name,birthday,gender,hometown,location,picture";
+        private string FbFields { get; set; } = "id,first_name,last_name,birthday,gender,picture";
 
         public async Task<FbToken> GetAccessToken(string code)
         {

@@ -154,42 +154,42 @@ namespace Slug.Controllers
             return true;
         }
 
-        [HttpPost]
-        public async Task<JsonResult> verifyFBUser(string code)
-        {
-            var handler = new FbOAuthHandler();
-            var preToken = await handler.GetAccessToken(code);
-            if (preToken == null)
-                return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.error } };
-            else
-            {
-                FBUserInfo fbUserInfo = await handler.GetUserInfo(preToken.access_token);
-                var oauthHand = new OauthHandler();
-                int localUserId = oauthHand.FBUserRegisterId(fbUserInfo.id);
-                if (localUserId > 0)
-                {
-                    string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserId);
-                    var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-                    cookie.Value = session_id;
-                    Response.Cookies.Set(cookie);
-                    return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.userExistLocaly } };
-                }
-                else
-                {
-                    OutRegisteringUserModel localUser = handler.Convert(fbUserInfo);
-                    int localRegisteredUserId = UsersHandler.RegisterNewFromOutNetwork(localUser, "fb", RegisterTypeEnum.FbUser);
-                    if (localRegisteredUserId > 0)
-                    {
-                        string session_id = SessionHandler.OpenSession(SessionTypes.Private, localRegisteredUserId);
-                        var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
-                        cookie.Value = session_id;
-                        Response.Cookies.Set(cookie);
-                        return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.userNotExist } };
-                    }
-                    else
-                        return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.error } };
-                }
-            }
-        }
+        //[HttpPost]
+        //public async Task<JsonResult> verifyFBUser(string code)
+        //{
+        //    var handler = new FbOAuthHandler();
+        //    var preToken = await handler.GetAccessToken(code);
+        //    if (preToken == null)
+        //        return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.error } };
+        //    else
+        //    {
+        //        FBUserInfo fbUserInfo = await handler.GetUserInfo(preToken.access_token);
+        //        var oauthHand = new OauthHandler();
+        //        int localUserId = oauthHand.FBUserRegisterId(fbUserInfo.id);
+        //        if (localUserId > 0)
+        //        {
+        //            string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserId);
+        //            var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
+        //            cookie.Value = session_id;
+        //            Response.Cookies.Set(cookie);
+        //            return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.userExistLocaly } };
+        //        }
+        //        else
+        //        {
+        //            OutRegisteringUserModel localUser = handler.Convert(fbUserInfo);
+        //            int localRegisteredUserId = UsersHandler.RegisterNewFromOutNetwork(localUser, "fb", RegisterTypeEnum.FbUser);
+        //            if (localRegisteredUserId > 0)
+        //            {
+        //                string session_id = SessionHandler.OpenSession(SessionTypes.Private, localRegisteredUserId);
+        //                var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
+        //                cookie.Value = session_id;
+        //                Response.Cookies.Set(cookie);
+        //                return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.userNotExist } };
+        //            }
+        //            else
+        //                return new JsonResult() { Data = new OauthExistStatus() { status = OAuthStatusEnum.error } };
+        //        }
+        //    }
+        //}
     }
 }

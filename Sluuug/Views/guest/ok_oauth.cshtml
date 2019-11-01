@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/Scripts/System/jquery-1.6.4-vsdoc.js"></script>
+    <script src="~/Scripts/System/jquery-1.6.4.js"></script>
+    <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
+    <script src="~/Scripts/Guest/oauthServices.js"></script>
+    <link rel="icon" href="/Resources/images/favicon.ico" type="image/x-icon">
+    <link href="~/Styles/guest/fb-oauth-style.css" rel="stylesheet" />
+    <link href="~/Styles/common/await.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Friendlynet.ru - Авторизация через facebook</title>
+</head>
+<body>
+    <div class="await-form">
+        <div class="user-form">
+            <div class="title-form">
+                <div class="vk-ico-container">
+                    <img src="~/Resources/images/ok_ico.png" />
+                </div>
+                <h1>Авторизация через Одноклассники</h1>
+            </div>
+        </div>
+        <div class="message-form">
+            <span id="status">Идет авторизация, пожалуйста подождите...</span>
+        </div>
+        <div class="await-anim">
+            <div id="circular3dG" hidden="" style="display: block;">
+                <div id="circular3d_1G" class="circular3dG"></div>
+                <div id="circular3d_2G" class="circular3dG"></div>
+                <div id="circular3d_3G" class="circular3dG"></div>
+                <div id="circular3d_4G" class="circular3dG"></div>
+                <div id="circular3d_5G" class="circular3dG"></div>
+                <div id="circular3d_6G" class="circular3dG"></div>
+                <div id="circular3d_7G" class="circular3dG"></div>
+                <div id="circular3d_8G" class="circular3dG"></div>
+            </div>
+        </div>
+        <div class="error-message-form">
+            <span id="error"></span>
+        </div>
+    </div>
+    <script>
+        //window.onload = function () {
+        //    var url = new URL(window.location);
+        //    var code = url.searchParams.get("code");
+        //    checkFbUser(code);
+        //};
+    </script>
+</body>
+</html>

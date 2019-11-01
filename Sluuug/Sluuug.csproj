@@ -177,6 +177,7 @@
     <Content Include="Resources\images\no-avatar-ru.jpg" />
     <Content Include="Resources\images\no-avatar-ua.jpg" />
     <Content Include="Resources\images\notify_ico.png" />
+    <Content Include="Resources\images\ok_ico.png" />
     <Content Include="Resources\images\rotating_earth_background.png" />
     <Content Include="Resources\images\settings_ico.png" />
     <Content Include="Resources\images\social_media_img.png" />
@@ -519,6 +520,7 @@
     <Content Include="Views\Partial\Contacts\black_list_entry.cshtml" />
     <Content Include="Views\Guest\vk_oauth.cshtml" />
     <Content Include="Views\Guest\fb_oauth.cshtml" />
+    <Content Include="Views\Guest\ok_oauth.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

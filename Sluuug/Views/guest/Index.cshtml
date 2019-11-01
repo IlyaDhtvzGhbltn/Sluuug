@@ -91,7 +91,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="oauth-item-wrapper oauth-fb-wrapper" onclick="oauth_login_fb()">
+                    @*<div class="oauth-item-wrapper oauth-fb-wrapper" onclick="oauth_login_fb()">
                         <div class="oauth-item-ico-wrapper">
                             <img src="~/Resources/images/facebook-ico.png" />
                         </div>
@@ -100,9 +100,19 @@
                                 <span class="oauth-item-log-text">Войти через facebook</span>
                             </div>
                         </div>
+                    </div>*@
+
+                    <div class="oauth-item-wrapper oauth-ok-wrapper" onclick="oauth_login_ok()">
+                        <div class="oauth-item-ico-wrapper">
+                            <img src="~/Resources/images/ok_ico.png" />
+                        </div>
+                        <div class="item-text-wrapper oauth-ok">
+                            <div class="text-center">
+                                <span class="oauth-item-log-text">Войти через Одноклассники</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="vk_auth"></div>
             </div>
         </div><!-- tab-content -->
         <div class="error-message-form" style="color:red" id="not_filled"><p>Пожалуйста, заполните верно все поля *</p></div>
