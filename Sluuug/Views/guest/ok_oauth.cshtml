@@ -9,7 +9,7 @@
     <link href="~/Styles/guest/fb-oauth-style.css" rel="stylesheet" />
     <link href="~/Styles/common/await.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
-    <title>Friendlynet.ru - Авторизация через facebook</title>
+    <title>Friendlynet.ru - Авторизация через Одноклассники</title>
 </head>
 <body>
     <div class="await-form">
@@ -41,11 +41,11 @@
         </div>
     </div>
     <script>
-        //window.onload = function () {
-        //    var url = new URL(window.location);
-        //    var code = url.searchParams.get("code");
-        //    checkFbUser(code);
-        //};
+        window.onload = function () {
+            var url = new URL(window.location);
+            var code = url.searchParams.get("code");
+            okCheckUser(code);
+        };
     </script>
 </body>
 </html>

@@ -43,11 +43,11 @@ namespace Slug.Helpers
                 if (newSettings.OldPasswRep != null && newSettings.NewPassw != null && newSettings.OldPassw != null)
                 {
                     string oldPasswordHash = oldUserSett.PasswordHash;
-                    string requesteOldPasswordHash = Converting.ConvertStringToSHA512(newSettings.OldPassw);
+                    string requesteOldPasswordHash = Crypto.Encryption.EncryptionStringToSHA512(newSettings.OldPassw);
 
                     if (newSettings.OldPassw == newSettings.OldPasswRep && requesteOldPasswordHash == oldPasswordHash)
                     {
-                        string requestedPasswordHash = Converting.ConvertStringToSHA512(newSettings.NewPassw);
+                        string requestedPasswordHash = Crypto.Encryption.EncryptionStringToSHA512(newSettings.NewPassw);
                         ChangePassword(userId, requestedPasswordHash);
                     }
                     else if (newSettings.OldPassw != newSettings.OldPasswRep)

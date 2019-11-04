@@ -13,7 +13,7 @@ namespace Slug.Context
         public string OpenSession(SessionTypes type, int userId)
         {
             string sessionNumber = string.Empty;
-            sessionNumber = Converting.ConvertStringtoMD5(DateTime.Now.Ticks.ToString());
+            sessionNumber = Crypto.Encryption.EncryptionStringtoMD5(DateTime.Now.Ticks.ToString());
             using (var context = new DataBaseContext())
             {
 

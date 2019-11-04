@@ -56,7 +56,7 @@ namespace Slug.Helpers
 
                     newUser.Settings = new UserSettings();
                     newUser.Settings.Email = user.Email;
-                    newUser.Settings.PasswordHash = Converting.ConvertStringToSHA512(user.PasswordHash);
+                    newUser.Settings.PasswordHash = Encryption.EncryptionStringToSHA512(user.PasswordHash);
 
                     newUser.UserType = RegisterTypeEnum.SelfUser;
                     newUser.Login = user.Login;
@@ -142,7 +142,7 @@ namespace Slug.Helpers
 
         public int VerifyUser(string login, string hashPassword)
         {
-            string savedPassword = Converting.ConvertStringToSHA512(hashPassword);
+            string savedPassword = Crypto.Encryption.EncryptionStringToSHA512(hashPassword);
             //NewUserInitial.Initialize(10);
 
             using (var dbContext = new DataBaseContext())

@@ -2,6 +2,8 @@
 using Slug.Context;
 using Slug.Context.Dto.FeedBack;
 using Slug.Context.Dto.OAuth;
+using Slug.Context.Dto.OAuth.Ok;
+using Slug.Crypto;
 using Slug.Dto.OAuth;
 using Slug.Helpers;
 using Slug.Helpers.BaseController;
@@ -142,16 +144,36 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> register_new_vk(string vkOneTimeCode)
+        public async Task<bool> register_new_vk(string code)
         {
             var vkHandler = new VkOAuthHandler();
-            OutRegisteringUserModel userVkInfo = await vkHandler.GetVkUserInfo(vkOneTimeCode);
+            OutRegisteringUserModel userVkInfo = await vkHandler.GetVkUserInfo(code);
             var registeredUserId = UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegisterTypeEnum.VkUser);
             string session_id = SessionHandler.OpenSession(SessionTypes.Private, registeredUserId);
             var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             cookie.Value = session_id;
             Response.Cookies.Set(cookie);
             return true;
+        }
+
+        [HttpPost]
+        public async Task<int> register_new_ok(string code)
+        {
+            var ok = new OkOauthHandler();
+            OkAccessToken token = ok.AccessToken(code).GetAwaiter().GetResult();
+            var sigModel = new OkSignatureModel()
+            {
+                AccessToken = token.access_token,
+                Format = "json",
+                Method = "users.getCurrentUser",
+                AppPublicKey = WebAppSettings.AppSettings[AppSettingsEnum.okAppId.ToString()],
+                ApplicationSecretKey = "356D63BAAB1C8DCCF9FBB79F"
+            };
+
+            string sign = Encryption.OkSignature(sigModel);
+
+
+            return 10;
         }
 
         //[HttpPost]

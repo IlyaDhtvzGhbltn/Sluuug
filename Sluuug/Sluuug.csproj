@@ -302,6 +302,7 @@
     <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
     <Compile Include="Context\Dto\OAuth\Fb\FbToken.cs" />
     <Compile Include="Context\Dto\OAuth\Fb\FBUserInfo.cs" />
+    <Compile Include="Context\Dto\OAuth\Ok\OkAccessToken.cs" />
     <Compile Include="Context\Dto\OAuth\Vk\VkToken.cs" />
     <Compile Include="Context\Dto\OAuth\Vk\VkUserInfo.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
@@ -339,6 +340,7 @@
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\FbOAuthHandler.cs" />
+    <Compile Include="Helpers\Handlers\OAuthHandlers\OkOauthHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\DisableConversationHandler.cs" />
     <Compile Include="Helpers\Handlers\SystemHandlers\NotificationHandler.cs" />
@@ -349,9 +351,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201910251404422_init.cs" />
-    <Compile Include="Migrations\201910251404422_init.Designer.cs">
-      <DependentUpon>201910251404422_init.cs</DependentUpon>
+    <Compile Include="Migrations\201911021441347_rest.cs" />
+    <Compile Include="Migrations\201911021441347_rest.Designer.cs">
+      <DependentUpon>201911021441347_rest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -533,8 +535,8 @@
     <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910251404422_init.resx">
-      <DependentUpon>201910251404422_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911021441347_rest.resx">
+      <DependentUpon>201911021441347_rest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

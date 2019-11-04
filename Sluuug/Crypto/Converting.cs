@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
 using System;
+using Slug.Context.Dto.OAuth.Ok;
 
 namespace Slug.Crypto
 {
-    public static class Converting
+    public static class Encryption
     {
-        public static string ConvertStringtoMD5(string strword, int length = 120)
+        public static string EncryptionStringtoMD5(string strword, int length = 120)
         {
             Random random = new Random(DateTime.Now.Millisecond);
             using (var md5 = MD5.Create())
@@ -27,7 +28,7 @@ namespace Slug.Crypto
             }
         }
 
-        public static string ConvertStringToSHA512(string input)
+        public static string EncryptionStringToSHA512(string input)
         {
             var bytes = Encoding.UTF8.GetBytes(input);
             using (var hash = SHA512.Create())
@@ -39,6 +40,35 @@ namespace Slug.Crypto
                     hashedInputStringBuilder.Append(b.ToString("x2"));
                 return hashedInputStringBuilder.ToString();
             }
+        }
+
+        public static string OkSignature(OkSignatureModel signature)
+        {
+            string secretKeyDecripting = string.Format("{0}{1}", signature.AccessToken, signature.ApplicationSecretKey);
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(secretKeyDecripting);
+            byte[] hash = md5.ComputeHash(inputBytes);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString());
+            }
+            string secretKey = sb.ToString();
+            //application_key=CJPNMFJGDIHBABABAformat=jsonmethod=users.getCurrentUser8678acffae05d5139a7253bb8168d571
+            string paramString = 
+                string.Format(
+                    "application_key={0}format={1}method={2}{3}", signature.AppPublicKey, signature.Method, signature.Format, secretKey);
+
+            byte[] inputParamStringBytes = Encoding.ASCII.GetBytes(paramString);
+            byte[] hashParam = md5.ComputeHash(inputParamStringBytes);
+            StringBuilder sbParameter = new StringBuilder();
+            for (int i = 0; i < hashParam.Length; i++)
+            {
+                sbParameter.Append(hash[i].ToString());
+            }
+            string sig = sbParameter.ToString();
+            return sig;
         }
     }
 }

@@ -28,14 +28,19 @@ namespace Slug.Helpers.Handlers
             }
         }
 
-        public async Task<string> SendRequest(string url)
+        public async Task<string> SendRequest(string url, bool get = true)
         {
             using (var client = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = client.GetAsync(url).GetAwaiter().GetResult();
-                    if (response.IsSuccessStatusCode)
+                    HttpResponseMessage response;
+                    if (get)
+                        response = client.GetAsync(url).GetAwaiter().GetResult();
+                    else
+                        response = client.PostAsync(url, null).GetAwaiter().GetResult();
+
+                    if(response.IsSuccessStatusCode)
                     {
                         using (HttpContent content = response.Content)
                         {
@@ -51,7 +56,6 @@ namespace Slug.Helpers.Handlers
                 }
             }
             return null;
-
         }
 
         public int VkUserRegistredId(long vkUserId)

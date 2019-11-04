@@ -117,7 +117,6 @@ D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.dll
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.pdb
 D:\SLUG\Sluuug\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
 D:\My_Utilits\Slug\Sluuug\Sluuug\obj\Release\Slug.Migrations.First.resources
-D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.tt.resources
 D:\MyUtilits\friendlynet\Sluuug\bin\NLog.config
 D:\MyUtilits\friendlynet\Sluuug\bin\Slug.dll.config
 D:\MyUtilits\friendlynet\Sluuug\bin\Slug.dll
@@ -178,3 +177,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Release\ru\Slug.resources.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.pdb
+D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.init.resources

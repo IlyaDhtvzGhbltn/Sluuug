@@ -12,7 +12,7 @@ namespace Slug.Helpers.Handlers
     {
         public string CreateRequest(string email, int userID)
         {
-            string parameter = Converting.ConvertStringtoMD5(DateTime.Now.Ticks.ToString());
+            string parameter = Crypto.Encryption.EncryptionStringtoMD5(DateTime.Now.Ticks.ToString());
 
             var resetPasswordRequest = new ResetPassword();
             resetPasswordRequest.CreateRequestDate = DateTime.Now;
@@ -75,7 +75,7 @@ namespace Slug.Helpers.Handlers
                     User user = context.Users.FirstOrDefault(x => x.Id == userID);
                     if (user != null)
                     {
-                        string hash = Converting.ConvertStringToSHA512(passHash);
+                        string hash = Crypto.Encryption.EncryptionStringToSHA512(passHash);
                         user.Settings.PasswordHash = hash;
                         context.SaveChanges();
                         userId = user.Id;

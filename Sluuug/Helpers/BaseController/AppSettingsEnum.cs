@@ -26,6 +26,10 @@ namespace Slug.Helpers.BaseController
         vkAppId,
 
         fbAppId,
-        oauthFbRedirectUri
+        oauthFbRedirectUri,
+
+        okAppId,
+        okAppPublickKey,
+        okAppRedirectUri
     }
 }

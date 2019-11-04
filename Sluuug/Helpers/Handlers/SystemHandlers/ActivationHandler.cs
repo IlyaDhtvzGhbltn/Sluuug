@@ -12,7 +12,7 @@ namespace Slug.Context
     {
         public string CreateActivationEntries(int userId)
         {
-            string activateParam = Converting.ConvertStringtoMD5(DateTime.Now.Ticks.ToString());
+            string activateParam = Crypto.Encryption.EncryptionStringtoMD5(DateTime.Now.Ticks.ToString());
             using (var context = new DataBaseContext())
             {
                 var activationMailLink = new ActivationLink();
