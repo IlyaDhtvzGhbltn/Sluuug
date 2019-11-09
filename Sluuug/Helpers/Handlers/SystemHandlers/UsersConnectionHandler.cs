@@ -19,7 +19,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 CultureByIpChecker cultureDetecter = new CultureByIpChecker(ipAddress);
-                string cultureCode = cultureDetecter.GetCulture().Name;
+                string cultureCode = "ru-RU";//cultureDetecter.GetCulture().Name;
 
                 var connectionItem = new UserConnections();
                 connectionItem.ConnectionId = Guid.Parse( connectionID );

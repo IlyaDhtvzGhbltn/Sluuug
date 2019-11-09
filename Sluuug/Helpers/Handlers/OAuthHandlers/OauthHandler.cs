@@ -70,17 +70,29 @@ namespace Slug.Helpers.Handlers
             }
         }
 
-        public int FBUserRegisterId(long fbUser)
+        public int OkUserRegisteredId(long okUserId)
         {
             using (var context = new DataBaseContext())
             {
-                var user = context.Users.FirstOrDefault(x => x.UserFullInfo.IdFBUser == fbUser);
+                var user = context.Users.FirstOrDefault(x => x.UserFullInfo.IdOkUser == okUserId);
                 if (user == null)
                     return 0;
                 else
                     return user.Id;
             }
         }
+
+        //public int FBUserRegisterId(long fbUser)
+        //{
+        //    using (var context = new DataBaseContext())
+        //    {
+        //        var user = context.Users.FirstOrDefault(x => x.UserFullInfo.IdFBUser == fbUser);
+        //        if (user == null)
+        //            return 0;
+        //        else
+        //            return user.Id;
+        //    }
+        //}
 
         public int CountryCodeParse(DataBaseContext context, int outCountryCode, string outCountryTitle, bool fieldAvailable)
         {
@@ -133,6 +145,57 @@ namespace Slug.Helpers.Handlers
             else
             {
                 return 495;
+            }
+        }
+
+
+        public int CountryCodeParse(string CountryTitle)
+        {
+            using (var context = new DataBaseContext())
+            {
+                Countries countryEntry = context.Countries.FirstOrDefault(x => x.Title == CountryTitle);
+                if (countryEntry != null)
+                    return countryEntry.CountryCode;
+                else
+                {
+                    string downCode = CountryTitle.ToLower();
+                    int newCountryCode = downCode.GetHashCode();
+
+                    context.Countries.Add(new Countries()
+                    {
+                        CountryCode = newCountryCode,
+                        Language = LanguageType.Ru,
+                        Title = CountryTitle
+                    });
+                    context.SaveChanges();
+                    return newCountryCode;
+                }
+            }
+        }
+
+        public int CityCodeParse(string CityTitle, int CountryCode)
+        {
+            using (var context = new DataBaseContext())
+            {
+                Cities cityCode = context.Cities.Where(
+                    x => x.Title == CityTitle &&
+                    x.CountryCode == CountryCode)
+                    .FirstOrDefault();
+
+                if (cityCode != null)
+                    return cityCode.CitiesCode;
+                else
+                {
+                    int newCityCode = CityTitle.GetHashCode();
+                    context.Cities.Add(new Cities()
+                    {
+                        Language = LanguageType.Ru,
+                        Title = CityTitle,
+                        CitiesCode = newCityCode,
+                        CountryCode = CountryCode
+                    });
+                    return newCityCode;
+                }
             }
         }
     }

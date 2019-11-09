@@ -48,6 +48,8 @@
 .simple-dialog-wrapper img {
     border-radius: 100px;
     position: absolute;
+    height:100px;
+    width:100px;
 }
 
 

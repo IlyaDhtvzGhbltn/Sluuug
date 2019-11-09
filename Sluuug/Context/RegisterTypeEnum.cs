@@ -9,6 +9,7 @@ namespace Slug.Context
     {
         SelfUser,
         VkUser,
-        FbUser
+        FbUser,
+        OkUser
     }
 }

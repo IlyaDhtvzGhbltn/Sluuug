@@ -11,6 +11,7 @@ using Slug.Helpers.Handlers;
 using Slug.Helpers.Handlers.OAuthHandlers;
 using Slug.Model;
 using Slug.Model.VkModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -149,6 +150,7 @@ namespace Slug.Controllers
             var vkHandler = new VkOAuthHandler();
             OutRegisteringUserModel userVkInfo = await vkHandler.GetVkUserInfo(code);
             var registeredUserId = UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegisterTypeEnum.VkUser);
+
             string session_id = SessionHandler.OpenSession(SessionTypes.Private, registeredUserId);
             var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
             cookie.Value = session_id;
@@ -157,23 +159,74 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public async Task<int> register_new_ok(string code)
+        public async Task<JsonResult> register_new_ok(string code)
         {
             var ok = new OkOauthHandler();
             OkAccessToken token = ok.AccessToken(code).GetAwaiter().GetResult();
-            var sigModel = new OkSignatureModel()
+            OkUserInfo okUserInfo = ok.UserInfo(token).GetAwaiter().GetResult();
+            if(okUserInfo == null)
+                return new JsonResult() { Data = new OauthExistStatus { status = OAuthStatusEnum.error } };
+            var hand = new OauthHandler();
+            long okId = long.Parse(okUserInfo.Uid);
+            int localUserId = hand.OkUserRegisteredId(okId);
+            if (localUserId > 0)
             {
-                AccessToken = token.access_token,
-                Format = "json",
-                Method = "users.getCurrentUser",
-                AppPublicKey = WebAppSettings.AppSettings[AppSettingsEnum.okAppId.ToString()],
-                ApplicationSecretKey = "356D63BAAB1C8DCCF9FBB79F"
-            };
+                string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserId);
+                var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
+                cookie.Value = session_id;
+                Response.Cookies.Set(cookie);
+                return new JsonResult() { Data = new OauthExistStatus { status = OAuthStatusEnum.userExistLocaly } };
+            }
+            else
+            {
+                int sex = -1;
+                DateTime userDateOfBirth;
+                int Country = -1;
+                int City = -1;
 
-            string sign = Encryption.OkSignature(sigModel);
+                if (okUserInfo.Gender == "male")
+                    sex = 1;
+                else
+                    sex = 0;
 
+                if (okUserInfo.BirthdaySet)
+                    userDateOfBirth = DateTime.ParseExact(okUserInfo.Birthday, "yyyy-MM-dd", null);
+                else
+                    userDateOfBirth = DateTime.Now.AddYears(-18);
 
-            return 10;
+                if (string.IsNullOrWhiteSpace(okUserInfo.Location.City) || string.IsNullOrWhiteSpace(okUserInfo.Location.Country))
+                {
+                    Country = 7;
+                    City = 495;
+                }
+                else
+                {
+                    Country = hand.CountryCodeParse(okUserInfo.Location.CountryName);
+                    City = hand.CityCodeParse(okUserInfo.Location.City, Country);
+                }
+
+                var model = new OutRegisteringUserModel()
+                {
+                    Name = okUserInfo.FirstName,
+                    SurName = okUserInfo.LastName,
+                    Avatar50 = okUserInfo.SmallAvatar,
+                    Avatar100 = okUserInfo.MediumAvatar,
+                    Avatar200 = okUserInfo.LargeAvatar,
+                    OutId = okId,
+                    Sex = sex,
+                    DateBirth = userDateOfBirth, 
+                    Status = string.Empty,
+                    CityCode = City,
+                    CountryCode = Country
+                };
+                int localUserid = UsersHandler.RegisterNewFromOutNetwork(model, "ok", RegisterTypeEnum.OkUser);
+
+                string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserid);
+                var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
+                cookie.Value = session_id;
+                Response.Cookies.Set(cookie);
+                return new JsonResult() { Data = new OauthExistStatus { status = OAuthStatusEnum.userExistLocaly } };
+            }
         }
 
         //[HttpPost]

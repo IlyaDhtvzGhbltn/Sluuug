@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Slug.Context.Dto.OAuth.Ok;
+using Slug.Crypto;
 using Slug.Helpers.BaseController;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
         private string ApiId { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.okAppId.ToString()];
         private string ApiPublicKey { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.okAppId.ToString()];
         private string ApiRedirectUrl { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.okAppRedirectUri.ToString()];
+        private string OkAppPublickKey { get; set; } = WebAppSettings.AppSettings[AppSettingsEnum.okAppPublickKey.ToString()];
 
         public async Task<OkAccessToken> AccessToken(string code)
         {
@@ -33,5 +35,28 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
             var accesstoken = JsonConvert.DeserializeObject<OkAccessToken>(result);
             return accesstoken;
         }
+
+        public async Task<OkUserInfo> UserInfo(OkAccessToken token)
+        {
+            var sigModel = new OkSignatureModel()
+            {
+                AccessToken = token.access_token,
+                Format = "json",
+                Method = "users.getCurrentUser",
+                AppPublicKey = WebAppSettings.AppSettings[AppSettingsEnum.okAppPublickKey.ToString()],
+                ApplicationSecretKey = "356D63BAAB1C8DCCF9FBB79F"
+            };
+            OkApiMD5Params okSecretParams = Encryption.OkSecretParams(sigModel);
+
+            string request = string.Format(
+                "https://api.ok.ru/fb.do?application_key={0}&format={1}&method={2}&sig={3}&access_token={4}",
+                OkAppPublickKey, sigModel.Format, sigModel.Method, okSecretParams.Signature, token.access_token);
+
+            var oauthHandler = new OauthHandler();
+            string result = await oauthHandler.SendRequest(request, false);
+            OkUserInfo okUser = JsonConvert.DeserializeObject<OkUserInfo>(result);
+            return okUser;
+        }
+
     }
 }

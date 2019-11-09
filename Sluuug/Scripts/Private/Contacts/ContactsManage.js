@@ -18,6 +18,7 @@
 //});
 
 function acceptFriendshipInvitation(userID) {
+    console.log('accepted - ' + userID);
     HUB.invoke('AcceptContact', userID)
         .done(function () {
             _Alert('Пользователь добавлен в ваши контакты!', '#7f7f7f');

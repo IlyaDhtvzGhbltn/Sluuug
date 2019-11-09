@@ -45,6 +45,7 @@ namespace Slug.Context.Tables
 
         public long IdVkUser { get; set; }
         public long IdFBUser { get; set; }
+        public long IdOkUser { get; set; }
 
         public virtual List<Education> Educations { get; set; }
 

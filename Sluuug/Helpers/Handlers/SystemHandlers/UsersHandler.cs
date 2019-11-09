@@ -116,6 +116,8 @@ namespace Slug.Helpers
                     newUser.UserFullInfo.IdVkUser = user.OutId;
                 if (type == RegisterTypeEnum.FbUser)
                     newUser.UserFullInfo.IdFBUser = user.OutId;
+                if (type == RegisterTypeEnum.OkUser)
+                    newUser.UserFullInfo.IdOkUser = user.OutId;
 
                 newUser.Settings = new UserSettings();
                 newUser.Settings.Email = "admin@friendlynet.ru";

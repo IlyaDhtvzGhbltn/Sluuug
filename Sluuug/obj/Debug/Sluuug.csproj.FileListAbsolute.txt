@@ -177,4 +177,5 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.init.resources
-D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.rest.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.test.resources
+D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.test1.resources

@@ -49,6 +49,12 @@ img {
     margin-top: 15px;
 }
 
+
+.entry-container > .head > img{
+    height: 100px;
+    width: 100px;
+}
+
 .info{
     display:flex;
     flex-direction:row;

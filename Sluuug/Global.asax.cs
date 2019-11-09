@@ -89,8 +89,8 @@ namespace Sluuug
             }
 
             var ip = Slug.Helpers.SlugController.GetIPAddress(base.Request);
-            CultureByIpChecker culture = new CultureByIpChecker(ip);
-            Thread.CurrentThread.CurrentCulture = culture.GetCulture();
+            //CultureByIpChecker culture = new CultureByIpChecker(ip);
+            //Thread.CurrentThread.CurrentCulture = culture.GetCulture();
         }
     }
 }

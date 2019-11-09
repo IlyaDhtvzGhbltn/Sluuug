@@ -32,7 +32,11 @@ function vkUserRegister(vkcode) {
 }
 
 function okCheckUser(okCode) {
-    console.log(sendRequest(okCode, 'register_new_ok'));
+    var responce = sendRequest(okCode, 'register_new_ok');
+    var result = JSON.parse(responce.responseText);
+    console.log(result.status);
+    verifyUserStatus(result.status);
+    document.location.replace("/");
 }
 
 function sendRequest(codeOauth, api_url) {
