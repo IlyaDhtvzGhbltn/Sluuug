@@ -1,4 +1,5 @@
 ﻿using Context;
+using NLog;
 using Slug.Context;
 using Slug.Context.Dto.FeedBack;
 using Slug.Context.Dto.OAuth;
@@ -166,6 +167,7 @@ namespace Slug.Controllers
             OkUserInfo okUserInfo = ok.UserInfo(token).GetAwaiter().GetResult();
             if(okUserInfo == null)
                 return new JsonResult() { Data = new OauthExistStatus { status = OAuthStatusEnum.error } };
+
             var hand = new OauthHandler();
             long okId = long.Parse(okUserInfo.Uid);
             int localUserId = hand.OkUserRegisteredId(okId);

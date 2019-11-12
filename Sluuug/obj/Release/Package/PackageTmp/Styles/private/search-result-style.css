@@ -67,8 +67,14 @@
     cursor:pointer;
 }
 
-.fount-user-header:hover >  .fount-user-img-container img{
-    border:1px solid #7f7f7f;
+.fount-user-img-container > img
+{
+    height:100px;
+    width:100px;
+}
+
+.fount-user-header:hover > .fount-user-img-container img {
+    border: 1px solid #7f7f7f;
 }
 
 .fount-user-header .fount-user-name{

@@ -168,7 +168,6 @@ D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Webpages.Razor.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Helpers.xml
 D:\MyUtilits\friendlynet\Sluuug\bin\System.Web.Mvc.xml
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Sluuug.csprojAssemblyReference.cache
-D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Migrations.init.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Properties.Resources.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Properties.Resources.ru.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Sluuug.csproj.GenerateResource.cache
@@ -178,3 +177,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Release\Sluuug.csproj.CopyComplete
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.pdb
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.init.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Migrations.t.resources

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using Slug.Context.Dto.OAuth.Ok;
 using Slug.Crypto;
 using Slug.Helpers.BaseController;
@@ -32,6 +33,11 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
                     ApiRedirectUrl );
 
             string result = await oauthHandler.SendRequest(access_post, false);
+
+            Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
+            loggerInternal.Error(string.Format("{0}", access_post));
+            loggerInternal.Error(string.Format("{0}", result));
+
             var accesstoken = JsonConvert.DeserializeObject<OkAccessToken>(result);
             return accesstoken;
         }
@@ -54,6 +60,10 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
 
             var oauthHandler = new OauthHandler();
             string result = await oauthHandler.SendRequest(request, false);
+
+            Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
+            loggerInternal.Error(string.Format("{0}", result));
+
             OkUserInfo okUser = JsonConvert.DeserializeObject<OkUserInfo>(result);
             return okUser;
         }

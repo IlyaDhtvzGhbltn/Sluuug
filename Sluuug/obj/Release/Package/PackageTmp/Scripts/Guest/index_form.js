@@ -78,6 +78,10 @@ function oauth_login_fb() {
     window.location.replace("https://graph.facebook.com/oauth/authorize?client_id=542648449895338&redirect_uri=" + window.location.origin + "/guest/fb_oauth&scope=public_profile");
 }
 
+function oauth_login_ok() {
+    window.location.replace("https://connect.ok.ru/oauth/authorize?client_id=512000052472&scope=VALUABLE_ACCESS&response_type=code&redirect_uri=" + window.location.origin + "/guest/ok_oauth");
+}
+
 
 $(document).ready(function () {
     $('a[href^="#"]').on('click', function (event) {

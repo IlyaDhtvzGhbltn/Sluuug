@@ -21,7 +21,7 @@ function vkUserRegister(vkcode) {
     $.ajax({
         type: 'post',
         url: '/public_api/register_new_vk',
-        data: { vkOneTimeCode: vkcode },
+        data: { code: vkcode },
         success: function (resp) {
             if (resp == "True") {
                 console.log(resp);
@@ -31,22 +31,23 @@ function vkUserRegister(vkcode) {
     });
 }
 
-function checkFbUser(fbCode)
-{
-    console.log(fbCode);
-    $.ajax({
+function okCheckUser(okCode) {
+    var responce = sendRequest(okCode, 'register_new_ok');
+    var result = JSON.parse(responce.responseText);
+    console.log(result.status);
+    verifyUserStatus(result.status);
+    document.location.replace("/");
+}
+
+function sendRequest(codeOauth, api_url) {
+    return $.ajax({
         type: 'post',
-        url: '/public_api/verifyfbuser',
-        data: { code: fbCode },
-        success: function (resp) {
-            console.log(resp);
-            verifyUserStatus(resp);
-            if (resp.status == 0 || resp.status == 1) {
-                document.location.replace("/");
-            }
-        }
+        url: '/public_api/' + api_url,
+        data: { code: codeOauth },
+        async: !1
     });
 }
+
 
 function verifyUserStatus(resp) {
     if (resp.status == 0) {
@@ -61,3 +62,38 @@ function verifyUserStatus(resp) {
         $('#status').css({ "color": "red" });
     }
 }
+
+
+//function checkFbUser(fbCode)
+//{
+//    console.log(fbCode);
+//    $.ajax({
+//        type: 'post',
+//        url: '/public_api/verifyfbuser',
+//        data: { code: fbCode },
+//        success: function (resp) {
+//            console.log(resp);
+//            verifyUserStatus(resp);
+//            if (resp.status == 0 || resp.status == 1) {
+//                document.location.replace("/");
+//            }
+//        }
+//    });
+//}
+
+//function okCheckUser(okCode)
+//{
+//    console.log(fbCode);
+//    $.ajax({
+//        type: 'post',
+//        url: '/public_api/verifyfbuser',
+//        data: { code: fbCode },
+//        success: function (resp) {
+//            console.log(resp);
+//            verifyUserStatus(resp);
+//            if (resp.status == 0 || resp.status == 1) {
+//                document.location.replace("/");
+//            }
+//        }
+//    });
+//}
