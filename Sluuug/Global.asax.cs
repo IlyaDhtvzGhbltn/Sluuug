@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Slug.Helpers;
 using Slug.Context.ServerError;
 using Slug.Context;
+using FN.Bot;
 
 namespace Sluuug
 {
@@ -20,7 +21,7 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //NewUserInitial.Initialize(0);
+            Bots.AddBots();
         }
 
         protected void Application_Error(object sender, EventArgs e)

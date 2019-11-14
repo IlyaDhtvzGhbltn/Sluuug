@@ -178,3 +178,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.pdb
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.test.resources
 D:\SLUG\Sluuug\Sluuug\obj\Debug\Slug.Migrations.test1.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Slug.Migrations.t.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Debug\Sluuug.csprojAssemblyReference.cache
