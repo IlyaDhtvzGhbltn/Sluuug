@@ -21,7 +21,7 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            Bots.AddBots();
+            //Bots.AddBots();
         }
 
         protected void Application_Error(object sender, EventArgs e)
