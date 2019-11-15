@@ -340,7 +340,8 @@
     <Compile Include="Context\Tables\ResetPassword.cs" />
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="Controllers\public_apiController.cs" />
-    <Compile Include="DbInitialisation\Bots.cs" />
+    <Compile Include="DbInitialisation\RealBots\Bots.cs" />
+    <Compile Include="DbInitialisation\RealBots\BotTypeEnum.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\FbOAuthHandler.cs" />

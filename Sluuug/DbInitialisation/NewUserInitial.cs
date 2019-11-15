@@ -41,43 +41,43 @@ namespace Slug.DbInitialisation
 
                 //});
 
-                context.Avatars.AddRange(new List<Avatars>
-                {
-                    new Avatars
-                    {
-                        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg",
-                        AvatarType = Context.AvatarTypesEnum.SelfLoad,
-                        IsStandart = true,
-                        CountryCode = 375,
-                        UploadTime = DateTime.Now,
-                        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg", ModTypes.c_scale, 100, 100),
-                        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg", ModTypes.c_scale, 50, 50)
-                    },
-                    new Avatars
-                    {
-                        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg",
-                        AvatarType = Context.AvatarTypesEnum.SelfLoad,
-                        IsStandart = true,
-                        CountryCode = 7,
-                        UploadTime = DateTime.Now,
-                        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg", ModTypes.c_scale, 100, 100),
-                        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg", ModTypes.c_scale, 50, 50)
-                    },
-                    new Avatars
-                    {
-                        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg",
-                        AvatarType = Context.AvatarTypesEnum.SelfLoad,
-                        IsStandart = true,
-                        CountryCode = 380,
-                        UploadTime = DateTime.Now,
-                        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg", ModTypes.c_scale, 100, 100),
-                        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg", ModTypes.c_scale, 50, 50)
-                    },
+                //context.Avatars.AddRange(new List<Avatars>
+                //{
+                //    new Avatars
+                //    {
+                //        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg",
+                //        AvatarType = Context.AvatarTypesEnum.SelfLoad,
+                //        IsStandart = true,
+                //        CountryCode = 375,
+                //        UploadTime = DateTime.Now,
+                //        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg", ModTypes.c_scale, 100, 100),
+                //        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-bel.jpg", ModTypes.c_scale, 50, 50)
+                //    },
+                //    new Avatars
+                //    {
+                //        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg",
+                //        AvatarType = Context.AvatarTypesEnum.SelfLoad,
+                //        IsStandart = true,
+                //        CountryCode = 7,
+                //        UploadTime = DateTime.Now,
+                //        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg", ModTypes.c_scale, 100, 100),
+                //        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ru.jpg", ModTypes.c_scale, 50, 50)
+                //    },
+                //    new Avatars
+                //    {
+                //        LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg",
+                //        AvatarType = Context.AvatarTypesEnum.SelfLoad,
+                //        IsStandart = true,
+                //        CountryCode = 380,
+                //        UploadTime = DateTime.Now,
+                //        MediumAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg", ModTypes.c_scale, 100, 100),
+                //        SmallAvatar = Resize.ResizedAvatarUri("https://res.cloudinary.com/dlk1sqmj4/image/upload/v1569835906/system/standart_avatars/no-avatar-ua.jpg", ModTypes.c_scale, 50, 50)
+                //    },
 
 
-                //    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  },
-                //    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  },
-                });
+                ////    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409091/users/avatars/6cdcb8af7db412d60b16fc09f7f932e3.jpg", IsStandart = false, UploadTime = DateTime.Now  },
+                ////    new Avatars{ LargeAvatar = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1564409384/users/avatars/depositphotos_11070261-stock-photo-elegant-young-handsome-man-studio.jpg", IsStandart = false, UploadTime = DateTime.Now  },
+                //});
                 //var usersCollection = new List<User>();
 
                 //for (int i = 0; i < item; i++)
