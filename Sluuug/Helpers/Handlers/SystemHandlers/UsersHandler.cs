@@ -62,6 +62,7 @@ namespace Slug.Helpers
                     newUser.Login = user.Login;
                     newUser.AvatarId = context.Avatars.First(x => x.CountryCode == user.CountryCode).Id;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
+                    newUser.RegisterDate = DateTime.UtcNow;
 
                     context.Users.Add(newUser);
                     var sesWk = new SessionsHandler();
@@ -102,6 +103,7 @@ namespace Slug.Helpers
                 newUser.UserStatus = (int)UserStatuses.Active;
                 newUser.AvatarId = localUserAvatarId;
                 newUser.UserType = type;
+                newUser.RegisterDate = DateTime.UtcNow;
 
                 newUser.UserFullInfo = new UserInfo();
                 newUser.UserFullInfo.NowCountryCode = user.CountryCode;

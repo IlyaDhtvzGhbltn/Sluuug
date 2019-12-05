@@ -76,7 +76,7 @@ namespace Slug.Context
         public void SendResetPasswordMail()
         {
             Logger loggerInternal = LogManager.GetLogger("info_logger");
-            loggerInternal.Info("start sending reset password email to " + email);
+            loggerInternal.Info("start sending reset password email to " + recipient);
             MailAddress from = new MailAddress(email, displayName);
             MailAddress to = new MailAddress(this.recipient);
             MailMessage m = new MailMessage(from, to);

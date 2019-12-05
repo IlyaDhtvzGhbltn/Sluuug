@@ -19,6 +19,8 @@ namespace Slug.Context.Tables
 
         public RegisterTypeEnum UserType { get; set; }
 
+        public DateTime RegisterDate { get; set; }
+
         public virtual UserInfo UserFullInfo { get; set; }
 
         public virtual UserSettings Settings { get; set; }

@@ -27,8 +27,8 @@ namespace Slug.Controllers
             //NewUserInitial.Initialize(10);
             await saveClientIpAsync(this.Request);
 
-            ViewBag.Title = "FriendNote - социальная сеть с видео-связью и end-to-end шифрованием сообщений";
-            ViewBag.Description = "FriendNote - это современный бесплатный сервис для поиска знакомств, сочетающий в себе видео-связь и end-to-end шифрование сообщений.";
+            ViewBag.Title = "FRIENDLYNET - социальная сеть с видео-связью и end-to-end шифрованием сообщений";
+            ViewBag.Description = "FRIENDLYNET - это современный бесплатный сервис для поиска знакомств, сочетающий в себе видео-связь и end-to-end шифрование сообщений.";
             ViewBag.MinRegistrationDate = new DateTime(1900, 1, 1).ToString("yyyy-MM-dd");
             ViewBag.MaxRegistrationDate = DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd");
 
@@ -39,8 +39,8 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult activate(string id)
         {
-            ViewBag.Title = "FriendNote | Активация учетной записи";
-            ViewBag.Description = "FriendNote | Активация учетной записи";
+            ViewBag.Title = "FRIENDLYNET | Активация учетной записи";
+            ViewBag.Description = "FRIENDLYNET | Активация учетной записи";
             ViewBag.IsIndex = false;
 
             ViewBag.incorrect_div_display = "block";
@@ -73,8 +73,8 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult reset(string reset_param)
         {
-            ViewBag.Title = "FriendNote | Восстановление учетной записи";
-            ViewBag.Description = "FriendNote | Восстановление учетной записи";
+            ViewBag.Title = "FRIENDLYNET | Восстановление учетной записи";
+            ViewBag.Description = "FRIENDLYNET | Восстановление учетной записи";
             ViewBag.IsIndex = false;
             ResetPasswordHandler resetHandler = new ResetPasswordHandler();
             ViewBag.IsActive = resetHandler.IsParamActive(reset_param);

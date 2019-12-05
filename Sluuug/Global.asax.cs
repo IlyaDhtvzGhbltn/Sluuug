@@ -21,11 +21,11 @@ namespace Sluuug
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //Bots.AddBots();
         }
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            string ip = Request.ServerVariables["REMOTE_ADDR"];
             Exception lastErrorInfo = Server.GetLastError();
             Exception errorInfo = lastErrorInfo.GetBaseException();
             HttpException error = errorInfo as HttpException;
@@ -34,9 +34,9 @@ namespace Sluuug
             if (lastErrorInfo != null)
             {
                 Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
-                loggerInternal.Error(lastErrorInfo);
-
-
+                loggerInternal.Error(error);
+                loggerInternal.Error(errorInfo);
+                loggerInternal.Info(lastErrorInfo, string.Format("{0}{1}", "Ip addres error - ", ip));
                 if (error != null)
                 {
                     Logger logger = LogManager.GetLogger("http_exception_logger");

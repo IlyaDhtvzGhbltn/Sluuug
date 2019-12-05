@@ -553,7 +553,7 @@
     <value>Наберите ваше сообщение</value>
   </data>
   <data name="Site_Title_Public" xml:space="preserve">
-    <value>FriendNote | Гость</value>
+    <value>FRIENDLYNET | Гость</value>
   </data>
   <data name="Notify_Crypto_Invitation_Refused" xml:space="preserve">
     <value>Ваше приглашение в секретный чат отклонено пользователем</value>

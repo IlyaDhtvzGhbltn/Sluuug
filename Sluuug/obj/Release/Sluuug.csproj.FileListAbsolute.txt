@@ -178,3 +178,4 @@ D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.dll
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.pdb
 D:\SLUG\Sluuug\Sluuug\obj\Release\Slug.Migrations.init.resources
 D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Migrations.t.resources
+D:\MyUtilits\friendlynet\Sluuug\obj\Release\Slug.Migrations.user_register.resources
