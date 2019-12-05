@@ -194,6 +194,7 @@ namespace Slug.Helpers.Handlers
                         CitiesCode = newCityCode,
                         CountryCode = CountryCode
                     });
+                    context.SaveChanges();
                     return newCityCode;
                 }
             }

@@ -187,9 +187,15 @@ namespace Slug.Helpers
                     var userModel = new BaseUser();
                     userModel.Age = DateTime.Now.Year - foundedUser.UserFullInfo.DateOfBirth.Year;
                     userModel.UserId = foundedUser.Id;
-                    userModel.Country = context.Countries.First(country => foundedUser.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title;
+                    userModel.Country = context.Countries.First(country => 
+                    foundedUser.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title;
+
+
                     if (foundedUser.UserFullInfo.NowCityCode != 0)
-                        userModel.City = context.Cities.First(cit => foundedUser.UserFullInfo.NowCityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title;
+                    {
+                        userModel.City = context.Cities.First(cit =>
+                        foundedUser.UserFullInfo.NowCityCode == cit.CitiesCode && cit.Language == LanguageType.Ru).Title;
+                    }
                     else
                         userModel.City = "не указан";
 
