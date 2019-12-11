@@ -5,15 +5,20 @@
         url: "/api/cities",
         data: { countryCode },
         success: function (response) {
-            console.log(response);
-
-            let countryList = $("#" + citiesListBoxId);
+            var cities = response.Cities;
+            var countryList = $("#" + citiesListBoxId);
             countryList.empty();
-            for (let i = 0; i < response.Cities.length; i++) {
-                countryList.append(new Option(response.Cities[i].Title, response.Cities[i].CityCode));
+            for (let i = 0; i < cities.length; i++) {
+                countryList.append(new Option(cities[i].Title, cities[i].CityCode));
             }
             if (emptyValue) {
                 countryList.append(new Option('Не важно', -1));
+            }
+            try {
+                SetCitiesInSearch(cities);
+            }
+            catch (ex) {
+                //
             }
         }
     });
