@@ -14,12 +14,13 @@
             if (emptyValue) {
                 countryList.append(new Option('Не важно', -1));
             }
-            try {
-                SetCitiesInSearch(cities);
+            try { SetCitiesInSearch(cities); }
+            catch (ex) { //
             }
-            catch (ex) {
-                //
+            try { SetCitiesInMyProfile(cities); }
+            catch (ec) { // 
             }
+
         }
     });
 }

@@ -94,7 +94,22 @@
 
     </form>
     <button class="search-button" onclick="serchUser('advancedSearchSubmit')">@Html.Translate("Button_Saerch_Start")</button>
-
 </div>
+<script>
+    function SetCitiesInSearch(jsonCities) {
+        console.log('Yes, this is search page');
+        var selectCities = $('#user_search_city');
+        selectCities.empty();
+        try {
+            for (let i = 0; i < jsonCities.length; i++) {
+                selectCities.append(new Option(jsonCities[i].Title, jsonCities[i].CityCode));
+            }
+            selectCities.append(new Option('Не важно', -1));
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    }
+</script>
 <script src="~/Scripts/System/ParseFormArray.js"></script>
 <script src="~/Scripts/Private/Search/Search.js"></script>

@@ -3,15 +3,26 @@
     position: relative;
     top: 30px;
     min-width:600px;
+    margin:auto;
     width:600px;
     border: 1px solid #7f7f7f;
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
     padding: 20px;
 }
 
+.private-userinfo-devide {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+}
+
+.posts-column {
+margin-left:15px;
+}
+
 #new-greeting {
-    font-size:14px;
-    font-style:italic;
+    font-size: 14px;
+    font-style: italic;
 }
 
 .info-container {
@@ -34,7 +45,7 @@
 .profile-info-change-status {
     padding: 10px;
     position: absolute;
-    left: -1000px;
+    left: -2000px;
     top:0px;
     opacity: 0;
     background-color: #fff;
