@@ -9,11 +9,9 @@ namespace Slug.Context.Dto.UserFullInfo
     public class BaseLiveEpisode
     {
         [Required]
-        [Range(1,2000)]
         public int CountryCode { get; set; }
 
         [Required]
-        [Range(1, 10000)]
         public int CityCode { get; set; }
 
         [Required]

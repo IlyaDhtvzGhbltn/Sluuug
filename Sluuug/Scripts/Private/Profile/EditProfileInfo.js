@@ -30,9 +30,9 @@ function ChangeHelloMess(parameter, value, optionalData = null, isAlert = false,
 
 function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = false, isReload = false) {
     _Alert('Идет сохранение, пожалуйста подождите...', '#7f7f7f');
-    console.log(isAlert);
-    console.log(isReload);
-    console.log(value);
+    console.log('value = ' + value);
+    console.log('parameter = ' + parameter);
+
     $.ajax({
         url: "/api/edit_profile",
         data: { paramNumer: parameter, newValue: value, additionParameter: optionalData },
@@ -52,7 +52,7 @@ function SaveEditedProfileInfo(parameter, value, optionalData = null, isAlert = 
                     $('#DatingSexList').fadeOut();
                     $('#DatingAgesList').fadeOut();
                 }
-                else {
+                else if (parameter != 4) {
                     $('#with-title').fadeIn();
                     $('#age-title').fadeIn();
                     $('#DatingSexList').fadeIn();
