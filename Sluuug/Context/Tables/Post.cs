@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Slug.Context.Dto
+namespace Slug.Context.Tables
 {
     public class Post
     {
@@ -14,7 +14,7 @@ namespace Slug.Context.Dto
         public Guid Id { get; set; }
 
         [Required]
-        public User UserPosted { get; set; }
+        public int UserPosted { get; set; }
         
         [Required]
         public DateTime PublicDateTime { get; set; }

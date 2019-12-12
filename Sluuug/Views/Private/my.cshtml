@@ -11,7 +11,8 @@
 <link href="~/Styles/common/navigation-arrows-style.css" rel="stylesheet" />
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/private/my-profile-style.css" rel="stylesheet" />
-
+<script src="~/Scripts/Private/Profile/Posts.js"></script>
+<script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
 
 @RenderPage("~/Views/Partial/Albums/ExpandAlbum.cshtml")
 
@@ -68,27 +69,37 @@
         <input type="radio" id="tab2" name="tab-group" checked/>
         <label class="tab-title" for="tab2">Стена</label>
         <div class="tab-content">
-            <div class="posts-column">
+            <div class="posts-tab">
                 <div class="profile-full-info-item-wrapper">
                     <div class="new-posts-form">
                         <div class="new-post-title-row">
                             <span>Заголовок</span>
-                            <input type="text" id="new-post-title" />
+                            <div class="new-post-title-container">
+                                <input type="text" id="new-post-title" oninput="CheckActiveElement('new-post-title', ['new-post-text'], ['new-post-text', 'new-post-button'] )" />
+                            </div>
+                            <div class="new-post-button-container">
+                                <button disabled id="new-post-button" class="disable-new-post-button" onclick="CreateNewPost()">Отправить</button>
+                            </div>
                         </div>
                         <div class="new-post-title-row">
                             <span>Сообщение</span>
-                            <textarea></textarea>
-                            <div class="emoji-charsets-container">
-                                <span style="font-size:31px; cursor:pointer">🙂</span>
+                            <div class="new-post-textarea-container">
+                                <textarea disabled id="new-post-text" class="stylized-scrollbar" oninput="CheckActiveElement('new-post-text', ['new-post-button'], ['new-post-button'])"></textarea>
                             </div>
                         </div>
-                        <button>Отправить</button>
                     </div>
-
-                    <div class="all-user-posts">
-
-                    </div>
+            </div>
+            <div class="all-user-posts">
+                @foreach (var post in Model.Posts)
+                {
+                    Html.RenderPartial("~/Views/Partial/OwnPage/post.cshtml", post, new ViewDataDictionary<Slug.Model.FullInfo.PostModel>(post));
+                }
+                @if (!Model.IsAllPostsUploaded)
+                {
+                <div class="more-posts-container">
+                    <button class="more-posts-button" onclick="GetMorePosts(1)">Ешё</button>
                 </div>
+                }
             </div>
         </div>
     </div>
@@ -111,9 +122,7 @@
                         <input type="checkbox" id="new-album-checkbox" />
                         <button class="create_new_album_button">Создать альбом</button>
                         <div id="create_new_album">
-
                             <div class="left-new-album">
-
                                 <div class="row-entry" id="tooltip-container-album">
                                     <span>Название</span>
                                     <input type="text" id="album-title" required>
@@ -146,7 +155,6 @@
                         {
                             Html.RenderPartial("~/Views/Partial/OwnPage/events.cshtml", item, new ViewDataDictionary<Slug.Model.Users.MemorableEventsModel>(item));
                         }
-
                         <input type="checkbox" id="new_event_checkbox" />
                         <button class="new_event_button">Добавить</button>
                         <div id="add_event_entry">
@@ -344,17 +352,6 @@
             </div>
         </div>
     </div>
-    @*<div class="profile-full-info-item-wrapper">
-            <h2>Стена(-0)</h2>
-            <input type="checkbox" class="expand-checkbox" />
-            <div class="expand"></div>
-            <div class="expanded-info">
-                <div class="new-post-form">
-                    <textarea></textarea>
-                        <button>Опубликовать</button>
-                </div>
-            </div>
-        </div>*@
 
     <script src="~/Scripts/System/ParseFormArray.js"></script>
     <script src="~/Scripts/Private/Profile/Albums.js"></script>
@@ -410,3 +407,4 @@
             });
         }
     </script>
+</div>

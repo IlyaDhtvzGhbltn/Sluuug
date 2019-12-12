@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Slug.Context.Dto.Cloudinary;
 using System.Text.RegularExpressions;
+using Slug.Helpers.Handlers.PrivateUserServices;
 
 namespace Slug.Helpers
 {
@@ -27,6 +28,7 @@ namespace Slug.Helpers
         public SearchHandler SearchHandler { get; set; } = new SearchHandler();
         public FullInfoHandler FullInfoHandler { get; set; } = new FullInfoHandler();
         public AlbumsHandler AlbumsHandler { get; set; } = new AlbumsHandler();
+        public PostUserHandler PostUserHandler { get; set; } = new PostUserHandler();
 
         public static CloudImageUploadResult UploadImg(HttpPostedFileBase upload, string UploadFolder = "/users/avatars")
         {

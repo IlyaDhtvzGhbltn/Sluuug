@@ -17,6 +17,7 @@ namespace Slug.Model.Users.Relations
         public ICollection<MemorableEventsModel> Events { get; set; }
         public ICollection<PostModel> Posts { get; set; }
 
+        public bool IsAllPostsUploaded { get; set; }
         public int CountryCode { get; set; }
         public int CityCode { get; set; }
     }

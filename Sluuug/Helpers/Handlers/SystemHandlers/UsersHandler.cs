@@ -22,6 +22,7 @@ using Slug.Context.Dto.Search;
 using System.Globalization;
 using Slug.Context.Dto.UserWorker_refactor;
 using Slug.DbInitialisation;
+using Slug.Model.FullInfo;
 
 namespace Slug.Helpers
 {
@@ -357,8 +358,23 @@ namespace Slug.Helpers
                 };
                 userModel.Albums.Add(albumModel);
             }
-            
-        return userModel;
+
+            var posts = context.Posts.Where(x => x.UserPosted == userId).ToList();
+            if (posts.Count <= 25)
+            {
+                userModel.IsAllPostsUploaded = true;
+            }
+            userModel.Posts = new List<PostModel>();
+            for (int i= posts.Count - 1; i >= 0; i--)
+            {
+                userModel.Posts.Add(new PostModel()
+                {
+                    PostedTime = posts[i].PublicDateTime.ToString("dd.MM.yyyy"),
+                    PostText = posts[i].Text,
+                    PostTitle = posts[i].Title
+                });
+            }
+            return userModel;
         }
 
         public UserSettings GetUserSettings(string sessionID)

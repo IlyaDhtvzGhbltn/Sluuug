@@ -9,8 +9,10 @@ namespace Slug.Model.FullInfo
     {
         public int UserPosterId { get; set; }
 
-        public string Text { get; set; }
+        public string PostTitle { get; set; }
 
-        public DateTime PostedTime { get; set; }
+        public string PostText { get; set; }
+
+        public string PostedTime { get; set; }
     }
 }

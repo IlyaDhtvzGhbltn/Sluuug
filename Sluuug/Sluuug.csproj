@@ -198,6 +198,7 @@
     <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
     <Content Include="Scripts\Private\Profile\Albums.js" />
     <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
+    <Content Include="Scripts\Private\Profile\Posts.js" />
     <Content Include="Scripts\Private\Profile\SelectPaginationActivePage.js" />
     <Content Include="Scripts\Private\Settings\LocalSettings.js" />
     <Content Include="Scripts\Private\Common\News.js" />
@@ -308,6 +309,7 @@
     <Compile Include="Context\Dto\OAuth\Ok\OkUserInfo.cs" />
     <Compile Include="Context\Dto\OAuth\Vk\VkToken.cs" />
     <Compile Include="Context\Dto\OAuth\Vk\VkUserInfo.cs" />
+    <Compile Include="Context\Dto\Posts\NewPostRequestModel.cs" />
     <Compile Include="Context\Dto\Search\AgeEnum.cs" />
     <Compile Include="Context\Dto\Search\DatesUserSearch.cs" />
     <Compile Include="Context\Dto\Search\DatingPurposeEnum.cs" />
@@ -348,6 +350,7 @@
     <Compile Include="Helpers\Handlers\OAuthHandlers\OkOauthHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\DisableConversationHandler.cs" />
+    <Compile Include="Helpers\Handlers\PrivateUserServices\PostUserHandler.cs" />
     <Compile Include="Helpers\Handlers\SystemHandlers\NotificationHandler.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\OauthHandler.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\VkOAuthHandler.cs" />
@@ -356,14 +359,6 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\201911111010443_t.cs" />
-    <Compile Include="Migrations\201911111010443_t.Designer.cs">
-      <DependentUpon>201911111010443_t.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912050854255_user_register.cs" />
-    <Compile Include="Migrations\201912050854255_user_register.Designer.cs">
-      <DependentUpon>201912050854255_user_register.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -532,6 +527,7 @@
     <Content Include="Views\Guest\vk_oauth.cshtml" />
     <Content Include="Views\Guest\fb_oauth.cshtml" />
     <Content Include="Views\Guest\ok_oauth.cshtml" />
+    <Content Include="Views\Partial\OwnPage\post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -541,15 +537,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Partial\OwnPage\AddInfo\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911111010443_t.resx">
-      <DependentUpon>201911111010443_t.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912050854255_user_register.resx">
-      <DependentUpon>201912050854255_user_register.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>

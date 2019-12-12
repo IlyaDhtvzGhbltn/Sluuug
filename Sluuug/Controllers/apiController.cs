@@ -23,6 +23,8 @@ using Slug.Context.Dto.UserWorker_refactor;
 using Slug.Context.Tables;
 using Slug.Context.Dto.News;
 using Slug.Helpers.Handlers.OAuthHandlers;
+using Slug.Context.Dto.Posts;
+using Slug.Helpers.Handlers.PrivateUserServices;
 
 namespace Slug.Controllers
 {
@@ -273,6 +275,15 @@ namespace Slug.Controllers
                 return UsersHandler.IsOnline(int.Parse(userId));
             }
             else return false;
+        }
+
+        [HttpPost]
+        public bool create_post(NewPostRequestModel post)
+        {
+            string session = GetCookiesValue(Request);
+            int userId = UsersHandler.UserIdBySession(session);
+            bool saved = PostUserHandler.SavePost(post, userId);
+            return saved;
         }
     }
 }

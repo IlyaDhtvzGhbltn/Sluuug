@@ -47,7 +47,7 @@ namespace Slug.Controllers
             {
                 new SelectListItem(){ Text = "Познакомлюсь для отношений", Value = "0" },
                 new SelectListItem(){ Text = "Познакомлюсь для общения", Value = "1" },
-                //new SelectListItem(){ Text = "Познакомлюсь для секса", Value = "2" },
+                new SelectListItem(){ Text = "Познакомлюсь для секса", Value = "2" },
                 new SelectListItem(){ Text = "Не знакомлюсь", Value = "3" }
             };
             datingPurposeList.ForEach(
