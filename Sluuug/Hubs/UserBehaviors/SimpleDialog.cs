@@ -19,7 +19,7 @@ using Slug.Model.Users;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 
 
-namespace Sluuug.Hubs
+namespace Slug.Hubs
 {
     public class SimpleDialog : Hub
     {

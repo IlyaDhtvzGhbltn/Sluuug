@@ -13,7 +13,7 @@ using Slug.Context.ServerError;
 using Slug.Context;
 using FN.Bot;
 
-namespace Sluuug
+namespace Slug
 {
     public class MvcApplication : HttpApplication
     {

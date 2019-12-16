@@ -34,6 +34,31 @@ function CheckActiveElement(elementInputId, elementEnabledIdMassive, elementDisa
         }    }
 }
 
-function GetMorePosts(currentPostsCount) {
+function GetMoreOwnPosts(currentPostsCount) {
+    $.ajax({
+        type: 'post',
+        url: '/api/getmoreownposts',
+        data: { currentPosts: currentPostsCount },
+        success: function (resp) {
+            let postsList = $('.all-user-posts')[0];
 
+            [].forEach.call(resp.Posts, function (item) {
+                let newPost = PostNode.ItemUserOldPost(item.PostTitle, item.PostText, item.PostedTime);
+                postsList.insertBefore(newPost, postsList.lastChild);
+            });
+            var postsOnPageAfterUploading = currentPostsCount + resp.Posts.length;
+            dropMorePostsButton();
+            console.log('all post for now ' + postsOnPageAfterUploading);
+            console.log('server posts ' + resp.TotalPostsCount);
+
+            if (postsOnPageAfterUploading < resp.TotalPostsCount) {
+                let button = PostNode.ButtonMorePost(postsOnPageAfterUploading);
+                postsList.insertBefore(button, postsList.lastChild);
+            }
+        }
+    });
+}
+
+function dropMorePostsButton() {
+    $('.more-posts-container').remove();
 }

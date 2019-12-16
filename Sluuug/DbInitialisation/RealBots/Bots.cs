@@ -58,7 +58,7 @@ namespace FN.Bot
 
         public static void AddBots()
         {
-            string[] filesNames = Directory.GetFiles(@"D:\MyUtilits\friendlynet\Sluuug\Resources\tmpUsers").Select(Path.GetFileName).ToArray();
+            string[] filesNames = Directory.GetFiles(@"D:\MyUtilits\friendlynet\Slug\Resources\tmpUsers").Select(Path.GetFileName).ToArray();
             string fullAvatarsUrlTemplate = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1573744001/UploadUsers/";
 
             var usersCollection = new List<User>();

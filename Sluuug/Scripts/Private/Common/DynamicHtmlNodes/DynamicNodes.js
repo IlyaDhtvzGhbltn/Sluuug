@@ -214,4 +214,46 @@ class PostNode {
         postItem.appendChild(postDateContainer);
         return postItem;
     }
+
+    static ItemUserOldPost(title, text, date)
+    {
+        var postItem = document.createElement("div");
+        postItem.className = "profile-full-info-item-wrapper post";
+
+        var postTitleContainer = document.createElement("div");
+        var titleNode = document.createElement("h2");
+        titleNode.className = "post-title";
+        titleNode.appendChild(document.createTextNode(title));
+        postTitleContainer.appendChild(titleNode);
+
+        var postTextContainer = document.createElement("div");
+        postTextContainer.className = "post-text-container";
+        var postTextNode = document.createElement("span");
+        postTextNode.className = "post-text";
+        postTextNode.appendChild(document.createTextNode(text));
+        postTextContainer.appendChild(postTextNode);
+
+        var postDateContainer = document.createElement("div");
+        postDateContainer.className = "post-date-container";
+        var dateNode = document.createElement("span");
+        dateNode.className = "post-date";
+        dateNode.appendChild(document.createTextNode(date));
+        postDateContainer.appendChild(dateNode);
+
+        postItem.appendChild(postTitleContainer);
+        postItem.appendChild(postTextContainer);
+        postItem.appendChild(postDateContainer);
+        return postItem;
+    }
+
+    static ButtonMorePost(currentPostsCount) {
+        var morePostsButtonContainer = document.createElement("div");
+        morePostsButtonContainer.className = "more-posts-container";
+        var button = document.createElement("button");
+        button.className = "more-posts-button";
+        button.innerHTML = "Ещё";
+        button.onclick = function () { GetMoreOwnPosts(currentPostsCount) };
+        morePostsButtonContainer.appendChild(button);
+        return morePostsButtonContainer;
+    }
 }

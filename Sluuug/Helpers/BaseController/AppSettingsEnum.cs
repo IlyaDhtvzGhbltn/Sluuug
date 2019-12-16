@@ -30,6 +30,8 @@ namespace Slug.Helpers.BaseController
 
         okAppId,
         okAppPublickKey,
-        okAppRedirectUri
+        okAppRedirectUri,
+
+        postsOnPage
     }
 }

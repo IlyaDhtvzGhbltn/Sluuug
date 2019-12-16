@@ -23,6 +23,10 @@ using System.Globalization;
 using Slug.Context.Dto.UserWorker_refactor;
 using Slug.DbInitialisation;
 using Slug.Model.FullInfo;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using Slug.Helpers.BaseController;
+using Slug.Helpers.Handlers.PrivateUserServices;
+using Slug.Context.Dto.Posts;
 
 namespace Slug.Helpers
 {
@@ -359,21 +363,17 @@ namespace Slug.Helpers
                 userModel.Albums.Add(albumModel);
             }
 
-            var posts = context.Posts.Where(x => x.UserPosted == userId).ToList();
-            if (posts.Count <= 25)
+            var postHandler = new PostUserHandler();
+            int oneTimePostsCountUpload = int.Parse(WebAppSettings.AppSettings[AppSettingsEnum.postsOnPage.ToString()]);
+
+            ProfilePostModel posts = postHandler.GetMorePosts(userId, 0, context);
+            if (posts.TotalPostsCount <= oneTimePostsCountUpload)
             {
                 userModel.IsAllPostsUploaded = true;
             }
             userModel.Posts = new List<PostModel>();
-            for (int i= posts.Count - 1; i >= 0; i--)
-            {
-                userModel.Posts.Add(new PostModel()
-                {
-                    PostedTime = posts[i].PublicDateTime.ToString("dd.MM.yyyy"),
-                    PostText = posts[i].Text,
-                    PostTitle = posts[i].Title
-                });
-            }
+            userModel.Posts = posts.Posts;
+
             return userModel;
         }
 

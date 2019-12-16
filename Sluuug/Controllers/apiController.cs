@@ -285,5 +285,26 @@ namespace Slug.Controllers
             bool saved = PostUserHandler.SavePost(post, userId);
             return saved;
         }
+
+        [HttpPost]
+        public JsonResult getmoreownposts(int currentPosts)
+        {
+            string session = GetCookiesValue(Request);
+            int userId = UsersHandler.UserIdBySession(session);
+            var oldPosts = PostUserHandler.GetMorePosts(userId, currentPosts);
+            return new JsonResult() { Data = oldPosts };
+        }
+
+        [HttpPost]
+        public JsonResult getmoreuserposts(int currentUserPosts, int userPostNeedId)
+        {
+            string session = GetCookiesValue(Request);
+            int userRequesterId = UsersHandler.UserIdBySession(session);
+            if (FriendshipChecker.CheckUsersFriendshipByIDs(userPostNeedId, userRequesterId))
+            {
+
+            }
+            return null;
+        }
     }
 }

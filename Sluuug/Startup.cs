@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Sluuug.Startup))]
+[assembly: OwinStartup(typeof(Slug.Startup))]
 
-namespace Sluuug
+namespace Slug
 {
     public class Startup
     {

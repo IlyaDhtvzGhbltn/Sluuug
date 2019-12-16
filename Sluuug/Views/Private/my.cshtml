@@ -97,7 +97,7 @@
                 @if (!Model.IsAllPostsUploaded)
                 {
                 <div class="more-posts-container">
-                    <button class="more-posts-button" onclick="GetMorePosts(1)">Ешё</button>
+                    <button class="more-posts-button" onclick="GetMoreOwnPosts(@Model.Posts.Count)">Ешё</button>
                 </div>
                 }
             </div>
