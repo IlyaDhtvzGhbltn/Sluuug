@@ -291,18 +291,19 @@ namespace Slug.Controllers
         {
             string session = GetCookiesValue(Request);
             int userId = UsersHandler.UserIdBySession(session);
-            var oldPosts = PostUserHandler.GetMorePosts(userId, currentPosts);
+            ProfilePostModel oldPosts = PostUserHandler.GetMorePosts(userId, currentPosts);
             return new JsonResult() { Data = oldPosts };
         }
 
         [HttpPost]
-        public JsonResult getmoreuserposts(int currentUserPosts, int userPostNeedId)
+        public JsonResult getmoreuserposts(int currentUserPostsCount, int userPostNeedId)
         {
             string session = GetCookiesValue(Request);
             int userRequesterId = UsersHandler.UserIdBySession(session);
             if (FriendshipChecker.CheckUsersFriendshipByIDs(userPostNeedId, userRequesterId))
             {
-
+                var oldPosts = PostUserHandler.GetMorePosts(userPostNeedId, currentUserPostsCount);
+                return new JsonResult() { Data = oldPosts };
             }
             return null;
         }

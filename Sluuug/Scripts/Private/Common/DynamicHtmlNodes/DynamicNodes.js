@@ -246,13 +246,24 @@ class PostNode {
         return postItem;
     }
 
-    static ButtonMorePost(currentPostsCount) {
+    static ButtonMorePost(currentPostsCount, friendUserId = null) {
+
+        console.log('button friend id ' + friendUserId);
         var morePostsButtonContainer = document.createElement("div");
         morePostsButtonContainer.className = "more-posts-container";
         var button = document.createElement("button");
         button.className = "more-posts-button";
         button.innerHTML = "Ещё";
-        button.onclick = function () { GetMoreOwnPosts(currentPostsCount) };
+        if (friendUserId == null) {
+            button.onclick = function () {
+                GetMoreOwnPosts(currentPostsCount);
+            };
+        }
+        else {
+            button.onclick = function () {
+                GetMoreFriendPosts(currentPostsCount, friendUserId);
+            };
+        }
         morePostsButtonContainer.appendChild(button);
         return morePostsButtonContainer;
     }

@@ -372,8 +372,10 @@ namespace Slug.Helpers
                 userModel.IsAllPostsUploaded = true;
             }
             userModel.Posts = new List<PostModel>();
-            userModel.Posts = posts.Posts;
-
+            if (posts.Posts != null)
+            {
+                userModel.Posts = posts.Posts;
+            }
             return userModel;
         }
 

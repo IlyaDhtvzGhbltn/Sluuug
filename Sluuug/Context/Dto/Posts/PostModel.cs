@@ -14,5 +14,7 @@ namespace Slug.Model.FullInfo
         public string PostText { get; set; }
 
         public string PostedTime { get; set; }
+
+        public Guid PostId { get; set; }
     }
 }

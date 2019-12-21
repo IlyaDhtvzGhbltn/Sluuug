@@ -65,8 +65,10 @@
 
 .fr-head > .avatar {
     float: left;
-    border:1px solid #7f7f7f;
-    cursor:pointer;
+    border: 1px solid #7f7f7f;
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
 }
 
 h2 {

@@ -150,6 +150,25 @@
 }
 /* REWRITE END */
 
+#private-userinfo-devide {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 50px;
+}
 
+.tab-content {
+    border: none;
+    height: auto;
+    overflow-y: unset;
+    overflow-x: unset;
+    padding: unset;
+}
 
-
+.no-posts-container {
+    width: 300px;
+    margin: 20px 0 0 0;
+}
+.profile-full-info-item-wrapper {
+    top:unset;
+}

@@ -10,9 +10,10 @@
 .tab-title {
     background: #49B2DA;
     padding: 5px 10px;
-    border: 1px solid #7f7f7f;
+    border: 1px solid #ddd;
     border-bottom: none;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .tab-content {
@@ -21,11 +22,12 @@
     padding: 15px;
     left: 0;
     width: 66%;
-    min-width:600px;
+    min-width: 600px;
     display: none;
-    height:580px;
-    overflow-x:hidden;
-    overflow-y:auto;
+    height: 580px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-transition:all 1s ease;
 }
 
 
@@ -33,7 +35,6 @@
     position: relative;
     background: #a2ecf3;
     color: #525252;
-    top: 2px;
     z-index: 1;
     transition: all 0.5s ease;
 }
