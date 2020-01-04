@@ -29,6 +29,7 @@ namespace Slug.Helpers
         public FullInfoHandler FullInfoHandler { get; set; } = new FullInfoHandler();
         public AlbumsHandler AlbumsHandler { get; set; } = new AlbumsHandler();
         public PostUserHandler PostUserHandler { get; set; } = new PostUserHandler();
+        public VipUsersHandler Vip { get; set; } = new VipUsersHandler();
 
         public static CloudImageUploadResult UploadImg(HttpPostedFileBase upload, string UploadFolder = "/users/avatars")
         {

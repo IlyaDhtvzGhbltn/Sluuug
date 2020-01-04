@@ -13,9 +13,16 @@
             <input type="radio" id="tab1" name="tab-group" checked>
             <label class="tab-title" for="tab1">Входящие</label>
             <div class="tab-content stylized-scrollbar">
-                @foreach (var item in Model.IncommingInvitations)
+                @if (Model.IncommingInvitations.Count > 0)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                    foreach (var item in Model.IncommingInvitations)
+                    {
+                        Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                    }
+                }
+                else
+                {
+                    <span>Нет входящих заявок</span>
                 }
             </div>
         </div>
@@ -25,9 +32,16 @@
             <input type="radio" id="tab2" name="tab-group">
             <label class="tab-title" for="tab2">Исходящие</label>
             <div class="tab-content stylized-scrollbar">
-                @foreach (var item in Model.OutCommingInvitations)
+                @if (Model.OutCommingInvitations.Count > 0)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                    foreach (var item in Model.OutCommingInvitations)
+                    {
+                        Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                    }
+                }
+                else
+                {
+                    <span>Нет исходящих заявок</span>
                 }
             </div>
         </div>
@@ -37,9 +51,16 @@
             <input type="radio" id="tab3" name="tab-group">
             <label class="tab-title" for="tab3">@Html.Translate("Text_Current_Contacts")</label>
             <div class="tab-content stylized-scrollbar">
-                @foreach (var item in Model.Friends)
+                @if (Model.Friends.Count > 0)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                    foreach (var item in Model.Friends)
+                    {
+                        Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                    }
+                }
+                else
+                {
+                    <span>Нет друзей</span>
                 }
             </div>
         </div>
@@ -49,9 +70,16 @@
             <input type="radio" id="tab4" name="tab-group">
             <label class="tab-title" for="tab4">Черный список</label>
             <div class="tab-content stylized-scrollbar">
-                @foreach (var item in Model.BlockedUser)
+                @if (Model.BlockedUser.Count > 0)
                 {
-                    Html.RenderPartial("~/Views/Partial/Contacts/black_list_entry.cshtml", item, new ViewDataDictionary<Slug.Model.Users.Relations.BlockedUser>(item));
+                    foreach (var item in Model.BlockedUser)
+                    {
+                        Html.RenderPartial("~/Views/Partial/Contacts/black_list_entry.cshtml", item, new ViewDataDictionary<Slug.Model.Users.Relations.BlockedUser>(item));
+                    }
+                }
+                else
+                {
+                    <span>Черный список пуст</span>
                 }
             </div>
         </div>

@@ -74,6 +74,10 @@ function UploadPosts(posts, currentPostsCount, TotalPostsCount, friendUserId = n
     }
 }
 
+function DeletePost(postId) {
+
+}
+
 function dropMorePostsButton() {
     $('.more-posts-container').remove();
 }

@@ -307,5 +307,21 @@ namespace Slug.Controllers
             }
             return null;
         }
+
+        [HttpDelete]
+        public JsonResult deletepost(Guid postId)
+        {
+            return null;
+        }
+
+        [HttpPost]
+        public JsonResult getvips()
+        {
+            string session = GetCookiesValue(Request);
+            int userId = UsersHandler.UserIdBySession(session);
+            UserLocation location = UsersHandler.GetUserLocation(userId);
+            var vipsList = Vip.GetVipsByCity(location);
+            return new JsonResult() { Data = vipsList };
+        }
     }
 }

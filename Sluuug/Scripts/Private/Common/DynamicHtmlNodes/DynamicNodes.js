@@ -214,7 +214,6 @@ class PostNode {
         postItem.appendChild(postDateContainer);
         return postItem;
     }
-
     static ItemUserOldPost(title, text, date)
     {
         var postItem = document.createElement("div");
@@ -245,7 +244,6 @@ class PostNode {
         postItem.appendChild(postDateContainer);
         return postItem;
     }
-
     static ButtonMorePost(currentPostsCount, friendUserId = null) {
 
         console.log('button friend id ' + friendUserId);
@@ -267,4 +265,93 @@ class PostNode {
         morePostsButtonContainer.appendChild(button);
         return morePostsButtonContainer;
     }
+}
+
+class VIP {
+    static VIPUserNode(item) {
+        var rootDiv = createDiv('vip-user');
+        var userNameDivContainer = createDiv('vip-username-container');
+        var userNameDivCenter = createDiv('vipuser-name-center-continer');
+        var nameSpan = createSpan(item.Name + " " + item.SurName, 'vip-namesurname', '');
+
+        userNameDivCenter.appendChild(nameSpan);
+        userNameDivContainer.appendChild(userNameDivCenter);
+        rootDiv.appendChild(userNameDivContainer);
+
+        var vipContainerDiv = createDiv('vip-container');
+
+        var vipFrameDiv = createDiv('vip-frame-user-avatar');
+        var userAvatar = createImg('user-avatar', item.MidAvatarUri);
+        var vipFrame = createImg('vip-frame', 'https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578049174/system/vip_frame.png');
+        vipFrameDiv.appendChild(vipFrame);
+        vipFrameDiv.appendChild(userAvatar);
+        vipContainerDiv.appendChild(vipFrameDiv);
+
+        var vipInfoContainer = createDiv('vip-info-container');
+        var info = createDiv('vip-info');
+        var ageSpan = createSpan('Возраст ' + item.Age, '', '');
+        var locationSpan = createSpan(item.Country + ' ⚈ ' + item.City, '', '');
+        info.appendChild(ageSpan);
+        info.appendChild(locationSpan);
+        switch (item.DatingPurpose)
+        {
+            case 0:
+                var purposeSpan = createSpan('Знакомлюсь для отношений', '', '');
+                info.appendChild(purposeSpan);
+                break;
+            case 1:
+                purposeSpan = createSpan('Знакомлюсь для общения', '', '');
+                info.appendChild(purposeSpan);
+                break;
+            case 2:
+                purposeSpan = createSpan('Знакомлюсь для секса', '', '');
+                info.appendChild(purposeSpan);
+                break;
+            case 3:
+                purposeSpan = createSpan('не знакомлюсь', '', '');
+                info.appendChild(purposeSpan);
+                break;
+        }
+        vipInfoContainer.appendChild(info);
+        var contactButtonContainer = createDiv('contact-button-container');
+        var btn = createButton(function () { redirectToFriend(item.Id); });
+        var imgSend = createImg('', 'https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578055425/system/mail.png');
+        var sendSpan = createSpan('Написать', '', '');
+        btn.appendChild(imgSend);
+        btn.appendChild(sendSpan);
+        contactButtonContainer.appendChild(btn);
+        vipInfoContainer.appendChild(contactButtonContainer);
+
+        vipContainerDiv.appendChild(vipInfoContainer);
+        rootDiv.appendChild(vipContainerDiv);
+
+        return rootDiv;
+    }
+}
+
+function createSpan(text, className, id) {
+    var span = document.createElement('span');
+    span.appendChild(document.createTextNode(text));
+    span.className = className;
+    span.id = id;
+    return span;
+}
+
+function createDiv(className) {
+    var div = document.createElement('div');
+    div.className = className;
+    return div;
+}
+
+function createImg(className, src) {
+    var img = document.createElement("img");
+    img.className = className;
+    img.src = src;
+    return img;
+}
+
+function createButton(func) {
+    var button = document.createElement("button");
+    button.onclick = function () { func(); };
+    return button;
 }

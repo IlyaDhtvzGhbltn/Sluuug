@@ -5,7 +5,6 @@ using Slug.Context.Dto.Messages;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
 using Slug.Crypto;
-using Slug.Helpers;
 using Slug.Model;
 using Slug.Model.Albums;
 using Slug.Model.Users;
@@ -23,10 +22,10 @@ using System.Globalization;
 using Slug.Context.Dto.UserWorker_refactor;
 using Slug.DbInitialisation;
 using Slug.Model.FullInfo;
-using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Helpers.BaseController;
 using Slug.Helpers.Handlers.PrivateUserServices;
 using Slug.Context.Dto.Posts;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 
 namespace Slug.Helpers
 {
@@ -1030,6 +1029,22 @@ namespace Slug.Helpers
             return flagOnline;
         }
 
+        public UserLocation GetUserLocation(int userId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var info = context.UsersInfo
+                    .Where(x => x.Id == userId)
+                    .Select((y) => new UserLocation()
+                    {
+                        CityCode = y.NowCityCode,
+                        CountryCode = y.NowCountryCode
+                    })
+                    .First();
+                return info;
+            }
+        }
+
         public bool IsOnline(int userId)
         {
             return isOnline(userId);
@@ -1044,7 +1059,6 @@ namespace Slug.Helpers
             }
         }
         
-
         private async Task InvitationSeen(DataBaseContext context, int userId)
         {
             var relation = context.UserRelations.Where(x =>

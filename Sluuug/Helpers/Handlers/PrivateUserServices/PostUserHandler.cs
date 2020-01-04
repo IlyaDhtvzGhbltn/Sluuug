@@ -50,6 +50,11 @@ namespace Slug.Helpers.Handlers.PrivateUserServices
             return getMorePosts(userId, currentPostsCount, context);
         }
 
+        public bool DeletePost(Guid postId)
+        {
+            return false;
+        }
+
         private ProfilePostModel getMorePosts(int userId, int currentPostsCount, DataBaseContext context)
         {
             var model = new ProfilePostModel();

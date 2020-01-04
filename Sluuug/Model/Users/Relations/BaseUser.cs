@@ -30,5 +30,6 @@ namespace Slug.Model.Users
         public bool IsOnline { get; set; }
         public FriendshipItemStatus Status { get; set; }
         public VideoConverenceAcceptToCall AcceptToInfite { get; set; }
+        public bool Vip { get; set; }
     }
 }

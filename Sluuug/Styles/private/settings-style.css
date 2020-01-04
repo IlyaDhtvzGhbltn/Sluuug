@@ -7,9 +7,10 @@ b{
 	background-color:transparent;
 }
 
-button{
-height:42px;
-width:100px;
+.smile-sound > button,  
+.normal-container > button {
+    height: 32px;
+    width: 95px;
 }
 
 .settings-wrapper {

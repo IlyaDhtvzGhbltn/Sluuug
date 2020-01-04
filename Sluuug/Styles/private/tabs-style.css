@@ -2,10 +2,13 @@
     display: inline-block;
 }
 
-    .tab input[name="tab-group"] {
-        display: none;
-    }
+.tab input[name="tab-group"] {
+    display: none;
+}
 
+.tabs {
+min-width:600px;
+}
 
 .tab-title {
     background: #49B2DA;
@@ -18,10 +21,10 @@
 
 .tab-content {
     position: absolute;
-    border: 2px solid #ddd;
+    /*border: 2px solid #ddd;*/
     padding: 15px;
     left: 0;
-    width: 66%;
+    /*width: 66%;*/
     min-width: 600px;
     display: none;
     height: 580px;

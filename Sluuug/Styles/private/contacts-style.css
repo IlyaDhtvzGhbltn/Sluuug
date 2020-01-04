@@ -1,6 +1,7 @@
 ﻿
 .tabs {
     position: relative;
+    min-width:600px;
 }
 
 img {
@@ -31,7 +32,7 @@ img {
 
 .accepted_user_ button,
 .invitation_user button,
-img {
+.head img {
     margin: 10px;
 }
 

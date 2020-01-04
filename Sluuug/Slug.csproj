@@ -200,6 +200,7 @@
     <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
     <Content Include="Scripts\Private\Profile\Posts.js" />
     <Content Include="Scripts\Private\Profile\SelectPaginationActivePage.js" />
+    <Content Include="Scripts\Private\Profile\Vips.js" />
     <Content Include="Scripts\Private\Settings\LocalSettings.js" />
     <Content Include="Scripts\Private\Common\News.js" />
     <Content Include="Scripts\Private\Profile\EditProfileInfo.js" />
@@ -356,6 +357,7 @@
     <Compile Include="Helpers\Handlers\OAuthHandlers\OauthHandler.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\VkOAuthHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\ResetPasswordHandler.cs" />
+    <Compile Include="Helpers\Handlers\SystemHandlers\VipUsersHandler.cs" />
     <Compile Include="Helpers\HTMLGenerated\Notifications.cs" />
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
@@ -377,8 +379,10 @@
     <Compile Include="Model\Users\Login\LoginingUserModel.cs" />
     <Compile Include="Model\Users\Relations\BlockedUser.cs" />
     <Compile Include="Model\Users\Relations\MyProfileModel.cs" />
+    <Compile Include="Model\Users\Relations\VipUserModel.cs" />
     <Compile Include="Model\Users\Systems\UserConnectionIdModel.cs" />
     <Compile Include="Model\Users\Systems\UserEnums.cs" />
+    <Compile Include="Model\Users\UserLocation.cs" />
     <Compile Include="Model\VideoConference\Role.cs" />
     <Compile Include="Context\Tables\Album.cs" />
     <Compile Include="Context\Tables\Cities.cs" />

@@ -48,9 +48,8 @@ namespace Slug.Context.Tables
         public long IdOkUser { get; set; }
 
         public virtual List<Education> Educations { get; set; }
-
         public virtual List<ImportantEvent> Events { get; set; }
-
         public virtual List<WorkPlaces> Works { get; set; }
+        public DateTime? VipStatusExpiredDate { get; set; }
     }
 }
