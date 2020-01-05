@@ -110,7 +110,6 @@ namespace Slug.Controllers
             });
             ViewBag.Countries = countryList;
 
-
             var CitiesList = new List<SelectListItem>();
             List<SearchCityItem> cities = handler.CitiesByCountryID(userInfoModel.CountryCode);
             cities.ForEach(x => 

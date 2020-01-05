@@ -45,11 +45,19 @@
     margin-left:10px;
 }
 
-.simple-dialog-wrapper img {
+.vipuser-crown {
+    border-radius: unset;
+    height: 36px;
+    left: 16px;
+    top: -114px;
+    position: relative;
+}
+
+.simple-dialog-wrapper .conversation-user-avatar {
     border-radius: 100px;
     position: absolute;
-    height:100px;
-    width:100px;
+    height: 100px;
+    width: 100px;
 }
 
 

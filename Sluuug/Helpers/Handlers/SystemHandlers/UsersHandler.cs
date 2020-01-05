@@ -193,7 +193,9 @@ namespace Slug.Helpers
             userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
             userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
             userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
-
+            var vipExpired = user.UserFullInfo.VipStatusExpiredDate;
+            if(vipExpired != null && vipExpired > DateTime.UtcNow)
+                userModel.Vip = true;
             var userCountry = context.Countries
                 .Where(x => x.CountryCode == user.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
                 .FirstOrDefault();
@@ -454,6 +456,9 @@ namespace Slug.Helpers
                 userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
                 userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;
                 userModel.purpose = (DatingPurposeEnum)user.UserFullInfo.DatingPurpose;
+                var vipExpDate = user.UserFullInfo.VipStatusExpiredDate;
+                if (vipExpDate != null && vipExpDate > DateTime.UtcNow)
+                    userModel.Vip = true;
             }
             else
             {
@@ -516,7 +521,8 @@ namespace Slug.Helpers
                                 SurName = userInfo.SurName,
                                 Country = userInfo.Country,
                                 City = userInfo.City,
-                                Age = userInfo.Age
+                                Age = userInfo.Age, 
+                                Vip = userInfo.Vip
                             };
                             bool alreadyStart = videoHandler.AlreadyStart(context, friendId, friendId);
                             friend.IsOnline = IsOnline(context, friendId).GetAwaiter().GetResult();
@@ -572,7 +578,8 @@ namespace Slug.Helpers
                                 Country = friendUserInfo.Country,
                                 City = friendUserInfo.City,
                                 Age = friendUserInfo.Age,
-                                HelloMessage = friendUserInfo.HelloMessage
+                                HelloMessage = friendUserInfo.HelloMessage,
+                                Vip = friendUserInfo.Vip
                             };
                             friend.IsOnline = IsOnline(context, friendUserInfo.UserId).GetAwaiter().GetResult();
                             model.Friends.Add(friend);
@@ -602,6 +609,7 @@ namespace Slug.Helpers
                                 Country = friendUserInfo.Country,
                                 City = friendUserInfo.City,
                                 Age = friendUserInfo.Age,
+                                Vip = friendUserInfo.Vip
                             };
 
                             inInvite.IsOnline = IsOnline(context, friendUserInfo.UserId).GetAwaiter().GetResult();
@@ -631,7 +639,8 @@ namespace Slug.Helpers
                                 Country = friendUserInfo.Country,
                                 City = friendUserInfo.City,
                                 Age = friendUserInfo.Age,
-                                HelloMessage = friendUserInfo.HelloMessage
+                                HelloMessage = friendUserInfo.HelloMessage,
+                                Vip = friendUserInfo.Vip
                             };
 
                             outInvite.IsOnline = IsOnline(context, outInvite.UserId).GetAwaiter().GetResult();
@@ -655,7 +664,7 @@ namespace Slug.Helpers
                                 LargeAvatar = blockUser.MediumAvatar,
                                 Name = blockUser.Name,
                                 SurName = blockUser.SurName,
-                                BlockDate = item.BlockDate
+                                BlockDate = item.BlockDate,
                             });
                         }
                     }
@@ -802,6 +811,7 @@ namespace Slug.Helpers
                 model.UserId = someUser.UserId;
                 model.City = someUser.City;
                 model.Country = someUser.Country;
+                model.Vip = someUser.Vip;
 
                 UsersRelation relationItem = FriendshipChecker.GetRelation(context, Iam.UserId, userObjectRequestId);
                 BlockedUsersEntries blockItem = FriendshipChecker.GetBlockRelation(context, Iam.UserId, userObjectRequestId);

@@ -30,11 +30,11 @@ img {
     position: absolute;
 }
 
-.accepted_user_ button,
+/*.accepted_user_ button,
 .invitation_user button,
 .head img {
     margin: 10px;
-}
+}*/
 
 .accepted_user_ button,
 .invitation_user button {
@@ -51,7 +51,26 @@ img {
 }
 
 
-.entry-container > .head > img{
+/*.entry-container > .head > img{
+    height: 100px;
+    width: 100px;
+}*/
+
+.head {
+    max-width:120px;
+    max-height:120px;
+}
+
+.vipuser-crown {
+    height: 36px;
+    z-index: 10;
+    left: 28px;
+    top: -145px;
+    border-radius: 0;
+}
+.user-contacts-avatar {
+    left: 0;
+    margin: 10px;
     height: 100px;
     width: 100px;
 }

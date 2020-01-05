@@ -378,7 +378,7 @@
     <Compile Include="Model\Users\Relations\BaseUser.cs" />
     <Compile Include="Model\Users\Login\LoginingUserModel.cs" />
     <Compile Include="Model\Users\Relations\BlockedUser.cs" />
-    <Compile Include="Model\Users\Relations\MyProfileModel.cs" />
+    <Compile Include="Model\Users\Relations\ProfileModel.cs" />
     <Compile Include="Model\Users\Relations\VipUserModel.cs" />
     <Compile Include="Model\Users\Systems\UserConnectionIdModel.cs" />
     <Compile Include="Model\Users\Systems\UserEnums.cs" />

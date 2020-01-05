@@ -8,5 +8,6 @@ namespace Slug.Model.SimpleChat
 {
     public class ConversationModel : ConversationBaseModel
     {
+        public bool VIP { get; set; }
     }
 }

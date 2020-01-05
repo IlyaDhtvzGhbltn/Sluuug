@@ -13,7 +13,11 @@
 <div class="contact-wrapper">
     <div class="entry-container">
         <div class="head">
-            <img alt="user avatar" src="@Model.LargeAvatar" />
+            <img class="user-contacts-avatar" alt="user avatar" src="@Model.LargeAvatar" />
+            @if (Model.Vip)
+            {
+                <img class="vipuser-crown" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578220125/system/86f6452c09d91a8a507417a473d956d1.png" />
+            }
         </div>
         <div class="body">
             <div onclick="redirectToUser(@Model.UserId)">

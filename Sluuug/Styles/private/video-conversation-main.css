@@ -2,6 +2,14 @@
     margin-top: 33px;
 }
 
+.vipuser-crown {
+    height: 36px;
+    border-radius: unset;
+    left: 35px;
+    top: -150px;
+    position: relative;
+}
+
 .friend_div {
     padding: 20px;
     margin: 20px;
@@ -359,6 +367,7 @@ h2 {
     min-height: 465px;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+    padding: 10px 1px 0 1px;
 }
 
 .wire-container {

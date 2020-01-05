@@ -136,7 +136,7 @@
     <value>Пожалуйста, проверьте папку &lt;b&gt;Спам&lt;/b&gt; на вашем почтовом ящик или повторите регистрацию</value>
   </data>
   <data name="Button_Accept_Contact" xml:space="preserve">
-    <value>Добавить контакт</value>
+    <value>Добавить</value>
   </data>
   <data name="Button_Accept_Invite" xml:space="preserve">
     <value>Принять</value>
@@ -166,7 +166,7 @@
     <value>Удалить альбом</value>
   </data>
   <data name="Button_Delete_Contact" xml:space="preserve">
-    <value>Удалить контакт</value>
+    <value>Удалить</value>
   </data>
   <data name="Button_Login" xml:space="preserve">
     <value>Войти</value>

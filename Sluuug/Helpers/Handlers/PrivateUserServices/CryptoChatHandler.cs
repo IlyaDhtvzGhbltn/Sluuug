@@ -137,6 +137,7 @@ namespace Slug.Helpers
                             chat.InterlocutorName = interlocutor.Name;
                             chat.InterlocutorSurName = interlocutor.SurName;
                             chat.InterlocutorAvatar = interlocutor.MediumAvatar;
+                            chat.InterlocutorVIP = interlocutor.Vip;
 
                             var GuidId = chatGroup.PartyGUID;
                             var count = context.SecretMessage.Count(x => x.PartyId == GuidId);

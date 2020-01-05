@@ -28,6 +28,14 @@
     flex-wrap: nowrap;
 }
 
+.vipuser-crown {
+    position: absolute;
+    border-radius: unset;
+    height: 60px;
+    left: 65px;
+    top: -20px;
+}
+
 #hello-status {
     cursor: pointer;
 }

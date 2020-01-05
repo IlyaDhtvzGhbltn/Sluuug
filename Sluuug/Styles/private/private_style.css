@@ -73,7 +73,7 @@ nav {
 }
 
 #menu {
-    z-index: 101;
+    z-index: 999;
     padding: 0px;
     background-color: #fff;
 }
@@ -423,6 +423,7 @@ ul li:hover > span {
 
 .user-avatar {
     height: 100px;
+    width: 100px;
     position: relative;
     left: -115px;
     top: 8px;

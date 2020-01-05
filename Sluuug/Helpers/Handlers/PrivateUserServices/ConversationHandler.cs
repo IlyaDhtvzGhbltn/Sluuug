@@ -66,6 +66,7 @@ namespace Slug.Helpers
                                     c.InterlocutorAvatar = friendInterlocutor.MediumAvatar;
                                     c.InterlocutorName = friendInterlocutor.Name;
                                     c.InterlocutorSurName = friendInterlocutor.SurName;
+                                    c.VIP = friendInterlocutor.Vip;
 
                                     c.LastMessageSenderName = lastSayUser.Name;
                                     c.LastMessageSenderSurName = lastSayUser.SurName;
