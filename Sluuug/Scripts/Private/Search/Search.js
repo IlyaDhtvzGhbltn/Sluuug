@@ -1,5 +1,5 @@
 ﻿window.addEventListener('scroll', function () {
-    Scrolling($('.end-of-users')[0].id);
+    Scrolling();
 });
 
 function getCities(countryListBoxId, citiesListBoxId, emptyValue) {
@@ -24,7 +24,6 @@ function getCities(countryListBoxId, citiesListBoxId, emptyValue) {
             try { SetCitiesInMyProfile(cities); }
             catch (ec) { // 
             }
-
         }
     });
 }
@@ -44,21 +43,22 @@ function ChangePurpose() {
         let userWhichSearchSex = $('select[name="user_search_sex"]')[0];
         let userWhichSearchAge = $('select[name="user_search_age"]')[0];
 
-        userWhichSearchSex.disabled = true;
-        userWhichSearchAge.disabled = true;
+        //userWhichSearchSex.disabled = true;
+        //userWhichSearchAge.disabled = true;
 
         userWhichSearchSex.value = -1;
         userWhichSearchAge.value = -1;
     }
     else {
-        $('select[name="user_search_sex"]')[0].disabled = false;
-        $('select[name="user_search_age"]')[0].disabled = false;
+        //$('select[name="user_search_sex"]')[0].disabled = false;
+        //$('select[name="user_search_age"]')[0].disabled = false;
     }
 }
 
-function Scrolling(currentSearchPage) {
+function Scrolling() {
+    var currentUsers = $('#found-users-container tr').length;
+    if (currentUsers >= 8) {    
     var target = $('.end-of-users')[0];
-    // Все позиции элемента
     var targetPosition = {
         top: window.pageYOffset + target.getBoundingClientRect().top,
         left: window.pageXOffset + target.getBoundingClientRect().left,
@@ -72,13 +72,42 @@ function Scrolling(currentSearchPage) {
         bottom: window.pageYOffset + document.documentElement.clientHeight
     };
 
-    if (targetPosition.bottom > windowPosition.top &&
-        targetPosition.top < windowPosition.bottom &&
-        targetPosition.right > windowPosition.left &&
-        targetPosition.left < windowPosition.right)
-    {
-        var searchParameters = $('.search-link-container')[0].id;
-        let nextSearch = parseInt(currentSearchPage) + 1;
-        console.log(`строка поиска ${searchParameters + nextSearch}`);
+        if (targetPosition.bottom > windowPosition.top &&
+            targetPosition.top < windowPosition.bottom &&
+            targetPosition.right > windowPosition.left &&
+            targetPosition.left < windowPosition.right) {
+            var jsonStr = $('.search-link-container')[0].id;
+            let nextSearch = parseInt($('.end-of-users')[0].id) + 1;
+            $('.end-of-users').remove();
+            var searchParams = JSON.parse(jsonStr);
+            searchParams.Page = nextSearch;
+            console.log(searchParams);
+            $.ajax({
+                type: "post",
+                url: "/api/getmoreusers",
+                data: searchParams,
+                success: function (resp) {
+                    console.log(resp);
+                    var table = $("#found-users-container")[0];
+                    for (i = 0; i < resp.Users.length; i = i + 2) {
+                        var newRow = table.insertRow();
+                        for (j = 0; j < 2; j++) {
+                            var model = resp.Users[i + j];
+                            if (model != null) {
+                                var newCell = newRow.insertCell();
+                                var newUserNode = SearchNode.NewFoundedUserNode(model);
+                                newCell.appendChild(newUserNode);
+                            }
+                        }
+                    }
+                    var endSearchBorder = SearchNode.EndUsersDivBorder(
+                        nextSearch,
+                        resp.PagesCount,
+                        jsonStr);
+                    let output = $('#result_out')[0];
+                    output.insertBefore(endSearchBorder, output.lastChild);
+                }
+            });
+        }
     }
 }

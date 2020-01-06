@@ -324,10 +324,11 @@ namespace Slug.Controllers
             return new JsonResult() { Data = vipsList };
         }
 
-        //[HttpPost]
-        //public JsonResult getmoreusers()
-        //{
-
-        //}
+        [HttpPost]
+        public JsonResult getmoreusers(SearchMoreUserRequest request)
+        {
+            SearchUsersResponse resp = SearchHandler.SearchMoreUsers(request);
+            return new JsonResult() { Data = resp };
+        }
     }
 }

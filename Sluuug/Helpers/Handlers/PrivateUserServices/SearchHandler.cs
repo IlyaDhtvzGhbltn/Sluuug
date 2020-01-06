@@ -218,6 +218,22 @@ namespace Slug.Helpers
             return responce;
         }
 
+        public SearchUsersResponse SearchMoreUsers(SearchMoreUserRequest request)
+        {
+            var req = new SearchUsersRequest()
+            {
+                 userAge = request.userAge,
+                 userCity = request.userCity,
+                 userCountry = request.userCountry,
+                 userDatingPurpose = request.userDatingPurpose,
+                 userName = request.userName,
+                 userSearchAge = request.userSearchAge,
+                 userSearchSex = request.userSearchSex,
+                 userSex = request.userSex
+            };
+            return SearchUsers(req, request.Page);
+        }
+
         private string formatPredicate(string predicate, string additionCondition)
         {
             string formatedPredicate = string.Empty;

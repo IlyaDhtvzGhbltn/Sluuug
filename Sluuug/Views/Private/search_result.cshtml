@@ -9,71 +9,92 @@
 <h1>Результаты поиска</h1>
 @if (Model.Users.Count > 0)
 {
-    <div id="result_out">
-        <table>
-            @{
-                int rows = (Model.Users.Count / 2);
-                var cut = Model.Users.Count % 2;
-                if (cut != 0)
-                {
-                    rows++;
-                }
-                for (int i = 0; i < rows; i++)
-                {
-                    <tr>
-                        @{
-                            int jlimit = 2;
-                            if ((Model.Users.Count - (i + 1) * 2) < 0)
-                            {
-                                jlimit = Model.Users.Count - ((i) * 2);
-                            }
-                            for (int j = 0; j < jlimit; j++)
-                            {
-                                <td>
-                                    @{
-                                        var user = Model.Users[(i * 2) + j];
-                                        Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.Users.BaseUser>(user));
-                                    }
-                                </td>
-                                        }
-                        }
-                    </tr>
-                                        }
+<div id="result_out">
+    <table id="found-users-container">
+        @{
+            int rows = (Model.Users.Count / 2);
+            var cut = Model.Users.Count % 2;
+            if (cut != 0)
+            {
+                rows++;
             }
-        </table>
+            for (int i = 0; i < rows; i++)
+            {
+                <tr>
+                    @{
+                        int jlimit = 2;
+                        if ((Model.Users.Count - (i + 1) * 2) < 0)
+                        {
+                            jlimit = Model.Users.Count - ((i) * 2);
+                        }
+                        for (int j = 0; j < jlimit; j++)
+                        {
+                            <td>
+                                @{
+                                    var user = Model.Users[(i * 2) + j];
+                                    Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.Users.BaseUser>(user));
+                                }
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        }
+    </table>
+    @if (Model.PagesCount > int.Parse(Url.RequestContext.HttpContext.Request.Params["page"]))
+    {
         <div class="end-of-users" id="1">
             @{var param = Url.RequestContext.HttpContext.Request.Params;
-                var next_search = "/private/search_result?user_sex="
+                var next_search = "{\"userSex\":"
                     + param["user_sex"] +
-                    "&user_country=" + param["user_country"] +
-                    "&user_city=" + param["user_city"] +
-                    "&user_age=" + param["user_age"] +
-                    "&user_purpose=" + param["user_purpose"] +
-                    "&page=";
+                    ",\"userCountry\":" + param["user_country"] +
+                    ",\"userCity\":" + param["user_city"];
 
                 if (!string.IsNullOrWhiteSpace(param["user_name"]))
                 {
-                    next_search = next_search + "&user_name=" + param["user_name"];
+                    next_search = next_search + ",\"userName\":\"" + param["user_name"] + "\"";
                 }
 
                 if (!string.IsNullOrWhiteSpace(param["user_search_age"]))
                 {
-                    next_search = next_search + "&user_search_age=" + param["user_search_age"];
+                    next_search = next_search + ",\"userSearchAge\":" + param["user_search_age"];
+                }
+                else
+                {
+                    next_search = next_search + ",\"userSearchAge\":-1";
                 }
 
                 if (!string.IsNullOrWhiteSpace(param["user_search_sex"]))
                 {
-                    next_search = next_search + "&user_search_sex=" + param["user_search_sex"];
+                    next_search = next_search + ",\"userSearchSex\":" + param["user_search_sex"];
                 }
+                else
+                {
+                    next_search = next_search + ",\"userSearchSex\":-1";
+                }
+
+
+                if (!string.IsNullOrWhiteSpace(param["user_purpose"]))
+                {
+                    next_search = next_search + ",\"userDatingPurpose\":" + param["user_purpose"];
+                }
+                else
+                {
+                    next_search = next_search + ",\"userDatingPurpose\":-1";
+                }
+                next_search = next_search + ",\"userAge\":" + param["user_age"] + "}";
             }
             <div class="search-link-container" id="@next_search">
                 <span class="more-users-span">Еще пользователи ...</span>
             </div>
         </div>
-    </div>
+
+    }
+</div>
 }
 else
 {
-    <span>Пользователей с указанными параметрами не найденно. Попробуйте повторить поиск позднее или начните новый с другими параметрами.</span>
+    <p><span>Пользователей с указанными параметрами не найденно.</span></p>
+    <span> Попробуйте повторить поиск позднее или начните новый с другими параметрами.</span>
 }
 @*<script src="~/Scripts/Private/Profile/SelectPaginationActivePage.js"></script>*@

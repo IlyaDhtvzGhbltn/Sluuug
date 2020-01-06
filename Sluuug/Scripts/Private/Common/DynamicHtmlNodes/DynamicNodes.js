@@ -329,6 +329,116 @@ class VIP {
     }
 }
 
+class SearchNode {
+    static NewFoundedUserNode(user) {
+        var rootDiv = createDiv("found_user");
+        var divHead = createDiv("fount-user-header");
+        divHead.onclick = function () {
+            redirectToUser(user.UserId);
+        };
+        if (user.Vip) {
+            var vipImg = createImg("vipuser-crown", "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578220125/system/86f6452c09d91a8a507417a473d956d1.png");
+            divHead.appendChild(vipImg);
+        }
+        var userAvatarContainer = createDiv("fount-user-img-container");
+        var userAvatarImg = createImg("found-user-avatar", user.LargeAvatar);
+        userAvatarContainer.appendChild(userAvatarImg);
+        divHead.appendChild(userAvatarContainer);
+        rootDiv.appendChild(divHead);
+
+        var nameDiv = createDiv("fount-user-name");
+        var spanName = createSpan(`${user.Name} ${user.SurName} ${user.Age}`, "user-info weight name");
+        var ageEndSufix = createSpan(" лет", "weight name");
+        spanName.appendChild(ageEndSufix);
+        nameDiv.appendChild(spanName);
+        var par = createParagraph("font-style:italic", "");
+        var helloText = createSpan(user.HelloMessage);
+        par.appendChild(helloText);
+        nameDiv.appendChild(par);
+        rootDiv.appendChild(nameDiv);
+
+        var paraCity = createParagraph("", "");
+        var citySpan = createSpan(`${user.Country} ⚈ ${user.City}`, "user-info", "");
+        paraCity.appendChild(citySpan);
+        rootDiv.appendChild(paraCity);
+
+        var purpParagr = createParagraph("", "");
+        if (user.purpose == 3) {
+            var purposeSpan = createSpan("не знакомлюсь", "weight user-info", "");
+            purpParagr.appendChild(purposeSpan);
+            rootDiv.appendChild(purpParagr);
+        }
+        else {
+            purposeSpan = createSpan(`Знакомлюсь для : ${datingEnumsParce.datingPurposeParse(user.purpose)}`, "weight user-info", "");
+            purpParagr.appendChild(purposeSpan);
+            rootDiv.appendChild(purpParagr);
+
+            var searchFor = createParagraph("", "");
+            var searchForSpan = createSpan(`Ищу : ${datingEnumsParce.datingGenderParse(user.userSearchSex)} ${datingEnumsParce.datingAgeParse(user.userSearchAge)}`, "user-info");
+            searchFor.appendChild(searchForSpan);
+            rootDiv.appendChild(searchFor);
+        }
+
+
+        return rootDiv;
+    }
+
+    static EndUsersDivBorder(currentPage, maxPage, jsonQuerry) {
+        let idIndex = currentPage;
+        if (currentPage == maxPage)
+            idIndex = 0;
+        var rootDiv = createDiv("end-of-users", idIndex);
+        var queryDiv = createDiv("search-link-container", jsonQuerry);
+        rootDiv.appendChild(queryDiv);
+        return rootDiv;
+    }
+}
+
+class datingEnumsParce {
+    static datingPurposeParse(code) {
+        switch (code) {
+            case 0:
+                return "отношений";
+            case 1:
+                return "общения";
+            case 2:
+                return "секса";
+            case 3:
+                return "не знакомлюсь";
+        }
+    }
+
+    static datingGenderParse(code) {
+        switch (code) {
+            case 0:
+                return "женжину";
+            case 1:
+                return "мужчину";
+        }
+    }
+
+    static datingAgeParse(code) {
+        switch (code) {
+            case 0:
+                return "16 - 20 лет";
+            case 1:
+                return "21 - 26 лет";
+            case 2:
+                return "27 - 32 лет";
+            case 3:
+                return "33 - 40 лет";
+            case 4:
+                return "41 - 49 лет";
+            case 5:
+                return "50 - 59 лет";
+            case 6:
+                return "60 - 69 лет";
+            case 7:
+                return "более 70";
+        }
+    }
+}
+
 function createSpan(text, className, id) {
     var span = document.createElement('span');
     span.appendChild(document.createTextNode(text));
@@ -337,9 +447,10 @@ function createSpan(text, className, id) {
     return span;
 }
 
-function createDiv(className) {
+function createDiv(className, id) {
     var div = document.createElement('div');
     div.className = className;
+    div.id = id
     return div;
 }
 
@@ -354,4 +465,12 @@ function createButton(func) {
     var button = document.createElement("button");
     button.onclick = function () { func(); };
     return button;
+}
+
+function createParagraph(style, text) {
+    var para = document.createElement("p");
+    para.style = style;
+    var node = document.createTextNode(text);
+    para.appendChild(node);
+    return para;
 }

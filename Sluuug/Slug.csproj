@@ -317,6 +317,7 @@
     <Compile Include="Context\Dto\Search\DatingPurposeEnum.cs" />
     <Compile Include="Context\Dto\Search\SearchCitiesModel.cs" />
     <Compile Include="Context\Dto\Search\SearchCityItem.cs" />
+    <Compile Include="Context\Dto\Search\SearchMoreUserRequest.cs" />
     <Compile Include="Context\Dto\Search\SearchUsersRequest.cs" />
     <Compile Include="Context\Dto\Search\SearchUsersResponse.cs" />
     <Compile Include="Context\Dto\Search\SexEnum.cs" />
