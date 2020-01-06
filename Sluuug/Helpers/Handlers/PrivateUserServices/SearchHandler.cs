@@ -146,11 +146,11 @@ namespace Slug.Helpers
                 }
                 if (request.userSearchAge != -1)
                 {
-                    predicate = formatPredicate(predicate, 
+                    predicate = formatPredicate(predicate,
                         string.Format("UserFullInfo.userDatingAge=={0}", request.userSearchAge));
                 }
                 var result = new List<User>();
-                int multipleCount = 0; 
+                int multipleCount = 0;
 
                 if (predicate.Length > 0)
                 {
@@ -180,11 +180,11 @@ namespace Slug.Helpers
                     page = resMultiple;
 
                 responce.PagesCount = resMultiple;
-                responce.Users = new List<BaseUser>();
+                responce.Users = new List<FoudUser>();
 
                 foreach (var foundedUser in result)
                 {
-                    var userModel = new BaseUser();
+                    var userModel = new FoudUser();
                     userModel.Age = DateTime.Now.Year - foundedUser.UserFullInfo.DateOfBirth.Year;
                     userModel.UserId = foundedUser.Id;
                     userModel.Country = context.Countries.First(country => 
@@ -205,12 +205,12 @@ namespace Slug.Helpers
                     userModel.purpose = (DatingPurposeEnum)foundedUser.UserFullInfo.DatingPurpose;
                     userModel.userSearchSex = (SexEnum)foundedUser.UserFullInfo.userDatingSex;
                     userModel.userSearchAge = (AgeEnum)foundedUser.UserFullInfo.userDatingAge;
+                    var vipExpired = foundedUser.UserFullInfo.VipStatusExpiredDate;
+                    if (vipExpired != null && vipExpired > DateTime.UtcNow)
+                        userModel.Vip = true;
 
                     Avatars avatar = context.Avatars.First(ava => ava.Id == foundedUser.AvatarId);
-                    if (avatar.AvatarType == Context.AvatarTypesEnum.SelfLoad)
-                        userModel.MediumAvatar = Resize.ResizedAvatarUri(avatar.LargeAvatar, ModTypes.c_scale, 100, 100);
-                    else
-                        userModel.MediumAvatar = avatar.MediumAvatar;
+                    userModel.LargeAvatar = avatar.LargeAvatar;
 
                     responce.Users.Add(userModel);
                 }

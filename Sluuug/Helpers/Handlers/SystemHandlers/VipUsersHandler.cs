@@ -44,7 +44,7 @@ namespace Slug.Helpers
                         Country = country == null ? "не указано" : country,
                         City = city == null ? "не указано" : city,
                         MidAvatarUri = avatar,
-                        DatingPurpose = item.UserFullInfo.DatingPurpose,
+                        DatingPurpose = (Context.Dto.Search.DatingPurposeEnum)item.UserFullInfo.DatingPurpose,
                         Age = age
                     });
                 }

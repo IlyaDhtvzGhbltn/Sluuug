@@ -1,4 +1,4 @@
-﻿@model Slug.Model.Users.BaseUser
+﻿@model Slug.Model.Users.FoudUser
 @using Slug.Extensions
 @using Slug.Context.Dto.Search;
 
@@ -7,13 +7,14 @@
     {
         {DatingPurposeEnum.Communication, "общения"},
         {DatingPurposeEnum.NoDating, "не знакомлюсь"},
-        {DatingPurposeEnum.SeriousRelationship, "серьезных отношений"},
+        {DatingPurposeEnum.SeriousRelationship, "отношений"},
+        {DatingPurposeEnum.Sex, "секса"},
     };
 
     var sex = new Dictionary<SexEnum, string>()
     {
-        {SexEnum.man, "мужчиной"},
-        {SexEnum.woman, "женщиной"}
+        {SexEnum.man, "мужчину"},
+        {SexEnum.woman, "женщину"}
     };
 
     var age = new Dictionary<AgeEnum, string>()
@@ -31,23 +32,43 @@
 }
 <div class="found_user" id="user_@Model.UserId">
     <div class="fount-user-header" onclick="redirectToUser(@Model.UserId)">
-        <div class="fount-user-name">
-            <span>@Model.Name @Model.SurName @Model.Age</span>
-        </div>
+        @if (Model.Vip)
+        {
+            <img alt="vip пользователь" title="VIP Пользователь" class="vipuser-crown" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578220125/system/86f6452c09d91a8a507417a473d956d1.png" />
+        }
         <div class="fount-user-img-container">
-            <img alt="user avatar" src="@Model.MediumAvatar" />
+            <img class="found-user-avatar" alt="user avatar" src="@Model.LargeAvatar" />
         </div>
     </div>
-    <p>@Model.Country @Model.City</p>
-    <p style="font-style:italic">«@Model.HelloMessage»</p>
+    <div class="fount-user-name">
+        <span class="user-info weight name">
+            @Model.Name @Model.SurName @Model.Age
+            @{long lastDig = (long)Model.Age % 10;}
+            @if (lastDig == 1 && lastDig != 11)
+            {
+                <span class="weight name">год</span>
+            }
+            else if (lastDig >= 2 && lastDig <= 4 && lastDig != 12 && lastDig != 13 && lastDig != 14)
+            {
+                <span class="weight name">года</span>
+            }
+            else
+            {
+                <span class="weight name">лет</span>
+            }
+        </span>
+        <p style="font-style:italic"><span class="user-info">@Model.HelloMessage</span></p>
+    </div>
+    <p><span class="user-info">@Model.Country ⚈ @Model.City</span></p>
     <p>
         @if (Model.purpose != DatingPurposeEnum.NoDating)
         {
-            <span>Знакомлюсь для @purpose[Model.purpose] с @sex[Model.userSearchSex] @age[Model.userSearchAge]</span>
-        }
-        else
-        {
-             <span>не знакомлюсь</span>
-        }
-    </p>
-</div>
+        <p><span class="weight user-info">Знакомлюсь для : @purpose[Model.purpose]</span></p>
+        <p><span class="user-info">Ищу : @sex[Model.userSearchSex] @age[Model.userSearchAge]</span></p>
+    }
+    else
+    {
+        <span class="weight user-info">не знакомлюсь</span>
+    }
+        </p>
+    </div>

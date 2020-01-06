@@ -1,8 +1,13 @@
-﻿.found_user {
+﻿td {
+    vertical-align:top;
+}
+
+.found_user {
     padding: 10px;
     margin: 15px;
     background-color: white;
-    min-width: 260px;
+    width: 260px;
+    min-height:420px;
     border: 1px solid #7f7f7f;
     transition:all .5s ease;
 }
@@ -12,52 +17,31 @@
     -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
 }
 
-.result-pagination {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 97%;
-    min-width:600px;
+.end-of-users {
+    min-width: 600px;
     height: 30px;
-    overflow-x: auto;
-    overflow-y: hidden;
     padding-top: 10px;
-    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
+    -webkit-box-shadow: 10px 12px 11px 2px rgba(19, 35, 47, 0.3);
+    border: 1px solid #afafaf;
     margin-bottom: 50px;
     padding-bottom: 20px;
-}
-
-.result-pagination .search-link-container{
-    margin:4px;
-    height:25px;
-    transition:all .3s ease;
-    border:1px solid #7f7f7f;
-    min-width:30px;
-    min-height:20px;
     text-align:center;
 }
 
-
-
-.result-pagination .search-link-container:hover > a{
-    color:white;
-    background-color: #49B2DA;
+.weight{
+    font-weight:900;
 }
 
-.selected-page-container,
-.result-pagination .search-link-container:hover {
-    background-color: #49B2DA;
-    -webkit-box-shadow: 10px 12px 5px -2px rgba(19, 35, 47, 0.3);
-}
-
-.result-pagination .search-link-container a{
-    font-family: 'Roboto Condensed', sans-serif;
-    text-decoration:none;
-    text-align:center;
-    color:#7f7f7f;
+.user-info{
     font-size:18px;
-    position:relative;
-    top:3px;
+}
+
+.vipuser-crown {
+    height: 36px;
+    width:65px;
+    position:absolute;
+    z-index: 10;
+    border-radius: 0;
 }
 
 .fount-user-header {
@@ -67,18 +51,23 @@
     cursor:pointer;
 }
 
-.fount-user-img-container > img
-{
-    height:100px;
-    width:100px;
+.fount-user-img-container > .found-user-avatar {
+    height: 200px;
+    width: 200px;
+    border:1px solid white;
 }
 
-.fount-user-header:hover > .fount-user-img-container img {
+.fount-user-header:hover > .fount-user-img-container .found-user-avatar {
     border: 1px solid #7f7f7f;
 }
 
-.fount-user-header .fount-user-name{
+.fount-user-name{
     text-align:center;
+    margin: 7px 0 0 0;
+}
+
+.name{
+    font-size:22px;
 }
 
 .fount-user-header .fount-user-name span{

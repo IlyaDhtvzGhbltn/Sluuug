@@ -56,7 +56,7 @@ namespace Slug.Helpers
                     newUser.UserFullInfo.SurName = user.SurName;
                     newUser.UserFullInfo.Sex = user.Sex;
                     newUser.UserFullInfo.HelloMessage = "Всем привет, я на связи!";
-                    newUser.UserFullInfo.DatingPurpose = DatingPurposeEnum.NoDating;
+                    newUser.UserFullInfo.DatingPurpose = (int)DatingPurposeEnum.NoDating;
 
                     newUser.Settings = new UserSettings();
                     newUser.Settings.Email = user.Email;
@@ -117,7 +117,7 @@ namespace Slug.Helpers
                 newUser.UserFullInfo.SurName = user.SurName;
                 newUser.UserFullInfo.Sex = user.Sex;
                 newUser.UserFullInfo.HelloMessage = !string.IsNullOrWhiteSpace(user.Status) ? user.Status : "Всем привет, я на связи!";
-                newUser.UserFullInfo.DatingPurpose = DatingPurposeEnum.NoDating;
+                newUser.UserFullInfo.DatingPurpose = (int)DatingPurposeEnum.NoDating;
                 if(type == RegisterTypeEnum.VkUser)
                     newUser.UserFullInfo.IdVkUser = user.OutId;
                 if (type == RegisterTypeEnum.FbUser)
@@ -970,13 +970,13 @@ namespace Slug.Helpers
                                 s_user.UserFullInfo.HelloMessage = newValue;
                                 break;
                             case UserParams.DatingPurpose:
-                                s_user.UserFullInfo.DatingPurpose = (DatingPurposeEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.DatingPurpose = int.Parse(newValue);
                                 break;
                             case UserParams.DatingSex:
-                                s_user.UserFullInfo.userDatingSex = (SexEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.userDatingSex = int.Parse(newValue);
                                 break;
                             case UserParams.DatingAge:
-                                s_user.UserFullInfo.userDatingAge = (AgeEnum)int.Parse(newValue);
+                                s_user.UserFullInfo.userDatingAge = int.Parse(newValue);
                                 break;
                         }
                         context.SaveChanges();

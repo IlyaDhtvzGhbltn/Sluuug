@@ -37,11 +37,11 @@ namespace Slug.Context.Tables
 
         public string HelloMessage { get; set; }
 
-        public SexEnum userDatingSex { get; set; }
+        public int userDatingSex { get; set; }
 
-        public DatingPurposeEnum DatingPurpose { get; set; }
+        public int DatingPurpose { get; set; }
 
-        public AgeEnum userDatingAge { get; set; }
+        public int userDatingAge { get; set; }
 
         public long IdVkUser { get; set; }
         public long IdFBUser { get; set; }

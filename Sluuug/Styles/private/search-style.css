@@ -7,12 +7,17 @@
     margin-bottom:20px;
 }
 
+select[name="user_search_sex"]:disabled,
+select[name="user_search_age"]:disabled {
+    color:red;
+}
 #search-name-input {
     width: 196px;
 }
 
 .advanced-search {
     width: 35%;
+    margin:20px 0 0 0;
 }
 .advanced-search span, .advanced-search select {
     font-size: 20px;

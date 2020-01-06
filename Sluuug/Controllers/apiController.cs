@@ -323,5 +323,11 @@ namespace Slug.Controllers
             var vipsList = Vip.GetVipsByCity(location);
             return new JsonResult() { Data = vipsList };
         }
+
+        //[HttpPost]
+        //public JsonResult getmoreusers()
+        //{
+
+        //}
     }
 }
