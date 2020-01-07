@@ -288,6 +288,8 @@
     <Compile Include="Context\Dto\ChangeParameterResponce.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudDeleteImage.cs" />
     <Compile Include="Context\Dto\Comments\PostCommentsResponse.cs" />
+    <Compile Include="Context\Dto\Conversation\MoreMessagesDialogRequest.cs" />
+    <Compile Include="Context\Dto\Conversation\MoreMessegesDialogResponce.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CryptoDialogTimeLeft.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />

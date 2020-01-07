@@ -182,6 +182,36 @@ class SimpleDialogNode {
         dialogMsgWrapper.appendChild(dialogBodyNode);
         return dialogMsgWrapper;
     }
+
+    static DialogMessage(model) {
+        var rootClass = model.IsIncomming === true ? "dialog-msg-wrapper-in" : "dialog-msg-wrapper-out";
+        var subClass = model.IsIncomming === true ? "in-content" : "out-content";
+
+        var rootDiv = createDiv(rootClass);
+        var subDiv = createDiv(subClass);
+
+        var headDiv = createDiv("message-header");
+        headDiv.onclick = function () {
+            redirectToUser(model.SenderId);
+        };
+        var nameSpan = createSpan(`${model.UserName} ${model.UserSurname}`, 'user-name');
+        var timeSpan = createSpan(`${model.SendTime}`, 'send-time');
+        headDiv.appendChild(nameSpan);
+        headDiv.appendChild(timeSpan);
+
+        var messageTextDiv = createDiv('message-body');
+        var avatarContainerDiv = createDiv('');
+        var avatarImg = createImg("", model.AvatarPath);
+        avatarContainerDiv.appendChild(avatarImg);
+        messageTextDiv.appendChild(avatarContainerDiv);
+        messageTextDiv.appendChild(createSpan(`${model.Text}`, '', ''));
+
+        subDiv.appendChild(headDiv);
+        subDiv.appendChild(messageTextDiv);
+
+        rootDiv.appendChild(subDiv);
+        return rootDiv;
+    }
 }
 
 class PostNode {

@@ -1,5 +1,6 @@
 ﻿
-.dialog h4 {
+.dialog .user-name {
+    font-weight:bold;
     font-size: 19px;
     cursor: pointer;
     margin: 0;
@@ -19,7 +20,7 @@
     border: 1px solid #7f7f7f;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 400px;
+    height: 340px;
     width: 66%;
     min-width:600px;
     background-color: white;
@@ -114,6 +115,7 @@
 .out-content,
 .in-content {
     border: 1px solid #7f7f7f;
+    border-radius:10px;
     padding: 1px;
     float: right;
     clear: both;
@@ -141,8 +143,9 @@
     flex-wrap: nowrap;
     margin-left: 10px;
 }
-.message-header span {
-    margin-left: 20px;
+.message-header .send-time {
+    margin: auto 0 auto 10px;
+    font-size:14px;
 }
 
 .message-body{

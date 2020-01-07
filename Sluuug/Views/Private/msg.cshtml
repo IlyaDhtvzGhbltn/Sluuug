@@ -8,6 +8,8 @@
 <link href="~/Styles/private/dialog-style.css" rel="stylesheet" />
 
 <div class="dialog stylized-scrollbar">
+    <div class="old-dialog-page" current="@Model.Messages.Count">
+    </div>
     @foreach (var item in Model.Messages)
     {
         Html.RenderPartial("~/Views/Partial/Dialogs/dialog_message.cshtml", item, new ViewDataDictionary<Slug.Model.Messager.SimpleChat.MessageModel>(item));
@@ -33,18 +35,9 @@
         </div>
     </div>
 </div>
-<div class="result-pagination stylized-scrollbar">
-    @for (int i = 1; i <= Model.PagesCount; i++)
-    {
-        <div class="search-link-container" id="pagination-link-@i">
-            <a href="@Url.Action("msg","private", new { id=Model.DialogId, page=i })">@i</a>
-        </div>
-    }
-</div>
 <span class="own-avatar-span" style="display:none">@ViewBag.OwnAvatar</span>
 
 <script src="~/Scripts/Private/Dialogs/SimpleDialog/Сommunication.js"></script>
-<script src="~/Scripts/Private/Profile/SelectPaginationActivePage.js"></script>
 
 <script>
     $(document).ready(function () {

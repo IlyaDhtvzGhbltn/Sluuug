@@ -411,6 +411,11 @@ namespace Slug.Helpers
             }
         }
 
+        public BaseUser BaseUser(int userId, DataBaseContext context)
+        {
+            return baseUser(userId, context);
+        }
+
         private BaseUser baseUser(int userId, DataBaseContext context)
         {
             var userModel = new BaseUser();

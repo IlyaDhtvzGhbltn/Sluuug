@@ -12,13 +12,14 @@ using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Messager.SimpleChat;
 using System.Globalization;
+using Slug.Context.Dto.Conversation;
 
 namespace Slug.Helpers
 {
     public class UsersDialogHandler
     {
         private UsersHandler UserWorker = new UsersHandler();
-        private readonly int multiple = int.Parse(WebAppSettings.AppSettings[AppSettingsEnum.messagesOnPage.ToString()]);
+        private readonly int messOnPage = int.Parse(WebAppSettings.AppSettings[AppSettingsEnum.messagesOnPage.ToString()]);
                       
         public DialogModel GetMessanges(Guid convId, int userID, int page)
         {
@@ -34,7 +35,7 @@ namespace Slug.Helpers
                                         .Where(x => x.ConvarsationGuidId == convId)
                                         .Count();
 
-                decimal del = ( (decimal)multipleCount / (decimal)multiple);
+                decimal del = ( (decimal)multipleCount / messOnPage);
                 int resMultiple = Convert.ToInt32( Math.Ceiling(del) );
                 if (page > resMultiple)
                     page = resMultiple;
@@ -50,8 +51,8 @@ namespace Slug.Helpers
                 List<Message> msgs = context.Messangers
                     .Where(x => x.ConvarsationGuidId == convId)
                     .OrderBy(x=>x.Id)
-                    .Skip( (resMultiple - page) * multiple)
-                    .Take( multiple)
+                    .Skip( (resMultiple - page) * messOnPage)
+                    .Take( messOnPage)
                     .ToList();
 
                 msgs.ForEach(message => 
@@ -61,11 +62,14 @@ namespace Slug.Helpers
                     {
                         msg.IsIncomming = true;
                     }
+                    var sender = UserWorker.BaseUser(message.UserId, context);
+
                     msg.Text = message.Text;
                     msg.SendTime = message.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
                     msg.ConversationId = message.ConvarsationGuidId;
-                    msg.AvatarPath = UserWorker.BaseUser(message.UserId).SmallAvatar;
-                    msg.UserName = UserWorker.BaseUser(message.UserId).Name;
+                    msg.AvatarPath = sender.SmallAvatar;
+                    msg.UserName = sender.Name;
+                    msg.UserSurname = sender.SurName;
                     msg.Text = message.Text;
                     msg.SenderId = message.UserId;
                     messangs.Add(msg);
@@ -85,6 +89,45 @@ namespace Slug.Helpers
             }
             return dModel;
         }
+
+        public MoreMessegesDialogResponce GetMoreMessages(MoreMessagesDialogRequest request, int requestSenderUserId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                var query = context.Messangers
+                    .Where(ms => ms.ConvarsationGuidId == request.DialogId);
+
+                List<Message> messages = query
+                    .OrderByDescending(x=>x.SendingDate)
+                    .Skip(request.LoadedMessages)
+                    .Take(messOnPage)
+                    .ToList();
+
+                var resp = new MoreMessegesDialogResponce();
+                resp.DialogMessageCount = query.Count();
+
+                resp.Messages = new List<MessageModel>();
+                messages.ForEach(msg => 
+                {
+                    bool incomm = requestSenderUserId == msg.UserId ? false : true;
+                    Model.Users.BaseUser sender = UserWorker.BaseUser(msg.UserId, context);
+                    resp.Messages.Add(new MessageModel()
+                    {
+                        IsIncomming = incomm,
+                        AvatarPath = sender.SmallAvatar,
+                        UserName = sender.Name,
+                        UserSurname = sender.SurName,
+                        SenderId = sender.UserId,
+
+                        Text = msg.Text,
+                        ConversationId = msg.ConvarsationGuidId,
+                        SendTime = msg.SendingDate.ToString("f", new CultureInfo("ru-RU"))
+                    });
+                });
+                return resp;
+            }
+        }
+
         public int[] GetConversatorsIds(Guid convId)
         {
             using (var context = new DataBaseContext())

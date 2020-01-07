@@ -25,6 +25,7 @@ using Slug.Context.Dto.News;
 using Slug.Helpers.Handlers.OAuthHandlers;
 using Slug.Context.Dto.Posts;
 using Slug.Helpers.Handlers.PrivateUserServices;
+using Slug.Context.Dto.Conversation;
 
 namespace Slug.Controllers
 {
@@ -329,6 +330,20 @@ namespace Slug.Controllers
         {
             SearchUsersResponse resp = SearchHandler.SearchMoreUsers(request);
             return new JsonResult() { Data = resp };
+        }
+
+        [HttpPost]
+        public JsonResult getmoremessages(MoreMessagesDialogRequest request)
+        {
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            bool verifyConvers = UsersHandler.CheckConversationBySessionId(sessionId, request.DialogId);
+            if (verifyConvers)
+            {
+                int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
+                MoreMessegesDialogResponce responce = DialogsHandler.GetMoreMessages(request, requestSenderUserId);
+                return new JsonResult() { Data = responce };
+            }
+            return null;
         }
     }
 }

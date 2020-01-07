@@ -28,8 +28,6 @@ HUB.on('MessageSendedResult', function (result) {
 });
 
 function SendMessageFromChat(conversationId) {
-    console.log('TODO change implementation to DynamicNodes.js');
-
     connection.start().done(function () {
         text = $('#new_msg').val();
         if (text.length > 0) {
@@ -38,12 +36,18 @@ function SendMessageFromChat(conversationId) {
             var date = new Date();
             var stringDate = date.getHours() + ':' + date.getMinutes();
             var ownAvatar = $('.own-avatar-span')[0].innerHTML;
-            $('.dialog')[0].insertAdjacentHTML(
-                'beforeend',
-                '<div class="dialog-msg-wrapper-out">' +
-                '<div class="out-content">' +
-                '<div class="message-header"><h4>Я</h4><span>'+stringDate+'</span></div>' +
-                '<div class="message-body"><div><img alt="avatar" src="' + ownAvatar + '" /></div><span>' + text + '</span></div></div></div>');
+            var node = SimpleDialogNode.DialogMessage(
+                {
+                    IsIncomming: false,
+                    SenderId: -1, UserName: "Я",
+                    UserSurname: "", 
+                    SendTime: stringDate,
+                    AvatarPath: ownAvatar,
+                    Text: text
+                }
+            );
+            $('.dialog')[0].insertAdjacentHTML('beforeend', node.innerHTML);
+            increaseCurrentMsgCount();
 
             var objDiv = $(".dialog")[0];
             objDiv.scrollTop = objDiv.scrollHeight + 100;
@@ -53,31 +57,25 @@ function SendMessageFromChat(conversationId) {
 }
 
 function UpdateDialogInCnv(message) {
-    console.log('TODO change implementation to DynamicNodes.js');
     var Dialog = $('.dialog')[0];
     var date = new Date();
     var stringDate = date.getHours() + ':' + date.getMinutes();
-    Dialog.insertAdjacentHTML('beforeend',
-        '<div class="dialog-msg-wrapper-in"><div class="in-content">'
-        + '<div class="message-header" onclick="redirectToUser(' + message.SenderId + ')">'
-        + '<h4>' + message.UserName + '</h4>'
-        +'<span>'+stringDate+'</span>'
-        + '</div>'
-        + '<div class="message-body">'
-        + '<div><img alt="avatar" onclick="redirectToUser(' + message.SenderId + ')" src="' + message.AvatarPath + '"/></div>'
-        + '<span>' + message.Text + '</span>'
-        + '</div></div></div>');
-
-        var objDiv = $(".dialog")[0];
-        objDiv.scrollTop = objDiv.scrollHeight;
+    var node = SimpleDialogNode.DialogMessage(
+        {
+            IsIncomming: true,
+            SenderId: message.SenderId,
+            UserName: message.UserName,
+            UserSurname: "",
+            SendTime: stringDate,
+            AvatarPath: message.AvatarPath,
+            Text: message.Text
+        }
+    );
+    Dialog.insertAdjacentHTML('beforeend', node.innerHTML);
+    increaseCurrentMsgCount();
+    var objDiv = $(".dialog")[0];
+    objDiv.scrollTop = objDiv.scrollHeight;
 } 
-
-$('#new_msg')[0].addEventListener('input', function () {
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var id = url.searchParams.get("id");
-    HUB.invoke('SendCutMessage', this.value, id);
-});
 
 function LoadEmoji() {
     var conteiner = $('.emoji-container')[0];
@@ -103,6 +101,57 @@ function InsertEmojiTo(elem) {
     $('#new_msg').val(textBefore + char + textAfter);
 }
 
+var TargetOffset = 0;
+function ScrollingDialog() {
+    var target = $('.old-dialog-page')[0];
+    if (target != null) {
+        var targetPosition = {
+            bottom: target.getBoundingClientRect().bottom
+        };
+        if (TargetOffset == 0) {
+            TargetOffset = Math.abs(targetPosition.bottom);
+        }
+
+        if (targetPosition.bottom >= 50) {
+            var downloadedMess = parseInt($('.old-dialog-page')[0].getAttribute('current'));
+
+            $('.old-dialog-page').remove();
+            var url = new URL(window.location);
+            var id = url.searchParams.get("id");
+            $.ajax({
+                type: 'post',
+                url: '/api/getmoremessages',
+                data: { DialogId: id, LoadedMessages: downloadedMess },
+                success: function (resp) {
+                    console.log(resp);
+                    var container = $('.dialog')[0];
+                    [].forEach.call(resp.Messages, function (item) {
+                        var node = SimpleDialogNode.DialogMessage(item);
+                        container.insertBefore(node, container.firstChild);
+                    });
+                    let dialogWindowHeight = $('.dialog')[0].scrollHeight;
+                    let offset = dialogWindowHeight - TargetOffset;
+                    container.scrollTop = offset;
+                    TargetOffset = dialogWindowHeight;
+
+                    var msgAfterDownload = downloadedMess + resp.Messages.length;
+                    if (resp.DialogMessageCount > msgAfterDownload) {
+                        var oldDialogNode = createDiv('old-dialog-page');
+                        oldDialogNode.setAttribute('current', msgAfterDownload);
+                        container.insertBefore(oldDialogNode, container.firstChild);
+                    }
+                }
+            });
+        }
+    }
+}
+
+function increaseCurrentMsgCount() {
+    var dialogContainer = $('.old-dialog-page')[0];
+    var count = dialogContainer.getAttribute('current');
+    let newValue = parseInt(count) + 1;
+    dialogContainer.setAttribute('current', newValue);
+}
 
 window.addEventListener("keydown", function (event) {
     if (event.key == 'Enter') {
@@ -115,4 +164,13 @@ window.addEventListener("keydown", function (event) {
             event.preventDefault();
         }
     }
+});
+$('#new_msg')[0].addEventListener('input', function () {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
+    HUB.invoke('SendCutMessage', this.value, id);
+});
+$('.dialog')[0].addEventListener('scroll', function () {
+    ScrollingDialog();
 });
