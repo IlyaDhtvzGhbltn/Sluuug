@@ -13,6 +13,7 @@ using Slug.Model;
 using Slug.Model.Messager.SimpleChat;
 using System.Globalization;
 using Slug.Context.Dto.Conversation;
+using Slug.Model.Users;
 
 namespace Slug.Helpers
 {
@@ -28,6 +29,7 @@ namespace Slug.Helpers
 
             var dModel = new DialogModel();
             var messangs = new List<MessageModel>();
+            var userInfos = new Dictionary<int, BaseUser>();
 
             using (var context = new DataBaseContext())
             {
@@ -58,18 +60,18 @@ namespace Slug.Helpers
                 msgs.ForEach(message => 
                 {
                     var msg = new MessageModel();
+
+                    if (!userInfos.ContainsKey(message.UserId))
+                        userInfos[message.UserId] = UserWorker.BaseUser(message.UserId, context);
                     if(message.UserId != userID)
-                    {
                         msg.IsIncomming = true;
-                    }
-                    var sender = UserWorker.BaseUser(message.UserId, context);
 
                     msg.Text = message.Text;
                     msg.SendTime = message.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU"));
                     msg.ConversationId = message.ConvarsationGuidId;
-                    msg.AvatarPath = sender.SmallAvatar;
-                    msg.UserName = sender.Name;
-                    msg.UserSurname = sender.SurName;
+                    msg.AvatarPath = userInfos[message.UserId].SmallAvatar;
+                    msg.UserName = userInfos[message.UserId].Name;
+                    msg.UserSurname = userInfos[message.UserId].SurName;
                     msg.Text = message.Text;
                     msg.SenderId = message.UserId;
                     messangs.Add(msg);
@@ -94,6 +96,7 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
+                var userInfos = new Dictionary<int, BaseUser>();
                 var query = context.Messangers
                     .Where(ms => ms.ConvarsationGuidId == request.DialogId);
 
@@ -105,20 +108,22 @@ namespace Slug.Helpers
 
                 var resp = new MoreMessegesDialogResponce();
                 resp.DialogMessageCount = query.Count();
-
                 resp.Messages = new List<MessageModel>();
+
+
                 messages.ForEach(msg => 
                 {
+                    if(!userInfos.ContainsKey(msg.UserId))
+                        userInfos[msg.UserId] = UserWorker.BaseUser(msg.UserId, context);
+
                     bool incomm = requestSenderUserId == msg.UserId ? false : true;
-                    Model.Users.BaseUser sender = UserWorker.BaseUser(msg.UserId, context);
                     resp.Messages.Add(new MessageModel()
                     {
                         IsIncomming = incomm,
-                        AvatarPath = sender.SmallAvatar,
-                        UserName = sender.Name,
-                        UserSurname = sender.SurName,
-                        SenderId = sender.UserId,
-
+                        AvatarPath = userInfos[msg.UserId].SmallAvatar,
+                        UserName = userInfos[msg.UserId].Name,
+                        UserSurname = userInfos[msg.UserId].SurName,
+                        SenderId = userInfos[msg.UserId].UserId,
                         Text = msg.Text,
                         ConversationId = msg.ConvarsationGuidId,
                         SendTime = msg.SendingDate.ToString("f", new CultureInfo("ru-RU"))

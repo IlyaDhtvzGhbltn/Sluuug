@@ -1,11 +1,28 @@
 ﻿connection.qs = 'URL=' + window.location.href;
 
-HUB.on('GetCryptoMessage', function (model, avatar, minLeft, secLeft) {
+HUB.on('GetCryptoMessage', function (model) {
     console.log(model);
     var url = new URL(window.location);
     var id = url.searchParams.get("id");
     if (id == model.DialogId) {
-        gotNewInDialog(model);
+        var decrypted = DecryptHashMessage(model.Text);
+        var messModel = {
+            wrapperType: 'dialog-msg-wrapper-in',
+            conteinerClass: 'in-content-secret',
+            message: decrypted,
+            avatar: model.AvatatURI,
+            name: model.Name,
+            surName: model.SurName,
+            senderId: model.UserSenderId,
+            sendingDate: "только что"
+        };
+        var messageNode = CryptoDialogNode.ItemMessage(messModel);
+        $('.dialog')[0].appendChild(messageNode);
+        increaseCurrentMsgCount();
+
+        //scrolling
+        var objDiv = $(".dialog")[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
     else {
         IncrementInto('.notify-container-increment-crypto', 'not-show-crypto-counter');
@@ -24,12 +41,11 @@ HUB.on('MessageSendedResult', function (result) {
     objDiv.scrollTop = objDiv.scrollHeight;
 });
 
-
-function crypt_send() {
-    let text = $('#new_text').val();
-    let url = new URL(window.location.href);
-    let id = url.searchParams.get('id');
-    let skey = JSON.parse(localStorage.getItem('__' + id));
+function SendCryptoMessage() {
+    var text = $('#new_text').val();
+    var url = new URL(window.location.href);
+    var id = url.searchParams.get('id');
+    var skey = JSON.parse(localStorage.getItem('__' + id));
     console.log(skey);
     var hash = CryptoJS.AES.encrypt(text, skey.K.toString());
     console.log(hash);
@@ -37,17 +53,26 @@ function crypt_send() {
     HUB.invoke('SendMessage', cryptStr);
     $('#new_text').val('');
 
-    updateDialog('dialog-msg-wrapper-out', 'out-content-secret', text, $('#myAvatar')[0].innerHTML, 'Я', -1 );
-    scrollDialog();
+    var model = {
+        wrapperType: 'dialog-msg-wrapper-out',
+        conteinerClass: 'out-content-secret',
+        message: text,
+        avatar:$('#myAvatar')[0].innerHTML,
+        name: 'Я',
+        surName : "",
+        senderId: 0,
+        sendingDate : "только что"
+    };
+    var messageNode = CryptoDialogNode.ItemMessage(model);
+    $('.dialog')[0].appendChild(messageNode);
+    increaseCurrentMsgCount();
+
+    //scrolling
+    var objDiv = $(".dialog")[0];
+    objDiv.scrollTop = objDiv.scrollHeight;
 }
 
-function gotNewInDialog(model) {
-    let decrypted = decryption(model.Text);
-    updateDialog('dialog-msg-wrapper-in', 'in-content-secret', decrypted, model.AvatatURI, model.Name, model.UserSenderId);
-    scrollDialog();
-}
-
-function decryption(message) {
+function DecryptHashMessage(message) {
     let url = new URL(window.location.href);
     let id = url.searchParams.get('id');
     if (id === null) {
@@ -64,30 +89,94 @@ function onLoad() {
 
     for (let i = 0; i < messages.length; i++){
         let cryptText = messages[i].innerHTML;
-        let decryptText = decryption(cryptText);
+        let decryptText = DecryptHashMessage(cryptText);
         messages[i].innerHTML = decryptText;
     }
 }
 
-function updateDialog(wrapperType, conteinerClass, message, avatar, name, senderId) {
-    let messageNode = CryptoDialogNode.ItemMessage(wrapperType, conteinerClass, message, avatar, name, senderId);
-    $('.dialog')[0].appendChild(messageNode);
+var TargetOffset = 0;
+function ScrollingDialog() {
+    var target = $('.old-dialog-page')[0];
+    if (target != null) {
+        var targetPosition = {
+            bottom: target.getBoundingClientRect().bottom
+        };
+        if (TargetOffset == 0) {
+            TargetOffset = Math.abs(targetPosition.bottom);
+        }
+        if (targetPosition.bottom >= 50) {
+            var downloadedMess = parseInt($('.old-dialog-page')[0].getAttribute('current'));
+
+            $('.old-dialog-page').remove();
+            var url = new URL(window.location);
+            var id = url.searchParams.get("id");
+            $.ajax({
+                type: 'post',
+                url: '/api/getmorecryptomessages',
+                data: { DialogId: id, LoadedMessages: downloadedMess },
+                success: function (resp) {
+                    console.log(resp);
+                    var container = $('.dialog')[0];
+                    [].forEach.call(resp.Messages, function (item) {
+                        let decriptedMessage = DecryptHashMessage(item.Text);
+                        let wrapperType = 'dialog-msg-wrapper-out';
+                        let containerClass = 'out-content-secret';
+                        if (item.IsIncomming) {
+                            wrapperType = 'dialog-msg-wrapper-in';
+                            containerClass = 'in-content-secret';
+                        }
+
+                        var node = CryptoDialogNode.ItemMessage(
+                            {
+                                wrapperType: wrapperType,
+                                conteinerClass: containerClass,
+                                message: decriptedMessage,
+                                name: item.Name,
+                                surName: item.SurName,
+                                avatar: item.AvatatURI,
+                                sendingDate: item.SendingDate,
+                                senderId: item.UserSenderId
+                            });
+                        container.insertBefore(node, container.firstChild);
+                    });
+
+                    let dialogWindowHeight = $('.dialog')[0].scrollHeight;
+                    let offset = dialogWindowHeight - TargetOffset;
+                    container.scrollTop = offset;
+                    TargetOffset = dialogWindowHeight;
+
+                    var msgAfterDownload = downloadedMess + resp.Messages.length;
+                    if (resp.DialogTotalMessageCount > msgAfterDownload) {
+                        var oldDialogNode = createDiv('old-dialog-page');
+                        oldDialogNode.setAttribute('current', msgAfterDownload);
+                        container.insertBefore(oldDialogNode, container.firstChild);
+                    }
+                }
+            });
+        }
+    }
 }
 
-function scrollDialog() {
-    var objDiv = $(".dialog")[0];
-    objDiv.scrollTop = objDiv.scrollHeight;
+function increaseCurrentMsgCount() {
+    var dialogContainer = $('.old-dialog-page')[0];
+    if (dialogContainer != null) {
+        var count = dialogContainer.getAttribute('current');
+        let newValue = parseInt(count) + 1;
+        dialogContainer.setAttribute('current', newValue);
+    }
 }
 
 window.ready = onLoad();
-
 window.addEventListener("keydown", function (event) {
     if (event.key == 'Enter') {
         text = $('#new_text').val();
         if (text.length > 0) {
-            crypt_send();
+            SendCryptoMessage();
             $('#new_text').val('');
             event.preventDefault();
         }
     }
+});
+$('.dialog')[0].addEventListener('scroll', function () {
+    ScrollingDialog();
 });

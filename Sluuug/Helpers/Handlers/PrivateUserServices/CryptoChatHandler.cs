@@ -1,5 +1,6 @@
 ﻿using Context;
 using Slug.Context;
+using Slug.Context.Dto.Conversation;
 using Slug.Context.Dto.CryptoConversation;
 using Slug.Context.Tables;
 using Slug.Helpers.BaseController;
@@ -107,7 +108,7 @@ namespace Slug.Helpers
                     if (secretChat != null)
                     {
                         int cryptoChatCreatorUserId = context.SecretChat.First(x => x.PartyGUID == chatGroup.PartyGUID).CreatorUserId;
-                        CryptoChatStatus status = ChatStatus(context, chatGroup.UserId, cryptoChatCreatorUserId, secretChat.PartyGUID);
+                        CryptoChatStatus status = chatStatus(context, chatGroup.UserId, cryptoChatCreatorUserId, secretChat.PartyGUID);
 
                         var chat = new CryptoConversationModel();
                         chat.GuidId = secretChat.PartyGUID;
@@ -165,7 +166,6 @@ namespace Slug.Helpers
             }
             return model;
         }
-
         public void UpdateAcceptCryptoChat(int userId, Guid chatID)
         {
             using (var context = new DataBaseContext())
@@ -175,7 +175,6 @@ namespace Slug.Helpers
                 context.SaveChanges();
             }
         }
-
         public async Task SaveSecretMessageHashAsync(Guid ChatId, int UserSenderId, string msgHash)
         {
             using (var context = new DataBaseContext())
@@ -199,84 +198,6 @@ namespace Slug.Helpers
             }
         }
 
-        public async Task<CryptoDialogModel> GetCryptoDialogs(string session, Guid GuidId, int page)
-        {
-            if (page <= 0)
-                page = 1;
-
-            var model = new CryptoDialogModel();
-            var usersHandler = new UsersHandler();
-            int userReaderID = usersHandler.UserIdBySession(session);
-
-            var userInfos = new Dictionary<int, BaseUser>();
-
-            model.GuidId = GuidId;
-            model.Messages = new List<CryptoMessageModel>();
-            using (var context = new DataBaseContext())
-            {
-                var notReadMessage = context.SecretMessage
-                    .Where(x =>
-                    x.PartyId == GuidId &&
-                    x.UserSender != userReaderID)
-                    .ToList();
-
-                notReadMessage.ForEach(x =>
-                x.IsReaded = true);
-                await context.SaveChangesAsync();
-
-
-                model.isExpired = IsCryptoChatExpired(context, GuidId);
-                if (!model.isExpired)
-                {
-                    var leftTime = CryptoChatTimesLeft(context, GuidId);
-                    model.MinsLeft = leftTime.MinsLeft;
-                    model.SecLeft = leftTime.SecLeft;
-                }
-
-
-                int multipleCount = context.SecretMessage
-                    .Where(x => x.PartyId == GuidId)
-                    .Count();
-                decimal del = ((decimal)multipleCount / (decimal)this.multiple);
-                int resMultiple = Convert.ToInt32(Math.Ceiling(del));
-                if (page > resMultiple)
-                    page = resMultiple;
-                model.PagesCount = resMultiple;
-
-                List<SecretMessages> cryptoMessageCollection = context.SecretMessage
-                    .Where(x => x.PartyId == GuidId)
-                    .OrderBy(x => x.Id)
-                    .Skip((resMultiple - page) * multiple)
-                    .Take(multiple)
-                    .ToList();
-
-                foreach (var item in cryptoMessageCollection)
-                {
-                    if (!userInfos.ContainsKey(item.UserSender))
-                    {
-                        userInfos[item.UserSender] = usersHandler.BaseUser(item.UserSender);
-                    }
-                    bool incommingFlag = false;
-                    if (userReaderID != item.UserSender)
-                        incommingFlag = true;
-
-                    var CrMessage = new CryptoMessageModel()
-                    {
-                        SendingDate = item.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU")),
-                        AvatatURI = userInfos[item.UserSender].SmallAvatar,
-                        Text = item.Text,
-                        Name = userInfos[item.UserSender].Name,
-                        SurName = userInfos[item.UserSender].SurName,
-                        IsIncomming = incommingFlag,
-                        UserSenderId = item.UserSender
-                    };
-                    model.Messages.Add(CrMessage);
-                }
-                //}
-                //else return null;
-            }
-            return model;
-        }
 
         public int GetInterlocutorID(Guid cryptoCnvId, int insteadID)
         {
@@ -291,7 +212,6 @@ namespace Slug.Helpers
             }
             return ids;
         }
-
         public CryptoConversationModel GetCryptoDialogModel(Guid dialogId)
         {
             using (var context = new DataBaseContext())
@@ -301,13 +221,144 @@ namespace Slug.Helpers
                 {
                     OpenDate = dialog.Create,
                     CloseDate = dialog.Destroy,
-                    RemainingMins = CryptoChatTimesLeft(context, dialogId).MinsLeft,
-                    RemainingSecs = CryptoChatTimesLeft(context, dialogId).SecLeft
+                    RemainingMins = cryptoChatTimesLeft(context, dialogId).MinsLeft,
+                    RemainingSecs = cryptoChatTimesLeft(context, dialogId).SecLeft
                 };
             }
         }
+        public async Task<CryptoDialogModel> GetCryptoDialogs(string session, Guid guidId, int page)
+        {
+            if (page <= 0)
+                page = 1;
 
-        private CryptoChatStatus ChatStatus(DataBaseContext context, int userId, int creatorUserId, Guid chatId)
+            var model = new CryptoDialogModel();
+            var usersHandler = new UsersHandler();
+            int userReaderID = usersHandler.UserIdBySession(session);
+
+            var userInfos = new Dictionary<int, BaseUser>();
+
+            model.GuidId = guidId;
+            model.Messages = new List<CryptoMessageModel>();
+            using (var context = new DataBaseContext())
+            {
+                if (userPermittedDialog(context, guidId, userReaderID))
+                {
+                    await readUnreadMsg(context, guidId, userReaderID);
+                    var query = context.SecretMessage.Where(x => x.PartyId == guidId);
+                    int totalMessageCount = query.Count();
+
+                    if (!isCryptoChatExpired(context, guidId))
+                    {
+                        var leftTime = cryptoChatTimesLeft(context, guidId);
+                        model.MinsLeft = leftTime.MinsLeft;
+                        model.SecLeft = leftTime.SecLeft;
+                        model.NotExpired = true;
+                    }
+                    model.TotalDialogMessagesCount = totalMessageCount;
+
+                    int skipCount = totalMessageCount > multiple ? totalMessageCount - multiple : 0;
+
+                    List<SecretMessages> cryptoMessageCollection = query
+                        .OrderBy(x => x.Id)
+                        .Skip(skipCount)
+                        .Take(multiple)
+                        .ToList();
+
+                    foreach (var item in cryptoMessageCollection)
+                    {
+                        bool incommingFlag = false;
+
+                        if (!userInfos.ContainsKey(item.UserSender))
+                            userInfos[item.UserSender] = usersHandler.BaseUser(item.UserSender);
+                        if (userReaderID != item.UserSender)
+                            incommingFlag = true;
+
+                        var CrMessage = new CryptoMessageModel()
+                        {
+                            SendingDate = item.SendingDate.ToString("HH:mm", new CultureInfo("ru-RU")),
+                            AvatatURI = userInfos[item.UserSender].SmallAvatar,
+                            Text = item.Text,
+                            Name = userInfos[item.UserSender].Name,
+                            SurName = userInfos[item.UserSender].SurName,
+                            IsIncomming = incommingFlag,
+                            UserSenderId = item.UserSender
+                        };
+                        model.Messages.Add(CrMessage);
+                    }
+                    return model;
+                }
+                return null;
+            }
+        }
+        public MoreCryptoDialogMessagesResponce GetMoreMessages(MoreMessagesDialogRequest request)
+        {
+            using (var context = new DataBaseContext())
+            {
+                if (userPermittedDialog(context, request.DialogId, request.UserId))
+                {
+                    var userInfos = new Dictionary<int, BaseUser>();
+                    var query = context.SecretMessage.Where(x => x.PartyId == request.DialogId);
+                    var messages = query
+                        .OrderByDescending(x => x.SendingDate)
+                        .Skip(request.LoadedMessages)
+                        .Take(multiple)
+                        .ToList();
+
+                    var resp = new MoreCryptoDialogMessagesResponce()
+                    {
+                        DialogTotalMessageCount = query.Count()
+                    };
+
+                    resp.Messages = new List<CryptoMessageModel>();
+                    var usersHandler = new UsersHandler();
+
+                    messages.ForEach(msg => 
+                    {
+                        if (!userInfos.ContainsKey(msg.UserSender))
+                            userInfos[msg.UserSender] = usersHandler.BaseUser(msg.UserSender, context);
+
+                        resp.Messages.Add(new CryptoMessageModel()
+                        {
+                            DialogId = msg.PartyId,
+                            Text = msg.Text,
+                            SendingDate = msg.SendingDate.ToString("f", new CultureInfo("ru-RU")),
+                            UserSenderId = msg.UserSender,
+
+                            AvatatURI = userInfos[msg.UserSender].SmallAvatar,
+                            Name = userInfos[msg.UserSender].Name,
+                            SurName = userInfos[msg.UserSender].SurName,
+                            IsIncomming = msg.UserSender == request.UserId ? false : true
+                        });
+                    });
+                    return resp;
+                }
+                return null;
+            }
+        }
+
+
+        private async Task readUnreadMsg(DataBaseContext context, Guid guidId,  int userReaderID)
+        {
+            var notReadMessage = context.SecretMessage
+                .Where(x =>
+                x.PartyId == guidId &&
+                x.UserSender != userReaderID)
+                .ToList();
+
+            notReadMessage.ForEach(x =>
+                x.IsReaded = true);
+            await context.SaveChangesAsync();
+        }
+        private bool userPermittedDialog(DataBaseContext context, Guid cryptoDialogId, int userId)
+        {
+            SecretChatGroup item = context.SecretChatGroups
+                .Where(x => x.PartyGUID == cryptoDialogId && x.UserId == userId)
+                .FirstOrDefault();
+            if (item != null)
+                return true;
+            else return false;
+        }
+        private CryptoChatStatus chatStatus(DataBaseContext context, int userId, int creatorUserId, Guid chatId)
         {
             if (userId == creatorUserId)
             {
@@ -344,7 +395,7 @@ namespace Slug.Helpers
             }
             return chatUser;
         }
-        private bool IsCryptoChatExpired(DataBaseContext context, Guid GuidId)
+        private bool isCryptoChatExpired(DataBaseContext context, Guid GuidId)
         {
             SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGUID == GuidId).FirstOrDefault();
             if (CryptoChat != null)
@@ -356,13 +407,13 @@ namespace Slug.Helpers
             }
             else return true;
         }
-        private CryptoDialogTimeLeft CryptoChatTimesLeft(DataBaseContext context, Guid GuidId)
+        private CryptoDialogTimeLeft cryptoChatTimesLeft(DataBaseContext context, Guid GuidId)
         {
             SecretChat CryptoChat = context.SecretChat.Where(x => x.PartyGUID == GuidId).FirstOrDefault();
             var timeLeft = new CryptoDialogTimeLeft();
             if (CryptoChat != null)
             {
-                bool expired = this.IsCryptoChatExpired(context, GuidId);
+                bool expired = this.isCryptoChatExpired(context, GuidId);
                 if (!expired)
                 {
                     DateTime closedDate = CryptoChat.Destroy;

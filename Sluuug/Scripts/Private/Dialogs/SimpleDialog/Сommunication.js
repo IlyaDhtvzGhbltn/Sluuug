@@ -126,7 +126,7 @@ function ScrollingDialog() {
                     console.log(resp);
                     var container = $('.dialog')[0];
                     [].forEach.call(resp.Messages, function (item) {
-                        var node = SimpleDialogNode.DialogMessage(item);
+                        var node = CryptoDialogNode.ItemMessage(item);
                         container.insertBefore(node, container.firstChild);
                     });
                     let dialogWindowHeight = $('.dialog')[0].scrollHeight;

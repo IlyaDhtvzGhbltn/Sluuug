@@ -34,8 +34,8 @@ namespace Slug
             if (lastErrorInfo != null)
             {
                 Logger loggerInternal = LogManager.GetLogger("internal_error_logger");
-                loggerInternal.Error(error);
                 loggerInternal.Error(errorInfo);
+                //loggerInternal.Error(errorInfo);
                 loggerInternal.Info(lastErrorInfo, string.Format("{0}{1}", "Ip addres error - ", ip));
                 if (error != null)
                 {

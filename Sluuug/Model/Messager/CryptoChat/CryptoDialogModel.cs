@@ -11,9 +11,9 @@ namespace Slug.Model
         public Guid GuidId { get; set; }
         public int MinsLeft { get; set; }
         public int SecLeft { get; set; }
-        public int PagesCount { get; set; }
+        public int TotalDialogMessagesCount { get; set; }
         public List<CryptoMessageModel> Messages { get; set; }
-        public bool isExpired { get; set; }
+        public bool NotExpired { get; set; }
     }
 
 }

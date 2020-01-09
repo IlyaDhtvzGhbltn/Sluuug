@@ -26,6 +26,7 @@ using Slug.Helpers.Handlers.OAuthHandlers;
 using Slug.Context.Dto.Posts;
 using Slug.Helpers.Handlers.PrivateUserServices;
 using Slug.Context.Dto.Conversation;
+using Slug.Context.Dto.CryptoConversation;
 
 namespace Slug.Controllers
 {
@@ -344,6 +345,16 @@ namespace Slug.Controllers
                 return new JsonResult() { Data = responce };
             }
             return null;
+        }
+
+        [HttpPost]
+        public JsonResult getmorecryptomessages(MoreMessagesDialogRequest request)
+        {
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
+            request.UserId = requestSenderUserId;
+            MoreCryptoDialogMessagesResponce resp = CryptoChatHandler.GetMoreMessages(request);
+            return new JsonResult() { Data = resp };
         }
     }
 }

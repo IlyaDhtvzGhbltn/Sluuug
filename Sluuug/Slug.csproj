@@ -292,6 +292,7 @@
     <Compile Include="Context\Dto\Conversation\MoreMessegesDialogResponce.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CreateNewCryptoChatResponse.cs" />
     <Compile Include="Context\Dto\CryptoConversation\CryptoDialogTimeLeft.cs" />
+    <Compile Include="Context\Dto\CryptoConversation\MoreCryptoDialogMessagesResponce.cs" />
     <Compile Include="Context\Dto\CryptoConversation\PublicDataCryptoConversation.cs" />
     <Compile Include="Context\Dto\CryptoConversation\Participant.cs" />
     <Compile Include="Context\Dto\News\NotShowedMessages.cs" />

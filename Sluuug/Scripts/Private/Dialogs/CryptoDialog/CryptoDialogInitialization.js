@@ -325,7 +325,7 @@ function ready() {
         for (var i = 0; i < lastCryptoMessage.length; i++) {
             try {
                 var cryptText = lastCryptoMessage[i].innerHTML;
-                var decryptText = decryption(cryptText, lastCryptoMessage[i].id);
+                var decryptText = DecryptHashMessage(cryptText, lastCryptoMessage[i].id);
                 if (decryptText.length < 15) {
                     lastCryptoMessage[i].innerHTML = decryptText;
                 }
@@ -341,7 +341,7 @@ function ready() {
 }
 
 
-function decryption(message, id) {
+function DecryptHashMessage(message, id) {
     console.log(id);
     var skey = JSON.parse(localStorage.getItem('__' + id));
     if (skey!= null && skey.K != undefined) {
@@ -352,7 +352,7 @@ function decryption(message, id) {
 }
 
 function gotNewInDialogList(model, avatar, minLeft, secLeft, expiredDate) {
-    var decryptText = decryption(model.Text, model.DialogId);
+    var decryptText = DecryptHashMessage(model.Text, model.DialogId);
     var cutDecryptMsg = '';
     if (decryptText.length < 27) {
         cutDecryptMsg = decryptText;

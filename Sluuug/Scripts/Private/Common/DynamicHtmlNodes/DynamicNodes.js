@@ -76,25 +76,18 @@
         return dialogMsgWrapper;
     }
 
-    static ItemMessage(wrapperType, conteinerClass, message, avatar, name, senderId) {
-        var dialogMsgWrapper = document.createElement("div");
-        dialogMsgWrapper.className = wrapperType;
-        var contentSecretClass = document.createElement("div");
-        contentSecretClass.className = conteinerClass + " container-in-out";
-        var messageHeader = document.createElement("div");
-        messageHeader.className = "crypto-message-header";
+    static ItemMessage(model) {
+        var dialogMsgWrapper = createDiv(model.wrapperType); 
+        var contentSecretClass = createDiv(model.conteinerClass + " container-in-out"); 
+        var messageHeader = createDiv("crypto-message-header");
 
         var nameNode = document.createElement("h4");
-        nameNode.appendChild(document.createTextNode(name));
+        nameNode.appendChild(document.createTextNode(`${model.name} ${model.surName}`));
         nameNode.addEventListener('click', function () {
-            redirectToUser(senderId);
+            redirectToUser(model.senderId);
         });
         nameNode.style.cursor = 'pointer';
-
-        var dataNode = document.createElement("span");
-        var date = new Date;
-        var dateString = date.getHours() + ':' + date.getMinutes();
-        dataNode.appendChild(document.createTextNode(dateString));
+        var dataNode = createSpan(model.sendingDate);
 
         var lockImgNode = document.createElement("img");
         lockImgNode.className = "lock-msg-img";
@@ -108,15 +101,15 @@
 
         var avatarWrapper = document.createElement("div");
         var avatarI = document.createElement("img");
-        avatarI.src = avatar;
+        avatarI.src = model.avatar;
         avatarI.style.cursor = 'pointer';
         avatarI.addEventListener('click', function () {
-            redirectToUser(senderId);
+            redirectToUser(model.senderId);
         });
         avatarWrapper.appendChild(avatarI);
         var messageTextNode = document.createElement("span");
         messageTextNode.className = "crypt-message";
-        messageTextNode.appendChild(document.createTextNode(message));
+        messageTextNode.appendChild(document.createTextNode(model.message));
 
         messageBody.appendChild(avatarWrapper);
         messageBody.appendChild(messageTextNode);
@@ -480,7 +473,7 @@ function createSpan(text, className, id) {
 function createDiv(className, id) {
     var div = document.createElement('div');
     div.className = className;
-    div.id = id
+    div.id = id;
     return div;
 }
 
