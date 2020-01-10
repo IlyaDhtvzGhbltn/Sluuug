@@ -1,5 +1,5 @@
-﻿.alert {
-    background-color: rgba(127, 127, 127, 0.8);
+﻿.grey-background {
+    background-color: rgba(127, 127, 127, 0.3);
     transition: all .4s ease;
     position: fixed;
     width: 100%;
@@ -9,17 +9,17 @@
     margin-left: -10px;
 }
 
-.container {
+.message-container {
     border: 2px solid #49b2da;
     background-color: white;
     margin-left: auto;
     margin-right: auto;
     top: 41%;
-    position: relative;
+    left: 41%;
+    position: absolute;
     max-width: 400px;
     min-width: 400px;
     z-index: 999;
-    display: flex;
     flex-direction: column;
     padding: 10px;
 }
@@ -43,7 +43,7 @@
 }
 
 .show{
-    display:block;
+    display:flex;
 }
 
 @-webkit-keyframes AlertGotMessage {

@@ -322,7 +322,7 @@ namespace Slug.Controllers
             string session = GetCookiesValue(Request);
             int userId = UsersHandler.UserIdBySession(session);
             UserLocation location = UsersHandler.GetUserLocation(userId);
-            var vipsList = Vip.GetVipsByCity(location);
+            VipResponce vipsList = Vip.VipUsers(location, userId);
             return new JsonResult() { Data = vipsList };
         }
 

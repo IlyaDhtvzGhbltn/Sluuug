@@ -28,11 +28,13 @@
     <script src="~/Scripts/Private/Common/DynamicHtmlNodes/DynamicNodes.js"></script>
 </head>
 <body>
-    <div class="alert hide">
-        <div class="container">
+    <div class="alert">
+        <div class="grey-background hide"></div>
+        <div class="message-container hide">
             <span class="alert-text">❌Размер загружаемых файлов превышает 100 Мб</span>
             <button class="close-alert-button" onclick="CloseAlert()">Ok</button>
         </div>
+        <div class="html-content"></div>
     </div>
     <nav role="navigation">
         <ul id="menu">
@@ -159,7 +161,8 @@
         <div class="vip-users-container">
             <div class="vip-users-table">
                 <div class="vip-title">
-                    <span id="vip-title-text">Топ Пользователи</span>
+                    <span class="vip-title-text">топ</span>
+                    <span class="vip-title-text" id="vip-city">пользователи</span>
                 </div>
                 <div class="vip-list stylized-scrollbar">
                     <div class="await-vip-upload">
@@ -182,7 +185,7 @@
                         <span class="why-need-vip-tooltip" vip-tooltip="Ваш профиль будет отображатся для всех пользователей вашего города, которые готовы познакомится.">Попасть в топ ?</span>
                     </div>
                     <div class="new-vip-join-container">
-                        <button class="new-vip-activate-button">
+                        <button class="new-vip-activate-button" onclick="setVip()">
                             <div class="vip-button-top">
                                 <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578060895/system/l_cron.png" />
                                 <span>Активировать VIP</span>

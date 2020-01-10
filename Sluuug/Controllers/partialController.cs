@@ -53,5 +53,17 @@ namespace Slug.Controllers
         {
             return View("~/Views/Partial/feed_backView.cshtml");
         }
+
+        [HttpPost]
+        public ActionResult payment()
+        {
+            return View("~/Views/Partial/Payment/payment.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult payments()
+        {
+            return View("~/Views/Partial/Payment/payment.cshtml");
+        }
     }
 }

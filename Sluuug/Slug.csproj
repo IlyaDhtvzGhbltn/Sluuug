@@ -254,6 +254,7 @@
     <Content Include="Styles\private\conversations-style.css" />
     <Content Include="Styles\private\dialog-style.css" />
     <Content Include="Styles\private\feedBackStyle.css" />
+    <Content Include="Styles\private\payment-style.css" />
     <Content Include="Styles\private\private_style.css" />
     <Content Include="Styles\private\profile-info-style.css" />
     <Content Include="Styles\private\search-result-style.css" />
@@ -329,6 +330,7 @@
     <Compile Include="Context\Dto\Settings\SetSettingsResponse.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UnblockContactRequest.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\BlockContactRequest.cs" />
+    <Compile Include="Context\Dto\VipResponce.cs" />
     <Compile Include="Context\RegisterTypeEnum.cs" />
     <Compile Include="Context\ServerError\ServerErrorCodesMessagesDictionary.cs" />
     <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
@@ -538,6 +540,7 @@
     <Content Include="Views\Guest\fb_oauth.cshtml" />
     <Content Include="Views\Guest\ok_oauth.cshtml" />
     <Content Include="Views\Partial\OwnPage\post.cshtml" />
+    <Content Include="Views\Partial\Payment\payment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

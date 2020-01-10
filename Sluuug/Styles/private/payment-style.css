@@ -1,0 +1,75 @@
+﻿.payment-root {
+    z-index: 999;
+    background-color: #f2f9fc;
+    width: 600px;
+    height: 250px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    border: 2px solid #a2ecf3 /*#49b2da*/;
+    box-shadow: 0 0 30px 10px #49b2da;
+    border-radius: 5px;
+}
+
+.payment-types {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    height:56px;
+    width:100%
+}
+
+#yandex-checkbox {
+    position: absolute;
+    left: 225px;
+    top: 11px;
+}
+
+.yandex-title {
+    width: 100%;
+    text-align: center;
+}
+
+.payment-form {
+    display: none;
+    position: absolute;
+    top: 55px;
+    height: 200px;
+    width: 100%;
+}
+
+.pay-title {
+    color:white;
+}
+
+.payment-checkbox {
+    opacity: 0;
+    height: 41px;
+    width: 150px;
+    cursor: pointer;
+    margin: 0;
+}
+
+#yandex-checkbox:checked ~ #yandex-pay-form {
+    display: flex;
+}
+
+.yandex-payment-header {
+    border: 1px solid white;
+    background-color: #49B2DA;
+    padding: 10px;
+    margin: 10px auto 10px auto;
+    display: flex;
+}
+
+#yandex-checkbox:hover + .yandex-payment-header {
+    background-color: #bef2f7;
+    border: 1px solid #ddd;
+}
+
+#yandex-checkbox:hover + .yandex-payment-header  .header-title-container  .pay-title{
+    color:#7f7f7f;
+}

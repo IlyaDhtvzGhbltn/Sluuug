@@ -1,4 +1,5 @@
 ﻿using Context;
+using Slug.Context.Dto;
 using Slug.Model.Users;
 using Slug.Model.Users.Relations;
 using System;
@@ -10,25 +11,29 @@ namespace Slug.Helpers
 {
     public class VipUsersHandler
     {
-        public List<VipUserModel> GetVipsByCity(UserLocation location)
+        public VipResponce VipUsers(UserLocation location, int userId)
         {
             using (var context = new DataBaseContext())
             {
+                VipResponce resp = new VipResponce();
                 var list = new List<VipUserModel>();
                 var query = context.Users
                     .Where(x => x.UserFullInfo.NowCityCode == location.CityCode &&
                             x.UserFullInfo.NowCountryCode == location.CountryCode && 
                             x.UserFullInfo.VipStatusExpiredDate != null &&
-                            x.UserFullInfo.VipStatusExpiredDate > DateTime.Now)
+                            x.UserFullInfo.VipStatusExpiredDate > DateTime.UtcNow)
                             .ToArray();
+
+                string country = context.Countries
+                    .FirstOrDefault(x => x.CountryCode == location.CountryCode && x.Language == LanguageType.Ru)
+                    .Title;
+                string city = context.Cities
+                    .FirstOrDefault(x => x.CitiesCode == location.CityCode && x.Language == LanguageType.Ru)
+                    .Title;
+
                 foreach (Context.Tables.User item in query)
                 {
-                    string country = context.Countries
-                        .FirstOrDefault(x=>x.CountryCode == item.UserFullInfo.NowCountryCode && x.Language == LanguageType.Ru)
-                        .Title;
-                    string city = context.Cities
-                        .FirstOrDefault(x=>x.CitiesCode == item.UserFullInfo.NowCityCode && x.Language == LanguageType.Ru)
-                        .Title;
+
                     string avatar = context.Avatars
                         .First(x=>x.Id == item.AvatarId)
                         .MediumAvatar;
@@ -48,8 +53,24 @@ namespace Slug.Helpers
                         Age = age
                     });
                 }
-                return list;
+                resp.Users = list;
+                resp.City = city;
+                resp.AlreadyVIP = userVipStatus(context, userId);
+                return resp;
             }
+        }
+
+
+        private bool userVipStatus(DataBaseContext context, int userId)
+        {
+            var userInfo = context.Users.FirstOrDefault(x=>x.Id == userId).UserFullInfo;
+            DateTime? vipExpired = userInfo.VipStatusExpiredDate;
+            if (userInfo!= null && vipExpired != null)
+            {
+                if (vipExpired > DateTime.UtcNow)
+                    return true;
+            }
+            return false;
         }
     }
 }
