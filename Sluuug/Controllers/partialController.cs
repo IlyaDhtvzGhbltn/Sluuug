@@ -63,6 +63,7 @@ namespace Slug.Controllers
         [HttpGet]
         public ActionResult payments()
         {
+            ViewBag.Referal = "55555";
             return View("~/Views/Partial/Payment/payment.cshtml");
         }
     }

@@ -1,17 +1,32 @@
-﻿.payment-root {
+﻿@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300&subset=latin,cyrillic);
+
+span, p, input, h1, h2, h3, h4 {
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #7f7f7f;
+}
+
+
+.payment-root {
     z-index: 999;
     background-color: #f2f9fc;
     width: 600px;
-    height: 250px;
+    height: 405px;
     margin: auto;
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 30%;
     left: 30%;
-    border: 2px solid #a2ecf3 /*#49b2da*/;
+    border: 2px solid #a2ecf3;
     box-shadow: 0 0 30px 10px #49b2da;
     border-radius: 5px;
+}
+
+.close-payment {
+    position: absolute;
+    right: 11px;
+    top: 11px;
+    cursor: pointer;
 }
 
 .payment-types {
@@ -24,8 +39,19 @@
 
 #yandex-checkbox {
     position: absolute;
-    left: 225px;
+    left: 160px;
     top: 11px;
+}
+
+#free-checkbox {
+    position: absolute;
+    left: 310px;
+    top: 11px;
+    width:120px;
+}
+
+#free-pay-title-container{
+    margin-left:5px;
 }
 
 .yandex-title {
@@ -37,12 +63,15 @@
     display: none;
     position: absolute;
     top: 55px;
-    height: 200px;
     width: 100%;
+    flex-direction:column;
 }
 
 .pay-title {
-    color:white;
+    color: white;
+    height: 26px;
+    vertical-align: middle;
+    display:table-cell;
 }
 
 .payment-checkbox {
@@ -53,23 +82,103 @@
     margin: 0;
 }
 
-#yandex-checkbox:checked ~ #yandex-pay-form {
-    display: flex;
-}
-
-.yandex-payment-header {
-    border: 1px solid white;
-    background-color: #49B2DA;
-    padding: 10px;
-    margin: 10px auto 10px auto;
-    display: flex;
-}
-
-#yandex-checkbox:hover + .yandex-payment-header {
+.payment-checkbox:hover + .payment-header {
     background-color: #bef2f7;
     border: 1px solid #ddd;
 }
 
-#yandex-checkbox:hover + .yandex-payment-header  .header-title-container  .pay-title{
-    color:#7f7f7f;
+#yandex-checkbox:checked ~ #yandex-pay-form {
+    display: flex;
+}
+
+#free-checkbox:checked ~ #free,
+#yandex-checkbox:checked ~ #yandex {
+    background-color: #bef2f7;
+    border: 1px solid #ddd;
+}
+
+#free-checkbox:checked ~ #free .header-title-container .pay-title,
+#yandex-checkbox:checked ~ #yandex .header-title-container .pay-title {
+    color: #7f7f7f;
+}
+
+#free-checkbox:checked ~ #free-pay-form {
+    display: flex;
+}
+
+.payment-checkbox:hover + .payment-header .header-title-container .pay-title {
+    color: #7f7f7f;
+}
+
+.payment-header {
+    border: 1px solid white;
+    background-color: #49B2DA;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    display: flex;
+}
+
+#yandex {
+    margin-left: 160px;
+}
+
+.form-header-container {
+    width: auto;
+    height: 20px;
+    margin: 15px auto 0px auto;
+}
+
+.form-header-title {
+    height: 12px;
+    font-weight: bold;
+    font-size:20px;
+}
+
+.referal-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: auto;
+    width: 320px;
+}
+
+.description-container {
+    padding: 30px;
+    text-align: justify;
+    font-size: 14px;
+}
+
+.referal-url-container{
+    margin:0 15px 0 7px;
+}
+
+.vip-types-container table {
+    margin: auto;
+}
+
+.copy-img-container{
+    cursor:pointer;
+}
+
+.vip-types-container{
+    margin: 20px 0 0 0;
+}
+
+.url-copied-container {
+    position: absolute;
+    font-size: 12px;
+    margin:0 0 0 20px;
+}
+
+td {
+    border: 1px solid white;
+    background: #D8E6F3;
+    padding: 5px;
+    text-align:center;
+}
+
+th {
+    border: 1px solid white;
+    background: #AFCDE7;
+    padding: 10px 20px;
 }

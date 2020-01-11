@@ -1,9 +1,11 @@
 ﻿<link href="~/Styles/private/payment-style.css" rel="stylesheet" />
 <div class="payment-root">
+    <div class="close-payment">
+        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578746239/system/pay-close.svg" />
+    </div>
     <div class="payment-types">
         <input type="radio" name="payment" class="payment-checkbox" id="yandex-checkbox" />
-
-        <div class="yandex-payment-header">
+        <div class="payment-header" id="yandex">
             <div class="header-img-container">
                 <img src="https://money.yandex.ru/b/_/RIYq0jG3DUBkyrBFcZgmTj-dqZI.svg" />
             </div>
@@ -12,26 +14,85 @@
             </div>
         </div>
 
-        <div class="payment-form" id="yandex-pay-form">
-            <div>
-                <div>
-                    <img src="https://money.yandex.ru/b/_/RIYq0jG3DUBkyrBFcZgmTj-dqZI.svg" />
-                </div>
-                <span>Yandex</span>
+        <input type="radio" name="payment" class="payment-checkbox" id="free-checkbox" />
+        <div class="payment-header" id="free">
+            <div class="header-img-container">
+                <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578744626/system/platezi.svg" />
+            </div>
+
+            <div class="header-title-container" id="free-pay-title-container">
+                <span class="pay-title">Бесплатно</span>
             </div>
         </div>
 
-        @*<span>Карта</span>
-        <input type="radio" name="payment" class="payment-checkbox" id="card-checkbox" />
-        <div class="payment-form" id="card-pay-form">
-            <div>
-                <span>Credit Card</span>
+        <div class="payment-form" id="yandex-pay-form">
+            <div class="form-header-container">
+                <span class="form-header-title">Оплата через Yandex.Money</span>
             </div>
-        </div>*@
+        </div>
+        
+        <div class="payment-form" id="free-pay-form">
+            <div class="form-header-container">
+                <span class="form-header-title">Пригласите друзей и получите VIP бесплатно</span>
+            </div>
+            <div class="description-container">
+                <span class="description">
+                    Делитесь ссылкой на наше приложение в соцсетях и с друзьями что бы получить VIP совершенно бесплатно.
+                    Чем больше больше новых пользователей вы приведете, тем дольше будет действовать ваш статус.
+                </span>
+            </div>
+            <div class="referal-div-container">
+                <div class="referal-container">
+                    <div class="you-url-title">
+                        <span>Ваша ссылка :</span>
+                    </div>
+                    <div class="referal-url-container">
+                        <input style="font-size:14px" type="text" value="@ViewBag.Referal" disabled id="referal" />
+                    </div>
+                    <div class="copy-img-container" title="Копировать ссылку" onclick="CopyRef()">
+                        <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578751517/system/copy-img.svg" />
+                    </div>
+                </div>
+                <div class="url-copied-container"><span id="url-copied-text"></span></div>
+            </div>
+
+            <div class="vip-types-container">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th><span>Длительность VIP статуса</span></th>
+                            <th><span>Друзей зарегестрированно</span></th>
+                        </tr>
+                        <tr>
+                            <td><span>24 часа</span></td>
+                            <td><span>3 новых</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>48 часов</span></td>
+                            <td><span>5 новых</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>72 часа</span></td>
+                            <td><span>7 новых</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
     </div>
 </div>
+<script>
+    function CopyRef() {
+        var url = document.getElementById('referal').value;
+        navigator.clipboard.writeText(url)
+            .then(() => {
+                document.getElementById('url-copied-text').innerHTML = 'Ссылка скопированна';
+            });
+    };
 
+</script>
 
 @*
     test payment users :
