@@ -1,6 +1,15 @@
-﻿<link href="~/Styles/private/payment-style.css" rel="stylesheet" />
+﻿@{
+    var refLink = string.Empty;
+    if (Request.IsSecureConnection)
+    { refLink = "https://"; }
+    else
+    { refLink = "http://"; }
+    refLink += Request.Url.Host + ":" + Request.Url.Port;
+    refLink += "/guest/index?ref=" + ViewBag.Referal;
+}
+<link href="~/Styles/private/payment-style.css" rel="stylesheet" />
 <div class="payment-root">
-    <div class="close-payment">
+    <div class="close-payment" onclick="document.getElementsByClassName('payment-root')[0].style='display:none'; CloseAlert();">
         <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578746239/system/pay-close.svg" />
     </div>
     <div class="payment-types">
@@ -47,9 +56,9 @@
                         <span>Ваша ссылка :</span>
                     </div>
                     <div class="referal-url-container">
-                        <input style="font-size:14px" type="text" value="@ViewBag.Referal" disabled id="referal" />
+                        <input style="font-size:14px" type="text" value="@refLink" disabled id="referal" />
                     </div>
-                    <div class="copy-img-container" title="Копировать ссылку" onclick="CopyRef()">
+                    <div class="copy-img-container" title="Копировать ссылку" onclick="navigator.clipboard.writeText(document.getElementById('referal').value);document.getElementById('url-copied-text').innerHTML = 'Ссылка скопированна'; ">
                         <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578751517/system/copy-img.svg" />
                     </div>
                 </div>
@@ -60,8 +69,18 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th><span>Длительность VIP статуса</span></th>
-                            <th><span>Друзей зарегестрированно</span></th>
+                            <th>
+                                <div class="table-header">
+                                    <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1579033536/system/time.svg" />
+                                    <span class="table-header-span">Длительность VIP статуса</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="table-header">
+                                    <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1579034110/system/invitation-friend.svg" />
+                                    <span >Друзей зарегестрированно</span>
+                                </div>
+                            </th>
                         </tr>
                         <tr>
                             <td><span>24 часа</span></td>
@@ -83,17 +102,6 @@
 
     </div>
 </div>
-<script>
-    function CopyRef() {
-        var url = document.getElementById('referal').value;
-        navigator.clipboard.writeText(url)
-            .then(() => {
-                document.getElementById('url-copied-text').innerHTML = 'Ссылка скопированна';
-            });
-    };
-
-</script>
-
 @*
     test payment users :
     ryazanoviliusha - 4100110566633193

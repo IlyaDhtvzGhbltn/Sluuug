@@ -67,6 +67,18 @@ namespace Slug.Helpers
                     newUser.AvatarId = context.Avatars.First(x => x.CountryCode == user.CountryCode).Id;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
                     newUser.RegisterDate = DateTime.UtcNow;
+                    switch (user.CountryCode)
+                    {
+                        case 7:
+                            newUser.UserFullInfo.NowCityCode = 495;
+                            break;
+                        case 380:
+                            newUser.UserFullInfo.NowCityCode = 44;
+                            break;
+                        case 375:
+                            newUser.UserFullInfo.NowCityCode = 17;
+                            break;
+                    }
 
                     context.Users.Add(newUser);
                     var sesWk = new SessionsHandler();
@@ -108,6 +120,7 @@ namespace Slug.Helpers
                 newUser.AvatarId = localUserAvatarId;
                 newUser.UserType = type;
                 newUser.RegisterDate = DateTime.UtcNow;
+                newUser.ReferalUserId = user.ReferalUserId != null ? user.ReferalUserId : null;
 
                 newUser.UserFullInfo = new UserInfo();
                 newUser.UserFullInfo.NowCountryCode = user.CountryCode;
@@ -134,6 +147,9 @@ namespace Slug.Helpers
                 context.Users.Add(newUser);
                 context.SaveChanges();
                 int localUserFromVk = context.Users.First(x => x.AvatarId == localUserAvatarId).Id;
+                if (user.ReferalUserId != null)
+                    SetVipStatus(context, (int)user.ReferalUserId);
+
                 return localUserFromVk;
             }
         }
@@ -146,6 +162,34 @@ namespace Slug.Helpers
                 user.UserStatus = (int)UserStatuses.Active;
                 context.SaveChanges();
             }
+        }
+
+        public async Task SetReferal(int referalId, int newUserId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                context.Users.First(x => x.Id == newUserId).ReferalUserId = referalId;
+                context.SaveChanges();
+                await SetVipStatus(context, referalId);
+            }
+        }
+
+        public async Task SetVipStatus(DataBaseContext context, int referalId)
+        {
+            int invitedUserCount = context.Users.Where(x => x.ReferalUserId == referalId).Count();
+            if (invitedUserCount == 3)
+                context.Users
+                    .First(x => x.Id == referalId)
+                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(1);
+            else if (invitedUserCount == 5 || invitedUserCount == 7)
+            {
+                var expireVipDate = (DateTime)context.Users.First(x => x.Id == referalId).UserFullInfo.VipStatusExpiredDate;
+                DateTime incDate = expireVipDate.AddDays(1);
+                context.Users
+                   .First(x => x.Id == referalId)
+                   .UserFullInfo.VipStatusExpiredDate = incDate;
+            }
+            await context.SaveChangesAsync();
         }
 
         public int VerifyUser(string login, string hashPassword)

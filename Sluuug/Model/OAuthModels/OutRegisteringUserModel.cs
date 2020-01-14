@@ -21,5 +21,7 @@ namespace Slug.Model
         public int CityCode { get; set; }
         public DateTime DateBirth { get; set; }
         public string Status { get; set; }
+
+        public int? ReferalUserId { get; set; }
     }
 }

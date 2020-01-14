@@ -1,16 +1,10 @@
 ﻿using Slug.Context.Dto.Albums;
 using Slug.Context.Tables;
 using Slug.Helpers;
-using Slug.Model.Albums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Slug.Extensions;
-using Slug.Context.Dto;
-using Slug.Model;
-using System.Globalization;
+using Slug.Helpers.BaseController;
+using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+
 
 namespace Slug.Controllers
 {
@@ -57,13 +51,18 @@ namespace Slug.Controllers
         [HttpPost]
         public ActionResult payment()
         {
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
+            ViewBag.Referal = requestSenderUserId;
             return View("~/Views/Partial/Payment/payment.cshtml");
         }
 
         [HttpGet]
         public ActionResult payments()
         {
-            ViewBag.Referal = "55555";
+            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
+            ViewBag.Referal = requestSenderUserId;
             return View("~/Views/Partial/Payment/payment.cshtml");
         }
     }

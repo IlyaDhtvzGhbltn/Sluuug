@@ -150,6 +150,7 @@ namespace Slug.Controllers
         {
             var vkHandler = new VkOAuthHandler();
             OutRegisteringUserModel userVkInfo = await vkHandler.GetVkUserInfo(code);
+            userVkInfo.ReferalUserId = getReferalUserId();
             var registeredUserId = UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegisterTypeEnum.VkUser);
 
             string session_id = SessionHandler.OpenSession(SessionTypes.Private, registeredUserId);
@@ -216,10 +217,11 @@ namespace Slug.Controllers
                     Avatar200 = okUserInfo.LargeAvatar,
                     OutId = okId,
                     Sex = sex,
-                    DateBirth = userDateOfBirth, 
+                    DateBirth = userDateOfBirth,
                     Status = string.Empty,
                     CityCode = City,
-                    CountryCode = Country
+                    CountryCode = Country,
+                    ReferalUserId = getReferalUserId()
                 };
                 int localUserid = UsersHandler.RegisterNewFromOutNetwork(model, "ok", RegisterTypeEnum.OkUser);
 
@@ -229,6 +231,20 @@ namespace Slug.Controllers
                 Response.Cookies.Set(cookie);
                 return new JsonResult() { Data = new OauthExistStatus { status = OAuthStatusEnum.userExistLocaly } };
             }
+        }
+
+        private int? getReferalUserId()
+        {
+            HttpCookie refCookie = Request.Cookies.Get("ref");
+            if (refCookie != null && !string.IsNullOrWhiteSpace(refCookie.Value))
+            {
+                int refUserId = 0;
+                if (int.TryParse(refCookie.Value, out refUserId))
+                {
+                    return refUserId;
+                }
+            }
+            return null;
         }
 
         //[HttpPost]

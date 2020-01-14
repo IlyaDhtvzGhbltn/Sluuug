@@ -8,7 +8,7 @@ span, p, input, h1, h2, h3, h4 {
 
 .payment-root {
     z-index: 999;
-    background-color: #f2f9fc;
+    background-color: white;
     width: 600px;
     height: 405px;
     margin: auto;
@@ -156,8 +156,24 @@ span, p, input, h1, h2, h3, h4 {
     margin: auto;
 }
 
-.copy-img-container{
-    cursor:pointer;
+.table-header {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+}
+
+.table-header-span {
+    vertical-align: middle;
+    display: table-cell;
+    margin: 0 0 0 5px;
+}
+
+.copy-img-container {
+    cursor: pointer;
+}
+
+.copy-img-container > img {
+    border-radius:unset;
 }
 
 .vip-types-container{

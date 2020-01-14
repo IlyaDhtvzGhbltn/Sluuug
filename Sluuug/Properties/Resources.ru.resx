@@ -133,7 +133,7 @@
     <value>Ссылка активации неверна или истекла</value>
   </data>
   <data name="Activate_Incorrect_Check_Email" xml:space="preserve">
-    <value>Пожалуйста, проверьте папку &lt;b&gt;Спам&lt;/b&gt; на вашем почтовом ящик или повторите регистрацию</value>
+    <value>Пожалуйста, проверьте папку &lt;b&gt;Спам&lt;/b&gt; на вашем почтовом ящике или повторите регистрацию</value>
   </data>
   <data name="Button_Accept_Contact" xml:space="preserve">
     <value>Добавить</value>

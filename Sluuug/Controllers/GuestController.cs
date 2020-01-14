@@ -24,8 +24,15 @@ namespace Slug.Controllers
         [HttpGet]
         public async Task<ActionResult> index()
         {
-            //NewUserInitial.Initialize(10);
             await saveClientIpAsync(this.Request);
+            int referalUserId = 0;
+            if (int.TryParse(Request.Params.Get("ref"), out referalUserId))
+            {
+                Response.Cookies.Set(new HttpCookie("ref")
+                {
+                    Value = referalUserId.ToString()
+                });
+            };
 
             ViewBag.Title = "FRIENDLYNET - социальная сеть для знакомств и общения с видео-связью и end-to-end шифрованием";
             ViewBag.Description = "FRIENDLYNET - это современный бесплатный сервис для поиска знакомств. Видео-связь в высоком разрешении. Шифрование сообщений end-to-end.";
@@ -37,7 +44,7 @@ namespace Slug.Controllers
         }
 
         [HttpGet]
-        public ActionResult activate(string id)
+        public async Task<ActionResult> activate(string id)
         {
             ViewBag.Title = "FRIENDLYNET | Активация учетной записи";
             ViewBag.Description = "FRIENDLYNET | Активация учетной записи";
@@ -53,8 +60,17 @@ namespace Slug.Controllers
                     ActivationLnkStatus status = ActivationMailHandler.GetLinkStatus(id);
                     if (status == ActivationLnkStatus.Correct)
                     {
-                        UsersHandler.ConfirmUser(user.UserId);
+                        HttpCookie refaralUserIdCookie = Request.Cookies.Get("ref");
+                        int referalUserId = 0;
+                        if (refaralUserIdCookie != null && !string.IsNullOrWhiteSpace(refaralUserIdCookie.Value))
+                        {
+                            if (int.TryParse(refaralUserIdCookie.Value, out referalUserId))
+                            {
+                                await UsersHandler.SetReferal(referalUserId, user.UserId);
+                            }
+                        }
 
+                        UsersHandler.ConfirmUser(user.UserId);
                         ActivationMailHandler.CloseActivationEntries(user.Id);
 
                         string sessionNumber = SessionHandler.OpenSession(SessionTypes.Exit, user.Id);
@@ -129,13 +145,6 @@ namespace Slug.Controllers
         {
             return View();
         }
-
-        //[HttpGet]
-        //public ActionResult fb_oauth(string state)
-        //{
-        //    return View();
-        //}
-
 
         private bool isUserEmpty(RegisteringUserModel user)
         {

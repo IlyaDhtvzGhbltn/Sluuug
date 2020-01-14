@@ -58,11 +58,20 @@ namespace Slug.Context
         {
             using (var context = new DataBaseContext())
             {
-                var activationLnk = context.ActivationLink.First(x => x.Id == id);
-                activationLnk.IsExpired = true;
-                context.SaveChanges();
+                closeActivationEntries(context, id);
             }
         }
 
+        public void CloseActivationEntries(DataBaseContext context, int id)
+        {
+            closeActivationEntries(context, id);
+        }
+
+        private void closeActivationEntries(DataBaseContext context, int id)
+        {
+            var activationLnk = context.ActivationLink.First(x => x.Id == id);
+            activationLnk.IsExpired = true;
+            context.SaveChanges();
+        }
     }
 }
