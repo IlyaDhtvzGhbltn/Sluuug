@@ -776,6 +776,8 @@ namespace Slug.Helpers
             {
                 var newAvatar = new Avatars();
                 newAvatar.UploadTime = DateTime.UtcNow;
+                newAvatar.MediumAvatar = Resize.ResizedAvatarUri(uri, ModTypes.c_scale, 100, 100);
+                newAvatar.SmallAvatar = Resize.ResizedAvatarUri(uri, ModTypes.c_scale, 50, 50);
                 newAvatar.LargeAvatar = uri;
                 context.Avatars.Add(newAvatar);
                 context.SaveChanges();
