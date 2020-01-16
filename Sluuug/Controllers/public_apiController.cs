@@ -151,7 +151,7 @@ namespace Slug.Controllers
             var vkHandler = new VkOAuthHandler();
             OutRegisteringUserModel userVkInfo = await vkHandler.GetVkUserInfo(code);
             userVkInfo.ReferalUserId = getReferalUserId();
-            var registeredUserId = UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegisterTypeEnum.VkUser);
+            var registeredUserId = await UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegisterTypeEnum.VkUser);
 
             string session_id = SessionHandler.OpenSession(SessionTypes.Private, registeredUserId);
             var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
@@ -223,7 +223,7 @@ namespace Slug.Controllers
                     CountryCode = Country,
                     ReferalUserId = getReferalUserId()
                 };
-                int localUserid = UsersHandler.RegisterNewFromOutNetwork(model, "ok", RegisterTypeEnum.OkUser);
+                int localUserid = await UsersHandler.RegisterNewFromOutNetwork(model, "ok", RegisterTypeEnum.OkUser);
 
                 string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserid);
                 var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);

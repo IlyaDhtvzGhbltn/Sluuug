@@ -98,7 +98,7 @@ namespace Slug.Helpers
             return null;
         }
 
-        public int RegisterNewFromOutNetwork(OutRegisteringUserModel user, string network, RegisterTypeEnum type)
+        public async Task<int> RegisterNewFromOutNetwork(OutRegisteringUserModel user, string network, RegisterTypeEnum type)
         {
             using (var context = new DataBaseContext())
             {
@@ -148,7 +148,7 @@ namespace Slug.Helpers
                 context.SaveChanges();
                 int localUserFromVk = context.Users.First(x => x.AvatarId == localUserAvatarId).Id;
                 if (user.ReferalUserId != null)
-                    SetVipStatus(context, (int)user.ReferalUserId);
+                    await SetVipStatus(context, (int)user.ReferalUserId);
 
                 return localUserFromVk;
             }
@@ -181,13 +181,17 @@ namespace Slug.Helpers
                 context.Users
                     .First(x => x.Id == referalId)
                     .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(1);
-            else if (invitedUserCount == 5 || invitedUserCount == 7)
+            else if (invitedUserCount == 5)
             {
-                var expireVipDate = (DateTime)context.Users.First(x => x.Id == referalId).UserFullInfo.VipStatusExpiredDate;
-                DateTime incDate = expireVipDate.AddDays(1);
                 context.Users
-                   .First(x => x.Id == referalId)
-                   .UserFullInfo.VipStatusExpiredDate = incDate;
+                    .First(x => x.Id == referalId)
+                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(2);
+            }
+            else if (invitedUserCount == 7)
+            {
+                context.Users
+                    .First(x => x.Id == referalId)
+                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(3);
             }
             await context.SaveChangesAsync();
         }

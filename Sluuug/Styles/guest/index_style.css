@@ -102,10 +102,9 @@ input::-webkit-input-placeholder {
     outline: none;
     border-radius: 0;
     padding: 15px 10px;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: .1em;
     background: #49D1DA;
     color: #7f7f7f;
     cursor: pointer;
@@ -425,13 +424,14 @@ input::-webkit-input-placeholder {
 .footer-about-container {
     width: 461px;
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
     margin:auto;
 }
 
 .footer-copirate-container {
     margin: auto;
     width: 345px;
+    font-size:14px;
 }
 #menu {
     margin: auto;
