@@ -24,6 +24,7 @@
     min-height: 425px;
     min-width: 480px;
     background-color: white;
+    border-radius:10px;
 }
 
 .video-stream:hover ~ .container-manage {
@@ -108,11 +109,11 @@
     text-align: center;
 }
 
-    .notuser img {
-        margin-top: 10%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.notuser img {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .userconnected {
     height: 100%;
@@ -147,6 +148,7 @@
     padding-top: 10px;
     border: 1px solid #7f7f7f;
     transition: all 0.5s ease;
+    border-radius:5px;
 }
 
 .conference-manage button {

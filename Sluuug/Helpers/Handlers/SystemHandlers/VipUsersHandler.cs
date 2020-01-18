@@ -60,6 +60,39 @@ namespace Slug.Helpers
             }
         }
 
+        public bool SenderAvaliableContact(int userSenderId, int userRecipientId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                return senderAvaliableContact(context, userSenderId, userRecipientId);
+            }
+        }
+        public bool SenderAvaliableContact(DataBaseContext context, int userSenderId, int userRecipientId)
+        {
+            return senderAvaliableContact(context, userSenderId, userRecipientId);
+        }
+
+        private bool senderAvaliableContact(DataBaseContext context, int userSenderId, int userRecipientId)
+        {
+            DateTime? senderExpireVip = context.UsersInfo.First(x => x.Id == userSenderId).VipStatusExpiredDate;
+            DateTime? recipientExpireVip = context.UsersInfo.First(x => x.Id == userRecipientId).VipStatusExpiredDate;
+
+            if (senderExpireVip == null && recipientExpireVip != null)
+            {
+                long recipientLeftVipTime = recipientExpireVip.Value.Ticks - DateTime.UtcNow.Ticks;
+                if (recipientLeftVipTime > 0)
+                    return false;
+            }
+            if (senderExpireVip != null && recipientExpireVip != null)
+            {
+                long leftVipSender = senderExpireVip.Value.Ticks - DateTime.UtcNow.Ticks;
+                long leftVipRecipient = recipientExpireVip.Value.Ticks - DateTime.UtcNow.Ticks;
+
+                if (leftVipSender < 0 && leftVipRecipient > 0)
+                    return false;
+            }
+            return true;
+        }
 
         private bool userVipStatus(DataBaseContext context, int userId)
         {

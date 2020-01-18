@@ -5,6 +5,7 @@ using Slug.Context.Dto.OAuth;
 using Slug.Context.Tables;
 using Slug.Helpers.BaseController;
 using Slug.Model;
+using Slug.Model.Registration;
 using Slug.Model.VkModels;
 using System;
 using System.Collections.Generic;

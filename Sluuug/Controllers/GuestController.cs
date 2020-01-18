@@ -15,6 +15,7 @@ using Slug.DbInitialisation;
 using NLog;
 using System.Threading.Tasks;
 using System.Threading;
+using Slug.Model.Registration;
 
 namespace Slug.Controllers
 {

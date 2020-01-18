@@ -29,13 +29,14 @@ HUB.on('GetCryptoMessage', function (model) {
     }
 });
 
-HUB.on('MessageSendedResult', function (result) {
-    if (!result) {
+HUB.on('MessageSendedResult', function (access, reason) {
+    console.log('MessageSendedResult HUB!!!');
+    if (!access) {
         $('.dialog')[0].insertAdjacentHTML(
             'beforeend',
             '<div class="dialog-msg-wrapper-out">' +
             '<div class="out-content-secret" style="border:1px solid red; background-color:white; padding:10px">' +
-            '<span style="color:red; font-size:16px">Вы не можете отправить сообщение пользователю</span></div></div>');
+            '<span style="color:red; font-size:16px">' + reason + '</span></div></div>');
     }
     var objDiv = $(".dialog")[0];
     objDiv.scrollTop = objDiv.scrollHeight;

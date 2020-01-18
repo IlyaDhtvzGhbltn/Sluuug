@@ -56,7 +56,7 @@
                 <div id="friends_list">
                     @foreach (var friend in Model.FriendsICanInvite)
                     {
-                        Html.RenderPartial("~/Views/Partial/CryptoDialogs/friends_can_invite_crypto_dialog.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.BaseUser>(friend));
+                        Html.RenderPartial("~/Views/Partial/CryptoDialogs/friends_can_invite_crypto_dialog.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.Relations.CryptoDialogUser>(friend));
                     }
                 </div>
 

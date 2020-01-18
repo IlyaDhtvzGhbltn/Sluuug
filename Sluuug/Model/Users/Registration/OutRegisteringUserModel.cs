@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Slug.Model
+namespace Slug.Model.Registration
 {
-    public class OutRegisteringUserModel
+    public class OutRegisteringUserModel : BaseRegistrationModel
     {
         public long OutId { get; set; }
         public string Avatar200 { get; set; }
@@ -16,10 +16,6 @@ namespace Slug.Model
         public string Avatar50 { get; set; }
         public string Name { get; set; }
         public string SurName { get; set; }
-        public int Sex { get; set; }
-        public int CountryCode { get; set; }
-        public int CityCode { get; set; }
-        public DateTime DateBirth { get; set; }
         public string Status { get; set; }
 
         public int? ReferalUserId { get; set; }

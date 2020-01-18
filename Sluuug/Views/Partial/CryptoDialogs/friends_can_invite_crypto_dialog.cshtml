@@ -1,11 +1,13 @@
-﻿@model Slug.Model.Users.BaseUser
-@using Slug.Extensions
+﻿@model Slug.Model.Users.Relations.CryptoDialogUser
 
+@*1 - isonline 2 - isvip*@
 @{
-    var activeSpan = new Dictionary<bool, string>()
+    var activeSpan = new Dictionary<Tuple<bool, bool>, string>()
         {
-            { true, "online - доступен для приглашения в чат"},
-            { false, "offline - нельзя создавать секретный чат"}
+            { new Tuple<bool, bool>(false, true), "offline - нельзя создавать секретный чат"},
+            { new Tuple<bool, bool>(false, false), "offline - нельзя создавать секретный чат"},
+            { new Tuple<bool, bool>(true, true), "online и доступен для приглашения в чат"},
+            { new Tuple<bool, bool>(true, false), "пользователь online, но у вас не активирован VIP статус"}
         };
 
     var activeClass = new Dictionary<bool, string>()
@@ -13,16 +15,17 @@
             { true, "on"},
             { false, "off"}
         };
-
-    var activeDisable = new Dictionary<bool, string>()
-        {
-            { true, ""},
-            { false, "disabled='disabled'"}
-        };
+    var activeDisable = new Dictionary<Tuple<bool, bool>, string>()
+    {
+            { new Tuple<bool, bool>(false, true), "disabled='disabled'"},
+            { new Tuple<bool, bool>(false, false), "disabled='disabled'"},
+            { new Tuple<bool, bool>(true, true), ""},
+            { new Tuple<bool, bool>(true, false), "disabled='disabled'"}
+    };
 }
 <div class="chat-wrapper-overflow">
     <label>
-        <input type="radio" class="fr" name="friend" value="@Model.UserId" @activeDisable[Model.IsOnline] onclick="generationKeyUserToggle()" />
+        <input type="radio" class="fr" name="friend" value="@Model.UserId" @activeDisable[new Tuple<bool, bool>(Model.IsOnline, Model.AvaliableToVipContact)] onclick="generationKeyUserToggle()" />
         <div class="circle">
             <div class="circle--inner circle--inner__1"></div>
             <div class="circle--inner circle--inner__2"></div>
@@ -41,7 +44,7 @@
                     <h2>@Model.Name @Model.SurName</h2>
                 </div>
                 <div class="last-message-container">
-                    <span class="wire-status @activeClass[Model.IsOnline]">@activeSpan[Model.IsOnline]</span>
+                    <span class="wire-status @activeClass[Model.IsOnline]">@activeSpan[new Tuple<bool, bool>(Model.IsOnline, Model.AvaliableToVipContact)]</span>
                 </div>
             </div>
             <div class="expiration-period-container">

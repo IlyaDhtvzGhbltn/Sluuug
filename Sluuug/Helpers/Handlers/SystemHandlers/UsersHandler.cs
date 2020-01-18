@@ -26,6 +26,7 @@ using Slug.Helpers.BaseController;
 using Slug.Helpers.Handlers.PrivateUserServices;
 using Slug.Context.Dto.Posts;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using Slug.Model.Registration;
 
 namespace Slug.Helpers
 {
@@ -35,7 +36,7 @@ namespace Slug.Helpers
         {
             string activationSessionId = string.Empty;
             string activationMailParam = string.Empty;
-
+            
             using (var context = new DataBaseContext())
             {
                 var loginAlreadyUsed = context.Users.FirstOrDefault(x => x.Login == user.Login);
@@ -154,6 +155,8 @@ namespace Slug.Helpers
             }
         }
 
+
+
         public void ConfirmUser(int id)
         {
             using (var context = new DataBaseContext())
@@ -180,18 +183,18 @@ namespace Slug.Helpers
             if (invitedUserCount == 3)
                 context.Users
                     .First(x => x.Id == referalId)
-                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(1);
+                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddHours(1);
             else if (invitedUserCount == 5)
             {
                 context.Users
                     .First(x => x.Id == referalId)
-                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(2);
+                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddHours(3);
             }
             else if (invitedUserCount == 7)
             {
                 context.Users
                     .First(x => x.Id == referalId)
-                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddDays(3);
+                    .UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddHours(24);
             }
             await context.SaveChangesAsync();
         }
@@ -591,6 +594,50 @@ namespace Slug.Helpers
                 }
             }
             return model;
+        }
+
+        public async Task<List<CryptoDialogUser>> GetAvaliableToCryptoDialog(int userInvitation)
+        {
+            var model = new List<CryptoDialogUser>();
+            var vipHandler = new VipUsersHandler();
+
+            using (var context = new DataBaseContext())
+            {
+                var friendshipAccepted = context.UserRelations
+                    .Where(x => x.UserOferFrienshipSender == userInvitation || x.UserConfirmer == userInvitation)
+                    .Where(x => x.Status == FriendshipItemStatus.Accept)
+                    .Select((f) => new { f.UserConfirmer, f.UserOferFrienshipSender })
+                    .ToList();
+
+                var frIds = new List<int>();
+                friendshipAccepted.ForEach(item => 
+                {
+                    if (item.UserConfirmer != userInvitation)
+                        frIds.Add(item.UserConfirmer);
+                    else
+                        frIds.Add(item.UserOferFrienshipSender);
+                });
+
+                frIds.ForEach(id =>
+                {
+                    var userModel = context.UsersInfo
+                    .First( x=> x.Id == id );
+                    int? avatarId = context.Users.First(x => x.Id == id).AvatarId;
+
+                    model.Add(new CryptoDialogUser()
+                    {
+                        UserId = id,
+                        Name = userModel.Name,
+                        SurName = userModel.SurName,
+                        LargeAvatar = context.Avatars.First(x => x.Id == avatarId).LargeAvatar,
+                        Vip = (userModel.VipStatusExpiredDate != null &&
+                         userModel.VipStatusExpiredDate > DateTime.UtcNow) ? true : false,
+                        IsOnline = IsOnline(context, id).GetAwaiter().GetResult(),
+                        AvaliableToVipContact = vipHandler.SenderAvaliableContact(context, userInvitation, id)
+                    });
+                });
+            }
+                return model;
         }
 
         public async Task<ContactsModel> GetContactsBySession(string sessionId, int avatarResize = 100)
@@ -1076,22 +1123,22 @@ namespace Slug.Helpers
 
         public async Task<bool> IsOnline(DataBaseContext context, int userId)
         {
-            bool flagOnline = false;
-            UserConnections entry = context.UserConnections.FirstOrDefault(x => x.IsActive == true && x.UserId == userId);
+            UserConnections entry = context.UserConnections
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault(x => x.IsActive == true && x.UserId == userId);
             if (entry != null)
             {
-                TimeSpan updateInterval = DateTime.Now.Subtract(entry.UpdateTime);
-                if (updateInterval.TotalSeconds > 30)
+                TimeSpan updateInterval = DateTime.UtcNow.Subtract(entry.UpdateTime);
+                if (updateInterval.TotalSeconds < 0 || updateInterval.TotalSeconds > 6)
                 {
                     entry.UpdateTime = DateTime.Now;
                     entry.IsActive = false;
                     context.SaveChanges();
-
+                    return false;
                 }
-                else
-                    flagOnline = true;
+                else return true;
             }
-            return flagOnline;
+            return false;
         }
 
         public UserLocation GetUserLocation(int userId)

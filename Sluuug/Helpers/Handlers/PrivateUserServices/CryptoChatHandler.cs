@@ -10,6 +10,7 @@ using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Messager.CryptoChat;
 using Slug.Model.Users;
+using Slug.Model.Users.Relations;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -72,23 +73,17 @@ namespace Slug.Helpers
         public CryptoConversationGroupModel GetCryptoChat(string sessionId)
         {
             var userHandler = new UsersHandler();
+            var vipUsers = new VipUsersHandler();
+            int userSenderID = userHandler.UserIdBySession(sessionId);
 
             var model = new CryptoConversationGroupModel();
             model.CurrentActiveChats = new List<CryptoConversationModel>();
             model.IncommingInviters = new List<CryptoConversationModel>();
             model.OutCommingInviters = new List<CryptoConversationModel>();
-            model.FriendsICanInvite = new List<BaseUser>();
+            model.FriendsICanInvite = new List<CryptoDialogUser>();
 
 
-            model.FriendsICanInvite = userHandler.GetFriendsOnlyBySession(sessionId).GetAwaiter().GetResult();
-            var connectionsHandler = new UsersConnectionHandler();
-            model.FriendsICanInvite.ForEach(friend => 
-            {
-                if (connectionsHandler.GetConnectionById(friend.UserId) != null)
-                {
-                    friend.IsOnline = true;
-                }
-            });
+            model.FriendsICanInvite = userHandler.GetAvaliableToCryptoDialog(userSenderID).GetAwaiter().GetResult();
 
             int cryptoChatUserId = userHandler.UserIdBySession(sessionId);
             using (var context = new DataBaseContext())
@@ -137,7 +132,7 @@ namespace Slug.Helpers
                         {
                             chat.InterlocutorName = interlocutor.Name;
                             chat.InterlocutorSurName = interlocutor.SurName;
-                            chat.InterlocutorAvatar = interlocutor.MediumAvatar;
+                            chat.InterlocutorAvatar = interlocutor.LargeAvatar;
                             chat.InterlocutorVIP = interlocutor.Vip;
 
                             var GuidId = chatGroup.PartyGUID;

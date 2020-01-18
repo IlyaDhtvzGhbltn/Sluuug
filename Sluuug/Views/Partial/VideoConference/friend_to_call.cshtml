@@ -2,37 +2,55 @@
 @using Slug.Extensions
 @using Context
 
-<div class="friend_div" id="@Model.UserId">
-    <label onclick="HideNoneSelectSpan()">
-        @{
-            var activeSpan = new Dictionary<VideoConverenceAcceptToCall, string>()
-            {
-                { VideoConverenceAcceptToCall.online, "online - доступен для звонка"},
-                { VideoConverenceAcceptToCall.offline, "offline - не доступен для вызова"},
-                { VideoConverenceAcceptToCall.pending, "звонок начат"}
-            };
+@{
+    var activeSpan = new Dictionary<VideoConverenceAcceptToCall, string>()
+    {
+        { VideoConverenceAcceptToCall.online, "online - доступен для звонка"},
+        { VideoConverenceAcceptToCall.offline, "offline - не доступен для вызова"},
+        { VideoConverenceAcceptToCall.pending, "звонок начат"}
+    };
 
-            var activeClass = new Dictionary<VideoConverenceAcceptToCall, string>()
-            {
-                { VideoConverenceAcceptToCall.online, "on"},
-                { VideoConverenceAcceptToCall.offline, "off"},
-                { VideoConverenceAcceptToCall.pending, "pending"}
-            };
+    var activeClass = new Dictionary<VideoConverenceAcceptToCall, string>()
+    {
+        { VideoConverenceAcceptToCall.online, "on"},
+        { VideoConverenceAcceptToCall.offline, "off"},
+        { VideoConverenceAcceptToCall.pending, "pending"}
+    };
 
-            var activeCircleClass = new Dictionary<VideoConverenceAcceptToCall, string>()
-            {
-                { VideoConverenceAcceptToCall.online, "on-wire-circle"},
-                { VideoConverenceAcceptToCall.offline, "off-wire-circle"},
-                { VideoConverenceAcceptToCall.pending, "pen-wire-circle"},
-            };
+    var activeCircleClass = new Dictionary<VideoConverenceAcceptToCall, string>()
+    {
+        { VideoConverenceAcceptToCall.online, "on-wire-circle"},
+        { VideoConverenceAcceptToCall.offline, "off-wire-circle"},
+        { VideoConverenceAcceptToCall.pending, "pen-wire-circle"},
+    };
 
-            var activeDisable = new Dictionary<VideoConverenceAcceptToCall, string>()
-            {
-                { VideoConverenceAcceptToCall.online, ""},
-                { VideoConverenceAcceptToCall.offline, "disabled='disabled'"},
-                { VideoConverenceAcceptToCall.pending, "disabled='disabled'"}
-            };
+    var activeDisable = new Dictionary<VideoConverenceAcceptToCall, string>()
+    {
+        { VideoConverenceAcceptToCall.online, ""},
+        { VideoConverenceAcceptToCall.offline, "disabled='disabled'"},
+        { VideoConverenceAcceptToCall.pending, "disabled='disabled'"}
+    };
+
+    string declensionOfAge(int age)
+    {
+        int lastDig = age % 10;
+        if (lastDig == 1 && lastDig != 11)
+        {
+            return "год";
         }
+        else if (lastDig >= 2 && lastDig <= 4 && lastDig != 12 && lastDig != 13 && lastDig != 14)
+        {
+            return "года";
+        }
+        else
+        {
+            return "лет";
+        }
+    }
+}
+
+<div class="friend_div" id="@Model.UserId">
+    @*<label onclick="HideNoneSelectSpan()">
         <input type="radio" class="fr" name="friend" value="@Model.UserId" @activeDisable[Model.AcceptToInfite] />
         <div class="circle">
             <div class="circle--inner circle--inner__1"></div>
@@ -42,22 +60,42 @@
             <div class="circle--inner circle--inner__5"></div>
             <div class="circle--outer"></div>
         </div>
-        <div class="selected-overflow"></div>
-    </label>
+        @*<div class="selected-overflow"></div>
+        </label>*@
+
     <div class="fr-head">
-        <img class="avatar" src="@Model.LargeAvatar" onclick="redirectToFriend(@Model.UserId)">
-        <h2 onclick="redirectToFriend(@Model.UserId)">@Model.Name @Model.SurName</h2>
-        <br>
-        <span>@Model.Age лет @Model.Country @Model.City</span>
-        <br>
-        <div class="wire-container">
-            <div class="wire-status-circle @activeCircleClass[Model.AcceptToInfite]"></div>
-            <span class="wire-status @activeClass[Model.AcceptToInfite]">@activeSpan[Model.AcceptToInfite]</span>
-        </div>
+        @if (Model.Vip)
+        {
+            <div class="crown-container">
+                <img class="vipuser-crown" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578220125/system/86f6452c09d91a8a507417a473d956d1.png" />
+            </div>
+        }
+            <div class="avatar-info-container">
+                <div class="avatar-container">
+                    <img class="avatar" src="@Model.LargeAvatar" onclick="redirectToFriend(@Model.UserId)">
+                </div>
+                <div class="info-container">
+                    <div class="align-info-container">
+                        <span class="user-name">@Model.Name @Model.SurName</span>
+                        <span>@Model.Age @declensionOfAge(Model.Age) @Model.Country ⚈ @Model.City</span>
+                        <div class="wire-container">
+                            <div class="wire-status-circle @activeCircleClass[Model.AcceptToInfite]"></div>
+                            <span class="wire-status @activeClass[Model.AcceptToInfite]">@activeSpan[Model.AcceptToInfite]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="radio" class="fr" name="friend" onclick="HideNoneSelectSpan()" value="@Model.UserId" @activeDisable[Model.AcceptToInfite] />
+                    <div class="circle">
+                        <div class="circle--inner circle--inner__1"></div>
+                        <div class="circle--inner circle--inner__2"></div>
+                        <div class="circle--inner circle--inner__3"></div>
+                        <div class="circle--inner circle--inner__4"></div>
+                        <div class="circle--inner circle--inner__5"></div>
+                        <div class="circle--outer"></div>
+                    </div>
+                </div>
+            </div>
     </div>
-    @if (Model.Vip)
-    {
-        <img class="vipuser-crown" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578220125/system/86f6452c09d91a8a507417a473d956d1.png" />
-    }
 </div>
 

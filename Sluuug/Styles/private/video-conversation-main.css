@@ -5,9 +5,9 @@
 .vipuser-crown {
     height: 36px;
     border-radius: unset;
-    left: 35px;
-    top: -150px;
     position: relative;
+    left: 24px;
+    top: -20px;
 }
 
 .friend_div {
@@ -37,7 +37,12 @@
     background-color: #95DFE4;
 }
 
-.fr{
+.fr {
+    cursor:pointer;
+    width: 47px;
+    height: 60px;
+    position: absolute;
+    z-index:10;
     opacity:0;
 }
  
@@ -53,13 +58,19 @@
     top: -51px;
 }
 
-
+.user-name{
+    font-size:18px;
+    font-weight:bold;
+}
 
 .circle {
     left: 0;
     top: 12px;
     position: relative;
-    margin-left: 90%;
+}
+
+.input-container {
+    margin: 13px 0px 0px 0px;
 }
 
 .circle--outer {
@@ -70,8 +81,29 @@
     border-radius: 50%;
 }
 
+.fr-head {
+    transition: all 0.5s ease;
+    left: 10px;
+    height: auto;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:nowrap;
+    background-color:white;
+    border:1px solid #7f7f7f;
+}
 
-.fr-head > .avatar {
+.avatar-info-container{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    padding:5px;
+}
+
+.avatar-info-container:hover{
+    background-color:#a2ecf3;
+}
+
+.avatar-container > .avatar {
     float: left;
     border: 1px solid #7f7f7f;
     cursor: pointer;
@@ -79,30 +111,30 @@
     width: 100px;
 }
 
-h2 {
-    cursor: pointer;
+.avatar-container{
+    width:19%;
 }
 
-.fr-head {
-    transition: all 0.5s ease;
-    position: relative;
-    left: 10px;
-    height: auto;
-}
-
-.fr-head > * {
+.crown-container {
     position: absolute;
 }
 
-.fr-head img {
-    left: 1%;
+.align-info-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 0 0 0 20px;
+}
+
+.info-container {
+    margin: 14px 0px 0 10px;
+    width:70%;
 }
 
 
 .tab-content {
-    height: 505px;
-    overflow-x:hidden;
-    overflow-y:hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .tab-content .fr-head h2, .tab-content .fr-head span {
@@ -110,20 +142,31 @@ h2 {
     margin: 0;
 }
 
-.tab-content .fr-head span {
-    margin-top: 10px;
-}
 
 .call-manage {
     text-align: center;
+    display:flex;
+    flex-direction:column;
 }
 
 #not_selected, #new_converence {
-    margin: 10px;
+    margin: 5px;
 }
 
 #new_converence {
+    display:none;
     height: 42px;
+    width: 180px;
+    margin: 0 auto 10px auto;
+}
+.started-call-avatar-container {
+    margin: auto;
+}
+
+.started-call-avatar-container > img {
+    border: 1px solid #7f7f7f;
+    height: 100px;
+    width: 100px;
 }
 
 .call-wrap {
@@ -135,7 +178,7 @@ h2 {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    background-color:white;
+    background-color: white;
 }
 
 .call-wrap:hover {
@@ -361,17 +404,13 @@ h2 {
     }
 
 .friends-container {
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 465px;
-    min-height: 465px;
+    /*overflow-x: hidden;
+    overflow-y: auto;*/
+    /*max-height: 465px;
+    min-height: 465px;*/
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 10px 1px 0 1px;
-}
-
-.wire-container {
-    margin-left:130px;
 }
 
 .wire-status{
@@ -379,6 +418,6 @@ h2 {
 }
 
 .wire-status-circle {
-    margin-top: 15px;
-    margin-right: 6px;
+    margin-top: 5px;
+    margin-right: 12px;
 }

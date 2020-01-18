@@ -6,6 +6,7 @@ using Slug.Context.Dto.OAuth.Fb;
 using Slug.Context.Dto.Search;
 using Slug.Helpers.BaseController;
 using Slug.Model;
+using Slug.Model.Registration;
 using Slug.Model.VkModels;
 using System;
 using System.Collections.Generic;

@@ -32,14 +32,13 @@ namespace Slug.Hubs
                     var connectionEntry = context.UserConnections.FirstOrDefault(x => x.ConnectionId == connectionGuid);
                     if (connectionEntry != null)
                     {
-                        connectionEntry.UpdateTime = DateTime.Now;
+                        connectionEntry.UpdateTime = DateTime.UtcNow;
                         connectionEntry.IsActive = true;
                         context.SaveChanges();
                     }
                 }
             });
         }
-
         public async Task OpenConnect()
         {
             var connectionHandler = new UsersConnectionHandler();
@@ -52,7 +51,6 @@ namespace Slug.Hubs
             //logger.Debug(ipAddress);
             await connectionHandler.AddConnection(connection, session, ipAddress);
         }
-
         public void CloseConnect()
         {
             var connectionHandler = new UsersConnectionHandler();
@@ -67,18 +65,23 @@ namespace Slug.Hubs
 
         public async Task SendMessage(string message, string convId, int toUserId)
         {
-            Cookie cookies = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]];
-            
-            bool isFriends = true;
-            if (convId == "0")
-                isFriends = FriendshipChecker.IsUsersAreFriendsBySessionANDid(cookies.Value, toUserId);
-            else
-                isFriends = FriendshipChecker.IsUsersAreFriendsByConversationGuidANDid(Guid.Parse(convId), toUserId);
+            var userHandler = new UsersHandler();
+            var vipHandler = new VipUsersHandler();
+            var dialog = new UsersDialogHandler();
+            string session = Context.Request.Cookies[WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]].Value;
 
-            if (isFriends)
+            int userSenderId = userHandler.UserIdBySession(session);
+            toUserId = convId != "0" ? dialog.GetConversatorsIds(Guid.Parse(convId)).First(x => x != userSenderId) : toUserId;
+
+
+            bool isFriends = FriendshipChecker.CheckUsersFriendshipByIDs(userSenderId, toUserId);
+            bool isAvaliableContact = vipHandler.SenderAvaliableContact(userSenderId, toUserId);
+
+            if (isFriends && isAvaliableContact)
             {
                 var messageHub = new SimpleDialog(base.Context, base.Clients);
                 NotificationModel hubResp = await messageHub.SendMessage(message, convId, toUserId);
+                await Clients.Caller.MessageSendedResult(true, "Ваше сообщение было отправлено!");
 
                 if (hubResp != null)
                 {
@@ -87,11 +90,12 @@ namespace Slug.Hubs
                         string html = Notifications.GenerateHtml(NotificationType.NewMessage, hubResp.FromUser, hubResp.Culture);
                         await Clients.Clients(hubResp.ConnectionIds).NotifyAbout(html, null, NotificationType.NewMessage, convId);
                     }
-                    //await Clients.Caller.MessageSendedResult(true);
                 }
             }
-            else
-                await Clients.Caller.MessageSendedResult(false);
+            if(!isFriends)
+                await Clients.Caller.MessageSendedResult(false, "Вы не можете отправить сообщение пользователю, пока он не добавит вас в свои контакты.");
+            if (!isAvaliableContact)
+                await Clients.Caller.MessageSendedResult(false, "Вы не можете отправить сообщение VIP пользователю. Активируйте VIP для того что бы продолжить.");
         }
 
         public async Task SendCutMessage(string message, Guid convID)

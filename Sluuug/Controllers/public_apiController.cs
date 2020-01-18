@@ -11,6 +11,7 @@ using Slug.Helpers.BaseController;
 using Slug.Helpers.Handlers;
 using Slug.Helpers.Handlers.OAuthHandlers;
 using Slug.Model;
+using Slug.Model.Registration;
 using Slug.Model.VkModels;
 using System;
 using System.Collections.Generic;

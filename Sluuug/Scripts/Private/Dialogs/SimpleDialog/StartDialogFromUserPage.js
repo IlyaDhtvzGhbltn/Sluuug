@@ -5,7 +5,6 @@
 function SendMessage(to_id, value) {
     if (value.length > 0) {
         HUB.invoke('SendMessage', value, 0, to_id);
-        window.location.href = '/private/cnv';
     }
     else {
         let elem = document.getElementById("error");
@@ -16,6 +15,17 @@ function SendMessage(to_id, value) {
         }, 4000);
     }
 }
+
+HUB.on('MessageSendedResult', function (access, reason) {
+    console.log(access);
+    console.log(reason);
+    if (!access) {
+        _Alert(reason, 'red');
+    }
+    else {
+        _Alert("Ваше сообщение отправлено!", 'green');
+    }
+});
 
 function is_empty(text) {
 console.log(text);

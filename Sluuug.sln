@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slug", "Sluuug\Slug.csproj", "{A9717A73-8AF7-4389-ADEE-8E621ECCA8B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot", "Bot\Bot.csproj", "{8A6C7B54-8EAA-4E36-AE5F-88DC45E77204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtoModels", "DtoModels\DtoModels.csproj", "{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A9717A73-8AF7-4389-ADEE-8E621ECCA8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9717A73-8AF7-4389-ADEE-8E621ECCA8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9717A73-8AF7-4389-ADEE-8E621ECCA8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6C7B54-8EAA-4E36-AE5F-88DC45E77204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6C7B54-8EAA-4E36-AE5F-88DC45E77204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6C7B54-8EAA-4E36-AE5F-88DC45E77204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6C7B54-8EAA-4E36-AE5F-88DC45E77204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

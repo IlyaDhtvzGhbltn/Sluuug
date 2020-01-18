@@ -1,0 +1,9 @@
+D:\MyUtilits\friendlynet\Bot\bin\Debug\Bot.dll
+D:\MyUtilits\friendlynet\Bot\bin\Debug\Bot.pdb
+D:\MyUtilits\friendlynet\Bot\bin\Debug\DtoModels.dll
+D:\MyUtilits\friendlynet\Bot\bin\Debug\DtoModels.pdb
+D:\MyUtilits\friendlynet\Bot\obj\Debug\Bot.csprojAssemblyReference.cache
+D:\MyUtilits\friendlynet\Bot\obj\Debug\Bot.csproj.CoreCompileInputs.cache
+D:\MyUtilits\friendlynet\Bot\obj\Debug\Bot.csproj.CopyComplete
+D:\MyUtilits\friendlynet\Bot\obj\Debug\Bot.dll
+D:\MyUtilits\friendlynet\Bot\obj\Debug\Bot.pdb
