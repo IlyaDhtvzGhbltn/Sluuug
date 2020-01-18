@@ -468,6 +468,7 @@
     <Compile Include="Context\Dto\OAuth\OauthExistStatus.cs" />
     <Compile Include="Context\Dto\OAuth\Vk\OAuthStatusEnum.cs" />
     <Compile Include="Model\Users\Registration\OutRegisteringUserModel.cs" />
+    <Compile Include="Model\VideoConference\VideoConferenceUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

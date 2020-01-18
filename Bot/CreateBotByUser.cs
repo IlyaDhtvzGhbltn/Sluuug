@@ -1,5 +1,4 @@
-﻿using DtoModels.Registration;
-using Slug.Model.Registration;
+﻿using Slug.Model.Registration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +9,9 @@ namespace Bot
 {
     public class CreateBotByUser
     {
-        public BotModel Create(BaseRegistrationModel newUser)
-        {
-            return null;
-        }
+        //public BotModel Create(BaseRegistrationModel newUser)
+        //{
+        //    return null;
+        //}
     }
 }

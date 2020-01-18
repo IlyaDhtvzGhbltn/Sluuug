@@ -114,23 +114,51 @@ namespace Slug.Helpers
 
         public async Task<VideoConferenceModel> VideoConferenceModel (string sessionID)
         {
-            var model = new VideoConferenceModel();
-            model.Friends = new List<BaseUser>();
-            //model.CallsHistory = new List<CallModel>();
-            model.IncomingCalls = new List<IncomingInviteModel>();
-
             var usersHandler = new UsersHandler();
-            int myId = usersHandler.UserIdBySession(sessionID);
+            var vipHandler = new VipUsersHandler();
+            var model = new VideoConferenceModel();
 
-            var fMod = await usersHandler.GetFriendsOnlyBySession(sessionID);
-            foreach (var item in fMod)
-            {
-                model.Friends.Add(item);
-            }
+            model.Friends = new List<VideoConferenceUser>();
+            model.IncomingCalls = new List<IncomingInviteModel>();
 
             using (var context = new DataBaseContext())
             {
-                List<VideoConference> activeConference = ActiveVideoConverence(context, myId);
+                int myId = usersHandler.UserIdBySession(sessionID);
+                var friendshipAccepted = context.UserRelations
+                    .Where(x => x.UserOferFrienshipSender == myId || x.UserConfirmer == myId)
+                    .Where(x => x.Status == FriendshipItemStatus.Accept)
+                    .Select((f) => new { f.UserConfirmer, f.UserOferFrienshipSender })
+                    .ToList();
+
+                var frIds = new List<int>();
+                friendshipAccepted.ForEach(item =>
+                {
+                    if (item.UserConfirmer != myId)
+                        frIds.Add(item.UserConfirmer);
+                    else
+                        frIds.Add(item.UserOferFrienshipSender);
+                });
+                frIds.ForEach(id=> 
+                {
+                    var user = usersHandler.BaseUser(id, context);
+                    model.Friends.Add(new VideoConferenceUser()
+                    {
+                        UserId = id,
+                        Age = user.Age,
+                        Name = user.Name,
+                        Surname = user.SurName,
+                        City = user.City,
+                        Country = user.Country,
+                        IsOnline = usersHandler.IsOnline(context, id).GetAwaiter().GetResult(),
+                        IsVip = user.Vip,
+                        Avatar = user.LargeAvatar,
+                        AvaliableVipContact = vipHandler.SenderAvaliableContact(myId, id)
+                    });
+                });
+
+
+
+                List <VideoConference> activeConference = ActiveVideoConverence(context, myId);
                 if (activeConference.Count > 0)
                 {
                     foreach (var item in activeConference)

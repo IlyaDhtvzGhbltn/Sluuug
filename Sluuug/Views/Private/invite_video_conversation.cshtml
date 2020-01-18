@@ -15,13 +15,13 @@
             <label class="tab-title" for="tab1">Доступны для звонка</label>
             <div class="tab-content">
                 <div class="call-manage">
-                    <span id="not_selected" style="color:red">Никто не выбран</span>
-                    <button id="new_converence" onclick="createConference()">Вызвать выбранных</button>
+                    <span id="not_selected" style="color:red">Не выбран</span>
+                    <button id="new_converence" onclick="createConference()">Вызов</button>
                 </div>
                 <div class="friends-container stylized-scrollbar">
                     @foreach (var friend in Model.Friends)
                     {
-                        Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.Users.BaseUser>(friend));
+                        Html.RenderPartial("~/Views/Partial/VideoConference/friend_to_call.cshtml", friend, new ViewDataDictionary<Slug.Model.VideoConference.VideoConferenceUser>(friend));
                     }
                 </div>
             </div>

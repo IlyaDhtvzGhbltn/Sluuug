@@ -3,3 +3,4 @@ D:\MyUtilits\friendlynet\DtoModels\bin\Debug\DtoModels.pdb
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\DtoModels.csproj.CoreCompileInputs.cache
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\DtoModels.dll
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\DtoModels.pdb
+D:\MyUtilits\friendlynet\DtoModels\obj\Debug\DtoModels.csprojAssemblyReference.cache

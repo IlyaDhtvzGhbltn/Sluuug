@@ -239,7 +239,7 @@ namespace Slug.Controllers
             ViewBag.Title = "Видео Связь";
             ViewBag.Description = "Видео Связь";
             string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            VideoConferenceModel model = await base.VideoConferenceHandler.VideoConferenceModel(sessionId);
+            VideoConferenceModel model = await VideoConferenceHandler.VideoConferenceModel(sessionId);
             return View(model);
         }
 

@@ -10,7 +10,7 @@ namespace Slug.Model.VideoConference
     {
         public bool IsIncommingExist { get; set; }
 
-        public List<BaseUser> Friends { get; set; }
+        public List<VideoConferenceUser> Friends { get; set; }
 
         //public List<CallModel> CallsHistory { get; set; }
 

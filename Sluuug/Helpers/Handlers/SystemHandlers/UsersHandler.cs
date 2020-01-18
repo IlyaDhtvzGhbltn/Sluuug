@@ -1116,10 +1116,21 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
-                Session sess = context.Sessions.First(x => x.Number == session);
-                return sess.UserId;
+                return userIdBySession(context, session);
             }
         }
+
+        public int UserIdBySession(DataBaseContext context, string session)
+        {
+            return userIdBySession(context, session);
+        }
+
+        private int userIdBySession(DataBaseContext context, string session)
+        {
+            Session sess = context.Sessions.First(x => x.Number == session);
+            return sess.UserId;
+        }
+
 
         public async Task<bool> IsOnline(DataBaseContext context, int userId)
         {
