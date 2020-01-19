@@ -91,7 +91,7 @@
 
         var lockImgNode = document.createElement("img");
         lockImgNode.className = "lock-msg-img";
-        lockImgNode.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/c_scale,h_25,w_25/v1562229078/lock-msg.png";
+        lockImgNode.src = "https://res.cloudinary.com/dlk1sqmj4/image/upload/v1579432789/system/lock.svg";
         messageHeader.appendChild(nameNode);
         messageHeader.appendChild(dataNode);
         messageHeader.appendChild(lockImgNode);
