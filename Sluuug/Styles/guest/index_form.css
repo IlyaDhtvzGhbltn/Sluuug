@@ -325,5 +325,5 @@ input[type="date"], focus {
 .header-form {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }

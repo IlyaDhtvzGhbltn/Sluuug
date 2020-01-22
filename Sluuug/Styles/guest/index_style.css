@@ -212,9 +212,9 @@ input::-webkit-input-placeholder {
 
 .text-anumations {
     z-index: 998;
-    position: absolute;
+    /*position: absolute;*/
     width: 440px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .exclude-functions{
