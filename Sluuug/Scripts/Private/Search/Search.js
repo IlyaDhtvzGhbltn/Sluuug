@@ -6,7 +6,7 @@ function getCities(countryListBoxId, citiesListBoxId, emptyValue) {
     let countryCode = $("#" + countryListBoxId + " :selected").val();
     $.ajax({
         type: "post",
-        url: "/api/cities",
+        url: "/public_api/cities",
         data: { countryCode },
         success: function (response) {
             var cities = response.Cities;

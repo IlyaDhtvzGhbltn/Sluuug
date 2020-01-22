@@ -189,7 +189,7 @@ async function showResultForm(addres) {
             $('.result_empty')[0].innerHTML = resp;
             $('.result_empty').addClass('result');
             $('.result').fadeIn();
-            $(window).scrollTop($('.register-result').offset().top);
+            $(window).scrollTop($('.register-result').offset().top - 90);
         }
     });
 }

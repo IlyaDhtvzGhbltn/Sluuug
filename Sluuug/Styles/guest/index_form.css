@@ -8,22 +8,27 @@
 
 .form {
     padding: 30px;
-    max-width: 600px;
+    max-width: 550px;
+    min-width: 550px;
     margin: 100px auto;
     border: 1px solid #7f7f7f;
-    min-height: 790px;
+    min-height: 600px;
     height: auto;
     background-color:white;
 }
 
-label {
-    position: relative;
-    transform: translateY(6px);
-    color: #7f7f7f;
-    font-size: 22px;
+.description {
+    margin: 20px 0px 0px 40px;
+    max-height:400px;
 }
 
-#country_list {
+label {
+    position: relative;
+    color: #7f7f7f;
+    font-size: 14px;
+}
+
+.select-style {
     color: #7f7f7f;
     padding: 5px;
     font-size: 22px;
@@ -38,48 +43,56 @@ label {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.left-field-in-one-row {
+    margin-right:10px;
+}
+
+.right-field-in-one-row {
+    margin-left: 10px;
+}
+
 .tab-group {
     left: auto;
     right: auto;
     list-style: none;
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
 }
 
-    .tab-group li {
-        display: inline;
-        float: left;
-        margin-left: 5%;
-    }
+.tab-group li {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+}
 
-    .tab-group:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+.tab-group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
-    .tab-group li a {
-        display: block;
-        text-decoration: none;
-        padding: 15px;
-        background: #E1EEEF;
-        color: #a0b3b0;
-        font-size: 20px;
-        float: left;
-        width: 200px;
-        text-align: center;
-        cursor: pointer;
-        transition: .5s ease;
-    }
+.tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: #E1EEEF;
+    color: #a0b3b0;
+    font-size: 20px;
+    float: left;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s ease;
+}
 
-        .tab-group li a:hover {
-            background: #95DFE4;
-            color: #ffffff;
-        }
-
-    .tab-group .active a {
+    .tab-group li a:hover {
         background: #95DFE4;
-        color: #7f7f7f;
+        color: #ffffff;
     }
+
+.tab-group .active a {
+    background: #95DFE4;
+    color: #7f7f7f;
+}
 
 .tab-content > div:not(:first-child):not(#oauth_form) {
     display: none;
@@ -224,7 +237,10 @@ textarea {
 
 .field-wrap {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    display:flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
 }
 .top-row{
     width:101%;
@@ -236,42 +252,34 @@ textarea {
     clear: both;
 }
 
-.top-row > div {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-}
-
-.top-row > div:last-child {
-    margin: 0;
-}
 
 .content .form .button {
+    width:100%;
     border: 0;
-    outline: none;
+    /* outline: none; */
     border-radius: 0;
-    padding: 15px 0;
+    padding: 2px 20px;
     font-size: 2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .1em;
+    font-weight: 500;
+    /* text-transform: uppercase; */
+    /* letter-spacing: .1em; */
     background: #49D1DA;
     color: #7f7f7f;
     transition: all 0.5s ease;
     -webkit-appearance: none;
-    height:70px;
+    height: 50px;
+    font-size: 22px;
+    cursor: pointer;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-    .content .form .button:hover, .button:focus {
-        background: #49B2DA;
-        color: #fff;
-    }
+.button-register{
 
-.button-block {
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    padding: 10px;
+}
+
+.content .form .button:hover, .button:focus {
+    background: #49B2DA;
+    color: #fff;
 }
 
 .forgot {
@@ -294,12 +302,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 input[type="date"] {
     width: 100%;
-    appearance: none;
     -webkit-appearance: none;
     color: #7f7f7f;
     font-size: 18px;
     border: 1px solid #a0b3b0;
-    padding: 5px;
+    padding: 2px;
     display: inline-block;
     visibility: visible;
 }
@@ -313,4 +320,10 @@ input[type="date"], focus {
 
 .error-message-form {
     display: none;
+}
+
+.header-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }

@@ -490,7 +490,7 @@
     <value>Пользователь с указанными параметрами уже зарегестрирован</value>
   </data>
   <data name="Text_Email_Already_Taken" xml:space="preserve">
-    <value>Адрес Электронной почты уже занят</value>
+    <value>Адрес почты уже занят</value>
   </data>
   <data name="Text_Some_Error" xml:space="preserve">
     <value>Ошибка!</value>

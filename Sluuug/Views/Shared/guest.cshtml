@@ -37,28 +37,27 @@
 
         @if (ViewBag.IsIndex)
         {
-            <div class="head_navigation" hidden>
+            <div class="head_navigation" id="head_navigation" hidden>
                 <div class="head-main-logo">
-                    <div class="head-main-logo-container" onclick="scrolling('main', +80)">
+                    <div class="head-main-logo-container" onclick="scrolling('overlay')">
                         <img src="~/Resources/images/brand.png" height="50" alt="brand ico" />
                     </div>
-                    @*<button class="header-button" onclick="scrolling('main', +80)">Главная</button>*@
                 </div>
                 <div class="head_fix_menu">
-                    <button class="header-button" onclick="scrolling('functions', 0)">Возможности</button>
-                    <button class="header-button" onclick="scrolling('help', -100)">Справка</button>
+                    <button class="header-button" onclick="scrolling('functions', 70)">Возможности</button>
+                    <button class="header-button" onclick="scrolling('help', 70)">Справка</button>
                     <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
-                    <button class="header-button" onclick="scrolling('reg_log', +440), show_register()">Зарегистрироваться</button>
+                    <button class="header-button" onclick="scrolling('overlay'), show_register()">Зарегистрироваться</button>
                 </div>
                 <div class="head-login">
-                    <button class="header-button" onclick="scrolling('reg_log', -100), show_login()">Войти</button>
+                    <button class="header-button" onclick="scrolling('overlay'), show_login()">Войти</button>
                 </div>
             </div>
             <div class="right_navigation" id="right_navigation" hidden>
                 <nav>
                     <ul>
                         <li>
-                            <a href="#main">
+                            <a href="#overlay">
                                 <div id="help_nav"></div>
                                 <svg class="circle_nav">
                                     <circle id="main_circle" cx="12" cy="12" r="5"></circle>
@@ -66,7 +65,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#reg_log">
+                            <a href="#main">
                                 <svg class="circle_nav">
                                     <circle id="function_circle" cx="12" cy="12" r="5"></circle>
                                 </svg>
@@ -92,7 +91,7 @@
         }
         <div class="feed_back"></div>
         <div class="fullscreen-bg" itemscope itemtype="http://schema.org/Article">
-            <div class="navigation">
+            @*<div class="navigation">
                 @if (ViewBag.IsIndex)
                 {
                     @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
@@ -101,63 +100,7 @@
                 {
                     @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
                 }
-            </div>
-            <div class="tagline-container">
-                <div class="overlay">
-                    <img itemprop="image" alt="site ico" id="connection_vectors" src="/Resources/images/brand.png" />
-                    <h1 itemprop="description">БУДЬ ВСЕГДА НА СВЯЗИ</h1>
-                </div>
-            </div>
-            <div class="text-anumations">
-                <div class="message-container">
-                    <div class="include-functions">
-                        <div class="message-wrapper first-message">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
-                            <span class="main-message include">ВИДЕО ЗВОНКИ</span>
-                        </div>
-                        <div class="message-wrapper second-message">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
-                            <span class="main-message include">End-to-End ЧАТЫ</span>
-                        </div>
-                        <div class="message-wrapper thirth-message">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
-                            <span class="main-message include">ЗНАКОМСТВА</span>
-                        </div>
-                    </div>
-
-                    <div class="exclude-functions">
-                        <div class="exclude-without-container">
-                            <span class="without">БЕЗ</span>
-                        </div>
-                        <div class="exclude-container">
-                            <div class="message-wrapper first-message">
-                                <div class="stop-img-container">
-                                    <img src="~/Resources/images/stop.png" alt="not" />
-                                </div>
-                                <span class="main-message exclude">БОТОВ</span>
-                            </div>
-                            <div class="message-wrapper second-message">
-                                <div class="stop-img-container">
-                                    <img src="~/Resources/images/stop.png" alt="not" />
-                                </div>
-                                <span class="main-message exclude">СПАМА</span>
-                            </div>
-                            <div class="message-wrapper thirth-message">
-                                <div class="stop-img-container">
-                                    <img src="~/Resources/images/stop.png" alt="not" />
-                                </div>
-                                <span class="main-message exclude">РЕКЛАМЫ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>*@
             <video loop muted autoplay poster="/Resources/images/night_city_background.png" class="fullscreen-bg__video">
                 <source src="/Resources/video/cutnightcity.mp4" type="video/mp4">
             </video>

@@ -8,6 +8,7 @@
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #49b2da;
+    border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -24,19 +25,53 @@ body {
 
 p {
     text-align:justify;
-    width
+}
+
+h3{
+    font-size:22px;
 }
 
 input::-webkit-input-placeholder {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.main {
-    padding: 100px 0 0 0;
+.body-form {
+    width: 100%;
+    max-width: 800px;
+    margin: 250px auto 0px auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
+.main{
+    text-align:center;
+}
+
+/*.result {
+    padding-bottom: 300px;
+}*/
+
+.result video {
+    position: relative;
+    height: 600px;
+    width: 600px;
+}
+
+.result hr {
+    position: relative;
+    margin: -5px auto;
+}
+
+.result,
+.main,
+.help,
 .functions {
-    padding: 100px 0 0 0;
+    margin-top: 100px;
+    border: 1px solid #7f7f7f;
+    padding: 15px;
+    box-shadow: 1px 1px 25px;
+    border-radius: 10px;
 }
 
 .feed_back_form {
@@ -70,7 +105,9 @@ input::-webkit-input-placeholder {
     padding: 10px;
 }
 
-
+.registration-error{
+    text-align: center;
+}
 
 .feed_back_form .error-message-form {
     margin-left: 10px;
@@ -143,7 +180,7 @@ input::-webkit-input-placeholder {
 }
 
 .function-demo-container:not(:first-child){
-    margin-top:100px;
+    margin-top: 50px;
 }
 
 .function-demo-container > img{
@@ -175,9 +212,8 @@ input::-webkit-input-placeholder {
 
 .text-anumations {
     z-index: 998;
-    /* position: absolute; */
-    top: 45%;
-    width: 100%;
+    position: absolute;
+    width: 440px;
     margin-top: 40px;
 }
 
@@ -196,8 +232,6 @@ input::-webkit-input-placeholder {
 .message-container {
     display: flex;
     flex-direction: row;
-    margin-left: auto;
-    margin-right: auto;
     width: 725px;
 }
 
@@ -212,7 +246,7 @@ input::-webkit-input-placeholder {
 }
 
 .main-message {
-    margin-left: 10px;
+    margin-left: 20px;
     color: white;
     font-size: 28px;
     font-weight: 800;
@@ -220,7 +254,7 @@ input::-webkit-input-placeholder {
     margin-bottom: auto;
     text-shadow: #7f7f7f -1px -1px 0, #333 1px 1px 0;
     border: 2px solid;
-    padding: 5px;
+    padding: 10px;
     background: rgba(1,1,1,0.5);
 }
 
@@ -242,34 +276,35 @@ input::-webkit-input-placeholder {
     /*background: #b71d18;*/
 }
 
-.first-message {
+.transparency-message {
     opacity: 0;
-    animation-duration: 2s;
     animation-name: hover;
     -webkit-animation-name: hover;
     animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards
+    -webkit-animation-fill-mode: forwards;
+    animation-duration: 1s;
 }
 
-.second-message {
-    opacity: 0;
+.delay1 {
+    animation-delay: 1s;
+}
+
+.delay2 {
     animation-delay: 2s;
-    animation-duration: 2s;
-    animation-name: hover;
-    -webkit-animation-name: hover;
-    animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards
 }
 
-.thirth-message {
-    opacity: 0;
+.delay3 {
     animation-delay: 3s;
-    animation-duration: 2s;
-    animation-name: hover;
-    -webkit-animation-name: hover;
-    animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards
 }
+
+.delay4 {
+    animation-delay: 4s;
+}
+
+.delay5 {
+    animation-delay: 5s;
+}
+
 
 @keyframes hover{
     0% {
@@ -387,7 +422,7 @@ input::-webkit-input-placeholder {
 
 .content {
     width: 100%;
-    max-width: 800px;
+    /*max-width: 800px;*/
     margin: 0px auto 0px auto;
     position: relative;
 }
@@ -469,6 +504,7 @@ input::-webkit-input-placeholder {
     position: fixed;
     left: 90%;
     top: 30%;
+    z-index:999;
 }
 
     .right_navigation nav ul li {
@@ -490,25 +526,6 @@ input::-webkit-input-placeholder {
     padding-top: 10px;
 }
 
-.help {
-    margin-top: 300px;
-}
-
-.result {
-    margin-top: 620px;
-    padding-bottom: 300px;
-}
-
-    .result video {
-        position: relative;
-        height: 600px;
-        width: 600px;
-    }
-
-    .result hr {
-        position: relative;
-        margin: 0px auto;
-    }
 
 .feed_back_b {
     cursor: pointer;

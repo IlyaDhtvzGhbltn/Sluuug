@@ -29,7 +29,8 @@ function show_register(){
 }
 function show_repass(){
 	$('#signup_form')[0].style.display = 'none';
-	$('#login_form')[0].style.display = 'none';	
+    $('#login_form')[0].style.display = 'none';
+    $('#oauth_form')[0].style.display = 'none';
 	$('#repassword_form').fadeIn();
 		
 	$('#reg_toggle').removeClass('active');
@@ -62,12 +63,8 @@ function close_feedback_form() {
 }
 
 function scrolling(elementID, offset) {
-    var target = $('#' + elementID)[0];
-    var Y = target.offsetTop + offset;
-
-    $('html, body').stop().animate({
-        scrollTop: Y
-    }, 1000);
+    let top = $(`#${elementID}`).offset().top - offset;
+    $(window).scrollTop(top);
 }
 
 function oauth_login_vk() {

@@ -4,6 +4,7 @@ using Slug.Context;
 using Slug.Context.Dto.FeedBack;
 using Slug.Context.Dto.OAuth;
 using Slug.Context.Dto.OAuth.Ok;
+using Slug.Context.Dto.Search;
 using Slug.Crypto;
 using Slug.Dto.OAuth;
 using Slug.Helpers;
@@ -50,6 +51,16 @@ namespace Slug.Controllers
                     freeMail = true;
             }
             return new JsonResult() { Data = freeMail };
+        }
+
+        [HttpPost]
+        public JsonResult cities(int countryCode)
+        {
+            var model = new SearchCitiesModel();
+
+            var handler = new SearchHandler();
+            model.Cities = handler.CitiesByCountryID(countryCode);
+            return new JsonResult() { Data = model };
         }
 
         [HttpPost]

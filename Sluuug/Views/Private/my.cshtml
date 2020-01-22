@@ -395,7 +395,7 @@
                 console.log(countryCode);
                 $.ajax({
                     type: "post",
-                    url: "/api/cities",
+                    url: "/public_api/cities",
                     data: { countryCode },
                     success: function (response) {
                         console.log(response);

@@ -77,16 +77,6 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public JsonResult cities(int countryCode)
-        {
-            var model = new SearchCitiesModel();
-
-            var handler = new SearchHandler();
-            model.Cities = handler.CitiesByCountryID(countryCode);
-            return new JsonResult() { Data = model };
-        }
-
-        [HttpPost]
         public JsonResult drop_entry(Guid EntryId)
         {
             string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
