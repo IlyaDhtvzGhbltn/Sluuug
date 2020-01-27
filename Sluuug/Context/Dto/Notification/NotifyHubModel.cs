@@ -1,10 +1,7 @@
-﻿using Slug.Context.Dto.CryptoConversation;
-using Slug.Model;
-using Slug.Model.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using SharedModels.Users;
+
 
 namespace Slug.Context.Dto.Messages
 {

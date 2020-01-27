@@ -12,7 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
-
+using SharedModels.Enums;
+using SharedModels.Users;
 
 namespace Slug.Helpers
 {

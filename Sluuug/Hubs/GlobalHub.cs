@@ -13,6 +13,8 @@ using Slug.Helpers.HTMLGenerated;
 using Slug.Context.Dto.Notification;
 using Slug.Model.Users.Relations;
 using Slug.Context.Attributes;
+using SharedModels.Users;
+
 
 namespace Slug.Hubs
 {

@@ -1,0 +1,6 @@
+D:\MyUtilits\friendlynet\DtoModels\bin\Release\DtoModels.dll
+D:\MyUtilits\friendlynet\DtoModels\bin\Release\DtoModels.pdb
+D:\MyUtilits\friendlynet\DtoModels\obj\Release\DtoModels.csprojAssemblyReference.cache
+D:\MyUtilits\friendlynet\DtoModels\obj\Release\DtoModels.csproj.CoreCompileInputs.cache
+D:\MyUtilits\friendlynet\DtoModels\obj\Release\DtoModels.dll
+D:\MyUtilits\friendlynet\DtoModels\obj\Release\DtoModels.pdb

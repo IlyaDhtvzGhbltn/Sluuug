@@ -13,6 +13,7 @@ using Slug.Helpers.Handlers.HandlersInterface;
 using System.Threading.Tasks;
 using Slug.Context.Dto.News;
 using System.Globalization;
+using SharedModels.Users;
 
 namespace Slug.Helpers
 {

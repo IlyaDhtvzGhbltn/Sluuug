@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Linq.Dynamic;
 using Slug.ImageEdit;
 using Slug.Model.Users;
+using SharedModels.Enums;
 
 namespace Slug.Helpers
 {

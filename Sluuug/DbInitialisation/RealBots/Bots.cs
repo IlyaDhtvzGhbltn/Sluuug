@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedModels.Users;
+using SharedModels.Enums;
 
 namespace FN.Bot
 {

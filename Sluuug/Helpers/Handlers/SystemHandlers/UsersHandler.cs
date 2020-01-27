@@ -27,6 +27,8 @@ using Slug.Helpers.Handlers.PrivateUserServices;
 using Slug.Context.Dto.Posts;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Model.Registration;
+using SharedModels.Users;
+using SharedModels.Enums;
 
 namespace Slug.Helpers
 {

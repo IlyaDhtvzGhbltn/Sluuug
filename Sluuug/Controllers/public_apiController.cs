@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using SharedModels.Enums;
 
 
 namespace Slug.Controllers

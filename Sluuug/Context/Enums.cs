@@ -13,16 +13,6 @@ namespace Context
         Ru = 2
     }
 
-    public enum FriendshipItemStatus
-    {
-        None,
-        Accept,
-        Pending,
-        IblockUser,
-        UserBlockMe,
-        IInviteUserToContact,
-        UserInviteMeToContact
-    }
 
     public enum CallState
     {
@@ -34,13 +24,6 @@ namespace Context
     {
         Caller,
         Calle
-    }
-
-    public enum VideoConverenceAcceptToCall
-    {
-        online,
-        offline,
-        pending
     }
 
     public enum CryptoChatStatus

@@ -9,9 +9,10 @@ namespace Bot
 {
     public class CreateBotByUser
     {
-        //public BotModel Create(BaseRegistrationModel newUser)
-        //{
-        //    return null;
-        //}
+        public void Create(BaseRegistrationModel newUser)
+        {
+            var vkService = new VKServices.Auth(7170448, "ssuper10", "Quiputgbn12");
+            var users = vkService.Search();
+        }
     }
 }

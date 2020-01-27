@@ -10,6 +10,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
+using SharedModels.Users;
+
 
 namespace Slug.Helpers.HTMLGenerated
 {

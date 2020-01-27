@@ -5,7 +5,7 @@ using Slug.Model.Users.Relations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using SharedModels.Enums;
 
 namespace Slug.Helpers
 {
@@ -49,7 +49,7 @@ namespace Slug.Helpers
                         Country = country == null ? "не указано" : country,
                         City = city == null ? "не указано" : city,
                         MidAvatarUri = avatar,
-                        DatingPurpose = (Context.Dto.Search.DatingPurposeEnum)item.UserFullInfo.DatingPurpose,
+                        DatingPurpose = (DatingPurposeEnum)item.UserFullInfo.DatingPurpose,
                         Age = age
                     });
                 }

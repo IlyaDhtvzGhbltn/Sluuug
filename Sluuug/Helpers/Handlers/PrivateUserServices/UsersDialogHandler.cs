@@ -14,6 +14,7 @@ using Slug.Model.Messager.SimpleChat;
 using System.Globalization;
 using Slug.Context.Dto.Conversation;
 using Slug.Model.Users;
+using SharedModels.Users;
 
 namespace Slug.Helpers
 {

@@ -18,6 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using SlugAppSettings = System.Web.Configuration.WebConfigurationManager;
+using SharedModels.Users;
 
 
 

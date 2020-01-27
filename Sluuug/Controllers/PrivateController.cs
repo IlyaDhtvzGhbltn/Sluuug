@@ -22,6 +22,8 @@ using Slug.Model.Users.Relations;
 using Slug.DbInitialisation;
 using System.Collections.Generic;
 using Slug.ImageEdit;
+using SharedModels.Users;
+
 
 namespace Slug.Controllers
 {

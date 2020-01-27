@@ -27,6 +27,7 @@ using Slug.Context.Dto.Posts;
 using Slug.Helpers.Handlers.PrivateUserServices;
 using Slug.Context.Dto.Conversation;
 using Slug.Context.Dto.CryptoConversation;
+using SharedModels.Users;
 
 namespace Slug.Controllers
 {

@@ -23,6 +23,7 @@ using System.Data.Entity;
 using Slug.ImageEdit;
 using Slug.Helpers.Handlers.HandlersInterface;
 using Slug.Model.Messager.CryptoChat;
+using SharedModels.Users;
 
 namespace Slug.Hubs
 {

@@ -17,6 +17,8 @@ using Newtonsoft.Json;
 using Slug.ImageEdit;
 using System.Globalization;
 using Slug.Model.Users;
+using SharedModels.Users;
+
 
 namespace Slug.Hubs
 {

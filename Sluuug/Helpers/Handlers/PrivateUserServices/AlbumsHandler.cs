@@ -18,6 +18,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
+using SharedModels.Enums;
+using SharedModels.Users;
 
 namespace Slug.Helpers
 {
@@ -305,7 +307,7 @@ namespace Slug.Helpers
                                 User commenter = context.Users.FirstOrDefault(x => x.Id == comment.UserCommenter);
                                 Avatars avatar = context.Avatars.First(x => x.Id == commenter.AvatarId);
                                 string commenterAvatar = string.Empty;
-                                if (avatar.AvatarType == Context.AvatarTypesEnum.SelfLoad)
+                                if (avatar.AvatarType == AvatarTypesEnum.SelfLoad)
                                     commenterAvatar = Resize.ResizedAvatarUri(avatar.LargeAvatar, ModTypes.c_scale, 50, 50);
                                 else
                                     commenterAvatar = avatar.SmallAvatar;
@@ -520,7 +522,7 @@ namespace Slug.Helpers
                             int? avatarID = context.Users.First(x => x.Id == comm.UserCommenter).AvatarId;
                             Avatars avatar = context.Avatars.First(x => x.Id == avatarID);
                             string avatarImg = string.Empty;
-                            if (avatar.AvatarType == Context.AvatarTypesEnum.SelfLoad)
+                            if (avatar.AvatarType == AvatarTypesEnum.SelfLoad)
                                 avatarImg = Resize.ResizedAvatarUri(avatar.LargeAvatar, ModTypes.c_scale, 50, 50);
                             else
                                 avatarImg = avatar.SmallAvatar;

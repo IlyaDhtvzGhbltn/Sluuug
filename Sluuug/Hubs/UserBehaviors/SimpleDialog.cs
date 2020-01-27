@@ -17,7 +17,7 @@ using Slug.Model;
 using Slug.Model.Messager.SimpleChat;
 using Slug.Model.Users;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
-
+using SharedModels.Users;
 
 namespace Slug.Hubs
 {

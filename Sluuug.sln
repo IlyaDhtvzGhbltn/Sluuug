@@ -7,7 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slug", "Sluuug\Slug.csproj"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot", "Bot\Bot.csproj", "{8A6C7B54-8EAA-4E36-AE5F-88DC45E77204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtoModels", "DtoModels\DtoModels.csproj", "{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModels", "DtoModels\SharedModels.csproj", "{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedServices", "SharedServices", "{59DBEC24-732C-4E72-BDC9-F99973784A01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKServices", "VKServices\VKServices.csproj", "{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15} = {59DBEC24-732C-4E72-BDC9-F99973784A01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9403ED37-06D7-4839-8475-201779D5EFBE}

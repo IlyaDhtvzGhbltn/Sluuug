@@ -1,4 +1,5 @@
 ﻿using Context;
+using SharedModels.Enums;
 using Slug.Context.Dto.Search;
 using Slug.Context.Tables;
 using Slug.ImageEdit;

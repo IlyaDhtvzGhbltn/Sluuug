@@ -45,9 +45,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DtoModels\DtoModels.csproj">
+    <ProjectReference Include="..\DtoModels\SharedModels.csproj">
       <Project>{f40fc4d2-b0ae-412f-a056-f45a5369bdb8}</Project>
-      <Name>DtoModels</Name>
+      <Name>SharedModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VKServices\VKServices.csproj">
+      <Project>{f583b240-1a4d-4cf3-a6f6-f0f20a7d4b15}</Project>
+      <Name>VKServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
