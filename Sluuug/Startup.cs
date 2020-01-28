@@ -12,7 +12,7 @@ namespace Slug
         public void Configuration(IAppBuilder app)
         {
             var bot = new Bot.CreateBotByUser();
-            bot.Create(new Model.Registration.BaseRegistrationModel());
+            bot.Create(new Model.Registration.BaseRegistrationModel(), 10);
             app.MapSignalR();
         }
     }

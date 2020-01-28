@@ -3,6 +3,8 @@
 }
 @model Slug.Model.Users.ContactsModel
 @using Slug.Extensions
+@using SharedModels.Users
+
 <link href="~/Styles/private/tabs-style.css" rel="stylesheet" />
 <link href="~/Styles/private/contacts-style.css" rel="stylesheet" />
 
@@ -17,7 +19,7 @@
                 {
                     foreach (var item in Model.IncommingInvitations)
                     {
-                        Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                        Html.RenderPartial("~/Views/Partial/Contacts/incomming_invitations.cshtml", item, new ViewDataDictionary<BaseUser>(item));
                     }
                 }
                 else
@@ -36,7 +38,7 @@
                 {
                     foreach (var item in Model.OutCommingInvitations)
                     {
-                        Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                        Html.RenderPartial("~/Views/Partial/Contacts/outcomming_invitations.cshtml", item, new ViewDataDictionary<BaseUser>(item));
                     }
                 }
                 else
@@ -55,7 +57,7 @@
                 {
                     foreach (var item in Model.Friends)
                     {
-                        Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<Slug.Model.Users.BaseUser>(item));
+                        Html.RenderPartial("~/Views/Partial/Contacts/accept_friend.cshtml", item, new ViewDataDictionary<BaseUser>(item));
                     }
                 }
                 else

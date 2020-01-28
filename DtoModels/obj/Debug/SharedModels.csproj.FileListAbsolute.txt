@@ -4,3 +4,9 @@ D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.csprojAssemblyReferenc
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.csproj.CoreCompileInputs.cache
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.dll
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.pdb
+D:\SLUG\Sluuug\DtoModels\bin\Debug\SharedModels.dll
+D:\SLUG\Sluuug\DtoModels\bin\Debug\SharedModels.pdb
+D:\SLUG\Sluuug\DtoModels\obj\Debug\SharedModels.csprojAssemblyReference.cache
+D:\SLUG\Sluuug\DtoModels\obj\Debug\SharedModels.csproj.CoreCompileInputs.cache
+D:\SLUG\Sluuug\DtoModels\obj\Debug\SharedModels.dll
+D:\SLUG\Sluuug\DtoModels\obj\Debug\SharedModels.pdb

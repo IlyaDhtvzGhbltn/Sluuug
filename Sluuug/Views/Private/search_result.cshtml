@@ -4,6 +4,8 @@
 }
 @model Slug.Context.Dto.Search.SearchUsersResponse
 @using Slug.Extensions;
+@using SharedModels.Users
+
 <link href="~/Styles/private/search-result-style.css" rel="stylesheet" />
 
 <h1>Результаты поиска</h1>
@@ -32,7 +34,7 @@
                             <td>
                                 @{
                                     var user = Model.Users[(i * 2) + j];
-                                    Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<Slug.Model.Users.BaseUser>(user));
+                                    Html.RenderPartial("~/Views/Partial/OtherUser/fount_user.cshtml", user, new ViewDataDictionary<BaseUser>(user));
                                 }
                             </td>
                         }

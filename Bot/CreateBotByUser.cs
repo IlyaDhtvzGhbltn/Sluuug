@@ -1,18 +1,31 @@
 ﻿using Slug.Model.Registration;
-using System;
+using RemoteServices;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace Bot
 {
     public class CreateBotByUser
     {
-        public void Create(BaseRegistrationModel newUser)
+        Dictionary<int, int> SexFakeUser = new Dictionary<int, int>()
         {
-            var vkService = new VKServices.Auth(7170448, "ssuper10", "Quiputgbn12");
-            var users = vkService.Search();
+            { 1, 0 },
+            { 0, 1 }
+        };
+
+        public void Create(BaseRegistrationModel newUser, uint offset)
+        {
+
+            var vkService = new VKFakeUserService(7170448, "ssuper10", "Quiputgbn12");
+            var users = vkService.Search(offset);
+        }
+
+        Tuple<ushort, ushort> calculateAgeFake(int years)
+        {
+            if (years >= 16 && years <= 21)
+                return new Tuple<ushort, ushort>(1,1);
+
+            return new Tuple<ushort, ushort>(1, 1);
         }
     }
 }
