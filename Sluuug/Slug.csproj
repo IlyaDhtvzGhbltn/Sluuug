@@ -380,6 +380,10 @@
     <Compile Include="Migrations\202001282016471_s.Designer.cs">
       <DependentUpon>202001282016471_s.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001292010350_bool fake.cs" />
+    <Compile Include="Migrations\202001292010350_bool fake.Designer.cs">
+      <DependentUpon>202001292010350_bool fake.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -568,6 +572,9 @@
     <EmbeddedResource Include="Migrations\202001282016471_s.resx">
       <DependentUpon>202001282016471_s.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001292010350_bool fake.resx">
+      <DependentUpon>202001292010350_bool fake.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
@@ -580,9 +587,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot\Bot.csproj">
+    <ProjectReference Include="..\Bot\FakeUsers.csproj">
       <Project>{8a6c7b54-8eaa-4e36-ae5f-88dc45e77204}</Project>
-      <Name>Bot</Name>
+      <Name>FakeUsers</Name>
     </ProjectReference>
     <ProjectReference Include="..\DtoModels\SharedModels.csproj">
       <Project>{f40fc4d2-b0ae-412f-a056-f45a5369bdb8}</Project>

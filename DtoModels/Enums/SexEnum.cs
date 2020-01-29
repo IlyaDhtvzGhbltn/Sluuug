@@ -7,7 +7,7 @@ namespace SharedModels.Enums
 {
     public enum SexEnum
     {
-        woman,
-        man
+        woman = 0,
+        man = 1
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FakeUsers;
 using Microsoft.Owin;
 using Owin;
 
@@ -11,7 +12,7 @@ namespace Slug
     {
         public void Configuration(IAppBuilder app)
         {
-            var bot = new Bot.CreateBotByUser();
+            var bot = new CreateFakeUser();
             bot.Create(new Model.Registration.BaseRegistrationModel(), 10);
             app.MapSignalR();
         }
