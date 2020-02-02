@@ -75,12 +75,13 @@ input::-webkit-input-placeholder {
 }
 
 .feed_back_form {
+    border-radius: 10px;
     left: 50%;
     bottom: 10%;
     z-index: 999;
     position: fixed;
-    width: 500px;
-    height: 495px;
+    width: 450px;
+    /*height: 405px;*/
     background-color: #fff;
     border: 1px solid #7f7f7f;
     /*border-radius: 4px;*/
@@ -95,10 +96,10 @@ input::-webkit-input-placeholder {
 }
 
 #feed_back_text {
-    height: 100px;
+    height: 65px;
     resize: none;
     font-family: 'Roboto Condensed', sans-serif;
-    width:376px;
+    width: 326px;
 }
 
 .feed_back_form .feed_back_property {
@@ -109,9 +110,6 @@ input::-webkit-input-placeholder {
     text-align: center;
 }
 
-.feed_back_form .error-message-form {
-    margin-left: 10px;
-}
 
 .feed_back_form span {
     margin-left: 10px;

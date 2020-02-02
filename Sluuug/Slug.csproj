@@ -376,6 +376,11 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
+    <Compile Include="Migrations\202002021031239_izfake.cs" />
+    <Compile Include="Migrations\202002021031239_izfake.Designer.cs">
+      <DependentUpon>202002021031239_izfake.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -560,6 +565,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002021031239_izfake.resx">
+      <DependentUpon>202002021031239_izfake.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
