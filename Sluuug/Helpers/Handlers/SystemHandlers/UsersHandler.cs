@@ -17,10 +17,8 @@ using System.Net.Mail;
 using NLog;
 using Slug.ImageEdit;
 using Slug.Model.Users.Relations;
-using Slug.Context.Dto.Search;
 using System.Globalization;
 using Slug.Context.Dto.UserWorker_refactor;
-using Slug.DbInitialisation;
 using Slug.Model.FullInfo;
 using Slug.Helpers.BaseController;
 using Slug.Helpers.Handlers.PrivateUserServices;
@@ -29,6 +27,7 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Model.Registration;
 using SharedModels.Users;
 using SharedModels.Enums;
+using SharedModels.UserInfo.Registration;
 
 namespace Slug.Helpers
 {

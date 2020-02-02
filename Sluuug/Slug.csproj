@@ -367,6 +367,7 @@
     <Compile Include="Helpers\Handlers\PrivateUserServices\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\DisableConversationHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\PostUserHandler.cs" />
+    <Compile Include="Helpers\Handlers\SystemHandlers\FakeUsersHandler.cs" />
     <Compile Include="Helpers\Handlers\SystemHandlers\NotificationHandler.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\OauthHandler.cs" />
     <Compile Include="Helpers\Handlers\OAuthHandlers\VkOAuthHandler.cs" />

@@ -49,6 +49,10 @@
       <Project>{f40fc4d2-b0ae-412f-a056-f45a5369bdb8}</Project>
       <Name>SharedModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Extension\Extension.csproj">
+      <Project>{D3EDA64E-9733-4C91-87A3-D940A174C7D8}</Project>
+      <Name>Extension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VKServices\VKServices.csproj">
       <Project>{f583b240-1a4d-4cf3-a6f6-f0f20a7d4b15}</Project>
       <Name>VKServices</Name>

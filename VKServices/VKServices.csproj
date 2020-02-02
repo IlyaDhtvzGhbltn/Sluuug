@@ -65,8 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeUsersService.cs" />
+    <Compile Include="RemoteUsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LocationAdapter\CityAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -76,6 +77,11 @@
       <Project>{f40fc4d2-b0ae-412f-a056-f45a5369bdb8}</Project>
       <Name>SharedModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Extension\Extension.csproj">
+      <Project>{d3eda64e-9733-4c91-87a3-d940a174c7d8}</Project>
+      <Name>Extension</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

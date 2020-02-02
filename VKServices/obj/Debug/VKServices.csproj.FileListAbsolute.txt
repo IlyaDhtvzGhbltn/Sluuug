@@ -242,3 +242,5 @@ D:\SLUG\Sluuug\VKServices\obj\Debug\VKServices.csproj.CoreCompileInputs.cache
 D:\SLUG\Sluuug\VKServices\obj\Debug\VKServices.csproj.CopyComplete
 D:\SLUG\Sluuug\VKServices\obj\Debug\VKServices.dll
 D:\SLUG\Sluuug\VKServices\obj\Debug\VKServices.pdb
+D:\MyUtilits\friendlynet\VKServices\bin\Debug\Extension.dll
+D:\MyUtilits\friendlynet\VKServices\bin\Debug\Extension.pdb
