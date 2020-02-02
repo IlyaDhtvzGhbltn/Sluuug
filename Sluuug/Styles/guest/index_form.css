@@ -5,21 +5,30 @@
     transition: .5s ease;
 }
 
+.reg-form-container{
+    justify-content:flex-end;
+}
 
 .form {
-    padding: 30px;
-    max-width: 550px;
-    min-width: 550px;
-    margin: 100px auto;
+    padding: 15px;
+    border-radius:10px;
+    max-width: 515px;
+    min-width: 380px;
+    margin: 60px 20px 10px 10px;
     border: 1px solid #7f7f7f;
-    min-height: 600px;
     height: auto;
-    background-color:white;
+    background-color: white;
 }
 
 .description {
-    margin: 20px 0px 0px 40px;
-    max-height:400px;
+    margin: 30px 0px 0px 13px;
+    width:100%;
+}
+
+.header-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 label {
@@ -31,7 +40,7 @@ label {
 .select-style {
     color: #7f7f7f;
     padding: 5px;
-    font-size: 22px;
+    font-size: 14px;
     display: block;
     width: 102%;
     height: 35px;
@@ -43,6 +52,20 @@ label {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+input, textarea {
+    font-size: 14px;
+    display: block;
+    width: 102%;
+    text-indent: 10px;
+    background: none;
+    background-image: none;
+    border: 1px solid #a0b3b0;
+    color: #7f7f7f;
+    border-radius: 1;
+    height: 30px;
+    transition: border-color .25s ease, box-shadow .25s ease;
+}
+
 .left-field-in-one-row {
     margin-right:10px;
 }
@@ -52,10 +75,11 @@ label {
 }
 
 .tab-group {
-    left: auto;
-    right: auto;
     list-style: none;
-    margin: 0 0 20px 0;
+    margin: 0 auto 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 .tab-group li {
@@ -73,12 +97,12 @@ label {
 .tab-group li a {
     display: block;
     text-decoration: none;
-    padding: 15px;
+    padding: 7px 0px 7px 0px;
     background: #E1EEEF;
     color: #a0b3b0;
-    font-size: 20px;
+    font-size: 16px;
     float: left;
-    width: 200px;
+    width: 150px;
     text-align: center;
     cursor: pointer;
     transition: .5s ease;
@@ -108,7 +132,7 @@ label {
 }
 
 .oauth-item-log-text {
-    font-size: 22px;
+    font-size: 16px;
     color:white;
     text-wrap:none;
 }
@@ -123,10 +147,15 @@ label {
     flex-wrap: nowrap;
     border: 1px solid #7f7f7f;
     cursor: pointer;
-    min-height: 70px;
     transition: all ease .5s;
 }
 
+.item-text-wrapper {
+    width: 100%;
+    height: 60px;
+    min-height: 60px;
+    border-left: 1px solid #7f7f7f;
+}
 
 .oauth-item-wrapper:hover > .item-text-wrapper > .text-center > span{
     color:#7f7f7f;
@@ -183,12 +212,6 @@ label {
     transition: all ease .5s;
 }
 
-.item-text-wrapper {
-    width: 100%;
-    height: 70px;
-    min-height: 70px;
-    border-left: 1px solid #7f7f7f;
-}
 
 .oauth-item-ico-wrapper {
     margin-bottom: auto;
@@ -198,7 +221,7 @@ label {
 }
 
 .oauth-item-ico-wrapper > img {
-    height: 50px;
+    height: 40px;
 }
 
 .oauth-ok {
@@ -208,21 +231,7 @@ label {
 h4 {
     text-align: center;
     font-weight: 300;
-    margin: 0 0 40px;
-}
-
-input, textarea {
-    font-size: 22px;
-    display: block;
-    width: 102%;
-    text-indent: 10px;
-    background: none;
-    background-image: none;
-    border: 1px solid #a0b3b0;
-    color: #7f7f7f;
-    border-radius: 1;
-    height:30px;
-    transition: border-color .25s ease, box-shadow .25s ease;
+    margin: 0 0 20px;
 }
 
 input:focus, textarea:focus {
@@ -237,7 +246,7 @@ textarea {
 
 .field-wrap {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display:flex;
     flex-direction:row;
     flex-wrap: nowrap;
@@ -283,7 +292,7 @@ textarea {
 }
 
 .forgot {
-    margin-top: -20px;
+    margin-top: -5px;
     text-align: right;
     cursor: pointer;
 }
@@ -322,8 +331,3 @@ input[type="date"], focus {
     display: none;
 }
 
-.header-form {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}

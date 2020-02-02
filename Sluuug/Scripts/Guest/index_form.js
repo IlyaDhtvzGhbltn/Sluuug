@@ -95,9 +95,11 @@ $(document).ready(function () {
 window.onscroll = function () {
     if (window.pageYOffset > 530) {
         $('.head_navigation')[0].style.opacity = 1;
+        $('.head_navigation')[0].style.zIndex = 101;
     }
     else {
         $('.head_navigation')[0].style.opacity = 0;
+        $('.head_navigation')[0].style.zIndex = 0;
     }
 
 

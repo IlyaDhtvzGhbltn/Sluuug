@@ -376,15 +376,6 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\202001282016471_s.cs" />
-    <Compile Include="Migrations\202001282016471_s.Designer.cs">
-      <DependentUpon>202001282016471_s.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001292010350_bool fake.cs" />
-    <Compile Include="Migrations\202001292010350_bool fake.Designer.cs">
-      <DependentUpon>202001292010350_bool fake.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
     <Compile Include="Model\Albums\MinimizedPhotoModel.cs" />
@@ -569,12 +560,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001282016471_s.resx">
-      <DependentUpon>202001282016471_s.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001292010350_bool fake.resx">
-      <DependentUpon>202001292010350_bool fake.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
@@ -594,6 +579,10 @@
     <ProjectReference Include="..\DtoModels\SharedModels.csproj">
       <Project>{f40fc4d2-b0ae-412f-a056-f45a5369bdb8}</Project>
       <Name>SharedModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VKServices\VKServices.csproj">
+      <Project>{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}</Project>
+      <Name>VKServices</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

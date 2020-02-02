@@ -6,143 +6,127 @@
 
     <div class="header-form">
         <div class="description">
-            <div class="tagline-container">
+            @*<div class="tagline-container">
                 <div class="overlay" id="overlay">
                     <img itemprop="image" alt="site ico" id="connection_vectors" src="/Resources/images/brand.png" />
                     <h1 itemprop="description">БУДЬ ВСЕГДА НА СВЯЗИ</h1>
                 </div>
-            </div>
+            </div>*@
             <div class="text-anumations">
                 <div class="message-container">
                     <div class="include-functions">
                         <div class="message-wrapper transparency-message">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
-                            <span class="main-message include">ДЕВУШКИ И ПАРНИ ИЗ ТВОЕГО ГОРОДА</span>
+                            <span class="main-message include">ВСТРЕЧИ В ТВОЕМ ГОРОДЕ</span>
                         </div>
 
                         <div class="message-wrapper transparency-message delay1">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
                             <span class="main-message include">ЗНАКОМСТВО И ОБЩЕНИЕ</span>
                         </div>
 
                         <div class="message-wrapper transparency-message delay2">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
                             <span class="main-message include">ПРИВАТНЫЕ КОМНАТЫ</span>
                         </div>
 
                         <div class="message-wrapper transparency-message delay3">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
                             <span class="main-message include">УДОБНЫЙ ПОИСК</span>
                         </div>
 
                         <div class="message-wrapper transparency-message delay4">
-                            <div class="stop-img-container">
-                                <img src="~/Resources/images/allow.png" alt="ok" />
-                            </div>
                             <span class="main-message include">ВИДЕО ЗВОНКИ</span>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form" id="reg_log">
-            <ul class="tab-group">
-                <li class="tab active" id="reg_toggle" onclick="show_register()"><a>Регистрация</a></li>
-                <li class="tab" id="login_toggle" onclick="show_login()"><a>Вход</a></li>
-            </ul>
+        <div class="reg-form-container">
+            <div class="form" id="reg_log">
+                <ul class="tab-group">
+                    <li class="tab active" id="reg_toggle" onclick="show_register()"><a>Регистрация</a></li>
+                    <li class="tab" id="login_toggle" onclick="show_login()"><a>Вход</a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div id="signup_form" itemscope itemtype="http://schema.org/RegisterAction">
-                    <form id="validate_register_form">
-                        <h4>Регистрация</h4>
-                        <div class="field-wrap">
-                            <input name="Name" placeholder="Имя *" itemprop="name" class="left-field-in-one-row" required autocomplete="off" />
-                            <input name="SurName" placeholder="Фамилия *" itemprop="name" class="right-field-in-one-row" required autocomplete="off" />
-                        </div>
-                        <div class="field-wrap" itemprop="agent">
-                            <input type="email" name="Email" placeholder="Email Адрес *" required autocomplete="off" oninput="verify_email(this)" />
-                            <div id="email_space" class="registration-error"></div>
-                        </div>
-                        <div class="field-wrap">
-                            <input name="Login" placeholder="Придумайте логин *" required autocomplete="off" oninput="verify_login(this)" />
-                            <div id="login_space" class="registration-error"></div>
-                        </div>
-                        <div class="field-wrap">
-                            <select name="CountryCode" class="select-style left-field-in-one-row" id="select_country_list" onchange="getCities('select_country_list', 'select_city_list', true)" required>
-                                <option class="option" value="">Страна *</option>
-                                <option class="option" value="7">Россия</option>
-                                <option class="option" value="380">Украина</option>
-                                <option class="option" value="375">Белорусь</option>
-                            </select>
-
-                            <select name="CityCode" class="select-style right-field-in-one-row" id="select_city_list" required>
-                                <option class="option" value="">Город *</option>
-                            </select>
-                        </div>
-                        <div class="field-wrap">
-                            <select name="Sex" class="select-style" required>
-                                <option class="option" value="">Ваш пол *</option>
-                                <option class="option" value="0">Жен</option>
-                                <option class="option" value="1">Муж</option>
-                            </select>
-                        </div>
-                        <div class="field-wrap">
-                            <label>Дата рождения</label>
-                            <input id="select_date" name="DateBirth" min="@ViewBag.MinRegistrationDate" max="@ViewBag.MaxRegistrationDate" type="date" required autocomplete="off" />
-                        </div>
-                        <div class="field-wrap">
-                            <input type="password" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
-                        </div>
-                        <button class="button button-register" id="reg_subm" onclick="register()">Зарегистрироваться</button>
-                    </form>
-                </div>
-                <div id="login_form" itemscope itemtype="http://schema.org/JoinAction">
-                    <form id="validate_login_form">
-                        <h4>Добро пожаловать снова!</h4>
-                        <div class="field-wrap" itemprop="name">
-                            <input type="text" placeholder="Логин при регистрации *" name="login" required autocomplete="off" />
-                        </div>
-                        <div class="field-wrap">
-                            <input type="password" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
-                        </div>
-                        <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
-                        <button class="button button-block" id="log_subm" onclick="logIn()">Вход</button>
-                    </form>
-                </div>
-                <div id="repassword_form" itemscope itemtype="http://schema.org/WebPage">
-                    <form id="reset_password_form">
-                        <h4>Обновить пароль</h4>
-                        <p>Введите адрес электронной почты, использованный при регистрации.</p>
-                        <div itemprop="text" class="field-wrap">
-                            <input itemprop="text" placeholder="Email Адрес *" type="email" name="email" id="oldEmailToReset" required autocomplete="off" />
-                        </div>
-                        <input type="button" class="button button-block" id="reset_subm" onclick="resetPassword()" value="Выслать пароль" />
-                    </form>
-                </div>
-                <div id="oauth_form">
-                    <span>Или ... </span>
-                    <div class="oauth-options-list">
-                        <div class="oauth-item-wrapper oauth-vk-wrapper" onclick="oauth_login_vk()">
-                            <div class="oauth-item-ico-wrapper">
-                                <img src="~/Resources/images/vk_ico.png" />
+                <div class="tab-content">
+                    <div id="signup_form" itemscope itemtype="http://schema.org/RegisterAction">
+                        <form id="validate_register_form">
+                            <h4>Регистрация</h4>
+                            <div class="field-wrap">
+                                <input name="Name" placeholder="Имя *" itemprop="name" class="left-field-in-one-row" required autocomplete="off" />
+                                <input name="SurName" placeholder="Фамилия *" itemprop="name" class="right-field-in-one-row" required autocomplete="off" />
                             </div>
-                            <div class="item-text-wrapper oauth-vk">
-                                <div class="text-center">
-                                    <span class="oauth-item-log-text">Войти через контакт VK.com</span>
+                            <div class="field-wrap" itemprop="agent">
+                                <input type="email" name="Email" placeholder="Email Адрес *" required autocomplete="off" oninput="verify_email(this)" />
+                                <div id="email_space" class="registration-error"></div>
+                            </div>
+                            <div class="field-wrap">
+                                <input name="Login" placeholder="Придумайте логин *" required autocomplete="off" oninput="verify_login(this)" />
+                                <div id="login_space" class="registration-error"></div>
+                            </div>
+                            <div class="field-wrap">
+                                <select name="CountryCode" class="select-style left-field-in-one-row" id="select_country_list" onchange="getCities('select_country_list', 'select_city_list', true)" required>
+                                    <option class="option" value="">Страна *</option>
+                                    <option class="option" value="7">Россия</option>
+                                    <option class="option" value="380">Украина</option>
+                                    <option class="option" value="375">Белорусь</option>
+                                </select>
+
+                                <select name="CityCode" class="select-style right-field-in-one-row" id="select_city_list" required>
+                                    <option class="option" value="">Город *</option>
+                                </select>
+                            </div>
+                            <div class="field-wrap">
+                                <select name="Sex" class="select-style" required>
+                                    <option class="option" value="">Ваш пол *</option>
+                                    <option class="option" value="0">Жен</option>
+                                    <option class="option" value="1">Муж</option>
+                                </select>
+                            </div>
+                            <div class="field-wrap">
+                                <label>Дата рождения</label>
+                                <input id="select_date" name="DateBirth" min="@ViewBag.MinRegistrationDate" max="@ViewBag.MaxRegistrationDate" type="date" required autocomplete="off" />
+                            </div>
+                            <div class="field-wrap">
+                                <input type="password" name="PasswordHash" placeholder="Придумайте пароль *" required autocomplete="off" />
+                            </div>
+                            <button class="button button-register" id="reg_subm" onclick="register()">Зарегистрироваться</button>
+                        </form>
+                    </div>
+                    <div id="login_form" itemscope itemtype="http://schema.org/JoinAction">
+                        <form id="validate_login_form">
+                            <h4>Добро пожаловать снова!</h4>
+                            <div class="field-wrap" itemprop="name">
+                                <input type="text" placeholder="Логин при регистрации *" name="login" required autocomplete="off" />
+                            </div>
+                            <div class="field-wrap">
+                                <input type="password" placeholder="Пароль *" name="hashPassword" required autocomplete="off" />
+                            </div>
+                            <p class="forgot"><a onclick="show_repass()">Забыли пароль?</a></p>
+                            <button class="button button-block" id="log_subm" onclick="logIn()">Вход</button>
+                        </form>
+                    </div>
+                    <div id="repassword_form" itemscope itemtype="http://schema.org/WebPage">
+                        <form id="reset_password_form">
+                            <h4>Обновить пароль</h4>
+                            <p>Введите адрес электронной почты, использованный при регистрации.</p>
+                            <div itemprop="text" class="field-wrap">
+                                <input itemprop="text" placeholder="Email Адрес *" type="email" name="email" id="oldEmailToReset" required autocomplete="off" />
+                            </div>
+                            <input type="button" class="button button-block" id="reset_subm" onclick="resetPassword()" value="Выслать пароль" />
+                        </form>
+                    </div>
+                    <div id="oauth_form">
+                        <span>Или ... </span>
+                        <div class="oauth-options-list">
+                            <div class="oauth-item-wrapper oauth-vk-wrapper" onclick="oauth_login_vk()">
+                                <div class="oauth-item-ico-wrapper">
+                                    <img src="~/Resources/images/vk_ico.png" />
+                                </div>
+                                <div class="item-text-wrapper oauth-vk">
+                                    <div class="text-center">
+                                        <span class="oauth-item-log-text">Войти через контакт VK.com</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        @*<div class="oauth-item-wrapper oauth-fb-wrapper" onclick="oauth_login_fb()">
+                            @*<div class="oauth-item-wrapper oauth-fb-wrapper" onclick="oauth_login_fb()">
                                 <div class="oauth-item-ico-wrapper">
                                     <img src="~/Resources/images/facebook-ico.png" />
                                 </div>
@@ -153,33 +137,34 @@
                                 </div>
                             </div>*@
 
-                        <div class="oauth-item-wrapper oauth-ok-wrapper" onclick="oauth_login_ok()">
-                            <div class="oauth-item-ico-wrapper">
-                                <img src="~/Resources/images/ok_ico.png" />
-                            </div>
-                            <div class="item-text-wrapper oauth-ok">
-                                <div class="text-center">
-                                    <span class="oauth-item-log-text">Войти через Одноклассники</span>
+                            <div class="oauth-item-wrapper oauth-ok-wrapper" onclick="oauth_login_ok()">
+                                <div class="oauth-item-ico-wrapper">
+                                    <img src="~/Resources/images/ok_ico.png" />
+                                </div>
+                                <div class="item-text-wrapper oauth-ok">
+                                    <div class="text-center">
+                                        <span class="oauth-item-log-text">Войти через Одноклассники</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div><!-- tab-content -->
-            <div class="error-message-form" style="color:red" id="not_filled"><p>Пожалуйста, заполните верно все поля *</p></div>
-            <div class="error-message-form" style="color:red" id="invalid_credentials"><p>Логин или пароль неверен или учетная запись не активированна</p></div>
-            <div class="error-message-form" style="color:red" id="invalid_emeil"><p>Неверный адрес электронной почты.</p></div>
-            <div class="error-message-form" style="color:green" id="reset_emeil"><p>Инструкция по восстановлению пароля выслана на указанный адрес.</p></div>
+                </div><!-- tab-content -->
+                <div class="error-message-form" style="color:red" id="not_filled"><p>Пожалуйста, заполните верно все поля *</p></div>
+                <div class="error-message-form" style="color:red" id="invalid_credentials"><p>Логин или пароль неверен или учетная запись не активированна</p></div>
+                <div class="error-message-form" style="color:red" id="invalid_emeil"><p>Неверный адрес электронной почты.</p></div>
+                <div class="error-message-form" style="color:green" id="reset_emeil"><p>Инструкция по восстановлению пароля выслана на указанный адрес.</p></div>
 
-            <div id="circular3dG" hidden>
-                <div id="circular3d_1G" class="circular3dG"></div>
-                <div id="circular3d_2G" class="circular3dG"></div>
-                <div id="circular3d_3G" class="circular3dG"></div>
-                <div id="circular3d_4G" class="circular3dG"></div>
-                <div id="circular3d_5G" class="circular3dG"></div>
-                <div id="circular3d_6G" class="circular3dG"></div>
-                <div id="circular3d_7G" class="circular3dG"></div>
-                <div id="circular3d_8G" class="circular3dG"></div>
+                <div id="circular3dG" hidden>
+                    <div id="circular3d_1G" class="circular3dG"></div>
+                    <div id="circular3d_2G" class="circular3dG"></div>
+                    <div id="circular3d_3G" class="circular3dG"></div>
+                    <div id="circular3d_4G" class="circular3dG"></div>
+                    <div id="circular3d_5G" class="circular3dG"></div>
+                    <div id="circular3d_6G" class="circular3dG"></div>
+                    <div id="circular3d_7G" class="circular3dG"></div>
+                    <div id="circular3d_8G" class="circular3dG"></div>
+                </div>
             </div>
         </div>
     </div>
