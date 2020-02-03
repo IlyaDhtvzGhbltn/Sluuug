@@ -210,7 +210,7 @@ namespace Slug.Helpers
                     if (vipExpired != null && vipExpired > DateTime.UtcNow)
                         userModel.Vip = true;
 
-                    Avatars avatar = context.Avatars.First(ava => ava.Id == foundedUser.AvatarId);
+                    Avatars avatar = context.Avatars.First(ava => ava.GuidId == foundedUser.AvatarGuidId);
                     userModel.LargeAvatar = avatar.LargeAvatar;
 
                     responce.Users.Add(userModel);

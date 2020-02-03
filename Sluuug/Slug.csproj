@@ -358,7 +358,6 @@
     <Compile Include="Context\Tables\ResetPassword.cs" />
     <Compile Include="Controllers\partialController.cs" />
     <Compile Include="Controllers\public_apiController.cs" />
-    <Compile Include="DbInitialisation\RealBots\Bots.cs" />
     <Compile Include="DbInitialisation\RealBots\BotTypeEnum.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\CultureByIpChecker.cs" />
@@ -377,9 +376,9 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\202002021031239_izfake.cs" />
-    <Compile Include="Migrations\202002021031239_izfake.Designer.cs">
-      <DependentUpon>202002021031239_izfake.cs</DependentUpon>
+    <Compile Include="Migrations\202002032203534_int_to_guid_Avatar_User22.cs" />
+    <Compile Include="Migrations\202002032203534_int_to_guid_Avatar_User22.Designer.cs">
+      <DependentUpon>202002032203534_int_to_guid_Avatar_User22.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -566,8 +565,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002021031239_izfake.resx">
-      <DependentUpon>202002021031239_izfake.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002032203534_int_to_guid_Avatar_User22.resx">
+      <DependentUpon>202002032203534_int_to_guid_Avatar_User22.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>

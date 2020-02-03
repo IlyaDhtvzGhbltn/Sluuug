@@ -14,7 +14,7 @@ namespace Slug.Context.Tables
         public string Login { get; set; }
         [Required]
         public int UserStatus { get; set; }
-        public int? AvatarId { get; set; }
+        public Guid AvatarGuidId { get; set; }
         public RegisterTypeEnum UserType { get; set; }
         public DateTime RegisterDate { get; set; }
         public int? ReferalUserId { get; set; }

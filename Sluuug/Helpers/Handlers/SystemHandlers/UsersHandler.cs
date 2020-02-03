@@ -69,7 +69,7 @@ namespace Slug.Helpers
 
                     newUser.UserType = RegisterTypeEnum.SelfUser;
                     newUser.Login = user.Login;
-                    newUser.AvatarId = context.Avatars.First(x => x.CountryCode == user.CountryCode).Id;
+                    newUser.AvatarGuidId = context.Avatars.First(x => x.CountryCode == user.CountryCode).GuidId;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
                     newUser.RegisterDate = DateTime.UtcNow;
                     switch (user.CountryCode)
@@ -111,8 +111,10 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
+                var avatarId = Guid.NewGuid();
                 context.Avatars.Add(new Avatars()
                 {
+                    GuidId = avatarId,
                     LargeAvatar = user.Avatar200,
                     MediumAvatar = user.Avatar100,
                     SmallAvatar = user.Avatar50,
@@ -120,13 +122,11 @@ namespace Slug.Helpers
                     UploadTime = DateTime.UtcNow,
                     AvatarType = AvatarTypesEnum.OutNetLoad
                 });
-                context.SaveChanges();
-                int localUserAvatarId = context.Avatars.First(x => x.LargeAvatar == user.Avatar200).Id;
 
                 var newUser = new User();
                 newUser.Login = string.Format("{0}_{1}", network, user.OutId);
                 newUser.UserStatus = (int)UserStatuses.Active;
-                newUser.AvatarId = localUserAvatarId;
+                newUser.AvatarGuidId = avatarId;
                 newUser.UserType = type;
                 newUser.RegisterDate = DateTime.UtcNow;
                 newUser.ReferalUserId = user.ReferalUserId != null ? user.ReferalUserId : null;
@@ -155,10 +155,9 @@ namespace Slug.Helpers
 
                 context.Users.Add(newUser);
                 context.SaveChanges();
-                int localUserFromVk = context.Users.First(x => x.AvatarId == localUserAvatarId).Id;
+                int localUserFromVk = context.Users.First(x => x.AvatarGuidId == avatarId).Id;
                 if (user.ReferalUserId != null)
-                    await SetVipStatus(context, (int)user.ReferalUserId);
-
+                    SetVipStatus(context, (int)user.ReferalUserId).GetAwaiter().GetResult();
                 return localUserFromVk;
             }
         }
@@ -245,7 +244,7 @@ namespace Slug.Helpers
         {
             var userModel = new ProfileModel();
             User user = context.Users.First(x => x.Id == userId);
-            Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+            Avatars avatar = context.Avatars.First(x => x.GuidId == user.AvatarGuidId);
             userModel.Name = user.UserFullInfo.Name;
             userModel.SurName = user.UserFullInfo.SurName;
             userModel.HelloMessage = user.UserFullInfo.HelloMessage;
@@ -342,7 +341,7 @@ namespace Slug.Helpers
                         comments.ForEach(fm =>
                         {
                             var userCommenter = context.Users.First(u => u.Id == fm.UserCommenter);
-                            Avatars ava = context.Avatars.First(a => a.Id == userCommenter.AvatarId);
+                            Avatars ava = context.Avatars.First(a => a.GuidId == userCommenter.AvatarGuidId);
                             string avatarUri = string.Empty;
                             if (ava.AvatarType == AvatarTypesEnum.SelfLoad)
                                 avatarUri = Resize.ResizedAvatarUri(ava.LargeAvatar, ModTypes.c_scale, 50, 50);
@@ -481,7 +480,7 @@ namespace Slug.Helpers
             var user = context.Users.FirstOrDefault(x => x.Id == userId);
             if (user != null)
             {
-                Avatars avatar = context.Avatars.First(x => x.Id == user.AvatarId);
+                Avatars avatar = context.Avatars.First(x => x.GuidId == user.AvatarGuidId);
                 if (avatar.AvatarType == AvatarTypesEnum.SelfLoad)
                 {
                     userModel.LargeAvatar = Resize.ResizedAvatarUri(avatar.LargeAvatar, ModTypes.c_scale, 200, 200);
@@ -630,14 +629,14 @@ namespace Slug.Helpers
                 {
                     var userModel = context.UsersInfo
                     .First( x=> x.Id == id );
-                    int? avatarId = context.Users.First(x => x.Id == id).AvatarId;
+                    Guid avatarId = context.Users.First(x => x.Id == id).AvatarGuidId;
 
                     model.Add(new CryptoDialogUser()
                     {
                         UserId = id,
                         Name = userModel.Name,
                         SurName = userModel.SurName,
-                        LargeAvatar = context.Avatars.First(x => x.Id == avatarId).LargeAvatar,
+                        LargeAvatar = context.Avatars.First(x => x.GuidId == avatarId).LargeAvatar,
                         Vip = (userModel.VipStatusExpiredDate != null &&
                          userModel.VipStatusExpiredDate > DateTime.UtcNow) ? true : false,
                         IsOnline = IsOnline(context, id).GetAwaiter().GetResult(),
@@ -833,19 +832,16 @@ namespace Slug.Helpers
             string uri = newUri.ToString();
             using (var context = new DataBaseContext())
             {
+                var avatarId = Guid.NewGuid();
                 var newAvatar = new Avatars();
                 newAvatar.UploadTime = DateTime.UtcNow;
                 newAvatar.MediumAvatar = Resize.ResizedAvatarUri(uri, ModTypes.c_scale, 100, 100);
                 newAvatar.SmallAvatar = Resize.ResizedAvatarUri(uri, ModTypes.c_scale, 50, 50);
                 newAvatar.LargeAvatar = uri;
+                newAvatar.GuidId = avatarId;
                 context.Avatars.Add(newAvatar);
-                context.SaveChanges();
-
-                int avatarSavedID = context.Avatars.First(x => x.LargeAvatar == uri).Id;
-
                 User userInfo = context.Users.First(x => x.Id == userId);
-                userInfo.AvatarId = avatarSavedID;
-
+                userInfo.AvatarGuidId = avatarId;
                 context.SaveChanges();
             }
         }

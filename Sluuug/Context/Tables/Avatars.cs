@@ -8,8 +8,12 @@ namespace Slug.Context.Tables
 {
     public class Avatars
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
+
+        [Required]
+        public Guid GuidId { get; set; }
 
         [Required]
         [DataType( DataType.DateTime )]

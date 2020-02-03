@@ -305,7 +305,7 @@ namespace Slug.Helpers
                             photoComments.ForEach(comment =>
                             {
                                 User commenter = context.Users.FirstOrDefault(x => x.Id == comment.UserCommenter);
-                                Avatars avatar = context.Avatars.First(x => x.Id == commenter.AvatarId);
+                                Avatars avatar = context.Avatars.First(x => x.GuidId == commenter.AvatarGuidId);
                                 string commenterAvatar = string.Empty;
                                 if (avatar.AvatarType == AvatarTypesEnum.SelfLoad)
                                     commenterAvatar = Resize.ResizedAvatarUri(avatar.LargeAvatar, ModTypes.c_scale, 50, 50);
@@ -519,8 +519,8 @@ namespace Slug.Helpers
                         resp.FotoComments = new List<FotoCommentModel>();
                         comments.ForEach(comm => 
                         {
-                            int? avatarID = context.Users.First(x => x.Id == comm.UserCommenter).AvatarId;
-                            Avatars avatar = context.Avatars.First(x => x.Id == avatarID);
+                            Guid avatarID = context.Users.First(x => x.Id == comm.UserCommenter).AvatarGuidId;
+                            Avatars avatar = context.Avatars.First(x => x.GuidId == avatarID);
                             string avatarImg = string.Empty;
                             if (avatar.AvatarType == AvatarTypesEnum.SelfLoad)
                                 avatarImg = Resize.ResizedAvatarUri(avatar.LargeAvatar, ModTypes.c_scale, 50, 50);

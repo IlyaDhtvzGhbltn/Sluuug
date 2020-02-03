@@ -30,12 +30,20 @@ namespace Slug.Helpers.Handlers.SystemHandlers
                 if (item != null)
                     offset = (uint)item.UsersCount;
                 List<BaseUser> fakeUsers = fake.GetFakeUsersFromVk(realUser, offset);
+                var fakeLocallUsers = new List<User>();
                 fakeUsers.ForEach((user) => 
                 {
-                    if (user.Vip)
-                    {
-                    }
+                    var avatarId = Guid.NewGuid();
+                    var avatar = new Avatars();
+                    avatar.GuidId = avatarId;
+                    avatar.AvatarType = AvatarTypesEnum.OutNetLoad;
+                    avatar.IsStandart = false;
+                    avatar.SmallAvatar = user.SmallAvatar;
+                    avatar.MediumAvatar = user.MediumAvatar;
+                    avatar.LargeAvatar = user.LargeAvatar;
+                    avatar.UploadTime = DateTime.UtcNow;
                 });
+
                 context.FakeUsers.Add(new FakeUser()
                 {
                     UsersCount = 510,

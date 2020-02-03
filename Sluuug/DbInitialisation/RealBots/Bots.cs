@@ -84,7 +84,7 @@ namespace FN.Bot
                     };
                     context.Avatars.Add(userAvatar);
                     context.SaveChanges();
-                    int avatarId = context.Avatars.First(x => x.LargeAvatar == fullAvatarUrl).Id;
+                    int avatarId = context.Avatars.First(x => x.LargeAvatar == fullAvatarUrl).GuidId;
                     SexEnum userSex = SexEnum.man;
 
                     UserInfo userInfo = new UserInfo();

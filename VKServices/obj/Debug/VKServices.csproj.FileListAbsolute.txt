@@ -244,3 +244,5 @@ D:\SLUG\Sluuug\VKServices\obj\Debug\VKServices.dll
 D:\SLUG\Sluuug\VKServices\obj\Debug\VKServices.pdb
 D:\MyUtilits\friendlynet\VKServices\bin\Debug\Extension.dll
 D:\MyUtilits\friendlynet\VKServices\bin\Debug\Extension.pdb
+D:\SLUG\Sluuug\VKServices\bin\Debug\Extension.dll
+D:\SLUG\Sluuug\VKServices\bin\Debug\Extension.pdb

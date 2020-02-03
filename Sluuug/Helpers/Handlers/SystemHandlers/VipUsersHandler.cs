@@ -35,7 +35,7 @@ namespace Slug.Helpers
                 {
 
                     string avatar = context.Avatars
-                        .First(x=>x.Id == item.AvatarId)
+                        .First(x=>x.GuidId == item.AvatarGuidId)
                         .MediumAvatar;
                     int age = (DateTime.Now.Year - item.UserFullInfo.DateOfBirth.Year);
                     if (DateTime.Now.DayOfYear < item.UserFullInfo.DateOfBirth.DayOfYear)
