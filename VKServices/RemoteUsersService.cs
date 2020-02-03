@@ -41,10 +41,10 @@ namespace RemoteServices
             service = api;
         }
 
-        public List<BaseUser> Search(int sex, int ageFrom, int ageTo, int localCity, int country, string cityQuery,  uint offset)
+        public List<BaseUser> Search(int sex, int ageFrom, int ageTo, int localCity, int country, string cityTitle, string countryTitle,  uint offset)
         {
             var vkAdapter = new CityAdapter();
-            int vkCityCode = (int)vkAdapter.GetCityId(service, country, cityQuery);
+            int vkCityCode = (int)vkAdapter.GetCityId(service, country, cityTitle);
 
             UserSearchParams searchParams = new UserSearchParams()
             {
@@ -67,12 +67,12 @@ namespace RemoteServices
                 fnUsers.Add(new BaseUser()
                 {
                     Age = dateBirth.FullYearsElapsed(),
-                    City = vkUser.City.Title,
-                    Country = vkUser.Country.Title,
+                    City = cityTitle,
+                    Country = countryTitle,
                     AvatarType = SharedModels.Enums.AvatarTypesEnum.OutNetLoad,
                     SmallAvatar = vkUser.Photo50.AbsoluteUri,
                     MediumAvatar = vkUser.Photo100.AbsoluteUri,
-                    LargeAvatar = vkUser.Photo200.AbsoluteUri,
+                    LargeAvatar = !string.IsNullOrWhiteSpace(vkUser.Photo200.AbsoluteUri) ? vkUser.Photo200.AbsoluteUri : vkUser.Photo200Orig.AbsoluteUri,
                     Name = vkUser.FirstName,
                     SurName = vkUser.LastName,
                     HelloMessage = !string.IsNullOrWhiteSpace(vkUser.Status) ? vkUser.Status : "Всем привет!",
@@ -80,14 +80,6 @@ namespace RemoteServices
                 });
             });
             return fnUsers;
-        }
-    }
-
-    public static class Ext
-    {
-        public static void dateExt(this DateTime date)
-        {
-
         }
     }
 }

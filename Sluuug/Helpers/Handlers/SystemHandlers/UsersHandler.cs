@@ -28,12 +28,13 @@ using Slug.Model.Registration;
 using SharedModels.Users;
 using SharedModels.Enums;
 using SharedModels.UserInfo.Registration;
+using Slug.Helpers.Handlers.SystemHandlers;
 
 namespace Slug.Helpers
 {
     public class UsersHandler
     {
-        public UserConfirmationDitails RegisterNew(RegisteringUserModel user)
+        public async Task<UserConfirmationDitails> RegisterNew(RegisteringUserModel user)
         {
             string activationSessionId = string.Empty;
             string activationMailParam = string.Empty;
@@ -49,6 +50,8 @@ namespace Slug.Helpers
                     {
                         return null;
                     }
+                    var fake = new FakeUsersHandler();
+                    await fake.CreateUserFromDirect(context, user);
 
                     var newUser = new User();
                     newUser.UserFullInfo = new UserInfo();
@@ -94,7 +97,11 @@ namespace Slug.Helpers
                     activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
 
                     context.SaveChanges();
-                    return new UserConfirmationDitails { ActivatioMailParam = activationMailParam, ActivationSessionId = activationSessionId };
+                    return new UserConfirmationDitails
+                    {
+                        ActivatioMailParam = activationMailParam,
+                        ActivationSessionId = activationSessionId
+                    };
                 }
             }
             return null;

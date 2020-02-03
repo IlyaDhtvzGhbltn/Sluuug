@@ -108,7 +108,7 @@ namespace Slug.Controllers
             }
             else
             {
-                UserConfirmationDitails userConfirmation = UsersHandler.RegisterNew(user);
+                UserConfirmationDitails userConfirmation = UsersHandler.RegisterNew(user).GetAwaiter().GetResult();
                 if (userConfirmation != null)
                 {
                     var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
