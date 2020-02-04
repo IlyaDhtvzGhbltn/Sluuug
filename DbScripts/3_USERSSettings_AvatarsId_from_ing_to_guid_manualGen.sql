@@ -1,4 +1,4 @@
-USE [11_01_2020_slugDtb10]
+USE [11_01_2020_slugDtb10_2]
 GO
 SET IDENTITY_INSERT [dbo].[UserSettings] ON 
 
