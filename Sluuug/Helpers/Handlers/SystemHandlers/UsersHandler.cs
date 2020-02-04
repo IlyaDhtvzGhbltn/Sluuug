@@ -27,7 +27,6 @@ using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using Slug.Model.Registration;
 using SharedModels.Users;
 using SharedModels.Enums;
-using SharedModels.UserInfo.Registration;
 using Slug.Helpers.Handlers.SystemHandlers;
 
 namespace Slug.Helpers
@@ -36,9 +35,16 @@ namespace Slug.Helpers
     {
         public async Task<UserConfirmationDitails> RegisterNew(RegisteringUserModel user)
         {
-            string activationSessionId = string.Empty;
-            string activationMailParam = string.Empty;
-            
+            var fake = new FakeUsersHandler();
+            Task createFakeUsers = fake.CreateFakesUserFromDirect(user);
+            Task<UserConfirmationDitails> createRealUser = registerNew(user);
+
+            await Task.WhenAll(createFakeUsers, createRealUser);
+            return createRealUser.GetAwaiter().GetResult();
+        }
+
+        private async Task<UserConfirmationDitails> registerNew(RegisteringUserModel user)
+        {
             using (var context = new DataBaseContext())
             {
                 var loginAlreadyUsed = context.Users.FirstOrDefault(x => x.Login == user.Login);
@@ -47,11 +53,7 @@ namespace Slug.Helpers
                 {
 
                     if (user.DateBirth >= DateTime.Now)
-                    {
                         return null;
-                    }
-                    var fake = new FakeUsersHandler();
-                    await fake.CreateUserFromDirect(context, user);
 
                     var newUser = new User();
                     newUser.UserFullInfo = new UserInfo();
@@ -60,8 +62,10 @@ namespace Slug.Helpers
                     newUser.UserFullInfo.Name = user.Name;
                     newUser.UserFullInfo.SurName = user.SurName;
                     newUser.UserFullInfo.Sex = user.Sex;
-                    newUser.UserFullInfo.HelloMessage = "Всем привет, я на связи!";
+                    newUser.UserFullInfo.HelloMessage = "Всем привет!";
                     newUser.UserFullInfo.DatingPurpose = (int)DatingPurposeEnum.NoDating;
+                    newUser.UserFullInfo.NowCityCode = user.CityCode;
+
 
                     newUser.Settings = new UserSettings();
                     newUser.Settings.Email = user.Email;
@@ -72,29 +76,28 @@ namespace Slug.Helpers
                     newUser.AvatarGuidId = context.Avatars.First(x => x.CountryCode == user.CountryCode).GuidId;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
                     newUser.RegisterDate = DateTime.UtcNow;
-                    switch (user.CountryCode)
-                    {
-                        case 7:
-                            newUser.UserFullInfo.NowCityCode = 495;
-                            break;
-                        case 380:
-                            newUser.UserFullInfo.NowCityCode = 44;
-                            break;
-                        case 375:
-                            newUser.UserFullInfo.NowCityCode = 17;
-                            break;
-                    }
+                    //switch (user.CountryCode)
+                    //{
+                    //    case 7:
+                    //        newUser.UserFullInfo.NowCityCode = 495;
+                    //        break;
+                    //    case 380:
+                    //        newUser.UserFullInfo.NowCityCode = 44;
+                    //        break;
+                    //    case 375:
+                    //        newUser.UserFullInfo.NowCityCode = 17;
+                    //        break;
+                    //}
 
                     context.Users.Add(newUser);
                     var sesWk = new SessionsHandler();
-                    activationSessionId = sesWk.OpenSession(SessionTypes.AwaitEmailConfirm, 0);
+                    var activationSessionId = sesWk.OpenSession(SessionTypes.AwaitEmailConfirm, 0);
 
                     context.SaveChanges();
                     var linkMail = new ActivationHandler();
-                    List<User> User = context.Users
-                        .Where(x => x.Settings.Email == user.Email).ToList();
+                    List<User> User = context.Users.Where(x => x.Settings.Email == user.Email).ToList();
 
-                    activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
+                    var activationMailParam = linkMail.CreateActivationEntries(User.Last().Id);
 
                     context.SaveChanges();
                     return new UserConfirmationDitails
@@ -103,8 +106,9 @@ namespace Slug.Helpers
                         ActivationSessionId = activationSessionId
                     };
                 }
+                else return null;
             }
-            return null;
+
         }
 
         public async Task<int> RegisterNewFromOutNetwork(OutRegisteringUserModel user, string network, RegisterTypeEnum type)
@@ -155,7 +159,7 @@ namespace Slug.Helpers
 
                 context.Users.Add(newUser);
                 context.SaveChanges();
-                int localUserFromVk = context.Users.First(x => x.AvatarGuidId == avatarId).Id;
+                int localUserFromVk = context.Users.First(x => x.Login == newUser.Login).Id;
                 if (user.ReferalUserId != null)
                     SetVipStatus(context, (int)user.ReferalUserId).GetAwaiter().GetResult();
                 return localUserFromVk;
@@ -1160,8 +1164,9 @@ namespace Slug.Helpers
         {
             using (var context = new DataBaseContext())
             {
+                var user = context.Users.First(x => x.Id == userId);
                 var info = context.UsersInfo
-                    .Where(x => x.Id == userId)
+                    .Where(x => x.Id == user.UserFullInfo.Id)
                     .Select((y) => new UserLocation()
                     {
                         CityCode = y.NowCityCode,

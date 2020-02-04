@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System;
 using SharedModels.Users;
-using SharedModels.UserInfo.Registration;
 using VKServices.LocationAdapter;
 using SharedModels.Enums;
 using Slug.Extension;
 using System.Linq;
+using SharedModels.Users.Registration;
+using System.Threading.Tasks;
 
 namespace FakeUsers
 {
@@ -18,7 +19,7 @@ namespace FakeUsers
             { SexEnum.man, 1 }
         };
 
-        public List<BaseUser> GetFakeUsersFromVk(BaseRegistrationModel real, uint offset)
+        public List<FakeUserModel> GetFakeUsersFromVk(BaseRegistrationModel real, uint offset)
         {
             if (offset <= 990)
             {
@@ -36,7 +37,7 @@ namespace FakeUsers
                     ageTo = calculateAgeFakeForFemale(real.DateBirth.FullYearsElapsed()).Item2;
                 }
 
-                List<BaseUser> users = vkService.Search(
+                List<FakeUserModel> users = vkService.Search(
                     SexFakeUser[(SexEnum)real.Sex],
                     ageFrom, 
                     ageTo, 
@@ -51,9 +52,12 @@ namespace FakeUsers
                     user.userSearchSex = (SexEnum)real.Sex;
                     user.purpose = calculateFakeUserDatingPurpose(real.DateBirth, (SexEnum)real.Sex);
                 });
-                for (int i = 0; i<=3; i++)
-                    users[i].Vip = true;
-
+                users[0].Vip = true;
+                if (users.Count >= 3)
+                {
+                    users[1].Vip = true;
+                    users[2].Vip = true;
+                }
                 return users;
             }
             return null;

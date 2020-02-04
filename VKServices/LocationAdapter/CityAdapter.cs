@@ -4,6 +4,7 @@ using System.Text;
 using VkNet;
 using System.Collections.Generic;
 using VkNet.Model.RequestParams.Database;
+using System.Threading.Tasks;
 
 namespace VKServices.LocationAdapter
 {

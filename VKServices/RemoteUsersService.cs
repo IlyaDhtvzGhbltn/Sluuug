@@ -41,7 +41,7 @@ namespace RemoteServices
             service = api;
         }
 
-        public List<BaseUser> Search(int sex, int ageFrom, int ageTo, int localCity, int country, string cityTitle, string countryTitle,  uint offset)
+        public List<FakeUserModel> Search(int sex, int ageFrom, int ageTo, int localCity, int country, string cityTitle, string countryTitle,  uint offset)
         {
             var vkAdapter = new CityAdapter();
             int vkCityCode = (int)vkAdapter.GetCityId(service, country, cityTitle);
@@ -57,22 +57,24 @@ namespace RemoteServices
                 Country = vkAdapter.LocalCountryIdToVkCountryId[country],
                 City = vkCityCode
             };
-            var users = service.Users.Search(searchParams).ToList();
+            var users = service.Users.SearchAsync(searchParams).GetAwaiter().GetResult().ToList();
 
-            var fnUsers = new List<BaseUser>();
+            var fnUsers = new List<FakeUserModel>();
             users.ForEach(vkUser => 
             {
                 DateTime dateBirth;
                 DateTime.TryParse(vkUser.BirthDate, out dateBirth);
-                fnUsers.Add(new BaseUser()
+                fnUsers.Add(new FakeUserModel()
                 {
-                    Age = dateBirth.FullYearsElapsed(),
+                    Age = dateBirth != null ? dateBirth.FullYearsElapsed() : ageFrom,
+                    RemoteId = vkUser.Id.ToString(),
+                    DateBirth = dateBirth != null ? dateBirth : DateTime.UtcNow.AddYears(-ageFrom).AddDays(-5), 
                     City = cityTitle,
                     Country = countryTitle,
                     AvatarType = SharedModels.Enums.AvatarTypesEnum.OutNetLoad,
                     SmallAvatar = vkUser.Photo50.AbsoluteUri,
                     MediumAvatar = vkUser.Photo100.AbsoluteUri,
-                    LargeAvatar = !string.IsNullOrWhiteSpace(vkUser.Photo200.AbsoluteUri) ? vkUser.Photo200.AbsoluteUri : vkUser.Photo200Orig.AbsoluteUri,
+                    LargeAvatar = vkUser.Photo200 != null ? vkUser.Photo200.AbsoluteUri : vkUser.Photo200Orig.AbsoluteUri,
                     Name = vkUser.FirstName,
                     SurName = vkUser.LastName,
                     HelloMessage = !string.IsNullOrWhiteSpace(vkUser.Status) ? vkUser.Status : "Всем привет!",

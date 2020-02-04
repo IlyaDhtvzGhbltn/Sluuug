@@ -1,4 +1,4 @@
-﻿using SharedModels.UserInfo.Registration;
+﻿using SharedModels.Users.Registration;
 using Slug.Context.Dto.Search;
 using System;
 using System.Collections.Generic;

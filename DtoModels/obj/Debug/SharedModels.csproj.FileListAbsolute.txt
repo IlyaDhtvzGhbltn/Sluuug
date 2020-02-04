@@ -1,6 +1,5 @@
 D:\MyUtilits\friendlynet\DtoModels\bin\Debug\SharedModels.dll
 D:\MyUtilits\friendlynet\DtoModels\bin\Debug\SharedModels.pdb
-D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.csprojAssemblyReference.cache
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.csproj.CoreCompileInputs.cache
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.dll
 D:\MyUtilits\friendlynet\DtoModels\obj\Debug\SharedModels.pdb

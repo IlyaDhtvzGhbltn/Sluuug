@@ -100,7 +100,7 @@ namespace Slug.Controllers
 
 
         [HttpPost]
-        public JsonResult userconfirmation(RegisteringUserModel user)
+        public async Task<JsonResult> userconfirmation(RegisteringUserModel user)
         {
             if (isUserEmpty(user))
             {
@@ -108,7 +108,7 @@ namespace Slug.Controllers
             }
             else
             {
-                UserConfirmationDitails userConfirmation = UsersHandler.RegisterNew(user).GetAwaiter().GetResult();
+                UserConfirmationDitails userConfirmation = await UsersHandler.RegisterNew(user);
                 if (userConfirmation != null)
                 {
                     var mailer = new MailNotifyHandler(user.Email, userConfirmation.ActivatioMailParam);
