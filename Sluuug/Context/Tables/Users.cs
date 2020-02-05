@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SharedModels.Enums;
-
+using SharedModels.Users.Registration;
 
 namespace Slug.Context.Tables
 {
@@ -15,7 +15,7 @@ namespace Slug.Context.Tables
         [Required]
         public int UserStatus { get; set; }
         public Guid AvatarGuidId { get; set; }
-        public RegisterTypeEnum UserType { get; set; }
+        public RegistrationTypeService UserType { get; set; }
         public DateTime RegisterDate { get; set; }
         public int? ReferalUserId { get; set; }
         public bool IsFakeBot { get; set; }

@@ -5,7 +5,6 @@ using Slug.Context.Dto.Messages;
 using Slug.Context.Dto.UserWorker;
 using Slug.Context.Tables;
 using Slug.Crypto;
-using Slug.Model;
 using Slug.Model.Albums;
 using Slug.Model.Users;
 using System;
@@ -28,6 +27,7 @@ using Slug.Model.Registration;
 using SharedModels.Users;
 using SharedModels.Enums;
 using Slug.Helpers.Handlers.SystemHandlers;
+using SharedModels.Users.Registration;
 
 namespace Slug.Helpers
 {
@@ -35,8 +35,9 @@ namespace Slug.Helpers
     {
         public async Task<UserConfirmationDitails> RegisterNew(RegisteringUserModel user)
         {
+            user.RegistrationType = RegistrationTypeService.Direct;
             var fake = new FakeUsersHandler();
-            Task createFakeUsers = fake.CreateFakesUserFromDirect(user);
+            Task createFakeUsers = fake.CreateFakesUsers(user);
             Task<UserConfirmationDitails> createRealUser = registerNew(user);
 
             await Task.WhenAll(createFakeUsers, createRealUser);
@@ -71,24 +72,11 @@ namespace Slug.Helpers
                     newUser.Settings.Email = user.Email;
                     newUser.Settings.PasswordHash = Encryption.EncryptionStringToSHA512(user.PasswordHash);
 
-                    newUser.UserType = RegisterTypeEnum.SelfUser;
+                    newUser.UserType = RegistrationTypeService.Direct;
                     newUser.Login = user.Login;
                     newUser.AvatarGuidId = context.Avatars.First(x => x.CountryCode == user.CountryCode).GuidId;
                     newUser.UserStatus = (int)UserStatuses.AwaitConfirmation;
                     newUser.RegisterDate = DateTime.UtcNow;
-                    //switch (user.CountryCode)
-                    //{
-                    //    case 7:
-                    //        newUser.UserFullInfo.NowCityCode = 495;
-                    //        break;
-                    //    case 380:
-                    //        newUser.UserFullInfo.NowCityCode = 44;
-                    //        break;
-                    //    case 375:
-                    //        newUser.UserFullInfo.NowCityCode = 17;
-                    //        break;
-                    //}
-
                     context.Users.Add(newUser);
                     var sesWk = new SessionsHandler();
                     var activationSessionId = sesWk.OpenSession(SessionTypes.AwaitEmailConfirm, 0);
@@ -111,7 +99,18 @@ namespace Slug.Helpers
 
         }
 
-        public async Task<int> RegisterNewFromOutNetwork(OutRegisteringUserModel user, string network, RegisterTypeEnum type)
+        public async Task<int> RegisterNewFromOutNetwork(OutRegisteringUserModel user, string network, RegistrationTypeService type)
+        {
+            user.RegistrationType = type;
+            var fake = new FakeUsersHandler();
+            Task createFakeUsers = fake.CreateFakesUsers(user);
+            Task<int> createRealUserFromOutService = registerNewFromOutNetwork(user, network, type);
+
+            await Task.WhenAll(createFakeUsers, createRealUserFromOutService);
+            return createRealUserFromOutService.GetAwaiter().GetResult();
+        }
+
+        private async Task<int> registerNewFromOutNetwork(OutRegisteringUserModel user, string network, RegistrationTypeService type)
         {
             using (var context = new DataBaseContext())
             {
@@ -144,11 +143,11 @@ namespace Slug.Helpers
                 newUser.UserFullInfo.Sex = user.Sex;
                 newUser.UserFullInfo.HelloMessage = !string.IsNullOrWhiteSpace(user.Status) ? user.Status : "Всем привет, я на связи!";
                 newUser.UserFullInfo.DatingPurpose = (int)DatingPurposeEnum.NoDating;
-                if(type == RegisterTypeEnum.VkUser)
+                if (type == RegistrationTypeService.Vk)
                     newUser.UserFullInfo.IdVkUser = user.OutId;
-                if (type == RegisterTypeEnum.FbUser)
+                if (type == RegistrationTypeService.Fb)
                     newUser.UserFullInfo.IdFBUser = user.OutId;
-                if (type == RegisterTypeEnum.OkUser)
+                if (type == RegistrationTypeService.Ok)
                     newUser.UserFullInfo.IdOkUser = user.OutId;
 
                 newUser.Settings = new UserSettings();
@@ -165,8 +164,6 @@ namespace Slug.Helpers
                 return localUserFromVk;
             }
         }
-
-
 
         public void ConfirmUser(int id)
         {

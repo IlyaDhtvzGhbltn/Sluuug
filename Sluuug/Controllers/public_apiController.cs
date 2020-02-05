@@ -22,7 +22,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using SharedModels.Enums;
-
+using SharedModels.Users.Registration;
 
 namespace Slug.Controllers
 {
@@ -164,7 +164,7 @@ namespace Slug.Controllers
             var vkHandler = new VkOAuthHandler();
             OutRegisteringUserModel userVkInfo = await vkHandler.GetVkUserInfo(code);
             userVkInfo.ReferalUserId = getReferalUserId();
-            var registeredUserId = await UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegisterTypeEnum.VkUser);
+            var registeredUserId = await UsersHandler.RegisterNewFromOutNetwork(userVkInfo, "vk", RegistrationTypeService.Vk);
 
             string session_id = SessionHandler.OpenSession(SessionTypes.Private, registeredUserId);
             var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);
@@ -236,7 +236,7 @@ namespace Slug.Controllers
                     CountryCode = Country,
                     ReferalUserId = getReferalUserId()
                 };
-                int localUserid = await UsersHandler.RegisterNewFromOutNetwork(model, "ok", RegisterTypeEnum.OkUser);
+                int localUserid = await UsersHandler.RegisterNewFromOutNetwork(model, "ok", RegistrationTypeService.Ok);
 
                 string session_id = SessionHandler.OpenSession(SessionTypes.Private, localUserid);
                 var cookie = new HttpCookie(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]);

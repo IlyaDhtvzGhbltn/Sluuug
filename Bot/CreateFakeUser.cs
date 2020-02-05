@@ -15,7 +15,7 @@ namespace FakeUsers
     {
         Random rnd = new Random();
 
-        Dictionary<SexEnum, int> SexFakeUser = new Dictionary<SexEnum, int>()
+        Dictionary<SexEnum, int> VkSexFakeUser = new Dictionary<SexEnum, int>()
         {
             { SexEnum.woman, 2 },
             { SexEnum.man, 1 }
@@ -39,12 +39,18 @@ namespace FakeUsers
                     ageTo = calculateAgeFakeForFemale(real.DateBirth.FullYearsElapsed()).Item2;
                 }
 
-                List<FakeUserModel> users = vkService.Search(
-                    SexFakeUser[(SexEnum)real.Sex],
-                    ageFrom, 
-                    ageTo, 
-                    real.CityCode, 
+                var vkAdapter = new CityAdapter();
+                int vkCityCode = (int)vkAdapter.GetCityId(
+                    vkService.service, 
                     real.CountryCode, 
+                    real.CityTitle);
+
+                List<FakeUserModel> users = vkService.Search(
+                    VkSexFakeUser[(SexEnum)real.Sex],
+                    ageFrom, 
+                    ageTo,
+                    vkCityCode,
+                    vkAdapter.LocalCountryIdToVkCountryId[real.CountryCode], 
                     real.CityTitle,
                     real.CountryTitle,
                     offset);

@@ -15,7 +15,7 @@ namespace Slug.Helpers.Handlers.SystemHandlers
 {
     public class FakeUsersHandler
     {
-        public async Task CreateFakesUserFromDirect(BaseRegistrationModel realUser)
+        public async Task CreateFakesUsers(BaseRegistrationModel realUser)
         {
             await Task.Run(async () =>
             {
@@ -61,7 +61,7 @@ namespace Slug.Helpers.Handlers.SystemHandlers
                         AvatarGuidId = avatarGuid,
                         IsFakeBot = true,
                         RegisterDate = DateTime.UtcNow,
-                        UserType = RegisterTypeEnum.VkUser
+                        UserType = RegistrationTypeService.Vk
                     };
 
                     user.Settings = new UserSettings()
