@@ -13,6 +13,8 @@ namespace FakeUsers
 {
     public class CreateFakeUser
     {
+        Random rnd = new Random();
+
         Dictionary<SexEnum, int> SexFakeUser = new Dictionary<SexEnum, int>()
         {
             { SexEnum.woman, 2 },
@@ -52,12 +54,12 @@ namespace FakeUsers
                     user.userSearchSex = (SexEnum)real.Sex;
                     user.purpose = calculateFakeUserDatingPurpose(real.DateBirth, (SexEnum)real.Sex);
                 });
-                users[0].Vip = true;
-                if (users.Count >= 3)
+                users.ForEach(user => 
                 {
-                    users[1].Vip = true;
-                    users[2].Vip = true;
-                }
+                    if (user.purpose == DatingPurposeEnum.Sex)
+                        user.Vip = true;
+                });
+
                 return users;
             }
             return null;
@@ -96,41 +98,24 @@ namespace FakeUsers
         AgeEnum calculateFakeUserSearchAge(DateTime realUserBirthDate)
         {
             int realUserAge = realUserBirthDate.FullYearsElapsed();
-            if (realUserAge >= 0 && realUserAge <= 20)
-                return AgeEnum.from16to20;
-            if (realUserAge >= 21 && realUserAge <= 26)
-                return AgeEnum.from21to26;
-            if (realUserAge >= 27 && realUserAge <= 32)
-                return AgeEnum.from27to32;
-            if (realUserAge >= 33 && realUserAge <= 40)
-                return AgeEnum.from33to40;
+            if (realUserAge >= 0 && realUserAge <= 26)
+                return (AgeEnum)rnd.Next(0, 4);
+            if (realUserAge >= 27 && realUserAge <= 40)
+                return (AgeEnum)rnd.Next(1, 5);
             if (realUserAge >= 41 && realUserAge <= 49)
-                return AgeEnum.from41to49;
+                return (AgeEnum)rnd.Next(3, 5);
             if (realUserAge >= 50 && realUserAge <= 59)
-                return AgeEnum.from50to59;
+                return (AgeEnum)rnd.Next(4, 6);
             if (realUserAge >= 60 && realUserAge <= 69)
-                return AgeEnum.from60to69;
+                return (AgeEnum)rnd.Next(6, 8);
             else
-                return AgeEnum.from21to26;
+                return (AgeEnum)rnd.Next(5, 7);
         }
 
         DatingPurposeEnum calculateFakeUserDatingPurpose(DateTime realUserBirthDate, SexEnum realSex)
         {
-            int realUserAge = realUserBirthDate.FullYearsElapsed();
-            if (realSex == SexEnum.man)
-            {
-                if (realUserAge >= 0 && realUserAge <= 22)
-                    return DatingPurposeEnum.Sex;
-                if (realUserAge >= 23 && realUserAge <= 28)
-                    return DatingPurposeEnum.SeriousRelationship;
-                if (realUserAge >= 29 && realUserAge <= 50)
-                    return DatingPurposeEnum.Sex;
-                else return DatingPurposeEnum.Communication;
-            }
-            else
-            {
-                return DatingPurposeEnum.SeriousRelationship;
-            }
+            int purpose = rnd.Next(0, 3);
+            return (DatingPurposeEnum)purpose;
         }
     }
 }
