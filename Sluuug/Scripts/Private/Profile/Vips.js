@@ -3,9 +3,9 @@
         type: "post",
         url: "/api/getvips",
         success: function (resp) {
-            console.log(resp);
             $(".await-vip-upload").remove();
-            if (resp.length === 0) {
+            console.log(resp);
+            if (resp.Users.length === 0) {
                 $('.null-vips-msg')[0].innerHTML = '<span>VIP пользователей не найдено</span>';
                 $('#vip-title-text').remove();
             }

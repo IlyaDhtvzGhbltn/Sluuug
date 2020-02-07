@@ -362,6 +362,10 @@ ul li:hover > span {
     border-radius:5px;
 }
 
+.null-vips-msg{
+    text-align:center;
+}
+
 .vip-list > .vip-user {
     margin-top: 15px;
 }

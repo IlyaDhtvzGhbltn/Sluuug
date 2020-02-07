@@ -13,6 +13,7 @@ using VKServices.LocationAdapter;
 using Slug.Extension;
 using SharedModels.Users.Registration;
 using SharedModels.Enums;
+using System.Text.RegularExpressions;
 
 namespace RemoteServices
 {
@@ -22,6 +23,8 @@ namespace RemoteServices
         private string login { get; }
         private string password { get; }
         public VkApi service { get; set; }
+
+        private Random rnd = new Random();
 
         Dictionary<VkNet.Enums.Sex, SexEnum> VkSexFakeUser = new Dictionary<VkNet.Enums.Sex, SexEnum>()
         {
@@ -59,7 +62,7 @@ namespace RemoteServices
                 Offset = offset,
                 AgeFrom = (ushort)ageFrom,
                 AgeTo = (ushort)ageTo,
-                Country = localCity,
+                Country = country,
                 City = localCity
             };
             var users = service.Users.SearchAsync(searchParams).GetAwaiter().GetResult().ToList();
@@ -69,22 +72,27 @@ namespace RemoteServices
             {
                 DateTime dateBirth;
                 DateTime.TryParse(vkUser.BirthDate, out dateBirth);
-                int age = dateBirth != null ? dateBirth.FullYearsElapsed() : ageFrom;
+                if (vkUser.BirthDate == null || dateBirth == null || dateBirth.Year == 2020)
+                {
+                    dateBirth = DateTime.UtcNow.AddYears(rnd.Next(-ageTo, -ageFrom)).AddDays(rnd.Next(-20, 30));
+                }
+                string hello = !string.IsNullOrWhiteSpace(vkUser.Status) ? vkUser.Status : "Всем привет!";
+                string helloNoNumbers = Regex.Replace(hello, @"[\d]", string.Empty);
                 fnUsers.Add(new FakeUserModel()
                 {
-                    Age = age > 0 ? age : ageFrom,
+                    Age = dateBirth.FullYearsElapsed(),
                     SexCode = VkSexFakeUser[vkUser.Sex],
                     RemoteId = vkUser.Id.ToString(),
-                    DateBirth = dateBirth != null ? dateBirth : DateTime.UtcNow.AddYears(-ageFrom).AddDays(-5), 
+                    DateBirth = dateBirth, 
                     City = cityTitle,
                     Country = countryTitle,
-                    AvatarType = SharedModels.Enums.AvatarTypesEnum.OutNetLoad,
+                    AvatarType = AvatarTypesEnum.OutNetLoad,
                     SmallAvatar = vkUser.Photo50.AbsoluteUri,
                     MediumAvatar = vkUser.Photo100.AbsoluteUri,
                     LargeAvatar = vkUser.Photo200 != null ? vkUser.Photo200.AbsoluteUri : vkUser.Photo200Orig.AbsoluteUri,
                     Name = vkUser.FirstName,
                     SurName = vkUser.LastName,
-                    HelloMessage = !string.IsNullOrWhiteSpace(vkUser.Status) ? vkUser.Status : "Всем привет!",
+                    HelloMessage = helloNoNumbers,
                     UserType = RegistrationTypeService.Vk
                 });
             });

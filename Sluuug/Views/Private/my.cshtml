@@ -28,12 +28,24 @@
             <div class="profile-info-name">
                 <h2 class="parameter" id="0" onclick="edit_private_info(this.id)">@Model.Name</h2>
                 <h2 class="parameter" id="1" onclick="edit_private_info(this.id)">@Model.SurName</h2>
+                @{long lastDig = (long)Model.Age % 10;}
+                @if (lastDig == 1 && lastDig != 11)
+                {
+                    <h2>@Model.Age год</h2>
+                }
+                else if (lastDig >= 2 && lastDig <= 4 && lastDig != 12 && lastDig != 13 && lastDig != 14)
+                {
+                    <h2>@Model.Age года</h2>
+                }
+                else
+                {
+                    <h2>@Model.Age лет</h2>
+                }
             </div>
 
             <div class="profile-info-location">
                 @Html.DropDownList("Countries", null, new { @id = "myCountry", @onchange = "changeCountry()" })
                 @Html.DropDownList("Cities", null, new { @id = "myCity", @onchange = "SaveEditedProfileInfo(3, this.value, $('#myCountry').val(), true, false)", @class = "stylized-scrollbar" })
-                <span>@Model.Age</span>
             </div>
 
             <div class="profile-status-container">

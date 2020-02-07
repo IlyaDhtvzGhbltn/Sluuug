@@ -30,8 +30,8 @@ namespace FakeUsers
                 int ageTo = 0;
                 if (real.Sex == 0)
                 {
-                    ageFrom = calculateAgeFakeForMale(real.DateBirth.Year).Item1;
-                    ageTo = calculateAgeFakeForMale(real.DateBirth.Year).Item2;
+                    ageFrom = calculateAgeFakeForMale(real.DateBirth.FullYearsElapsed()).Item1;
+                    ageTo = calculateAgeFakeForMale(real.DateBirth.FullYearsElapsed()).Item2;
                 }
                 if (real.Sex == 1)
                 {
@@ -45,12 +45,12 @@ namespace FakeUsers
                     real.CountryCode, 
                     real.CityTitle);
 
-                List<FakeUserModel> users = vkService.Search(
+                List <FakeUserModel> users = vkService.Search(
                     VkSexFakeUser[(SexEnum)real.Sex],
                     ageFrom, 
                     ageTo,
                     vkCityCode,
-                    vkAdapter.LocalCountryIdToVkCountryId[real.CountryCode], 
+                    vkAdapter.GetCountryId(real.CountryCode), 
                     real.CityTitle,
                     real.CountryTitle,
                     offset);
@@ -83,7 +83,7 @@ namespace FakeUsers
                 return new Tuple<ushort, ushort>(35, 45);
             if (years >= 51 && years <= 60)
                 return new Tuple<ushort, ushort>(45, 50);
-            else return new Tuple<ushort, ushort>(18, 35);
+            else return new Tuple<ushort, ushort>(18, 55);
         }
 
         Tuple<ushort, ushort> calculateAgeFakeForFemale(int years)
@@ -98,7 +98,7 @@ namespace FakeUsers
                 return new Tuple<ushort, ushort>(40, 50);
             if (years >= 51 && years <= 60)
                 return new Tuple<ushort, ushort>(50, 60);
-            else return new Tuple<ushort, ushort>(27, 37);
+            else return new Tuple<ushort, ushort>(40, 80);
         }
 
         AgeEnum calculateFakeUserSearchAge(DateTime realUserBirthDate)
@@ -115,7 +115,7 @@ namespace FakeUsers
             if (realUserAge >= 60 && realUserAge <= 69)
                 return (AgeEnum)rnd.Next(6, 8);
             else
-                return (AgeEnum)rnd.Next(5, 7);
+                return (AgeEnum)rnd.Next(5, 8);
         }
 
         DatingPurposeEnum calculateFakeUserDatingPurpose(DateTime realUserBirthDate, SexEnum realSex)

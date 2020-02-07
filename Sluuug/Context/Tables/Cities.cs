@@ -14,7 +14,7 @@ namespace Slug.Context.Tables
         public int Id { get; set; }
 
         [Required]
-        [Range(1, 10000)]
+        [Range(1, 2147483640)]
         public int CitiesCode { get; set; }
 
         [Required]

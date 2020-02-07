@@ -10,7 +10,7 @@ namespace VKServices.LocationAdapter
 {
     public class CityAdapter
     {
-        public readonly Dictionary<int, int> LocalCountryIdToVkCountryId = new Dictionary<int, int>()
+        readonly Dictionary<int, int> LocalCountryIdToVkCountryId = new Dictionary<int, int>()
         {
             { 7, 1 },
             { 380, 2 },
@@ -22,13 +22,20 @@ namespace VKServices.LocationAdapter
             var cityParam = new GetCitiesParams()
             {
                 Count = 10,
-                CountryId = LocalCountryIdToVkCountryId[localCountryId],
+                CountryId = LocalCountryIdToVkCountryId.ContainsKey(localCountryId) ? LocalCountryIdToVkCountryId[localCountryId] : localCountryId,
                 Query = localCityTitle
             };
             var city = context.Database.GetCities(cityParam);
             return city[0].Id;
         }
 
+
+        public int GetCountryId(int localCountryId)
+        {
+            if (LocalCountryIdToVkCountryId.ContainsKey(localCountryId))
+                return LocalCountryIdToVkCountryId[localCountryId];
+            else return localCountryId;
+        }
 
     }
 }
