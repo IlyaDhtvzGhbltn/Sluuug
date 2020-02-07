@@ -9,12 +9,16 @@ span {
     font-family: 'Roboto Condensed', sans-serif;
     color: #7f7f7f;
 }
-.await-form{
-    width:400px;
-    margin:auto;
+.await-form {
+    width: 550px;
+    margin: auto;
 }
 
 .vk-ico-container{
     width:66px;
     margin:auto;
+}
+
+.message-form{
+    text-align:center;
 }

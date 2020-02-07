@@ -62,7 +62,8 @@ namespace FakeUsers
                 });
                 users.ForEach(user => 
                 {
-                    if (user.purpose == DatingPurposeEnum.Sex)
+                    int flag = rnd.Next(0, 3);
+                    if(flag == 1)
                         user.Vip = true;
                 });
 
