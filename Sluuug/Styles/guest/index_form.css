@@ -1,3 +1,7 @@
+body {
+    background-color: #eef7ff78;
+}
+
 
 .content .form a {
     text-decoration: none;
@@ -7,6 +11,7 @@
 
 .reg-form-container{
     justify-content:flex-end;
+    z-index:999;
 }
 
 .form {
@@ -14,7 +19,7 @@
     border-radius:10px;
     max-width: 515px;
     min-width: 380px;
-    margin: 5px 20px 10px 10px;
+    margin: 20px 20px 10px 10px;
     border: 1px solid #7f7f7f;
     height: auto;
     background-color: white;

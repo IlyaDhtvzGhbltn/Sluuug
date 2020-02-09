@@ -74,8 +74,8 @@ namespace Slug.Helpers
 
         private bool senderAvaliableContact(DataBaseContext context, int userSenderId, int userRecipientId)
         {
-            DateTime? senderExpireVip = context.UsersInfo.First(x => x.Id == userSenderId).VipStatusExpiredDate;
-            DateTime? recipientExpireVip = context.UsersInfo.First(x => x.Id == userRecipientId).VipStatusExpiredDate;
+            DateTime? senderExpireVip = context.Users.First(x => x.Id == userSenderId).UserFullInfo.VipStatusExpiredDate;
+            DateTime? recipientExpireVip = context.Users.First(x => x.Id == userRecipientId).UserFullInfo.VipStatusExpiredDate;
 
             if (senderExpireVip == null && recipientExpireVip != null)
             {

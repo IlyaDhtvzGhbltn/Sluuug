@@ -57,29 +57,28 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="#overlay">
-                                <div id="help_nav"></div>
+                            <a onclick="scrolling('overlay')">
                                 <svg class="circle_nav">
                                     <circle id="main_circle" cx="12" cy="12" r="5"></circle>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a href="#main">
+                            <a onclick="scrolling('main', 70)">
                                 <svg class="circle_nav">
                                     <circle id="function_circle" cx="12" cy="12" r="5"></circle>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a href="#functions">
+                            <a onclick="scrolling('functions', 70)">
                                 <svg class="circle_nav">
                                     <circle id="reg_log_circle" cx="12" cy="12" r="5"></circle>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a href="#help">
+                            <a onclick="scrolling('help', 70)">
                                 <svg class="circle_nav">
                                     <circle id="help_circle" cx="12" cy="12" r="5"></circle>
                                 </svg>
@@ -90,21 +89,6 @@
             </div>
         }
         <div class="feed_back"></div>
-        <div class="fullscreen-bg" itemscope itemtype="http://schema.org/Article">
-            @*<div class="navigation">
-                @if (ViewBag.IsIndex)
-                {
-                    @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
-                }
-                else
-                {
-                    @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
-                }
-            </div>*@
-            <video loop muted autoplay poster="/Resources/images/night_city_background.png" class="fullscreen-bg__video">
-                <source src="/Resources/video/main.mp4" type="video/mp4">
-            </video>
-        </div>
 
         @{
             @RenderBody();

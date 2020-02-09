@@ -7,20 +7,24 @@
     refLink += Request.Url.Host + ":" + Request.Url.Port;
     refLink += "/guest/index?ref=" + ViewBag.Referal;
 }
+<link href="~/Styles/private/controlls_style.css" rel="stylesheet" />
 <link href="~/Styles/private/payment-style.css" rel="stylesheet" />
+<script src="~/Scripts/System/jquery-1.6.4.js"></script>
+<script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
+
 <div class="payment-root">
     <div class="close-payment" onclick="document.getElementsByClassName('payment-root')[0].style='display:none'; CloseAlert();">
         <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578746239/system/pay-close.svg" />
     </div>
     <div class="payment-types">
-        @*<input type="radio" name="payment" class="payment-checkbox" id="yandex-checkbox" />*@
+        <input type="radio" name="payment" class="payment-checkbox" id="yandex-checkbox" />
         <div class="payment-header" id="yandex">
-            @*<div class="header-img-container">
+            <div class="header-img-container">
                 <img src="https://money.yandex.ru/b/_/RIYq0jG3DUBkyrBFcZgmTj-dqZI.svg" />
             </div>
             <div class="header-title-container">
                 <span class="pay-title">Яндекс.Деньги</span>
-            </div>*@
+            </div>
         </div>
 
         <input type="radio" name="payment" class="payment-checkbox" id="free-checkbox" checked />
@@ -36,10 +40,101 @@
 
         <div class="payment-form" id="yandex-pay-form">
             <div class="form-header-container">
-                <span class="form-header-title">В настоящее время оплата через Yandex.Money недоступна</span>
+                <span class="form-header-title">Получить VIP за Yandex.Money</span>
+            </div>
+            <div class="yandex-form-container">
+                <div class="price-container">
+
+                    <div class="vip-types-container">
+                        <table class="payment-price-table">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <div class="table-header"></div>
+                                    </th>
+                                    <th>
+                                        <div class="table-header">
+                                            <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1579033536/system/time.svg">
+                                            <span class="table-header-span">Длительность VIP статуса</span>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="table-header">
+                                            <img src="~/Resources/images/russian-ruble-ico.svg">
+                                            <span class="table-header-span">Стоимость в рублях</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" class="fr" name="vipperiod" checked onclick="changeVipPeriod(1)">
+                                        <div class="circle">
+                                            <div class="circle--inner circle--inner__1"></div>
+                                            <div class="circle--inner circle--inner__2"></div>
+                                            <div class="circle--inner circle--inner__3"></div>
+                                            <div class="circle--inner circle--inner__4"></div>
+                                            <div class="circle--inner circle--inner__5"></div>
+                                            <div class="circle--outer"></div>
+                                        </div>
+                                    </td>
+                                    <td><span>1 час</span></td>
+                                    <td><span>100 р</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" class="fr" name="vipperiod" onclick="changeVipPeriod(2)">
+                                        <div class="circle">
+                                            <div class="circle--inner circle--inner__1"></div>
+                                            <div class="circle--inner circle--inner__2"></div>
+                                            <div class="circle--inner circle--inner__3"></div>
+                                            <div class="circle--inner circle--inner__4"></div>
+                                            <div class="circle--inner circle--inner__5"></div>
+                                            <div class="circle--outer"></div>
+                                        </div>
+                                    </td>
+                                    <td><span>1 день</span></td>
+                                    <td><span>300 р</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" class="fr" name="vipperiod" onclick="changeVipPeriod(3)">
+                                        <div class="circle">
+                                            <div class="circle--inner circle--inner__1"></div>
+                                            <div class="circle--inner circle--inner__2"></div>
+                                            <div class="circle--inner circle--inner__3"></div>
+                                            <div class="circle--inner circle--inner__4"></div>
+                                            <div class="circle--inner circle--inner__5"></div>
+                                            <div class="circle--outer"></div>
+                                        </div>
+                                    </td>
+                                    <td><span>3 дня</span></td>
+                                    <td><span>1000 р</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+                    <input type="hidden" name="receiver" value="4100111807909998">
+                    <input type="hidden" name="formcomment" value="">
+                    <input type="hidden" name="short-dest" value="">
+                    <input type="hidden" name="label" value="$order_id">
+                    <input type="hidden" name="quickpay-form" value="donate">
+                    <input type="hidden" name="targets" value="транзакция {order_id}">
+                    <input type="hidden" name="sum" value="100" data-type="number">
+                    <input type="hidden" name="comment" value="">
+                    <input type="hidden" name="need-fio" value="true">
+                    <input type="hidden" name="need-email" value="true">
+                    <input type="hidden" name="need-phone" value="false">
+                    <input type="hidden" name="need-address" value="false">
+                    <input type="radio" name="paymentType" value="PC">Яндекс.Деньгами
+                    <input type="radio" name="paymentType" value="AC">Банковской картой
+                    <input type="submit" class="button" value="Получить VIP">
+                </form>
             </div>
         </div>
-        
+
         <div class="payment-form" id="free-pay-form">
             <div class="form-header-container">
                 <span class="form-header-title">Пригласите друзей и получите VIP бесплатно</span>
@@ -64,7 +159,6 @@
                 </div>
                 <div class="url-copied-container"><span id="url-copied-text"></span></div>
             </div>
-
             <div class="vip-types-container">
                 <table>
                     <tbody>
@@ -78,7 +172,7 @@
                             <th>
                                 <div class="table-header">
                                     <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1579034110/system/invitation-friend.svg" />
-                                    <span >Друзей зарегестрированно</span>
+                                    <span>Друзей зарегестрированно</span>
                                 </div>
                             </th>
                         </tr>
@@ -98,33 +192,38 @@
                 </table>
             </div>
         </div>
-
-
     </div>
 </div>
+<script>
+    function changeVipPeriod(period) {
+        var noneStyle = "border-bottom: none;border-top: none;border-right: none; border-left:none; background: #D8E6F3;";
+        clearStyles(noneStyle);
+        var tr = $('.payment-price-table tbody tr')[period];
+        var borderColor = "green";
+        var borderBottom = `border-bottom: 2px solid ${borderColor}`;
+        var borderTop = `border-top: 2px solid ${borderColor}`;
+
+        var bacground = "background: rgb(146, 197, 241);";
+
+        var leftTd = `${borderBottom}; ${borderTop}; border-left: 2px solid ${borderColor};${bacground}`;
+        var rightTd = `${borderBottom}; ${borderTop}; ${borderColor}; border-right: 2px solid ${borderColor};${bacground}`;
+        var centerTd = `${borderBottom}; ${borderTop}; ${borderColor}; ${bacground}`;
+
+        tr.children[0].style = leftTd;
+        tr.children[1].style = centerTd;
+        tr.children[2].style = rightTd;
+    }
+    function clearStyles(noneStyle) {
+        var tr = $('.payment-price-table tbody tr');
+        var tds = tr.children('td');
+        [].forEach.call(tds, function (td)
+        {
+            td.style = noneStyle;
+        });
+    }
+</script>
 @*
     test payment users :
-    ryazanoviliusha - 4100110566633193
-    friendlynetru - 4100110509494178
-
-    <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
-        <input type="hidden" name="receiver" value="41001xxxxxxxxxxxx">
-        <input type="hidden" name="formcomment" value="добровольный взнос на развитие проекта такого-то">
-        <input type="hidden" name="short-dest" value="добровольный взнос на развитие проекта такого-то">
-        <input type="hidden" name="label" value="$order_id">
-        <input type="hidden" name="quickpay-form" value="donate">
-        <input type="hidden" name="targets" value="транзакция {order_id}">
-        <input type="hidden" name="sum" value="4568.25" data-type="number">
-        <input type="hidden" name="comment" value="Хотелось бы получить дистанционное управление.">
-        <input type="hidden" name="need-fio" value="true">
-        <input type="hidden" name="need-email" value="true">
-        <input type="hidden" name="need-phone" value="false">
-        <input type="hidden" name="need-address" value="false">
-        <label>
-            <input type="radio" name="paymentType" value="PC">Яндекс.Деньгами
-        </label>
-        <label>
-            <input type="radio" name="paymentType" value="AC">Банковской картой
-        </label>
-        <input type="submit" value="Перевести">
-    </form>*@
+    ryazanoviliusha@yandex.ru - 4100110566633193
+    friendlynet.ru@yandex.ru - 4100111807909998
+*@

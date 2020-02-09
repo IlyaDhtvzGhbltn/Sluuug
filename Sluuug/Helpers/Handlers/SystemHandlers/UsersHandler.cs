@@ -628,8 +628,8 @@ namespace Slug.Helpers
 
                 frIds.ForEach(id =>
                 {
-                    var userModel = context.UsersInfo
-                    .First( x=> x.Id == id );
+                    UserInfo userModel = context.Users
+                    .First( x=> x.Id == id ).UserFullInfo;
                     Guid avatarId = context.Users.First(x => x.Id == id).AvatarGuidId;
 
                     model.Add(new CryptoDialogUser()
@@ -640,6 +640,7 @@ namespace Slug.Helpers
                         LargeAvatar = context.Avatars.First(x => x.GuidId == avatarId).LargeAvatar,
                         Vip = (userModel.VipStatusExpiredDate != null &&
                          userModel.VipStatusExpiredDate > DateTime.UtcNow) ? true : false,
+
                         IsOnline = IsOnline(context, id).GetAwaiter().GetResult(),
                         AvaliableToVipContact = vipHandler.SenderAvaliableContact(context, userInvitation, id)
                     });

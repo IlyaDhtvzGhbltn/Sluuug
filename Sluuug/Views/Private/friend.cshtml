@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/private_template.cshtml";
     @model Slug.Model.Users.Relations.ProfileModel
 }
-@using Slug.Extensions
+@using SharedModels.Enums;
 @using Slug.Context.Dto.Search;
 
 <link href="~/Styles/private/album-review-style.css" rel="stylesheet" />
@@ -50,12 +50,23 @@
     </div>
 
     <div class="-info -right">
-        <h2>@Model.Name @Model.SurName</h2>
-        <span>@Model.Age</span>
+        @{long lastDig = (long)Model.Age % 10;}
+        @if (lastDig == 1 && lastDig != 11)
+        {
+            <h2>@Model.Name @Model.SurName @Model.Age год</h2>
+        }
+        else if (lastDig >= 2 && lastDig <= 4 && lastDig != 12 && lastDig != 13 && lastDig != 14)
+        {
+            <h2>@Model.Name @Model.SurName @Model.Age года</h2>
+        }
+        else
+        {
+            <h2>@Model.Name @Model.SurName @Model.Age лет</h2>
+        }
         <span>@Model.Country @Model.City</span>
         <span id="hello-status">@Model.HelloMessage</span>
         <div class="user-search-data">
-            @if (Model.purpose != Slug.Context.Dto.Search.DatingPurposeEnum.NoDating)
+            @if (Model.purpose != DatingPurposeEnum.NoDating)
             {
                 <span>Познакомлюсь с </span>
                 <span>@sex[Model.userSearchSex]</span>
