@@ -15,18 +15,18 @@ namespace SharedModels.Yandex
         public string sender { get; set; }
         public bool codepro { get; set; }
         public string currency { get; set; }
-        public decimal amount { get; set; }
-        public decimal withdraw_amount { get; set; }
+        public string amount { get; set; }
+        public string withdraw_amount { get; set; }
         public string label { get; set; }
         public string lastname { get; set; }
         public string firstname { get; set; }
         public string fathersname { get; set; }
-        public int zip { get; set; }
+        public string zip { get; set; }
         public string city { get; set; }
         public string street { get; set; }
-        public int building { get; set; }
-        public int suite { get; set; }
-        public int flat { get; set; }
+        public string building { get; set; }
+        public string suite { get; set; }
+        public string flat { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
     }
