@@ -52,6 +52,7 @@
     <Compile Include="Users\FakeUserModel.cs" />
     <Compile Include="Users\Registration\BaseRegistrationModel.cs" />
     <Compile Include="Users\Registration\RegistrationTypeService.cs" />
+    <Compile Include="Yandex\PaymentModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

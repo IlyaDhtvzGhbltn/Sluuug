@@ -172,13 +172,15 @@
     <Content Include="Resources\html_templates\activatioMail.html" />
     <Content Include="Resources\images\abstract_footer_left.png" />
     <Content Include="Resources\images\allow.png" />
+    <Content Include="Resources\images\brand.jpg" />
     <Content Include="Resources\images\brand_150.jpg" />
+    <Content Include="Resources\images\brand_ico_150_150.png" />
+    <Content Include="Resources\images\brand_ico_32.png" />
     <Content Include="Resources\images\close.png" />
-    <Content Include="Resources\images\brand.png" />
     <Content Include="Resources\images\contacts_ico.png" />
     <Content Include="Resources\images\encryption.png" />
     <Content Include="Resources\images\facebook-ico.png" />
-    <Content Include="Resources\images\favicon.ico" />
+    <Content Include="Resources\images\favicon.png" />
     <Content Include="Resources\images\heart.png" />
     <Content Include="Resources\images\home_ico.png" />
     <Content Include="Resources\images\lock-msg.png" />
