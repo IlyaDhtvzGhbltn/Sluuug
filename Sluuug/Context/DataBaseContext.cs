@@ -50,5 +50,6 @@ namespace Context
         public virtual DbSet<BlockedUsersEntries> BlackList { get; set; }
         public virtual DbSet<VkOAuthToken> VkOAuthTokens { get; set; }
         public virtual DbSet<FakeUser> FakeUsers { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
     }
 }

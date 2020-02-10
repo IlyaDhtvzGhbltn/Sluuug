@@ -213,6 +213,7 @@
     <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
     <Content Include="Scripts\Private\Profile\Albums.js" />
     <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
+    <Content Include="Scripts\Private\Profile\payments.js" />
     <Content Include="Scripts\Private\Profile\Posts.js" />
     <Content Include="Scripts\Private\Profile\SelectPaginationActivePage.js" />
     <Content Include="Scripts\Private\Profile\Vips.js" />
@@ -346,6 +347,7 @@
     <Compile Include="Context\Tables\BaseLiveEpisode.cs" />
     <Compile Include="Context\Tables\BlackList.cs" />
     <Compile Include="Context\Tables\FakeUser.cs" />
+    <Compile Include="Context\Tables\Transaction.cs" />
     <Compile Include="Context\Tables\VkOAuthToken.cs" />
     <Compile Include="Context\Tables\DisableDialog.cs" />
     <Compile Include="Context\Tables\Education.cs" />
@@ -368,6 +370,7 @@
     <Compile Include="Helpers\Handlers\OAuthHandlers\OkOauthHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\FeedbackHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\DisableConversationHandler.cs" />
+    <Compile Include="Helpers\Handlers\PrivateUserServices\Payments\YandexPayHandler.cs" />
     <Compile Include="Helpers\Handlers\PrivateUserServices\PostUserHandler.cs" />
     <Compile Include="Helpers\Handlers\SystemHandlers\FakeUsersHandler.cs" />
     <Compile Include="Helpers\Handlers\SystemHandlers\NotificationHandler.cs" />
@@ -379,6 +382,22 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
+    <Compile Include="Migrations\202002101406145_transaction.cs" />
+    <Compile Include="Migrations\202002101406145_transaction.Designer.cs">
+      <DependentUpon>202002101406145_transaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002101442103_transaction2.cs" />
+    <Compile Include="Migrations\202002101442103_transaction2.Designer.cs">
+      <DependentUpon>202002101442103_transaction2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002101509130_transaction21.cs" />
+    <Compile Include="Migrations\202002101509130_transaction21.Designer.cs">
+      <DependentUpon>202002101509130_transaction21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002101522548_transaction22.cs" />
+    <Compile Include="Migrations\202002101522548_transaction22.Designer.cs">
+      <DependentUpon>202002101522548_transaction22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
     <Compile Include="Model\Albums\EditMode.cs" />
@@ -564,6 +583,18 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002101406145_transaction.resx">
+      <DependentUpon>202002101406145_transaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101442103_transaction2.resx">
+      <DependentUpon>202002101442103_transaction2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101509130_transaction21.resx">
+      <DependentUpon>202002101509130_transaction21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101522548_transaction22.resx">
+      <DependentUpon>202002101522548_transaction22.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>

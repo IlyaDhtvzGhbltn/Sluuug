@@ -36,7 +36,7 @@ namespace Slug.Controllers
             };
 
             ViewBag.Title = "FRIENDLYNET - социальная сеть для знакомств и общения с видео-связью и end-to-end шифрованием";
-            ViewBag.Description = "FRIENDLYNET - это современный бесплатный сервис для поиска знакомств. Видео-связь в высоком разрешении. Шифрование сообщений end-to-end.";
+            ViewBag.Description = "FRIENDLYNET - это современный бесплатный сервис для знакомства и общения. Видео-связь в высоком разрешении. Шифрование сообщений end-to-end.";
             ViewBag.MinRegistrationDate = new DateTime(1900, 1, 1).ToString("yyyy-MM-dd");
             ViewBag.MaxRegistrationDate = DateTime.Now.AddYears(-14).ToString("yyyy-MM-dd");
 

@@ -6,3 +6,7 @@
 >>>>>>> f90597a3143c22e07f6aa4366fa6bc0e10e6a268
 /.vs
 /packages
+/Bot/obj
+/Bot/bin
+/DtoModels/bin
+/DtoModels/obj

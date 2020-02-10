@@ -47,12 +47,14 @@
     <Compile Include="Enums\FriendshipItemStatus.cs" />
     <Compile Include="Enums\SexEnum.cs" />
     <Compile Include="Enums\VideoConverenceAcceptToCall.cs" />
+    <Compile Include="Enums\VIPstatusTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\BaseUser.cs" />
     <Compile Include="Users\FakeUserModel.cs" />
     <Compile Include="Users\Registration\BaseRegistrationModel.cs" />
     <Compile Include="Users\Registration\RegistrationTypeService.cs" />
-    <Compile Include="Yandex\PaymentModel.cs" />
+    <Compile Include="Yandex\CompleteTransaction.cs" />
+    <Compile Include="Yandex\StartTransaction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

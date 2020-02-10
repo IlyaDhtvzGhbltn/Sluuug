@@ -9,6 +9,7 @@
 }
 <link href="~/Styles/private/controlls_style.css" rel="stylesheet" />
 <link href="~/Styles/private/payment-style.css" rel="stylesheet" />
+<script src="~/Scripts/Private/Profile/payments.js"></script>
 <script src="~/Scripts/System/jquery-1.6.4.js"></script>
 <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
 
@@ -17,7 +18,7 @@
         <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578746239/system/pay-close.svg" />
     </div>
     <div class="payment-types">
-        @*<input type="radio" name="payment" class="payment-checkbox" id="yandex-checkbox" />
+        <input type="radio" name="payment" class="payment-checkbox" id="yandex-checkbox" />
         <div class="payment-header" id="yandex">
             <div class="header-img-container">
                 <img src="https://money.yandex.ru/b/_/RIYq0jG3DUBkyrBFcZgmTj-dqZI.svg" />
@@ -25,7 +26,7 @@
             <div class="header-title-container">
                 <span class="pay-title">Яндекс.Деньги</span>
             </div>
-        </div>*@
+        </div>
 
         <input type="radio" name="payment" class="payment-checkbox" id="free-checkbox" checked />
         <div class="payment-header" id="free">
@@ -39,7 +40,7 @@
         </div>
 
         <div class="payment-form" id="yandex-pay-form">
-            @*<div class="form-header-container">
+            <div class="form-header-container">
                 <span class="form-header-title">Получить VIP за Yandex.Money</span>
             </div>
             <div class="yandex-form-container">
@@ -67,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" class="fr" name="vipperiod" checked onclick="changeVipPeriod(1)">
+                                        <input type="radio" class="fr" name="vipperiod" onclick="changeVipPeriod(1)">
                                         <div class="circle">
                                             <div class="circle--inner circle--inner__1"></div>
                                             <div class="circle--inner circle--inner__2"></div>
@@ -78,7 +79,7 @@
                                         </div>
                                     </td>
                                     <td><span>1 час</span></td>
-                                    <td><span>100 р</span></td>
+                                    <td><span>50 р</span></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -108,31 +109,34 @@
                                         </div>
                                     </td>
                                     <td><span>3 дня</span></td>
-                                    <td><span>1000 р</span></td>
+                                    <td><span>500 р</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                 </div>
-                <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+                <form method="POST" class="yandex-pay-form" target="_blank" action="https://money.yandex.ru/quickpay/confirm.xml">
                     <input type="hidden" name="receiver" value="4100111807909998">
-                    <input type="hidden" name="formcomment" value="">
-                    <input type="hidden" name="short-dest" value="">
-                    <input type="hidden" name="label" value="$order_id">
+                    <input type="hidden" id="transactionAmount" name="sum" value="2" data-type="number">
+                    <input type="hidden" id="transactionId" name="label" value="">
+                    <input type="hidden" id="transactionVipType" name="formcomment" value="">
+                    <input type="hidden" name="targets" value="V.I.P.">
                     <input type="hidden" name="quickpay-form" value="donate">
-                    <input type="hidden" name="targets" value="транзакция {order_id}">
-                    <input type="hidden" name="sum" value="100" data-type="number">
-                    <input type="hidden" name="comment" value="">
-                    <input type="hidden" name="need-fio" value="true">
-                    <input type="hidden" name="need-email" value="true">
+
+                    @*<input type="hidden" name="short-dest" value=""> 
+                    <input type="hidden" name="comment" value="">*@
+
+                    <input type="hidden" name="need-fio" value="false">
+                    <input type="hidden" name="need-email" value="false">
                     <input type="hidden" name="need-phone" value="false">
                     <input type="hidden" name="need-address" value="false">
+
                     <input type="radio" name="paymentType" value="PC">Яндекс.Деньгами
                     <input type="radio" name="paymentType" value="AC">Банковской картой
-                    <input type="submit" class="button" value="Получить VIP">
+                    <input type="submit" class="button" value="Получить VIP" onclick="startTransaction()">
                 </form>
-            </div>*@
+            </div>
         </div>
 
         <div class="payment-form" id="free-pay-form">
@@ -194,34 +198,6 @@
         </div>
     </div>
 </div>
-<script>
-    function changeVipPeriod(period) {
-        var noneStyle = "border-bottom: none;border-top: none;border-right: none; border-left:none; background: #D8E6F3;";
-        clearStyles(noneStyle);
-        var tr = $('.payment-price-table tbody tr')[period];
-        var borderColor = "green";
-        var borderBottom = `border-bottom: 2px solid ${borderColor}`;
-        var borderTop = `border-top: 2px solid ${borderColor}`;
-
-        var bacground = "background: rgb(146, 197, 241);";
-
-        var leftTd = `${borderBottom}; ${borderTop}; border-left: 2px solid ${borderColor};${bacground}`;
-        var rightTd = `${borderBottom}; ${borderTop}; ${borderColor}; border-right: 2px solid ${borderColor};${bacground}`;
-        var centerTd = `${borderBottom}; ${borderTop}; ${borderColor}; ${bacground}`;
-
-        tr.children[0].style = leftTd;
-        tr.children[1].style = centerTd;
-        tr.children[2].style = rightTd;
-    }
-    function clearStyles(noneStyle) {
-        var tr = $('.payment-price-table tbody tr');
-        var tds = tr.children('td');
-        [].forEach.call(tds, function (td)
-        {
-            td.style = noneStyle;
-        });
-    }
-</script>
 @*
     test payment users :
     ryazanoviliusha@yandex.ru - 4100110566633193

@@ -28,6 +28,8 @@ using Slug.Helpers.Handlers.PrivateUserServices;
 using Slug.Context.Dto.Conversation;
 using Slug.Context.Dto.CryptoConversation;
 using SharedModels.Users;
+using SharedModels.Yandex;
+using Slug.Helpers.Handlers.PrivateUserServices.Payments;
 
 namespace Slug.Controllers
 {
@@ -341,11 +343,18 @@ namespace Slug.Controllers
         [HttpPost]
         public JsonResult getmorecryptomessages(MoreMessagesDialogRequest request)
         {
-            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
+            string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            int requestSenderUserId = UsersHandler.UserIdBySession(session);
             request.UserId = requestSenderUserId;
             MoreCryptoDialogMessagesResponce resp = CryptoChatHandler.GetMoreMessages(request);
             return new JsonResult() { Data = resp };
+        }
+
+        public void starttransaction(StartTransaction paymentStartRequest)
+        {
+            string session = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+            var payHandler = new YandexPayHandler();
+            payHandler.RegisterTransaction(paymentStartRequest, session);
         }
     }
 }

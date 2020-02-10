@@ -261,7 +261,7 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public void paymentRecived(SharedModels.Yandex.PaymentModel model)
+        public void paymentRecived(SharedModels.Yandex.CompleteTransaction model)
         {
             Logger logger = LogManager.GetLogger("payment_logger");
             logger.Info("payment: {model}", model);
