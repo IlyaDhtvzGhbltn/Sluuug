@@ -619,6 +619,10 @@
       <Project>{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}</Project>
       <Name>VKServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YandexValidation\YandexValidation.csproj">
+      <Project>{edcfebe0-cc72-4eed-921b-286c8309c173}</Project>
+      <Name>YandexValidation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

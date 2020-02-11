@@ -10,7 +10,7 @@ namespace SharedModels.Yandex
     {
         public string operation_id { get; set; }
         public string notification_type { get; set; }
-        public DateTime datetime { get; set; }
+        public string datetime { get; set; }
         public string sha1_hash { get; set; }
         public string sender { get; set; }
         public bool codepro { get; set; }

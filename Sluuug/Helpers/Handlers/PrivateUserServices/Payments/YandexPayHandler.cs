@@ -3,6 +3,8 @@ using SharedModels.Yandex;
 using Slug.Context.Tables;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Slug.Helpers.Handlers.PrivateUserServices.Payments
 {
@@ -28,10 +30,31 @@ namespace Slug.Helpers.Handlers.PrivateUserServices.Payments
             }
         }
 
-        public void CompleteTransaction()
+        public async Task CompleteTransaction(CompleteTransaction tr)
         {
+            await Task.Run(async () => 
+            {
+                using (var context = new DataBaseContext())
+                {
+                    Guid incomId = Guid.Parse(tr.label);
+                    Transaction transaction = context.Transactions.First(x => x.InternalId == incomId);
+                    string jsonProp = JsonConvert.SerializeObject(tr);
 
+                    transaction.PaidDate = DateTime.UtcNow;
+                    transaction.IsPaid = true;
+                    transaction.Properties = jsonProp;
+                    await context.SaveChangesAsync();
+                }
+            });
+        }
 
+        public bool TransactionStatus(Guid transactionId)
+        {
+            using (var context = new DataBaseContext())
+            {
+                Transaction tr = context.Transactions.First(x=>x.InternalId == transactionId);
+                return tr.IsPaid;
+            }
         }
     }
 }

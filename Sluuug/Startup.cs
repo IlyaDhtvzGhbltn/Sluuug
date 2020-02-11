@@ -1,7 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-
 [assembly: OwinStartup(typeof(Slug.Startup))]
 
 namespace Slug

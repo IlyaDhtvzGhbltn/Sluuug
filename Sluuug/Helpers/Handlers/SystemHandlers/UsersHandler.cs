@@ -160,7 +160,7 @@ namespace Slug.Helpers
                 context.SaveChanges();
                 int localUserFromVk = context.Users.First(x => x.Login == newUser.Login).Id;
                 if (user.ReferalUserId != null)
-                    SetVipStatus(context, (int)user.ReferalUserId).GetAwaiter().GetResult();
+                    SetVipStatusByRef(context, (int)user.ReferalUserId).GetAwaiter().GetResult();
                 return localUserFromVk;
             }
         }
@@ -181,11 +181,11 @@ namespace Slug.Helpers
             {
                 context.Users.First(x => x.Id == newUserId).ReferalUserId = referalId;
                 context.SaveChanges();
-                await SetVipStatus(context, referalId);
+                await SetVipStatusByRef(context, referalId);
             }
         }
 
-        public async Task SetVipStatus(DataBaseContext context, int referalId)
+        public async Task SetVipStatusByRef(DataBaseContext context, int referalId)
         {
             int invitedUserCount = context.Users.Where(x => x.ReferalUserId == referalId).Count();
             if (invitedUserCount == 3)
@@ -207,11 +207,30 @@ namespace Slug.Helpers
             await context.SaveChangesAsync();
         }
 
+        public async Task SetVipStatusByPayment(Guid trinsactionsId)
+        {
+            await Task.Run(async ()=> 
+            {
+                IDictionary<VIPstatusTypes, int> vipToHours = new Dictionary<VIPstatusTypes, int>()
+                {
+                    { VIPstatusTypes.oneHour, 1 },
+                    { VIPstatusTypes.oneDay, 24 },
+                    { VIPstatusTypes.treeDays, 72 }
+                };
+
+                using (var context = new DataBaseContext())
+                {
+                    Transaction tr = context.Transactions.First(x=> x.InternalId == trinsactionsId);
+                    User user = tr.PaySender;
+                    user.UserFullInfo.VipStatusExpiredDate = DateTime.UtcNow.AddHours(vipToHours[tr.Type]);
+                    await context.SaveChangesAsync();
+                }
+            });
+        }
+
         public int VerifyUser(string login, string hashPassword)
         {
-            string savedPassword = Crypto.Encryption.EncryptionStringToSHA512(hashPassword);
-            //NewUserInitial.Initialize(10);
-
+            string savedPassword = Encryption.EncryptionStringToSHA512(hashPassword);
             using (var dbContext = new DataBaseContext())
             {
                 User user = dbContext.Users

@@ -23,6 +23,7 @@ using System.Web.Mvc;
 using WebAppSettings = System.Web.Configuration.WebConfigurationManager;
 using SharedModels.Enums;
 using SharedModels.Users.Registration;
+using Slug.Helpers.Handlers.PrivateUserServices.Payments;
 
 namespace Slug.Controllers
 {
@@ -261,10 +262,24 @@ namespace Slug.Controllers
         }
 
         [HttpPost]
-        public void paymentRecived(SharedModels.Yandex.CompleteTransaction model)
+        public async Task paymentRecived(SharedModels.Yandex.CompleteTransaction model)
         {
             Logger logger = LogManager.GetLogger("payment_logger");
             logger.Info("payment: {model}", model);
+
+            var paymentHandler = new YandexPayHandler();
+            var vipHandler = new UsersHandler();
+            Guid trId = Guid.Parse(model.label);
+
+            bool isTransactionValid = YandexValidation.Sha1HashValidator.ValidateHash(model);
+            bool paid = paymentHandler.TransactionStatus(trId);
+
+            if (isTransactionValid && !paid)
+            {
+                Task paymentSaveTask = paymentHandler.CompleteTransaction(model);
+                Task setVipTask = vipHandler.SetVipStatusByPayment(trId);
+                await Task.WhenAll(paymentSaveTask, setVipTask);
+            }
         }
     }
 }
