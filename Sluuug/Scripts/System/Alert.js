@@ -14,7 +14,6 @@ function _Alert(message, alertTextColor = null) {
 }
 
 function _ALertForm(html) {
-    console.log(html);
     $('.grey-background').removeClass('hide').addClass('show');
     $('.html-content')[0].innerHTML = html;
 }

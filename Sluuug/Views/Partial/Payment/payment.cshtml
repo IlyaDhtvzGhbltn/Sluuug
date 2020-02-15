@@ -14,6 +14,9 @@
 <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
 
 <div class="payment-root">
+    <div class="gold-heart-container">
+        <img class="gold-heart" src="~/Resources/images/gold-heart.svg" />
+    </div>
     <div class="close-payment" onclick="document.getElementsByClassName('payment-root')[0].style='display:none'; CloseAlert();">
         <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578746239/system/pay-close.svg" />
     </div>
@@ -43,9 +46,33 @@
             <div class="form-header-container">
                 <span class="form-header-title">Получить VIP за Yandex.Money</span>
             </div>
+            <div class="description-container">
+                <span class="description">
+                    VIP статус будет действовать в течении выбранного вами периода даже при смене города или страны.
+                </span>
+            </div>
             <div class="yandex-form-container">
-                <div class="price-container">
+                <form method="POST" class="yandex-pay-form" target="_blank" action="https://money.yandex.ru/quickpay/confirm.xml">
+                    <input type="hidden" name="receiver" value="4100111807909998">
+                    <input type="hidden" id="transactionAmount" name="sum" value="2" data-type="number">
+                    <input type="hidden" id="transactionId" name="label" value="">
+                    <input type="hidden" id="transactionVipType" name="formcomment" value="">
+                    <input type="hidden" name="targets" value="💕 V.I.P. 💖">
+                    <input type="hidden" name="quickpay-form" value="donate">
 
+                    @*<input type="hidden" name="short-dest" value="">
+            <input type="hidden" name="comment" value="">*@
+
+                    <input type="hidden" name="need-fio" value="false">
+                    <input type="hidden" name="need-email" value="false">
+                    <input type="hidden" name="need-phone" value="false">
+                    <input type="hidden" name="need-address" value="false">
+
+                    <input hidden type="radio" name="paymentType" value="PC">
+                    <input hidden checked type="radio" name="paymentType" value="AC">
+                    <input type="submit" id="getvip" disabled class="button" value="Активировать VIP" onclick="startTransaction()">
+                </form>
+                <div class="price-container">
                     <div class="vip-types-container">
                         <table class="payment-price-table">
                             <tbody>
@@ -66,9 +93,9 @@
                                         </div>
                                     </th>
                                 </tr>
-                                <tr>
+                                <tr onclick="changeVipPeriod(1)" onmouseover="hoverVipPeriod(1)">
                                     <td>
-                                        <input type="radio" class="fr" name="vipperiod" onclick="changeVipPeriod(1)">
+                                        <input type="radio" class="fr" name="vipperiod">
                                         <div class="circle">
                                             <div class="circle--inner circle--inner__1"></div>
                                             <div class="circle--inner circle--inner__2"></div>
@@ -78,12 +105,16 @@
                                             <div class="circle--outer"></div>
                                         </div>
                                     </td>
-                                    <td><span>1 час</span></td>
+                                    <td>
+                                        <img class="heart-pay left-heart" src="~/Resources/images/heart.svg" />
+                                        <span>1 час</span>
+                                        <img class="heart-pay right-heart" src="~/Resources/images/heart.svg" />
+                                    </td>
                                     <td><span>50 р</span></td>
                                 </tr>
-                                <tr>
+                                <tr onclick="changeVipPeriod(2)" onmouseover="hoverVipPeriod(2)">
                                     <td>
-                                        <input type="radio" class="fr" name="vipperiod" onclick="changeVipPeriod(2)">
+                                        <input type="radio" class="fr" name="vipperiod">
                                         <div class="circle">
                                             <div class="circle--inner circle--inner__1"></div>
                                             <div class="circle--inner circle--inner__2"></div>
@@ -93,12 +124,18 @@
                                             <div class="circle--outer"></div>
                                         </div>
                                     </td>
-                                    <td><span>1 день</span></td>
+                                    <td>
+                                        <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                        <img class="heart-pay left-heart" src="~/Resources/images/heart.svg" />
+                                        <span>1 день</span>
+                                        <img class="heart-pay right-heart" src="~/Resources/images/heart.svg" />
+                                        <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                    </td>
                                     <td><span>300 р</span></td>
                                 </tr>
-                                <tr>
+                                <tr onclick="changeVipPeriod(3)" onmouseover="hoverVipPeriod(3)">
                                     <td>
-                                        <input type="radio" class="fr" name="vipperiod" onclick="changeVipPeriod(3)">
+                                        <input type="radio" class="fr" name="vipperiod">
                                         <div class="circle">
                                             <div class="circle--inner circle--inner__1"></div>
                                             <div class="circle--inner circle--inner__2"></div>
@@ -108,34 +145,21 @@
                                             <div class="circle--outer"></div>
                                         </div>
                                     </td>
-                                    <td><span>3 дня</span></td>
+                                    <td>
+                                        <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                        <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                        <img class="heart-pay left-heart" src="~/Resources/images/heart.svg" />
+                                        <span>3 дня</span>
+                                        <img class="heart-pay right-heart" src="~/Resources/images/heart.svg" />
+                                        <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                        <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                    </td>
                                     <td><span>500 р</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-
                 </div>
-                <form method="POST" class="yandex-pay-form" target="_blank" action="https://money.yandex.ru/quickpay/confirm.xml">
-                    <input type="hidden" name="receiver" value="4100111807909998">
-                    <input type="hidden" id="transactionAmount" name="sum" value="2" data-type="number">
-                    <input type="hidden" id="transactionId" name="label" value="">
-                    <input type="hidden" id="transactionVipType" name="formcomment" value="">
-                    <input type="hidden" name="targets" value="V.I.P.">
-                    <input type="hidden" name="quickpay-form" value="donate">
-
-                    @*<input type="hidden" name="short-dest" value=""> 
-                    <input type="hidden" name="comment" value="">*@
-
-                    <input type="hidden" name="need-fio" value="false">
-                    <input type="hidden" name="need-email" value="false">
-                    <input type="hidden" name="need-phone" value="false">
-                    <input type="hidden" name="need-address" value="false">
-
-                    <input type="radio" name="paymentType" value="PC">Яндекс.Деньгами
-                    <input type="radio" name="paymentType" value="AC">Банковской картой
-                    <input type="submit" class="button" value="Получить VIP" onclick="startTransaction()">
-                </form>
             </div>
         </div>
 
@@ -176,20 +200,32 @@
                             <th>
                                 <div class="table-header">
                                     <img src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1579034110/system/invitation-friend.svg" />
-                                    <span>Друзей зарегестрированно</span>
+                                    <span class="table-header-span">Друзей зарегестрированно</span>
                                 </div>
                             </th>
                         </tr>
                         <tr>
-                            <td><span>1 час</span></td>
+                            <td>
+                                <span>1 час</span>
+                            </td>
                             <td><span>3 новых</span></td>
                         </tr>
                         <tr>
-                            <td><span>3 часа</span></td>
+                            <td>
+                                <img class="heart-pay left-heart" src="~/Resources/images/heart.svg" />
+                                <span>3 часа</span>
+                                <img class="heart-pay right-heart" src="~/Resources/images/heart.svg" />
+                            </td>
                             <td><span>5 новых</span></td>
                         </tr>
                         <tr>
-                            <td><span>24 часа</span></td>
+                            <td>
+                                <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                                <img class="heart-pay left-heart" src="~/Resources/images/heart.svg" />
+                                <span>24 часа</span>
+                                <img class="heart-pay right-heart" src="~/Resources/images/heart.svg" />
+                                <img class="heart-pay" src="~/Resources/images/heart.svg" />
+                            </td>
                             <td><span>7 новых</span></td>
                         </tr>
                     </tbody>

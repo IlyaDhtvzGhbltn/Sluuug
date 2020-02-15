@@ -57,13 +57,13 @@ namespace Slug.Controllers
             return View("~/Views/Partial/Payment/payment.cshtml");
         }
 
-        [HttpGet]
-        public ActionResult payments()
-        {
-            string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
-            int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
-            ViewBag.Referal = requestSenderUserId;
-            return View("~/Views/Partial/Payment/payment.cshtml");
-        }
+        //[HttpGet]
+        //public ActionResult payments()
+        //{
+        //    string sessionId = Request.Cookies.Get(WebAppSettings.AppSettings[AppSettingsEnum.appSession.ToString()]).Value;
+        //    int requestSenderUserId = UsersHandler.UserIdBySession(sessionId);
+        //    ViewBag.Referal = requestSenderUserId;
+        //    return View("~/Views/Partial/Payment/payment.cshtml");
+        //}
     }
 }

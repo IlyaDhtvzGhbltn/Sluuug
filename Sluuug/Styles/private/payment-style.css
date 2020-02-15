@@ -1,20 +1,15 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300&subset=latin,cyrillic);
 
-span, p, input, h1, h2, h3, h4 {
-    font-family: 'Roboto Condensed', sans-serif;
-    color: #7f7f7f;
-}
-
 .payment-root {
     z-index: 999;
     background-color: white;
     width: 600px;
-    height: 405px;
+    height: 460px;
     margin: auto;
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 30%;
+    top: 10%;
     left: 30%;
     border: 2px solid #a2ecf3;
     box-shadow: 0 0 30px 10px #49b2da;
@@ -117,6 +112,14 @@ span, p, input, h1, h2, h3, h4 {
     display: flex;
 }
 
+.gold-heart-container{
+    position: absolute;
+}
+
+.gold-heart {
+    height: 120px;
+}
+
 #yandex {
     margin-left: 160px;
 }
@@ -165,6 +168,7 @@ span, p, input, h1, h2, h3, h4 {
     vertical-align: middle;
     display: table-cell;
     margin: 0 0 0 5px;
+    font-family:cursive;
 }
 
 .copy-img-container {
@@ -185,9 +189,11 @@ span, p, input, h1, h2, h3, h4 {
     margin:0 0 0 20px;
 }
 
+
+
 .yandex-pay-form {
-    margin: auto;
-    width: 450px;
+    margin: 5px auto;
+    width: 125px;
 }
 
 td {
@@ -195,6 +201,7 @@ td {
     background: #D8E6F3;
     padding: 5px;
     text-align: center;
+    height: 35px;
 }
 
 .button {
@@ -211,6 +218,16 @@ td {
     height:40px;
 }
 
+.button:disabled{
+    background: #ddd;
+    color: #fff;
+}
+
+.button:disabled:hover{
+    background: #ddd;
+    color: #fff;
+}
+
 .button:hover{
     background: rgb(162, 236, 243);
     color: #7f7f7f;
@@ -218,17 +235,31 @@ td {
     border: 1px solid #7f7f7f;
 }
 
-.circle {
+.heart-pay{
+    width:16px;
+    height:16px;
+}
+
+.left-heart{
+    margin-right: 5px;
+}
+
+.right-heart {
+    margin-left: 5px;
+}
+
+td .circle {
     top: 7px;
     left: 6px;
 }
 
-.circle--outer{
-    width:30px;
-    height:30px;
+td .circle--outer {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
 
-.circle--inner {
+td .circle--inner {
     top: 7px;
     left: 8px;
     width: 20px;
@@ -237,7 +268,11 @@ td {
 
 .payment-price-table tbody tr td {
     min-width: 48px;
-    height: 50px;
+    height: 35px;
+}
+
+tbody tr td span{
+    font-weight:bold;
 }
 
 .payment-price-table tbody tr td input {
@@ -248,6 +283,11 @@ td {
     margin: -10px -20px;
     opacity:0;
     cursor:pointer;
+}
+
+.payment-price-table tbody tr{
+    cursor:pointer;
+    border:1px solid white;
 }
 
 

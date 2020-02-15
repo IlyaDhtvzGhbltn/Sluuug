@@ -362,22 +362,22 @@
 	width:30px;
 }
 
-.circle--outer{
-	width:30px;
-	height:30px;
-	border-radius:20%;
+.new-form-end-date .circle--outer {
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
 }
 
-.circle--inner{
-	top:21%;
-	left:21%;
+.new-form-end-date .circle--inner {
+    top: 21%;
+    left: 5px;
 }
 
-.circle{
-	position:relative;
-	left:-25px;
+.new-form-end-date .circle {
+    position: relative;
+    left:-30px;
 	top:4px;
-	z-index:0;
+    z-index: 0;
 }
 #country-title{
 	margin-top:70px; 
