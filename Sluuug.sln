@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeUsers", "Bot\FakeUsers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModels", "DtoModels\SharedModels.csproj", "{F40FC4D2-B0AE-412F-A056-F45A5369BDB8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedServices", "SharedServices", "{59DBEC24-732C-4E72-BDC9-F99973784A01}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteServices", "RemoteServices", "{59DBEC24-732C-4E72-BDC9-F99973784A01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKServices", "VKServices\VKServices.csproj", "{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ValidationServices", "ValidationServices", "{82EC3CF7-6B8C-4B1E-8028-20DD980D0650}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexValidation", "YandexValidation\YandexValidation.csproj", "{EDCFEBE0-CC72-4EED-921B-286C8309C173}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScheduledServices", "ScheduledServices", "{9BAD0767-C9C5-41AD-B462-D16E231D7AE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeBehaviorService", "FakeBehaviorService\FakeBehaviorService.csproj", "{860EA36A-1611-4CCD-83FA-99F31DA34B30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{EDCFEBE0-CC72-4EED-921B-286C8309C173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDCFEBE0-CC72-4EED-921B-286C8309C173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDCFEBE0-CC72-4EED-921B-286C8309C173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{860EA36A-1611-4CCD-83FA-99F31DA34B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{860EA36A-1611-4CCD-83FA-99F31DA34B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{860EA36A-1611-4CCD-83FA-99F31DA34B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{860EA36A-1611-4CCD-83FA-99F31DA34B30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F583B240-1A4D-4CF3-A6F6-F0F20A7D4B15} = {59DBEC24-732C-4E72-BDC9-F99973784A01}
 		{EDCFEBE0-CC72-4EED-921B-286C8309C173} = {82EC3CF7-6B8C-4B1E-8028-20DD980D0650}
+		{860EA36A-1611-4CCD-83FA-99F31DA34B30} = {9BAD0767-C9C5-41AD-B462-D16E231D7AE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9403ED37-06D7-4839-8475-201779D5EFBE}

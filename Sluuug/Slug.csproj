@@ -193,11 +193,12 @@
     <Content Include="Resources\images\no-avatar-ua.jpg" />
     <Content Include="Resources\images\notify_ico.png" />
     <Content Include="Resources\images\ok_ico.png" />
+    <Content Include="Resources\images\pay-credit-card.svg" />
+    <Content Include="Resources\images\pay-mobile-phone.svg" />
+    <Content Include="Resources\images\pay-yandex-money.svg" />
     <Content Include="Resources\images\rotating_earth_background.png" />
     <Content Include="Resources\images\russian-ruble-ico.svg" />
     <Content Include="Resources\images\settings_ico.png" />
-    <Content Include="Resources\images\social_media_img.png" />
-    <Content Include="Resources\images\space_main_background.png" />
     <Content Include="Resources\images\spam.png" />
     <Content Include="Resources\images\stop.png" />
     <Content Include="Resources\images\support_ico.png" />

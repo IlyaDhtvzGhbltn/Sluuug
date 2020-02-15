@@ -24,7 +24,7 @@
         <input type="radio" name="payment" class="payment-checkbox" id="yandex-checkbox" />
         <div class="payment-header" id="yandex">
             <div class="header-img-container">
-                <img src="https://money.yandex.ru/b/_/RIYq0jG3DUBkyrBFcZgmTj-dqZI.svg" />
+                <img src="~/Resources/images/pay-yandex-money.svg" />
             </div>
             <div class="header-title-container">
                 <span class="pay-title">Яндекс.Деньги</span>
@@ -46,12 +46,13 @@
             <div class="form-header-container">
                 <span class="form-header-title">Получить VIP за Yandex.Money</span>
             </div>
-            <div class="description-container">
+            <div class="description-container yandex-desc">
                 <span class="description">
                     VIP статус будет действовать в течении выбранного вами периода даже при смене города или страны.
                 </span>
             </div>
             <div class="yandex-form-container">
+
                 <form method="POST" class="yandex-pay-form" target="_blank" action="https://money.yandex.ru/quickpay/confirm.xml">
                     <input type="hidden" name="receiver" value="4100111807909998">
                     <input type="hidden" id="transactionAmount" name="sum" value="2" data-type="number">
@@ -61,16 +62,32 @@
                     <input type="hidden" name="quickpay-form" value="donate">
 
                     @*<input type="hidden" name="short-dest" value="">
-            <input type="hidden" name="comment" value="">*@
+                <input type="hidden" name="comment" value="">*@
 
                     <input type="hidden" name="need-fio" value="false">
                     <input type="hidden" name="need-email" value="false">
                     <input type="hidden" name="need-phone" value="false">
                     <input type="hidden" name="need-address" value="false">
 
-                    <input hidden type="radio" name="paymentType" value="PC">
-                    <input hidden checked type="radio" name="paymentType" value="AC">
-                    <input type="submit" id="getvip" disabled class="button" value="Активировать VIP" onclick="startTransaction()">
+                    <div class="payment-yandex-types">
+                        <div class="payment-yandex-types-container">
+                            <div class="inner-yp-container">
+                                <div class="img-pay-type-comtainer img-pay-left" onclick="changeYandexPayType('#yandex-pay-card', '.img-pay-left')">
+                                    <img class="yandex-payment-type" src="~/Resources/images/pay-credit-card.svg" />
+                                </div>
+                                <div class="img-pay-type-comtainer img-pay-center" onclick="changeYandexPayType('#yandex-pay-money', '.img-pay-center')">
+                                    <img class="yandex-payment-type" src="~/Resources/images/pay-yandex-money.svg" />
+                                </div>
+                                <div class="img-pay-type-comtainer img-pay-right" onclick="changeYandexPayType('#yandex-pay-mobile', '.img-pay-right')">
+                                    <img class="yandex-payment-type" src="~/Resources/images/pay-mobile-phone.svg" />
+                                </div>
+                            </div>
+                        </div>
+                        <input hidden id="yandex-pay-card" class="input-pay" type="radio" name="paymentType" value="AC">
+                        <input hidden id="yandex-pay-money" class="input-pay" type="radio" name="paymentType" value="PC">
+                        <input hidden id="yandex-pay-mobile" class="input-pay" type="radio" name="paymentType" value="MC">
+                    </div>
+                    <input type="submit" id="getvip" disabled class="button" value="Активировать" onclick="startTransaction()">
                 </form>
                 <div class="price-container">
                     <div class="vip-types-container">
@@ -167,7 +184,7 @@
             <div class="form-header-container">
                 <span class="form-header-title">Пригласите друзей и получите VIP бесплатно</span>
             </div>
-            <div class="description-container">
+            <div class="description-container free-desc">
                 <span class="description">
                     Делитесь ссылкой на наше приложение в соцсетях и с друзьями что бы получить VIP совершенно бесплатно.
                     Чем больше больше новых пользователей вы приведете, тем дольше будет действовать ваш статус.

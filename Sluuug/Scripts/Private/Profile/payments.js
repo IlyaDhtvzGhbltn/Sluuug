@@ -51,6 +51,18 @@ function hoverVipPeriod(period) {
     }
 }
 
+function changeYandexPayType(type, backgroundDiv) {
+    clearPayStyle();
+    $(backgroundDiv).css('background-color', 'wheat');
+    $(type).attr('checked', true);
+}
+
+function clearPayStyle() {
+    $('.img-pay-type-comtainer').css('background-color', 'white');
+    $('.input-pay').attr('checked', false);
+
+}
+
 function clearStyles(noneStyle) {
     var tr = $('.payment-price-table tbody tr');
     var tds = tr.children('td');
