@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NLog;
+using System;
+
 
 namespace FakeBehaviorService
 {
@@ -10,7 +8,8 @@ namespace FakeBehaviorService
     {
         static void Main(string[] args)
         {
-
+            Logger logger = LogManager.GetLogger("information");
+            logger.Info("Test log");
         }
     }
 }
