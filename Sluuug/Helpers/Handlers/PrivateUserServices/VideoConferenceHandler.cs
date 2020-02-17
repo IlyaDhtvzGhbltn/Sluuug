@@ -126,7 +126,7 @@ namespace Slug.Helpers
             {
                 int myId = usersHandler.UserIdBySession(sessionID);
                 var friendshipAccepted = context.UserRelations
-                    .Where(x => x.UserOferFrienshipSender == myId || x.UserConfirmer == myId)
+                    .Where(x => x.UserOferFrienshipSender.Id == myId || x.UserConfirmer.Id == myId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .Select((f) => new { f.UserConfirmer, f.UserOferFrienshipSender })
                     .ToList();
@@ -134,10 +134,10 @@ namespace Slug.Helpers
                 var frIds = new List<int>();
                 friendshipAccepted.ForEach(item =>
                 {
-                    if (item.UserConfirmer != myId)
-                        frIds.Add(item.UserConfirmer);
+                    if (item.UserConfirmer.Id != myId)
+                        frIds.Add(item.UserConfirmer.Id);
                     else
-                        frIds.Add(item.UserOferFrienshipSender);
+                        frIds.Add(item.UserOferFrienshipSender.Id);
                 });
                 frIds.ForEach(id=> 
                 {

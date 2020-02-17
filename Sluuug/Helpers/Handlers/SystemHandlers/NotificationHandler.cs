@@ -1,9 +1,5 @@
-﻿using Slug.Context.Dto.Notification;
+﻿using SharedModels.Enums;
 using Slug.Model.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Slug.Helpers.Handlers
 {

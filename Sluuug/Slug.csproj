@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -51,10 +52,10 @@
       <HintPath>..\packages\CloudinaryDotNet.1.7.0\lib\net40\CloudinaryDotNet.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.16.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.16\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -321,7 +322,6 @@
     <Compile Include="Context\Dto\Fotos\DropFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\EditFotoResponse.cs" />
     <Compile Include="Context\Dto\Fotos\FotoCommentsResponse.cs" />
-    <Compile Include="Context\Dto\Notification\NotificationTypes.cs" />
     <Compile Include="Context\Dto\Notification\NotifyHubModel.cs" />
     <Compile Include="Context\Dto\OAuth\Fb\FbToken.cs" />
     <Compile Include="Context\Dto\OAuth\Fb\FBUserInfo.cs" />
@@ -353,10 +353,9 @@
     <Compile Include="Context\Tables\VkOAuthToken.cs" />
     <Compile Include="Context\Tables\DisableDialog.cs" />
     <Compile Include="Context\Tables\Education.cs" />
-    <Compile Include="Context\Dto\UserFullInfo_refactor\EducationType.cs" />
     <Compile Include="Context\Tables\PostComment.cs" />
     <Compile Include="Context\Tables\Post.cs" />
-    <Compile Include="Context\Tables\MemorableEvents.cs" />
+    <Compile Include="Context\Tables\ImportantEvent.cs" />
     <Compile Include="Context\Tables\WorkPlaces.cs" />
     <Compile Include="Context\Dto\Cloudinary\CloudImageUploadResult.cs" />
     <Compile Include="Context\Dto\UserWorker_refactor\UserConfirmationDitails.cs" />
@@ -384,21 +383,13 @@
     <Compile Include="ImageEdit\Cropping.cs" />
     <Compile Include="ImageEdit\ModTypes.cs" />
     <Compile Include="ImageEdit\Resize.cs" />
-    <Compile Include="Migrations\202002101406145_transaction.cs" />
-    <Compile Include="Migrations\202002101406145_transaction.Designer.cs">
-      <DependentUpon>202002101406145_transaction.cs</DependentUpon>
+    <Compile Include="Migrations\202002172040273_UsersRelations_as_User.cs" />
+    <Compile Include="Migrations\202002172040273_UsersRelations_as_User.designer.cs">
+      <DependentUpon>202002172040273_UsersRelations_as_User.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002101442103_transaction2.cs" />
-    <Compile Include="Migrations\202002101442103_transaction2.Designer.cs">
-      <DependentUpon>202002101442103_transaction2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002101509130_transaction21.cs" />
-    <Compile Include="Migrations\202002101509130_transaction21.Designer.cs">
-      <DependentUpon>202002101509130_transaction21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002101522548_transaction22.cs" />
-    <Compile Include="Migrations\202002101522548_transaction22.Designer.cs">
-      <DependentUpon>202002101522548_transaction22.cs</DependentUpon>
+    <Compile Include="Migrations\202002172054182_UsersRelations_as_User2.cs" />
+    <Compile Include="Migrations\202002172054182_UsersRelations_as_User2.designer.cs">
+      <DependentUpon>202002172054182_UsersRelations_as_User2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Albums\EditFotoInfoModel.cs" />
@@ -585,17 +576,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002101406145_transaction.resx">
-      <DependentUpon>202002101406145_transaction.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002172040273_UsersRelations_as_User.resx">
+      <DependentUpon>202002172040273_UsersRelations_as_User.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002101442103_transaction2.resx">
-      <DependentUpon>202002101442103_transaction2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002101509130_transaction21.resx">
-      <DependentUpon>202002101509130_transaction21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002101522548_transaction22.resx">
-      <DependentUpon>202002101522548_transaction22.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002172054182_UsersRelations_as_User2.resx">
+      <DependentUpon>202002172054182_UsersRelations_as_User2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -657,7 +642,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

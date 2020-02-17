@@ -1,6 +1,5 @@
 ﻿using Context;
 using Slug.Context.Dto.Messages;
-using Slug.Context.Dto.Notification;
 using Slug.ImageEdit;
 using Slug.Model;
 using Slug.Model.Users;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using SharedModels.Users;
-
+using SharedModels.Enums;
 
 namespace Slug.Helpers.HTMLGenerated
 {

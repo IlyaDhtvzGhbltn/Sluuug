@@ -44,7 +44,9 @@
     <Compile Include="Enums\AgeEnum.cs" />
     <Compile Include="Enums\AvatarTypesEnum.cs" />
     <Compile Include="Enums\DatingPurposeEnum.cs" />
+    <Compile Include="Enums\EducationType.cs" />
     <Compile Include="Enums\FriendshipItemStatus.cs" />
+    <Compile Include="Enums\NotificationTypes.cs" />
     <Compile Include="Enums\SexEnum.cs" />
     <Compile Include="Enums\VideoConverenceAcceptToCall.cs" />
     <Compile Include="Enums\VIPstatusTypes.cs" />

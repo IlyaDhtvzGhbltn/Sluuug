@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Slug.Context.Dto.UserFullInfo
+namespace SharedModels.Enums
 {
     public enum EducationTypes
     {

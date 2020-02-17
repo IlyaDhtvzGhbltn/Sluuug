@@ -10,11 +10,10 @@ using Slug.Helpers.BaseController;
 using Context;
 using Slug.Model.Users;
 using Slug.Helpers.HTMLGenerated;
-using Slug.Context.Dto.Notification;
 using Slug.Model.Users.Relations;
 using Slug.Context.Attributes;
 using SharedModels.Users;
-
+using SharedModels.Enums;
 
 namespace Slug.Hubs
 {

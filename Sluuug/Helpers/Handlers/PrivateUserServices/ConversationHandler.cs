@@ -141,7 +141,7 @@ namespace Slug.Helpers
 
                 var incommingInvitations = context.UserRelations.Where(x =>
                     x.IsInvitationSeen == false &&
-                    x.UserConfirmer == userId
+                    x.UserConfirmer.Id == userId
                 ).ToList();
 
                 responce.NewInviteToContacts = incommingInvitations.Count;

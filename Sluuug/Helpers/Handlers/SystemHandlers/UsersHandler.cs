@@ -494,6 +494,12 @@ namespace Slug.Helpers
             return baseUser(userId, context);
         }
 
+        public BaseUser BaseUser(string session, DataBaseContext context)
+        {
+            var sess = context.Sessions.First(x=>x.Number == session);
+            return baseUser(sess.UserId, context);
+        }
+
         private BaseUser baseUser(int userId, DataBaseContext context)
         {
             var userModel = new BaseUser();
@@ -574,16 +580,16 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 UsersRelation[] friendshipAccepted = context.UserRelations
-                    .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
+                    .Where(x => x.UserOferFrienshipSender.Id == userId || x.UserConfirmer.Id == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
                 List<int> friendsIds = friendshipAccepted
-                    .Select(x => x.UserOferFrienshipSender )
+                    .Select(x => x.UserOferFrienshipSender.Id)
                     .Where(x => x != userId)
                     .ToList();
 
                 friendsIds.AddRange(
-                    friendshipAccepted.Select(x => x.UserConfirmer)
+                    friendshipAccepted.Select(x => x.UserConfirmer.Id)
                     .Where(x => x != userId)
                     .ToList()
                     );
@@ -631,7 +637,7 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var friendshipAccepted = context.UserRelations
-                    .Where(x => x.UserOferFrienshipSender == userInvitation || x.UserConfirmer == userInvitation)
+                    .Where(x => x.UserOferFrienshipSender.Id == userInvitation || x.UserConfirmer.Id == userInvitation)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .Select((f) => new { f.UserConfirmer, f.UserOferFrienshipSender })
                     .ToList();
@@ -639,10 +645,10 @@ namespace Slug.Helpers
                 var frIds = new List<int>();
                 friendshipAccepted.ForEach(item => 
                 {
-                    if (item.UserConfirmer != userInvitation)
-                        frIds.Add(item.UserConfirmer);
+                    if (item.UserConfirmer.Id != userInvitation)
+                        frIds.Add(item.UserConfirmer.Id);
                     else
-                        frIds.Add(item.UserOferFrienshipSender);
+                        frIds.Add(item.UserOferFrienshipSender.Id);
                 });
 
                 frIds.ForEach(id =>
@@ -682,19 +688,19 @@ namespace Slug.Helpers
                 await InvitationSeen(context, userId);
 
                 UsersRelation[] friendshipAccepted = context.UserRelations
-                    .Where(x => x.UserOferFrienshipSender == userId || x.UserConfirmer == userId)
+                    .Where(x => x.UserOferFrienshipSender.Id == userId || x.UserConfirmer.Id == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
 
                 if (friendshipAccepted.Count() >= 1)
                 {
-                    var confirmerIds = friendshipAccepted.Where(x => x.UserConfirmer != userId).Select(x => x.UserConfirmer);
-                    var acceptedIds = friendshipAccepted.Where(x => x.UserOferFrienshipSender != userId).Select(x => x.UserOferFrienshipSender);
+                    var confirmerIds = friendshipAccepted.Where(x => x.UserConfirmer.Id != userId).Select(x => x.UserConfirmer);
+                    var acceptedIds = friendshipAccepted.Where(x => x.UserOferFrienshipSender.Id != userId).Select(x => x.UserOferFrienshipSender);
                     var FriendsConfirmIDs = confirmerIds.Concat(acceptedIds).ToArray();
 
                     for (int i = 0; i < FriendsConfirmIDs.Count(); i++)
                     {
-                        BaseUser friendUserInfo = BaseUser(FriendsConfirmIDs[i]);
+                        BaseUser friendUserInfo = BaseUser(FriendsConfirmIDs[i].Id);
                         if (friendUserInfo != null)
                         {
                             var friend = new BaseUser()
@@ -715,7 +721,7 @@ namespace Slug.Helpers
                     }
                 }
                 UsersRelation[] inCommingFriendshipPending = context.UserRelations
-                    .Where(x => x.UserConfirmer == userId)
+                    .Where(x => x.UserConfirmer.Id == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Pending)
                     .ToArray();
 
@@ -724,7 +730,7 @@ namespace Slug.Helpers
 
                     for (int i = 0; i < inCommingFriendshipPending.Count(); i++)
                     {
-                        BaseUser friendUserInfo = BaseUser(inCommingFriendshipPending[i].UserOferFrienshipSender);
+                        BaseUser friendUserInfo = BaseUser(inCommingFriendshipPending[i].UserOferFrienshipSender.Id);
                         if (friendUserInfo != null)
                         {
                             var inInvite = new BaseUser()
@@ -747,7 +753,7 @@ namespace Slug.Helpers
                 }
 
                 UsersRelation[] outCommingFriendshipPending = context.UserRelations
-                    .Where(x => x.UserOferFrienshipSender == userId)
+                    .Where(x => x.UserOferFrienshipSender.Id == userId)
                     .Where(x => x.Status == FriendshipItemStatus.Pending)
                     .ToArray();
 
@@ -755,7 +761,7 @@ namespace Slug.Helpers
                 {
                     for (int i = 0; i < outCommingFriendshipPending.Count(); i++)
                     {
-                        BaseUser friendUserInfo = BaseUser(outCommingFriendshipPending[i].UserConfirmer);
+                        BaseUser friendUserInfo = BaseUser(outCommingFriendshipPending[i].UserConfirmer.Id);
                         if (friendUserInfo != null)
                         {
                             var outInvite = new BaseUser()
@@ -883,9 +889,9 @@ namespace Slug.Helpers
 
         public BaseUser AddInviteToContacts(string session, int userIDToFriendsInvite)
         {
-            BaseUser userSenderRequest = BaseUser(session);
             using (var context = new DataBaseContext())
             {
+                BaseUser userSenderRequest = BaseUser(session, context);
                 User invitedUser = context.Users.FirstOrDefault(x => x.Id == userIDToFriendsInvite);
                 if (invitedUser != null)
                 {
@@ -895,8 +901,8 @@ namespace Slug.Helpers
                     {
                         var relation = new UsersRelation();
                         relation.OfferSendedDate = DateTime.UtcNow;
-                        relation.UserOferFrienshipSender = userSenderRequest.UserId;
-                        relation.UserConfirmer = invitedUser.Id;
+                        relation.UserOferFrienshipSender = context.Users.First(x=>x.Id == userSenderRequest.UserId);
+                        relation.UserConfirmer = context.Users.First(x=>x.Id == invitedUser.Id);
                         relation.Status = FriendshipItemStatus.Pending;
                         relation.IsInvitationSeen = false;
                         context.UserRelations.Add(relation);
@@ -945,9 +951,9 @@ namespace Slug.Helpers
 
                 if (relationItem != null)
                 {
-                if (relationItem.UserOferFrienshipSender == Iam.UserId)
+                if (relationItem.UserOferFrienshipSender.Id == Iam.UserId)
                     model.Status = FriendshipItemStatus.IInviteUserToContact;
-                if (relationItem.UserConfirmer == Iam.UserId)
+                if (relationItem.UserConfirmer.Id == Iam.UserId)
                     model.Status = FriendshipItemStatus.UserInviteMeToContact;
                 }
                 if (blockItem != null)
@@ -983,8 +989,8 @@ namespace Slug.Helpers
                 using (var context = new DataBaseContext())
                 {
                     UsersRelation entryFrienship = context.UserRelations
-                        .Where(x => x.UserOferFrienshipSender == myId && x.UserConfirmer == userID ||
-                        x.UserConfirmer == myId && x.UserOferFrienshipSender == userID)
+                        .Where(x => x.UserOferFrienshipSender.Id == myId && x.UserConfirmer.Id == userID ||
+                        x.UserConfirmer.Id == myId && x.UserOferFrienshipSender.Id == userID)
                         .First();
                     context.UserRelations.Remove(entryFrienship);
                     context.SaveChanges();
@@ -1033,8 +1039,8 @@ namespace Slug.Helpers
             {
                 UsersRelation item = context.UserRelations
                     .Where(x => x.Status == FriendshipItemStatus.Pending &&
-                    x.UserOferFrienshipSender == userID &&
-                    x.UserConfirmer == accepterUser.UserId)
+                    x.UserOferFrienshipSender.Id == userID &&
+                    x.UserConfirmer.Id == accepterUser.UserId)
                     .First();
 
                 item.Status = FriendshipItemStatus.Accept;
@@ -1212,7 +1218,7 @@ namespace Slug.Helpers
         {
             var relation = context.UserRelations.Where(x =>
                 x.IsInvitationSeen == false &&
-                x.UserConfirmer == userId)
+                x.UserConfirmer.Id == userId)
                 .ToList();
 
             if(relation.Count > 0)

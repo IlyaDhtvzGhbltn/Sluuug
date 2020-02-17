@@ -19,14 +19,14 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var friendShip = context.UserRelations
-                    .Where(x => x.UserOferFrienshipSender == userInfo.UserId || x.UserConfirmer == userInfo.UserId)
+                    .Where(x => x.UserOferFrienshipSender.Id == userInfo.UserId || x.UserConfirmer.Id == userInfo.UserId)
                     .Where(x => x.Status == FriendshipItemStatus.Accept)
                     .ToArray();
                 if (friendShip.Count() >= 1)
                 {
                     for (int i = 0; i < friendShip.Count(); i++)
                     {
-                        if (friendShip[i].UserOferFrienshipSender == userID || friendShip[i].UserConfirmer == userID)
+                        if (friendShip[i].UserOferFrienshipSender.Id == userID || friendShip[i].UserConfirmer.Id == userID)
                         {
                             return true;
                         }
@@ -51,8 +51,8 @@ namespace Slug.Helpers
             using (var context = new DataBaseContext())
             {
                 var relation = context.UserRelations
-                    .FirstOrDefault(x => x.UserOferFrienshipSender == userFirst && x.UserConfirmer == userSecond ||
-                    x.UserOferFrienshipSender == userSecond && x.UserConfirmer == userFirst);
+                    .FirstOrDefault(x => x.UserOferFrienshipSender.Id == userFirst && x.UserConfirmer.Id == userSecond ||
+                    x.UserOferFrienshipSender.Id == userSecond && x.UserConfirmer.Id == userFirst);
                 if (relation == null)
                     return false;
                 else if (relation.Status == FriendshipItemStatus.Accept)
@@ -67,8 +67,8 @@ namespace Slug.Helpers
 
             UsersRelation relation = context.UserRelations
                 .FirstOrDefault(x =>
-                x.UserOferFrienshipSender == userFirst && x.UserConfirmer == userSecond ||
-                x.UserConfirmer == userFirst && x.UserOferFrienshipSender == userSecond);
+                x.UserOferFrienshipSender.Id == userFirst && x.UserConfirmer.Id == userSecond ||
+                x.UserConfirmer.Id == userFirst && x.UserOferFrienshipSender.Id == userSecond);
             return relation;
         }
 
