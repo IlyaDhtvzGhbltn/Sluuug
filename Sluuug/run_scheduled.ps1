@@ -1,0 +1,1 @@
+Start-Process 'C:\inetpub\vhosts\u0823102.plsk.regruhosting.ru\httpdocs\friendlynet.ru\FakeBehaviorService.exe'
