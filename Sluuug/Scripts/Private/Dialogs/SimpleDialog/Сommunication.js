@@ -35,7 +35,7 @@ function SendMessageFromChat(conversationId) {
             $('#new_msg').val('');
             var date = new Date();
             var stringDate = date.getHours() + ':' + date.getMinutes();
-            var ownAvatar = $('.own-avatar-span')[0].innerHTML;
+            var ownAvatar = $('.own-avatar-span').text();
             var node = SimpleDialogNode.DialogMessage(
                 {
                     IsIncomming: false,

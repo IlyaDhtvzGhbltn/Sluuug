@@ -23,7 +23,7 @@ namespace Context
         public virtual DbSet<UserStatus> UserStatuses { get; set; }
         public virtual DbSet<Conversation> Conversations { get; set; }
         public virtual DbSet<ConversationGroup> ConversationGroup { get; set; }
-        public virtual DbSet<Message> Messangers { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<UsersRelation> UserRelations { get; set; }
         public virtual DbSet<FakeUser> FakeUsers { get; set; }
     }
