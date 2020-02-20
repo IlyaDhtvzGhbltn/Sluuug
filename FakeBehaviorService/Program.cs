@@ -28,19 +28,27 @@ namespace FakeBehaviorService
 
         static void Main(string[] args)
         {
-            Logger logger = LogManager.GetLogger("information");
+            Logger logger = LogManager.GetLogger("scheduler_service_log");
             logger.Info("Scheduled Fake Service Started");
             using (var context = new DataBaseContext())
             {
-                var friendsInvitations = context.UserRelations
-                    .Where(x=>x.UserConfirmer.IsFakeBot == true && x.Status == FriendshipItemStatus.Pending).ToList();
-                if (friendsInvitations.Count > 0)
-                    acceptFriendship(context, friendsInvitations);
+                try
+                {
+                    var friendsInvitations = context.UserRelations
+                        .Where(x => x.UserConfirmer.IsFakeBot == true && x.Status == FriendshipItemStatus.Pending).ToList();
+                    if (friendsInvitations.Count > 0)
+                        acceptFriendship(context, friendsInvitations);
 
-                var alreadyFriendsInvitations = context.UserRelations
-                    .Where(x => x.UserConfirmer.IsFakeBot == true && x.Status == FriendshipItemStatus.Accept).ToList();
-                if (alreadyFriendsInvitations.Count > 0)
-                    writeMessage(context, alreadyFriendsInvitations);
+                    var alreadyFriendsInvitations = context.UserRelations
+                        .Where(x => x.UserConfirmer.IsFakeBot == true && x.Status == FriendshipItemStatus.Accept).ToList();
+                    if (alreadyFriendsInvitations.Count > 0)
+                        writeMessage(context, alreadyFriendsInvitations);
+                }
+                catch (Exception ex)
+                {
+                    Logger log = LogManager.GetLogger("internal_error_logger");
+                    log.Error(ex);
+                }
             }
         }
 
