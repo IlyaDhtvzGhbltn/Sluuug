@@ -49,6 +49,10 @@ namespace FakeBehaviorService
                     Logger log = LogManager.GetLogger("internal_error_logger");
                     log.Error(ex);
                 }
+                finally
+                {
+                    logger.Info("Scheduled Fake Service Ended");
+                }
             }
         }
 

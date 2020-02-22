@@ -77,6 +77,11 @@ namespace Slug.Helpers.Handlers.OAuthHandlers
                             registerModel.CountryCode = oauthHand.CountryCodeParse(context, vkUser.Country.Id, vkUser.Country.Title, true);
                             registerModel.CityCode = oauthHand.CityCodeParse(context, vkUser.City.Id, vkUser.City.Title, registerModel.CountryCode, true);
                         }
+                        if (vkUser.City == null || vkUser.Country == null)
+                        {
+                            registerModel.CountryCode = 7;
+                            registerModel.CityCode = 495;
+                        }
                         else
                         {
                             registerModel.CountryCode = oauthHand.CountryCodeParse(context, vkUser.Country.Id, vkUser.Country.Title, false);
