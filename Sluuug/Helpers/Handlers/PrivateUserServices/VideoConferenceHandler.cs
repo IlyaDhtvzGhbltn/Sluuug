@@ -176,8 +176,8 @@ namespace Slug.Helpers
                             model.IsIncommingExist = true;
 
                             incoming.InviterID = participantID;
-                            incoming.CallerName = usersHandler.BaseUser(participantID).Name;
-                            incoming.CallerSurName = usersHandler.BaseUser(participantID).SurName;
+                            incoming.CallerName = info.Name;
+                            incoming.CallerSurName = info.SurName;
                             incoming.AvatarResizeUri = info.MediumAvatar;
                             model.IncomingCalls.Add(incoming);
                         }
