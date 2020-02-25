@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SharedModels.Enums;
+using Slug.Extensions;
 
 namespace Slug.Helpers
 {
@@ -37,9 +38,6 @@ namespace Slug.Helpers
                     string avatar = context.Avatars
                         .First(x=>x.GuidId == item.AvatarGuidId)
                         .MediumAvatar;
-                    int age = (DateTime.Now.Year - item.UserFullInfo.DateOfBirth.Year);
-                    if (DateTime.Now.DayOfYear < item.UserFullInfo.DateOfBirth.DayOfYear)
-                        age--;
 
                     list.Add(new VipUserModel()
                     {
@@ -50,7 +48,7 @@ namespace Slug.Helpers
                         City = city == null ? "не указано" : city,
                         MidAvatarUri = avatar,
                         DatingPurpose = (DatingPurposeEnum)item.UserFullInfo.DatingPurpose,
-                        Age = age
+                        Age = item.UserFullInfo.DateOfBirth.FullYearsElapsed()
                     });
                 }
                 resp.Users = list;

@@ -1,9 +1,4 @@
-﻿var periodToPaymentDictionarry = new Object;
-periodToPaymentDictionarry[1] = 2;
-periodToPaymentDictionarry[2] = 300;
-periodToPaymentDictionarry[3] = 500;
-
-function changeVipPeriod(period) {
+﻿function changeVipPeriod(period) {
     resetRadio(period);
     var noneStyle = "border-bottom: none;border-top: none;border-right: none; border-left:none; background: #D8E6F3;";
     clearStyles(noneStyle);
@@ -84,7 +79,11 @@ function clearStyleExceptSelected(noneStyle) {
 }
 
 function setVIPstatusType(type) {
-    $('#transactionAmount').val(periodToPaymentDictionarry[type]);
+    var price = $('#periodToPaymentDictionarry').val();
+    var jsonPrice = JSON.parse(price);
+    console.log(jsonPrice);
+    console.log(jsonPrice[type]);
+    $('#transactionAmount').val(jsonPrice[type]);
     $('#transactionVipType').val(type);
 }
 

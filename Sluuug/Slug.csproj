@@ -188,7 +188,6 @@
     <Content Include="Resources\images\lock-msg.png" />
     <Content Include="Resources\images\lock_ico.png" />
     <Content Include="Resources\images\mess_ico.png" />
-    <Content Include="Resources\images\night_city_background.png" />
     <Content Include="Resources\images\no-avatar-bel.jpg" />
     <Content Include="Resources\images\no-avatar-ru.jpg" />
     <Content Include="Resources\images\no-avatar-ua.jpg" />

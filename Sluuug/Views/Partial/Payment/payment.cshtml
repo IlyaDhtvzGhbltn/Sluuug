@@ -7,6 +7,7 @@
     refLink += Request.Url.Host + ":" + Request.Url.Port;
     refLink += "/guest/index?ref=" + ViewBag.Referal;
 }
+@using Slug.Extension
 <link href="~/Styles/private/controlls_style.css" rel="stylesheet" />
 <link href="~/Styles/private/payment-style.css" rel="stylesheet" />
 <script src="~/Scripts/Private/Profile/payments.js"></script>
@@ -14,6 +15,14 @@
 <script src="~/Scripts/System/jquery-1.6.4.min.js"></script>
 
 <div class="payment-root">
+    @if (Html.IsDebug())
+    {
+        @Html.Hidden("periodToPaymentDictionarry", "{\"1\":2, \"2\":100, \"3\":300}")
+    }
+    else
+    {
+        @Html.Hidden("periodToPaymentDictionarry", "{\"1\":50, \"2\":100, \"3\":300}")
+    }
     <div class="gold-heart-container">
         <img class="gold-heart" src="~/Resources/images/gold-heart.svg" />
     </div>
@@ -62,7 +71,7 @@
                     <input type="hidden" name="quickpay-form" value="donate">
 
                     @*<input type="hidden" name="short-dest" value="">
-                <input type="hidden" name="comment" value="">*@
+                        <input type="hidden" name="comment" value="">*@
 
                     <input type="hidden" name="need-fio" value="false">
                     <input type="hidden" name="need-email" value="false">
