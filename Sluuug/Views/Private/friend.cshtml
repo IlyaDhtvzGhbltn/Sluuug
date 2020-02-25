@@ -51,11 +51,11 @@
 
     <div class="-info -right">
         @{long lastDig = (long)Model.Age % 10;}
-        @if (lastDig == 1 && lastDig != 11)
+        @if (lastDig == 1 && Model.Age != 11)
         {
             <h2>@Model.Name @Model.SurName @Model.Age год</h2>
         }
-        else if (lastDig >= 2 && lastDig <= 4 && lastDig != 12 && lastDig != 13 && lastDig != 14)
+        else if (lastDig >= 2 && lastDig <= 4 && Model.Age != 12 && Model.Age != 13 && Model.Age != 14)
         {
             <h2>@Model.Name @Model.SurName @Model.Age года</h2>
         }

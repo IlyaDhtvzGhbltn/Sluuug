@@ -23,7 +23,7 @@
         {
             <img class="vipuser-crown" src="https://res.cloudinary.com/dlk1sqmj4/image/upload/v1578220125/system/86f6452c09d91a8a507417a473d956d1.png"  />
         }
-        <img alt="avatar" id="img_avatar" src="@Model.LargeAvatar" @*onmouseout="MoveTo($('.change-avatar'), {'left':'-700px', 'top':'190px'})"*@ onclick="MoveTo($('.change-avatar'), {'left':'100px', 'top':'190px'})">
+        <img alt="avatar" title="Сменить аватар" id="img_avatar" src="@Model.LargeAvatar" onclick="MoveTo($('.change-avatar'), {'left':'100px', 'top':'100px'})">
         <div class="profile-info">
             <div class="profile-info-name">
                 <h2 class="parameter" id="0" onclick="edit_private_info(this.id)">@Model.Name</h2>
@@ -60,16 +60,17 @@
                 <span id="age-title" style="@dropDownListStyleClass">лет</span>
             </div>
             <div class="profile-about">
-                <span id="hello-status" onmouseover="MoveTo($('.profile-info-change-status'), {'left':'0'})">@Model.HelloMessage</span>
-                <div class="profile-info-change-status" onmouseover="StopMove(this)" onmouseout="MoveTo(this, { 'left': '-1500px' })">
+                <span id="hello-status" title="Изменить приветствие" onclick="MoveTo($('.profile-info-change-status'), {'left':'0'})">@Model.HelloMessage</span>
+                <div class="profile-info-change-status" @*onmouseover="StopMove(this)"*@ >
                     <span>Изменить..</span>
                     <input type="text" maxlength="40" id="new-greeting" value="Привет!" />
-                    <button onclick="ChangeHelloMess(4, $('#new-greeting')[0].value, null, true, false)">Готово</button>
+                    <button onclick="ChangeHelloMess(4, $('#new-greeting')[0].value, null, true, false); MoveTo($('.profile-info-change-status'), { 'left': '-1500px' })">Готово</button>
+                    <span class="close-change-status" onclick="MoveTo($('.profile-info-change-status'), { 'left': '-1500px' })">❌</span>
                 </div>
             </div>
         </div>
         <div class="change-avatar" @*onmouseover="StopMove(this)" *@>
-            <span class="close-change-avatar" onclick="MoveTo($('.change-avatar'), { 'left': '-700px' })">X</span>
+            <span class="close-change-avatar" onclick="MoveTo($('.change-avatar'), { 'left': '-700px', 'top': '100px' })">❌</span>
             <form action="/private/upload" enctype="multipart/form-data" method="post">
                 <div class="input-overflow">
                     <span>Сменить аватар</span>
@@ -394,11 +395,11 @@
                 $('#file-uploader').css({ 'opacity': '1', 'z-index': '999' });
             }
 
-            function StopMove(element) {
-                var elementPosition = $(element).offset();
-                $(element).offset({ 'left': elementPosition.left });
-                $(element).css({ 'opacity': '1', 'z-index': '999' });
-            }
+            //function StopMove(element) {
+            //    var elementPosition = $(element).offset();
+            //    $(element).offset({ 'left': elementPosition.left });
+            //    $(element).css({ 'opacity': '1', 'z-index': '999' });
+            //}
             function MoveTo(element, position, delay) {
                 $(element).css({ 'left': position.left, 'top': position.top, 'opacity': 1 });
             }

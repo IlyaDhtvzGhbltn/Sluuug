@@ -25,7 +25,19 @@
             </div>
             <div class="info">
                 <div class="wire-status-circle @activeCircleClass[Model.IsOnline]"></div>
-                <span>@Model.Age лет @Model.Country @Model.City</span>
+                @{
+                    string sufix = "лет";
+                    long lastDig = (long)Model.Age % 10;
+                    if (lastDig == 1 && Model.Age != 11)
+                    {
+                        sufix = "год";
+                    }
+                    else if (lastDig >= 2 && lastDig <= 4 && Model.Age != 12 && Model.Age != 13 && Model.Age != 14)
+                    {
+                        sufix = "года";
+                    }
+                }
+                <span>@Model.Age @sufix @Model.Country @Model.City</span>
             </div>
             <span>@Model.HelloMessage</span>
         </div>

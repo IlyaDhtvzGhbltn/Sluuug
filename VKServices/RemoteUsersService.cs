@@ -10,7 +10,7 @@ using VkNet.Model.RequestParams;
 using SharedModels.Users;
 using VkNet.Enums.Filters;
 using VKServices.LocationAdapter;
-using Slug.Extension;
+using Slug.Extensions;
 using SharedModels.Users.Registration;
 using SharedModels.Enums;
 using System.Text.RegularExpressions;
@@ -46,8 +46,8 @@ namespace RemoteServices
             api.Authorize(new ApiAuthParams()
             {
                 ApplicationId = 7170448,
-                Login = "ssuper10",
-                Password = "Quiputgbn12",
+                Login = this.login,
+                Password = this.password,
             });
             service = api;
         }

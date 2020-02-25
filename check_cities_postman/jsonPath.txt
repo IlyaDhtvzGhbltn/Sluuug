@@ -1,0 +1,22 @@
+Postman Request :
+GET /method/database.getCities?country_id=2&amp; q={{city_querry}}&amp; access_token=d81d959bd84b66074794d6afda88b86ec431ab349d256a3067349e17b0347c97181e0e1ff6aaa2336f7d8&amp; v=5.103 HTTP/1.1
+Host: api.vk.com
+User-Agent: PostmanRuntime/7.22.0
+Accept: */*
+Host: api.vk.com
+Accept-Encoding: gzip, deflate, br
+Cookie: remixlang=0; remixstid=984115187_65c34171b7e1d6ff85; remixff=00
+Connection: keep-alive
+
+pm.test("items count", function(){
+    var jsonData = JSON.parse(responseBody);
+    var count = jsonData.response.count;
+    pm.expect(count).to.be.above(0)
+});
+
+JSON Parce :
+https://jsonpath.com/
+$.results[*].allTests[*].items count
+
+Excel :
+=IF(B2="  true,";  A2;   "")

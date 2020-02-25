@@ -1,5 +1,4 @@
-﻿
-.dialog .user-name {
+﻿.dialog .user-name {
     font-weight:bold;
     font-size: 19px;
     cursor: pointer;
@@ -60,6 +59,7 @@
 }
 
 .-emojis- {
+    z-index:999;
     transition: all .4s ease;
     background: white;
     display: none;

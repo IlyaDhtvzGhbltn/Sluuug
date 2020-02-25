@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300&subset=latin,cyrillic);
 h2 {
-    cursor: pointer;
     transition: all .5s ease;
 }
 

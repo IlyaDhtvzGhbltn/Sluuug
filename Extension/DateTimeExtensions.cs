@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Slug.Extension
+namespace Slug.Extensions
 {
     public static class DateTimeExtensions
     {

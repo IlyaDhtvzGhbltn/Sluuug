@@ -48,6 +48,7 @@
 
 
 .profile-info-change-status {
+    width:302px;    
     padding: 10px;
     position: absolute;
     left: -2000px;
@@ -74,26 +75,34 @@
     transition:all .5s ease;
 }
 
+.close-change-status,
 .close-change-avatar {
     cursor: pointer;
     position: absolute;
-    margin-left: 99%;
-    margin-top: 1px;
     width: 20px;
     text-align: center;
-    transition:all, ease, .5s;
+    transition: all, ease, .5s;
 }
 
-.close-change-avatar:hover{
-    background-color:#49B2DA;
-    color:white;
+.close-change-avatar {
+    margin-top: 1px;
+    margin-left: 98%;
+}
+
+.close-change-status {
+    margin-top: -10px;
+}
+
+.close-change-status:hover,
+.close-change-avatar:hover {
+    font-size: 17px;
 }
 
 .change-avatar {
     display:flex;
     flex-direction:row;
     flex-wrap:nowrap;
-    top: 190px;
+    top: 100px;
     left: -700px;
     z-index: 999;
     opacity: 0;

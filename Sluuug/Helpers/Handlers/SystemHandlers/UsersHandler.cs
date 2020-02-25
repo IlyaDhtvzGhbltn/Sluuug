@@ -28,6 +28,7 @@ using SharedModels.Users;
 using SharedModels.Enums;
 using Slug.Helpers.Handlers.SystemHandlers;
 using SharedModels.Users.Registration;
+using Slug.Extensions;
 
 namespace Slug.Helpers
 {
@@ -307,7 +308,7 @@ namespace Slug.Helpers
             }
 
             userModel.UserId = user.Id;
-            userModel.Age = DateTime.Now.Year - user.UserFullInfo.DateOfBirth.Year;
+            userModel.Age = user.UserFullInfo.DateOfBirth.FullYearsElapsed();
 
             var Educations = user.UserFullInfo.Educations;
             userModel.Educations = new List<EducationModel>();
@@ -540,7 +541,7 @@ namespace Slug.Helpers
                 userModel.UserType = user.UserType;
                 //userModel.LargeAvatar = avatar.LargeAvatar;
                 userModel.UserId = user.Id;
-                userModel.Age = DateTime.Now.Year - user.UserFullInfo.DateOfBirth.Year;
+                userModel.Age = user.UserFullInfo.DateOfBirth.FullYearsElapsed();
                 userModel.HelloMessage = user.UserFullInfo.HelloMessage;
                 userModel.userSearchAge = (AgeEnum)user.UserFullInfo.userDatingAge;
                 userModel.userSearchSex = (SexEnum)user.UserFullInfo.userDatingSex;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Linq.Dynamic;
-using Slug.ImageEdit;
+using Slug.Extensions;
 using Slug.Model.Users;
 using SharedModels.Enums;
 
@@ -185,8 +185,10 @@ namespace Slug.Helpers
 
                 foreach (var foundedUser in result)
                 {
+                    DateTime dt = new DateTime();
+                    
                     var userModel = new FoudUser();
-                    userModel.Age = DateTime.Now.Year - foundedUser.UserFullInfo.DateOfBirth.Year;
+                    userModel.Age = foundedUser.UserFullInfo.DateOfBirth.FullYearsElapsed();
                     userModel.UserId = foundedUser.Id;
                     userModel.Country = context.Countries.First(country => 
                     foundedUser.UserFullInfo.NowCountryCode == country.CountryCode && country.Language == LanguageType.Ru).Title;

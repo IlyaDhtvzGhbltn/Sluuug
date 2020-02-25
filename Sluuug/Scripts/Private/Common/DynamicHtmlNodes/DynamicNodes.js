@@ -371,7 +371,8 @@ class SearchNode {
 
         var nameDiv = createDiv("fount-user-name");
         var spanName = createSpan(`${user.Name} ${user.SurName} ${user.Age}`, "user-info weight name");
-        var ageEndSufix = createSpan(" лет", "weight name");
+        var suf = datingEnumsParce.sufix(user.Age);
+        var ageEndSufix = createSpan(` ${suf}`, "weight name");
         spanName.appendChild(ageEndSufix);
         nameDiv.appendChild(spanName);
         var par = createParagraph("font-style:italic", "");
@@ -459,6 +460,17 @@ class datingEnumsParce {
             case 7:
                 return "более 70";
         }
+    }
+
+    static sufix(age) {
+        var lastDigit = age % 10;
+        console.log(`last digit - ${lastDigit}`);
+        if (lastDigit == 1 && age != 11)
+            return "год";
+        else if (lastDigit >= 2 && lastDigit <= 4 && age != 12 && age != 13 && age != 14)
+            return "года";
+        else
+            return "лет";
     }
 }
 

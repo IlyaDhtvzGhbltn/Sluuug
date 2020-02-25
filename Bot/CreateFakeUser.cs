@@ -4,7 +4,7 @@ using System;
 using SharedModels.Users;
 using VKServices.LocationAdapter;
 using SharedModels.Enums;
-using Slug.Extension;
+using Slug.Extensions;
 using System.Linq;
 using SharedModels.Users.Registration;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace FakeUsers
         {
             if (offset <= 990)
             {
-                var vkService = new RemoteUsersService(7170448, "ssuper10", "Quiputgbn12");
+                var vkService = new RemoteUsersService(7170448, "ssuper10", "Quiputgbn15");
                 int ageFrom = 0;
                 int ageTo = 0;
                 if (real.Sex == 0)

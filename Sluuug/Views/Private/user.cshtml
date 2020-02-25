@@ -47,8 +47,19 @@
         <img alt="avatar" src="@Model.LargeAvatar">
     </div>
     <div class="-info -right">
-        <h2>@Model.Name @Model.SurName</h2>
-        <span>Возраст : @Model.Age</span>
+        @{long lastDig = (long)Model.Age % 10;}
+        @if (lastDig == 1 && Model.Age != 11)
+        {
+            <h2>@Model.Name @Model.SurName @Model.Age год</h2>
+        }
+        else if (lastDig >= 2 && lastDig <= 4 && Model.Age != 12 && Model.Age != 13 && Model.Age != 14)
+        {
+            <h2>@Model.Name @Model.SurName @Model.Age года</h2>
+        }
+        else
+        {
+            <h2>@Model.Name @Model.SurName @Model.Age лет</h2>
+        }
         @if (Model.Status != FriendshipItemStatus.IblockUser && Model.Status != FriendshipItemStatus.UserBlockMe)
         {
             <span>@Model.Country @Model.City</span>
