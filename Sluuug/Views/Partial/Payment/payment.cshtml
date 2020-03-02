@@ -17,11 +17,11 @@
 <div class="payment-root">
     @if (Html.IsDebug())
     {
-        @Html.Hidden("periodToPaymentDictionarry", "{\"1\":2, \"2\":100, \"3\":300}")
+        @Html.Hidden("periodToPaymentDictionarry", "{\"1\":2, \"2\":300, \"3\":500}")
     }
     else
     {
-        @Html.Hidden("periodToPaymentDictionarry", "{\"1\":50, \"2\":100, \"3\":300}")
+        @Html.Hidden("periodToPaymentDictionarry", "{\"1\":50, \"2\":300, \"3\":500}")
     }
     <div class="gold-heart-container">
         <img class="gold-heart" src="~/Resources/images/gold-heart.svg" />
