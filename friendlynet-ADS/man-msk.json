@@ -1,0 +1,590 @@
+{
+    "name": "friendlynet.ru-Man-Msk",
+    "objective": "traffic",
+    "enable_offline_goals": false,
+    "targetings": {
+        "split_audience": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ],
+        "sex": [
+            "male"
+        ],
+        "age": {
+            "age_list": [
+                0,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75
+            ],
+            "expand": true
+        },
+        "geo": {
+            "regions": [
+                188,
+                5506
+            ]
+        },
+        "interests_soc_dem": [],
+        "segments": [],
+        "interests": [],
+        "fulltime": {
+            "flags": [
+                "use_holidays_moving",
+                "cross_timezone"
+            ],
+            "fri": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "mon": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "sat": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "sun": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "thu": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "tue": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "wed": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ]
+        },
+        "pads": [
+            102643
+        ],
+        "mobile_types": [
+            "tablets"
+        ],
+        "mobile_vendors": [],
+        "mobile_operators": []
+    },
+    "age_restrictions": null,
+    "date_start": null,
+    "date_end": null,
+    "autobidding_mode": "fixed",
+    "budget_limit_day": "500",
+    "budget_limit": "1000",
+    "mixing": "recommended",
+    "utm": null,
+    "enable_utm": true,
+    "price": "6",
+    "package_id": 814,
+    "banners": [
+        {
+            "textblocks": {
+                "header": {
+                    "title": "Знакомства и общение",
+                    "text": "Одинокие девушки из Москвы ищут парней"
+                },
+                "header_button": {
+                    "text": "try"
+                },
+                "about_company": {
+                    "text": "18+"
+                },
+                "slide_1": {
+                    "title": "Friendlynet.ru",
+                    "text": "Познакомлюсь с интересным парнем"
+                },
+                "slide_2": {
+                    "title": "Friendlynet.ru",
+                    "text": "Здесь тебе будут рады"
+                },
+                "slide_3": {
+                    "title": "Friendlynet.ru",
+                    "text": "Первое свидание начинается здесь"
+                },
+                "slide_4": {
+                    "title": "",
+                    "text": ""
+                },
+                "slide_5": {
+                    "title": "",
+                    "text": ""
+                },
+                "slide_6": {
+                    "title": "",
+                    "text": ""
+                }
+            },
+            "urls": {
+                "header_click": {
+                    "url": "https://friendlynet.ru/",
+                    "url_object_id": "friendlynet.ru",
+                    "url_id": 24106540,
+                    "url_types": [
+                        "external_new",
+                        "external"
+                    ],
+                    "preview_link": null
+                },
+                "slide_1_click": {
+                    "url": "https://friendlynet.ru/",
+                    "url_object_id": "friendlynet.ru",
+                    "url_id": 24106540,
+                    "url_types": [
+                        "external_new",
+                        "external"
+                    ],
+                    "preview_link": null
+                },
+                "slide_2_click": {
+                    "url": "https://friendlynet.ru/",
+                    "url_object_id": "friendlynet.ru",
+                    "url_id": 24106540,
+                    "url_types": [
+                        "external_new",
+                        "external"
+                    ],
+                    "preview_link": null
+                },
+                "slide_3_click": {
+                    "url": "https://friendlynet.ru/",
+                    "url_object_id": "friendlynet.ru",
+                    "url_id": 24106540,
+                    "url_types": [
+                        "external_new",
+                        "external"
+                    ],
+                    "preview_link": null
+                },
+                "slide_4_click": {
+                    "url": "",
+                    "url_object_id": null,
+                    "url_id": null,
+                    "url_types": [],
+                    "preview_link": ""
+                },
+                "slide_5_click": {
+                    "url": "",
+                    "url_object_id": null,
+                    "url_id": null,
+                    "url_types": [],
+                    "preview_link": ""
+                },
+                "slide_6_click": {
+                    "url": "",
+                    "url_object_id": null,
+                    "url_id": null,
+                    "url_types": [],
+                    "preview_link": ""
+                }
+            },
+            "content": {
+                "header_image": {
+                    "id": 5756245,
+                    "type": "static",
+                    "variants": {
+                        "256x256": {
+                            "height": 256,
+                            "size": 8658,
+                            "url": "https://r.mradx.net/img/63/484016.jpg",
+                            "width": 256
+                        },
+                        "90x90": {
+                            "height": 90,
+                            "size": 6672,
+                            "url": "https://r.mradx.net/img/5C/F6D267.jpg",
+                            "width": 90
+                        },
+                        "original": {
+                            "height": 256,
+                            "size": 8658,
+                            "url": "https://r.mradx.net/img/63/484016.jpg",
+                            "width": 256
+                        },
+                        "uploaded": {
+                            "height": 256,
+                            "size": 8658,
+                            "url": "https://r.mradx.net/img/63/484016.jpg",
+                            "width": 256
+                        }
+                    }
+                },
+                "slide_1_image": {
+                    "id": 5756646,
+                    "type": "static",
+                    "variants": {
+                        "150x150": {
+                            "height": 150,
+                            "size": 35876,
+                            "url": "https://r.mradx.net/img/CB/533649.png",
+                            "width": 150
+                        },
+                        "300x300": {
+                            "height": 300,
+                            "size": 124816,
+                            "url": "https://r.mradx.net/img/33/7921C6.png",
+                            "width": 300
+                        },
+                        "320x320": {
+                            "height": 320,
+                            "size": 139940,
+                            "url": "https://r.mradx.net/img/CA/193C3A.png",
+                            "width": 320
+                        },
+                        "600x600": {
+                            "height": 600,
+                            "size": 148810,
+                            "url": "https://r.mradx.net/img/32/AFEEDD.png",
+                            "width": 600
+                        },
+                        "original": {
+                            "height": 600,
+                            "size": 148810,
+                            "url": "https://r.mradx.net/img/32/AFEEDD.png",
+                            "width": 600
+                        },
+                        "uploaded": {
+                            "height": 600,
+                            "size": 663117,
+                            "url": "https://r.mradx.net/img/0B/AC2633.png",
+                            "width": 600
+                        }
+                    }
+                },
+                "slide_2_image": {
+                    "id": 5763491,
+                    "type": "static",
+                    "variants": {
+                        "150x150": {
+                            "height": 150,
+                            "size": 39557,
+                            "url": "https://r.mradx.net/img/CD/CDD999.png",
+                            "width": 150
+                        },
+                        "300x300": {
+                            "height": 300,
+                            "size": 135460,
+                            "url": "https://r.mradx.net/img/A0/0AF75D.png",
+                            "width": 300
+                        },
+                        "320x320": {
+                            "height": 320,
+                            "size": 151157,
+                            "url": "https://r.mradx.net/img/68/8EAAB7.png",
+                            "width": 320
+                        },
+                        "600x600": {
+                            "height": 600,
+                            "size": 152601,
+                            "url": "https://r.mradx.net/img/E9/25EE0D.png",
+                            "width": 600
+                        },
+                        "original": {
+                            "height": 600,
+                            "size": 152601,
+                            "url": "https://r.mradx.net/img/E9/25EE0D.png",
+                            "width": 600
+                        },
+                        "uploaded": {
+                            "height": 600,
+                            "size": 642460,
+                            "url": "https://r.mradx.net/img/F2/79B9DB.png",
+                            "width": 600
+                        }
+                    }
+                },
+                "slide_3_image": {
+                    "id": 5763467,
+                    "type": "static",
+                    "variants": {
+                        "150x150": {
+                            "height": 150,
+                            "size": 38507,
+                            "url": "https://r.mradx.net/img/DD/31EA13.png",
+                            "width": 150
+                        },
+                        "300x300": {
+                            "height": 300,
+                            "size": 128211,
+                            "url": "https://r.mradx.net/img/F9/C05A0E.png",
+                            "width": 300
+                        },
+                        "320x320": {
+                            "height": 320,
+                            "size": 143345,
+                            "url": "https://r.mradx.net/img/91/8040A9.png",
+                            "width": 320
+                        },
+                        "600x600": {
+                            "height": 600,
+                            "size": 147333,
+                            "url": "https://r.mradx.net/img/A3/20E73E.png",
+                            "width": 600
+                        },
+                        "original": {
+                            "height": 600,
+                            "size": 147333,
+                            "url": "https://r.mradx.net/img/A3/20E73E.png",
+                            "width": 600
+                        },
+                        "uploaded": {
+                            "height": 600,
+                            "size": 712991,
+                            "url": "https://r.mradx.net/img/A1/A53C1D.png",
+                            "width": 600
+                        }
+                    }
+                },
+                "slide_4_image": {
+                    "variants": {
+                        "original": {},
+                        "internal": {},
+                        "universal": {}
+                    }
+                },
+                "slide_5_image": {
+                    "variants": {
+                        "original": {},
+                        "internal": {},
+                        "universal": {}
+                    }
+                },
+                "slide_6_image": {
+                    "variants": {
+                        "original": {},
+                        "internal": {},
+                        "universal": {}
+                    }
+                }
+            }
+        }
+    ]
+}
