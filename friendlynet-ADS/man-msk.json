@@ -20,13 +20,6 @@
         ],
         "age": {
             "age_list": [
-                0,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
                 18,
                 19,
                 20,
@@ -86,7 +79,7 @@
                 74,
                 75
             ],
-            "expand": true
+            "expand": false
         },
         "geo": {
             "regions": [
@@ -95,8 +88,14 @@
             ]
         },
         "interests_soc_dem": [],
-        "segments": [],
-        "interests": [],
+        "segments": [
+            811956
+        ],
+        "interests": [
+            8879,
+            8881,
+            10251
+        ],
         "fulltime": {
             "flags": [
                 "use_holidays_moving",
@@ -316,7 +315,7 @@
                     "text": "try"
                 },
                 "about_company": {
-                    "text": "18+"
+                    "text": "Знакомства 18+"
                 },
                 "slide_1": {
                     "title": "Friendlynet.ru",

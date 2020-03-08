@@ -15,10 +15,17 @@ namespace FakeBehaviorService
         {
             { 0, false },
             { 1, true },
+
             { 2, false },
             { 3, false },
             { 4, false },
             { 5, false },
+            { 6, false },
+            { 7, false },
+            { 8, false },
+            { 9, false },
+            { 10, false },
+            { 11, false },
         };
         static Dictionary<bool, FriendshipItemStatus> boolRelation = new Dictionary<bool, FriendshipItemStatus>()
         {
@@ -59,7 +66,7 @@ namespace FakeBehaviorService
         private static void acceptFriendship(DataBaseContext context, List<UsersRelation> relationsWithFake)
         {
             relationsWithFake.ForEach((relation)=> {
-                int random = rnd.Next(0, 2);
+                int random = rnd.Next(0, 4);
                 bool accept = boolPars[random];
                 FriendshipItemStatus oldStatus = relation.Status;
 
@@ -111,7 +118,7 @@ namespace FakeBehaviorService
                     switch (count)
                     {
                         case 0:
-                            bool sendFirst = boolPars[rnd.Next(0, 2)];
+                            bool sendFirst = boolPars[rnd.Next(0, 5)];
                             if (sendFirst)
                             {
                                 string firstMsg = MessagesTemplate.First[rnd.Next(0, MessagesTemplate.First.Length + 1)];
@@ -119,19 +126,11 @@ namespace FakeBehaviorService
                             }
                             break;
                         case 1:
-                            bool sendSec = boolPars[rnd.Next(0, 5)];
+                            bool sendSec = boolPars[rnd.Next(0, 10)];
                             if (sendSec)
                             {
                                 string secondMsg = MessagesTemplate.Second[rnd.Next(0, MessagesTemplate.Second.Length + 1)];
                                 insertMessage(context, conversationId, relation, secondMsg);
-                            }
-                            break;
-                        case 2:
-                            bool sendThir = boolPars[rnd.Next(0, 6)];
-                            if (sendThir)
-                            {
-                                string thirdMsg = MessagesTemplate.Third[rnd.Next(0, MessagesTemplate.Third.Length + 1)];
-                                insertMessage(context, conversationId, relation, thirdMsg);
                             }
                             break;
                     }
