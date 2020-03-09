@@ -19,6 +19,11 @@
                     $('.new-vip-activate-button')[0].remove();
                     $('.new-vip-help-container')[0].remove();
                 }
+                setTimeout(function ()
+                {
+                    [].forEach.call($('.user-avatar'), function (item) { item.style.height = '101px'; });
+                    console.log('avatars changed');
+                }, 300);
             }
         }
     });
