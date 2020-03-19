@@ -196,6 +196,7 @@
     <Content Include="Resources\images\pay-credit-card.svg" />
     <Content Include="Resources\images\pay-mobile-phone.svg" />
     <Content Include="Resources\images\pay-yandex-money.svg" />
+    <Content Include="Resources\images\rain-heart-1.svg" />
     <Content Include="Resources\images\rotating_earth_background.png" />
     <Content Include="Resources\images\russian-ruble-ico.svg" />
     <Content Include="Resources\images\settings_ico.png" />
@@ -212,6 +213,7 @@
     <Content Include="Resources\video\space_main_background.mp4" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\Guest\oauthServices.js" />
+    <Content Include="Scripts\Guest\rain-hearts.js" />
     <Content Include="Scripts\Private\Common\DynamicHtmlNodes\DynamicNodes.js" />
     <Content Include="Scripts\Private\Profile\Albums.js" />
     <Content Include="Scripts\Private\Dialogs\Common\DeleteDialog.js" />
@@ -254,6 +256,7 @@
     <Content Include="sitemap.xml" />
     <Content Include="Styles\common\await.css" />
     <Content Include="Styles\common\navigation-arrows-style.css" />
+    <Content Include="Styles\common\rain-hearts.css" />
     <Content Include="Styles\errors\oops-style.css" />
     <Content Include="Styles\errors\error-template.css" />
     <Content Include="Styles\guest\fb-oauth-style.css" />

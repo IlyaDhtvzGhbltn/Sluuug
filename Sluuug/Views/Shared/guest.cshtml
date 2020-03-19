@@ -32,89 +32,91 @@
     <script src="~/Scripts/System/sha512.js"></script>
     <script src="~/Scripts/System/SHA-512.js"></script>
     <script src="~/Scripts/System/Validation.js"></script>
+    <script src="~/Scripts/Guest/rain-hearts.js"></script>
+    <link href="~/Styles/common/rain-hearts.css" rel="stylesheet" />
 </head>
-    <body>
-
-        @if (ViewBag.IsIndex)
-        {
-            <div class="head_navigation" id="head_navigation" hidden>
-                <div class="head-main-logo">
-                    <div class="head-main-logo-container" onclick="scrolling('overlay')">
-                        <img src="~/Resources/images/brand.jpg" height="50" alt="brand ico" />
-                    </div>
-                </div>
-                <div class="head_fix_menu" id="overlay">
-                    <button class="header-button" onclick="scrolling('functions', 70)">Возможности</button>
-                    <button class="header-button" onclick="scrolling('help', 70)">Справка</button>
-                    <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
-                    <button class="header-button" onclick="scrolling('overlay'), show_register()">Зарегистрироваться</button>
-                </div>
-                <div class="head-login">
-                    <button class="header-button" onclick="scrolling('overlay'), show_login()">Войти</button>
+<body>
+    <div id="heartsContainer"></div>
+    @if (ViewBag.IsIndex)
+    {
+        <div class="head_navigation" id="head_navigation" hidden>
+            <div class="head-main-logo">
+                <div class="head-main-logo-container" onclick="scrolling('overlay')">
+                    <img src="~/Resources/images/brand.jpg" height="50" alt="brand ico" />
                 </div>
             </div>
-            <div class="right_navigation" id="right_navigation" hidden>
-                <nav>
-                    <ul>
-                        <li>
-                            <a onclick="scrolling('overlay')">
-                                <svg class="circle_nav">
-                                    <circle id="main_circle" cx="12" cy="12" r="5"></circle>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="scrolling('main', 70)">
-                                <svg class="circle_nav">
-                                    <circle id="function_circle" cx="12" cy="12" r="5"></circle>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="scrolling('functions', 70)">
-                                <svg class="circle_nav">
-                                    <circle id="reg_log_circle" cx="12" cy="12" r="5"></circle>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="scrolling('help', 70)">
-                                <svg class="circle_nav">
-                                    <circle id="help_circle" cx="12" cy="12" r="5"></circle>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+            <div class="head_fix_menu" id="overlay">
+                <button class="header-button" onclick="scrolling('functions', 70)">Возможности</button>
+                <button class="header-button" onclick="scrolling('help', 70)">Справка</button>
+                <button class="header-button" onclick="show_feedback_form()">Обратная связь</button>
+                <button class="header-button" onclick="scrolling('overlay'), show_register()">Зарегистрироваться</button>
             </div>
-        }
-        <div class="feed_back"></div>
+            <div class="head-login">
+                <button class="header-button" onclick="scrolling('overlay'), show_login()">Войти</button>
+            </div>
+        </div>
+        <div class="right_navigation" id="right_navigation" hidden>
+            <nav>
+                <ul>
+                    <li>
+                        <a onclick="scrolling('overlay')">
+                            <svg class="circle_nav">
+                                <circle id="main_circle" cx="12" cy="12" r="5"></circle>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="scrolling('main', 70)">
+                            <svg class="circle_nav">
+                                <circle id="function_circle" cx="12" cy="12" r="5"></circle>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="scrolling('functions', 70)">
+                            <svg class="circle_nav">
+                                <circle id="reg_log_circle" cx="12" cy="12" r="5"></circle>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="scrolling('help', 70)">
+                            <svg class="circle_nav">
+                                <circle id="help_circle" cx="12" cy="12" r="5"></circle>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+    <div class="feed_back"></div>
 
-        @{
-            @RenderBody();
-        }
+    @{
+        @RenderBody();
+    }
 
-        <div class="footer">
-            <div class="gradient_footer">
-                <div class="footer-nav-container">
-                    @if (ViewBag.IsIndex)
-                    {
-                        @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
-                    }
-                    else
-                    {
-                        @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
-                    }
+    <div class="footer">
+        <div class="gradient_footer">
+            <div class="footer-nav-container">
+                @if (ViewBag.IsIndex)
+                {
+                    @RenderPage("~/Views/Shared/public_index_navigation.cshtml")
+                }
+                else
+                {
+                    @RenderPage("~/Views/Shared/public_other_navigation.cshtml")
+                }
+            </div>
+            <div class="about">
+                <div class="footer-about-container">
+                    <p>FRIENDLYNET - социальная сеть, созданная для того, что бы ваша связь с друзьями и близкими никогда не прерывалась.</p>
                 </div>
-                <div class="about">
-                    <div class="footer-about-container">
-                        <p>FRIENDLYNET - социальная сеть, созданная для того, что бы ваша связь с друзьями и близкими никогда не прерывалась.</p>
-                    </div>
-                    <div class="footer-copirate-container">
-                        <p>Copyright © 2020, FRIENDLYNET, All rights reserved.</p>
-                    </div>
+                <div class="footer-copirate-container">
+                    <p>Copyright © 2020, FRIENDLYNET, All rights reserved.</p>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
